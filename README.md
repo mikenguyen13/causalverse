@@ -1,5 +1,4 @@
-
-# causalverse
+# causalverse <img src="man/figures/logo.png" align="right" height="139" />
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -13,7 +12,7 @@ The primary aim of causalverse is to streamline the research process, particular
 
 You can cite this package as follows: "we utilized the causal inference methodologies from the `causalverse` R package (Nguyen 2023)". Here is the full bibliographic reference to include in your reference list (don't forget to update the 'last accessed' date):
 
-Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Retrieved from https://github.com/mikenguyen13/causalverse.
+> Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Retrieved from https://github.com/mikenguyen13/causalverse.
 
 
 ## Installation
