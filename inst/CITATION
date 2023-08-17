@@ -1,0 +1,10 @@
+citHeader("To cite causalverse in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "The causalverse Package: Causality in Clarity",
+  author   = personList(as.person("Mike Nguyen")),
+  year     = "2023",
+  url      = "https://github.com/mikenguyen13/causalverse",
+  textVersion = "Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Retrieved from https://github.com/mikenguyen13/causalverse"
+)
