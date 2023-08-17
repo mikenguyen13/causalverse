@@ -1,10 +1,12 @@
 citHeader("To cite causalverse in publications use:")
 
 citEntry(
-  entry    = "Manual",
-  title    = "The causalverse Package: Causality in Clarity",
-  author   = personList(as.person("Mike Nguyen")),
-  year     = "2023",
-  url      = "https://github.com/mikenguyen13/causalverse",
-  textVersion = "Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Retrieved from https://github.com/mikenguyen13/causalverse"
+  entry       = "Manual",
+  title       = "The causalverse Package: Causality in Clarity",
+  author      = personList(as.person("Mike Nguyen")),
+  year        = "2023",
+  doi         = "10.5281/zenodo.8254063",
+  publisher   = "Zendono",
+  url         = "https://github.com/mikenguyen13/causalverse",
+  textVersion = "Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Zenodo. http://doi.org/10.5281/zenodo.8254063. Retrieved from https://github.com/mikenguyen13/causalverse"
 )
