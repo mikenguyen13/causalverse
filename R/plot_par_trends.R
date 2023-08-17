@@ -60,8 +60,8 @@ plot_par_trends <- function(data,
   
   # Pivoting and summarizing the data for analysis
   analysis_pt <- data %>%
-    tidyr::pivot_longer(cols = all_of(dependent_vars), names_to = "metric") %>%
-    dplyr::group_by(!!dplyr::sym(treatment_status_var), !!dplyr::sym(time_variable), metric) %>%
+    tidyr::pivot_longer(cols = dplyr::all_of(dependent_vars), names_to = "metric") %>%
+    dplyr::group_by(!!dplyr::sym(treatment_status_var), !!dplyr::sym(time_variable), .data$metric) %>%
     dplyr::summarise(
       mean_val = mean(.data$value, na.rm = TRUE),
       ci_lower = if (display_CI) stats::confint(stats::lm(.data$value ~ 1), level = conf_level)[1] else NA,
