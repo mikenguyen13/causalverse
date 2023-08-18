@@ -70,8 +70,15 @@ plot_par_trends <- function(data,
       ci_upper = if (display_CI) stats::confint(stats::lm(.data$value ~ 1), level = conf_level)[2] else NA,
       .groups = "drop"
     ) %>%
-    # Adjust lower CI bounds if needed
-    dplyr::mutate(ci_lower = dplyr::if_else(non_negative & .data$ci_lower < 0, 0, .data$ci_lower))
+    # Adjust bounds if needed
+    dplyr::mutate(
+      ci_lower = dplyr::if_else(non_negative &
+                                  .data$ci_lower < 0, 0, .data$ci_lower),
+      ci_upper = dplyr::if_else(non_negative &
+                                  .data$ci_upper < 0, 0, .data$ci_upper),
+      mean_val = dplyr::if_else(non_negative &
+                                  .data$mean_val < 0, 0, .data$mean_val)
+    )
   
   # Return as data frame if specified
   if (output_format == "data.frame") {
@@ -115,12 +122,22 @@ plot_par_trends <- function(data,
     # Add smoothing or lines and ribbons based on the input
     if (!is.null(smoothing_method)) {
       p <- suppressMessages(suppressWarnings(
-        p + ggplot2::geom_smooth(formula = y ~ x, method = smoothing_method, se = display_CI, ggplot2::aes(group = as.factor(!!dplyr::sym(treatment_status_var))))
-      )) 
+        p + ggplot2::geom_smooth(
+          formula = y ~ x,
+          method = smoothing_method,
+          se = display_CI,
+          level = conf_level,
+          ggplot2::aes(group = as.factor(!!dplyr::sym(
+            treatment_status_var
+          )))
+        )
+      ))
     } else {
       p <- p + ggplot2::geom_line()
       if (display_CI) {
-        p <- p + ggplot2::geom_ribbon(ggplot2::aes(ymin = .data$ci_lower, ymax = .data$ci_upper), alpha = 0.2)
+        p <-
+          p + ggplot2::geom_ribbon(ggplot2::aes(ymin = ifelse(non_negative & .data$ci_lower < 0, 0, .data$ci_lower), ymax = .data$ci_upper),
+                                   alpha = 0.2)
       }
     }
     
