@@ -13,7 +13,8 @@ plot_par_trends(
   non_negative = FALSE,
   display_CI = TRUE,
   output_format = "plot",
-  smoothing_method = NULL
+  smoothing_method = NULL,
+  title_prefix = "Parallel Trends for"
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ plot_par_trends(
 \item{output_format}{Format of the output; "plot" returns a list of ggplots, "data.frame" returns a data frame.}
 
 \item{smoothing_method}{Method to use for smoothing; NULL means no smoothing.}
+
+\item{title_prefix}{A character string specifying the prefix for the plot title (default is "Parallel Trends for").}
 }
 \value{
 A list of ggplot objects or a data frame.

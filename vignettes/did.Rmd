@@ -58,7 +58,8 @@ results <- plot_par_trends(
   metrics_and_names = list(outcome1 = "Outcome 1", outcome2 = "Outcome 2"),
   treatment_status_var = "treatment",
   time_var = list(time = "Time"),
-  smoothing_method = "loess"
+  smoothing_method = "glm",
+  # title_prefix = "Para Trends"
 )
 
 ```
