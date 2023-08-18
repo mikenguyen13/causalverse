@@ -11,6 +11,7 @@
 #' @param display_CI Logical; if TRUE, displays confidence intervals.
 #' @param output_format Format of the output; "plot" returns a list of ggplots, "data.frame" returns a data frame.
 #' @param smoothing_method Method to use for smoothing; NULL means no smoothing.
+#' @param title_prefix A character string specifying the prefix for the plot title (default is "Parallel Trends for").
 #'
 #' @importFrom dplyr %>%
 #' @importFrom tidyr pivot_longer
@@ -48,7 +49,8 @@ plot_par_trends <- function(data,
                             non_negative = FALSE,
                             display_CI = TRUE,
                             output_format = "plot",
-                            smoothing_method = NULL) {
+                            smoothing_method = NULL,
+                            title_prefix = "Parallel Trends for") {
   
   # Extract time variable and custom name
   time_variable <- names(time_var)[1]
@@ -102,17 +104,19 @@ plot_par_trends <- function(data,
         linetype = as.factor(!!dplyr::sym(treatment_status_var))
       )
     ) +
-      ggplot2::labs(title = paste("Parallel Trends for", plot_name),
+      ggplot2::labs(title = paste(title_prefix, plot_name),
                     x = time_name,
                     y = plot_name) +
-      ggplot2::scale_color_manual(name = "Treatment Status", values = colors) +
-      ggplot2::scale_fill_manual(name = "Treatment Status", values = scales::alpha(colors, 0.2)) +
-      ggplot2::scale_linetype_manual(name = "Treatment Status", values = linetypes) +
+      ggplot2::scale_color_manual(name = "Treatment\nStatus", values = colors) +
+      ggplot2::scale_fill_manual(name = "Treatment\nStatus", values = scales::alpha(colors, 0.2)) +
+      ggplot2::scale_linetype_manual(name = "Treatment\nStatus", values = linetypes) +
       ggplot2::guides(fill = ggplot2::guide_legend(override.aes = list(alpha = 0.2)))
     
     # Add smoothing or lines and ribbons based on the input
     if (!is.null(smoothing_method)) {
-      p <- p + ggplot2::geom_smooth(method = smoothing_method, se = display_CI, ggplot2::aes(group = as.factor(!!dplyr::sym(treatment_status_var))))
+      p <- suppressMessages(suppressWarnings(
+        p + ggplot2::geom_smooth(formula = y ~ x, method = smoothing_method, se = display_CI, ggplot2::aes(group = as.factor(!!dplyr::sym(treatment_status_var))))
+      )) 
     } else {
       p <- p + ggplot2::geom_line()
       if (display_CI) {
