@@ -70,7 +70,7 @@ The function returns a list of ggplot objects, which can be visualized using too
 
 ```{r}
 library(gridExtra)
-gridExtra::grid.arrange(grobs = results, ncol = 1)
+gridExtra::grid.arrange(grobs = results, ncol = 2)
 ```
 
 **Note** of Caution: When using this custom package, it's crucial to carefully examine parallel trends plots both with and without control variables. At times, one might observe suitable parallel trends without control variables. However, when these control variables are introduced, the underlying assumptions can be disturbed. Conversely, there are cases where the general parallel trends assumption doesn't seem to be in place, but when conditioned on the control variables, the trends align perfectly. This package provides functions that allow users to easily generate these plots side by side, especially after formulating the predicted values of dependent variables by accounting for control variables. Always approach these plots with a discerning eye to ensure accurate interpretation and application.
@@ -78,3 +78,235 @@ gridExtra::grid.arrange(grobs = results, ncol = 1)
 In this demonstration, I've incorporated the use of the smoothing function to illustrate its potential application. It's imperative, however, to approach this function with prudence. Although the smoothing function can be invaluable in revealing underlying trends in specific scenarios, its application carries inherent risks. One such risk is the inadvertent or intentional misrepresentation of data, leading observers to falsely deduce the presence of parallel trends where they might not exist. This can potentially skew interpretations and lead to incorrect conclusions.
 
 Given these concerns, if you're inclined to utilize the smoothing function, it's paramount to also consider the implications and insights from our secondary plot. This subsequent visualization offers a more granular and statistically sound perspective, specifically focusing on the pre-treatment disparities between the treated and control groups. It serves as a vital counterbalance, ensuring that any trend interpretations are grounded in robust statistical analysis.
+
+### plot_coef_par_trends
+
+# Random Treatment Assignments
+
+In Difference-in-Differences analysis, ensuring randomness in treatment assignment is crucial. This randomization comes in two main levels: random time assignment and random unit assignment.
+
+1.  [**Random Time Assignment**]**:**
+
+    -   **Definition:** This pertains to when (in time) a treatment or intervention is introduced, not to which units it's introduced.
+
+    -   **Importance in Staggered DiD or Rollout Design:** If certain periods are predisposed to receiving treatment (e.g., economic booms or downturns), then the estimated treatment effect can get confounded with these period-specific shocks. A truly random time assignment ensures that the treatment's introduction isn't systematically related to other time-specific factors.
+
+    -   **Example:** Suppose there's a policy aimed at improving infrastructure. If this policy tends to get introduced during economic booms because that's when governments have surplus funds, then it's challenging to disentangle the effects of the booming economy from the effects of the infrastructure policy. A random time assignment would ensure the policy's introduction isn't tied to the state of the economy.
+
+2.  [**Random Unit Assignment**]**:**
+
+    -   **Definition:** This pertains to which units (like individuals, firms, or regions) are chosen to receive the treatment.
+
+    -   **Example:** Using the same infrastructure policy, if it is always introduced in wealthier regions first, then the effects of regional affluence can get confounded with the policy effects. Random unit assignment ensures the policy isn't systematically introduced to certain kinds of regions.
+
+**Providing Evidence of Random Treatment Assignments:**
+
+To validate the DiD design, evidence should be provided for both random time and random unit assignments:
+
+-   **For [Random Time Assignment]:**
+
+    -   **Graphical Analysis:** Plot the timing of treatment introduction across various periods. A discernible pattern (like always introducing a policy before election years) can raise concerns.
+
+    -   **Narrative Evidence:** Historical context might indicate that the timing of treatment introduction was exogenous. For example, if a policy's rollout timing was determined by some external random event, that would support random time assignment.
+
+-   **For [Random Unit Assignment]:**
+
+    -   **Statistical Tests:** Conduct tests to demonstrate that pre-treatment characteristics are balanced between the treated and control groups. Techniques like t-tests or regressions can be used for this.
+
+    -   **Narrative Evidence:** Institutional or historical data might show that the selection of specific units for treatment was random.
+
+## Random Time Assignment
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+
+# Control number of units and time periods here
+num_units <- 2000
+num_periods <- 20  
+
+# Setting seed for reproducibility
+set.seed(123)
+
+# Generate data for given number of units over specified periods
+data <- expand.grid(unit = 1:num_units, time_period = 1:num_periods)
+data$treatment_random <- 0
+data$treatment_systematic <- 0
+
+# Randomly assigning treatment times to units
+random_treatment_times <- sample(1:num_periods, num_units, replace = TRUE)
+for (i in 1:num_units) {
+  data$treatment_random[data$unit == i & data$time_period == random_treatment_times[i]] <- 1
+}
+
+# Calculate peaks robustly
+peak_periods <- round(c(0.25, 0.5, 0.75) * num_periods)
+
+# Systematic treatment assignment with higher probability at peak periods
+prob_values <- rep(1/num_periods, num_periods)
+
+# Update the probability for peak periods; the rest will have a slightly reduced probability
+higher_prob <- 0.10  # Arbitrary, adjust as necessary
+prob_values[peak_periods] <- higher_prob
+adjustment <- (length(peak_periods) * higher_prob - length(peak_periods) / num_periods) / (num_periods - length(peak_periods))
+prob_values[-peak_periods] <- 1/num_periods - adjustment
+
+systematic_treatment_times <- sample(1:num_periods, num_units, replace = TRUE, prob = prob_values)
+for (i in 1:num_units) {
+  data$treatment_systematic[data$unit == i & data$time_period == systematic_treatment_times[i]] <- 1
+}
+
+# Aggregate for plotting
+agg_random <- data %>%
+  group_by(time_period) %>%
+  summarise(units_treated = sum(treatment_random))
+
+agg_systematic <- data %>%
+  group_by(time_period) %>%
+  summarise(units_treated = sum(treatment_systematic))
+
+# Plotting
+plot_random <- ggplot(agg_random, aes(x = time_period, y = units_treated)) +
+  geom_point() +
+  labs(title = "Random Time Assignment")
+
+plot_systematic <- ggplot(agg_systematic, aes(x = time_period, y = units_treated)) +
+  geom_point() +
+  labs(title = "Systematic Time Assignment")
+
+gridExtra::grid.arrange(plot_random, plot_systematic, ncol = 2)
+```
+
+**Random Time Assignment Plot:**
+
+-   Treatment is dispersed randomly across time periods, with no clear pattern.
+
+**Systematic Time Assignment Plot:**
+
+-   Distinct peaks are observed at the 25th, 50th, and 75th periods, indicating non-random treatment assignment at these times.
+
+**Interpretation:** The random plot shows arbitrary treatment assignments, while the systematic plot reveals consistent periods where more units receive treatment. This systematic behavior can introduce bias in causal studies.
+
+## Random Unit Assignment 
+
+1.  **For a Single Pre-treatment Characteristic:**
+
+    -   **T-test:** This is used for comparing means of the characteristic between two groups (treated vs. control). If the p-value is significant (typically \< 0.05), it suggests the groups differ on that characteristic.
+
+```{r}
+data <- data.frame(treatment = c(rep(0, 50), rep(1, 50)),
+                   # Dummy for treatment
+                   characteristic = rnorm(100) # Randomly generated characteristic
+                   )
+                   
+                   t.test(characteristic ~ treatment, data = data)
+```
+
+```         
+-   **Regression:** Run a regression of the pre-treatment characteristic on the treatment dummy. If the coefficient on the treatment dummy is significant, it suggests the groups differ on that characteristic. The regression can be specified as:
+
+    $Characteristic_i = \alpha + \beta \times Treatment_i + \epsilon_i$
+
+    Where $Characteristic_i$ is the pre-treatment characteristic of unit $i$ and $Treatment_i$ is a dummy variable which equals 1 if $unit_i$ is treated and 0 otherwise.
+```
+
+```{r}
+lm_result <- lm(characteristic ~ treatment, data = data)
+summary(lm_result)
+```
+
+2.  **For Multiple Pre-treatment Characteristics:**
+
+    -   **Multivariate Regression:** Run a regression of each pre-treatment characteristic on the treatment dummy. This allows for the simultaneous assessment of balance on multiple characteristics. You can include all characteristics in a single regression as dependent variables using seemingly unrelated regressions (SUR) if you suspect the error terms of the different regression equations are correlated.
+
+```{r}
+data$characteristic2 <- rnorm(100)
+
+lm_multivariate <-
+  lm(cbind(characteristic, characteristic2) ~ treatment, data = data)
+summary(lm_multivariate)
+```
+
+All of the coefficients in each regression are not significant. Hence, we don't have any concerns. However, to be more rigorous, we should estimate all regressions simultaneously using SUR
+
+```{r}
+# install.packages("systemfit")
+library(systemfit)
+
+equation1 <- characteristic ~ treatment
+equation2 <- characteristic2 ~ treatment
+
+system <-
+  list(characteristic = equation1, characteristic2 = equation2)
+fit <- systemfit(system, data = data, method = "SUR")
+summary(fit)
+```
+
+For characteristic: The treatment effect is not statistically significant (p-value = 0.27422), implying no evidence against random unit assignment based on this characteristic.
+
+For characteristic2: The treatment effect is marginally significant (p-value = 0.092367). While not significant at the standard 0.05 level, it's noteworthy at the 0.10 level. This suggests weak evidence against random unit assignment based on this characteristic.
+
+In conclusion, the results largely support the idea of random unit assignment, especially for characteristic. However, there's weak evidence against it for characteristic2
+
+-   **Hotelling's T-squared test:** This is the multivariate counterpart of the T-test and is designed to test the mean vector of two groups. It's useful when you have multiple pre-treatment characteristics and you want to test if their mean vectors differ between the treated and control groups.
+
+```{r}
+# For Hotelling's T^2, you can use the `Hotelling` package.
+# install.packages("Hotelling")
+library(Hotelling)
+
+treated_data <-
+  data[data$treatment == 1, c("characteristic", "characteristic2")]
+control_data <-
+  data[data$treatment == 0, c("characteristic", "characteristic2")]
+
+hotelling_test_res <- hotelling.test(treated_data, control_data)
+hotelling_test_res
+```
+
+-   **Matching:** This is a more advanced technique. For example, you model the probability of being treated based on pre-treatment characteristics using a logistic regression. Then, treated units are matched to control units based on this probability (the propensity score). After matching, you can test for balance in the pre-treatment characteristics between the treated and control groups. Ideally, post-matching differences should be small and insignificant. But this approach is more of a remedy for your non-randomness issue. Typically, if you have to employ this method, readers often become skeptical of your settings. Unless this is the robustness check, where you show that with and without matching, your results are consistent. But if your results are based on the foundation of matching, people can be doubtful.
+
+```{r}
+# For propensity score matching, use the `MatchIt` package.
+# install.packages("MatchIt")
+library(MatchIt)
+
+m.out <- matchit(treatment ~ characteristic + characteristic2, data = data, method = "nearest")
+matched_data <- match.data(m.out)
+
+# After matching, you can test for balance using t-tests or regressions as mentioned above.
+t.test(characteristic ~ treatment, data = matched_data)
+
+```
+
+3.  **Visualization:**
+
+    -   For both single and multiple characteristics, it can be useful to visualize the distributions in both groups. Histograms, kernel density plots, or box plots can be employed to visually assess balance.
+
+```{r}
+library(ggplot2)
+library(rlang) 
+
+# Density distribution for a single characteristic
+ggplot(data, aes(x = characteristic, fill = factor(treatment))) +
+  geom_density(alpha = 0.5) +
+  labs(fill = "Treatment") +
+  ggtitle("Density Distribution by Treatment Group")
+
+# Side-by-side density distributions for multiple characteristics
+plot_list <- list()
+
+for (var in variables) {
+  p <- ggplot(data, aes(x = !!sym(var), fill = factor(treatment))) +
+    geom_density(alpha = 0.5) +
+    labs(fill = "Treatment") +
+    ggtitle(paste("Density Distribution of", var, "by Treatment Group"))
+  
+  plot_list[[var]] <- p
+}
+
+
+library(gridExtra)
+grid.arrange(grobs = plot_list, ncol = 2)
+```
