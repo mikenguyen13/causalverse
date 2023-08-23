@@ -1,0 +1,3 @@
+template:
+  package: pkgdown
+  favicon: favicon.ico
