@@ -2,7 +2,7 @@
 title: "Difference-in-Differences"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{did}
+  %\VignetteIndexEntry{Difference-in-Differences}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,7 +26,7 @@ library(causalverse)
 
 The `plot_par_trends` function is designed to assist researchers and analysts in visualizing parallel trends in longitudinal datasets, particularly for datasets with treatment and control groups. This tool makes it easy to visualize changes over time for various outcome metrics between the groups.
 
-#### Data Structure
+**Data Structure**
 
 For optimal use of `plot_par_trends`, ensure your data is structured in the following manner:
 
@@ -35,7 +35,7 @@ For optimal use of `plot_par_trends`, ensure your data is structured in the foll
 -   Treatment status column: Distinguishing treated observations from controls.
 -   Metric columns: Capturing the outcome measures of interest.
 
-#### Sample Data Generation
+**Sample Data Generation**
 
 For demonstration purposes, we can generate some illustrative data:
 
@@ -61,10 +61,9 @@ results <- plot_par_trends(
   smoothing_method = "glm",
   # title_prefix = "Para Trends"
 )
-
 ```
 
-Note: This custom function is built based on the geom_smooth function from ggplot2. Therefore, it supports most of the smoothing methods you'd find in ggplot2, such as `lm`, `glm`, `loess`, etc.
+**Note**: This custom function is built based on the `geom_smooth` function from ggplot2. Therefore, it supports most of the smoothing methods you'd find in ggplot2, such as `lm`, `glm`, `loess`, etc.
 
 The function returns a list of ggplot objects, which can be visualized using tools like `gridExtra`
 
@@ -73,7 +72,7 @@ library(gridExtra)
 gridExtra::grid.arrange(grobs = results, ncol = 2)
 ```
 
-**Note** of Caution: When using this custom package, it's crucial to carefully examine parallel trends plots both with and without control variables. At times, one might observe suitable parallel trends without control variables. However, when these control variables are introduced, the underlying assumptions can be disturbed. Conversely, there are cases where the general parallel trends assumption doesn't seem to be in place, but when conditioned on the control variables, the trends align perfectly. This package provides functions that allow users to easily generate these plots side by side, especially after formulating the predicted values of dependent variables by accounting for control variables. Always approach these plots with a discerning eye to ensure accurate interpretation and application.
+**Note of Caution**: When using this custom package, it's crucial to carefully examine parallel trends plots both with and without control variables. At times, one might observe suitable parallel trends without control variables. However, when these control variables are introduced, the underlying assumptions can be disturbed. Conversely, there are cases where the general parallel trends assumption doesn't seem to be in place, but when conditioned on the control variables, the trends align perfectly. This package provides functions that allow users to easily generate these plots side by side, especially after formulating the predicted values of dependent variables by accounting for control variables. Always approach these plots with a discerning eye to ensure accurate interpretation and application.
 
 In this demonstration, I've incorporated the use of the smoothing function to illustrate its potential application. It's imperative, however, to approach this function with prudence. Although the smoothing function can be invaluable in revealing underlying trends in specific scenarios, its application carries inherent risks. One such risk is the inadvertent or intentional misrepresentation of data, leading observers to falsely deduce the presence of parallel trends where they might not exist. This can potentially skew interpretations and lead to incorrect conclusions.
 
@@ -85,7 +84,7 @@ Given these concerns, if you're inclined to utilize the smoothing function, it's
 
 In Difference-in-Differences analysis, ensuring randomness in treatment assignment is crucial. This randomization comes in two main levels: random time assignment and random unit assignment.
 
-1.  [**Random Time Assignment**]**:**
+1.  [Random Time Assignment]
 
     -   **Definition:** This pertains to when (in time) a treatment or intervention is introduced, not to which units it's introduced.
 
@@ -93,7 +92,7 @@ In Difference-in-Differences analysis, ensuring randomness in treatment assignme
 
     -   **Example:** Suppose there's a policy aimed at improving infrastructure. If this policy tends to get introduced during economic booms because that's when governments have surplus funds, then it's challenging to disentangle the effects of the booming economy from the effects of the infrastructure policy. A random time assignment would ensure the policy's introduction isn't tied to the state of the economy.
 
-2.  [**Random Unit Assignment**]**:**
+2.  [Random Unit Assignment]
 
     -   **Definition:** This pertains to which units (like individuals, firms, or regions) are chosen to receive the treatment.
 
@@ -160,11 +159,11 @@ for (i in 1:num_units) {
 # Aggregate for plotting
 agg_random <- data %>%
   group_by(time_period) %>%
-  summarise(units_treated = sum(treatment_random))
+  dplyr::summarise(units_treated = sum(treatment_random))
 
 agg_systematic <- data %>%
   group_by(time_period) %>%
-  summarise(units_treated = sum(treatment_systematic))
+  dplyr::summarise(units_treated = sum(treatment_systematic))
 
 # Plotting
 plot_random <- ggplot(agg_random, aes(x = time_period, y = units_treated)) +
@@ -188,54 +187,94 @@ gridExtra::grid.arrange(plot_random, plot_systematic, ncol = 2)
 
 **Interpretation:** The random plot shows arbitrary treatment assignments, while the systematic plot reveals consistent periods where more units receive treatment. This systematic behavior can introduce bias in causal studies.
 
-## Random Unit Assignment 
+## Random Unit Assignment
 
 1.  **For a Single Pre-treatment Characteristic:**
 
     -   **T-test:** This is used for comparing means of the characteristic between two groups (treated vs. control). If the p-value is significant (typically \< 0.05), it suggests the groups differ on that characteristic.
 
 ```{r}
-data <- data.frame(treatment = c(rep(0, 50), rep(1, 50)),
-                   # Dummy for treatment
-                   characteristic = rnorm(100) # Randomly generated characteristic
-                   )
+# data <- data.frame(treatment = c(rep(0, 50), rep(1, 50)),
+#                    # Dummy for treatment
+#                    characteristic = rnorm(100) # Randomly generated characteristic
+#                    )
+
+set.seed(123)
+data = mtcars |> 
+  dplyr::select(mpg, cyl) |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(treatment = sample(c(0,1), 1, replace = T)) |> 
+  dplyr::ungroup()
                    
-                   t.test(characteristic ~ treatment, data = data)
+t.test(mpg ~ treatment, data = data)
 ```
 
-```         
 -   **Regression:** Run a regression of the pre-treatment characteristic on the treatment dummy. If the coefficient on the treatment dummy is significant, it suggests the groups differ on that characteristic. The regression can be specified as:
 
-    $Characteristic_i = \alpha + \beta \times Treatment_i + \epsilon_i$
+$$
+Characteristic_i = \alpha + \beta \times Treatment_i + \epsilon_i
+$$
 
-    Where $Characteristic_i$ is the pre-treatment characteristic of unit $i$ and $Treatment_i$ is a dummy variable which equals 1 if $unit_i$ is treated and 0 otherwise.
-```
+where $Characteristic_i$ is the pre-treatment characteristic of unit $i$ and $Treatment_i$ is a dummy variable which equals 1 if $unit_i$ is treated and 0 otherwise.
 
 ```{r}
-lm_result <- lm(characteristic ~ treatment, data = data)
+lm_result <- lm(mpg ~ treatment, data = data)
 summary(lm_result)
 ```
 
 2.  **For Multiple Pre-treatment Characteristics:**
 
-    -   **Multivariate Regression:** Run a regression of each pre-treatment characteristic on the treatment dummy. This allows for the simultaneous assessment of balance on multiple characteristics. You can include all characteristics in a single regression as dependent variables using seemingly unrelated regressions (SUR) if you suspect the error terms of the different regression equations are correlated.
+**Visualization**
+
+-   For both single and multiple characteristics, it can be useful to visualize the distributions in both groups. Histograms, kernel density plots, or box plots can be employed to visually assess balance.
+-   It's important to note that you should consider the pre-treatment periods.
 
 ```{r}
-data$characteristic2 <- rnorm(100)
+library(ggplot2)
+library(rlang) 
 
-lm_multivariate <-
-  lm(cbind(characteristic, characteristic2) ~ treatment, data = data)
-summary(lm_multivariate)
+# Density distribution for a single characteristic
+ggplot(data, aes(x = mpg, fill = factor(treatment))) +
+  geom_density(alpha = 0.5) +
+  labs(fill = "Treatment") +
+  ggtitle("Density Distribution by Treatment Group")
+
+# Side-by-side density distributions for multiple characteristics
+plot_list <- plot_density_by_treatment(
+  data = data,
+  var_map = list("mpg" = "Var 1",
+                 "cyl" = "Var 2"),
+  treatment_var = c("treatment" = "Treatment Name\nin Legend"),
+  theme_use = ggplot2::theme_bw()
+)
+
+library(gridExtra)
+grid.arrange(grobs = plot_list, ncol = 1)
 ```
 
-All of the coefficients in each regression are not significant. Hence, we don't have any concerns. However, to be more rigorous, we should estimate all regressions simultaneously using SUR
+**Multivariate Regression**
+
+Run a regression of each pre-treatment characteristic on the treatment dummy. This allows for the simultaneous assessment of balance on multiple characteristics. You can include all characteristics in a single regression as dependent variables.
 
 ```{r}
+# data$characteristic2 <- rnorm(100)
+variables <- data |> 
+  dplyr::select(mpg, cyl)
+
+lm_multivariate <-
+  lm(cbind(mpg, cyl) ~ treatment, data = data)
+summary(lm_multivariate)
+```
+All of the coefficients in each regression are not significant. Hence, we don't have any concerns. 
+
+To be more rigorous, we should estimate all regressions simultaneously using SUR if we suspect the error terms of the different regression equations are correlated.
+
+```{r, message=FALSE}
 # install.packages("systemfit")
 library(systemfit)
 
-equation1 <- characteristic ~ treatment
-equation2 <- characteristic2 ~ treatment
+equation1 <- mpg ~ treatment
+equation2 <- cyl ~ treatment
 
 system <-
   list(characteristic = equation1, characteristic2 = equation2)
@@ -243,13 +282,11 @@ fit <- systemfit(system, data = data, method = "SUR")
 summary(fit)
 ```
 
-For characteristic: The treatment effect is not statistically significant (p-value = 0.27422), implying no evidence against random unit assignment based on this characteristic.
+For `mpg` and `cyl`: The treatment effect is not statistically significant, implying no evidence against random unit assignment based on this characteristic.
 
-For characteristic2: The treatment effect is marginally significant (p-value = 0.092367). While not significant at the standard 0.05 level, it's noteworthy at the 0.10 level. This suggests weak evidence against random unit assignment based on this characteristic.
+**Hotelling's T-squared test**
 
-In conclusion, the results largely support the idea of random unit assignment, especially for characteristic. However, there's weak evidence against it for characteristic2
-
--   **Hotelling's T-squared test:** This is the multivariate counterpart of the T-test and is designed to test the mean vector of two groups. It's useful when you have multiple pre-treatment characteristics and you want to test if their mean vectors differ between the treated and control groups.
+This is the multivariate counterpart of the T-test designed to test the mean vector of two groups. It's useful when you have multiple pre-treatment characteristics and you want to test if their mean vectors differ between the treated and control groups.
 
 ```{r}
 # For Hotelling's T^2, you can use the `Hotelling` package.
@@ -257,56 +294,31 @@ In conclusion, the results largely support the idea of random unit assignment, e
 library(Hotelling)
 
 treated_data <-
-  data[data$treatment == 1, c("characteristic", "characteristic2")]
+  data[data$treatment == 1, c("mpg", "cyl" )]
 control_data <-
-  data[data$treatment == 0, c("characteristic", "characteristic2")]
+  data[data$treatment == 0, c("mpg", "cyl" )]
 
 hotelling_test_res <- hotelling.test(treated_data, control_data)
 hotelling_test_res
 ```
 
--   **Matching:** This is a more advanced technique. For example, you model the probability of being treated based on pre-treatment characteristics using a logistic regression. Then, treated units are matched to control units based on this probability (the propensity score). After matching, you can test for balance in the pre-treatment characteristics between the treated and control groups. Ideally, post-matching differences should be small and insignificant. But this approach is more of a remedy for your non-randomness issue. Typically, if you have to employ this method, readers often become skeptical of your settings. Unless this is the robustness check, where you show that with and without matching, your results are consistent. But if your results are based on the foundation of matching, people can be doubtful.
+**Matching**
+
+This is a more advanced technique, for example, modeling the probability of being treated based on pre-treatment characteristics using a logistic regression. After matching, you can test for balance in the pre-treatment characteristics between the treated and control groups.
 
 ```{r}
 # For propensity score matching, use the `MatchIt` package.
 # install.packages("MatchIt")
 library(MatchIt)
 
-m.out <- matchit(treatment ~ characteristic + characteristic2, data = data, method = "nearest")
+m.out <-
+  matchit(treatment ~ mpg + cyl,
+          data = data,
+          method = "nearest")
 matched_data <- match.data(m.out)
 
-# After matching, you can test for balance using t-tests or regressions as mentioned above.
-t.test(characteristic ~ treatment, data = matched_data)
-
+# After matching, you can test for balance using t-tests or regressions.
+t.test(mpg ~ treatment, data = matched_data)
 ```
 
-3.  **Visualization:**
-
-    -   For both single and multiple characteristics, it can be useful to visualize the distributions in both groups. Histograms, kernel density plots, or box plots can be employed to visually assess balance.
-
-```{r}
-library(ggplot2)
-library(rlang) 
-
-# Density distribution for a single characteristic
-ggplot(data, aes(x = characteristic, fill = factor(treatment))) +
-  geom_density(alpha = 0.5) +
-  labs(fill = "Treatment") +
-  ggtitle("Density Distribution by Treatment Group")
-
-# Side-by-side density distributions for multiple characteristics
-plot_list <- list()
-
-for (var in variables) {
-  p <- ggplot(data, aes(x = !!sym(var), fill = factor(treatment))) +
-    geom_density(alpha = 0.5) +
-    labs(fill = "Treatment") +
-    ggtitle(paste("Density Distribution of", var, "by Treatment Group"))
-  
-  plot_list[[var]] <- p
-}
-
-
-library(gridExtra)
-grid.arrange(grobs = plot_list, ncol = 2)
-```
+In conclusion, while visualizations provide an intuitive understanding, statistical tests provide a more rigorous method for assessing balance.
