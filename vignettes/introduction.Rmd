@@ -1,8 +1,10 @@
 ---
-title: "Introduction to CausalVerse"
+title: "0. Introduction to CausalVerse"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to CausalVerse}
+  %\VignetteIndexEntry{0. Introduction to CausalVerse}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -30,7 +32,7 @@ Here's a snapshot of our method-specific vignettes:
 
 1.  **Regression Discontinuity**: The Regression Discontinuity vignette delves into the nuances of the Regression Discontinuity approach. From its foundational principles to its practical implementation in **`causalverse`**, this guide offers a thorough exploration.
 
-2.  **Difference in Differences**: Navigate to the Difference-in-Differences vignette for a deep dive into the Difference in Differences methodology. Grasp the core concepts, witness its application, and explore use-cases.
+2.  **Difference in Differences**: Navigate to the [Difference-in-Differences vignette](https://mikenguyen13.github.io/causalverse/articles/did.html) for a deep dive into the Difference in Differences methodology. Grasp the core concepts, witness its application, and explore use-cases.
 
 3.  **Synthetic Controls (SC)**: The **`sc`** vignette demystifies the Synthetic Control method, providing insights into its algorithm, advantages, limitations, and usage within our package.
 
