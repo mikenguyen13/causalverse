@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Difference-in-Differences • causalverse</title>
+<title>2. Difference-in-Differences • causalverse</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Difference-in-Differences">
+<script src="../pkgdown.js"></script><meta property="og:title" content="2. Difference-in-Differences">
 <meta property="og:description" content="causalverse">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -57,10 +57,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/did.html">Difference-in-Differences</a>
+      <a href="../articles/did.html">2. Difference-in-Differences</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">Introduction to CausalVerse</a>
+      <a href="../articles/introduction.html">0. Introduction to CausalVerse</a>
     </li>
   </ul>
 </li>
@@ -78,8 +78,11 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Difference-in-Differences</h1>
+      <h1 data-toc-skip>2. Difference-in-Differences</h1>
+                        <h4 data-toc-skip class="author">Mike
+Nguyen</h4>
             
+            <h4 data-toc-skip class="date">2023-08-23</h4>
       
       
       <div class="hidden name"><code>did.Rmd</code></div>
@@ -137,14 +140,15 @@ data:</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    treatment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">entity</span> <span class="op">&lt;=</span> <span class="fl">50</span>, <span class="st">"Treated"</span>, <span class="st">"Control"</span><span class="op">)</span>,</span>
 <span>    outcome1 <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>    outcome2 <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="va">time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>    outcome2 <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="va">time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    outcome3 <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">time</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, rate <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Visualizing Trends with <code>plot_par_trends</code> Invoke the
 <code>plot_par_trends</code> function using the sample data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_par_trends.html">plot_par_trends</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
-<span>  metrics_and_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>, outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span><span class="op">)</span>,</span>
+<span>  metrics_and_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>, outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span>, outcome3 <span class="op">=</span> <span class="st">"Outcome 3"</span><span class="op">)</span>,</span>
 <span>  treatment_status_var <span class="op">=</span> <span class="st">"treatment"</span>,</span>
 <span>  time_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span>,</span>
 <span>  smoothing_method <span class="op">=</span> <span class="st">"glm"</span>,</span>
@@ -163,7 +167,7 @@ visualized using tools like <code>gridExtra</code></p>
 <span><span class="co">#&gt; The following object is masked from 'package:dplyr':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     combine</span></span>
-<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">results</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">results</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="did_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p><strong>Note of Caution</strong>: When using this custom package,
 it’s crucial to carefully examine parallel trends plots both with and
@@ -197,6 +201,57 @@ interpretations are grounded in robust statistical analysis.</p>
 <div class="section level4">
 <h4 id="plot_coef_par_trends">plot_coef_par_trends<a class="anchor" aria-label="anchor" href="#plot_coef_par_trends"></a>
 </h4>
+<p>Arguments</p>
+<ul>
+<li>
+<code>data</code>: A data frame containing the data to be used in
+the model.</li>
+<li>
+<code>dependent_vars</code>: A named list of dependent variables to
+model along with their respective labels.</li>
+<li>
+<code>time_var</code>: The name of the time variable in the
+data.</li>
+<li>(similarly, describe other arguments…)</li>
+</ul>
+<p>Output</p>
+<p>The function returns a plot or a list of plots visualizing
+interaction coefficients based on user specifications.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"base_did"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combined Plot</span></span>
+<span><span class="va">combined_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_coef_par_trends.html">plot_coef_par_trends</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">base_did</span>,</span>
+<span>  dependent_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Outcome 1"</span>, x1 <span class="op">=</span> <span class="st">"Outcome 2"</span><span class="op">)</span>,</span>
+<span>  time_var <span class="op">=</span> <span class="st">"period"</span>,</span>
+<span>  unit_treatment_status <span class="op">=</span> <span class="st">"treat"</span>,</span>
+<span>  unit_id_var <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  plot_type <span class="op">=</span> <span class="st">"coefplot"</span>,</span>
+<span>  combined_plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plot_args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Interaction coefficients Plot"</span><span class="op">)</span>,</span>
+<span>  legend_title <span class="op">=</span> <span class="st">"Metrics"</span>,</span>
+<span>  legend_position <span class="op">=</span> <span class="st">"bottomleft"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Notes from the estimations:</span></span>
+<span><span class="co">#&gt; [x 2] The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span></span></code></pre></div>
+<p><img src="did_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Individual Plots</span></span>
+<span><span class="va">indi_plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_coef_par_trends.html">plot_coef_par_trends</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">base_did</span>,</span>
+<span>  dependent_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Outcome 1"</span>, x1 <span class="op">=</span> <span class="st">"Outcome 2"</span><span class="op">)</span>,</span>
+<span>  time_var <span class="op">=</span> <span class="st">"period"</span>,</span>
+<span>  unit_treatment_status <span class="op">=</span> <span class="st">"treat"</span>,</span>
+<span>  unit_id_var <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  plot_type <span class="op">=</span> <span class="st">"coefplot"</span>,</span>
+<span>  combined_plot <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span></span>
+<span><span class="co">#&gt; The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span></span></code></pre></div>
+<p><img src="did_files/figure-html/unnamed-chunk-5-2.png" width="700"><img src="did_files/figure-html/unnamed-chunk-5-3.png" width="700"></p>
 </div>
 </div>
 </div>
@@ -277,7 +332,7 @@ random.</p></li>
 <div class="section level3">
 <h3 id="random-time-assignment">Random Time Assignment<a class="anchor" aria-label="anchor" href="#random-time-assignment"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -336,7 +391,7 @@ random.</p></li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Systematic Time Assignment"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plot_random</span>, <span class="va">plot_systematic</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="did_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p><strong>Random Time Assignment Plot:</strong></p>
 <ul>
 <li>Treatment is dispersed randomly across time periods, with no clear
@@ -367,7 +422,7 @@ that characteristic.</li>
 </ul>
 </li>
 </ol>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data &lt;- data.frame(treatment = c(rep(0, 50), rep(1, 50)),</span></span>
 <span><span class="co">#                    # Dummy for treatment</span></span>
 <span><span class="co">#                    characteristic = rnorm(100) # Randomly generated characteristic</span></span>
@@ -406,7 +461,7 @@ Characteristic_i = \alpha + \beta \times Treatment_i + \epsilon_i
 pre-treatment characteristic of unit <span class="math inline">\(i\)</span> and <span class="math inline">\(Treatment_i\)</span> is a dummy variable which
 equals 1 if <span class="math inline">\(unit_i\)</span> is treated and 0
 otherwise.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lm_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm_result</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -438,7 +493,7 @@ plots, or box plots can be employed to visually assess balance.</li>
 <li>It’s important to note that you should consider the pre-treatment
 periods.</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rlang.r-lib.org" class="external-link">rlang</a></span><span class="op">)</span> </span>
 <span><span class="co">#&gt; </span></span>
@@ -453,8 +508,8 @@ periods.</li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html" class="external-link">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Treatment"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Density Distribution by Treatment Group"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><img src="did_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Side-by-side density distributions for multiple characteristics</span></span>
 <span><span class="va">plot_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_density_by_treatment.html">plot_density_by_treatment</a></span><span class="op">(</span></span>
@@ -467,13 +522,13 @@ periods.</li>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_list</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-8-2.png" width="700"></p>
+<p><img src="did_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
 <p><strong>Multivariate Regression</strong></p>
 <p>Run a regression of each pre-treatment characteristic on the
 treatment dummy. This allows for the simultaneous assessment of balance
 on multiple characteristics. You can include all characteristics in a
 single regression as dependent variables.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data$characteristic2 &lt;- rnorm(100)</span></span>
 <span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span></span>
@@ -526,7 +581,7 @@ Hence, we don’t have any concerns.</p>
 <p>To be more rigorous, we should estimate all regressions
 simultaneously using SUR if we suspect the error terms of the different
 regression equations are correlated.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("systemfit")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/systemfit/" class="external-link">systemfit</a></span><span class="op">)</span></span>
 <span></span>
@@ -600,7 +655,7 @@ assignment based on this characteristic.</p>
 the mean vector of two groups. It’s useful when you have multiple
 pre-treatment characteristics and you want to test if their mean vectors
 differ between the treated and control groups.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For Hotelling's T^2, you can use the `Hotelling` package.</span></span>
 <span><span class="co"># install.packages("Hotelling")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmcurran/Hotelling" class="external-link">Hotelling</a></span><span class="op">)</span></span>
@@ -628,7 +683,7 @@ probability of being treated based on pre-treatment characteristics
 using a logistic regression. After matching, you can test for balance in
 the pre-treatment characteristics between the treated and control
 groups.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For propensity score matching, use the `MatchIt` package.</span></span>
 <span><span class="co"># install.packages("MatchIt")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kosukeimai.github.io/MatchIt/" class="external-link">MatchIt</a></span><span class="op">)</span></span>
