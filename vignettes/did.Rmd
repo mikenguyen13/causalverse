@@ -80,6 +80,10 @@ Given these concerns, if you're inclined to utilize the smoothing function, it's
 
 ### plot_coef_par_trends
 
+```{r}
+
+```
+
 # Random Treatment Assignments
 
 In Difference-in-Differences analysis, ensuring randomness in treatment assignment is crucial. This randomization comes in two main levels: random time assignment and random unit assignment.
@@ -265,7 +269,8 @@ lm_multivariate <-
   lm(cbind(mpg, cyl) ~ treatment, data = data)
 summary(lm_multivariate)
 ```
-All of the coefficients in each regression are not significant. Hence, we don't have any concerns. 
+
+All of the coefficients in each regression are not significant. Hence, we don't have any concerns.
 
 To be more rigorous, we should estimate all regressions simultaneously using SUR if we suspect the error terms of the different regression equations are correlated.
 
