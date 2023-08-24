@@ -31,5 +31,6 @@ Imports:
 	systemfit (>= 1.1.30),
 	Hotelling (>= 1.0.8),
 	MatchIt (>= 4.5.4),
-	rlang (>= 1.1.1)
+	rlang (>= 1.1.1),
+	fixest (>= 0.11.1)
 VignetteBuilder: knitr
