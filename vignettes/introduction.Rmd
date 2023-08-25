@@ -197,6 +197,16 @@ ggplot(mtcars, aes(x = mpg, y = wt)) +
   ama_theme(panel.spacing = unit(1, "lines"))
 ```
 
+##### Export Figures
+
+```{r, eval = FALSE}
+p_grey |> 
+  causalverse::ama_export_fig(
+    filename = "p_color",
+    filepath = file.path(getwd(), "export")
+  )
+```
+
 #### Tables
 
 > Tables should be placed within the text rather than at the end of the document.
@@ -216,3 +226,13 @@ ggplot(mtcars, aes(x = mpg, y = wt)) +
 > -   Make sure the necessary measures of statistical significance are reported with the table.
 >
 > -   Do not insert tables in the Word file as pictures. All tables should be editable in Word.
+
+##### Export Tables
+
+```{r, eval = FALSE}
+mtcars[1:5, 1:5] |> 
+  ama_export_tab(
+    filename = "test_tab",
+    filepath = file.path(getwd(), "export")
+  )
+```
