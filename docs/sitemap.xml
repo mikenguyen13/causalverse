@@ -4,6 +4,12 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/articles/00-introduction.html</loc>
+  </url>
+  <url>
+    <loc>/articles/02-did.html</loc>
+  </url>
+  <url>
     <loc>/articles/did.html</loc>
   </url>
   <url>
@@ -20,6 +26,21 @@
   </url>
   <url>
     <loc>/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>/reference/amatheme.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_labs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_scale_color.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_scale_fill.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_theme.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>

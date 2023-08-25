@@ -32,10 +32,10 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/did.html">2. Difference-in-Differences</a>
+      <a href="../articles/00-introduction.html">Introduction to CausalVerse</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">0. Introduction to CausalVerse</a>
+      <a href="../articles/02-did.html">2. Difference-in-Differences</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -67,7 +67,8 @@
 <span>  display_CI <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  output_format <span class="op">=</span> <span class="st">"plot"</span>,</span>
 <span>  smoothing_method <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  title_prefix <span class="op">=</span> <span class="st">"Parallel Trends for"</span></span>
+<span>  title_prefix <span class="op">=</span> <span class="st">"Parallel Trends for"</span>,</span>
+<span>  theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -111,6 +112,10 @@
 
 <dt>title_prefix</dt>
 <dd><p>A character string specifying the prefix for the plot title (default is "Parallel Trends for").</p></dd>
+
+
+<dt>theme_use</dt>
+<dd><p>Custom theme that follows ggplots2</p></dd>
 
 </dl></div>
     <div id="value">

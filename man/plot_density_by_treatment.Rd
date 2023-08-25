@@ -8,7 +8,7 @@ plot_density_by_treatment(
   data,
   var_map,
   treatment_var,
-  theme_use = ggplot2::theme_minimal(),
+  theme_use = causalverse::ama_theme(),
   ...
 )
 }
