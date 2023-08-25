@@ -12,6 +12,7 @@
 #' @param output_format Format of the output; "plot" returns a list of ggplots, "data.frame" returns a data frame.
 #' @param smoothing_method Method to use for smoothing; NULL means no smoothing.
 #' @param title_prefix A character string specifying the prefix for the plot title (default is "Parallel Trends for").
+#' @param theme_use Custom theme that follows ggplots2
 #'
 #' @importFrom dplyr %>%
 #' @importFrom tidyr pivot_longer
@@ -42,15 +43,19 @@
 #' 
 #' @export
 plot_par_trends <- function(data,
-                            metrics_and_names, 
+                            metrics_and_names,
                             treatment_status_var,
-                            time_var, 
-                            conf_level = 0.95,
-                            non_negative = FALSE,
-                            display_CI = TRUE,
-                            output_format = "plot",
+                            time_var,
+                            conf_level       = 0.95,
+                            non_negative     = FALSE,
+                            display_CI       = TRUE,
+                            output_format    = "plot",
                             smoothing_method = NULL,
-                            title_prefix = "Parallel Trends for") {
+                            title_prefix     = "Parallel Trends for",
+                            # scale_fill_use   = causalverse::ama_scale_fill(),
+                            # scale_color_use  = causalverse::ama_scale_color(),
+                            theme_use        = causalverse::ama_theme()) {
+  
   
   # Extract time variable and custom name
   time_variable <- names(time_var)[1]
@@ -117,7 +122,11 @@ plot_par_trends <- function(data,
       ggplot2::scale_color_manual(name = "Treatment\nStatus", values = colors) +
       ggplot2::scale_fill_manual(name = "Treatment\nStatus", values = scales::alpha(colors, 0.2)) +
       ggplot2::scale_linetype_manual(name = "Treatment\nStatus", values = linetypes) +
-      ggplot2::guides(fill = ggplot2::guide_legend(override.aes = list(alpha = 0.2)))
+      ggplot2::guides(fill = ggplot2::guide_legend(override.aes = list(alpha = 0.2))) +
+      
+      
+      # use custom theme
+      theme_use
     
     # Add smoothing or lines and ribbons based on the input
     if (!is.null(smoothing_method)) {
@@ -129,15 +138,24 @@ plot_par_trends <- function(data,
           level = conf_level,
           ggplot2::aes(group = as.factor(!!dplyr::sym(
             treatment_status_var
-          )))
-        )
+          ))) 
+        ) +
+          
+          theme_use
       ))
     } else {
-      p <- p + ggplot2::geom_line()
+      p <- p + ggplot2::geom_line() +
+        theme_use
+      
       if (display_CI) {
         p <-
-          p + ggplot2::geom_ribbon(ggplot2::aes(ymin = ifelse(non_negative & .data$ci_lower < 0, 0, .data$ci_lower), ymax = .data$ci_upper),
-                                   alpha = 0.2)
+          p + ggplot2::geom_ribbon(ggplot2::aes(
+            ymin = ifelse(non_negative &
+                            .data$ci_lower < 0, 0, .data$ci_lower),
+            ymax = .data$ci_upper
+          ), alpha = 0.2) +
+          
+          theme_use
       }
     }
     

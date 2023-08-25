@@ -49,7 +49,8 @@ data <- expand.grid(entity = 1:100, time = 1:10) %>%
     treatment = ifelse(entity <= 50, "Treated", "Control"),
     outcome1 = 0.5 * time + rnorm(n(), 0, 2) + ifelse(treatment == "Treated", 0, 0),
     outcome2 = 3 + 0.3 * time + rnorm(n(), 0, 1) + ifelse(treatment == "Treated", 0, 2),
-    outcome3 = 3 + 0.5 * time * rnorm(n(), 0, 1) + rexp(n(), rate = 1) + ifelse(treatment == "Treated", 0, 2)
+    outcome3 = 3 + 0.5 * time * rnorm(n(), 0, 1) + rexp(n(), rate = 1) + ifelse(treatment == "Treated", 0, 2), 
+    outcome4 = time + rnorm(n(), 0, 1) + ifelse(treatment == "Treated", 0, 2) * 2
   )
 ```
 
@@ -58,10 +59,11 @@ Visualizing Trends with `plot_par_trends` Invoke the `plot_par_trends` function 
 ```{r}
 results <- plot_par_trends(
   data = data,
-  metrics_and_names = list(outcome1 = "Outcome 1", outcome2 = "Outcome 2", outcome3 = "Outcome 3"),
+  metrics_and_names = list(outcome1 = "Outcome 1", outcome2 = "Outcome 2", outcome3 = "Outcome 3", outcome4 = "Outcome 4"),
   treatment_status_var = "treatment",
   time_var = list(time = "Time"),
   smoothing_method = "glm",
+  theme_use = causalverse::ama_theme(base_size = 12)
   # title_prefix = "Para Trends"
 )
 ```
@@ -72,7 +74,7 @@ The function returns a list of ggplot objects, which can be visualized using too
 
 ```{r}
 library(gridExtra)
-gridExtra::grid.arrange(grobs = results, ncol = 1)
+gridExtra::grid.arrange(grobs = results, ncol = 2)
 ```
 
 **Note of Caution**: When using this custom package, it's crucial to carefully examine parallel trends plots both with and without control variables. At times, one might observe suitable parallel trends without control variables. However, when these control variables are introduced, the underlying assumptions can be disturbed. Conversely, there are cases where the general parallel trends assumption doesn't seem to be in place, but when conditioned on the control variables, the trends align perfectly. This package provides functions that allow users to easily generate these plots side by side, especially after formulating the predicted values of dependent variables by accounting for control variables. Always approach these plots with a discerning eye to ensure accurate interpretation and application.
@@ -110,7 +112,7 @@ combined_plot <- plot_coef_par_trends(
   combined_plot = TRUE,
   plot_args = list(main = "Interaction coefficients Plot"),
   legend_title = "Metrics",
-  legend_position = "bottomleft"
+  legend_position = "bottomright"
 )
 
 # Individual Plots
@@ -214,13 +216,21 @@ agg_systematic <- data %>%
   dplyr::summarise(units_treated = sum(treatment_systematic))
 
 # Plotting
-plot_random <- ggplot(agg_random, aes(x = time_period, y = units_treated)) +
+plot_random <-
+  ggplot(agg_random, aes(x = time_period, y = units_treated)) +
   geom_point() +
-  labs(title = "Random Time Assignment")
+  labs(title = "Random Time Assignment") +
+  xlab("Time") +
+  ylab("Number of Unit Treated") +
+  causalverse::ama_theme()
 
-plot_systematic <- ggplot(agg_systematic, aes(x = time_period, y = units_treated)) +
+plot_systematic <-
+  ggplot(agg_systematic, aes(x = time_period, y = units_treated)) +
   geom_point() +
-  labs(title = "Systematic Time Assignment")
+  labs(title = "Systematic Time Assignment") +
+  xlab("Time") +
+  ylab("Number of Unit Treated") +
+  causalverse::ama_theme()
 
 gridExtra::grid.arrange(plot_random, plot_systematic, ncol = 2)
 ```
@@ -280,23 +290,23 @@ summary(lm_result)
 ```{r}
 library(ggplot2)
 library(rlang) 
+library(gridExtra)
 
 # Density distribution for a single characteristic
 ggplot(data, aes(x = mpg, fill = factor(treatment))) +
   geom_density(alpha = 0.5) +
   labs(fill = "Treatment") +
-  ggtitle("Density Distribution by Treatment Group")
+  ggtitle("Density Distribution by Treatment Group") + 
+  causalverse::ama_theme()
 
 # Side-by-side density distributions for multiple characteristics
 plot_list <- plot_density_by_treatment(
   data = data,
   var_map = list("mpg" = "Var 1",
                  "cyl" = "Var 2"),
-  treatment_var = c("treatment" = "Treatment Name\nin Legend"),
-  theme_use = ggplot2::theme_bw()
+  treatment_var = c("treatment" = "Treatment Name\nin Legend")
 )
 
-library(gridExtra)
 grid.arrange(grobs = plot_list, ncol = 1)
 ```
 

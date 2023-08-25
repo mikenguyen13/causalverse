@@ -30,29 +30,36 @@
 #'   treatment_var = c("treatment" = "Treatment Name\nin Legend")
 #' )
 #' }
-plot_density_by_treatment <- function(data, var_map, treatment_var, theme_use = ggplot2::theme_minimal(), ...) {
-  plot_list <- list()
-  
-  # Extract variable name and legend title from the treatment_var list
-  treatment_variable <- names(treatment_var)[1]
-  legend_title <- treatment_var[[1]]
-  
-  # Loop through each variable in the mapping
-  for (var in names(var_map)) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(!!rlang::sym(var), fill = factor(!!rlang::sym(treatment_variable)))) +
-      ggplot2::geom_density(alpha = 0.5, ...) +  # Passing the ... to geom_density
-      ggplot2::labs(
-        fill = legend_title,
-        title = paste("Density Distribution of", var_map[[var]], "by Treatment Group")
-      ) +
-      ggplot2::ylab("Density") + 
-      ggplot2::xlab(var_map[[var]]) +
-      theme_use +
-      # center the title
-      ggplot2::theme(plot.title.position = "plot", plot.title = ggplot2::element_text(hjust = 0.5))
+plot_density_by_treatment <-
+  function(data,
+           var_map,
+           treatment_var,
+           theme_use = causalverse::ama_theme(),
+           ...) {
+    plot_list <- list()
     
-    plot_list[[var_map[[var]]]] <- p
+    # Extract variable name and legend title from the treatment_var list
+    treatment_variable <- names(treatment_var)[1]
+    legend_title <- treatment_var[[1]]
+    
+    # Loop through each variable in the mapping
+    for (var in names(var_map)) {
+      p <-
+        ggplot2::ggplot(data, ggplot2::aes(!!rlang::sym(var), fill = factor(!!rlang::sym(
+          treatment_variable
+        )))) +
+        ggplot2::geom_density(alpha = 0.5, ...) +  # Passing the ... to geom_density
+        ggplot2::labs(
+          fill = legend_title,
+          title = paste("Density Distribution of", var_map[[var]], "by Treatment Group")
+        ) +
+        ggplot2::ylab("Density") +
+        ggplot2::xlab(var_map[[var]]) +
+        
+        theme_use
+      
+      plot_list[[var_map[[var]]]] <- p
+    }
+    
+    return(plot_list)
   }
-  
-  return(plot_list)
-}

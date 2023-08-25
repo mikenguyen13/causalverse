@@ -14,7 +14,8 @@ plot_par_trends(
   display_CI = TRUE,
   output_format = "plot",
   smoothing_method = NULL,
-  title_prefix = "Parallel Trends for"
+  title_prefix = "Parallel Trends for",
+  theme_use = causalverse::ama_theme()
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ plot_par_trends(
 \item{smoothing_method}{Method to use for smoothing; NULL means no smoothing.}
 
 \item{title_prefix}{A character string specifying the prefix for the plot title (default is "Parallel Trends for").}
+
+\item{theme_use}{Custom theme that follows ggplots2}
 }
 \value{
 A list of ggplot objects or a data frame.

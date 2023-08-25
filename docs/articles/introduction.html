@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>0. Introduction to CausalVerse • causalverse</title>
+<title>Introduction to CausalVerse • causalverse</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="0. Introduction to CausalVerse">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to CausalVerse">
 <meta property="og:description" content="causalverse">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -60,7 +60,7 @@
       <a href="../articles/did.html">2. Difference-in-Differences</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">0. Introduction to CausalVerse</a>
+      <a href="../articles/introduction.html">Introduction to CausalVerse</a>
     </li>
   </ul>
 </li>
@@ -78,7 +78,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>0. Introduction to CausalVerse</h1>
+      <h1 data-toc-skip>Introduction to CausalVerse</h1>
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
@@ -170,6 +170,41 @@ for a holistic understanding.</p>
 <p>I hope this provides a clearer and professional introduction for your
 vignette. If you have any additional inputs or refinements, please let
 me know!</p>
+</div>
+<div class="section level3">
+<h3 id="reporting">Reporting<a class="anchor" aria-label="anchor" href="#reporting"></a>
+</h3>
+<p>In this section, the focus is primarily on reporting rather than
+causal inference. Given that my primary domain of interest is marketing,
+I adhere to the American Marketing Association’s style guidelines for
+presentation. As a result, my plots typically align with the AMA theme.
+However, users always retain the flexibility to modify the theme as
+needed.</p>
+<p>The <strong><code>amatheme</code></strong> function is designed to
+provide a custom theme for ggplot2 plots that align with the styling
+guidelines of the American Marketing Association.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">gear</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">p</span></span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># simply add the amatheme function to apply the custom theme</span></span>
+<span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/amatheme.html">amatheme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
+<p>Customizing the Theme</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/amatheme.html">amatheme</a></span><span class="op">(</span>title_size <span class="op">=</span> <span class="fl">20</span>, axis_title_size <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p>Moreover, the function can inherit all parameters from the
+<strong><code>theme</code></strong> function, allowing even further
+customization:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="../reference/amatheme.html">amatheme</a></span><span class="op">(</span>panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="introduction_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
 </div>
   </div>
