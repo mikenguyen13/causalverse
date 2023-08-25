@@ -16,6 +16,8 @@ You can cite this package as follows: "we utilized the causal inference methodol
 
 ## [Vignettes](https://mikenguyen13.github.io/causalverse)
 
+All the vignettes can be accessed via the package's website.
+
 ## Installation
 
 You can install the development version of causalverse from [GitHub](https://github.com/) with:

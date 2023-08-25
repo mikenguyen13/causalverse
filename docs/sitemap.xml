@@ -7,7 +7,19 @@
     <loc>/articles/00-introduction.html</loc>
   </url>
   <url>
+    <loc>/articles/00_introduction.html</loc>
+  </url>
+  <url>
     <loc>/articles/02-did.html</loc>
+  </url>
+  <url>
+    <loc>/articles/02_did.html</loc>
+  </url>
+  <url>
+    <loc>/articles/0introduction.html</loc>
+  </url>
+  <url>
+    <loc>/articles/2did.html</loc>
   </url>
   <url>
     <loc>/articles/did.html</loc>
@@ -29,6 +41,12 @@
   </url>
   <url>
     <loc>/reference/amatheme.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_export_fig.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ama_export_tab.html</loc>
   </url>
   <url>
     <loc>/reference/ama_labs.html</loc>
