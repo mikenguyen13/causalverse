@@ -18,9 +18,32 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
+library(tidyverse)
 ```
 
 # Assumptions
+
+## Treatment Variation Plot
+
+```{r}
+library(PanelMatch)
+library(fixest)
+
+DisplayTreatment(
+    unit.id = "id",
+    time.id = "year",
+    # legend.position = "none",
+    xlab = "Year",
+    ylab = "Unit",
+    # hide.x.tick.label = TRUE, 
+    hide.y.tick.label = TRUE,
+    # dense.plot = TRUE,
+    treatment = "treat",
+    data = fixest::base_stagg |> 
+      mutate(treat = if_else(time_to_treatment < 0, 0, 1))
+)
+```
+It's okay to have some units without any observation on the left-hand side (i.e., left-censored).
 
 ## Pre-treatment Parallel Trends
 
@@ -172,7 +195,7 @@ library(gridExtra)
 library(dplyr)
 
 # Control number of units and time periods here
-num_units <- 2000
+num_units   <- 2000
 num_periods <- 20  
 
 # Setting seed for reproducibility
@@ -180,7 +203,7 @@ set.seed(123)
 
 # Generate data for given number of units over specified periods
 data <- expand.grid(unit = 1:num_units, time_period = 1:num_periods)
-data$treatment_random <- 0
+data$treatment_random     <- 0
 data$treatment_systematic <- 0
 
 # Randomly assigning treatment times to units
@@ -202,35 +225,30 @@ adjustment <- (length(peak_periods) * higher_prob - length(peak_periods) / num_p
 prob_values[-peak_periods] <- 1/num_periods - adjustment
 
 systematic_treatment_times <- sample(1:num_periods, num_units, replace = TRUE, prob = prob_values)
+
 for (i in 1:num_units) {
   data$treatment_systematic[data$unit == i & data$time_period == systematic_treatment_times[i]] <- 1
 }
+```
 
-# Aggregate for plotting
-agg_random <- data %>%
-  group_by(time_period) %>%
-  dplyr::summarise(units_treated = sum(treatment_random))
-
-agg_systematic <- data %>%
-  group_by(time_period) %>%
-  dplyr::summarise(units_treated = sum(treatment_systematic))
-
+```{r}
 # Plotting
 plot_random <-
-  ggplot(agg_random, aes(x = time_period, y = units_treated)) +
-  geom_point() +
-  labs(title = "Random Time Assignment") +
-  xlab("Time") +
-  ylab("Number of Unit Treated") +
-  causalverse::ama_theme()
+  plot_treat_time(
+    data = data,
+    time_var = time_period,
+    unit_treat = treatment_random,
+    theme_use = causalverse::ama_theme(base_size = 12)
+  )
 
 plot_systematic <-
-  ggplot(agg_systematic, aes(x = time_period, y = units_treated)) +
-  geom_point() +
-  labs(title = "Systematic Time Assignment") +
-  xlab("Time") +
-  ylab("Number of Unit Treated") +
-  causalverse::ama_theme()
+  plot_treat_time(
+    data = data,
+    time_var = time_period,
+    unit_treat = treatment_systematic,
+    theme_use = causalverse::ama_theme(base_size = 12),
+    show_legend = TRUE
+  )
 
 gridExtra::grid.arrange(plot_random, plot_systematic, ncol = 2)
 ```
