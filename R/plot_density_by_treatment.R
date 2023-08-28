@@ -5,6 +5,7 @@
 #' @param data A data frame containing the variables to plot and a treatment variable.
 #' @param var_map A named list mapping the column names in the data to display names for plotting.
 #' @param treatment_var A named vector where the name is the treatment column in the data and the value is the legend title.
+#' @param show_legend A logical value indicating whether to show the legend. Defaults to TRUE.
 #' @param theme_use ggplot2 theme. Defaults to `ggplot2::theme_minimal()`.
 #' @param ... Additional arguments to be passed to `geom_density`.
 #' 
@@ -34,7 +35,8 @@ plot_density_by_treatment <-
   function(data,
            var_map,
            treatment_var,
-           theme_use = causalverse::ama_theme(),
+           show_legend = TRUE,
+           theme_use = ggplot2::theme_minimal(),
            ...) {
     plot_list <- list()
     
@@ -51,12 +53,16 @@ plot_density_by_treatment <-
         ggplot2::geom_density(alpha = 0.5, ...) +  # Passing the ... to geom_density
         ggplot2::labs(
           fill = legend_title,
-          title = paste("Density Distribution of", var_map[[var]], "by Treatment Group")
+          title = paste("Density Distribution of\n", var_map[[var]], "by Treatment Group")
         ) +
         ggplot2::ylab("Density") +
         ggplot2::xlab(var_map[[var]]) +
-        
         theme_use
+      
+      # Conditionally remove the legend if show_legend is FALSE
+      if (!show_legend) {
+        p <- p + ggplot2::theme(legend.position = "none")
+      }
       
       plot_list[[var_map[[var]]]] <- p
     }

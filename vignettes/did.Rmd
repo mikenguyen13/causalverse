@@ -43,6 +43,7 @@ DisplayTreatment(
       mutate(treat = if_else(time_to_treatment < 0, 0, 1))
 )
 ```
+
 It's okay to have some units without any observation on the left-hand side (i.e., left-censored).
 
 ## Pre-treatment Parallel Trends
@@ -110,15 +111,14 @@ Given these concerns, if you're inclined to utilize the smoothing function, it's
 
 Arguments
 
-- `data`: A data frame containing the data to be used in the model.
-- `dependent_vars`: A named list of dependent variables to model along with their respective labels.
-- `time_var`: The name of the time variable in the data.
-- (similarly, describe other arguments...)
+-   `data`: A data frame containing the data to be used in the model.
+-   `dependent_vars`: A named list of dependent variables to model along with their respective labels.
+-   `time_var`: The name of the time variable in the data.
+-   (similarly, describe other arguments...)
 
 Output
 
 The function returns a plot or a list of plots visualizing interaction coefficients based on user specifications.
-
 
 ```{r}
 library(fixest)
@@ -150,8 +150,6 @@ indi_plots <- plot_coef_par_trends(
 )
 
 ```
-
-
 
 # Random Treatment Assignments
 
@@ -202,14 +200,16 @@ num_periods <- 20
 set.seed(123)
 
 # Generate data for given number of units over specified periods
-data <- expand.grid(unit = 1:num_units, time_period = 1:num_periods)
+data <- expand.grid(unit = 1:num_units,
+                    time_period = 1:num_periods)
 data$treatment_random     <- 0
 data$treatment_systematic <- 0
 
 # Randomly assigning treatment times to units
 random_treatment_times <- sample(1:num_periods, num_units, replace = TRUE)
 for (i in 1:num_units) {
-  data$treatment_random[data$unit == i & data$time_period == random_treatment_times[i]] <- 1
+  data$treatment_random[data$unit == i &
+                          data$time_period == random_treatment_times[i]] <- 1
 }
 
 # Calculate peaks robustly
@@ -218,27 +218,32 @@ peak_periods <- round(c(0.25, 0.5, 0.75) * num_periods)
 # Systematic treatment assignment with higher probability at peak periods
 prob_values <- rep(1/num_periods, num_periods)
 
-# Update the probability for peak periods; the rest will have a slightly reduced probability
+# Update the probability for peak periods; 
+# the rest will have a slightly reduced probability
 higher_prob <- 0.10  # Arbitrary, adjust as necessary
 prob_values[peak_periods] <- higher_prob
-adjustment <- (length(peak_periods) * higher_prob - length(peak_periods) / num_periods) / (num_periods - length(peak_periods))
+adjustment <-
+  (length(peak_periods) * higher_prob - length(peak_periods) / num_periods) / (num_periods - length(peak_periods))
 prob_values[-peak_periods] <- 1/num_periods - adjustment
 
-systematic_treatment_times <- sample(1:num_periods, num_units, replace = TRUE, prob = prob_values)
+systematic_treatment_times <-
+  sample(1:num_periods, num_units, replace = TRUE, prob = prob_values)
 
 for (i in 1:num_units) {
-  data$treatment_systematic[data$unit == i & data$time_period == systematic_treatment_times[i]] <- 1
+  data$treatment_systematic[data$unit == i &
+                              data$time_period == systematic_treatment_times[i]] <- 1
 }
-```
 
-```{r}
+head(data |> arrange(unit))
+
 # Plotting
 plot_random <-
   plot_treat_time(
     data = data,
     time_var = time_period,
     unit_treat = treatment_random,
-    theme_use = causalverse::ama_theme(base_size = 12)
+    theme_use = causalverse::ama_theme(base_size = 12),
+    show_legend = TRUE
   )
 
 plot_systematic <-
@@ -322,10 +327,11 @@ plot_list <- plot_density_by_treatment(
   data = data,
   var_map = list("mpg" = "Var 1",
                  "cyl" = "Var 2"),
-  treatment_var = c("treatment" = "Treatment Name\nin Legend")
+  treatment_var = c("treatment" = "Treatment Name\nin Legend"),
+  theme_use = causalverse::ama_theme(base_size = 10)
 )
 
-grid.arrange(grobs = plot_list, ncol = 1)
+grid.arrange(grobs = plot_list, ncol = 2)
 ```
 
 **Multivariate Regression**
