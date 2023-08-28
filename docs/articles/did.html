@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-08-26</h4>
+            <h4 data-toc-skip class="date">2023-08-28</h4>
       
       
       <div class="hidden name"><code>did.Rmd</code></div>
@@ -127,8 +127,8 @@ Nguyen</h4>
 <span>    data <span class="op">=</span> <span class="fu">fixest</span><span class="fu">::</span><span class="va"><a href="https://lrberge.github.io/fixest/reference/base_stagg.html" class="external-link">base_stagg</a></span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treat <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&lt;</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-2-1.png" width="700">
-It’s okay to have some units without any observation on the left-hand
+<p><img src="did_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<p>It’s okay to have some units without any observation on the left-hand
 side (i.e., left-censored).</p>
 </div>
 <div class="section level3">
@@ -372,14 +372,16 @@ random.</p></li>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Generate data for given number of units over specified periods</span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_units</span>, time_period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_periods</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_units</span>,</span>
+<span>                    time_period <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_periods</span><span class="op">)</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">treatment_random</span>     <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="va">data</span><span class="op">$</span><span class="va">treatment_systematic</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span></span>
 <span><span class="co"># Randomly assigning treatment times to units</span></span>
 <span><span class="va">random_treatment_times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">num_periods</span>, <span class="va">num_units</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_units</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">data</span><span class="op">$</span><span class="va">treatment_random</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">unit</span> <span class="op">==</span> <span class="va">i</span> <span class="op">&amp;</span> <span class="va">data</span><span class="op">$</span><span class="va">time_period</span> <span class="op">==</span> <span class="va">random_treatment_times</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span>  <span class="va">data</span><span class="op">$</span><span class="va">treatment_random</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">unit</span> <span class="op">==</span> <span class="va">i</span> <span class="op">&amp;</span></span>
+<span>                          <span class="va">data</span><span class="op">$</span><span class="va">time_period</span> <span class="op">==</span> <span class="va">random_treatment_times</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Calculate peaks robustly</span></span>
@@ -388,25 +390,39 @@ random.</p></li>
 <span><span class="co"># Systematic treatment assignment with higher probability at peak periods</span></span>
 <span><span class="va">prob_values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">num_periods</span>, <span class="va">num_periods</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Update the probability for peak periods; the rest will have a slightly reduced probability</span></span>
+<span><span class="co"># Update the probability for peak periods; </span></span>
+<span><span class="co"># the rest will have a slightly reduced probability</span></span>
 <span><span class="va">higher_prob</span> <span class="op">&lt;-</span> <span class="fl">0.10</span>  <span class="co"># Arbitrary, adjust as necessary</span></span>
 <span><span class="va">prob_values</span><span class="op">[</span><span class="va">peak_periods</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">higher_prob</span></span>
-<span><span class="va">adjustment</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span> <span class="op">*</span> <span class="va">higher_prob</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span> <span class="op">/</span> <span class="va">num_periods</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">num_periods</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">adjustment</span> <span class="op">&lt;-</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span> <span class="op">*</span> <span class="va">higher_prob</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span> <span class="op">/</span> <span class="va">num_periods</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">num_periods</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">peak_periods</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">prob_values</span><span class="op">[</span><span class="op">-</span><span class="va">peak_periods</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">num_periods</span> <span class="op">-</span> <span class="va">adjustment</span></span>
 <span></span>
-<span><span class="va">systematic_treatment_times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">num_periods</span>, <span class="va">num_units</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="va">prob_values</span><span class="op">)</span></span>
+<span><span class="va">systematic_treatment_times</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">num_periods</span>, <span class="va">num_units</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="va">prob_values</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">num_units</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">data</span><span class="op">$</span><span class="va">treatment_systematic</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">unit</span> <span class="op">==</span> <span class="va">i</span> <span class="op">&amp;</span> <span class="va">data</span><span class="op">$</span><span class="va">time_period</span> <span class="op">==</span> <span class="va">systematic_treatment_times</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Plotting</span></span>
+<span>  <span class="va">data</span><span class="op">$</span><span class="va">treatment_systematic</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">unit</span> <span class="op">==</span> <span class="va">i</span> <span class="op">&amp;</span></span>
+<span>                              <span class="va">data</span><span class="op">$</span><span class="va">time_period</span> <span class="op">==</span> <span class="va">systematic_treatment_times</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">unit</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   unit time_period treatment_random treatment_systematic</span></span>
+<span><span class="co">#&gt; 1    1           1                0                    0</span></span>
+<span><span class="co">#&gt; 2    1           2                0                    0</span></span>
+<span><span class="co">#&gt; 3    1           3                0                    0</span></span>
+<span><span class="co">#&gt; 4    1           4                0                    0</span></span>
+<span><span class="co">#&gt; 5    1           5                0                    0</span></span>
+<span><span class="co">#&gt; 6    1           6                0                    0</span></span>
+<span></span>
+<span><span class="co"># Plotting</span></span>
 <span><span class="va">plot_random</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/plot_treat_time.html">plot_treat_time</a></span><span class="op">(</span></span>
 <span>    data <span class="op">=</span> <span class="va">data</span>,</span>
 <span>    time_var <span class="op">=</span> <span class="va">time_period</span>,</span>
 <span>    unit_treat <span class="op">=</span> <span class="va">treatment_random</span>,</span>
-<span>    theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span>    theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span>    show_legend <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">plot_systematic</span> <span class="op">&lt;-</span></span>
@@ -414,11 +430,12 @@ random.</p></li>
 <span>    data <span class="op">=</span> <span class="va">data</span>,</span>
 <span>    time_var <span class="op">=</span> <span class="va">time_period</span>,</span>
 <span>    unit_treat <span class="op">=</span> <span class="va">treatment_systematic</span>,</span>
-<span>    theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span>    theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span>
+<span>    show_legend <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span><span class="va">plot_random</span>, <span class="va">plot_systematic</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="did_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p><strong>Random Time Assignment Plot:</strong></p>
 <ul>
 <li>Treatment is dispersed randomly across time periods, with no clear
@@ -449,7 +466,7 @@ that characteristic.</li>
 </ul>
 </li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data &lt;- data.frame(treatment = c(rep(0, 50), rep(1, 50)),</span></span>
 <span><span class="co">#                    # Dummy for treatment</span></span>
 <span><span class="co">#                    characteristic = rnorm(100) # Randomly generated characteristic</span></span>
@@ -488,7 +505,7 @@ Characteristic_i = \alpha + \beta \times Treatment_i + \epsilon_i
 pre-treatment characteristic of unit <span class="math inline">\(i\)</span> and <span class="math inline">\(Treatment_i\)</span> is a dummy variable which
 equals 1 if <span class="math inline">\(unit_i\)</span> is treated and 0
 otherwise.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lm_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">lm_result</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -520,7 +537,7 @@ plots, or box plots can be employed to visually assess balance.</li>
 <li>It’s important to note that you should consider the pre-treatment
 periods.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rlang.r-lib.org" class="external-link">rlang</a></span><span class="op">)</span> </span>
 <span><span class="co">#&gt; </span></span>
@@ -537,25 +554,26 @@ periods.</li>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Treatment"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Density Distribution by Treatment Group"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="did_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Side-by-side density distributions for multiple characteristics</span></span>
 <span><span class="va">plot_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_density_by_treatment.html">plot_density_by_treatment</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
 <span>  var_map <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"mpg"</span> <span class="op">=</span> <span class="st">"Var 1"</span>,</span>
 <span>                 <span class="st">"cyl"</span> <span class="op">=</span> <span class="st">"Var 2"</span><span class="op">)</span>,</span>
-<span>  treatment_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treatment"</span> <span class="op">=</span> <span class="st">"Treatment Name\nin Legend"</span><span class="op">)</span></span>
+<span>  treatment_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treatment"</span> <span class="op">=</span> <span class="st">"Treatment Name\nin Legend"</span><span class="op">)</span>,</span>
+<span>  theme_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_list</span>, ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plot_list</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="did_files/figure-html/unnamed-chunk-10-2.png" width="700"></p>
 <p><strong>Multivariate Regression</strong></p>
 <p>Run a regression of each pre-treatment characteristic on the
 treatment dummy. This allows for the simultaneous assessment of balance
 on multiple characteristics. You can include all characteristics in a
 single regression as dependent variables.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># data$characteristic2 &lt;- rnorm(100)</span></span>
 <span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">cyl</span><span class="op">)</span></span>
@@ -608,7 +626,7 @@ Hence, we don’t have any concerns.</p>
 <p>To be more rigorous, we should estimate all regressions
 simultaneously using SUR if we suspect the error terms of the different
 regression equations are correlated.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("systemfit")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/systemfit/" class="external-link">systemfit</a></span><span class="op">)</span></span>
 <span></span>
@@ -682,7 +700,7 @@ assignment based on this characteristic.</p>
 the mean vector of two groups. It’s useful when you have multiple
 pre-treatment characteristics and you want to test if their mean vectors
 differ between the treated and control groups.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For Hotelling's T^2, you can use the `Hotelling` package.</span></span>
 <span><span class="co"># install.packages("Hotelling")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jmcurran/Hotelling" class="external-link">Hotelling</a></span><span class="op">)</span></span>
@@ -710,7 +728,7 @@ probability of being treated based on pre-treatment characteristics
 using a logistic regression. After matching, you can test for balance in
 the pre-treatment characteristics between the treated and control
 groups.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For propensity score matching, use the `MatchIt` package.</span></span>
 <span><span class="co"># install.packages("MatchIt")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kosukeimai.github.io/MatchIt/" class="external-link">MatchIt</a></span><span class="op">)</span></span>

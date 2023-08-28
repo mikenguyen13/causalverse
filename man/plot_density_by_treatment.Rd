@@ -8,7 +8,8 @@ plot_density_by_treatment(
   data,
   var_map,
   treatment_var,
-  theme_use = causalverse::ama_theme(),
+  show_legend = TRUE,
+  theme_use = ggplot2::theme_minimal(),
   ...
 )
 }
@@ -18,6 +19,8 @@ plot_density_by_treatment(
 \item{var_map}{A named list mapping the column names in the data to display names for plotting.}
 
 \item{treatment_var}{A named vector where the name is the treatment column in the data and the value is the legend title.}
+
+\item{show_legend}{A logical value indicating whether to show the legend. Defaults to TRUE.}
 
 \item{theme_use}{ggplot2 theme. Defaults to \code{ggplot2::theme_minimal()}.}
 

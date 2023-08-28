@@ -2,9 +2,9 @@
 % Please edit documentation in R/ama_export_fig.R
 \name{ama_export_fig}
 \alias{ama_export_fig}
-\title{Function to export a figure with AMA theme}
+\title{Function to export a figure with custom settings}
 \usage{
-ama_export_fig(figure, filename, filepath)
+ama_export_fig(figure, filename, filepath, width = 7, height = 7)
 }
 \arguments{
 \item{figure}{A ggplot2 object.}
@@ -12,10 +12,15 @@ ama_export_fig(figure, filename, filepath)
 \item{filename}{A character string specifying the filename without the extension.}
 
 \item{filepath}{A character string specifying the directory to save the file.}
+
+\item{width}{The width of the image in inches (default is 7 inches).}
+
+\item{height}{The height of the image in inches (default is 7 inches).}
 }
 \description{
-This function applies a custom theme to a ggplot2 figure and exports it to a given path.
+This function exports a ggplot2 figure to a given path.
 It exports both an archived version with the current date and a current version without a date.
+The function supports exporting to PDF and JPG formats.
 }
 \examples{
 \dontrun{
