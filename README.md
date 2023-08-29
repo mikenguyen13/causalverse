@@ -36,6 +36,6 @@ library(causalverse)
 ## basic example code
 ```
 
-## Citaiton
+## Citation
 
 Nguyen, M. (2023). The causalverse Package: Causality in Clarity. Zenodo. <http://doi.org/10.5281/zenodo.8254063>. Retrieved from <https://github.com/mikenguyen13/causalverse>.
