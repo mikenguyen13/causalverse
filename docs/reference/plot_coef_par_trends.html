@@ -129,7 +129,8 @@ allowing the user to visualize interaction coefficients with ease.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"base_did"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Sample call to the function:</span></span></span>
@@ -145,58 +146,6 @@ allowing the user to visualize interaction coefficients with ease.</p>
 <span class="r-in"><span>  legend_title <span class="op">=</span> <span class="st">"Metrics"</span>,</span></span>
 <span class="r-in"><span>  legend_position <span class="op">=</span> <span class="st">"bottomleft"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Notes from the estimations:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [x 2] The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span>
-<span class="r-plt img"><img src="plot_coef_par_trends-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $prms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       estimate     ci_low     ci_high   x id  estimate_names estimate_names_raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -8.96224075 -11.694837 -6.22964434 0.9  1 period::1:treat    period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -0.97891737  -2.715250  0.75741488 1.1  2 period::1:treat    period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -8.61129823 -11.445707 -5.77688956 1.9  1 period::2:treat    period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -0.77818826  -2.574318  1.01794126 2.1  2 period::2:treat    period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -6.44269670  -9.155983 -3.72941075 2.9  1 period::3:treat    period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.44863125  -1.268936  2.16619836 3.1  2 period::3:treat    period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -7.83144085 -10.717103 -4.94577822 3.9  1 period::4:treat    period::4:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   0.58604450  -1.094788  2.26687673 4.1  2 period::4:treat    period::4:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -6.94682382  -9.743413 -4.15023440 4.9  1 period::5:treat    period::5:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -0.34986997  -2.041759  1.34201918 5.1  2 period::5:treat    period::5:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -5.78769102  -8.436880 -3.13850247 5.9  1 period::6:treat    period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  0.03501401  -1.572512  1.64253983 6.1  2 period::6:treat    period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -2.61207298  -5.299273  0.07512704 6.9  1 period::7:treat    period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  0.40602212  -1.286949  2.09899346 7.1  2 period::7:treat    period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -3.12110155  -6.099489 -0.14271446 7.9  1 period::8:treat    period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 -0.33553387  -2.017078  1.34601057 8.1  2 period::8:treat    period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 -2.30668274  -5.067560  0.45419438 8.9  1 period::9:treat    period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.44364095  -2.153224  1.26594182 9.1  2 period::9:treat    period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -8.96224075</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -0.97891737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -8.61129823</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -0.77818826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -6.44269670</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.44863125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -7.83144085</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   0.58604450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -6.94682382</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -0.34986997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -5.78769102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  0.03501401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -2.61207298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  0.40602212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -3.12110155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 -0.33553387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 -2.30668274</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.44364095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $is_iplot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $at</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5 6 7 8 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $labels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4" "5" "6" "7" "8" "9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">plot_coef_par_trends</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data <span class="op">=</span> <span class="va">base_did</span>,</span></span>
@@ -207,76 +156,7 @@ allowing the user to visualize interaction coefficients with ease.</p>
 <span class="r-in"><span>  plot_type <span class="op">=</span> <span class="st">"coefplot"</span>,</span></span>
 <span class="r-in"><span>  combined_plot <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> The variable 'period::10:treat' has been removed because of collinearity (see $collin.var).</span>
-<span class="r-plt img"><img src="plot_coef_par_trends-2.png" alt="" width="700" height="433"></span>
-<span class="r-plt img"><img src="plot_coef_par_trends-3.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $y$prms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  estimate     ci_low     ci_high  estimate_names</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::1:treat -8.962241 -11.694837 -6.22964434 period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::2:treat -8.611298 -11.445707 -5.77688956 period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::3:treat -6.442697  -9.155983 -3.72941075 period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::4:treat -7.831441 -10.717103 -4.94577822 period::4:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::5:treat -6.946824  -9.743413 -4.15023440 period::5:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::6:treat -5.787691  -8.436880 -3.13850247 period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::7:treat -2.612073  -5.299273  0.07512704 period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::8:treat -3.121102  -6.099489 -0.14271446 period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::9:treat -2.306683  -5.067560  0.45419438 period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 estimate_names_raw id x         y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::1:treat    period::1:treat  1 1 -8.962241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::2:treat    period::2:treat  1 2 -8.611298</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::3:treat    period::3:treat  1 3 -6.442697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::4:treat    period::4:treat  1 4 -7.831441</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::5:treat    period::5:treat  1 5 -6.946824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::6:treat    period::6:treat  1 6 -5.787691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::7:treat    period::7:treat  1 7 -2.612073</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::8:treat    period::8:treat  1 8 -3.121102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::9:treat    period::9:treat  1 9 -2.306683</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $y$is_iplot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $y$at</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5 6 7 8 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $y$labels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4" "5" "6" "7" "8" "9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $x1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $x1$prms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    estimate    ci_low   ci_high  estimate_names</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::1:treat -0.97891737 -2.715250 0.7574149 period::1:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::2:treat -0.77818826 -2.574318 1.0179413 period::2:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::3:treat  0.44863125 -1.268936 2.1661984 period::3:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::4:treat  0.58604450 -1.094788 2.2668767 period::4:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::5:treat -0.34986997 -2.041759 1.3420192 period::5:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::6:treat  0.03501401 -1.572512 1.6425398 period::6:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::7:treat  0.40602212 -1.286949 2.0989935 period::7:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::8:treat -0.33553387 -2.017078 1.3460106 period::8:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::9:treat -0.44364095 -2.153224 1.2659418 period::9:treat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 estimate_names_raw id x           y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::1:treat    period::1:treat  1 1 -0.97891737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::2:treat    period::2:treat  1 2 -0.77818826</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::3:treat    period::3:treat  1 3  0.44863125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::4:treat    period::4:treat  1 4  0.58604450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::5:treat    period::5:treat  1 5 -0.34986997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::6:treat    period::6:treat  1 6  0.03501401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::7:treat    period::7:treat  1 7  0.40602212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::8:treat    period::8:treat  1 8 -0.33553387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> period::9:treat    period::9:treat  1 9 -0.44364095</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $x1$is_iplot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $x1$at</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5 6 7 8 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $x1$labels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1" "2" "3" "4" "5" "6" "7" "8" "9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

@@ -75,6 +75,7 @@ plot_par_trends <- function(data,
       ci_upper = if (display_CI) stats::confint(stats::lm(.data$value ~ 1), level = conf_level)[2] else NA,
       .groups = "drop"
     ) %>%
+    
     # Adjust bounds if needed
     dplyr::mutate(
       ci_lower = dplyr::if_else(non_negative &

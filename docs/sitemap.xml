@@ -61,10 +61,16 @@
     <loc>/reference/ama_theme.html</loc>
   </url>
   <url>
+    <loc>/reference/balance_scatter_custom.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
     <loc>/reference/plot_coef_par_trends.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_covariate_balance_pretrend.html</loc>
   </url>
   <url>
     <loc>/reference/plot_density_by_treatment.html</loc>
