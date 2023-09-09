@@ -21,6 +21,7 @@
 #' @importFrom stats as.formula
 #' @importFrom fixest feols coefplot iplot
 #' @examples
+#' \dontrun{
 #' library(fixest)
 #' data("base_did")
 #'
@@ -47,6 +48,7 @@
 #'   plot_type = "coefplot",
 #'   combined_plot = FALSE
 #' )
+#' }
 plot_coef_par_trends <- function(data, 
                                  dependent_vars, 
                                  time_var, 

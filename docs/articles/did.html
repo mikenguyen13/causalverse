@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-08-28</h4>
+            <h4 data-toc-skip class="date">2023-09-08</h4>
       
       
       <div class="hidden name"><code>did.Rmd</code></div>
@@ -168,13 +168,43 @@ data:</p>
 <span>    outcome2 <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> <span class="va">time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>    outcome3 <span class="op">=</span> <span class="fl">3</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">time</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, rate <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, </span>
 <span>    outcome4 <span class="op">=</span> <span class="va">time</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">treatment</span> <span class="op">==</span> <span class="st">"Treated"</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">2</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   entity time treatment   outcome1 outcome2 outcome3  outcome4</span></span>
+<span><span class="co">#&gt; 1      1    1   Treated -1.7558338 2.716953 3.325307 0.2908246</span></span>
+<span><span class="co">#&gt; 2      1    2   Treated -0.3461784 2.658579 6.310410 1.4738487</span></span>
+<span><span class="co">#&gt; 3      1    3   Treated  2.3530290 3.282804 3.516803 4.5091702</span></span>
+<span><span class="co">#&gt; 4      1    4   Treated  0.1005157 3.116852 6.294996 5.4503327</span></span>
+<span><span class="co">#&gt; 5      1    5   Treated  0.2211590 3.660691 2.188404 4.4828248</span></span>
+<span><span class="co">#&gt; 6      1    6   Treated  4.5324337 5.119069 9.814895 6.5192868</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      entity            time       treatment            outcome1     </span></span>
+<span><span class="co">#&gt;  Min.   :  1.00   Min.   : 1.0   Length:1000        Min.   :-4.763  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 25.75   1st Qu.: 3.0   Class :character   1st Qu.: 1.028  </span></span>
+<span><span class="co">#&gt;  Median : 50.50   Median : 5.5   Mode  :character   Median : 2.775  </span></span>
+<span><span class="co">#&gt;  Mean   : 50.50   Mean   : 5.5                      Mean   : 2.767  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 75.25   3rd Qu.: 8.0                      3rd Qu.: 4.464  </span></span>
+<span><span class="co">#&gt;  Max.   :100.00   Max.   :10.0                      Max.   : 9.427  </span></span>
+<span><span class="co">#&gt;     outcome2          outcome3         outcome4      </span></span>
+<span><span class="co">#&gt;  Min.   : 0.1916   Min.   :-7.307   Min.   :-0.8795  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 4.4147   1st Qu.: 2.945   1st Qu.: 5.0105  </span></span>
+<span><span class="co">#&gt;  Median : 5.6811   Median : 4.890   Median : 7.5927  </span></span>
+<span><span class="co">#&gt;  Mean   : 5.6349   Mean   : 4.866   Mean   : 7.5589  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 6.8154   3rd Qu.: 6.705   3rd Qu.:10.1260  </span></span>
+<span><span class="co">#&gt;  Max.   :11.0203   Max.   :20.200   Max.   :17.0101</span></span></code></pre></div>
 <p>Visualizing Trends with <code>plot_par_trends</code> Invoke the
 <code>plot_par_trends</code> function using the sample data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_par_trends.html">plot_par_trends</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">data</span>,</span>
-<span>  metrics_and_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>, outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span>, outcome3 <span class="op">=</span> <span class="st">"Outcome 3"</span>, outcome4 <span class="op">=</span> <span class="st">"Outcome 4"</span><span class="op">)</span>,</span>
+<span>  metrics_and_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>,</span>
+<span>    outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span>,</span>
+<span>    outcome3 <span class="op">=</span> <span class="st">"Outcome 3"</span>,</span>
+<span>    outcome4 <span class="op">=</span> <span class="st">"Outcome 4"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  treatment_status_var <span class="op">=</span> <span class="st">"treatment"</span>,</span>
 <span>  time_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="st">"Time"</span><span class="op">)</span>,</span>
 <span>  smoothing_method <span class="op">=</span> <span class="st">"glm"</span>,</span>
@@ -755,6 +785,288 @@ groups.</p>
 <p>In conclusion, while visualizations provide an intuitive
 understanding, statistical tests provide a more rigorous method for
 assessing balance.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="did-with-in-and-out-treatment-status">DID with in and out treatment status<a class="anchor" aria-label="anchor" href="#did-with-in-and-out-treatment-status"></a>
+</h2>
+<div class="section level3">
+<h3 id="plots">Plots<a class="anchor" aria-label="anchor" href="#plots"></a>
+</h3>
+<div class="section level4">
+<h4 id="balance-scatter">Balance Scatter<a class="anchor" aria-label="anchor" href="#balance-scatter"></a>
+</h4>
+<p>Since the <code>PanelMatch</code> package is no longer being updated
+or developed, and its <code>balance_scatter</code> function does not
+return a <code>ggplot</code> object, I have modified the code to return
+a <code>ggplot</code> object in a more flexible manner.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">PanelMatch</span><span class="op">)</span></span>
+<span><span class="co"># Maha 4-year lag, up to 5 matches</span></span>
+<span><span class="va">PM.results.maha.4lag.5m</span> <span class="op">&lt;-</span> <span class="fu">PanelMatch</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PanelMatch/man/PanelMatch.html" class="external-link">PanelMatch</a></span><span class="op">(</span></span>
+<span>   lag <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>   time.id <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>   unit.id <span class="op">=</span> <span class="st">"wbcode2"</span>,</span>
+<span>   treatment <span class="op">=</span> <span class="st">"dem"</span>,</span>
+<span>   refinement.method <span class="op">=</span> <span class="st">"mahalanobis"</span>,</span>
+<span>   data <span class="op">=</span> <span class="fu">PanelMatch</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/PanelMatch/man/dem.html" class="external-link">dem</a></span>,</span>
+<span>   match.missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>   covs.formula <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">tradewb</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>   size.match <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>   qoi <span class="op">=</span> <span class="st">"att"</span>,</span>
+<span>   outcome.var <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>   lead <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>   forbid.treatment.reversal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>   use.diagonal.variance.matrix <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Maha 4-year lag, up to 10 matches</span></span>
+<span><span class="va">PM.results.maha.4lag.10m</span> <span class="op">&lt;-</span> <span class="fu">PanelMatch</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/PanelMatch/man/PanelMatch.html" class="external-link">PanelMatch</a></span><span class="op">(</span></span>
+<span>   lag <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>   time.id <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>   unit.id <span class="op">=</span> <span class="st">"wbcode2"</span>,</span>
+<span>   treatment <span class="op">=</span> <span class="st">"dem"</span>,</span>
+<span>   refinement.method <span class="op">=</span> <span class="st">"mahalanobis"</span>,</span>
+<span>   data <span class="op">=</span> <span class="fu">PanelMatch</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/PanelMatch/man/dem.html" class="external-link">dem</a></span>,</span>
+<span>   match.missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>   covs.formula <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">tradewb</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>   size.match <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>   qoi <span class="op">=</span> <span class="st">"att"</span>,</span>
+<span>   outcome.var <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>   lead <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>   forbid.treatment.reversal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>   use.diagonal.variance.matrix <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Using the function</span></span>
+<span><span class="fu"><a href="../reference/balance_scatter_custom.html">balance_scatter_custom</a></span><span class="op">(</span></span>
+<span>   matched_set_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">PM.results.maha.4lag.5m</span><span class="op">$</span><span class="va">att</span>, <span class="va">PM.results.maha.4lag.10m</span><span class="op">$</span><span class="va">att</span><span class="op">)</span>,</span>
+<span>   set.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Maha 4 Lag 5 Matches"</span>, <span class="st">"Maha 4 Lag 10 Matches"</span><span class="op">)</span>,</span>
+<span>   data <span class="op">=</span> <span class="va">dem</span>,</span>
+<span>   dot.size <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>   covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"tradewb"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="did_files/figure-html/unnamed-chunk-15-1.png" width="700">
+When conducting research using matching methods for causal inference
+with time-series cross-sectional data (as with the PanelMatch package),
+it’s essential to evaluate the robustness of different matching or
+weighting methods. This assessment allows researchers to gauge the
+improvement in covariate balance resulting from the refinement of the
+matched set. Testing the robustness ensures that the findings are not an
+artifact of a specific matching method but are consistent across
+different approaches. In essence, a robust result gives more confidence
+in the causal relationships identified. Below is a quick guide on how to
+proceed:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">PanelMatch</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">runPanelMatch</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">method</span>, <span class="va">lag</span>, <span class="va">size.match</span><span class="op">=</span><span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="co"># Default parameters for PanelMatch</span></span>
+<span>    <span class="va">common.args</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        lag <span class="op">=</span> <span class="va">lag</span>,</span>
+<span>        time.id <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>        unit.id <span class="op">=</span> <span class="st">"wbcode2"</span>,</span>
+<span>        treatment <span class="op">=</span> <span class="st">"dem"</span>,</span>
+<span>        data <span class="op">=</span> <span class="va">dem</span>,</span>
+<span>        covs.formula <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">tradewb</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        qoi <span class="op">=</span> <span class="st">"att"</span>,</span>
+<span>        outcome.var <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>        lead <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>        forbid.treatment.reversal <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>        size.match <span class="op">=</span> <span class="va">size.match</span>  <span class="co"># setting size.match here for all methods</span></span>
+<span>    <span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="kw">if</span><span class="op">(</span><span class="va">method</span> <span class="op">==</span> <span class="st">"mahalanobis"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">refinement.method</span> <span class="op">&lt;-</span> <span class="st">"mahalanobis"</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">match.missing</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">use.diagonal.variance.matrix</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="va">method</span> <span class="op">==</span> <span class="st">"ps.match"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">refinement.method</span> <span class="op">&lt;-</span> <span class="st">"ps.match"</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">match.missing</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">listwise.delete</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="va">method</span> <span class="op">==</span> <span class="st">"ps.weight"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">refinement.method</span> <span class="op">&lt;-</span> <span class="st">"ps.weight"</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">match.missing</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span>        <span class="va">common.args</span><span class="op">$</span><span class="va">listwise.delete</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">}</span></span>
+<span>    </span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">PanelMatch</span>, <span class="va">common.args</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mahalanobis"</span>, <span class="st">"ps.match"</span>, <span class="st">"ps.weight"</span><span class="op">)</span></span>
+<span><span class="va">lags</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res_pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">method</span> <span class="kw">in</span> <span class="va">methods</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">for</span><span class="op">(</span><span class="va">lag</span> <span class="kw">in</span> <span class="va">lags</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw">for</span><span class="op">(</span><span class="va">size</span> <span class="kw">in</span> <span class="va">sizes</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">method</span>, <span class="st">"."</span>, <span class="va">lag</span>, <span class="st">"lag."</span>, <span class="va">size</span>, <span class="st">"m"</span><span class="op">)</span></span>
+<span>            <span class="va">res_pm</span><span class="op">[[</span><span class="va">name</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">runPanelMatch</span><span class="op">(</span><span class="va">method</span>, <span class="va">lag</span>, <span class="va">size</span><span class="op">)</span></span>
+<span>        <span class="op">}</span></span>
+<span>    <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Now, you can access res_pm using res_pm[["mahalanobis.1lag.5m"]] etc.</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Updated plotting function</span></span>
+<span><span class="va">create_balance_plot</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">method</span>, <span class="va">lag</span>, <span class="va">sizes</span>, <span class="va">res_pm</span>, <span class="va">dem</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">matched_set_lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">sizes</span>, <span class="kw">function</span><span class="op">(</span><span class="va">size</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">res_pm</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">method</span>, <span class="st">"."</span>, <span class="va">lag</span>, <span class="st">"lag."</span>, <span class="va">size</span>, <span class="st">"m"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">att</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span>    </span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/balance_scatter_custom.html">balance_scatter_custom</a></span><span class="op">(</span></span>
+<span>        matched_set_list <span class="op">=</span> <span class="va">matched_set_lists</span>,</span>
+<span>        legend.title <span class="op">=</span> <span class="st">"Possible Matches"</span>,</span>
+<span>        set.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">sizes</span><span class="op">)</span>,</span>
+<span>        legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.2</span>,<span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        <span class="co"># for compiled plot, you don't need x,y, or main labs</span></span>
+<span>        x.axis.label <span class="op">=</span> <span class="st">""</span>,</span>
+<span>        y.axis.label <span class="op">=</span> <span class="st">""</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">""</span>,</span>
+<span>        data <span class="op">=</span> <span class="va">dem</span>,</span>
+<span>        dot.size <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>        <span class="co"># show.legend = F,</span></span>
+<span>        them_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">32</span><span class="op">)</span>,</span>
+<span>        covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"tradewb"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">method</span> <span class="kw">in</span> <span class="va">methods</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">lag</span> <span class="kw">in</span> <span class="va">lags</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">plots</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">method</span>, <span class="st">"."</span>, <span class="va">lag</span>, <span class="st">"lag"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
+<span>      <span class="fu">create_balance_plot</span><span class="op">(</span><span class="va">method</span>, <span class="va">lag</span>, <span class="va">sizes</span>, <span class="va">res_pm</span>, <span class="va">dem</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># # Arranging plots in a 3x2 grid</span></span>
+<span><span class="co"># grid.arrange(plots[["mahalanobis.1lag"]],</span></span>
+<span><span class="co">#              plots[["mahalanobis.4lag"]],</span></span>
+<span><span class="co">#              plots[["ps.match.1lag"]],</span></span>
+<span><span class="co">#              plots[["ps.match.4lag"]],</span></span>
+<span><span class="co">#              plots[["ps.weight.1lag"]],</span></span>
+<span><span class="co">#              plots[["ps.weight.4lag"]],</span></span>
+<span><span class="co">#              ncol=2, nrow=3)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Standardized Mean Difference of Covariates</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create column and row labels using textGrob</span></span>
+<span><span class="va">col_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1-year Lag"</span>, <span class="st">"4-year Lag"</span><span class="op">)</span></span>
+<span><span class="va">row_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Maha Matching"</span>, <span class="st">"PS Matching"</span>, <span class="st">"PS Weigthing"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">major.axes.fontsize</span> <span class="op">=</span> <span class="fl">40</span></span>
+<span><span class="va">minor.axes.fontsize</span> <span class="op">=</span> <span class="fl">30</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span>, <span class="st">"balance_scatter.png"</span><span class="op">)</span>, width<span class="op">=</span><span class="fl">1200</span>, height<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="co"># Create a list-of-lists, where each inner list represents a row</span></span>
+<span><span class="va">grid_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.null.html" class="external-link">nullGrob</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># "Flatten" the list-of-lists into a single list of grobs</span></span>
+<span><span class="va">grobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">c</span>, <span class="va">grid_list</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span></span>
+<span>  grobs <span class="op">=</span> <span class="va">grobs</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  widths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.42</span>, <span class="fl">0.42</span><span class="op">)</span>,</span>
+<span>  heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.15</span>, <span class="fl">0.28</span>, <span class="fl">0.28</span>, <span class="fl">0.28</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">grid.text</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Before Refinement"</span>,</span>
+<span>  x <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  y <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>  gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">major.axes.fontsize</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">grid.text</a></span><span class="op">(</span></span>
+<span>  <span class="st">"After Refinement"</span>,</span>
+<span>  x <span class="op">=</span> <span class="fl">0.03</span>,</span>
+<span>  y <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  rot <span class="op">=</span> <span class="fl">90</span>,</span>
+<span>  gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">major.axes.fontsize</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; agg_png </span></span>
+<span><span class="co">#&gt;       2</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span>, <span class="st">"balance_scatter.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="export/balance_scatter.png" width="100%"></p>
+</div>
+<div class="section level4">
+<h4 id="balance-trends-over-pre-treatment-periods">Balance Trends over Pre-treatment Periods<a class="anchor" aria-label="anchor" href="#balance-trends-over-pre-treatment-periods"></a>
+</h4>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">PM.results.ps.weight</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/PanelMatch/man/PanelMatch.html" class="external-link">PanelMatch</a></span><span class="op">(</span></span>
+<span>        lag <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>        time.id <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>        unit.id <span class="op">=</span> <span class="st">"wbcode2"</span>,</span>
+<span>        treatment <span class="op">=</span> <span class="st">"dem"</span>,</span>
+<span>        refinement.method <span class="op">=</span> <span class="st">"ps.weight"</span>,</span>
+<span>        data <span class="op">=</span> <span class="va">dem</span>,</span>
+<span>        match.missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>        listwise.delete <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        covs.formula <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">tradewb</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/lead-lag.html" class="external-link">lag</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        size.match <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>        qoi <span class="op">=</span> <span class="st">"att"</span>,</span>
+<span>        outcome.var <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>        lead <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>        forbid.treatment.reversal <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PanelMatch/man/get_covariate_balance.html" class="external-link">get_covariate_balance</a></span><span class="op">(</span></span>
+<span>    <span class="va">PM.results.ps.weight</span><span class="op">$</span><span class="va">att</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">dem</span>,</span>
+<span>    covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tradewb"</span>, <span class="st">"y"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/plot_covariate_balance_pretrend.html">plot_covariate_balance_pretrend</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<p><img src="did_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="additional-analyses">Additional Analyses<a class="anchor" aria-label="anchor" href="#additional-analyses"></a>
+</h2>
+<div class="section level3">
+<h3 id="did-plot">DID Plot<a class="anchor" aria-label="anchor" href="#did-plot"></a>
+</h3>
+<p>The most illuminating visual representation in DID analysis features
+a plot that contrasts ‘before’ and ‘after’ scenarios for both the
+treatment and control groups. In this graph, time serves as the variable
+on the x-axis, separating the data into ‘before’ and ‘after’ periods.
+The variable determining the group—whether treated or control—is
+utilized as the categorizing factor. Meanwhile, the y-axis displays the
+estimated values of the dependent variable under study.</p>
 </div>
 </div>
   </div>

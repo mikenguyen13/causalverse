@@ -76,6 +76,10 @@ data <- expand.grid(entity = 1:100, time = 1:10) %>%
     outcome3 = 3 + 0.5 * time * rnorm(n(), 0, 1) + rexp(n(), rate = 1) + ifelse(treatment == "Treated", 0, 2), 
     outcome4 = time + rnorm(n(), 0, 1) + ifelse(treatment == "Treated", 0, 2) * 2
   )
+
+head(data)
+
+summary(data)
 ```
 
 Visualizing Trends with `plot_par_trends` Invoke the `plot_par_trends` function using the sample data:
@@ -83,7 +87,12 @@ Visualizing Trends with `plot_par_trends` Invoke the `plot_par_trends` function 
 ```{r}
 results <- plot_par_trends(
   data = data,
-  metrics_and_names = list(outcome1 = "Outcome 1", outcome2 = "Outcome 2", outcome3 = "Outcome 3", outcome4 = "Outcome 4"),
+  metrics_and_names = list(
+    outcome1 = "Outcome 1",
+    outcome2 = "Outcome 2",
+    outcome3 = "Outcome 3",
+    outcome4 = "Outcome 4"
+  ),
   treatment_status_var = "treatment",
   time_var = list(time = "Time"),
   smoothing_method = "glm",
@@ -405,3 +414,278 @@ t.test(mpg ~ treatment, data = matched_data)
 ```
 
 In conclusion, while visualizations provide an intuitive understanding, statistical tests provide a more rigorous method for assessing balance.
+
+# DID with in and out treatment status
+
+
+## Plots
+
+### Balance Scatter
+
+Since the `PanelMatch` package is no longer being updated or developed, and its `balance_scatter` function does not return a `ggplot` object, I have modified the code to return a `ggplot` object in a more flexible manner.
+
+```{r}
+library(PanelMatch)
+# Maha 4-year lag, up to 5 matches
+PM.results.maha.4lag.5m <- PanelMatch::PanelMatch(
+   lag = 4,
+   time.id = "year",
+   unit.id = "wbcode2",
+   treatment = "dem",
+   refinement.method = "mahalanobis",
+   data = PanelMatch::dem,
+   match.missing = TRUE,
+   covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+   size.match = 5,
+   qoi = "att",
+   outcome.var = "y",
+   lead = 0:4,
+   forbid.treatment.reversal = FALSE,
+   use.diagonal.variance.matrix = TRUE
+)
+
+# Maha 4-year lag, up to 10 matches
+PM.results.maha.4lag.10m <- PanelMatch::PanelMatch(
+   lag = 4,
+   time.id = "year",
+   unit.id = "wbcode2",
+   treatment = "dem",
+   refinement.method = "mahalanobis",
+   data = PanelMatch::dem,
+   match.missing = TRUE,
+   covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+   size.match = 10,
+   qoi = "att",
+   outcome.var = "y",
+   lead = 0:4,
+   forbid.treatment.reversal = FALSE,
+   use.diagonal.variance.matrix = TRUE
+)
+
+# Using the function
+balance_scatter_custom(
+   matched_set_list = list(PM.results.maha.4lag.5m$att, PM.results.maha.4lag.10m$att),
+   set.names = c("Maha 4 Lag 5 Matches", "Maha 4 Lag 10 Matches"),
+   data = dem,
+   dot.size = 5,
+   covariates = c("y", "tradewb")
+)
+```
+When conducting research using matching methods for causal inference with time-series cross-sectional data (as with the PanelMatch package), it's essential to evaluate the robustness of different matching or weighting methods. This assessment allows researchers to gauge the improvement in covariate balance resulting from the refinement of the matched set. Testing the robustness ensures that the findings are not an artifact of a specific matching method but are consistent across different approaches. In essence, a robust result gives more confidence in the causal relationships identified. Below is a quick guide on how to proceed:
+
+```{r}
+library(PanelMatch)
+
+runPanelMatch <- function(method, lag, size.match=NULL) {
+    
+    # Default parameters for PanelMatch
+    common.args <- list(
+        lag = lag,
+        time.id = "year",
+        unit.id = "wbcode2",
+        treatment = "dem",
+        data = dem,
+        covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+        qoi = "att",
+        outcome.var = "y",
+        lead = 0:4,
+        forbid.treatment.reversal = FALSE,
+        size.match = size.match  # setting size.match here for all methods
+    )
+    
+    if(method == "mahalanobis") {
+        common.args$refinement.method <- "mahalanobis"
+        common.args$match.missing <- TRUE
+        common.args$use.diagonal.variance.matrix <- TRUE
+    } else if(method == "ps.match") {
+        common.args$refinement.method <- "ps.match"
+        common.args$match.missing <- FALSE
+        common.args$listwise.delete <- TRUE
+    } else if(method == "ps.weight") {
+        common.args$refinement.method <- "ps.weight"
+        common.args$match.missing <- FALSE
+        common.args$listwise.delete <- TRUE
+    }
+    
+    return(do.call(PanelMatch, common.args))
+}
+
+methods <- c("mahalanobis", "ps.match", "ps.weight")
+lags <- c(1, 4)
+sizes <- c(5, 10)
+
+res_pm <- list()
+
+for(method in methods) {
+    for(lag in lags) {
+        for(size in sizes) {
+            name <- paste0(method, ".", lag, "lag.", size, "m")
+            res_pm[[name]] <- runPanelMatch(method, lag, size)
+        }
+    }
+}
+```
+
+```{r}
+# Now, you can access res_pm using res_pm[["mahalanobis.1lag.5m"]] etc.
+
+library(gridExtra)
+
+# Updated plotting function
+create_balance_plot <- function(method, lag, sizes, res_pm, dem) {
+    matched_set_lists <- lapply(sizes, function(size) {
+        res_pm[[paste0(method, ".", lag, "lag.", size, "m")]]$att
+    })
+    
+    return(balance_scatter_custom(
+        matched_set_list = matched_set_lists,
+        legend.title = "Possible Matches",
+        set.names = as.character(sizes),
+        legend.position = c(0.2,0.8),
+        
+        # for compiled plot, you don't need x,y, or main labs
+        x.axis.label = "",
+        y.axis.label = "",
+        main = "",
+        data = dem,
+        dot.size = 5,
+        # show.legend = F,
+        them_use = causalverse::ama_theme(base_size = 32),
+        covariates = c("y", "tradewb")
+    ))
+}
+
+plots <- list()
+
+for (method in methods) {
+  for (lag in lags) {
+    plots[[paste0(method, ".", lag, "lag")]] <-
+      create_balance_plot(method, lag, sizes, res_pm, dem)
+  }
+}
+
+# # Arranging plots in a 3x2 grid
+# grid.arrange(plots[["mahalanobis.1lag"]],
+#              plots[["mahalanobis.4lag"]],
+#              plots[["ps.match.1lag"]],
+#              plots[["ps.match.4lag"]],
+#              plots[["ps.weight.1lag"]],
+#              plots[["ps.weight.4lag"]],
+#              ncol=2, nrow=3)
+
+
+# Standardized Mean Difference of Covariates
+library(gridExtra)
+library(grid)
+
+# Create column and row labels using textGrob
+col_labels <- c("1-year Lag", "4-year Lag")
+row_labels <- c("Maha Matching", "PS Matching", "PS Weigthing")
+
+major.axes.fontsize = 40
+minor.axes.fontsize = 30
+
+png(file.path(getwd(), "export", "balance_scatter.png"), width=1200, height=1000)
+# Create a list-of-lists, where each inner list represents a row
+grid_list <- list(
+    list(
+        nullGrob(),
+        textGrob(col_labels[1], gp = gpar(fontsize = minor.axes.fontsize)),
+        textGrob(col_labels[2], gp = gpar(fontsize = minor.axes.fontsize))
+    ),
+    
+    list(textGrob(
+        row_labels[1], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
+    ), plots[["mahalanobis.1lag"]], plots[["mahalanobis.4lag"]]),
+    
+    list(textGrob(
+        row_labels[2], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
+    ), plots[["ps.match.1lag"]], plots[["ps.match.4lag"]]),
+    
+    list(textGrob(
+        row_labels[3], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
+    ), plots[["ps.weight.1lag"]], plots[["ps.weight.4lag"]])
+)
+
+# "Flatten" the list-of-lists into a single list of grobs
+grobs <- do.call(c, grid_list)
+
+grid.arrange(
+  grobs = grobs,
+  ncol = 3,
+  nrow = 4,
+  widths = c(0.15, 0.42, 0.42),
+  heights = c(0.15, 0.28, 0.28, 0.28)
+)
+
+grid.text(
+  "Before Refinement",
+  x = 0.5,
+  y = 0.03,
+  gp = gpar(fontsize = major.axes.fontsize)
+)
+grid.text(
+  "After Refinement",
+  x = 0.03,
+  y = 0.5,
+  rot = 90,
+  gp = gpar(fontsize = major.axes.fontsize)
+)
+dev.off()
+```
+
+```{r, out.width='100%'}
+library(knitr)
+include_graphics(file.path(getwd(), "export", "balance_scatter.png"))
+```
+
+
+### Balance Trends over Pre-treatment Periods
+
+In the original `PanelMatch` package, the function `get_covariate_balance` does not return a `ggplot` object. Therefore, it is necessary to construct our own visualization. However, one can utilize the output dataset from `get_covariate_balance` for this purpose. 
+
+```{r}
+PM.results.ps.weight <-
+    PanelMatch(
+        lag = 4,
+        time.id = "year",
+        unit.id = "wbcode2",
+        treatment = "dem",
+        refinement.method = "ps.weight",
+        data = dem,
+        match.missing = FALSE,
+        listwise.delete = TRUE,
+        covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+        size.match = 5,
+        qoi = "att",
+        outcome.var = "y",
+        lead = 0:4,
+        forbid.treatment.reversal = FALSE
+    )
+
+df <- get_covariate_balance(
+    PM.results.ps.weight$att,
+    data = dem,
+    covariates = c("tradewb", "y")
+)
+
+plot_covariate_balance_pretrend(df)
+```
+
+We must also examine multiple matching and refining methods to ensure that we have robust evidence for covariate balance over the pre-treatment time period.
+
+```{r}
+
+```
+
+
+
+# Additional Analyses
+
+## DID Plot
+
+The most illuminating visual representation in DID analysis features a plot that contrasts 'before' and 'after' scenarios for both the treatment and control groups. In this graph, time serves as the variable on the x-axis, separating the data into 'before' and 'after' periods. The variable determining the group---whether treated or control---is utilized as the categorizing factor. Meanwhile, the y-axis displays the estimated values of the dependent variable under study.
+
+```{r}
+
+```

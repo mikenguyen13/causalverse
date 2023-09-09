@@ -49,6 +49,7 @@ This function generates coefplots or iplots based on fixest outputs,
 allowing the user to visualize interaction coefficients with ease.
 }
 \examples{
+\dontrun{
 library(fixest)
 data("base_did")
 
@@ -75,4 +76,5 @@ plot_coef_par_trends(
   plot_type = "coefplot",
   combined_plot = FALSE
 )
+}
 }
