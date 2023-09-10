@@ -82,9 +82,15 @@ plot_treat_time <- function(data,
   outliers_detected <- detect_outliers(agg_data$units_sum, outlier_method)
   
   # Categorize points as regular or outlier
-  agg_data$point_type <- ifelse(agg_data$units_sum %in% outliers_detected, legend_labels[2], legend_labels[1])
-  agg_data$point_size <- ifelse(agg_data$units_sum %in% outliers_detected, outlier_size, regular_size)
-  agg_data$outliers <- ifelse(agg_data$units_sum %in% outliers_detected, 1, 0) # New column
+  # agg_data$point_type <- ifelse(agg_data$units_sum %in% outliers_detected, legend_labels[2], legend_labels[1])
+  # agg_data$point_size <- ifelse(agg_data$units_sum %in% outliers_detected, outlier_size, regular_size)
+  # agg_data$outliers <- ifelse(agg_data$units_sum %in% outliers_detected, 1, 0) # New column
+  agg_data <- agg_data %>%
+    dplyr::mutate(
+      point_type = ifelse(units_sum %in% outliers_detected, legend_labels[2], legend_labels[1]),
+      point_size = ifelse(units_sum %in% outliers_detected, outlier_size, regular_size),
+      outliers = ifelse(units_sum %in% outliers_detected, 1, 0)
+    )
   
   # If the output is a dataframe, sort, select the necessary columns and return it
   if(output == "dataframe") {
