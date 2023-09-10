@@ -471,6 +471,9 @@ balance_scatter_custom(
    covariates = c("y", "tradewb")
 )
 ```
+
+
+
 When conducting research using matching methods for causal inference with time-series cross-sectional data (as with the PanelMatch package), it's essential to evaluate the robustness of different matching or weighting methods. This assessment allows researchers to gauge the improvement in covariate balance resulting from the refinement of the matched set. Testing the robustness ensures that the findings are not an artifact of a specific matching method but are consistent across different approaches. In essence, a robust result gives more confidence in the causal relationships identified. Below is a quick guide on how to proceed:
 
 ```{r}
@@ -550,7 +553,11 @@ create_balance_plot <- function(method, lag, sizes, res_pm, dem) {
         data = dem,
         dot.size = 5,
         # show.legend = F,
-        them_use = causalverse::ama_theme(base_size = 32),
+        them_use = causalverse::ama_theme(
+          base_size = 32,
+          legend_title_size = 12,
+          legend_text_size = 12
+        ), 
         covariates = c("y", "tradewb")
     ))
 }
@@ -574,6 +581,7 @@ for (method in methods) {
 #              ncol=2, nrow=3)
 
 
+
 # Standardized Mean Difference of Covariates
 library(gridExtra)
 library(grid)
@@ -582,29 +590,44 @@ library(grid)
 col_labels <- c("1-year Lag", "4-year Lag")
 row_labels <- c("Maha Matching", "PS Matching", "PS Weigthing")
 
-major.axes.fontsize = 40
-minor.axes.fontsize = 30
+major.axes.fontsize = 20
+minor.axes.fontsize = 16
+```
 
-png(file.path(getwd(), "export", "balance_scatter.png"), width=1200, height=1000)
+To export
+
+```{r, eval = FALSE}
+
+png(
+  file.path(getwd(), "export", "balance_scatter.png"),
+  width = 1200,
+  height = 1000
+)
 # Create a list-of-lists, where each inner list represents a row
 grid_list <- list(
-    list(
-        nullGrob(),
-        textGrob(col_labels[1], gp = gpar(fontsize = minor.axes.fontsize)),
-        textGrob(col_labels[2], gp = gpar(fontsize = minor.axes.fontsize))
-    ),
-    
-    list(textGrob(
-        row_labels[1], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
-    ), plots[["mahalanobis.1lag"]], plots[["mahalanobis.4lag"]]),
-    
-    list(textGrob(
-        row_labels[2], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
-    ), plots[["ps.match.1lag"]], plots[["ps.match.4lag"]]),
-    
-    list(textGrob(
-        row_labels[3], gp = gpar(fontsize = minor.axes.fontsize), rot = 90
-    ), plots[["ps.weight.1lag"]], plots[["ps.weight.4lag"]])
+  list(
+    nullGrob(),
+    textGrob(col_labels[1], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[2], gp = gpar(fontsize = minor.axes.fontsize))
+  ),
+  
+  list(textGrob(
+    row_labels[1],
+    gp = gpar(fontsize = minor.axes.fontsize),
+    rot = 90
+  ), plots[["mahalanobis.1lag"]], plots[["mahalanobis.4lag"]]),
+  
+  list(textGrob(
+    row_labels[2],
+    gp = gpar(fontsize = minor.axes.fontsize),
+    rot = 90
+  ), plots[["ps.match.1lag"]], plots[["ps.match.4lag"]]),
+  
+  list(textGrob(
+    row_labels[3],
+    gp = gpar(fontsize = minor.axes.fontsize),
+    rot = 90
+  ), plots[["ps.weight.1lag"]], plots[["ps.weight.4lag"]])
 )
 
 # "Flatten" the list-of-lists into a single list of grobs
@@ -634,11 +657,12 @@ grid.text(
 dev.off()
 ```
 
-```{r, out.width='100%'}
+```{r, out.width='100%', eval = FALSE}
 library(knitr)
 include_graphics(file.path(getwd(), "export", "balance_scatter.png"))
 ```
 
+I do not include it in this vignette due to display issues, but the code can be easily replicated.
 
 ### Balance Trends over Pre-treatment Periods
 
