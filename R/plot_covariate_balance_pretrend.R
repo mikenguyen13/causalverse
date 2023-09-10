@@ -31,6 +31,11 @@ plot_covariate_balance_pretrend <- function(balance_data,
                                             legend_title = "Covariate",
                                             show_legend = TRUE,
                                             ...) {
+  
+  # Addresses the R CMD CHECK notes
+  Time <- Balance <- Covariate <- NULL
+  
+  
   # Ensure the input is a matrix
   if (!is.matrix(balance_data)) {
     stop("Input should be a matrix")

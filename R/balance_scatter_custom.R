@@ -85,6 +85,7 @@ balance_scatter_custom <- function(matched_set_list,
                                    y.axis.label = "After Refinement",
                                    theme_use = causalverse::ama_theme(),
                                    ...) {
+  
   if (length(matched_set_list) < 1)
     stop("Please provide at least one matched.set object")
   
@@ -127,7 +128,7 @@ balance_scatter_custom <- function(matched_set_list,
   ) 
   refined_balance_df$set.name <- as.factor(refined_balance_df$set.name)
   
-  gg <- ggplot(refined_balance_df, aes(x = abs(benchmark), y = abs(compared), shape = set.name)) +
+  gg <- ggplot(refined_balance_df, aes(x = abs(benchmark), y = abs(compared), shape = .data$set.name)) +
     geom_point(size = dot.size) +
     scale_shape_manual(values = pchs, name = legend.title) +
     scale_x_continuous(limits = xlim) +
