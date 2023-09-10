@@ -82,7 +82,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-09-09</h4>
+            <h4 data-toc-skip class="date">2023-09-10</h4>
       
       
       <div class="hidden name"><code>did.Rmd</code></div>
@@ -171,29 +171,29 @@ data:</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   entity time treatment   outcome1 outcome2  outcome3 outcome4</span></span>
-<span><span class="co">#&gt; 1      1    1   Treated -0.3344541 1.737494 4.5135872 1.438908</span></span>
-<span><span class="co">#&gt; 2      1    2   Treated -3.8741183 4.692670 3.0924516 1.667047</span></span>
-<span><span class="co">#&gt; 3      1    3   Treated  0.6800051 4.657175 4.1353910 2.656605</span></span>
-<span><span class="co">#&gt; 4      1    4   Treated  1.9787082 4.879680 4.5476948 3.525046</span></span>
-<span><span class="co">#&gt; 5      1    5   Treated  2.3401572 5.239844 2.7093048 6.511383</span></span>
-<span><span class="co">#&gt; 6      1    6   Treated  1.8124029 5.461639 0.6330469 4.910764</span></span>
+<span><span class="co">#&gt;   entity time treatment  outcome1 outcome2  outcome3  outcome4</span></span>
+<span><span class="co">#&gt; 1      1    1   Treated 3.6352573 3.482048 3.4757561 0.1646403</span></span>
+<span><span class="co">#&gt; 2      1    2   Treated 0.4995064 3.187221 4.0530021 2.6297142</span></span>
+<span><span class="co">#&gt; 3      1    3   Treated 4.3323535 2.747813 2.8851025 2.9629997</span></span>
+<span><span class="co">#&gt; 4      1    4   Treated 1.8907168 5.190757 4.4144150 3.8252349</span></span>
+<span><span class="co">#&gt; 5      1    5   Treated 1.3009605 3.933839 5.3871028 4.8983901</span></span>
+<span><span class="co">#&gt; 6      1    6   Treated 4.3343637 4.702404 0.3267027 6.6972961</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      entity            time       treatment            outcome1     </span></span>
-<span><span class="co">#&gt;  Min.   :  1.00   Min.   : 1.0   Length:1000        Min.   :-4.592  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 25.75   1st Qu.: 3.0   Class :character   1st Qu.: 1.228  </span></span>
-<span><span class="co">#&gt;  Median : 50.50   Median : 5.5   Mode  :character   Median : 2.849  </span></span>
-<span><span class="co">#&gt;  Mean   : 50.50   Mean   : 5.5                      Mean   : 2.825  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 75.25   3rd Qu.: 8.0                      3rd Qu.: 4.565  </span></span>
-<span><span class="co">#&gt;  Max.   :100.00   Max.   :10.0                      Max.   :10.348  </span></span>
-<span><span class="co">#&gt;     outcome2          outcome3         outcome4      </span></span>
-<span><span class="co">#&gt;  Min.   : 0.9925   Min.   :-6.051   Min.   :-0.4759  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 4.3596   1st Qu.: 3.227   1st Qu.: 4.8709  </span></span>
-<span><span class="co">#&gt;  Median : 5.5039   Median : 5.089   Median : 7.4865  </span></span>
-<span><span class="co">#&gt;  Mean   : 5.5574   Mean   : 5.106   Mean   : 7.5048  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 6.6930   3rd Qu.: 6.945   3rd Qu.: 9.9538  </span></span>
-<span><span class="co">#&gt;  Max.   :10.1195   Max.   :16.032   Max.   :16.5201</span></span></code></pre></div>
+<span><span class="co">#&gt;  Min.   :  1.00   Min.   : 1.0   Length:1000        Min.   :-5.008  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 25.75   1st Qu.: 3.0   Class :character   1st Qu.: 1.136  </span></span>
+<span><span class="co">#&gt;  Median : 50.50   Median : 5.5   Mode  :character   Median : 2.707  </span></span>
+<span><span class="co">#&gt;  Mean   : 50.50   Mean   : 5.5                      Mean   : 2.746  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 75.25   3rd Qu.: 8.0                      3rd Qu.: 4.335  </span></span>
+<span><span class="co">#&gt;  Max.   :100.00   Max.   :10.0                      Max.   :11.201  </span></span>
+<span><span class="co">#&gt;     outcome2         outcome3         outcome4      </span></span>
+<span><span class="co">#&gt;  Min.   : 1.001   Min.   :-9.227   Min.   :-0.6093  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 4.481   1st Qu.: 3.065   1st Qu.: 4.8870  </span></span>
+<span><span class="co">#&gt;  Median : 5.707   Median : 5.112   Median : 7.4463  </span></span>
+<span><span class="co">#&gt;  Mean   : 5.669   Mean   : 5.085   Mean   : 7.5141  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 6.791   3rd Qu.: 7.035   3rd Qu.:10.0801  </span></span>
+<span><span class="co">#&gt;  Max.   :10.538   Max.   :20.094   Max.   :16.6317</span></span></code></pre></div>
 <p>Visualizing Trends with <code>plot_par_trends</code> Invoke the
 <code>plot_par_trends</code> function using the sample data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -932,7 +932,11 @@ proceed:</p>
 <span>        data <span class="op">=</span> <span class="va">dem</span>,</span>
 <span>        dot.size <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>        <span class="co"># show.legend = F,</span></span>
-<span>        them_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">32</span><span class="op">)</span>,</span>
+<span>        them_use <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span></span>
+<span>          base_size <span class="op">=</span> <span class="fl">32</span>,</span>
+<span>          legend_title_size <span class="op">=</span> <span class="fl">12</span>,</span>
+<span>          legend_text_size <span class="op">=</span> <span class="fl">12</span></span>
+<span>        <span class="op">)</span>, </span>
 <span>        covariates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"tradewb"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -956,6 +960,7 @@ proceed:</p>
 <span><span class="co">#              ncol=2, nrow=3)</span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># Standardized Mean Difference of Covariates</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span>
@@ -964,29 +969,41 @@ proceed:</p>
 <span><span class="va">col_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1-year Lag"</span>, <span class="st">"4-year Lag"</span><span class="op">)</span></span>
 <span><span class="va">row_labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Maha Matching"</span>, <span class="st">"PS Matching"</span>, <span class="st">"PS Weigthing"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">major.axes.fontsize</span> <span class="op">=</span> <span class="fl">40</span></span>
-<span><span class="va">minor.axes.fontsize</span> <span class="op">=</span> <span class="fl">30</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span>, <span class="st">"balance_scatter.png"</span><span class="op">)</span>, width<span class="op">=</span><span class="fl">1200</span>, height<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">major.axes.fontsize</span> <span class="op">=</span> <span class="fl">20</span></span>
+<span><span class="va">minor.axes.fontsize</span> <span class="op">=</span> <span class="fl">16</span></span></code></pre></div>
+<p>To export</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span>, <span class="st">"balance_scatter.png"</span><span class="op">)</span>,</span>
+<span>  width <span class="op">=</span> <span class="fl">1200</span>,</span>
+<span>  height <span class="op">=</span> <span class="fl">1000</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># Create a list-of-lists, where each inner list represents a row</span></span>
 <span><span class="va">grid_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.null.html" class="external-link">nullGrob</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
-<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
-<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
-<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
-<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>    </span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
-<span>        <span class="va">row_labels</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>, rot <span class="op">=</span> <span class="fl">90</span></span>
-<span>    <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.null.html" class="external-link">nullGrob</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span><span class="va">col_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>    <span class="va">row_labels</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>,</span>
+<span>    rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>  <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"mahalanobis.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>    <span class="va">row_labels</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>    gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>,</span>
+<span>    rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>  <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.match.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">textGrob</a></span><span class="op">(</span></span>
+<span>    <span class="va">row_labels</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
+<span>    gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">minor.axes.fontsize</span><span class="op">)</span>,</span>
+<span>    rot <span class="op">=</span> <span class="fl">90</span></span>
+<span>  <span class="op">)</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.1lag"</span><span class="op">]</span><span class="op">]</span>, <span class="va">plots</span><span class="op">[[</span><span class="st">"ps.weight.4lag"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># "Flatten" the list-of-lists into a single list of grobs</span></span>
@@ -1013,13 +1030,12 @@ proceed:</p>
 <span>  rot <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>  gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="va">major.axes.fontsize</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; agg_png </span></span>
-<span><span class="co">#&gt;       2</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html" class="external-link">dev.off</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span>, <span class="st">"balance_scatter.png"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="export/balance_scatter.png" width="100%"></p>
+<p>I do not include it in this vignette due to display issues, but the
+code can be easily replicated.</p>
 </div>
 <div class="section level4">
 <h4 id="balance-trends-over-pre-treatment-periods">Balance Trends over Pre-treatment Periods<a class="anchor" aria-label="anchor" href="#balance-trends-over-pre-treatment-periods"></a>
@@ -1029,7 +1045,7 @@ proceed:</p>
 object. Therefore, it is necessary to construct our own visualization.
 However, one can utilize the output dataset from
 <code>get_covariate_balance</code> for this purpose.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PM.results.ps.weight</span> <span class="op">&lt;-</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/PanelMatch/man/PanelMatch.html" class="external-link">PanelMatch</a></span><span class="op">(</span></span>
 <span>        lag <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -1055,7 +1071,7 @@ However, one can utilize the output dataset from
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot_covariate_balance_pretrend.html">plot_covariate_balance_pretrend</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<p><img src="did_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="did_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>We must also examine multiple matching and refining methods to ensure
 that we have robust evidence for covariate balance over the
 pre-treatment time period.</p>

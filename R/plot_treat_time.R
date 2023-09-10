@@ -85,12 +85,19 @@ plot_treat_time <- function(data,
   # agg_data$point_type <- ifelse(agg_data$units_sum %in% outliers_detected, legend_labels[2], legend_labels[1])
   # agg_data$point_size <- ifelse(agg_data$units_sum %in% outliers_detected, outlier_size, regular_size)
   # agg_data$outliers <- ifelse(agg_data$units_sum %in% outliers_detected, 1, 0) # New column
+  # agg_data <- agg_data %>%
+  #   dplyr::mutate(
+  #     point_type = ifelse(units_sum %in% outliers_detected, legend_labels[2], legend_labels[1]),
+  #     point_size = ifelse(units_sum %in% outliers_detected, outlier_size, regular_size),
+  #     outliers = ifelse(units_sum %in% outliers_detected, 1, 0)
+  #   )
   agg_data <- agg_data %>%
     dplyr::mutate(
-      point_type = ifelse(units_sum %in% outliers_detected, legend_labels[2], legend_labels[1]),
-      point_size = ifelse(units_sum %in% outliers_detected, outlier_size, regular_size),
-      outliers = ifelse(units_sum %in% outliers_detected, 1, 0)
+      point_type = ifelse(.data$units_sum %in% outliers_detected, legend_labels[2], legend_labels[1]),
+      point_size = ifelse(.data$units_sum %in% outliers_detected, outlier_size, regular_size),
+      outliers = ifelse(.data$units_sum %in% outliers_detected, 1, 0)
     )
+  
   
   # If the output is a dataframe, sort, select the necessary columns and return it
   if(output == "dataframe") {
@@ -103,8 +110,11 @@ plot_treat_time <- function(data,
   shape_scale <- stats::setNames(c(regular_shape, outlier_shape), legend_labels)
   
   # Create the plot
-  p <- ggplot2::ggplot(agg_data, ggplot2::aes(x = {{time_var}}, y = .data$units_sum)) +
+  p <- 
+    ggplot2::ggplot(agg_data, ggplot2::aes(x = {{time_var}}, y = .data$units_sum)) +
     ggplot2::geom_point(ggplot2::aes(color = .data$point_type, shape = .data$point_type, size = .data$point_size)) +
+    # ggplot2::ggplot(agg_data, ggplot2::aes(x = {{time_var}}, y = .data$units_sum)) +
+    # ggplot2::geom_point(ggplot2::aes(color = .data$point_type, shape = .data$point_type, size = .data$point_size)) +
     ggplot2::scale_color_manual(values = color_scale) +
     ggplot2::scale_shape_manual(values = shape_scale) +
     ggplot2::labs(title = title, x = xlab, y = ylab, ...) +
