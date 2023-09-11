@@ -479,7 +479,7 @@ When conducting research using matching methods for causal inference with time-s
 ```{r}
 library(PanelMatch)
 
-runPanelMatch <- function(method, lag, size.match=NULL) {
+runPanelMatch <- function(method, lag, size.match=NULL, qoi = "att") {
     
     # Default parameters for PanelMatch
     common.args <- list(
@@ -489,7 +489,7 @@ runPanelMatch <- function(method, lag, size.match=NULL) {
         treatment = "dem",
         data = dem,
         covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
-        qoi = "att",
+        qoi = qoi,
         outcome.var = "y",
         lead = 0:4,
         forbid.treatment.reversal = FALSE,
@@ -524,6 +524,18 @@ for(method in methods) {
         for(size in sizes) {
             name <- paste0(method, ".", lag, "lag.", size, "m")
             res_pm[[name]] <- runPanelMatch(method, lag, size)
+        }
+    }
+}
+
+# for treatment reversal
+res_pm_rev <- list()
+
+for(method in methods) {
+    for(lag in lags) {
+        for(size in sizes) {
+            name <- paste0(method, ".", lag, "lag.", size, "m")
+            res_pm_rev[[name]] <- runPanelMatch(method, lag, size, qoi = "art")
         }
     }
 }
@@ -597,7 +609,6 @@ minor.axes.fontsize = 16
 To export
 
 ```{r, eval = FALSE}
-
 png(
   file.path(getwd(), "export", "balance_scatter.png"),
   width = 1200,
@@ -671,19 +682,19 @@ In the original `PanelMatch` package, the function `get_covariate_balance` does 
 ```{r}
 PM.results.ps.weight <-
     PanelMatch(
-        lag = 4,
-        time.id = "year",
-        unit.id = "wbcode2",
-        treatment = "dem",
-        refinement.method = "ps.weight",
-        data = dem,
-        match.missing = FALSE,
-        listwise.delete = TRUE,
-        covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
-        size.match = 5,
-        qoi = "att",
-        outcome.var = "y",
-        lead = 0:4,
+        lag                       = 4,
+        time.id                   = "year",
+        unit.id                   = "wbcode2",
+        treatment                 = "dem",
+        refinement.method         = "ps.weight",
+        data                      = dem,
+        match.missing             = FALSE,
+        listwise.delete           = TRUE,
+        covs.formula              = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+        size.match                = 5,
+        qoi                       = "att",
+        outcome.var               = "y",
+        lead                      = 0:4,
         forbid.treatment.reversal = FALSE
     )
 
@@ -698,10 +709,307 @@ plot_covariate_balance_pretrend(df)
 
 We must also examine multiple matching and refining methods to ensure that we have robust evidence for covariate balance over the pre-treatment time period.
 
-```{r}
+```{r, eval = FALSE}
+# Step 1: Define configurations
+configurations <- list(
+    list(refinement.method = "none", qoi = "att"),
+    list(refinement.method = "none", qoi = "art"),
+    list(refinement.method = "mahalanobis", qoi = "att"),
+    list(refinement.method = "mahalanobis", qoi = "art"),
+    list(refinement.method = "ps.match", qoi = "att"),
+    list(refinement.method = "ps.match", qoi = "art"),
+    list(refinement.method = "ps.weight", qoi = "att"),
+    list(refinement.method = "ps.weight", qoi = "art")
+)
+
+# Step 2: Use lapply or loop to generate results
+results <- lapply(configurations, function(config) {
+    PanelMatch(
+        lag                       = 4,
+        time.id                   = "year",
+        unit.id                   = "wbcode2",
+        treatment                 = "dem",
+        data                      = dem,
+        match.missing             = FALSE,
+        listwise.delete           = TRUE,
+        size.match                = 5,
+        outcome.var               = "y",
+        lead                      = 0:4,
+        forbid.treatment.reversal = FALSE,
+        refinement.method         = config$refinement.method,
+        covs.formula              = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
+        qoi                       = config$qoi
+    )
+})
+
+
+# Step 3: Get covariate balance and plot
+plots <- mapply(function(result, config) {
+    df <- get_covariate_balance(
+        if(config$qoi == "att") result$att else result$art, 
+        data = dem, 
+        covariates = c("tradewb", "y"), 
+        plot = F
+    )
+    causalverse::plot_covariate_balance_pretrend(df, main = "")
+}, results, configurations, SIMPLIFY = FALSE)
+
+# Set names for plots
+names(plots) <- sapply(configurations, function(config) {
+    paste(config$qoi, config$refinement.method, sep = ".")
+})
+
+# To view plots
+# lapply(plots, print)
+
+# grid.arrange(
+#   plots$att.none,
+#   plots$att.mahalanobis,
+#   plots$att.ps.match,
+#   plots$att.ps.weight,
+#   plots$art.none,
+#   plots$art.mahalanobis,
+#   plots$art.ps.match,
+#   plots$art.ps.weight,
+#   ncol = 4,
+#   nrow = 2
+# )
+
+
+# Equivalently
+# grid.arrange(grobs = c(plots[paste0("att.", c("none", "mahalanobis", "ps.match", "ps.weight"))], plots[paste0("art.", c("none", "mahalanobis", "ps.match", "ps.weight"))]),  ncol = 4)
 
 ```
 
+For a fancier plot 
+
+```{r, eval = FALSE}
+library(gridExtra)
+library(grid)
+
+# Column and row labels
+col_labels <-
+  c("None",
+    "Mahalanobis",
+    "Propensity Score Matching",
+    "Propensity Score Weighting")
+row_labels <- c("ATT", "ART")
+
+# Specify your desired fontsize for labels
+minor.axes.fontsize <- 16
+major.axes.fontsize <- 20
+
+png(
+  file.path(getwd(), "export", "var_balance_pretreat.png"),
+  width = 1200,
+  height = 1000
+)
+
+# Create a list-of-lists, where each inner list represents a row
+grid_list <- list(
+  list(
+    nullGrob(),
+    textGrob(col_labels[1], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[2], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[3], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[4], gp = gpar(fontsize = minor.axes.fontsize))
+  ),
+  
+  list(
+    textGrob(row_labels[1], gp = gpar(fontsize = minor.axes.fontsize), rot = 90),
+    plots$att.none,
+    plots$att.mahalanobis,
+    plots$att.ps.match,
+    plots$att.ps.weight
+  ),
+  
+  list(
+    textGrob(row_labels[2], gp = gpar(fontsize = minor.axes.fontsize), rot = 90),
+    plots$art.none,
+    plots$art.mahalanobis,
+    plots$art.ps.match,
+    plots$art.ps.weight
+  )
+)
+
+# "Flatten" the list-of-lists into a single list of grobs
+grobs <- do.call(c, grid_list)
+
+# Arrange your plots with text labels
+grid.arrange(
+  grobs   = grobs,
+  ncol    = 5,
+  nrow    = 3,
+  widths  = c(0.1, 0.225, 0.225, 0.225, 0.225),
+  heights = c(0.1, 0.45, 0.45)
+)
+
+# Add main x and y axis titles
+grid.text(
+  "Refinement Methods",
+  x  = 0.5,
+  y  = 0.01,
+  gp = gpar(fontsize = major.axes.fontsize)
+)
+grid.text(
+  "Quantities of Interest",
+  x   = 0.02,
+  y   = 0.5,
+  rot = 90,
+  gp  = gpar(fontsize = major.axes.fontsize)
+)
+dev.off()
+```
+
+## Estimation
+
+```{r}
+# Step 1: Apply PanelEstimate function
+
+# Initialize an empty list to store results
+res_est <- vector("list", length(res_pm))
+
+# Iterate over each element in res_pm
+for (i in 1:length(res_pm)) {
+  res_est[[i]] <- PanelEstimate(
+    res_pm[[i]],
+    data = dem,
+    se.method = "bootstrap",
+    number.iterations = 1000,
+    confidence.level = .95
+  )
+  # Transfer the name of the current element to the res_est list
+  names(res_est)[i] <- names(res_pm)[i]
+}
+
+# Step 2: Apply plot_PanelEstimate function
+
+# Initialize an empty list to store plot results
+res_est_plot <- vector("list", length(res_est))
+
+# Iterate over each element in res_est
+for (i in 1:length(res_est)) {
+    res_est_plot[[i]] <-
+        plot_PanelEstimate(res_est[[i]],
+                           main = "",
+                           theme_use = causalverse::ama_theme(base_size = 14))
+    # Transfer the name of the current element to the res_est_plot list
+    names(res_est_plot)[i] <- names(res_est)[i]
+}
+
+res_est_plot$mahalanobis.1lag.5m
+```
+
+
+```{r}
+# Step 1: Apply PanelEstimate function for res_pm_rev
+
+# Initialize an empty list to store results
+res_est_rev <- vector("list", length(res_pm_rev))
+
+# Iterate over each element in res_pm_rev
+for (i in 1:length(res_pm_rev)) {
+  res_est_rev[[i]] <- PanelEstimate(
+    res_pm_rev[[i]],
+    data = dem,
+    se.method = "bootstrap",
+    number.iterations = 1000,
+    confidence.level = .95
+  )
+  # Transfer the name of the current element to the res_est_rev list
+  names(res_est_rev)[i] <- names(res_pm_rev)[i]
+}
+
+# Step 2: Apply plot_PanelEstimate function for res_est_rev
+
+# Initialize an empty list to store plot results
+res_est_plot_rev <- vector("list", length(res_est_rev))
+
+# Iterate over each element in res_est_rev
+for (i in 1:length(res_est_rev)) {
+    res_est_plot_rev[[i]] <-
+        plot_PanelEstimate(res_est_rev[[i]],
+                           main = "",
+                           theme_use = causalverse::ama_theme(base_size = 14))
+  # Transfer the name of the current element to the res_est_plot_rev list
+  names(res_est_plot_rev)[i] <- names(res_est_rev)[i]
+}
+```
+
+```{r, eval = FALSE}
+library(gridExtra)
+library(grid)
+
+# Column and row labels
+col_labels <- c("Mahalanobis 5m", 
+                "Mahalanobis 10m", 
+                "PS Matching 5m", 
+                "PS Matching 10m", 
+                "PS Weighting 5m")
+
+row_labels <- c("ATT", "ART")
+
+# Specify your desired fontsize for labels
+minor.axes.fontsize <- 16
+major.axes.fontsize <- 20
+
+# Create a list-of-lists, where each inner list represents a row
+grid_list <- list(
+  list(
+    nullGrob(),
+    textGrob(col_labels[1], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[2], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[3], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[4], gp = gpar(fontsize = minor.axes.fontsize)),
+    textGrob(col_labels[5], gp = gpar(fontsize = minor.axes.fontsize))
+  ),
+  
+  list(
+    textGrob(row_labels[1], gp = gpar(fontsize = minor.axes.fontsize), rot = 90),
+    res_est_plot$mahalanobis.1lag.5m,
+    res_est_plot$mahalanobis.1lag.10m,
+    res_est_plot$ps.match.1lag.5m,
+    res_est_plot$ps.match.1lag.10m,
+    res_est_plot$ps.weight.1lag.5m
+  ),
+  
+  list(
+    textGrob(row_labels[2], gp = gpar(fontsize = minor.axes.fontsize), rot = 90),
+    res_est_plot_rev$mahalanobis.1lag.5m,
+    res_est_plot_rev$mahalanobis.1lag.10m,
+    res_est_plot_rev$ps.match.1lag.5m,
+    res_est_plot_rev$ps.match.1lag.10m,
+    res_est_plot_rev$ps.weight.1lag.5m
+  )
+)
+
+# "Flatten" the list-of-lists into a single list of grobs
+grobs <- do.call(c, grid_list)
+
+# Arrange your plots with text labels
+grid.arrange(
+  grobs   = grobs,
+  ncol    = 6,
+  nrow    = 3,
+  widths  = c(0.1, 0.18, 0.18, 0.18, 0.18, 0.18),
+  heights = c(0.1, 0.45, 0.45)
+)
+
+# Add main x and y axis titles
+grid.text(
+  "Methods",
+  x  = 0.5,
+  y  = 0.02,
+  gp = gpar(fontsize = major.axes.fontsize)
+)
+grid.text(
+  "",
+  x   = 0.02,
+  y   = 0.5,
+  rot = 90,
+  gp  = gpar(fontsize = major.axes.fontsize)
+)
+```
 
 
 # Additional Analyses
