@@ -34,5 +34,7 @@ Imports:
 	rlang (>= 1.1.1),
 	fixest (>= 0.11.1),
 	stats (>= 4.2.3),
-	PanelMatch (>= 2.0.1)
+	PanelMatch (>= 2.0.1),
+	doParallel (>= 1.0.17),
+	foreach (>= 1.5.2)
 VignetteBuilder: knitr
