@@ -417,7 +417,6 @@ In conclusion, while visualizations provide an intuitive understanding, statisti
 
 # DID with in and out treatment status
 
-
 ## Plots
 
 ### Balance Scatter
@@ -472,8 +471,6 @@ balance_scatter_custom(
 )
 ```
 
-
-
 When conducting research using matching methods for causal inference with time-series cross-sectional data (as with the PanelMatch package), it's essential to evaluate the robustness of different matching or weighting methods. This assessment allows researchers to gauge the improvement in covariate balance resulting from the refinement of the matched set. Testing the robustness ensures that the findings are not an artifact of a specific matching method but are consistent across different approaches. In essence, a robust result gives more confidence in the causal relationships identified. Below is a quick guide on how to proceed:
 
 ```{r}
@@ -516,7 +513,11 @@ runPanelMatch <- function(method, lag, size.match=NULL, qoi = "att") {
 methods <- c("mahalanobis", "ps.match", "ps.weight")
 lags <- c(1, 4)
 sizes <- c(5, 10)
+```
 
+Run sequentially
+
+```{r, eval = FALSE}
 res_pm <- list()
 
 for(method in methods) {
@@ -541,13 +542,78 @@ for(method in methods) {
 }
 ```
 
+Run parallel
+
+```{r}
+library(foreach)
+library(doParallel)
+registerDoParallel(cores = 4)
+# Initialize an empty list to store results
+res_pm <- list()
+
+# Replace nested for-loops with foreach
+results <-
+  foreach(
+    method = methods,
+    .combine = 'c',
+    .multicombine = TRUE,
+    .packages = c("PanelMatch", "causalverse")
+  ) %dopar% {
+    tmp <- list()
+    for (lag in lags) {
+      for (size in sizes) {
+        name <- paste0(method, ".", lag, "lag.", size, "m")
+        tmp[[name]] <- runPanelMatch(method, lag, size)
+      }
+    }
+    tmp
+  }
+
+# Collate results
+for (name in names(results)) {
+  res_pm[[name]] <- results[[name]]
+}
+
+# Treatment reversal
+# Initialize an empty list to store results
+res_pm_rev <- list()
+
+# Replace nested for-loops with foreach
+results_rev <-
+  foreach(
+    method = methods,
+    .combine = 'c',
+    .multicombine = TRUE,
+    .packages = c("PanelMatch", "causalverse")
+  ) %dopar% {
+    tmp <- list()
+    for (lag in lags) {
+      for (size in sizes) {
+        name <- paste0(method, ".", lag, "lag.", size, "m")
+        tmp[[name]] <-
+          runPanelMatch(method, lag, size, qoi = "art")
+      }
+    }
+    tmp
+  }
+
+# Collate results
+for (name in names(results_rev)) {
+  res_pm_rev[[name]] <- results_rev[[name]]
+}
+
+
+stopImplicitCluster()
+
+```
+
 ```{r}
 # Now, you can access res_pm using res_pm[["mahalanobis.1lag.5m"]] etc.
 
 library(gridExtra)
 
 # Updated plotting function
-create_balance_plot <- function(method, lag, sizes, res_pm, dem) {
+create_balance_plot <- function(method, lag, sizes, res_pm, data) {
     matched_set_lists <- lapply(sizes, function(size) {
         res_pm[[paste0(method, ".", lag, "lag.", size, "m")]]$att
     })
@@ -562,7 +628,7 @@ create_balance_plot <- function(method, lag, sizes, res_pm, dem) {
         x.axis.label = "",
         y.axis.label = "",
         main = "",
-        data = dem,
+        data = data,
         dot.size = 5,
         # show.legend = F,
         them_use = causalverse::ama_theme(
@@ -677,7 +743,7 @@ I do not include it in this vignette due to display issues, but the code can be 
 
 ### Balance Trends over Pre-treatment Periods
 
-In the original `PanelMatch` package, the function `get_covariate_balance` does not return a `ggplot` object. Therefore, it is necessary to construct our own visualization. However, one can utilize the output dataset from `get_covariate_balance` for this purpose. 
+In the original `PanelMatch` package, the function `get_covariate_balance` does not return a `ggplot` object. Therefore, it is necessary to construct our own visualization. However, one can utilize the output dataset from `get_covariate_balance` for this purpose.
 
 ```{r}
 PM.results.ps.weight <-
@@ -781,7 +847,7 @@ names(plots) <- sapply(configurations, function(config) {
 
 ```
 
-For a fancier plot 
+For a fancier plot
 
 ```{r, eval = FALSE}
 library(gridExtra)
@@ -863,7 +929,8 @@ dev.off()
 
 ## Estimation
 
-```{r}
+```{r, eval = FALSE, collapse=TRUE}
+# sequential
 # Step 1: Apply PanelEstimate function
 
 # Initialize an empty list to store results
@@ -897,11 +964,10 @@ for (i in 1:length(res_est)) {
     names(res_est_plot)[i] <- names(res_est)[i]
 }
 
-res_est_plot$mahalanobis.1lag.5m
-```
+# check results
+# res_est_plot$mahalanobis.1lag.5m
 
 
-```{r}
 # Step 1: Apply PanelEstimate function for res_pm_rev
 
 # Initialize an empty list to store results
@@ -934,6 +1000,82 @@ for (i in 1:length(res_est_rev)) {
   # Transfer the name of the current element to the res_est_plot_rev list
   names(res_est_plot_rev)[i] <- names(res_est_rev)[i]
 }
+```
+
+```{r}
+# parallel
+library(doParallel)
+library(foreach)
+
+# Detect the number of cores to use for parallel processing
+num_cores <- 4
+
+# Register the parallel backend
+cl <- makeCluster(num_cores)
+registerDoParallel(cl)
+
+# Step 1: Apply PanelEstimate function in parallel
+res_est <-
+    foreach(i = 1:length(res_pm), .packages = "PanelMatch") %dopar% {
+        PanelEstimate(
+            res_pm[[i]],
+            data = dem,
+            se.method = "bootstrap",
+            number.iterations = 1000,
+            confidence.level = .95
+        )
+    }
+
+# Transfer names from res_pm to res_est
+names(res_est) <- names(res_pm)
+
+# Step 2: Apply plot_PanelEstimate function in parallel
+res_est_plot <-
+    foreach(
+        i = 1:length(res_est),
+        .packages = c("PanelMatch", "causalverse", "ggplot2")
+    ) %dopar% {
+        plot_PanelEstimate(res_est[[i]],
+                           main = "",
+                           theme_use = causalverse::ama_theme(base_size = 10))
+    }
+
+# Transfer names from res_est to res_est_plot
+names(res_est_plot) <- names(res_est)
+
+
+
+# Step 1: Apply PanelEstimate function for res_pm_rev in parallel
+res_est_rev <-
+    foreach(i = 1:length(res_pm_rev), .packages = "PanelMatch") %dopar% {
+        PanelEstimate(
+            res_pm_rev[[i]],
+            data = dem,
+            se.method = "bootstrap",
+            number.iterations = 1000,
+            confidence.level = .95
+        )
+    }
+
+# Transfer names from res_pm_rev to res_est_rev
+names(res_est_rev) <- names(res_pm_rev)
+
+# Step 2: Apply plot_PanelEstimate function for res_est_rev in parallel
+res_est_plot_rev <-
+    foreach(
+        i = 1:length(res_est_rev),
+        .packages = c("PanelMatch", "causalverse", "ggplot2")
+    ) %dopar% {
+        plot_PanelEstimate(res_est_rev[[i]],
+                           main = "",
+                           theme_use = causalverse::ama_theme(base_size = 10))
+    }
+
+# Transfer names from res_est_rev to res_est_plot_rev
+names(res_est_plot_rev) <- names(res_est_rev)
+
+# Stop the cluster
+stopCluster(cl)
 ```
 
 ```{r, eval = FALSE}
@@ -1010,7 +1152,6 @@ grid.text(
   gp  = gpar(fontsize = major.axes.fontsize)
 )
 ```
-
 
 # Additional Analyses
 
