@@ -31,6 +31,9 @@
     <loc>/articles/introduction.html</loc>
   </url>
   <url>
+    <loc>/articles/model_free.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -83,5 +86,8 @@
   </url>
   <url>
     <loc>/reference/plot_treat_time.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_trends_across_group.html</loc>
   </url>
 </urlset>

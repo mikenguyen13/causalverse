@@ -544,7 +544,7 @@ for(method in methods) {
 
 Run parallel
 
-```{r}
+```{r, eval = FALSE}
 library(foreach)
 library(doParallel)
 registerDoParallel(cores = 4)
@@ -607,7 +607,7 @@ stopImplicitCluster()
 
 ```
 
-```{r}
+```{r, eval = FALSE}
 # Now, you can access res_pm using res_pm[["mahalanobis.1lag.5m"]] etc.
 
 library(gridExtra)
@@ -1002,7 +1002,7 @@ for (i in 1:length(res_est_rev)) {
 }
 ```
 
-```{r}
+```{r, eval = FALSE}
 # parallel
 library(doParallel)
 library(foreach)

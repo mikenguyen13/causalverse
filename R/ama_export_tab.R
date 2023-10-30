@@ -25,6 +25,13 @@ ama_export_tab <- function(table, filename, filepath, caption = NULL) {
   # Create LaTeX table using xtable
   xtable_obj <- xtable::xtable(table, caption = caption, label = paste0("table:", filename))
   
+  # Custom sanitize function to bold column names
+  sanitize_custom <- function(text){
+    return(ifelse(text %in% colnames(table),
+                  paste("\\textbf{", text, "}", sep = ""),
+                  text))
+  }
+  
   # If the tex file exists, delete it (i.e., to overwrite the file)
   if (file.exists(file.path(filepath, paste0(filename, ".tex")))){
     file.remove(file.path(filepath, paste0(filename, ".tex")))
@@ -41,9 +48,9 @@ ama_export_tab <- function(table, filename, filepath, caption = NULL) {
   # Export table without current date to current folder as Excel and LaTeX file
   rio::export(table, file.path(filepath , paste0(filename, ".xlsx")))
   
-  # Export LaTeX table without current date to current folder as Excel and LaTeX file
-  writeLines(capture.output(print(xtable_obj, type = "latex")), file.path(filepath, paste0(filename, ".tex")))
+  # Export LaTeX table without current date to current folder as LaTeX file
+  writeLines(capture.output(print(xtable_obj, type = "latex", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, paste0(filename, ".tex")))
   
-  # Export LaTeX table with current date to "archive" folder as Excel and LaTeX file
-  writeLines(capture.output(print(xtable_obj, type = "latex")), file.path(filepath, "archive", paste0(filename, "_", date, ".tex")))
+  # Export LaTeX table with current date to "archive" folder as LaTeX file
+  writeLines(capture.output(print(xtable_obj, type = "latex", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, "archive", paste0(filename, "_", date, ".tex")))
 }
