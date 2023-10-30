@@ -62,6 +62,9 @@
     <li>
       <a href="../articles/introduction.html">Introduction to CausalVerse</a>
     </li>
+    <li>
+      <a href="../articles/model_free.html">Model Free Evidence</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -82,7 +85,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-09-14</h4>
+            <h4 data-toc-skip class="date">2023-10-29</h4>
       
       
       <div class="hidden name"><code>did.Rmd</code></div>
@@ -171,29 +174,29 @@ data:</p>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   entity time treatment  outcome1 outcome2 outcome3  outcome4</span></span>
-<span><span class="co">#&gt; 1      1    1   Treated 1.4193269 3.536840 3.671231 0.1289341</span></span>
-<span><span class="co">#&gt; 2      1    2   Treated 4.0472166 3.489965 3.570053 2.9616144</span></span>
-<span><span class="co">#&gt; 3      1    3   Treated 0.5579566 3.760846 5.947665 2.8293526</span></span>
-<span><span class="co">#&gt; 4      1    4   Treated 3.3930789 4.197777 1.357877 3.0944410</span></span>
-<span><span class="co">#&gt; 5      1    5   Treated 2.6631335 4.546988 1.744379 4.9565413</span></span>
-<span><span class="co">#&gt; 6      1    6   Treated 6.3164082 6.743694 5.785487 5.7023394</span></span>
+<span><span class="co">#&gt;   entity time treatment   outcome1 outcome2 outcome3  outcome4</span></span>
+<span><span class="co">#&gt; 1      1    1   Treated -0.5549370 5.682973 3.839808 0.6459072</span></span>
+<span><span class="co">#&gt; 2      1    2   Treated  0.7785332 2.457443 2.384093 0.4277440</span></span>
+<span><span class="co">#&gt; 3      1    3   Treated  5.5096193 2.539307 3.824077 2.3336644</span></span>
+<span><span class="co">#&gt; 4      1    4   Treated  2.9437989 4.010377 2.351056 2.7236225</span></span>
+<span><span class="co">#&gt; 5      1    5   Treated  2.9068827 5.098945 8.262429 6.8208029</span></span>
+<span><span class="co">#&gt; 6      1    6   Treated  4.0160001 3.798702 5.360836 6.3226954</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      entity            time       treatment            outcome1     </span></span>
-<span><span class="co">#&gt;  Min.   :  1.00   Min.   : 1.0   Length:1000        Min.   :-4.688  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 25.75   1st Qu.: 3.0   Class :character   1st Qu.: 1.067  </span></span>
-<span><span class="co">#&gt;  Median : 50.50   Median : 5.5   Mode  :character   Median : 2.743  </span></span>
-<span><span class="co">#&gt;  Mean   : 50.50   Mean   : 5.5                      Mean   : 2.745  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 75.25   3rd Qu.: 8.0                      3rd Qu.: 4.470  </span></span>
-<span><span class="co">#&gt;  Max.   :100.00   Max.   :10.0                      Max.   : 9.872  </span></span>
-<span><span class="co">#&gt;     outcome2         outcome3         outcome4      </span></span>
-<span><span class="co">#&gt;  Min.   : 1.273   Min.   :-6.393   Min.   :-0.9589  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 4.370   1st Qu.: 3.235   1st Qu.: 4.9548  </span></span>
-<span><span class="co">#&gt;  Median : 5.597   Median : 4.997   Median : 7.5404  </span></span>
-<span><span class="co">#&gt;  Mean   : 5.646   Mean   : 5.047   Mean   : 7.4825  </span></span>
-<span><span class="co">#&gt;  3rd Qu.: 6.797   3rd Qu.: 6.992   3rd Qu.:10.1892  </span></span>
-<span><span class="co">#&gt;  Max.   :11.607   Max.   :17.833   Max.   :16.3477</span></span></code></pre></div>
+<span><span class="co">#&gt;      entity            time       treatment            outcome1      </span></span>
+<span><span class="co">#&gt;  Min.   :  1.00   Min.   : 1.0   Length:1000        Min.   :-4.9362  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 25.75   1st Qu.: 3.0   Class :character   1st Qu.: 0.9053  </span></span>
+<span><span class="co">#&gt;  Median : 50.50   Median : 5.5   Mode  :character   Median : 2.6286  </span></span>
+<span><span class="co">#&gt;  Mean   : 50.50   Mean   : 5.5                      Mean   : 2.7070  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 75.25   3rd Qu.: 8.0                      3rd Qu.: 4.5149  </span></span>
+<span><span class="co">#&gt;  Max.   :100.00   Max.   :10.0                      Max.   : 9.9346  </span></span>
+<span><span class="co">#&gt;     outcome2          outcome3         outcome4     </span></span>
+<span><span class="co">#&gt;  Min.   : 0.6095   Min.   :-7.452   Min.   :-1.073  </span></span>
+<span><span class="co">#&gt;  1st Qu.: 4.4590   1st Qu.: 3.190   1st Qu.: 4.926  </span></span>
+<span><span class="co">#&gt;  Median : 5.5873   Median : 4.991   Median : 7.480  </span></span>
+<span><span class="co">#&gt;  Mean   : 5.6324   Mean   : 5.079   Mean   : 7.469  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 6.8251   3rd Qu.: 6.891   3rd Qu.:10.115  </span></span>
+<span><span class="co">#&gt;  Max.   :10.9388   Max.   :19.473   Max.   :16.560</span></span></code></pre></div>
 <p>Visualizing Trends with <code>plot_par_trends</code> Invoke the
 <code>plot_par_trends</code> function using the sample data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -924,14 +927,7 @@ proceed:</p>
 <p>Run parallel</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/foreach" class="external-link">foreach</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'foreach'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:purrr':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     accumulate, when</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/doparallel" class="external-link">doParallel</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: iterators</span></span>
-<span><span class="co">#&gt; Loading required package: parallel</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html" class="external-link">registerDoParallel</a></span><span class="op">(</span>cores <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="co"># Initialize an empty list to store results</span></span>
 <span><span class="va">res_pm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
