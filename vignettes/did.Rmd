@@ -1153,6 +1153,63 @@ grid.text(
 )
 ```
 
+# Staggered DID
+
+Staggered DiD (Difference-in-Differences) designs are becoming increasingly common in empirical research. These designs arise when different units (like firms, regions, or countries) receive treatments at different time periods. This presents a unique challenge, as standard DiD methods often do not apply seamlessly to such setups.
+
+For data analyses involving staggered DiD designs, it's pivotal to properly align treatment and control groups. Enter the **`stack_data`** function.
+
+What does staggered DiD mean? It's when different groups receive treatment at varied times. Simply analyzing this using standard DiD methods can lead to wrong results because the control (comparison) groups become intertwined and misaligned. This is often referred to as the forbidden regression due to these muddled control groups.
+
+The brilliance of the **`stack_data`** function is how it streamlines the data:
+
+1.  **Creating Cohorts**: The function first categorizes or groups the data based on when a treatment was applied. Each of these groups is called a cohort.
+
+2.  **Defining Control Groups**: For every treatment cohort (those treated at the same time), control units are meticulously chosen. These are units either never treated or those yet to receive treatment. The distinction matters and ensures precision in comparisons.
+
+3.  **Stacking with Reference**: Now, while stacking these cohorts, the function treats the period of treatment for each cohort as their respective reference or benchmark. So, even if one group was treated in 2019 and another in 2022, during stacking, the 2019 treated period aligns with the 2022 one. This alignment ensures a consistent reference period across cohorts.
+
+4.  **Adding Markers**: To make future analysis smoother, the function adds relative period dummy variables. These act like bookmarks, indicating periods before and after the treatment for each stacked cohort.
+
+**Parameters:**
+
+-   **`treated_period_var`**: The column name indicating when a given unit was treated.
+
+-   **`time_var`**: The column indicating time periods.
+
+-   **`pre_window`**: Number of periods before the treatment to consider.
+
+-   **`post_window`**: Number of periods after the treatment to consider.
+
+-   **`data`**: The dataset to be processed.
+
+The function assumes the existence of a control group, represented by the value **`10000`** in the **`treated_period_var`** column.
+
+**Example Usage**
+
+Now, let's see the function in action using the **`base_stagg`** dataset from the **`did`** package:
+
+```{r}
+# Assuming the function is loaded from your package:
+library(did)
+library(fixest)
+data(base_stagg)
+stacked_data <- stack_data("year_treated", "year", 5, 5, base_stagg)
+
+# Sample regression using the output:
+feols_result <- feols(as.formula(paste0(
+  "y ~ ",
+  paste(paste0("`rel_period_", c(-5:-2, 0:5), "`"), collapse = " + "),
+  " | id ^ df + year ^ df"
+)), data = stacked_data)
+print(feols_result)
+
+summary(feols_result,
+        agg = c("att" = "rel_period_[012345]"))
+
+coefplot(feols_result)
+```
+
 # Additional Analyses
 
 ## DID Plot

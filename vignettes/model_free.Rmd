@@ -89,14 +89,14 @@ data %>%
 ```{r}
 # Example usage
 plot <- plot_trends_across_group(
-  data = data,
-                   x_var = "year",
-                   y_var = "dependent_variable",
-                   grouping_var = "group",
-                   facet_var = "industry",
-                   # se = "se",
-                   include_legend = T,
-                   title = "My Custom Title"
+  data           = data,
+  x_var          = "year",
+  y_var          = "dependent_variable",
+  grouping_var   = "group",
+  facet_var      = "industry",
+  # se           = "se",
+  include_legend = T,
+  title          = "My Custom Title"
 )
 
 print(plot)
