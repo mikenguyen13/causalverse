@@ -229,8 +229,14 @@ p_grey |>
 
 ##### Export Tables
 
+```{r}
+mtcars |> 
+  nice_tab()
+```
+
 ```{r, eval = FALSE}
 mtcars[1:5, 1:5] |> 
+  nice_tab() |> 
   ama_export_tab(
     filename = "test_tab",
     filepath = file.path(getwd(), "export")
