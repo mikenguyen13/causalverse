@@ -348,10 +348,6 @@ grid.arrange(grobs = plot_list, ncol = 2)
 Run a regression of each pre-treatment characteristic on the treatment dummy. This allows for the simultaneous assessment of balance on multiple characteristics. You can include all characteristics in a single regression as dependent variables.
 
 ```{r}
-# data$characteristic2 <- rnorm(100)
-variables <- data |> 
-  dplyr::select(mpg, cyl)
-
 lm_multivariate <-
   lm(cbind(mpg, cyl) ~ treatment, data = data)
 summary(lm_multivariate)
@@ -372,6 +368,10 @@ system <-
   list(characteristic = equation1, characteristic2 = equation2)
 fit <- systemfit(system, data = data, method = "SUR")
 summary(fit)
+
+# or users could use the `balance_assessment` function to get both SUR and Hotelling
+results <- balance_assessment(data, "treatment", "mpg", "cyl")
+print(results$SUR)
 ```
 
 For `mpg` and `cyl`: The treatment effect is not statistically significant, implying no evidence against random unit assignment based on this characteristic.
@@ -392,6 +392,10 @@ control_data <-
 
 hotelling_test_res <- hotelling.test(treated_data, control_data)
 hotelling_test_res
+
+# or users could use the `balance_assessment` function to get both SUR and Hotelling
+results <- balance_assessment(data, "treatment", "mpg", "cyl")
+print(results$Hotelling)
 ```
 
 **Matching**
@@ -1194,21 +1198,74 @@ Now, let's see the function in action using the **`base_stagg`** dataset from th
 library(did)
 library(fixest)
 data(base_stagg)
-stacked_data <- stack_data("year_treated", "year", 5, 5, base_stagg)
 
-# Sample regression using the output:
-feols_result <- feols(as.formula(paste0(
+# The stack_data function now has a control_type argument. This allows users to specify
+# the type of control group they want to include in their study: "both", "never-treated", or "not-yet-treated".
+
+# It's crucial to select an appropriate control group for your analysis. Different control groups can
+# lead to different interpretations. For instance:
+# - "never-treated" refers to units that never receive the treatment.
+# - "not-yet-treated" refers to units that will eventually be treated but haven't been as of a given period.
+# - "both" uses a combination of the two above.
+
+# Let's see how the function behaves for each control type:
+
+# 1. Using both never-treated and not-yet-treated as controls:
+stacked_data_both <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "both")
+feols_result_both <- feols(as.formula(paste0(
   "y ~ ",
-  paste(paste0("`rel_period_", c(-5:-2, 0:5), "`"), collapse = " + "),
+  paste(paste0("`rel_period_", c(-3:-2, 0:3), "`"), collapse = " + "),
   " | id ^ df + year ^ df"
-)), data = stacked_data)
-print(feols_result)
+)), data = stacked_data_both)
 
-summary(feols_result,
-        agg = c("att" = "rel_period_[012345]"))
+# 2. Using only never-treated units as controls:
+stacked_data_never <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "never-treated")
+feols_result_never <- feols(as.formula(paste0(
+  "y ~ ",
+  paste(paste0("`rel_period_", c(-3:-2, 0:3), "`"), collapse = " + "),
+  " | id ^ df + year ^ df"
+)), data = stacked_data_never)
 
-coefplot(feols_result)
+# 3. Using only not-yet-treated units as controls:
+stacked_data_notyet <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "not-yet-treated")
+feols_result_notyet <- feols(as.formula(paste0(
+  "y ~ ",
+  paste(paste0("`rel_period_", c(-3:-2, 0:3), "`"), collapse = " + "),
+  " | id ^ df + year ^ df"
+)), data = stacked_data_notyet)
+
+etable(feols_result_both,
+       feols_result_never,
+       feols_result_notyet,
+       vcov = ~ id ^ df + year ^ df)
+
+# Sample regression summary using the output for the "both" case as an example:
+summary(feols_result_both, agg = c("att" = "rel_period_[012345]"))
+
+# Coefficient plot
+coefplot(list(feols_result_both,
+              feols_result_never,
+              feols_result_notyet))
+legend("bottomright", col = 1:3, lty = 1:3, legend = c("Both", "Never", "Notyet"))
 ```
+
+Differences in the estimates across the three models arise from the variation in control groups:
+
+1.  **Both Never-Treated and Not-Yet-Treated**:
+
+    -   Uses both control groups. The similarity with the "Never-Treated" estimates suggests consistent pre-treatment trends between these control groups and the treated units.
+
+2.  **Never-Treated**:
+
+    -   Units never receiving treatment. Given the similarity with the combined group, it implies this group provides a reliable counterfactual.
+
+3.  **Not-Yet-Treated**:
+
+    -   Units eventually getting treatment. The substantially lower estimates suggest differential pre-treatment trends compared to treated units, potentially biasing treatment effects.
+
+The observed differences emphasize the importance of the parallel trends assumption in difference-in-differences analyses. Violations can bias treatment effect estimates. The choice of control group(s) should be grounded in understanding their appropriateness as counterfactuals, and additional analyses (like visualizing trends) can reinforce the validity of results.
+
+**Note**: Users should carefully consider which control group makes the most sense for their research question and the available data. Differences in results between control groups can arise due to various factors like treatment spillovers, different underlying trends, or selection into treatment.
 
 # Additional Analyses
 
@@ -1217,5 +1274,37 @@ coefplot(feols_result)
 The most illuminating visual representation in DID analysis features a plot that contrasts 'before' and 'after' scenarios for both the treatment and control groups. In this graph, time serves as the variable on the x-axis, separating the data into 'before' and 'after' periods. The variable determining the group---whether treated or control---is utilized as the categorizing factor. Meanwhile, the y-axis displays the estimated values of the dependent variable under study.
 
 ```{r}
+# Calculate means
+avg_outcomes <- base_did %>%
+  group_by(treat, post) %>%
+  summarize(avg_y = mean(y))
 
+# Create the visualization
+ggplot(avg_outcomes, aes(x = as.factor(post), y = avg_y, group = treat, color = as.factor(treat))) +
+  geom_line(aes(linetype = as.factor(treat)), size = 1) +
+  geom_point(size = 3) +
+  labs(
+    title = "Difference-in-Differences Visualization",
+    x = "Period", 
+    y = "Average Outcome (y)"
+  ) +
+  scale_x_discrete(labels = c("0" = "Pre", "1" = "Post")) +
+  scale_color_manual(values = c("0" = "blue", "1" = "red"), 
+                     labels = c("0" = "Control", "1" = "Treated")) +
+  scale_linetype_manual(values = c("0" = "dashed", "1" = "solid"), 
+                        labels = c("0" = "Control", "1" = "Treated")) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom") +
+  guides(color = guide_legend(override.aes = list(linetype = "blank")), 
+         linetype = guide_legend(override.aes = list(color = c("blue", "red"))))
+
+```
+
+But you can always go with a more complicated plot
+
+```{r}
+library(fixest)
+data("base_did")
+est_did <- feols(y ~ x1 + i(period, treat, 5) |id + period, base_did)
+iplot(est_did)
 ```

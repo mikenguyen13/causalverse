@@ -64,10 +64,16 @@
     <loc>/reference/ama_theme.html</loc>
   </url>
   <url>
+    <loc>/reference/balance_assessment.html</loc>
+  </url>
+  <url>
     <loc>/reference/balance_scatter_custom.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/nice_tab.html</loc>
   </url>
   <url>
     <loc>/reference/plot_coef_par_trends.html</loc>

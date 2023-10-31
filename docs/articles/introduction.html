@@ -85,7 +85,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-10-29</h4>
+            <h4 data-toc-skip class="date">2023-10-30</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -404,7 +404,19 @@ should be editable in Word.</p></li>
 <h5 id="export-tables">Export Tables<a class="anchor" aria-label="anchor" href="#export-tables"></a>
 </h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    mpg cyl disp  hp drat   wt  qsec vs am gear carb</span></span>
+<span><span class="co">#&gt; 1 21.0   6  160 110 3.90 2.62 16.46  0  1    4    4</span></span>
+<span><span class="co">#&gt; 2 21.0   6  160 110 3.90 2.88 17.02  0  1    4    4</span></span>
+<span><span class="co">#&gt; 3 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</span></span>
+<span><span class="co">#&gt; 4 21.4   6  258 110 3.08 3.21 19.44  1  0    3    1</span></span>
+<span><span class="co">#&gt; 5 18.7   8  360 175 3.15 3.44 17.02  0  0    3    2</span></span>
+<span><span class="co">#&gt; 6 18.1   6  225 105 2.76 3.46 20.22  1  0    3    1</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/ama_export_tab.html">ama_export_tab</a></span><span class="op">(</span></span>
 <span>    filename <span class="op">=</span> <span class="st">"test_tab"</span>,</span>
 <span>    filepath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span><span class="op">)</span></span>
