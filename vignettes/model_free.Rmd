@@ -2,7 +2,7 @@
 title: "Model Free Evidence"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{model_free}
+  %\VignetteIndexEntry{Model Free Evidence}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,7 +21,7 @@ library(tidyverse)
 
 Often in research, especially in econometrics, public policy, and social sciences, we aim to understand the impact of an intervention or treatment. Typically, a group receiving the treatment (the "treated" group) is compared against a group not receiving it (the "control" group). One of the crucial steps in this analysis is visualizing the trends in both groups over time. Such visualizations, especially when they are presented across different groupings (e.g., industries), provide what is sometimes termed "model-free evidence". This means the evidence is not reliant on the assumptions of a particular statistical model, making it a robust way to initially understand the data before diving into intricate model-based analyses.
 
-### **Why Visualize Model-Free Evidence?**
+### Why Visualize Model-Free Evidence?
 
 1.  **Immediate Visual Feedback**: Before we fit complex models to our data, it's beneficial to see the raw trends. Often, the naked eye can capture nuances that might be missed or misinterpreted by statistical models.
 
@@ -31,7 +31,7 @@ Often in research, especially in econometrics, public policy, and social science
 
 4.  **Building Trust in Subsequent Analysis**: When we later present model-based results, having first shown the raw trends ensures the audience that the models aren't capturing spurious patterns.
 
-### **Using `plot_trends_across_group` for Model-Free Evidence**
+### Using `plot_trends_across_group` for Model-Free Evidence
 
 The function **`plot_trends_across_group`**is designed to help researchers visualize these trends effortlessly. Users can input their dataset, specify the x-axis, y-axis, grouping variable (like treated/control), and a secondary grouping variable (like industries).
 
