@@ -231,7 +231,8 @@ p_grey |>
 
 ```{r}
 mtcars |> 
-  nice_tab()
+  nice_tab() |> 
+  head()
 ```
 
 ```{r, eval = FALSE}

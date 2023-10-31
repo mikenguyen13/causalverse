@@ -31,7 +31,7 @@ Often in research, especially in econometrics, public policy, and social science
 
 4.  **Building Trust in Subsequent Analysis**: When we later present model-based results, having first shown the raw trends ensures the audience that the models aren't capturing spurious patterns.
 
-### **Using `plot_trends_across_group`for Model-Free Evidence**
+### **Using `plot_trends_across_group` for Model-Free Evidence**
 
 The function **`plot_trends_across_group`**is designed to help researchers visualize these trends effortlessly. Users can input their dataset, specify the x-axis, y-axis, grouping variable (like treated/control), and a secondary grouping variable (like industries).
 

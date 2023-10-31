@@ -4,7 +4,14 @@
 \alias{stack_data}
 \title{Stacked Data for Staggered DiD Analysis}
 \usage{
-stack_data(treated_period_var, time_var, pre_window, post_window, data)
+stack_data(
+  treated_period_var,
+  time_var,
+  pre_window,
+  post_window,
+  data,
+  control_type = c("both", "never-treated", "not-yet-treated")
+)
 }
 \arguments{
 \item{treated_period_var}{A character string indicating the column name of the treatment period variable.}
@@ -16,6 +23,8 @@ stack_data(treated_period_var, time_var, pre_window, post_window, data)
 \item{post_window}{An integer indicating the number of periods after the treatment to consider.}
 
 \item{data}{A data frame containing the dataset to be processed.}
+
+\item{control_type}{A character string indicating which control type to use. One of "both", "never-treated", or "not-yet-treated".}
 }
 \value{
 A data frame with the stacked data, augmented with relative period dummy variables,
@@ -36,12 +45,13 @@ be augmented with relative period dummy variables for ease of subsequent analysi
 \examples{
 \dontrun{
   library(did)
+  library(tidyverse)
   library(fixest)
   data(base_stagg)
-  stacked_data <- stack_data("year_treated", "year", 5, 5, base_stagg)
+  stacked_data <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "both")
   feols_result <- feols(as.formula(paste0(
     "y ~ ",
-    paste(paste0("`rel_period_", c(-5:-2, 0:5), "`"), collapse = " + "),
+    paste(paste0("`rel_period_", c(-3:-2, 0:3), "`"), collapse = " + "),
     " | id ^ df + year ^ df"
   )), data = stacked_data)
   print(feols_result)
