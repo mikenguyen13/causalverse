@@ -39,5 +39,6 @@ Imports:
 	fastDummies (>= 1.7.3),
 	magrittr (>= 2.0.3),
 	did (>= 2.1.2),
+	stats (>= 4.2.3),
 	foreach (>= 1.5.2)
 VignetteBuilder: knitr

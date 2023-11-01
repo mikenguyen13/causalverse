@@ -38,21 +38,21 @@ plot_PanelEstimate <- function(pe.object,
 {
   
   plot.data <- as.data.frame(summary(pe.object, verbose = F))
-  plot.data$Time <- rownames(plot.data)
+  plot.data$Time <- base::rownames(plot.data)
   
   if (is.null(ylim)) {
-    ylim <- c(min(plot.data[, 3]) - abs(mean(plot.data[, 1])),
-              max(plot.data[, 4]) + abs(mean(plot.data[, 1])))
+    ylim <- c(base::min(plot.data[, 3]) - base::abs(base::mean(plot.data[, 1])),
+              base::max(plot.data[, 4]) + base::abs(base::mean(plot.data[, 1])))
   }
   
-  p <- ggplot(data = plot.data, aes(x = Time, y = estimate)) +
-    geom_point(aes(y = estimate), shape = 16, size = 3) +
-    geom_errorbar(aes(ymin = plot.data[, 3],
-                      ymax = plot.data[, 4]),
-                  width = 0.25) +
-    labs(x = xlab, y = ylab, title = main, ...) +
-    coord_cartesian(ylim = ylim) +
-    geom_hline(aes(yintercept = 0), linetype = "dashed") +
+  p <- ggplot2::ggplot(data = plot.data, ggplot2::aes(x = .data$Time, y = .data$estimate)) +
+    ggplot2::geom_point(ggplot2::aes(y = .data$estimate), shape = 16, size = 3) +
+    ggplot2::geom_errorbar(ggplot2::aes(ymin = .data[, 3],
+                                        ymax = .data[, 4]),
+                           width = 0.25) +
+    ggplot2::labs(x = xlab, y = ylab, title = main, ...) +
+    ggplot2::coord_cartesian(ylim = ylim) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0), linetype = "dashed") +
     theme_use
   
   return(p)

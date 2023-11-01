@@ -37,6 +37,8 @@
 
 stack_data <- function(treated_period_var, time_var, pre_window, post_window, data, control_type = c("both", "never-treated", "not-yet-treated")) {
   
+  df <- NULL
+  
   control_type <- base::match.arg(control_type) # Ensures only valid values are passed
   
   # Ensure that treated_period_var contains 10000
