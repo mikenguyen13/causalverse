@@ -52,6 +52,10 @@ plot_treat_time <- function(data,
                             output = "plot",
                             ...) {
   
+  point_type <- NULL
+  point_size <- NULL
+  
+  
   # Aggregate data based on time and calculate the sum of treated units
   agg_data <- data %>%
     dplyr::group_by({{time_var}}) %>%
@@ -113,6 +117,8 @@ plot_treat_time <- function(data,
   p <- 
     ggplot2::ggplot(agg_data, ggplot2::aes(x = {{time_var}}, y = .data$units_sum)) +
     ggplot2::geom_point(ggplot2::aes(color = .data$point_type, shape = .data$point_type, size = .data$point_size)) +
+
+    
     # ggplot2::ggplot(agg_data, ggplot2::aes(x = {{time_var}}, y = .data$units_sum)) +
     # ggplot2::geom_point(ggplot2::aes(color = .data$point_type, shape = .data$point_type, size = .data$point_size)) +
     ggplot2::scale_color_manual(values = color_scale) +
