@@ -49,8 +49,8 @@ ama_export_tab <- function(table, filename, filepath, caption = NULL) {
   rio::export(table, file.path(filepath , paste0(filename, ".xlsx")))
   
   # Export LaTeX table without current date to current folder as LaTeX file
-  writeLines(capture.output(print(xtable_obj, type = "latex", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, paste0(filename, ".tex")))
+  writeLines(capture.output(print(xtable_obj, type = "latex", caption.placement = "top", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, paste0(filename, ".tex")))
   
   # Export LaTeX table with current date to "archive" folder as LaTeX file
-  writeLines(capture.output(print(xtable_obj, type = "latex", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, "archive", paste0(filename, "_", date, ".tex")))
+  writeLines(capture.output(print(xtable_obj, type = "latex", caption.placement = "top",include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, "archive", paste0(filename, "_", date, ".tex")))
 }
