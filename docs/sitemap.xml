@@ -34,6 +34,9 @@
     <loc>/articles/model_free.html</loc>
   </url>
   <url>
+    <loc>/articles/synthdid.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -70,6 +73,9 @@
     <loc>/reference/balance_scatter_custom.html</loc>
   </url>
   <url>
+    <loc>/reference/get_balanced_panel.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -98,5 +104,23 @@
   </url>
   <url>
     <loc>/reference/stack_data.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_est.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_est_ate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_est_per.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_plot_ate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_se_jacknife.html</loc>
+  </url>
+  <url>
+    <loc>/reference/synthdid_se_placebo.html</loc>
   </url>
 </urlset>

@@ -12,8 +12,8 @@
 #'
 #' @param treated_period_var A character string indicating the column name of the treatment period variable.
 #' @param time_var A character string indicating the column name for time.
-#' @param pre_window An integer indicating the number of periods before the treatment to consider.
-#' @param post_window An integer indicating the number of periods after the treatment to consider.
+#' @param pre_window An integer indicating the number of periods before the treatment to consider (i.e., leads).
+#' @param post_window An integer indicating the number of periods after the treatment to consider (i.e., lags).
 #' @param data A data frame containing the dataset to be processed.
 #' @param control_type A character string indicating which control type to use. One of "both", "never-treated", or "not-yet-treated".
 #'
@@ -35,7 +35,14 @@
 #' }
 #' @export
 
-stack_data <- function(treated_period_var, time_var, pre_window, post_window, data, control_type = c("both", "never-treated", "not-yet-treated")) {
+stack_data <-
+  function(treated_period_var,
+           time_var,
+           pre_window,
+           post_window,
+           data,
+           control_type = c("both", "never-treated", "not-yet-treated")) {
+    
   
   df <- NULL
   
