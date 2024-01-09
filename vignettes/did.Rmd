@@ -1212,6 +1212,7 @@ data(base_stagg)
 
 # 1. Using both never-treated and not-yet-treated as controls:
 stacked_data_both <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "both")
+
 feols_result_both <- feols(as.formula(paste0(
   "y ~ ",
   paste(paste0("`rel_period_", c(-3:-2, 0:3), "`"), collapse = " + "),
@@ -1308,3 +1309,5 @@ data("base_did")
 est_did <- feols(y ~ x1 + i(period, treat, 5) |id + period, base_did)
 iplot(est_did)
 ```
+
+

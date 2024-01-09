@@ -1,0 +1,170 @@
+---
+title: "3. Synthetic Difference-in-Differences"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{synthdid}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(causalverse)
+```
+
+# Synthetic DID
+
+## Block Adoption (Assignment) 
+
+This section contains the code from the `synthdid` package, which can handle block adoption (i.e., when all units are treated at the same time).
+
+
+```{r}
+library(synthdid)
+
+# Estimate the effect of California Proposition 99 on cigarette consumption
+data('california_prop99')
+
+setup = panel.matrices(california_prop99)
+
+tau.hat = synthdid_estimate(setup$Y, setup$N0, setup$T0)
+
+print(summary(tau.hat))
+
+# for only one treated unit, we can only use the placebo method
+# se = sqrt(vcov(tau.hat, method='placebo'))
+# sqrt(vcov(tau.hat, method='bootstrap'))
+# sqrt(vcov(tau.hat, method='jackknife'))
+
+# sprintf('point estimate: %1.2f', tau.hat)
+# sprintf('95%% CI (%1.2f, %1.2f)', tau.hat - 1.96 * se, tau.hat + 1.96 * se)
+plot(tau.hat) + ama_theme()
+```
+
+Using `fixest` dataset
+
+```{r}
+library(fixest)
+library(tidyverse)
+```
+
+If you want to use the `base_stagg` dataset, you have to choose just 1 period, because function `synthdid_estimate` cannot handle staggered adoption. 
+
+```{r, eval = FALSE}
+df <- base_stagg |>
+  
+  filter(year_treated %in% c(10000, 8)) |>
+  transmute(
+    id = as.factor(id),
+    year = as.integer(year),
+    y = as.double(y),
+    treated = as.integer(if_else(time_to_treatment >= 0, 1, 0))
+  )
+head(df)
+
+setup = df |> 
+  # specify column names
+  panel.matrices(unit = "id", time = "year", outcome = "y", treatment = "treated")
+```
+
+
+
+```{r}
+head(base_did)
+setup = base_did |> 
+  mutate(
+    id = as.factor(id),
+    period = as.integer(period),
+    y = as.double(y),
+    post = as.integer(post)
+  ) |> 
+  # correct treatment 
+  mutate(treatment = as.integer(if_else(treat == 0, 0, post))) |> 
+  
+  panel.matrices(unit = "id", time = "period", outcome = "y", treatment = "treatment")
+
+
+tau.hat = synthdid_estimate(setup$Y, setup$N0, setup$T0)
+# sqrt(vcov(tau.hat, method='bootstrap'))
+sqrt(vcov(tau.hat, method='jackknife'))
+
+# to use this SE method, must have more contrls than treated units
+# can try the base_stagg dataset from above 
+# sqrt(vcov(tau.hat, method='placebo'))
+
+# Comparing counterfactual estimate to real-world observation
+synthdid::synthdid_plot(tau.hat
+                        # , se.method = "placebo"
+                        ) + ama_theme()
+
+# Control unit contribution plot (black is the ATE, grey lines are CIs)
+synthdid::synthdid_units_plot(tau.hat) + ama_theme(base_size = 8)
+
+# pre-treatment parallel trends
+# synthdid::synthdid_plot(tau.hat, overlay = 1)
+# synthdid::synthdid_plot(tau.hat, overlay = .8)
+# synthdid::synthdid_placebo_plot(tau.hat)
+# synthdid::synthdid_rmse_plot(tau.hat)
+```
+
+
+```{r}
+tau.sc   = sc_estimate(setup$Y, setup$N0, setup$T0)
+tau.did  = did_estimate(setup$Y, setup$N0, setup$T0)
+estimates = list(tau.did, tau.sc, tau.hat)
+names(estimates) = c('Diff-in-Diff', 'Synthetic Control', 'Synthetic Diff-in-Diff')
+
+print(unlist(estimates))
+
+synthdid::synthdid_plot(estimates) + 
+  ama_theme()
+```
+
+Spaghetti plots
+
+```{r}
+top.controls = synthdid_controls(tau.hat)[1:10, , drop=FALSE]
+plot(tau.hat, spaghetti.units=rownames(top.controls)) + ama_theme()
+```
+
+```{r}
+synthdid::synthdid_units_plot(estimates) +
+  ama_theme()
+```
+
+```{r}
+synthdid_units_plot(tau.hat, units = rownames(top.controls)) + ama_theme()
+```
+
+## Staggered Adoptions
+
+In this implementation of the 
+
+```{r}
+library(tidyverse)
+df <- fixest::base_stagg |>
+   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
+   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar)))
+
+
+est <- causalverse::synthdid_est_ate(
+  data               = df,
+  adoption_cohorts   = 5:7,
+  lags               = 2,
+  leads              = 2,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated",
+  treat_stat_var     = "treatvar",
+  outcome_var        = "y"
+)
+
+causalverse::synthdid_plot_ate(est)
+```
+

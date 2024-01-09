@@ -18,9 +18,9 @@ stack_data(
 
 \item{time_var}{A character string indicating the column name for time.}
 
-\item{pre_window}{An integer indicating the number of periods before the treatment to consider.}
+\item{pre_window}{An integer indicating the number of periods before the treatment to consider (i.e., leads).}
 
-\item{post_window}{An integer indicating the number of periods after the treatment to consider.}
+\item{post_window}{An integer indicating the number of periods after the treatment to consider (i.e., lags).}
 
 \item{data}{A data frame containing the dataset to be processed.}
 
