@@ -1,9 +1,19 @@
-#' Estimate the full Synthdid ATEs and Standard Errors
+#' Estimate the SynthDiD ATEs and Standard Errors
 #'
-#' This function estimates the Average Treatment Effects (ATEs) and their
-#' standard errors using the Synthetic Difference-in-Differences (SynthDiD)
-#' approach. It handles different cohorts, lags and leads, placebo, and pooled
-#' analysis options.
+#' This function uses an adapted SynthDiD method (Arkhangelsky et al., 2021) to
+#' estimate the average treatment effect for staggered adoption scenarios. It combines
+#' cohort-level ATT estimates, similar to the approach in Ben-Michael et al. (2022),
+#' for synthetic controls with staggered adoption. The function is designed to handle
+#' various cohorts, lags, leads, placebo tests, and pooled analyses.
+#'
+#' @references
+#' Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021).
+#' Synthetic difference-in-differences. American Economic Review, 111(12), 4088-4118.
+#' American Economic Association 2014 Broadway, Suite 305, Nashville, TN 37203.
+#'
+#' Ben-Michael, E., Feller, A., & Rothstein, J. (2022). Synthetic controls with staggered
+#' adoption. Journal of the Royal Statistical Society Series B: Statistical Methodology,
+#' 84(2), 351-381. Oxford University Press.
 #'
 #' @param data A data frame in long format to be analyzed.
 #' @param adoption_cohorts Vector of cohorts to use for adoption times.
