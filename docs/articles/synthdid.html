@@ -102,7 +102,10 @@
 <div class="section level3">
 <h3 id="block-adoption-assignment">Block Adoption (Assignment)<a class="anchor" aria-label="anchor" href="#block-adoption-assignment"></a>
 </h3>
-<p>Original code</p>
+<p>This section contains the code from the <code>synthdid</code> package
+<span class="citation">(Arkhangelsky et al. 2021)</span>, which can
+handle block adoption (i.e., when all units are treated at the same
+time).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/synth-inference/synthdid" class="external-link">synthdid</a></span><span class="op">)</span></span>
 <span></span>
@@ -154,14 +157,12 @@
 <span></span>
 <span><span class="co"># for only one treated unit, we can only use the placebo method</span></span>
 <span><span class="co"># se = sqrt(vcov(tau.hat, method='placebo'))</span></span>
-<span></span>
 <span><span class="co"># sqrt(vcov(tau.hat, method='bootstrap'))</span></span>
-<span></span>
 <span><span class="co"># sqrt(vcov(tau.hat, method='jackknife'))</span></span>
 <span></span>
 <span><span class="co"># sprintf('point estimate: %1.2f', tau.hat)</span></span>
 <span><span class="co"># sprintf('95%% CI (%1.2f, %1.2f)', tau.hat - 1.96 * se, tau.hat + 1.96 * se)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="synthdid_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>Using <code>fixest</code> dataset</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -191,9 +192,14 @@ cannot handle staggered adoption.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">setup</span> <span class="op">=</span> <span class="va">df</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">setup</span> <span class="op">=</span> <span class="va">df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># specify column names</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"id"</span>, time <span class="op">=</span> <span class="st">"year"</span>, outcome <span class="op">=</span> <span class="st">"y"</span>, treatment <span class="op">=</span> <span class="st">"treated"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span></span>
+<span>    unit <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    time <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>    treatment <span class="op">=</span> <span class="st">"treated"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">base_did</span><span class="op">)</span></span>
 <span><span class="co">#&gt;             y         x1 id period post treat</span></span>
@@ -203,7 +209,7 @@ cannot handle staggered adoption.</p>
 <span><span class="co">#&gt; 4  3.78147485 -2.8300587  1      4    0     1</span></span>
 <span><span class="co">#&gt; 5 -2.55819959 -5.0443544  1      5    0     1</span></span>
 <span><span class="co">#&gt; 6  1.72873240 -0.6363849  1      6    1     1</span></span>
-<span><span class="va">setup</span> <span class="op">=</span> <span class="va">base_did</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">df</span> <span class="op">=</span> <span class="va">base_did</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
 <span>    id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>,</span>
 <span>    period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">period</span><span class="op">)</span>,</span>
@@ -211,18 +217,26 @@ cannot handle staggered adoption.</p>
 <span>    post <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">post</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="co"># correct treatment </span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">treat</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="va">post</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span>unit <span class="op">=</span> <span class="st">"id"</span>, time <span class="op">=</span> <span class="st">"period"</span>, outcome <span class="op">=</span> <span class="st">"y"</span>, treatment <span class="op">=</span> <span class="st">"treatment"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">treat</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">0</span>, <span class="va">post</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">setup</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span></span>
+<span>    unit <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    time <span class="op">=</span> <span class="st">"period"</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>    treatment <span class="op">=</span> <span class="st">"treatment"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">tau.hat</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_estimate.html" class="external-link">synthdid_estimate</a></span><span class="op">(</span><span class="va">setup</span><span class="op">$</span><span class="va">Y</span>, <span class="va">setup</span><span class="op">$</span><span class="va">N0</span>, <span class="va">setup</span><span class="op">$</span><span class="va">T0</span><span class="op">)</span></span>
+<span><span class="va">tau.hat</span> <span class="op">=</span> <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_estimate.html" class="external-link">synthdid_estimate</a></span><span class="op">(</span><span class="va">setup</span><span class="op">$</span><span class="va">Y</span>, <span class="va">setup</span><span class="op">$</span><span class="va">N0</span>, <span class="va">setup</span><span class="op">$</span><span class="va">T0</span><span class="op">)</span></span>
+<span><span class="va">tau.hat</span></span>
+<span><span class="co">#&gt; synthdid: 4.828 +- 1.025. Effective N0/N0 = 52.4/53~1.0. Effective T0/T0 = 4.6/5~0.9. N1,T1 = 55,5.</span></span>
 <span><span class="co"># sqrt(vcov(tau.hat, method='bootstrap'))</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></span><span class="op">(</span><span class="va">tau.hat</span>, method<span class="op">=</span><span class="st">'jackknife'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           [,1]</span></span>
 <span><span class="co">#&gt; [1,] 0.5228316</span></span>
 <span></span>
-<span><span class="co"># to use this SE method, must have more contrls than treated units</span></span>
+<span><span class="co"># to use this SE method, must have more controls than treated units</span></span>
 <span><span class="co"># can try the base_stagg dataset from above </span></span>
 <span><span class="co"># sqrt(vcov(tau.hat, method='placebo'))</span></span>
 <span></span>
@@ -234,26 +248,40 @@ cannot handle staggered adoption.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Control unit contribution plot (black is the ATE, grey lines are CIs)</span></span>
-<span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span> </span></code></pre></div>
+<span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre></div>
 <p><img src="synthdid_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># pre-treatment parallel trends</span></span>
-<span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_plot.html" class="external-link">synthdid_plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, overlay <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-5-3.png" width="700"></p>
+<span><span class="co"># synthdid::synthdid_plot(tau.hat, overlay = 1)</span></span>
+<span><span class="co"># synthdid::synthdid_plot(tau.hat, overlay = .8)</span></span>
+<span><span class="co"># synthdid::synthdid_placebo_plot(tau.hat)</span></span>
+<span><span class="co"># synthdid::synthdid_rmse_plot(tau.hat)</span></span></code></pre></div>
+<p>To incorporate time-varying elements into the unit and time weights
+of the <code>synthdid</code>, consider using residuals obtained from
+regressing observed outcomes against time-varying variables. This can be
+expressed as:</p>
+<p><span class="math display">\[
+Y_{it}^{res} = Y_{it} - X_{it} \hat{\beta}
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\beta}\)</span> is derived
+from the regression equation <span class="math inline">\(Y = \beta
+X_{it}\)</span>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_plot.html" class="external-link">synthdid_plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, overlay <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-5-4.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<code class="sourceCode R"><span><span class="va">setup2</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>y_res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span></span>
+<span>    unit <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    time <span class="op">=</span> <span class="st">"period"</span>,</span>
+<span>    outcome <span class="op">=</span> <span class="st">"y_res"</span>,</span>
+<span>    treatment <span class="op">=</span> <span class="st">"treatment"</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_placebo_plot.html" class="external-link">synthdid_placebo_plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-5-5.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_rmse_plot.html" class="external-link">synthdid_rmse_plot</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-5-6.png" width="700"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<span></span>
+<span><span class="va">tau.hat2</span> <span class="op">=</span> <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_estimate.html" class="external-link">synthdid_estimate</a></span><span class="op">(</span><span class="va">setup2</span><span class="op">$</span><span class="va">Y</span>, <span class="va">setup2</span><span class="op">$</span><span class="va">N0</span>, <span class="va">setup2</span><span class="op">$</span><span class="va">T0</span><span class="op">)</span></span>
+<span><span class="va">tau.hat2</span></span>
+<span><span class="co">#&gt; synthdid: 4.850 +- 0.923. Effective N0/N0 = 52.5/53~1.0. Effective T0/T0 = 4.6/5~0.9. N1,T1 = 55,5.</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tau.sc</span>   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/sc_estimate.html" class="external-link">sc_estimate</a></span><span class="op">(</span><span class="va">setup</span><span class="op">$</span><span class="va">Y</span>, <span class="va">setup</span><span class="op">$</span><span class="va">N0</span>, <span class="va">setup</span><span class="op">$</span><span class="va">T0</span><span class="op">)</span></span>
 <span><span class="va">tau.did</span>  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/did_estimate.html" class="external-link">did_estimate</a></span><span class="op">(</span><span class="va">setup</span><span class="op">$</span><span class="va">Y</span>, <span class="va">setup</span><span class="op">$</span><span class="va">N0</span>, <span class="va">setup</span><span class="op">$</span><span class="va">T0</span><span class="op">)</span></span>
 <span><span class="va">estimates</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">tau.did</span>, <span class="va">tau.sc</span>, <span class="va">tau.hat</span><span class="op">)</span></span>
@@ -265,31 +293,77 @@ cannot handle staggered adoption.</p>
 <span></span>
 <span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_plot.html" class="external-link">synthdid_plot</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>Spaghetti plots</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">top.controls</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_controls.html" class="external-link">synthdid_controls</a></span><span class="op">(</span><span class="va">tau.hat</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, , drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, spaghetti.units<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">top.controls</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p><img src="synthdid_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">top.controls</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="synthdid_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">top.controls</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="staggered-adoptions">Staggered Adoptions<a class="anchor" aria-label="anchor" href="#staggered-adoptions"></a>
 </h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>This vignette adapts the block assignment method from <span class="citation">Arkhangelsky et al. (2021)</span> for staggered
+adoption scenarios. Following the approach suggested by <span class="citation">Ben-Michael, Feller, and Rothstein (2022)</span>,
+separate assignment matrices are created for each treatment period to
+fit the block assignment context. The <code>synthdid</code> estimator is
+then applied to each sub-sample. Finally, the Average Treatment Effect
+on the Treated (ATT) is calculated as a weighted average of all ATTs for
+all treated periods, with weights based on the proportion of treated
+units in each time period for each sub-sample.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">fixest</span><span class="fu">::</span><span class="va"><a href="https://lrberge.github.io/fixest/reference/base_stagg.html" class="external-link">base_stagg</a></span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>subgroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">base_stagg</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="va">est</span> <span class="op">&lt;-</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
+<span>  data               <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  adoption_cohorts   <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>,</span>
+<span>  lags               <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  leads              <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  time_var           <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>  unit_id_var        <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  treated_period_var <span class="op">=</span> <span class="st">"year_treated"</span>,</span>
+<span>  treat_stat_var     <span class="op">=</span> <span class="st">"treatvar"</span>,</span>
+<span>  outcome_var        <span class="op">=</span> <span class="st">"y"</span>, </span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">est</span><span class="op">$</span><span class="va">TE_mean_w</span><span class="op">)</span>,</span>
+<span>    ATE <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">TE_mean_w</span>,</span>
+<span>    SE <span class="op">=</span> <span class="va">est</span><span class="op">$</span><span class="va">SE_mean_w</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Period   ATE   SE</span></span>
+<span><span class="co">#&gt; 1      -2 -0.05 0.22</span></span>
+<span><span class="co">#&gt; 2      -1  0.05 0.22</span></span>
+<span><span class="co">#&gt; 3       0 -5.07 0.80</span></span>
+<span><span class="co">#&gt; 4       1 -4.68 0.51</span></span>
+<span><span class="co">#&gt; 5       2 -3.70 0.79</span></span>
+<span><span class="co">#&gt; 6 cumul.0 -5.07 0.80</span></span>
+<span><span class="co">#&gt; 7 cumul.1 -4.87 0.55</span></span>
+<span><span class="co">#&gt; 8 cumul.2 -4.48 0.53</span></span>
+<span></span>
+<span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est</span><span class="op">)</span></span></code></pre></div>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">est_sub</span> <span class="op">&lt;-</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
 <span>  data               <span class="op">=</span> <span class="va">df</span>,</span>
 <span>  adoption_cohorts   <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>,</span>
 <span>  lags               <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -307,8 +381,84 @@ cannot handle staggered adoption.</p>
 <span><span class="co">#&gt; adoption_cohort: 7 </span></span>
 <span><span class="co">#&gt; Treated units: 5 Control units: 55</span></span>
 <span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">est_sub</span><span class="op">$</span><span class="va">TE_mean_w</span><span class="op">)</span>,</span>
+<span>    ATE <span class="op">=</span> <span class="va">est_sub</span><span class="op">$</span><span class="va">TE_mean_w</span>,</span>
+<span>    SE <span class="op">=</span> <span class="va">est_sub</span><span class="op">$</span><span class="va">SE_mean_w</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Period   ATE   SE</span></span>
+<span><span class="co">#&gt; 1      -2 -0.05 0.22</span></span>
+<span><span class="co">#&gt; 2      -1  0.05 0.22</span></span>
+<span><span class="co">#&gt; 3       0 -5.07 0.80</span></span>
+<span><span class="co">#&gt; 4       1 -4.68 0.51</span></span>
+<span><span class="co">#&gt; 5       2 -3.70 0.79</span></span>
+<span><span class="co">#&gt; 6 cumul.0 -5.07 0.80</span></span>
+<span><span class="co">#&gt; 7 cumul.1 -4.87 0.55</span></span>
+<span><span class="co">#&gt; 8 cumul.2 -4.48 0.53</span></span>
+<span></span>
 <span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p>To incorporate time-varying variables, use the residuals obtained
+from regressing the outcome on these variables.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df_x</span> <span class="op">&lt;-</span> <span class="fu">fixest</span><span class="fu">::</span><span class="va"><a href="https://lrberge.github.io/fixest/reference/base_stagg.html" class="external-link">base_stagg</a></span> <span class="op">|&gt;</span></span>
+<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>y_res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">est_x</span> <span class="op">&lt;-</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
+<span>  data               <span class="op">=</span> <span class="va">df_x</span>,</span>
+<span>  adoption_cohorts   <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>,</span>
+<span>  lags               <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  leads              <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  time_var           <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>  unit_id_var        <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  treated_period_var <span class="op">=</span> <span class="st">"year_treated"</span>,</span>
+<span>  treat_stat_var     <span class="op">=</span> <span class="st">"treatvar"</span>,</span>
+<span>  outcome_var        <span class="op">=</span> <span class="st">"y_res"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">est_x</span><span class="op">$</span><span class="va">TE_mean_w</span><span class="op">)</span>,</span>
+<span>    ATE    <span class="op">=</span> <span class="va">est_x</span><span class="op">$</span><span class="va">TE_mean_w</span>,</span>
+<span>    SE     <span class="op">=</span> <span class="va">est_x</span><span class="op">$</span><span class="va">SE_mean_w</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Period   ATE   SE</span></span>
+<span><span class="co">#&gt; 1      -2 -0.04 0.11</span></span>
+<span><span class="co">#&gt; 2      -1  0.04 0.11</span></span>
+<span><span class="co">#&gt; 3       0 -5.54 0.43</span></span>
+<span><span class="co">#&gt; 4       1 -4.48 0.38</span></span>
+<span><span class="co">#&gt; 5       2 -3.22 0.30</span></span>
+<span><span class="co">#&gt; 6 cumul.0 -5.54 0.43</span></span>
+<span><span class="co">#&gt; 7 cumul.1 -5.01 0.36</span></span>
+<span><span class="co">#&gt; 8 cumul.2 -4.41 0.29</span></span>
+<span></span>
+<span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est_x</span><span class="op">)</span></span></code></pre></div>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-arkhangelsky2021synthetic" class="csl-entry">
+Arkhangelsky, Dmitry, Susan Athey, David A Hirshberg, Guido W Imbens,
+and Stefan Wager. 2021. <span>“Synthetic
+Difference-in-Differences.”</span> <em>American Economic Review</em> 111
+(12): 4088–118.
+</div>
+<div id="ref-ben2022synthetic" class="csl-entry">
+Ben-Michael, Eli, Avi Feller, and Jesse Rothstein. 2022.
+<span>“Synthetic Controls with Staggered Adoption.”</span> <em>Journal
+of the Royal Statistical Society Series B: Statistical Methodology</em>
+84 (2): 351–81.
+</div>
+</div>
 </div>
 </div>
   </div>

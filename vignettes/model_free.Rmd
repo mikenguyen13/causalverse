@@ -1,5 +1,5 @@
 ---
-title: "Model Free Evidence"
+title: "0. Model Free Evidence"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Model Free Evidence}
