@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3. Synthetic Difference-in-Differences • causalverse</title>
+<title>4. Synthetic Difference-in-Differences • causalverse</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="3. Synthetic Difference-in-Differences">
+<script src="../pkgdown.js"></script><meta property="og:title" content="4. Synthetic Difference-in-Differences">
 <meta property="og:description" content="causalverse">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -57,16 +57,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/did.html">2. Difference-in-Differences</a>
+      <a href="../articles/did.html">3. Difference-in-Differences</a>
     </li>
     <li>
       <a href="../articles/introduction.html">Introduction to CausalVerse</a>
     </li>
     <li>
-      <a href="../articles/model_free.html">Model Free Evidence</a>
+      <a href="../articles/model_free.html">0. Model Free Evidence</a>
     </li>
     <li>
-      <a href="../articles/synthdid.html">3. Synthetic Difference-in-Differences</a>
+      <a href="../articles/synthdid.html">4. Synthetic Difference-in-Differences</a>
     </li>
   </ul>
 </li>
@@ -84,7 +84,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>3. Synthetic Difference-in-Differences</h1>
+      <h1 data-toc-skip>4. Synthetic Difference-in-Differences</h1>
             
       
       
@@ -95,7 +95,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="synthetic-did">Synthetic DID<a class="anchor" aria-label="anchor" href="#synthetic-did"></a>
 </h2>
@@ -306,6 +307,113 @@ X_{it}\)</span>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/synthdid_units_plot.html" class="external-link">synthdid_units_plot</a></span><span class="op">(</span><span class="va">tau.hat</span>, units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">top.controls</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="synthdid_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p>Compare to other estimators</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">setup</span> <span class="op">=</span> <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span><span class="fu">synthdid</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/synthdid/man/california_prop99.html" class="external-link">california_prop99</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run for specific estimators</span></span>
+<span><span class="va">results_selected</span> <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/panel_estimate.html">panel_estimate</a></span><span class="op">(</span><span class="va">setup</span>, selected_estimators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"synthdid"</span>, <span class="st">"did"</span>, <span class="st">"sc"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results_selected</span></span>
+<span><span class="co">#&gt; $synthdid</span></span>
+<span><span class="co">#&gt; $synthdid$estimate</span></span>
+<span><span class="co">#&gt; synthdid: -15.604 +- NA. Effective N0/N0 = 16.4/38~0.4. Effective T0/T0 = 2.8/19~0.1. N1,T1 = 1,12. </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $synthdid$std.error</span></span>
+<span><span class="co">#&gt; [1] 10.05324</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $did</span></span>
+<span><span class="co">#&gt; $did$estimate</span></span>
+<span><span class="co">#&gt; synthdid: -27.349 +- NA. Effective N0/N0 = 38.0/38~1.0. Effective T0/T0 = 19.0/19~1.0. N1,T1 = 1,12. </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $did$std.error</span></span>
+<span><span class="co">#&gt; [1] 15.81479</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $sc</span></span>
+<span><span class="co">#&gt; $sc$estimate</span></span>
+<span><span class="co">#&gt; synthdid: -19.620 +- NA. Effective N0/N0 = 3.8/38~0.1. Effective T0/T0 = Inf/19~Inf. N1,T1 = 1,12. </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $sc$std.error</span></span>
+<span><span class="co">#&gt; [1] 11.16422</span></span>
+<span><span class="co"># to access more details in the estimate object</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results_selected</span><span class="op">$</span><span class="va">did</span><span class="op">$</span><span class="va">estimate</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $estimate</span></span>
+<span><span class="co">#&gt; [1] -27.34911</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $se</span></span>
+<span><span class="co">#&gt;      [,1]</span></span>
+<span><span class="co">#&gt; [1,]   NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $controls</span></span>
+<span><span class="co">#&gt;                estimate 1</span></span>
+<span><span class="co">#&gt; Wyoming             0.026</span></span>
+<span><span class="co">#&gt; Wisconsin           0.026</span></span>
+<span><span class="co">#&gt; West Virginia       0.026</span></span>
+<span><span class="co">#&gt; Virginia            0.026</span></span>
+<span><span class="co">#&gt; Vermont             0.026</span></span>
+<span><span class="co">#&gt; Utah                0.026</span></span>
+<span><span class="co">#&gt; Texas               0.026</span></span>
+<span><span class="co">#&gt; Tennessee           0.026</span></span>
+<span><span class="co">#&gt; South Dakota        0.026</span></span>
+<span><span class="co">#&gt; South Carolina      0.026</span></span>
+<span><span class="co">#&gt; Rhode Island        0.026</span></span>
+<span><span class="co">#&gt; Pennsylvania        0.026</span></span>
+<span><span class="co">#&gt; Oklahoma            0.026</span></span>
+<span><span class="co">#&gt; Ohio                0.026</span></span>
+<span><span class="co">#&gt; North Dakota        0.026</span></span>
+<span><span class="co">#&gt; North Carolina      0.026</span></span>
+<span><span class="co">#&gt; New Mexico          0.026</span></span>
+<span><span class="co">#&gt; New Hampshire       0.026</span></span>
+<span><span class="co">#&gt; Nevada              0.026</span></span>
+<span><span class="co">#&gt; Nebraska            0.026</span></span>
+<span><span class="co">#&gt; Montana             0.026</span></span>
+<span><span class="co">#&gt; Missouri            0.026</span></span>
+<span><span class="co">#&gt; Mississippi         0.026</span></span>
+<span><span class="co">#&gt; Minnesota           0.026</span></span>
+<span><span class="co">#&gt; Maine               0.026</span></span>
+<span><span class="co">#&gt; Louisiana           0.026</span></span>
+<span><span class="co">#&gt; Kentucky            0.026</span></span>
+<span><span class="co">#&gt; Kansas              0.026</span></span>
+<span><span class="co">#&gt; Iowa                0.026</span></span>
+<span><span class="co">#&gt; Indiana             0.026</span></span>
+<span><span class="co">#&gt; Illinois            0.026</span></span>
+<span><span class="co">#&gt; Idaho               0.026</span></span>
+<span><span class="co">#&gt; Georgia             0.026</span></span>
+<span><span class="co">#&gt; Delaware            0.026</span></span>
+<span><span class="co">#&gt; Connecticut         0.026</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $periods</span></span>
+<span><span class="co">#&gt;      estimate 1</span></span>
+<span><span class="co">#&gt; 1988      0.053</span></span>
+<span><span class="co">#&gt; 1987      0.053</span></span>
+<span><span class="co">#&gt; 1986      0.053</span></span>
+<span><span class="co">#&gt; 1985      0.053</span></span>
+<span><span class="co">#&gt; 1984      0.053</span></span>
+<span><span class="co">#&gt; 1983      0.053</span></span>
+<span><span class="co">#&gt; 1982      0.053</span></span>
+<span><span class="co">#&gt; 1981      0.053</span></span>
+<span><span class="co">#&gt; 1980      0.053</span></span>
+<span><span class="co">#&gt; 1979      0.053</span></span>
+<span><span class="co">#&gt; 1978      0.053</span></span>
+<span><span class="co">#&gt; 1977      0.053</span></span>
+<span><span class="co">#&gt; 1976      0.053</span></span>
+<span><span class="co">#&gt; 1975      0.053</span></span>
+<span><span class="co">#&gt; 1974      0.053</span></span>
+<span><span class="co">#&gt; 1973      0.053</span></span>
+<span><span class="co">#&gt; 1972      0.053</span></span>
+<span><span class="co">#&gt; 1971      0.053</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $dimensions</span></span>
+<span><span class="co">#&gt;           N1           N0 N0.effective           T1           T0 T0.effective </span></span>
+<span><span class="co">#&gt;            1           38           38           12           19           19</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/process_panel_estimate.html">process_panel_estimate</a></span><span class="op">(</span><span class="va">results_selected</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Method Estimate    SE</span></span>
+<span><span class="co">#&gt; 1 SYNTHDID   -15.60 10.05</span></span>
+<span><span class="co">#&gt; 2      DID   -27.35 15.81</span></span>
+<span><span class="co">#&gt; 3       SC   -19.62 11.16</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="staggered-adoptions">Staggered Adoptions<a class="anchor" aria-label="anchor" href="#staggered-adoptions"></a>
@@ -318,8 +426,9 @@ then applied to each sub-sample. Finally, the Average Treatment Effect
 on the Treated (ATT) is calculated as a weighted average of all ATTs for
 all treated periods, with weights based on the proportion of treated
 units in each time period for each sub-sample.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">fixest</span><span class="fu">::</span><span class="va"><a href="https://lrberge.github.io/fixest/reference/base_stagg.html" class="external-link">base_stagg</a></span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -361,9 +470,76 @@ units in each time period for each sub-sample.</p>
 <span><span class="co">#&gt; 8 cumul.2 -4.48 0.53</span></span>
 <span></span>
 <span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">est_sub</span> <span class="op">&lt;-</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p>Compare to different estimators (e.g., DID and SC)</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"synthdid"</span>, <span class="st">"did"</span>, <span class="st">"sc"</span>, <span class="st">"sc_ridge"</span>, <span class="st">"difp"</span>, <span class="st">"difp_ridge"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">estimates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">methods</span>, <span class="kw">function</span><span class="op">(</span><span class="va">method</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
+<span>    data               <span class="op">=</span> <span class="va">df</span>,</span>
+<span>    adoption_cohorts   <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>,</span>
+<span>    lags               <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    leads              <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    time_var           <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>    unit_id_var        <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>    treated_period_var <span class="op">=</span> <span class="st">"year_treated"</span>,</span>
+<span>    treat_stat_var     <span class="op">=</span> <span class="st">"treatvar"</span>,</span>
+<span>    outcome_var        <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>    method <span class="op">=</span> <span class="va">method</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 5 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 6 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; adoption_cohort: 7 </span></span>
+<span><span class="co">#&gt; Treated units: 5 Control units: 55</span></span>
+<span></span>
+<span><span class="va">plots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                                 title <span class="op">=</span> <span class="va">methods</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>                                 theme <span class="op">=</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span>grobs <span class="op">=</span> <span class="va">plots</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p>Subgroup Analysis (i.e., exploring treatment effects heterogeneity
+)</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">est_sub</span> <span class="op">&lt;-</span> <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_est_ate.html">synthdid_est_ate</a></span><span class="op">(</span></span>
 <span>  data               <span class="op">=</span> <span class="va">df</span>,</span>
 <span>  adoption_cohorts   <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">7</span>,</span>
 <span>  lags               <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -372,14 +548,20 @@ units in each time period for each sub-sample.</p>
 <span>  unit_id_var        <span class="op">=</span> <span class="st">"id"</span>,</span>
 <span>  treated_period_var <span class="op">=</span> <span class="st">"year_treated"</span>,</span>
 <span>  treat_stat_var     <span class="op">=</span> <span class="st">"treatvar"</span>,</span>
-<span>  outcome_var        <span class="op">=</span> <span class="st">"y"</span></span>
+<span>  outcome_var        <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>  <span class="co"># a vector of subgroup id (from unit id)</span></span>
+<span>  subgroup           <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="co"># some are treated</span></span>
+<span>    <span class="st">"11"</span>, <span class="st">"30"</span>, <span class="st">"49"</span> ,</span>
+<span>    <span class="co"># some are control within this period</span></span>
+<span>    <span class="st">"20"</span>, <span class="st">"25"</span>, <span class="st">"21"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; adoption_cohort: 5 </span></span>
-<span><span class="co">#&gt; Treated units: 5 Control units: 65 </span></span>
+<span><span class="co">#&gt; Treated units: 3 Control units: 65 </span></span>
 <span><span class="co">#&gt; adoption_cohort: 6 </span></span>
-<span><span class="co">#&gt; Treated units: 5 Control units: 60 </span></span>
+<span><span class="co">#&gt; Treated units: 0 Control units: 60 </span></span>
 <span><span class="co">#&gt; adoption_cohort: 7 </span></span>
-<span><span class="co">#&gt; Treated units: 5 Control units: 55</span></span>
+<span><span class="co">#&gt; Treated units: 0 Control units: 55</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>    Period <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">est_sub</span><span class="op">$</span><span class="va">TE_mean_w</span><span class="op">)</span>,</span>
@@ -388,20 +570,20 @@ units in each time period for each sub-sample.</p>
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    Period   ATE   SE</span></span>
-<span><span class="co">#&gt; 1      -2 -0.05 0.22</span></span>
-<span><span class="co">#&gt; 2      -1  0.05 0.22</span></span>
-<span><span class="co">#&gt; 3       0 -5.07 0.80</span></span>
-<span><span class="co">#&gt; 4       1 -4.68 0.51</span></span>
-<span><span class="co">#&gt; 5       2 -3.70 0.79</span></span>
-<span><span class="co">#&gt; 6 cumul.0 -5.07 0.80</span></span>
-<span><span class="co">#&gt; 7 cumul.1 -4.87 0.55</span></span>
-<span><span class="co">#&gt; 8 cumul.2 -4.48 0.53</span></span>
+<span><span class="co">#&gt; 1      -2  0.32 0.44</span></span>
+<span><span class="co">#&gt; 2      -1 -0.32 0.44</span></span>
+<span><span class="co">#&gt; 3       0 -4.29 1.68</span></span>
+<span><span class="co">#&gt; 4       1 -4.00 1.52</span></span>
+<span><span class="co">#&gt; 5       2 -3.44 2.90</span></span>
+<span><span class="co">#&gt; 6 cumul.0 -4.29 1.68</span></span>
+<span><span class="co">#&gt; 7 cumul.1 -4.14 1.52</span></span>
+<span><span class="co">#&gt; 8 cumul.2 -3.91 1.82</span></span>
 <span></span>
 <span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>To incorporate time-varying variables, use the residuals obtained
 from regressing the outcome on these variables.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_x</span> <span class="op">&lt;-</span> <span class="fu">fixest</span><span class="fu">::</span><span class="va"><a href="https://lrberge.github.io/fixest/reference/base_stagg.html" class="external-link">base_stagg</a></span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -444,7 +626,7 @@ from regressing the outcome on these variables.</p>
 <span><span class="co">#&gt; 8 cumul.2 -4.41 0.29</span></span>
 <span></span>
 <span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/synthdid_plot_ate.html">synthdid_plot_ate</a></span><span class="op">(</span><span class="va">est_x</span><span class="op">)</span></span></code></pre></div>
-<p><img src="synthdid_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p><img src="synthdid_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-arkhangelsky2021synthetic" class="csl-entry">
 Arkhangelsky, Dmitry, Susan Athey, David A Hirshberg, Guido W Imbens,

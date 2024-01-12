@@ -4,6 +4,9 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/articles/0-introduction.html</loc>
+  </url>
+  <url>
     <loc>/articles/00-introduction.html</loc>
   </url>
   <url>
@@ -19,7 +22,31 @@
     <loc>/articles/0introduction.html</loc>
   </url>
   <url>
+    <loc>/articles/1-model_free.html</loc>
+  </url>
+  <url>
     <loc>/articles/2did.html</loc>
+  </url>
+  <url>
+    <loc>/articles/3-did.html</loc>
+  </url>
+  <url>
+    <loc>/articles/3synthdid.html</loc>
+  </url>
+  <url>
+    <loc>/articles/4-synthdid.html</loc>
+  </url>
+  <url>
+    <loc>/articles/4did.html</loc>
+  </url>
+  <url>
+    <loc>/articles/a_introduction.html</loc>
+  </url>
+  <url>
+    <loc>/articles/b_synthdid.html</loc>
+  </url>
+  <url>
+    <loc>/articles/c_did.html</loc>
   </url>
   <url>
     <loc>/articles/did.html</loc>
@@ -82,6 +109,9 @@
     <loc>/reference/nice_tab.html</loc>
   </url>
   <url>
+    <loc>/reference/panel_estimate.html</loc>
+  </url>
+  <url>
     <loc>/reference/plot_coef_par_trends.html</loc>
   </url>
   <url>
@@ -101,6 +131,9 @@
   </url>
   <url>
     <loc>/reference/plot_trends_across_group.html</loc>
+  </url>
+  <url>
+    <loc>/reference/process_panel_estimate.html</loc>
   </url>
   <url>
     <loc>/reference/stack_data.html</loc>

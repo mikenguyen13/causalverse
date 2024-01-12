@@ -15,7 +15,8 @@ synthdid_est(
   treated_period_var,
   treat_stat_var,
   outcome_var,
-  seed = 1
+  seed = 1,
+  method = "synthdid"
 )
 }
 \arguments{
@@ -40,13 +41,25 @@ synthdid_est(
 \item{outcome_var}{Name of the outcome variable column.}
 
 \item{seed}{A numeric value for setting the random seed (only for placebo SE). Default is 1.}
+
+\item{method}{The estimation method to be used. Methods include:
+\itemize{
+\item 'did': Difference-in-Differences.
+\item 'sc': Synthetic Control Method.
+\item 'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.
+\item 'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).
+\item 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.
+\item 'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
+Defaults to 'synthdid'.
+}}
 }
 \value{
 A list containing the estimated treatment effects, standard errors, observed and predicted outcomes, synthetic control lambda weights, and counts of treated and control units.
 }
 \description{
 This function estimates synthetic difference-in-differences using the \code{synthdid} package.
-It differs from \code{synthdid::synthdid_estimate} in that it calculates treatment effects (TEs)
+It offers a choice among \code{synthdid_estimate}, \code{did_estimate}, and \code{sc_estimate} methods
+for estimation, defaulting to \code{synthdid_estimate}. It calculates treatment effects (TEs)
 for each period instead of a single TE for all treated periods.
 }
 \examples{
@@ -79,4 +92,16 @@ for each period instead of a single TE for all treated periods.
     outcome_var = "y"
   )
 }
+}
+\references{
+Ferman, B., & Pinto, C. (2021). Synthetic controls with imperfect pretreatment fit.
+Quantitative Economics, 12(4), 1197-1221.
+
+Doudchenko, Nikolay, and Guido W. Imbens. 2016.
+“Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis.”
+NBER Working Paper 22791.
+
+Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021).
+Synthetic difference-in-differences.
+American Economic Review, 111(12), 4088-4118.
 }

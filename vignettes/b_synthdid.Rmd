@@ -1,0 +1,323 @@
+---
+title: "3. Synthetic Difference-in-Differences"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: synthdid.bib
+vignette: >
+  %\VignetteIndexEntry{3. Synthetic Difference-in-Differences}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE
+)
+```
+
+```{r setup}
+library(causalverse)
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+# Synthetic DID
+
+## Block Adoption (Assignment)
+
+This section contains the code from the `synthdid` package [@arkhangelsky2021synthetic], which can handle block adoption (i.e., when all units are treated at the same time).
+
+```{r}
+library(synthdid)
+
+# Estimate the effect of California Proposition 99 on cigarette consumption
+data('california_prop99')
+
+setup = synthdid::panel.matrices(synthdid::california_prop99)
+
+tau.hat = synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
+
+print(summary(tau.hat))
+
+# for only one treated unit, we can only use the placebo method
+# se = sqrt(vcov(tau.hat, method='placebo'))
+# sqrt(vcov(tau.hat, method='bootstrap'))
+# sqrt(vcov(tau.hat, method='jackknife'))
+
+# sprintf('point estimate: %1.2f', tau.hat)
+# sprintf('95%% CI (%1.2f, %1.2f)', tau.hat - 1.96 * se, tau.hat + 1.96 * se)
+plot(tau.hat) + ama_theme()
+```
+
+Using `fixest` dataset
+
+```{r}
+library(fixest)
+library(tidyverse)
+```
+
+If you want to use the `base_stagg` dataset, you have to choose just 1 period, because function `synthdid_estimate` cannot handle staggered adoption.
+
+```{r, eval = FALSE}
+df <- base_stagg |>
+  
+  filter(year_treated %in% c(10000, 8)) |>
+  transmute(
+    id = as.factor(id),
+    year = as.integer(year),
+    y = as.double(y),
+    treated = as.integer(if_else(time_to_treatment >= 0, 1, 0))
+  )
+head(df)
+
+setup = df |>
+  # specify column names
+  panel.matrices(
+    unit = "id",
+    time = "year",
+    outcome = "y",
+    treatment = "treated"
+  )
+```
+
+```{r}
+head(fixest::base_did)
+df = fixest::base_did |> 
+  mutate(
+    id = as.factor(id),
+    period = as.integer(period),
+    y = as.double(y),
+    post = as.integer(post)
+  ) |> 
+  # correct treatment 
+  mutate(treatment = as.integer(if_else(treat == 0, 0, post))) 
+
+setup <- df |>
+  synthdid::panel.matrices(
+    unit = "id",
+    time = "period",
+    outcome = "y",
+    treatment = "treatment"
+  )
+
+
+tau.hat = synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
+tau.hat
+# sqrt(vcov(tau.hat, method='bootstrap'))
+sqrt(vcov(tau.hat, method='jackknife'))
+
+# to use this SE method, must have more controls than treated units
+# can try the base_stagg dataset from above 
+# sqrt(vcov(tau.hat, method='placebo'))
+
+# Comparing counterfactual estimate to real-world observation
+synthdid::synthdid_plot(tau.hat
+                        # , se.method = "placebo"
+                        ) + ama_theme()
+
+# Control unit contribution plot (black is the ATE, grey lines are CIs)
+synthdid::synthdid_units_plot(tau.hat) + ama_theme(base_size = 8)
+
+# pre-treatment parallel trends
+# synthdid::synthdid_plot(tau.hat, overlay = 1)
+# synthdid::synthdid_plot(tau.hat, overlay = .8)
+# synthdid::synthdid_placebo_plot(tau.hat)
+# synthdid::synthdid_rmse_plot(tau.hat)
+```
+
+To incorporate time-varying elements into the unit and time weights of the `synthdid`, consider using residuals obtained from regressing observed outcomes against time-varying variables. This can be expressed as:
+
+$$
+Y_{it}^{res} = Y_{it} - X_{it} \hat{\beta}
+$$
+
+where $\hat{\beta}$ is derived from the regression equation $Y = \beta X_{it}$.
+
+```{r}
+setup2 <- df |>
+  dplyr::mutate(y_res = residuals(lm(y ~ x1))) |>
+  synthdid::panel.matrices(
+    unit = "id",
+    time = "period",
+    outcome = "y_res",
+    treatment = "treatment"
+  )
+
+
+tau.hat2 = synthdid::synthdid_estimate(setup2$Y, setup2$N0, setup2$T0)
+tau.hat2
+```
+
+```{r}
+tau.sc   = synthdid::sc_estimate(setup$Y, setup$N0, setup$T0)
+tau.did  = synthdid::did_estimate(setup$Y, setup$N0, setup$T0)
+estimates = list(tau.did, tau.sc, tau.hat)
+names(estimates) = c('Diff-in-Diff', 'Synthetic Control', 'Synthetic Diff-in-Diff')
+
+print(unlist(estimates))
+
+synthdid::synthdid_plot(estimates) +
+  ama_theme()
+```
+
+Spaghetti plots
+
+```{r}
+top.controls = synthdid::synthdid_controls(tau.hat)[1:10, , drop=FALSE]
+plot(tau.hat, spaghetti.units=rownames(top.controls)) + ama_theme()
+```
+
+```{r}
+synthdid::synthdid_units_plot(estimates) +
+  ama_theme()
+```
+
+```{r}
+synthdid::synthdid_units_plot(tau.hat, units = rownames(top.controls)) + ama_theme()
+```
+
+Compare to other estimators
+
+```{r}
+setup = synthdid::panel.matrices(synthdid::california_prop99)
+
+# Run for specific estimators
+results_selected = causalverse::panel_estimate(setup, selected_estimators = c("synthdid", "did", "sc"))
+
+results_selected
+# to access more details in the estimate object
+summary(results_selected$did$estimate)
+
+process_panel_estimate(results_selected)
+```
+
+## Staggered Adoptions
+
+This vignette adapts the block assignment method from @arkhangelsky2021synthetic for staggered adoption scenarios. Following the approach suggested by @ben2022synthetic, separate assignment matrices are created for each treatment period to fit the block assignment context. The `synthdid` estimator is then applied to each sub-sample. Finally, the Average Treatment Effect on the Treated (ATT) is calculated as a weighted average of all ATTs for all treated periods, with weights based on the proportion of treated units in each time period for each sub-sample.
+
+```{r}
+library(tidyverse)
+library(fixest)
+df <- fixest::base_stagg |>
+   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
+   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar))) |> 
+  mutate(subgroup = sample(c(0,1), nrow(base_stagg), replace = T))
+
+
+est <- causalverse::synthdid_est_ate(
+  data               = df,
+  adoption_cohorts   = 5:7,
+  lags               = 2,
+  leads              = 2,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated",
+  treat_stat_var     = "treatvar",
+  outcome_var        = "y", 
+)
+
+data.frame(
+    Period = names(est$TE_mean_w),
+    ATE = est$TE_mean_w,
+    SE = est$SE_mean_w
+) |>
+    causalverse::nice_tab()
+
+causalverse::synthdid_plot_ate(est)
+```
+
+Compare to different estimators (e.g., DID and SC)
+
+```{r, message=FALSE, eval = FALSE}
+methods <- c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
+
+estimates <- lapply(methods, function(method) {
+  synthdid_est_ate(
+    data               = df,
+    adoption_cohorts   = 5:7,
+    lags               = 2,
+    leads              = 2,
+    time_var           = "year",
+    unit_id_var        = "id",
+    treated_period_var = "year_treated",
+    treat_stat_var     = "treatvar",
+    outcome_var        = "y",
+    method = method
+  )
+})
+
+plots <- lapply(seq_along(estimates), function(i) {
+  causalverse::synthdid_plot_ate(estimates[[i]],
+                                 title = methods[i],
+                                 theme = causalverse::ama_theme(base_size = 6))
+})
+
+gridExtra::grid.arrange(grobs = plots, ncol = 2)
+```
+
+Subgroup Analysis (i.e., exploring treatment effects heterogeneity )
+
+```{r}
+library(tidyverse)
+
+est_sub <- causalverse::synthdid_est_ate(
+  data               = df,
+  adoption_cohorts   = 5:7,
+  lags               = 2,
+  leads              = 2,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated",
+  treat_stat_var     = "treatvar",
+  outcome_var        = "y",
+  # a vector of subgroup id (from unit id)
+  subgroup           =  c(
+    # some are treated
+    "11", "30", "49" ,
+    # some are control within this period
+    "20", "25", "21")
+)
+
+data.frame(
+    Period = names(est_sub$TE_mean_w),
+    ATE = est_sub$TE_mean_w,
+    SE = est_sub$SE_mean_w
+) |>
+    causalverse::nice_tab()
+
+causalverse::synthdid_plot_ate(est)
+```
+
+To incorporate time-varying variables, use the residuals obtained from regressing the outcome on these variables.
+
+```{r}
+df_x <- fixest::base_stagg |>
+   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
+   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar))) |> 
+  
+  mutate(y_res = residuals(lm(y ~ x1)))
+
+
+est_x <- causalverse::synthdid_est_ate(
+  data               = df_x,
+  adoption_cohorts   = 5:7,
+  lags               = 2,
+  leads              = 2,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated",
+  treat_stat_var     = "treatvar",
+  outcome_var        = "y_res"
+)
+
+data.frame(
+    Period = names(est_x$TE_mean_w),
+    ATE    = est_x$TE_mean_w,
+    SE     = est_x$SE_mean_w
+) |>
+    causalverse::nice_tab()
+
+causalverse::synthdid_plot_ate(est_x)
+```

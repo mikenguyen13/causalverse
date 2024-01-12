@@ -18,7 +18,8 @@ synthdid_est_ate(
   pooled = F,
   subgroup = NULL,
   conf_level = 0.95,
-  seed = 1
+  seed = 1,
+  method = "synthdid"
 )
 }
 \arguments{
@@ -49,6 +50,17 @@ synthdid_est_ate(
 \item{conf_level}{Numeric, confidence level for the interval estimation (Default: 95\%).}
 
 \item{seed}{A numeric value for setting the random seed (for placebo SE and placebo analysis). Default is 1.}
+
+\item{method}{The estimation method to be used. Methods include:
+\itemize{
+\item 'did': Difference-in-Differences.
+\item 'sc': Synthetic Control Method.
+\item 'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.
+\item 'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).
+\item 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.
+\item 'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
+Defaults to 'synthdid'.
+}}
 }
 \value{
 A list containing the following elements:
@@ -104,4 +116,15 @@ American Economic Association 2014 Broadway, Suite 305, Nashville, TN 37203.
 Ben-Michael, E., Feller, A., & Rothstein, J. (2022). Synthetic controls with staggered
 adoption. Journal of the Royal Statistical Society Series B: Statistical Methodology,
 84(2), 351-381. Oxford University Press.
+
+Ferman, B., & Pinto, C. (2021). Synthetic controls with imperfect pretreatment fit.
+Quantitative Economics, 12(4), 1197-1221.
+
+Doudchenko, Nikolay, and Guido W. Imbens. 2016.
+“Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis.”
+NBER Working Paper 22791.
+
+Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021).
+Synthetic difference-in-differences.
+American Economic Review, 111(12), 4088-4118.
 }
