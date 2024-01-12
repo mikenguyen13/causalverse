@@ -4,8 +4,8 @@
 #' It allows the user to select specific estimators and set parameters for Monte Carlo replications and seed.
 #'
 #' @param setup A list containing matrices Y, N0, and T0 for panel data analysis.
-#' @param selected_estimators A character vector specifying which estimators to use.
-#'   Defaults to all available estimators.
+#' @param selected_estimators A character vector specifying which estimators to use. For example, c("synthdid", "did", "sc", "difp", "mc", "sc_ridge", "difp_ridge") or names(panel_estimators).
+#'   Defaults to all available estimators except 'mc'.
 #' @param mc_replications The number of Monte Carlo replications for computing standard errors. 
 #'   Applicable if the 'mc' estimator is used. Defaults to 200.
 #' @param seed An integer value to set the random seed for reproducibility. Defaults to 1.
@@ -24,7 +24,7 @@
 #' @export
 panel_estimate <-
   function(setup,
-           selected_estimators = names(panel_estimators),
+           selected_estimators = setdiff(names(panel_estimators), "mc"),
            mc_replications = 200,
            seed = 1) {
     set.seed(seed)

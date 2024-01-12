@@ -62,7 +62,6 @@ panel_estimators = list(
   synthdid   = synthdid::synthdid_estimate,
   did        = synthdid::did_estimate,
   sc         = synthdid::sc_estimate,
-  sdid       = synthdid::synthdid_estimate,
   difp       = difp_estimate,
   mc         = mc_estimate, 
   sc_ridge   = sc_estimate_ridge,

@@ -257,7 +257,7 @@ plots <- lapply(seq_along(estimates), function(i) {
 gridExtra::grid.arrange(grobs = plots, ncol = 2)
 ```
 
-Subgroup Analysis (i.e., exploring treatment effects heterogeneity )
+Subgroup Analysis (i.e., exploring treatment effects heterogeneity)
 
 ```{r}
 library(tidyverse)

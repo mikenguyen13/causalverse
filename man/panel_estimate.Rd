@@ -6,7 +6,7 @@
 \usage{
 panel_estimate(
   setup,
-  selected_estimators = names(panel_estimators),
+  selected_estimators = setdiff(names(panel_estimators), "mc"),
   mc_replications = 200,
   seed = 1
 )
@@ -14,8 +14,8 @@ panel_estimate(
 \arguments{
 \item{setup}{A list containing matrices Y, N0, and T0 for panel data analysis.}
 
-\item{selected_estimators}{A character vector specifying which estimators to use.
-Defaults to all available estimators.}
+\item{selected_estimators}{A character vector specifying which estimators to use. For example, c("synthdid", "did", "sc", "difp", "mc", "sc_ridge", "difp_ridge") or names(panel_estimators).
+Defaults to all available estimators except 'mc'.}
 
 \item{mc_replications}{The number of Monte Carlo replications for computing standard errors.
 Applicable if the 'mc' estimator is used. Defaults to 200.}
