@@ -64,7 +64,7 @@ It allows the user to select specific estimators and set parameters for Monte Ca
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">panel_estimate</span><span class="op">(</span></span>
 <span>  <span class="va">setup</span>,</span>
-<span>  selected_estimators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">panel_estimators</span><span class="op">)</span>,</span>
+<span>  selected_estimators <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">panel_estimators</span><span class="op">)</span>, <span class="st">"mc"</span><span class="op">)</span>,</span>
 <span>  mc_replications <span class="op">=</span> <span class="fl">200</span>,</span>
 <span>  seed <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -77,8 +77,8 @@ It allows the user to select specific estimators and set parameters for Monte Ca
 
 
 <dt>selected_estimators</dt>
-<dd><p>A character vector specifying which estimators to use.
-Defaults to all available estimators.</p></dd>
+<dd><p>A character vector specifying which estimators to use. For example, c("synthdid", "did", "sc", "difp", "mc", "sc_ridge", "difp_ridge") or names(panel_estimators).
+Defaults to all available estimators except 'mc'.</p></dd>
 
 
 <dt>mc_replications</dt>
