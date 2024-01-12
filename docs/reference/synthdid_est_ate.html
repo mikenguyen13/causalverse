@@ -36,16 +36,13 @@ various cohorts, lags, leads, placebo tests, and pooled analyses."><meta propert
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/did.html">2. Difference-in-Differences</a>
+      <a href="../articles/a_introduction.html">Introduction to CausalVerse</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">Introduction to CausalVerse</a>
+      <a href="../articles/b_synthdid.html">3. Synthetic Difference-in-Differences</a>
     </li>
     <li>
-      <a href="../articles/model_free.html">Model Free Evidence</a>
-    </li>
-    <li>
-      <a href="../articles/synthdid.html">3. Synthetic Difference-in-Differences</a>
+      <a href="../articles/c_did.html">4. Difference-in-Differences</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -85,7 +82,8 @@ various cohorts, lags, leads, placebo tests, and pooled analyses.</p>
 <span>  pooled <span class="op">=</span> <span class="cn">F</span>,</span>
 <span>  subgroup <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  conf_level <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">1</span></span>
+<span>  seed <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"synthdid"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -146,6 +144,17 @@ various cohorts, lags, leads, placebo tests, and pooled analyses.</p>
 <dt>seed</dt>
 <dd><p>A numeric value for setting the random seed (for placebo SE and placebo analysis). Default is 1.</p></dd>
 
+
+<dt>method</dt>
+<dd><p>The estimation method to be used. Methods include:</p><ul><li><p>'did': Difference-in-Differences.</p></li>
+<li><p>'sc': Synthetic Control Method.</p></li>
+<li><p>'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.</p></li>
+<li><p>'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).</p></li>
+<li><p>'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.</p></li>
+<li><p>'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
+Defaults to 'synthdid'.</p></li>
+</ul></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -173,6 +182,14 @@ American Economic Association 2014 Broadway, Suite 305, Nashville, TN 37203.</p>
 <p>Ben-Michael, E., Feller, A., &amp; Rothstein, J. (2022). Synthetic controls with staggered
 adoption. Journal of the Royal Statistical Society Series B: Statistical Methodology,
 84(2), 351-381. Oxford University Press.</p>
+<p>Ferman, B., &amp; Pinto, C. (2021). Synthetic controls with imperfect pretreatment fit.
+Quantitative Economics, 12(4), 1197-1221.</p>
+<p>Doudchenko, Nikolay, and Guido W. Imbens. 2016.
+“Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis.”
+NBER Working Paper 22791.</p>
+<p>Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., &amp; Wager, S. (2021).
+Synthetic difference-in-differences.
+American Economic Review, 111(12), 4088-4118.</p>
     </div>
 
     <div id="ref-examples">

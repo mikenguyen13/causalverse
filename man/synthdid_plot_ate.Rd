@@ -7,7 +7,7 @@
 synthdid_plot_ate(
   est,
   show_CI = TRUE,
-  custom_title = "",
+  title = "",
   xlab = "Relative Time Period",
   ylab = "ATE",
   y_intercept = 0,
@@ -20,7 +20,7 @@ synthdid_plot_ate(
 
 \item{show_CI}{Logical; if TRUE, shows confidence intervals on the plot.}
 
-\item{custom_title}{String; title of the plot.}
+\item{title}{String; title of the plot.}
 
 \item{xlab}{String; label for the x-axis.}
 
@@ -65,6 +65,6 @@ from a given estimation object.
       outcome_var = "y"
     )
   # Generate the plot
-  synthdid_plot_ate(est, show_CI = TRUE, custom_title = "Sample ATE Plot")
+  synthdid_plot_ate(est, show_CI = TRUE, title = "Sample ATE Plot")
 }
 }

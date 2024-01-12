@@ -33,16 +33,13 @@ from a given estimation object."><meta property="og:image" content="/logo.png"><
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/did.html">2. Difference-in-Differences</a>
+      <a href="../articles/a_introduction.html">Introduction to CausalVerse</a>
     </li>
     <li>
-      <a href="../articles/introduction.html">Introduction to CausalVerse</a>
+      <a href="../articles/b_synthdid.html">3. Synthetic Difference-in-Differences</a>
     </li>
     <li>
-      <a href="../articles/model_free.html">Model Free Evidence</a>
-    </li>
-    <li>
-      <a href="../articles/synthdid.html">3. Synthetic Difference-in-Differences</a>
+      <a href="../articles/c_did.html">4. Difference-in-Differences</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -68,7 +65,7 @@ from a given estimation object.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">synthdid_plot_ate</span><span class="op">(</span></span>
 <span>  <span class="va">est</span>,</span>
 <span>  show_CI <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  custom_title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  xlab <span class="op">=</span> <span class="st">"Relative Time Period"</span>,</span>
 <span>  ylab <span class="op">=</span> <span class="st">"ATE"</span>,</span>
 <span>  y_intercept <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -87,7 +84,7 @@ from a given estimation object.</p>
 <dd><p>Logical; if TRUE, shows confidence intervals on the plot.</p></dd>
 
 
-<dt>custom_title</dt>
+<dt>title</dt>
 <dd><p>String; title of the plot.</p></dd>
 
 
@@ -145,7 +142,7 @@ from a given estimation object.</p>
 <span class="r-in"><span>      outcome_var <span class="op">=</span> <span class="st">"y"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="co"># Generate the plot</span></span></span>
-<span class="r-in"><span>  <span class="fu">synthdid_plot_ate</span><span class="op">(</span><span class="va">est</span>, show_CI <span class="op">=</span> <span class="cn">TRUE</span>, custom_title <span class="op">=</span> <span class="st">"Sample ATE Plot"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">synthdid_plot_ate</span><span class="op">(</span><span class="va">est</span>, show_CI <span class="op">=</span> <span class="cn">TRUE</span>, title <span class="op">=</span> <span class="st">"Sample ATE Plot"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>

@@ -2,9 +2,8 @@ pandoc: 3.1.1
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  did: did.html
-  introduction: introduction.html
-  model_free: model_free.html
-  synthdid: synthdid.html
-last_built: 2024-01-10T23:14Z
+  a_introduction: a_introduction.html
+  b_synthdid: b_synthdid.html
+  c_did: c_did.html
+last_built: 2024-01-12T20:38Z
 

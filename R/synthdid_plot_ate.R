@@ -5,7 +5,7 @@
 #'
 #' @param est Estimation object from `synthdid_est_ate`.
 #' @param show_CI Logical; if TRUE, shows confidence intervals on the plot.
-#' @param custom_title String; title of the plot.
+#' @param title String; title of the plot.
 #' @param xlab String; label for the x-axis.
 #' @param ylab String; label for the y-axis.
 #' @param y_intercept Numeric; value at which a horizontal line is drawn.
@@ -40,12 +40,12 @@
 #'       outcome_var = "y"
 #'     )
 #'   # Generate the plot
-#'   synthdid_plot_ate(est, show_CI = TRUE, custom_title = "Sample ATE Plot")
+#'   synthdid_plot_ate(est, show_CI = TRUE, title = "Sample ATE Plot")
 #' }
 synthdid_plot_ate <- function(
     est,
     show_CI = TRUE,
-    custom_title = "",
+    title = "",
     xlab = "Relative Time Period", 
     ylab = "ATE", 
     y_intercept = 0,
@@ -80,7 +80,7 @@ synthdid_plot_ate <- function(
   # Add labels and apply the specified theme
   p <- p +
     labs(
-      title = custom_title,
+      title = title,
       x = xlab,
       y = ylab
     ) +

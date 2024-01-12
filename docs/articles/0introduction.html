@@ -60,7 +60,10 @@
       <a href="../articles/0introduction.html">Introduction to CausalVerse</a>
     </li>
     <li>
-      <a href="../articles/2did.html">2. Difference-in-Differences</a>
+      <a href="../articles/3synthdid.html">4. Synthetic Difference-in-Differences</a>
+    </li>
+    <li>
+      <a href="../articles/4did.html">3. Difference-in-Differences</a>
     </li>
   </ul>
 </li>
@@ -82,7 +85,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2023-08-25</h4>
+            <h4 data-toc-skip class="date">2024-01-12</h4>
       
       
       <div class="hidden name"><code>0introduction.Rmd</code></div>
@@ -93,7 +96,17 @@ Nguyen</h4>
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">Attaching core tidyverse packages</span> ──────────────────────── tidyverse 2.0.0 ──</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr    </span> 1.1.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr    </span> 2.1.4</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats  </span> 1.0.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr  </span> 1.5.1</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">lubridate</span> 1.9.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble   </span> 3.2.1</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr    </span> 1.0.2     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr    </span> 1.3.0</span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Use the conflicted package (<span style="color: #0000BB; font-style: italic;">&lt;http://conflicted.r-lib.org/&gt;</span>) to force all conflicts to become errors</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction-to-the-causalverse-package">
 <strong>Introduction to the <code>causalverse</code>
@@ -115,28 +128,6 @@ background and hands-on demonstrations, ensuring you have both the
 knowledge and skills to implement each method effectively.</p>
 <p>Here’s a snapshot of our method-specific vignettes:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Regression Discontinuity</strong>: The Regression
-Discontinuity vignette delves into the nuances of the Regression
-Discontinuity approach. From its foundational principles to its
-practical implementation in <strong><code>causalverse</code></strong>,
-this guide offers a thorough exploration.</p></li>
-<li><p><strong>Difference in Differences</strong>: Navigate to the <a href="https://mikenguyen13.github.io/causalverse/articles/did.html" class="external-link">Difference-in-Differences
-vignette</a> for a deep dive into the Difference in Differences
-methodology. Grasp the core concepts, witness its application, and
-explore use-cases.</p></li>
-<li><p><strong>Synthetic Controls (SC)</strong>: The
-<strong><code>sc</code></strong> vignette demystifies the Synthetic
-Control method, providing insights into its algorithm, advantages,
-limitations, and usage within our package.</p></li>
-<li><p><strong>Instrumental Variables (IV)</strong>: Turn to the
-<strong><code>iv</code></strong> vignette for a comprehensive look at
-the Instrumental Variables approach, where you’ll learn about its
-theoretical underpinnings and practical application in
-<strong><code>causalverse</code></strong>.</p></li>
-<li><p><strong>Event Studies (EV)</strong>: The
-<strong><code>ev</code></strong> vignette offers a deep dive into Event
-Studies, ensuring you’re equipped to harness its full potential for
-causal analysis.</p></li>
 <li><p><strong>Randomized Control Trials (RCT)</strong>: Although
 <strong><code>causalverse</code></strong> primarily focuses on
 quasi-experimental methods using observational data, we recognize the
@@ -144,12 +135,15 @@ importance of experimental methods in causal research. The
 <strong><code>rct</code></strong> vignette presents a detailed overview
 of Randomized Control Trials, the gold standard of experimental
 research.</p></li>
+<li><p><strong>Regression Discontinuity (RD)</strong></p></li>
+<li><p><strong>Synthetic Difference-in-differences
+(Synthdid)</strong></p></li>
+<li><p><strong>Difference in Differences (DiD)</strong></p></li>
+<li><p><strong>Synthetic Controls (SC)</strong></p></li>
+<li><p><strong>Instrumental Variables (IV)</strong></p></li>
+<li><p><strong>Event Studies (EV)</strong></p></li>
 </ol>
-</div>
-<div class="section level3">
-<h3 id="a-note-on-methodologies">
-<strong>A Note on Methodologies</strong><a class="anchor" aria-label="anchor" href="#a-note-on-methodologies"></a>
-</h3>
+<p><strong>A Note on Methodologies</strong></p>
 <p>The majority of methods covered in
 <strong><code>causalverse</code></strong> pertain to quasi-experimental
 approaches, typically applied to observational data. These methods are
@@ -157,11 +151,7 @@ instrumental in scenarios where running randomized experiments might be
 infeasible, unethical, or costly. However, we also touch upon
 experimental methods, specifically RCTs, recognizing their unparalleled
 significance in establishing causal relationships.</p>
-</div>
-<div class="section level3">
-<h3 id="getting-started">
-<strong>Getting Started</strong><a class="anchor" aria-label="anchor" href="#getting-started"></a>
-</h3>
+<p><strong>Getting Started</strong></p>
 <p>As you embark on your journey with
 <strong><code>causalverse</code></strong>, we recommend starting with
 this introductory vignette to familiarize yourself with the package’s
@@ -355,6 +345,16 @@ you can apply the <strong><code><a href="../reference/ama_scale_fill.html">ama_s
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span>panel.spacing <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="0introduction_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="section level5">
+<h5 id="export-figures">Export Figures<a class="anchor" aria-label="anchor" href="#export-figures"></a>
+</h5>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_grey</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_export_fig.html">ama_export_fig</a></span><span class="op">(</span></span>
+<span>    filename <span class="op">=</span> <span class="st">"p_color"</span>,</span>
+<span>    filepath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level4">
 <h4 id="tables">Tables<a class="anchor" aria-label="anchor" href="#tables"></a>
@@ -387,7 +387,139 @@ reported with the table.</p></li>
 should be editable in Word.</p></li>
 </ul>
 </blockquote>
+<div class="section level5">
+<h5 id="export-tables">Export Tables<a class="anchor" aria-label="anchor" href="#export-tables"></a>
+</h5>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    mpg cyl disp  hp drat   wt  qsec vs am gear carb</span></span>
+<span><span class="co">#&gt; 1 21.0   6  160 110 3.90 2.62 16.46  0  1    4    4</span></span>
+<span><span class="co">#&gt; 2 21.0   6  160 110 3.90 2.88 17.02  0  1    4    4</span></span>
+<span><span class="co">#&gt; 3 22.8   4  108  93 3.85 2.32 18.61  1  1    4    1</span></span>
+<span><span class="co">#&gt; 4 21.4   6  258 110 3.08 3.21 19.44  1  0    3    1</span></span>
+<span><span class="co">#&gt; 5 18.7   8  360 175 3.15 3.44 17.02  0  0    3    2</span></span>
+<span><span class="co">#&gt; 6 18.1   6  225 105 2.76 3.46 20.22  1  0    3    1</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mtcars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/nice_tab.html">nice_tab</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="../reference/ama_export_tab.html">ama_export_tab</a></span><span class="op">(</span></span>
+<span>    filename <span class="op">=</span> <span class="st">"test_tab"</span>,</span>
+<span>    filepath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"export"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="model-free-evidence">Model Free Evidence<a class="anchor" aria-label="anchor" href="#model-free-evidence"></a>
+</h2>
+<div class="section level3">
+<h3 id="why-visualize-model-free-evidence">Why Visualize Model-Free Evidence?<a class="anchor" aria-label="anchor" href="#why-visualize-model-free-evidence"></a>
+</h3>
+<p>Often in research, especially in econometrics, public policy, and
+social sciences, we aim to understand the impact of an intervention or
+treatment. Typically, a group receiving the treatment (the “treated”
+group) is compared against a group not receiving it (the “control”
+group). One of the crucial steps in this analysis is visualizing the
+trends in both groups over time. Such visualizations, especially when
+they are presented across different groupings (e.g., industries),
+provide what is sometimes termed “model-free evidence”. This means the
+evidence is not reliant on the assumptions of a particular statistical
+model, making it a robust way to initially understand the data before
+diving into intricate model-based analyses.</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Immediate Visual Feedback</strong>: Before we fit complex
+models to our data, it’s beneficial to see the raw trends. Often, the
+naked eye can capture nuances that might be missed or misinterpreted by
+statistical models.</p></li>
+<li><p><strong>Simplicity for Broader Audience</strong>: Not everyone in
+your audience might be comfortable with intricate statistical details.
+Simple plots showcasing trends can be understood by a broader
+audience.</p></li>
+<li><p><strong>Highlighting Discrepancies</strong>: If there are stark
+differences in trends between the treated and control groups, or if
+these trends vary across categories like industries, they become
+immediately evident.</p></li>
+<li><p><strong>Building Trust in Subsequent Analysis</strong>: When we
+later present model-based results, having first shown the raw trends
+ensures the audience that the models aren’t capturing spurious
+patterns.</p></li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="using-plot_trends_across_group-for-model-free-evidence">Using <code>plot_trends_across_group</code> for Model-Free
+Evidence<a class="anchor" aria-label="anchor" href="#using-plot_trends_across_group-for-model-free-evidence"></a>
+</h3>
+<p>The function <strong><code>plot_trends_across_group</code></strong>is
+designed to help researchers visualize these trends effortlessly. Users
+can input their dataset, specify the x-axis, y-axis, grouping variable
+(like treated/control), and a secondary grouping variable (like
+industries).</p>
+<p>Here’s an example using a fictitious dataset:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Set random seed for reproducibility</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the fictitious dataset</span></span>
+<span><span class="va">n_years</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">industries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="co"># "Tech", </span></span>
+<span>  <span class="st">"Healthcare"</span>, <span class="st">"Finance"</span>, <span class="st">"Retail"</span>, <span class="st">"Energy"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>industry <span class="op">=</span> <span class="va">industries</span>,</span>
+<span>                    year <span class="op">=</span> <span class="fl">2001</span><span class="op">:</span><span class="fl">2020</span>,</span>
+<span>                    group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treated"</span>, <span class="st">"control"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">industry</span>, <span class="va">year</span>, <span class="va">group</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    dependent_variable <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
+<span>      <span class="co"># industry == "Tech" &amp; group == "treated" ~ rnorm(1, 50 + year, 10),</span></span>
+<span>      <span class="co"># industry == "Tech" &amp; group == "control" ~ rnorm(1, 40 + year, 10),</span></span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Healthcare"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"treated"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">40</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Healthcare"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"control"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">45</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Finance"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"treated"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span> <span class="op">-</span> <span class="va">year</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Finance"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"control"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">65</span> <span class="op">-</span> <span class="va">year</span><span class="op">/</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Retail"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"treated"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">70</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Retail"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"control"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">65</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Energy"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"treated"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span> <span class="op">-</span> <span class="va">year</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>      <span class="va">industry</span> <span class="op">==</span> <span class="st">"Energy"</span> <span class="op">&amp;</span> <span class="va">group</span> <span class="op">==</span> <span class="st">"control"</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">75</span> <span class="op">-</span> <span class="va">year</span><span class="op">/</span><span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">50</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>  <span class="co"># random standard errors between 1 and 5</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create panel of line plots with grid layout and uncertainty</span></span>
+<span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="co"># filter(industry != "Tech") |&gt; </span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">dependent_variable</span>, color <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">dependent_variable</span> <span class="op">-</span> <span class="va">se</span>, </span>
+<span>                  ymax <span class="op">=</span> <span class="va">dependent_variable</span> <span class="op">+</span> <span class="va">se</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">industry</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Dependent Variable across Years by Group and Industry"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Dependent Variable"</span>,</span>
+<span>       color <span class="op">=</span> <span class="st">"Group"</span>, </span>
+<span>       fill <span class="op">=</span> <span class="st">"Group"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="0introduction_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example usage</span></span>
+<span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_trends_across_group.html">plot_trends_across_group</a></span><span class="op">(</span></span>
+<span>  data           <span class="op">=</span> <span class="va">data</span>,</span>
+<span>  x_var          <span class="op">=</span> <span class="st">"year"</span>,</span>
+<span>  y_var          <span class="op">=</span> <span class="st">"dependent_variable"</span>,</span>
+<span>  grouping_var   <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>  facet_var      <span class="op">=</span> <span class="st">"industry"</span>,</span>
+<span>  <span class="co"># se           = "se",</span></span>
+<span>  include_legend <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  title          <span class="op">=</span> <span class="st">"My Custom Title"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span></code></pre></div>
+<p><img src="0introduction_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 </div>
   </div>

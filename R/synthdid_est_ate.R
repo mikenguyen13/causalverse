@@ -29,6 +29,25 @@
 #' @param subgroup Vector, IDs for subgroup analysis.
 #' @param conf_level Numeric, confidence level for the interval estimation (Default: 95%).
 #' @param seed A numeric value for setting the random seed (for placebo SE and placebo analysis). Default is 1.
+#' @param method The estimation method to be used. Methods include:
+#'   - 'did': Difference-in-Differences.
+#'   - 'sc': Synthetic Control Method. 
+#'   - 'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.
+#'   - 'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).
+#'   - 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.
+#'   - 'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
+#' Defaults to 'synthdid'.
+#' @references
+#' Ferman, B., & Pinto, C. (2021). Synthetic controls with imperfect pretreatment fit. 
+#' Quantitative Economics, 12(4), 1197-1221.
+#'
+#' Doudchenko, Nikolay, and Guido W. Imbens. 2016. 
+#' “Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis.” 
+#' NBER Working Paper 22791.
+#'
+#' Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021). 
+#' Synthetic difference-in-differences. 
+#' American Economic Review, 111(12), 4088-4118.
 #'
 #' @return A list containing the following elements:
 #' \itemize{
@@ -81,7 +100,8 @@ synthdid_est_ate <-
            pooled = F,
            subgroup = NULL,
            conf_level = 0.95, 
-           seed = 1
+           seed = 1, 
+           method = "synthdid"
   ) {
     set.seed(seed)
     # Validate input data
@@ -182,7 +202,7 @@ synthdid_est_ate <-
       n_treat   = length(unique(balanced_df[balanced_df[,treated_period_var]==adoption_cohort, unit_id_var]))
       
       if (!is.null(subgroup)) {
-        n_treat = sum(unique(balanced_df[balanced_df[,treated_period_var]==adoption_cohort, unit_id_var]) %in% subgroup)
+        n_treat = sum(unique(balanced_df[balanced_df[, treated_period_var] == adoption_cohort, unit_id_var]) %in% subgroup)
       }
       
       cat("Treated units:", n_treat,"Control units:", n_control ,"\n")
@@ -207,7 +227,8 @@ synthdid_est_ate <-
           treated_period_var = treated_period_var,
           treat_stat_var     = treat_stat_var,
           outcome_var        = outcome_var,
-          seed               = seed
+          seed               = seed, 
+          method             = method
         )
         
         # Save output
@@ -220,7 +241,7 @@ synthdid_est_ate <-
     
     # Aggregate adoption-cohort-level ATTs 
     time         <-  seq(-lags, leads)
-    col_names       <-  c(time, paste("cumul.", 0:leads, sep = ""))
+    col_names    <-  c(time, paste("cumul.", 0:leads, sep = ""))
     TE           <- data.frame(TE)
     colnames(TE) <- col_names
     rownames(TE) <- out_adoption_cohorts
