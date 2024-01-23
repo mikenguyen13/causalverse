@@ -115,7 +115,7 @@ synthdid_est_ate <-
     
     # Process each adoption cohort
     for (adoption_cohort in adoption_cohorts) {
-      cat("adoption_cohort:",adoption_cohort,"\n" )
+      cat("Adoption Cohort:",adoption_cohort,"\n" )
       
       # Prepare balanced panel data for current adoption cohort
       # Specifically, create balanced panel with lags and leads for all treated

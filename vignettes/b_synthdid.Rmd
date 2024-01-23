@@ -202,9 +202,7 @@ library(tidyverse)
 library(fixest)
 df <- fixest::base_stagg |>
    dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
-   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar))) |> 
-  mutate(subgroup = sample(c(0,1), nrow(base_stagg), replace = T))
-
+   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar)))
 
 est <- causalverse::synthdid_est_ate(
   data               = df,

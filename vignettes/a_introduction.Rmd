@@ -332,3 +332,12 @@ plot <- plot_trends_across_group(
 
 print(plot)
 ```
+
+## Other Functions
+
+Mediation Analysis
+
+```{r}
+result <- med_ind(a = 0.5, b = 0.7, var_a = 0.04, var_b = 0.05, cov_ab = 0.01)
+result$plot
+```
