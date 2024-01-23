@@ -89,7 +89,7 @@ synthdid_est <-
     
     # Remove units with missing data in a time period
     if (any(is.na(data))) {
-      data <- as.data.table(data) %>%
+      data <- data.table::as.data.table(data) %>%
         .[, nas := min(get(outcome_var), na.rm = TRUE), by = !!unit_id_var] %>%
         na.omit() %>%
         .[, nas := NULL] %>%

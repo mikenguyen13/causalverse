@@ -41,5 +41,6 @@ Imports:
 	did (>= 2.1.2),
 	synthdid (>= 0.0.9),
 	plm (>= 2.6.3),
+	MASS,
 	foreach (>= 1.5.2)
 VignetteBuilder: knitr

@@ -85,7 +85,7 @@
                         <h4 data-toc-skip class="author">Mike
 Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2024-01-12</h4>
+            <h4 data-toc-skip class="date">2024-01-22</h4>
       
       
       <div class="hidden name"><code>a_introduction.Rmd</code></div>
@@ -521,6 +521,16 @@ industries).</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">plot</span><span class="op">)</span></span></code></pre></div>
 <p><img src="a_introduction_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="other-functions">Other Functions<a class="anchor" aria-label="anchor" href="#other-functions"></a>
+</h2>
+<p>Mediation Analysis</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/med_ind.html">med_ind</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0.5</span>, b <span class="op">=</span> <span class="fl">0.7</span>, var_a <span class="op">=</span> <span class="fl">0.04</span>, var_b <span class="op">=</span> <span class="fl">0.05</span>, cov_ab <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span>
+<span><span class="va">result</span><span class="op">$</span><span class="va">plot</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<p><img src="a_introduction_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
   </div>
 
