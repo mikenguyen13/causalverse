@@ -8,6 +8,7 @@
 #' @param filename A character string specifying the filename without the extension.
 #' @param filepath A character string specifying the directory to save the file.
 #' @param caption A character string specifying the caption for the table.
+#' @param size Latex size including "tiny", or "small"
 #' @import xtable
 #' @import rio
 #' @importFrom utils capture.output
@@ -18,7 +19,7 @@
 #' data(mtcars)  # Load the mtcars dataset
 #' ama_export_tab(mtcars[1:5, 1:5], "sample_table", tempdir(), "Sample Caption for mtcars")
 #' }
-ama_export_tab <- function(table, filename, filepath, caption = NULL) {
+ama_export_tab <- function(table, filename, filepath, caption = NULL, size = "small") {
   # Get current date
   date <- format(Sys.Date(), "%Y-%m-%d")
   
@@ -49,7 +50,16 @@ ama_export_tab <- function(table, filename, filepath, caption = NULL) {
   rio::export(table, file.path(filepath , paste0(filename, ".xlsx")))
   
   # Export LaTeX table without current date to current folder as LaTeX file
-  writeLines(capture.output(print(xtable_obj, type = "latex", caption.placement = "top", include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, paste0(filename, ".tex")))
+  writeLines(capture.output(
+    print(
+      xtable_obj,
+      type = "latex",
+      caption.placement = "top",
+      include.rownames = FALSE,
+      size = size,
+      sanitize.text.function = sanitize_custom
+    )
+  ), file.path(filepath, paste0(filename, ".tex")))
   
   # Export LaTeX table with current date to "archive" folder as LaTeX file
   writeLines(capture.output(print(xtable_obj, type = "latex", caption.placement = "top",include.rownames=FALSE, sanitize.text.function=sanitize_custom)), file.path(filepath, "archive", paste0(filename, "_", date, ".tex")))

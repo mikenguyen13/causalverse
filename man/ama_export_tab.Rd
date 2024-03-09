@@ -4,7 +4,7 @@
 \alias{ama_export_tab}
 \title{Function to export a table with AMA style}
 \usage{
-ama_export_tab(table, filename, filepath, caption = NULL)
+ama_export_tab(table, filename, filepath, caption = NULL, size = "small")
 }
 \arguments{
 \item{table}{A data frame or matrix.}
@@ -14,6 +14,8 @@ ama_export_tab(table, filename, filepath, caption = NULL)
 \item{filepath}{A character string specifying the directory to save the file.}
 
 \item{caption}{A character string specifying the caption for the table.}
+
+\item{size}{Latex size including "tiny", or "small"}
 }
 \description{
 This function exports the provided table in both Excel (\code{.xlsx}) and LaTeX (\code{.tex}) formats.
