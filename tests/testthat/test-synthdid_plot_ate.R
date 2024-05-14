@@ -22,6 +22,6 @@ est <-
   )
 
 test_that("synthdid_plot returns a ggplot object", {
-  plot <- synthdid_plot(est)
+  plot <- synthdid_plot_ate(est)
   expect_true(is.ggplot(plot))
 })
