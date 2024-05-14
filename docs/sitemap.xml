@@ -106,6 +106,9 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/lee_bounds.html</loc>
+  </url>
+  <url>
     <loc>/reference/med_ind.html</loc>
   </url>
   <url>
@@ -128,6 +131,9 @@
   </url>
   <url>
     <loc>/reference/plot_par_trends.html</loc>
+  </url>
+  <url>
+    <loc>/reference/plot_rd_aa_share.html</loc>
   </url>
   <url>
     <loc>/reference/plot_treat_time.html</loc>

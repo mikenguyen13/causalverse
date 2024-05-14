@@ -21,6 +21,9 @@ Imports:
 	ggplot2 (>= 3.4.2),
 	ggthemes (>= 4.2.4),
 	tidyverse (>= 2.0.0),
+	data.table (>= 1.14.8),
+	formattable (>= 0.2.1),
+	rdbounds (>= 1.1),
 	lubridate (>= 1.9.2),
 	rio (>= 0.5.29),
 	xtable (>= 1.8.4),
@@ -42,5 +45,6 @@ Imports:
 	synthdid (>= 0.0.9),
 	plm (>= 2.6.3),
 	MASS,
+	MedBounds (>= 0.1.0),
 	foreach (>= 1.5.2)
 VignetteBuilder: knitr
