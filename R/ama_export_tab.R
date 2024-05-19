@@ -9,6 +9,7 @@
 #' @param filepath A character string specifying the directory to save the file.
 #' @param caption A character string specifying the caption for the table.
 #' @param size Latex size including "tiny", or "small"
+#' @param ... additional input from `xtable::print.xtable()`
 #' @import xtable
 #' @import rio
 #' @importFrom utils capture.output
@@ -19,7 +20,7 @@
 #' data(mtcars)  # Load the mtcars dataset
 #' ama_export_tab(mtcars[1:5, 1:5], "sample_table", tempdir(), "Sample Caption for mtcars")
 #' }
-ama_export_tab <- function(table, filename, filepath, caption = NULL, size = "small") {
+ama_export_tab <- function(table, filename, filepath, caption = NULL, size = "small", ...) {
   # Get current date
   date <- format(Sys.Date(), "%Y-%m-%d")
   
@@ -57,7 +58,8 @@ ama_export_tab <- function(table, filename, filepath, caption = NULL, size = "sm
       caption.placement = "top",
       include.rownames = FALSE,
       size = size,
-      sanitize.text.function = sanitize_custom
+      sanitize.text.function = sanitize_custom,
+      ...
     )
   ), file.path(filepath, paste0(filename, ".tex")))
   
