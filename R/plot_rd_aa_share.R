@@ -20,6 +20,7 @@
 #' @param bounds_CI Logical, whether to include confidence intervals for the 
 #'        manipulation bounds. Default is TRUE.
 #' @param ref_line The y-intercept for a reference line. Default is 0.
+#' @param show_naive Logical, whether to show the naive estimate. Default is TRUE.
 #' @param ... Additional arguments passed to \code{labs} in ggplot2.
 #'
 #' @return A ggplot object.
@@ -63,6 +64,7 @@ plot_rd_aa_share <- function(data,
                              tau_CI = FALSE,
                              bounds_CI = TRUE,
                              ref_line = 0,
+                             show_naive = TRUE,
                              ...) {
   
   # Determine the correct prefix based on rd_type
@@ -82,7 +84,6 @@ plot_rd_aa_share <- function(data,
     geom_line(aes(y = TE_upper), linetype = "solid", color = "black") +
     geom_line(aes(y = get(paste0("TE_", prefix, "_CIs_manipulation_lower"))), linetype = "dotted", color = "black") +
     geom_line(aes(y = get(paste0("TE_", prefix, "_CIs_manipulation_upper"))), linetype = "dotted", color = "black") +
-    annotate("point", x = 0, y = naive_estimate, size = 3, color = "black") +
     labs(x = x_label, y = y_label, title = plot_title, ...) +
     theme_use
   
@@ -108,6 +109,11 @@ plot_rd_aa_share <- function(data,
     p <- p + 
       geom_line(aes(y = get(paste0("TE_", prefix, "_CIs_manipulation_lower"))), linetype = "dotted", color = "black") +
       geom_line(aes(y = get(paste0("TE_", prefix, "_CIs_manipulation_upper"))), linetype = "dotted", color = "black")
+  }
+  
+  # Add naive estimate point
+  if (show_naive) {
+    p <- p + annotate("point", x = 0, y = naive_estimate, size = 3, color = "black")
   }
   
   return(p)
