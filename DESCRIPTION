@@ -123,8 +123,7 @@ Suggests:
     ggdag,
     gt,
     broom,
-    mgcv,
-    MedBounds
+    mgcv
 Config/testthat/edition: 3
 Imports:
     ggplot2 (>= 3.4.2),

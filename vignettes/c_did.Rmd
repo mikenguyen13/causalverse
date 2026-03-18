@@ -1453,11 +1453,13 @@ es_did2s_res <- did2s(
   data = base_stagg,
   yname = "y",
   first_stage = ~ 0 | id + year,
-  second_stage = ~ i(time_to_treatment, ref = -1),
+  second_stage = ~ i(time_to_treatment, ref = c(-1, -1000)),
   treatment = "treat",
   cluster_var = "id"
 )
-fixest::iplot(es_did2s_res)
+fixest::iplot(es_did2s_res,
+  main = "did2s Event Study: Two-Stage DID",
+  xlab = "Periods Relative to Treatment")
 ```
 
 ### Doubly Robust DID with `DRDID`
@@ -1577,11 +1579,13 @@ es_did2s <- did2s(
   data = base_stagg,
   yname = "y",
   first_stage = ~ 0 | id + year,
-  second_stage = ~ i(time_to_treatment, ref = -1),
+  second_stage = ~ i(time_to_treatment, ref = c(-1, -1000)),
   treatment = "treated",
   cluster_var = "id"
 )
-fixest::iplot(es_did2s)
+fixest::iplot(es_did2s,
+  main = "did2s Event Study (HonestDiD approach)",
+  xlab = "Periods Relative to Treatment")
 ```
 
 ### Imputation Estimator (Borusyak, Jaravel, Spiess 2024)
@@ -3476,7 +3480,7 @@ delta_sd_results <- HonestDiD::createSensitivityResults(
 print(delta_sd_results)
 ```
 
-```{r honest_did_smooth_plot, eval=requireNamespace("HonestDiD", quietly=TRUE)}
+```{r honest_did_smooth_plot, eval=requireNamespace("HonestDiD", quietly=TRUE), fig.width=9, fig.height=5}
 # Sensitivity plot: x-axis = M (violation magnitude), y-axis = robust CI
 HonestDiD::createSensitivityPlot(delta_sd_results) +
   causalverse::ama_theme() +
@@ -3545,7 +3549,7 @@ delta_rm_results <- HonestDiD::createSensitivityResults_relativeMagnitudes(
 print(delta_rm_results)
 ```
 
-```{r honest_did_rm_plot, eval=requireNamespace("HonestDiD", quietly=TRUE)}
+```{r honest_did_rm_plot, eval=requireNamespace("HonestDiD", quietly=TRUE), fig.width=9, fig.height=5}
 HonestDiD::createSensitivityPlot_relativeMagnitudes(delta_rm_results) +
   causalverse::ama_theme() +
   labs(

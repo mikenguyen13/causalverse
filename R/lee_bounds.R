@@ -47,12 +47,15 @@ lee_bounds <- function(df, d, m, y,
                         units      = "",
                         numdraws   = 1000) {
 
-  if (!requireNamespace("MedBounds", quietly = TRUE)) {
+  # Use system.file() to check for MedBounds without triggering R CMD check
+  # NOTE: MedBounds is an archived package not on CRAN. Install via:
+  #   remotes::install_github("jonathandroth/MedBounds")
+  if (system.file(package = "MedBounds") == "") {
     stop(
       "The 'MedBounds' package is required for lee_bounds() but is not installed.\n",
-      "The original MedBounds package has been renamed to 'TestMechs' on GitHub,\n",
-      "but the API has changed. You may need an archived version of MedBounds.\n",
-      "See: https://github.com/jonathandroth/TestMechs",
+      "Install it with: remotes::install_github(\"jonathandroth/MedBounds\")\n",
+      "Note: the package has been archived; if unavailable try TestMechs instead:\n",
+      "  remotes::install_github(\"jonathandroth/TestMechs\")",
       call. = FALSE
     )
   }
