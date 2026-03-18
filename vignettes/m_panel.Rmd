@@ -130,8 +130,8 @@ cat("N =", N, "| T =", T, "| NT =", NT, "\n")
 ```{r check-balance}
 # Count observations per unit
 obs_per_unit <- panel_df |>
-  group_by(unit) |>
-  summarise(n_obs = n(), n_years = n_distinct(year))
+  dplyr::group_by(unit) |>
+  dplyr::summarise(n_obs = dplyr::n(), n_years = dplyr::n_distinct(year))
 
 cat("All units balanced:", all(obs_per_unit$n_obs == T), "\n")
 cat("Min observations per unit:", min(obs_per_unit$n_obs), "\n")

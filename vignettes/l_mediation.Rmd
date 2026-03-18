@@ -391,7 +391,7 @@ The sensitivity analysis traces ACME as a function of $\rho \in [-1, 1]$ and fin
 ```{r sens-analysis, eval=requireNamespace("mediation", quietly=TRUE)}
 # Sensitivity analysis
 sens_out <- mediation::medsens(
-  object = med_out,
+  med_out,
   rho.by = 0.05,
   effect.type = "indirect",
   sims = 100

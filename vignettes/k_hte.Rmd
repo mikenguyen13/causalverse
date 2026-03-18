@@ -686,7 +686,11 @@ GATES summarizes heterogeneity by ranking units into quantile groups by estimate
 
 ```{r gates-table, eval=requireNamespace("grf", quietly=TRUE)}
 cat("GATES Results:\n")
-print(round(blp_res$gates, 4))
+gates_df <- blp_res$gates
+# Only round numeric columns (group is character)
+num_cols <- sapply(gates_df, is.numeric)
+gates_df[num_cols] <- round(gates_df[num_cols], 4)
+print(gates_df)
 ```
 
 ```{r gates-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
