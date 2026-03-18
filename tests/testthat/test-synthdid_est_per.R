@@ -1,6 +1,6 @@
 library(testthat)
 library(causalverse) 
-library(tidyverse)
+library(dplyr)
 library(synthdid)
 
 # Sample setup for testing

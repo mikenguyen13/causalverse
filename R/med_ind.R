@@ -8,7 +8,7 @@
 #'
 #' @references
 #' Selig, J. P., & Preacher, K. J. (2008, June). Monte Carlo method for assessing mediation: 
-#' An interactive tool for creating confidence intervals for indirect effects [Computer software]. 
+#' An interactive tool for creating confidence intervals for indirect effects \[Computer software\].
 #' Available from http://quantpsy.org/.
 #' 
 #' @param a The regression coefficient for the effect of the independent (causal) variable on the mediator.

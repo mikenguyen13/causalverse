@@ -1,0 +1,3454 @@
+---
+title: "1. Randomized Control Trials"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{1. Randomized Control Trials}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE
+)
+```
+
+```{r setup, message = FALSE, warning = FALSE}
+library(causalverse)
+library(ggplot2)
+library(dplyr)
+library(fixest)
+```
+
+## 1. Introduction
+
+### 1.1 Randomized Control Trials as the Gold Standard
+
+Randomized Control Trials (RCTs) are widely regarded as the gold standard for causal inference. The fundamental appeal of an RCT lies in its simplicity: by randomly assigning units (individuals, firms, classrooms, villages) to treatment and control conditions, the researcher breaks any systematic association between the treatment and potential confounders. This means that any observed difference in outcomes between treated and control groups can be attributed to the causal effect of the treatment, rather than to pre-existing differences between groups.
+
+RCTs have a long history in medicine (clinical trials), but their use has expanded dramatically into economics, political science, education, development, and technology (A/B testing). Key advantages include:
+
+- **Unbiased estimation** of causal effects without parametric or functional form assumptions.
+- **Balance on observed and unobserved confounders** in expectation.
+- **Simple and transparent analysis** that is easy to communicate to both technical and non-technical audiences.
+- **Strong internal validity** for evaluating policies, programs, and interventions.
+
+When are RCTs appropriate?
+
+- When random assignment is feasible, ethical, and practical.
+- When you want to estimate the average treatment effect (ATE) with minimal assumptions.
+- When strong internal validity is the primary concern (e.g., policy evaluation, clinical trials, A/B testing).
+- When the researcher can control or influence the assignment mechanism.
+
+### 1.2 The Potential Outcomes Framework (Rubin Causal Model)
+
+The modern statistical framework for causal inference rests on the **potential outcomes** notation introduced by Neyman (1923) and formalized by Rubin (1974). For each unit $i$, we define two potential outcomes:
+
+- $Y_i(1)$: the outcome unit $i$ would experience **if treated**.
+- $Y_i(0)$: the outcome unit $i$ would experience **if not treated** (control).
+
+The **individual treatment effect** (ITE) is:
+
+$$\tau_i = Y_i(1) - Y_i(0)$$
+
+The **fundamental problem of causal inference** (Holland, 1986) is that we can never observe both $Y_i(1)$ and $Y_i(0)$ for the same unit at the same time. We observe:
+
+$$Y_i = D_i \cdot Y_i(1) + (1 - D_i) \cdot Y_i(0)$$
+
+where $D_i \in \{0, 1\}$ is the treatment indicator.
+
+### 1.3 Estimands: ATE, ATT, ATU
+
+Three causal estimands are commonly of interest:
+
+- **Average Treatment Effect (ATE):** The expected effect across the entire population:
+
+$$\text{ATE} = E[Y_i(1) - Y_i(0)]$$
+
+- **Average Treatment Effect on the Treated (ATT):** The expected effect among those who were treated:
+
+$$\text{ATT} = E[Y_i(1) - Y_i(0) \mid D_i = 1]$$
+
+- **Average Treatment Effect on the Untreated (ATU):** The expected effect among the controls:
+
+$$\text{ATU} = E[Y_i(1) - Y_i(0) \mid D_i = 0]$$
+
+In a perfectly randomized experiment, $D_i$ is independent of potential outcomes, so $\text{ATE} = \text{ATT} = \text{ATU}$.
+
+### 1.4 SUTVA: Stable Unit Treatment Value Assumption
+
+The potential outcomes framework requires the **Stable Unit Treatment Value Assumption** (SUTVA), which has two components:
+
+1. **No interference:** The potential outcomes for unit $i$ depend only on the treatment assigned to unit $i$, not on the treatments assigned to other units. Formally: $Y_i(D_1, D_2, \ldots, D_N) = Y_i(D_i)$.
+
+2. **No hidden variations of treatment:** There is only one version of each treatment level. All treated units receive the same treatment.
+
+SUTVA violations are common when there are spillover effects (e.g., vaccination reduces disease for untreated neighbors), general equilibrium effects (e.g., a job training program reduces wages for non-participants), or when the treatment is implemented differently for different units.
+
+### 1.5 Randomization as an Identification Strategy
+
+Under random assignment, treatment status $D_i$ is independent of potential outcomes:
+
+$$(Y_i(1), Y_i(0)) \perp\!\!\!\perp D_i$$
+
+This independence implies:
+
+$$E[Y_i \mid D_i = 1] - E[Y_i \mid D_i = 0] = E[Y_i(1) \mid D_i = 1] - E[Y_i(0) \mid D_i = 0]$$
+$$= E[Y_i(1)] - E[Y_i(0)] = \text{ATE}$$
+
+The simple difference in means between treated and control groups is an **unbiased estimator** of the ATE. No regression, matching, or other statistical adjustments are required for identification. This is the core power of randomization.
+
+The **selection bias** term that plagues observational studies:
+
+$$E[Y_i(0) \mid D_i = 1] - E[Y_i(0) \mid D_i = 0]$$
+
+is exactly zero in expectation under random assignment.
+
+### 1.6 Finite-Sample vs. Super-Population Inference
+
+There are two inferential frameworks for RCTs:
+
+- **Design-based (randomization) inference:** Treats potential outcomes as fixed and the randomization assignment as the source of randomness. Inference is exact and based on permutations of the treatment vector. This is the Fisher/Neyman tradition.
+
+- **Sampling-based (super-population) inference:** Treats both the potential outcomes and the assignment as random draws from a larger population. Standard errors and confidence intervals are based on the central limit theorem. This is the approach underlying OLS regression.
+
+Both approaches are valid. Design-based inference (randomization inference) can be more appropriate for small samples, while sampling-based inference is standard in practice.
+
+---
+
+## 2. Simulated RCT Data
+
+We now generate a rich simulated dataset that includes multiple covariates, strata (blocks), and clusters. This will allow us to demonstrate a variety of RCT analysis techniques throughout the vignette.
+
+```{r simulate-data}
+set.seed(42)
+n <- 500
+
+# --- Cluster and strata structure ---
+n_clusters <- 50
+cluster_id <- rep(1:n_clusters, each = n / n_clusters)
+# Strata based on region (4 regions)
+stratum <- rep(rep(1:4, each = n / (n_clusters * 4)), n_clusters)
+# If lengths don't match perfectly, recycle
+stratum <- rep(1:4, length.out = n)
+
+# --- Covariates ---
+age      <- rnorm(n, mean = 40, sd = 10)
+income   <- rnorm(n, mean = 50000, sd = 15000)
+educ     <- sample(1:4, n, replace = TRUE)  # education level (1=HS, 2=BA, 3=MA, 4=PhD)
+female   <- rbinom(n, 1, 0.52)
+baseline <- rnorm(n, mean = 100, sd = 15)  # baseline outcome measure
+
+# --- Random assignment (simple random assignment) ---
+treatment <- sample(c(0, 1), n, replace = TRUE)
+
+# --- Potential outcomes and observed outcome ---
+# True ATE = 2.5, with some heterogeneity by education
+tau_i <- 2.5 + 0.5 * (educ - 2)  # HTE: higher education -> larger effect
+
+outcome <- 5 + 0.1 * age + 0.00005 * income + 1.2 * educ +
+  0.3 * baseline + 0.8 * female +
+  tau_i * treatment + rnorm(n, sd = 3)
+
+# --- Assemble data frame ---
+rct_data <- data.frame(
+  outcome    = outcome,
+  treatment  = treatment,
+  age        = age,
+  income     = income,
+  educ       = educ,
+  female     = female,
+  baseline   = baseline,
+  stratum    = factor(stratum),
+  cluster_id = factor(cluster_id)
+)
+
+head(rct_data)
+str(rct_data)
+```
+
+Key features of this simulated data:
+
+- **500 observations** across 50 clusters and 4 strata.
+- **Pre-treatment covariates:** age, income, education, gender, and a baseline outcome measure.
+- **Heterogeneous treatment effects:** The true individual treatment effect varies by education level ($\tau_i = 2.5 + 0.5 \times (\text{educ} - 2)$), so $\tau$ ranges from 2.0 (educ=1) to 3.5 (educ=4).
+- **True average treatment effect:** $E[\tau_i] \approx 2.5$.
+
+---
+
+## 3. Balance Checking
+
+Even though randomization guarantees balance in expectation, it is good practice to verify that covariates are balanced across treatment and control groups in any given sample. Balance checks can detect implementation problems, protocol deviations, or simply bad luck in the random draw.
+
+### 3.1 Summary Statistics by Group
+
+A natural first step is to compare covariate means across treatment arms.
+
+```{r balance-table}
+balance_vars <- c("age", "income", "educ", "female", "baseline")
+
+balance_table <- rct_data %>%
+  group_by(treatment) %>%
+  summarise(
+    n          = n(),
+    age_mean   = mean(age),
+    income_mean = mean(income),
+    educ_mean  = mean(educ),
+    female_mean = mean(female),
+    baseline_mean = mean(baseline),
+    .groups = "drop"
+  )
+
+balance_table
+```
+
+### 3.2 Standardized Mean Differences
+
+A common metric for balance is the **standardized mean difference** (SMD), defined as:
+
+$$\text{SMD} = \frac{\bar{X}_1 - \bar{X}_0}{\sqrt{(s_1^2 + s_0^2) / 2}}$$
+
+where $\bar{X}_1, \bar{X}_0$ are the group means and $s_1^2, s_0^2$ are the group variances. A rule of thumb is that $|\text{SMD}| < 0.1$ indicates good balance.
+
+```{r smd}
+compute_smd <- function(data, var, treat_var = "treatment") {
+  x1 <- data[[var]][data[[treat_var]] == 1]
+  x0 <- data[[var]][data[[treat_var]] == 0]
+  pooled_sd <- sqrt((var(x1) + var(x0)) / 2)
+  (mean(x1) - mean(x0)) / pooled_sd
+}
+
+smd_results <- data.frame(
+  variable = balance_vars,
+  SMD = sapply(balance_vars, function(v) compute_smd(rct_data, v))
+)
+smd_results$abs_SMD <- abs(smd_results$SMD)
+smd_results$balanced <- ifelse(smd_results$abs_SMD < 0.1, "Yes", "No")
+
+smd_results
+```
+
+### 3.3 Visualizing Standardized Mean Differences
+
+```{r smd-plot, fig.width = 6, fig.height = 4}
+ggplot(smd_results, aes(x = reorder(variable, abs_SMD), y = SMD)) +
+  geom_point(size = 3) +
+  geom_hline(yintercept = c(-0.1, 0, 0.1), linetype = c("dashed", "solid", "dashed"),
+             color = c("red", "black", "red")) +
+  coord_flip() +
+  labs(
+    x = "Covariate",
+    y = "Standardized Mean Difference",
+    title = "Covariate Balance: Standardized Mean Differences"
+  ) +
+  causalverse::ama_theme()
+```
+
+Points falling between the dashed red lines ($\pm 0.1$) indicate good balance. Under successful randomization, we expect all covariates to be well-balanced.
+
+### 3.4 Variable-by-Variable t-Tests
+
+We can also conduct individual t-tests for each covariate.
+
+```{r individual-balance-tests}
+balance_tests <- lapply(balance_vars, function(v) {
+  tt <- t.test(as.formula(paste(v, "~ treatment")), data = rct_data)
+  data.frame(
+    variable = v,
+    mean_control = tt$estimate[1],
+    mean_treated = tt$estimate[2],
+    difference   = diff(tt$estimate),
+    p_value      = tt$p.value
+  )
+})
+
+balance_tests_df <- do.call(rbind, balance_tests)
+balance_tests_df
+```
+
+We expect most p-values to be large (non-significant), consistent with successful randomization. Note that even with perfect randomization, we expect roughly 5% of tests to reject at the 5% level by chance alone.
+
+### 3.5 Formal Joint Balance Tests with `balance_assessment()`
+
+Individual variable-by-variable tests suffer from a multiple testing problem. The `causalverse::balance_assessment()` function provides two **joint** tests of balance:
+
+- **Seemingly Unrelated Regression (SUR):** Estimates a system of equations where each covariate is regressed on the treatment indicator, accounting for correlations across equations. A joint F-test across all equations tests whether treatment predicts any covariate.
+
+- **Hotelling's T-squared test:** A multivariate generalization of the two-sample t-test that simultaneously tests equality of means across all covariates.
+
+```{r balance-assessment, eval = TRUE}
+bal_results <- causalverse::balance_assessment(
+  data          = rct_data,
+  treatment_col = "treatment",
+  "age", "income", "educ", "female", "baseline"
+)
+
+# SUR results (joint F-test across all equations)
+print(bal_results$SUR)
+
+# Hotelling's T-squared test
+print(bal_results$Hotelling)
+```
+
+A non-significant Hotelling test (large p-value) indicates that we cannot reject the null hypothesis of equal covariate means across groups. This is the expected result under successful randomization.
+
+### 3.6 Visual Balance Check with `plot_density_by_treatment()`
+
+Density plots provide an intuitive visual check of covariate balance. The `causalverse::plot_density_by_treatment()` function generates a list of density plots, one per covariate, overlaid by treatment group.
+
+```{r density-plots, fig.width = 7, fig.height = 4}
+density_plots <- causalverse::plot_density_by_treatment(
+  data          = rct_data,
+  var_map       = list(
+    "age"      = "Age",
+    "income"   = "Income",
+    "educ"     = "Education Level",
+    "female"   = "Female",
+    "baseline" = "Baseline Outcome"
+  ),
+  treatment_var = c("treatment" = "Treatment Group"),
+  theme_use     = causalverse::ama_theme()
+)
+
+# Display individual plots
+density_plots[["Age"]]
+density_plots[["Income"]]
+density_plots[["Baseline Outcome"]]
+```
+
+Overlapping density curves across treatment and control groups indicate good balance. Large visible shifts between the distributions would raise concern about the integrity of the randomization.
+
+---
+
+## 4. Treatment Effect Estimation
+
+### 4.1 Simple Difference in Means (t-test)
+
+The most basic and transparent estimator for the ATE in an RCT is the simple difference in group means. Under random assignment, this is unbiased for the ATE.
+
+```{r t-test}
+t_result <- t.test(outcome ~ treatment, data = rct_data)
+t_result
+```
+
+The estimated treatment effect from the t-test is approximately `r round(-diff(t_result$estimate), 3)`. Note that `t.test()` computes "group 0 mean minus group 1 mean," so we negate the difference to get the treatment effect in the conventional direction.
+
+```{r manual-dim}
+# Manual difference in means
+mean_treated <- mean(rct_data$outcome[rct_data$treatment == 1])
+mean_control <- mean(rct_data$outcome[rct_data$treatment == 0])
+
+cat("Mean (treated):", round(mean_treated, 3), "\n")
+cat("Mean (control):", round(mean_control, 3), "\n")
+cat("Difference in means (ATE estimate):", round(mean_treated - mean_control, 3), "\n")
+```
+
+### 4.2 OLS Regression with `fixest::feols()`
+
+Equivalently, we can estimate the ATE via OLS regression. The coefficient on the treatment indicator is numerically identical to the difference in means.
+
+```{r basic-regression}
+model_basic <- fixest::feols(outcome ~ treatment, data = rct_data)
+summary(model_basic)
+```
+
+The coefficient on `treatment` is our estimated ATE. The standard error from OLS with heteroskedasticity-robust (HC1) standard errors (the default in `fixest`) may differ slightly from the t-test, which assumes equal variances by default.
+
+### 4.3 Covariate-Adjusted Estimation
+
+Although not required for unbiased estimation in an RCT, including pre-treatment covariates can **improve precision** by absorbing residual variation in the outcome. This is sometimes called the "regression-adjusted" estimator.
+
+```{r covariate-regression}
+model_cov <- fixest::feols(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  data = rct_data
+)
+summary(model_cov)
+```
+
+Compare the standard error on `treatment` across models:
+
+```{r compare-se}
+se_basic <- summary(model_basic)$se["treatment"]
+se_cov   <- summary(model_cov)$se["treatment"]
+
+cat("SE (no covariates):", round(se_basic, 4), "\n")
+cat("SE (with covariates):", round(se_cov, 4), "\n")
+cat("Precision gain:", round((1 - se_cov / se_basic) * 100, 1), "%\n")
+```
+
+Covariate adjustment typically yields a smaller standard error (more precise estimate) without introducing bias, provided that:
+
+1. Covariates are measured **before** treatment assignment.
+2. The covariates are not affected by the treatment (no "bad controls").
+
+**Important caveat:** Simple covariate adjustment in OLS can be slightly biased in finite samples when treatment effects are heterogeneous. The Lin (2013) estimator addresses this issue (see Section 4.4).
+
+### 4.4 The Lin (2013) Estimator
+
+Lin (2013) showed that in an RCT with heterogeneous treatment effects, the standard OLS covariate-adjusted estimator can be biased. He proposed an alternative: interact the treatment indicator with **demeaned** covariates. This estimator is consistent and at least as efficient as the unadjusted estimator.
+
+The Lin estimator regresses $Y$ on $D$, $\tilde{X}$, and $D \times \tilde{X}$, where $\tilde{X}_i = X_i - \bar{X}$.
+
+```{r lin-estimator}
+# Demean covariates
+rct_data$age_dm      <- rct_data$age - mean(rct_data$age)
+rct_data$income_dm   <- rct_data$income - mean(rct_data$income)
+rct_data$educ_dm     <- rct_data$educ - mean(rct_data$educ)
+rct_data$female_dm   <- rct_data$female - mean(rct_data$female)
+rct_data$baseline_dm <- rct_data$baseline - mean(rct_data$baseline)
+
+model_lin <- fixest::feols(
+  outcome ~ treatment * (age_dm + income_dm + educ_dm + female_dm + baseline_dm),
+  data = rct_data
+)
+
+# The coefficient on 'treatment' is the Lin ATE estimate
+cat("Lin estimator ATE:", round(coef(model_lin)["treatment"], 3), "\n")
+cat("Lin estimator SE:", round(summary(model_lin)$se["treatment"], 4), "\n")
+```
+
+The coefficient on `treatment` in this interacted, demeaned specification is the Lin (2013) ATE estimate. It is robust to treatment effect heterogeneity and at least weakly more efficient than the unadjusted estimator.
+
+### 4.5 Fixed Effects for Stratified (Block) Experiments
+
+When randomization is conducted within strata (blocks), including stratum fixed effects improves efficiency by accounting for between-stratum variation.
+
+```{r strata-fe}
+model_strata <- fixest::feols(
+  outcome ~ treatment + age + income + educ + female + baseline | stratum,
+  data = rct_data
+)
+summary(model_strata)
+
+cat("\nSE (no FE):", round(se_cov, 4), "\n")
+cat("SE (stratum FE):", round(summary(model_strata)$se["treatment"], 4), "\n")
+```
+
+Including stratum fixed effects is not only more efficient but is also the appropriate specification when randomization was stratified, since the treatment assignment probability may differ across strata.
+
+---
+
+## 5. Robust Standard Errors with `estimatr`
+
+The `estimatr` package (Blair, Cooper, Coppock, Humphreys, and Sonnet) provides a suite of functions tailored for experimental data, including HC2 standard errors (which are unbiased under homoskedasticity and less biased than HC1 under heteroskedasticity), the Lin (2013) estimator via `lm_lin()`, and a direct `difference_in_means()` function.
+
+### 5.1 HC2 Standard Errors with `lm_robust()`
+
+```{r estimatr-robust, eval = FALSE}
+library(estimatr)
+
+# HC2 robust standard errors (recommended for RCTs)
+model_hc2 <- lm_robust(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  data    = rct_data,
+  se_type = "HC2"
+)
+summary(model_hc2)
+
+# Compare with classical and HC1
+model_classical <- lm_robust(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  data    = rct_data,
+  se_type = "classical"
+)
+
+model_hc1 <- lm_robust(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  data    = rct_data,
+  se_type = "HC1"
+)
+
+cat("SE (classical):", round(model_classical$std.error["treatment"], 4), "\n")
+cat("SE (HC1):", round(model_hc1$std.error["treatment"], 4), "\n")
+cat("SE (HC2):", round(model_hc2$std.error["treatment"], 4), "\n")
+```
+
+HC2 standard errors are generally recommended for RCTs because they are exactly unbiased under the randomization distribution when treatment effects are constant. For more details, see Samii and Aronow (2012).
+
+### 5.2 Difference in Means with `difference_in_means()`
+
+`difference_in_means()` is a purpose-built function for RCTs that automatically chooses the correct standard error formula based on the experimental design (simple, blocked, or clustered).
+
+```{r estimatr-dim, eval = FALSE}
+library(estimatr)
+# Simple difference in means
+dim_simple <- difference_in_means(
+  outcome ~ treatment,
+  data = rct_data
+)
+summary(dim_simple)
+
+# Blocked difference in means (when randomization was stratified)
+dim_blocked <- difference_in_means(
+  outcome ~ treatment,
+  blocks  = stratum,
+  data    = rct_data
+)
+summary(dim_blocked)
+
+# Clustered difference in means (requires cluster-level treatment)
+# Create cluster-randomized subset
+cluster_data <- rct_data
+cluster_treat <- tapply(cluster_data$treatment, cluster_data$cluster_id, function(x) round(mean(x)))
+cluster_data$treatment <- cluster_treat[as.character(cluster_data$cluster_id)]
+dim_clustered <- difference_in_means(
+  outcome ~ treatment,
+  clusters = cluster_id,
+  data     = cluster_data
+)
+summary(dim_clustered)
+```
+
+### 5.3 The Lin Estimator via `lm_lin()`
+
+`lm_lin()` implements the Lin (2013) estimator directly without requiring manual demeaning.
+
+```{r estimatr-lin, eval = FALSE}
+model_lin_estimatr <- lm_lin(
+  outcome ~ treatment,
+  covariates = ~ age + income + educ + female + baseline,
+  data       = rct_data,
+  se_type    = "HC2"
+)
+summary(model_lin_estimatr)
+
+# The coefficient on 'treatment' is the Lin ATE with HC2 SEs
+```
+
+This is the recommended approach for covariate-adjusted estimation in RCTs: use `lm_lin()` with HC2 standard errors for maximum efficiency and robustness.
+
+---
+
+## 6. Randomization Inference with `ri2`
+
+### 6.1 Motivation
+
+Standard inference (t-tests, OLS) relies on asymptotic approximations. **Randomization inference** (RI) provides exact p-values by using the known randomization distribution as the basis for inference. The key idea is:
+
+1. Under the sharp null hypothesis $H_0: Y_i(1) = Y_i(0)$ for all $i$, the observed outcomes are fully known for every possible assignment.
+2. We can enumerate (or sample from) all possible random assignments and compute the test statistic for each.
+3. The p-value is the fraction of permuted assignments that yield a test statistic as extreme as the observed one.
+
+RI is exact in finite samples and requires no distributional assumptions. It is especially useful for small samples where asymptotic approximations may be poor.
+
+### 6.2 Randomization Inference with `ri2`
+
+The `ri2` package (Coppock, 2020) provides a clean interface for randomization inference.
+
+```{r ri2-example, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE)}
+library(ri2)
+library(randomizr)
+
+# Declare the randomization procedure
+declaration <- declare_ra(N = nrow(rct_data), prob = 0.5)
+
+# Conduct randomization inference
+ri_result <- conduct_ri(
+  formula    = outcome ~ treatment,
+  declaration = declaration,
+  sharp_hypothesis = 0,
+  data       = rct_data,
+  sims       = 1000  # number of permutations
+)
+
+summary(ri_result)
+plot(ri_result)
+```
+
+The output includes:
+
+- The observed test statistic (difference in means).
+- The exact (permutation-based) p-value.
+- A histogram of the randomization distribution with the observed statistic marked.
+
+### 6.3 Randomization Inference for Blocked Designs
+
+```{r ri2-blocked, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE)}
+# Declare a blocked randomization procedure
+declaration_blocked <- declare_ra(
+  blocks = rct_data$stratum,
+  prob   = 0.5
+)
+
+ri_blocked <- conduct_ri(
+  formula     = outcome ~ treatment,
+  declaration = declaration_blocked,
+  sharp_hypothesis = 0,
+  data        = rct_data,
+  sims        = 1000
+)
+
+summary(ri_blocked)
+```
+
+---
+
+## 7. Experimental Design with `DeclareDesign`
+
+The `DeclareDesign` ecosystem (Blair, Cooper, Coppock, and Humphreys, 2019) provides a unified framework for **declaring**, **diagnosing**, and **redesigning** research designs. It enables researchers to simulate an entire experiment -- from population to estimand to estimator -- and assess properties like power, bias, and coverage before collecting data.
+
+### 7.1 Declaring a Design
+
+A design is built up from four components: **Model** (data generating process), **Inquiry** (estimand), **Data Strategy** (assignment + sampling), and **Answer Strategy** (estimator).
+
+```{r declaredesign-declare, eval = FALSE}
+library(DeclareDesign)
+library(estimatr)
+
+# Declare the design
+my_design <-
+  declare_model(
+    N = 200,
+    U = rnorm(N),
+    potential_outcomes(Y ~ 0.5 * Z + U)
+  ) +
+  declare_inquiry(ATE = mean(Y_Z_1 - Y_Z_0)) +
+  declare_assignment(Z = complete_ra(N)) +
+  declare_measurement(Y = reveal_outcomes(Y ~ Z)) +
+  declare_estimator(Y ~ Z, .method = lm_robust, inquiry = "ATE")
+```
+
+### 7.2 Diagnosing the Design
+
+`diagnose_design()` simulates the design many times and returns key diagnostics: bias, RMSE, power, coverage, and more.
+
+```{r declaredesign-diagnose, eval = FALSE}
+# Diagnose: simulate the design 500 times
+diagnosis <- diagnose_design(my_design, sims = 500)
+diagnosis
+
+# Key outputs:
+# - Bias: Is the estimator unbiased?
+# - Power: How often do we reject H0 at alpha = 0.05?
+# - Coverage: How often does the 95% CI contain the true ATE?
+# - Mean estimate: Average estimated ATE across simulations
+```
+
+### 7.3 Redesigning for Power
+
+You can explore how changing design parameters (e.g., sample size, effect size) affects power and other properties.
+
+```{r declaredesign-redesign, eval = FALSE}
+# Redesign over a range of sample sizes
+designs_vary_n <- redesign(my_design, N = c(50, 100, 200, 500, 1000))
+
+# Diagnose all designs
+diagnosis_vary_n <- diagnose_design(designs_vary_n, sims = 500)
+diagnosis_vary_n
+
+# The output shows how power, bias, and coverage change with sample size
+```
+
+This is extremely valuable for pre-registration and grant applications, where researchers need to justify their sample size choices.
+
+---
+
+## 8. Randomization with `randomizr`
+
+The `randomizr` package (Coppock, 2023) provides functions for a variety of randomization schemes. Using `randomizr` rather than ad-hoc code ensures that the randomization is well-documented, reproducible, and compatible with downstream analysis tools like `ri2` and `DeclareDesign`.
+
+### 8.1 Complete Random Assignment
+
+Complete random assignment assigns exactly $m$ of $N$ units to treatment.
+
+```{r randomizr-complete, eval = FALSE}
+library(randomizr)
+
+# Assign exactly 250 of 500 units to treatment
+Z_complete <- complete_ra(N = 500, m = 250)
+table(Z_complete)
+
+# With probability specification instead
+Z_prob <- complete_ra(N = 500, prob = 0.5)
+table(Z_prob)
+
+# Multiple treatment arms
+Z_multi <- complete_ra(N = 500, num_arms = 3)
+table(Z_multi)
+```
+
+### 8.2 Block (Stratified) Random Assignment
+
+Block randomization ensures balance on observed covariates by randomizing separately within pre-defined strata.
+
+```{r randomizr-block, eval = FALSE}
+# Block randomization by stratum
+Z_blocked <- block_ra(blocks = rct_data$stratum)
+table(rct_data$stratum, Z_blocked)
+
+# With specified probabilities per block
+Z_blocked_prob <- block_ra(
+  blocks = rct_data$stratum,
+  prob   = 0.5
+)
+table(rct_data$stratum, Z_blocked_prob)
+```
+
+Block randomization is especially useful when:
+
+- There are known prognostic covariates (variables highly correlated with the outcome).
+- The sample is small, and chance imbalance is a concern.
+- The researcher wants to guarantee representation from key subgroups.
+
+### 8.3 Cluster Random Assignment
+
+Cluster randomization assigns entire clusters (e.g., schools, villages, firms) to treatment or control. This is necessary when individual-level randomization is infeasible or when spillovers within clusters are expected.
+
+```{r randomizr-cluster, eval = FALSE}
+# Cluster randomization
+Z_cluster <- cluster_ra(clusters = rct_data$cluster_id)
+table(rct_data$cluster_id, Z_cluster)
+
+# Block-and-cluster randomization
+Z_block_cluster <- block_and_cluster_ra(
+  blocks   = rct_data$stratum,
+  clusters = rct_data$cluster_id
+)
+table(Z_block_cluster)
+```
+
+---
+
+## 9. Heterogeneous Treatment Effects
+
+### 9.1 Why Heterogeneity Matters
+
+The ATE is an average across all units, but the treatment effect may vary systematically across subgroups defined by pre-treatment characteristics. Understanding heterogeneity helps:
+
+- Target interventions to populations that benefit most.
+- Understand mechanisms behind treatment effects.
+- Inform external validity assessments (will the effect generalize?).
+
+### 9.2 Interaction Models
+
+The standard approach for detecting pre-specified heterogeneity is to include interaction terms between treatment and covariates.
+
+```{r hte-interaction}
+# Create a binary indicator for "older" individuals
+rct_data$older <- as.integer(rct_data$age > median(rct_data$age))
+
+model_hte <- fixest::feols(
+  outcome ~ treatment * older + income + educ + female + baseline,
+  data = rct_data
+)
+summary(model_hte)
+```
+
+The coefficient on `treatment:older` captures the **differential** treatment effect for older vs. younger individuals. The main effect of `treatment` gives the effect for the reference group (younger individuals).
+
+### 9.3 Subgroup Analysis
+
+We can also estimate effects separately within subgroups.
+
+```{r subgroup}
+model_young <- fixest::feols(
+  outcome ~ treatment + income + educ + female + baseline,
+  data = rct_data[rct_data$older == 0, ]
+)
+model_old <- fixest::feols(
+  outcome ~ treatment + income + educ + female + baseline,
+  data = rct_data[rct_data$older == 1, ]
+)
+
+cat("ATE (younger):", round(coef(model_young)["treatment"], 3), "\n")
+cat("ATE (older):",   round(coef(model_old)["treatment"], 3), "\n")
+```
+
+**Important:** When conducting subgroup analyses:
+
+- The relevant test for heterogeneity is the **interaction term**, not whether individual subgroup estimates are significant. A significant effect in one subgroup and a non-significant effect in another does not imply heterogeneity.
+- **Pre-specified** subgroup analyses (registered before data collection) are far more credible than exploratory, data-driven analyses.
+- Multiple subgroup tests inflate the false positive rate (see Section 10).
+
+### 9.4 Heterogeneity by Education Level
+
+Since our data-generating process built in treatment effect heterogeneity by education, let us explore this.
+
+```{r hte-educ}
+model_hte_educ <- fixest::feols(
+  outcome ~ treatment * factor(educ) + age + income + female + baseline,
+  data = rct_data
+)
+summary(model_hte_educ)
+```
+
+### 9.5 Causal Forests for Data-Driven Heterogeneity (grf)
+
+For exploratory heterogeneity analysis, the **Generalized Random Forest** (Athey, Tibshirani, and Wager, 2019) provides a non-parametric, machine-learning approach to estimating conditional average treatment effects (CATEs).
+
+```{r grf-example, eval = requireNamespace("grf", quietly = TRUE)}
+library(grf)
+
+# Prepare data
+X <- as.matrix(rct_data[, c("age", "income", "educ", "female", "baseline")])
+Y <- rct_data$outcome
+W <- rct_data$treatment
+
+# Fit a causal forest
+cf <- causal_forest(X, Y, W, num.trees = 2000)
+
+# Estimate CATEs for each unit
+cate_hat <- predict(cf)$predictions
+
+# Summary of estimated CATEs
+summary(cate_hat)
+
+# Variable importance: which covariates drive heterogeneity?
+variable_importance(cf)
+
+# Test for overall heterogeneity
+test_calibration(cf)
+
+# Best linear projection of CATEs onto covariates
+best_linear_projection(cf, X)
+
+# Plot CATE distribution
+hist(cate_hat, breaks = 30, main = "Distribution of Estimated CATEs",
+     xlab = "Conditional ATE", col = "steelblue")
+```
+
+Causal forests are powerful but should be used with care:
+
+- They are exploratory (not confirmatory) tools.
+- Results should be validated on held-out data or in a subsequent experiment.
+- Honesty (sample splitting) is built into the `grf` implementation to provide valid confidence intervals.
+
+---
+
+## 10. Multiple Testing Corrections
+
+### 10.1 The Multiple Testing Problem
+
+When an RCT has multiple outcome variables or multiple subgroup analyses, the probability of at least one false positive increases rapidly. With $K$ independent tests at significance level $\alpha$, the family-wise error rate (FWER) is:
+
+$$\text{FWER} = 1 - (1 - \alpha)^K$$
+
+For example, with $K = 10$ outcomes and $\alpha = 0.05$, the FWER is $1 - 0.95^{10} \approx 0.40$.
+
+### 10.2 Simulating Multiple Outcomes
+
+```{r multiple-outcomes}
+set.seed(42)
+
+# Simulate additional outcome variables with varying treatment effects
+rct_data$outcome2 <- 3 + 0.05 * rct_data$age +
+  0.8 * rct_data$treatment + rnorm(n, sd = 4)
+
+rct_data$outcome3 <- 10 + 0.02 * rct_data$income +
+  0.1 * rct_data$treatment + rnorm(n, sd = 5)  # small, likely non-significant effect
+
+rct_data$outcome4 <- 20 + 1.5 * rct_data$educ +
+  0.0 * rct_data$treatment + rnorm(n, sd = 6)  # true null (no effect)
+
+rct_data$outcome5 <- -5 + 0.3 * rct_data$baseline +
+  1.8 * rct_data$treatment + rnorm(n, sd = 3)
+```
+
+### 10.3 Applying Corrections
+
+```{r corrections}
+outcomes <- c("outcome", "outcome2", "outcome3", "outcome4", "outcome5")
+
+# Estimate treatment effects and extract p-values
+effects_table <- lapply(outcomes, function(y) {
+  mod <- fixest::feols(as.formula(paste(y, "~ treatment")), data = rct_data)
+  ct <- summary(mod)$coeftable
+  data.frame(
+    outcome  = y,
+    estimate = ct["treatment", "Estimate"],
+    se       = ct["treatment", "Std. Error"],
+    p_raw    = ct["treatment", "Pr(>|t|)"]
+  )
+})
+effects_table <- do.call(rbind, effects_table)
+
+# Apply p-value corrections
+effects_table$p_bonferroni <- p.adjust(effects_table$p_raw, method = "bonferroni")
+effects_table$p_holm       <- p.adjust(effects_table$p_raw, method = "holm")
+effects_table$p_bh         <- p.adjust(effects_table$p_raw, method = "BH")
+
+# Round for display
+effects_table[, -1] <- round(effects_table[, -1], 4)
+effects_table
+```
+
+### 10.4 Comparison of Methods
+
+The three correction methods differ in what they control and how conservative they are:
+
+| Method | Controls | Conservatism | Description |
+|--------|----------|-------------|-------------|
+| **Bonferroni** | FWER | Most conservative | Multiplies each p-value by $K$. Simple but can be overly strict. |
+| **Holm** | FWER | Less conservative than Bonferroni | Step-down procedure. Uniformly more powerful than Bonferroni. |
+| **Benjamini-Hochberg (BH)** | FDR | Least conservative | Controls the false discovery rate. Preferred when many outcomes are tested. |
+
+**Recommendation:** Use Holm for controlling the FWER (more powerful than Bonferroni with no additional assumptions). Use BH when the goal is to control the false discovery rate, which is appropriate in exploratory analyses with many outcomes.
+
+---
+
+## 11. Power Analysis
+
+### 11.1 Analytical Power Calculation
+
+Before running an RCT, **power analysis** determines the sample size needed to detect a given effect with a specified probability. The key inputs are:
+
+- **Effect size** ($\delta$): the minimum detectable effect.
+- **Standard deviation** ($\sigma$): the outcome variability.
+- **Significance level** ($\alpha$): typically 0.05.
+- **Power** ($1 - \beta$): typically 0.80 or 0.90.
+
+The required sample size per group for a two-sample t-test is approximately:
+
+$$n \approx \frac{2(z_{\alpha/2} + z_\beta)^2 \sigma^2}{\delta^2}$$
+
+We can use base R's `power.t.test()`:
+
+```{r power-analysis}
+# How many observations per group to detect an effect of 2.5
+# with outcome SD ~ 5 (realistic with covariates), at 80% power?
+power_result <- power.t.test(
+  delta     = 2.5,
+  sd        = 5,
+  power     = 0.80,
+  sig.level = 0.05,
+  type      = "two.sample"
+)
+power_result
+```
+
+This tells us we need approximately `r ceiling(power_result$n)` observations per group (i.e., `r 2 * ceiling(power_result$n)` total) to detect an effect of 2.5 with 80% power.
+
+### 11.2 Power for Different Effect Sizes
+
+```{r power-effects, fig.width = 7, fig.height = 4}
+effect_sizes <- seq(0.5, 5, by = 0.25)
+required_n <- sapply(effect_sizes, function(d) {
+  ceiling(power.t.test(delta = d, sd = 5, power = 0.80, sig.level = 0.05)$n)
+})
+
+power_eff_df <- data.frame(effect_size = effect_sizes, n_per_group = required_n)
+
+ggplot(power_eff_df, aes(x = effect_size, y = n_per_group)) +
+  geom_line(linewidth = 1) +
+  geom_point(size = 1.5) +
+  labs(
+    x     = "Minimum Detectable Effect",
+    y     = "Required N per Group",
+    title = "Required Sample Size by Effect Size (Power = 0.80)"
+  ) +
+  causalverse::ama_theme()
+```
+
+### 11.3 Power Curves
+
+We can also visualize how power changes with sample size for a fixed effect size.
+
+```{r power-curve, fig.width = 7, fig.height = 4}
+n_seq <- seq(10, 200, by = 5)
+power_vals <- sapply(n_seq, function(n_per_group) {
+  power.t.test(n = n_per_group, delta = 2.5, sd = 5, sig.level = 0.05)$power
+})
+
+power_df <- data.frame(n_per_group = n_seq, power = power_vals)
+
+ggplot(power_df, aes(x = n_per_group, y = power)) +
+  geom_line(linewidth = 1) +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "red") +
+  geom_vline(
+    xintercept = ceiling(power.t.test(delta = 2.5, sd = 5, power = 0.80,
+                                       sig.level = 0.05)$n),
+    linetype = "dotted", color = "blue"
+  ) +
+  annotate("text", x = 120, y = 0.75, label = "80% Power", color = "red") +
+  labs(
+    x     = "Sample Size per Group",
+    y     = "Statistical Power",
+    title = "Power Curve (Effect = 2.5, SD = 5, alpha = 0.05)"
+  ) +
+  causalverse::ama_theme()
+```
+
+### 11.4 Power with Multiple Effect Sizes
+
+```{r power-multi-curve, fig.width = 7, fig.height = 5}
+effect_grid <- c(1.0, 2.0, 2.5, 3.0, 4.0)
+
+power_multi <- expand.grid(n_per_group = n_seq, effect = effect_grid)
+power_multi$power <- mapply(function(nn, dd) {
+  power.t.test(n = nn, delta = dd, sd = 5, sig.level = 0.05)$power
+}, power_multi$n_per_group, power_multi$effect)
+
+ggplot(power_multi, aes(x = n_per_group, y = power, color = factor(effect))) +
+  geom_line(linewidth = 0.8) +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "gray40") +
+  labs(
+    x     = "Sample Size per Group",
+    y     = "Statistical Power",
+    color = "Effect Size",
+    title = "Power Curves for Various Effect Sizes"
+  ) +
+  causalverse::ama_theme()
+```
+
+### 11.5 Impact of Covariate Adjustment on Power
+
+Covariate adjustment reduces residual variance, effectively increasing power. If covariates explain a fraction $R^2$ of outcome variance, the effective sample size is multiplied by $1/(1 - R^2)$.
+
+```{r power-covariate}
+# Without covariates (SD = 5)
+n_no_cov <- ceiling(power.t.test(delta = 2.5, sd = 5, power = 0.80,
+                                  sig.level = 0.05)$n)
+
+# With covariates explaining R^2 = 0.4 of variance
+# Effective SD = 5 * sqrt(1 - 0.4) = 5 * 0.775
+sd_adjusted <- 5 * sqrt(1 - 0.4)
+n_with_cov <- ceiling(power.t.test(delta = 2.5, sd = sd_adjusted, power = 0.80,
+                                    sig.level = 0.05)$n)
+
+cat("N per group without covariates:", n_no_cov, "\n")
+cat("N per group with covariates (R^2 = 0.4):", n_with_cov, "\n")
+cat("Sample size savings:", round((1 - n_with_cov / n_no_cov) * 100, 1), "%\n")
+```
+
+This illustrates why collecting good baseline covariates is so valuable -- it can dramatically reduce the required sample size.
+
+---
+
+## 12. Cluster-Randomized Trials
+
+### 12.1 When Clusters Matter
+
+In many settings, randomization occurs at the cluster level (e.g., schools, hospitals, villages) rather than the individual level. This arises when:
+
+- Individual randomization is infeasible (e.g., a policy change applies to an entire school).
+- Spillovers within clusters are expected.
+- The intervention is delivered at the group level.
+
+Clustering introduces **intra-cluster correlation** (ICC), which reduces the effective sample size and must be accounted for in standard error estimation.
+
+### 12.2 Intra-Class Correlation Coefficient (ICC)
+
+The ICC ($\rho$) measures the fraction of total outcome variance that is between clusters:
+
+$$\rho = \frac{\sigma^2_{\text{between}}}{\sigma^2_{\text{between}} + \sigma^2_{\text{within}}}$$
+
+The **design effect** (DEFF) quantifies how much clustering inflates variance relative to simple random sampling:
+
+$$\text{DEFF} = 1 + (m - 1) \rho$$
+
+where $m$ is the average cluster size. The effective sample size is $N_{\text{eff}} = N / \text{DEFF}$.
+
+```{r icc-calculation}
+# Estimate the ICC from our data
+# Fit a one-way random effects model
+model_icc <- lm(outcome ~ cluster_id, data = rct_data)
+anova_table <- anova(model_icc)
+
+ms_between <- anova_table["cluster_id", "Mean Sq"]
+ms_within  <- anova_table["Residuals", "Mean Sq"]
+m_avg      <- nrow(rct_data) / length(unique(rct_data$cluster_id))
+
+# ICC estimate
+icc <- (ms_between - ms_within) / (ms_between + (m_avg - 1) * ms_within)
+icc <- max(icc, 0)  # ICC cannot be negative
+
+cat("Estimated ICC:", round(icc, 4), "\n")
+cat("Average cluster size:", m_avg, "\n")
+cat("Design effect:", round(1 + (m_avg - 1) * icc, 2), "\n")
+cat("Effective sample size:", round(n / (1 + (m_avg - 1) * icc)), "\n")
+```
+
+### 12.3 Cluster-Robust Standard Errors
+
+When analyzing cluster-randomized trials, standard errors must be clustered at the level of randomization.
+
+```{r cluster-se}
+# Cluster-robust standard errors with fixest
+model_cluster <- fixest::feols(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  cluster = ~cluster_id,
+  data = rct_data
+)
+summary(model_cluster)
+
+# Compare with non-clustered SEs
+cat("\nSE (non-clustered):", round(summary(model_cov)$se["treatment"], 4), "\n")
+cat("SE (cluster-robust):", round(summary(model_cluster)$se["treatment"], 4), "\n")
+```
+
+Cluster-robust standard errors are typically larger than non-clustered standard errors, reflecting the reduced effective sample size due to within-cluster correlation.
+
+### 12.4 Power for Cluster-Randomized Trials
+
+Power calculations for cluster-randomized trials must account for the design effect.
+
+```{r power-cluster}
+# Parameters
+n_clusters_total <- 50   # total clusters
+m_per_cluster    <- 10   # individuals per cluster
+icc_assumed      <- 0.05 # assumed ICC
+delta            <- 2.5
+sd_outcome       <- 5
+
+# Design effect
+deff <- 1 + (m_per_cluster - 1) * icc_assumed
+
+# Effective N per group
+n_eff_per_group <- (n_clusters_total / 2) * m_per_cluster / deff
+
+# Power
+power_cluster <- power.t.test(
+  n         = n_eff_per_group,
+  delta     = delta,
+  sd        = sd_outcome,
+  sig.level = 0.05
+)
+
+cat("Design effect:", round(deff, 2), "\n")
+cat("Effective N per group:", round(n_eff_per_group), "\n")
+cat("Power:", round(power_cluster$power, 3), "\n")
+```
+
+---
+
+## 13. Sensitivity Analysis with `sensemakr`
+
+### 13.1 Motivation
+
+Even in an RCT, there may be concerns about threats to internal validity: non-compliance, differential attrition, or measurement error. The `sensemakr` package (Cinelli and Hazlett, 2020) provides tools for assessing sensitivity to potential omitted variable bias (OVB).
+
+While RCTs are not typically subject to classical OVB (because randomization ensures no confounding), `sensemakr` is useful for:
+
+- Assessing the impact of **attrition** (if treatment affects who drops out).
+- Benchmarking the strength of potential confounders against observed covariates.
+- Communicating robustness of findings.
+
+### 13.2 Sensitivity Analysis
+
+```{r sensemakr-example, eval = requireNamespace("sensemakr", quietly = TRUE)}
+library(sensemakr)
+
+# Fit OLS model
+model_sense <- lm(
+  outcome ~ treatment + age + income + educ + female + baseline,
+  data = rct_data
+)
+
+# Sensitivity analysis for the treatment coefficient
+sense <- sensemakr(
+  model    = model_sense,
+  treatment = "treatment",
+  benchmark_covariates = c("age", "income", "educ", "female", "baseline"),
+  kd = 1:3  # multiples of benchmark covariate strength
+)
+
+# Summary
+summary(sense)
+
+# Contour plot: how strong would a confounder need to be to
+# explain away the treatment effect?
+plot(sense)
+
+# Extreme scenario plot
+plot(sense, type = "extreme")
+
+# Interpretation:
+# The contour plot shows combinations of confounder strength
+# (partial R^2 with treatment and outcome) that would bring
+# the treatment estimate to zero. Points far from the origin
+# indicate the result is robust.
+```
+
+The key output is the **robustness value** (RV): the minimum strength of association a confounder would need to have with both the treatment and the outcome to explain away the estimated effect. A large RV indicates that the result is robust to potential confounding.
+
+---
+
+## 14. Causal Forests with `grf`
+
+Causal forests (Athey, Tibshirani, and Wager, 2019) are a powerful nonparametric method for estimating heterogeneous treatment effects. The `grf` (generalized random forests) package provides a principled framework for estimating conditional average treatment effects (CATEs) along with valid confidence intervals, variable importance measures, and calibration diagnostics.
+
+Key features of causal forests:
+
+- **Honesty:** The forest uses separate subsamples for constructing the tree structure and estimating leaf predictions, ensuring valid inference.
+- **Local centering:** Residualizes both the outcome and treatment to remove confounding, analogous to the Robinson (1988) transformation.
+- **Asymptotic normality:** Point estimates at each leaf are asymptotically Gaussian, enabling confidence intervals.
+
+### 14.1 Simulating Data with Heterogeneous Effects
+
+We simulate an RCT where the treatment effect varies with a continuous covariate $X_1$, creating genuine heterogeneity for the causal forest to detect.
+
+```{r grf-data, eval = requireNamespace("grf", quietly = TRUE)}
+set.seed(42)
+n <- 2000
+p <- 6
+
+# Covariates
+X <- matrix(rnorm(n * p), nrow = n)
+colnames(X) <- paste0("X", 1:p)
+
+# Treatment assignment (RCT)
+W <- rbinom(n, 1, 0.5)
+
+# Heterogeneous treatment effect: tau(x) = 1 + 2 * X1
+tau_true <- 1 + 2 * X[, 1]
+
+# Outcome with heterogeneous effect
+Y <- 2 + X[, 1] + 0.5 * X[, 2] + tau_true * W + rnorm(n)
+```
+
+### 14.2 Fitting the Causal Forest
+
+```{r grf-fit, eval = requireNamespace("grf", quietly = TRUE)}
+library(grf)
+
+cf <- causal_forest(
+  X = X,
+  Y = Y,
+  W = W,
+  num.trees    = 2000,
+  honesty      = TRUE,
+  seed         = 42
+)
+
+# Average Treatment Effect (ATE)
+ate <- average_treatment_effect(cf, target.sample = "all")
+cat(sprintf("ATE estimate: %.3f (SE: %.3f)\n", ate[1], ate[2]))
+cat(sprintf("95%% CI: [%.3f, %.3f]\n",
+            ate[1] - 1.96 * ate[2],
+            ate[1] + 1.96 * ate[2]))
+```
+
+### 14.3 Variable Importance
+
+Variable importance ranks covariates by how frequently they are used for splitting. Covariates that drive heterogeneity should rank highest.
+
+```{r grf-varimp, eval = requireNamespace("grf", quietly = TRUE)}
+varimp <- variable_importance(cf)
+varimp_df <- data.frame(
+  Variable   = colnames(X),
+  Importance = as.numeric(varimp)
+) |>
+  dplyr::arrange(dplyr::desc(Importance))
+
+ggplot(varimp_df, aes(x = reorder(Variable, Importance), y = Importance)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Causal Forest Variable Importance",
+    x = NULL, y = "Importance (split frequency)"
+  ) +
+  causalverse::ama_theme()
+```
+
+### 14.4 CATE Estimation and Targeting
+
+Individual-level CATE predictions enable targeting: identifying which units benefit most from treatment.
+
+```{r grf-cate, eval = requireNamespace("grf", quietly = TRUE)}
+tau_hat <- predict(cf)$predictions
+
+cate_df <- data.frame(
+  X1       = X[, 1],
+  tau_hat  = tau_hat,
+  tau_true = tau_true
+)
+
+ggplot(cate_df, aes(x = X1)) +
+  geom_point(aes(y = tau_hat), alpha = 0.3, color = "steelblue", size = 0.8) +
+  geom_line(aes(y = tau_true), color = "red", linewidth = 1) +
+  labs(
+    title    = "CATE Estimates vs. True Treatment Effect",
+    subtitle = "Red line = true tau(x); blue points = causal forest estimates",
+    x = "X1", y = "Treatment Effect"
+  ) +
+  causalverse::ama_theme()
+```
+
+### 14.5 Best Linear Projection and Calibration
+
+The best linear projection (BLP) tests whether treatment effect heterogeneity is systematically related to covariates. The calibration test checks whether the forest's CATE predictions are well-calibrated.
+
+```{r grf-blp-cal, eval = requireNamespace("grf", quietly = TRUE)}
+# Best linear projection of CATEs on covariates
+blp <- best_linear_projection(cf, X[, 1:3])
+print(blp)
+
+# Calibration test (Chernozhukov et al., 2022)
+cal <- test_calibration(cf)
+print(cal)
+```
+
+A well-calibrated forest should have a coefficient near 1 on the "mean.forest.prediction" term and a significant coefficient on the "differential.forest.prediction" term, indicating meaningful heterogeneity.
+
+### 14.6 Prioritization Analysis
+
+We can rank units by their predicted CATEs and examine how treatment effects vary across quantiles of the CATE distribution.
+
+```{r grf-priority, eval = requireNamespace("grf", quietly = TRUE)}
+priority_df <- data.frame(
+  Y = Y, W = W, tau_hat = tau_hat
+) |>
+  dplyr::mutate(
+    quartile = cut(
+      tau_hat,
+      breaks   = quantile(tau_hat, probs = 0:4 / 4),
+      labels   = paste0("Q", 1:4),
+      include.lowest = TRUE
+    )
+  )
+
+group_effects <- priority_df |>
+  dplyr::group_by(quartile) |>
+  dplyr::summarise(
+    mean_effect = mean(Y[W == 1]) - mean(Y[W == 0]),
+    n           = dplyr::n(),
+    .groups     = "drop"
+  )
+
+ggplot(group_effects, aes(x = quartile, y = mean_effect)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "Treatment Effect by CATE Quartile",
+    x     = "CATE Quartile (Q1 = lowest predicted effect)",
+    y     = "Observed Mean Effect"
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+## 15. Double/Debiased Machine Learning with `DoubleML`
+
+Double/debiased machine learning (DML) is a general framework introduced by Chernozhukov et al. (2018) for estimating causal parameters while using flexible machine learning methods for nuisance parameter estimation. The key insight is that naive plug-in of ML predictions leads to regularization bias, but a Neyman-orthogonal score combined with cross-fitting eliminates this bias.
+
+The framework proceeds in three steps:
+
+1. **Cross-fitting:** Split the data into $K$ folds. For each fold, train ML models for nuisance parameters (e.g., conditional mean of $Y$ given $X$, propensity score) on the other $K-1$ folds.
+2. **Orthogonal score:** Construct a Neyman-orthogonal moment condition that is insensitive to small errors in nuisance estimation.
+3. **Inference:** Obtain $\sqrt{n}$-consistent, asymptotically normal estimates with valid confidence intervals.
+
+### 15.1 Partially Linear Regression Model (PLR)
+
+The partially linear model is:
+$$Y = D\theta_0 + g_0(X) + U, \quad E[U | X, D] = 0$$
+$$D = m_0(X) + V, \quad E[V | X] = 0$$
+
+where $\theta_0$ is the causal parameter of interest.
+
+```{r dml-plr, eval = requireNamespace("DoubleML", quietly = TRUE)}
+library(DoubleML)
+library(mlr3)
+library(mlr3learners)
+
+set.seed(42)
+n <- 1000
+
+# Simulate data
+X1 <- rnorm(n)
+X2 <- rnorm(n)
+X3 <- rnorm(n)
+D  <- 0.5 * X1 + 0.3 * X2 + rnorm(n)            # treatment
+Y  <- 2 * D + sin(X1) + X2^2 + 0.5 * X3 + rnorm(n)  # outcome
+
+dt <- data.table::data.table(Y = Y, D = D, X1 = X1, X2 = X2, X3 = X3)
+
+dml_data <- DoubleMLData$new(
+  dt,
+  y_col = "Y",
+  d_cols = "D",
+  x_cols = c("X1", "X2", "X3")
+)
+
+# Random forest as the ML learner
+learner_rf <- lrn("regr.ranger", num.trees = 500)
+
+# PLR with cross-fitting (5 folds)
+dml_plr <- DoubleMLPLR$new(
+  dml_data,
+  ml_l = learner_rf$clone(),
+  ml_m = learner_rf$clone(),
+  n_folds = 5
+)
+
+dml_plr$fit()
+cat("PLR Results:\n")
+print(dml_plr$summary())
+```
+
+### 15.2 Interactive Regression Model (IRM)
+
+For binary treatments, the IRM (also called the AIPW/doubly-robust estimand) estimates the ATE:
+$$Y = g_0(D, X) + U, \quad D = m_0(X) + V$$
+
+```{r dml-irm, eval = requireNamespace("DoubleML", quietly = TRUE)}
+set.seed(42)
+n <- 1000
+
+X1 <- rnorm(n)
+X2 <- rnorm(n)
+X3 <- rnorm(n)
+prob_treat <- plogis(0.5 * X1 + 0.3 * X2)
+D <- rbinom(n, 1, prob_treat)
+Y <- 1.5 * D + sin(X1) + X2^2 + rnorm(n)
+
+dt_irm <- data.table::data.table(Y = Y, D = D, X1 = X1, X2 = X2, X3 = X3)
+
+dml_data_irm <- DoubleMLData$new(
+  dt_irm,
+  y_col = "Y",
+  d_cols = "D",
+  x_cols = c("X1", "X2", "X3")
+)
+
+learner_reg  <- lrn("regr.ranger", num.trees = 500)
+learner_cls  <- lrn("classif.ranger", num.trees = 500)
+
+dml_irm <- DoubleMLIRM$new(
+  dml_data_irm,
+  ml_g = learner_reg$clone(),
+  ml_m = learner_cls$clone(),
+  n_folds = 5
+)
+
+dml_irm$fit()
+cat("IRM Results:\n")
+print(dml_irm$summary())
+```
+
+The IRM estimator is doubly robust: it remains consistent if either the outcome model or the propensity score model is correctly specified, but not necessarily both.
+
+### 15.3 Comparison of DML Approaches
+
+| Model | Use Case | Treatment | Key Advantage |
+|-------|----------|-----------|---------------|
+| PLR | Continuous or binary treatment | Continuous / Binary | Partially linear; fast |
+| IRM | Binary treatment, ATE | Binary | Doubly robust |
+| IIVM | Binary treatment with instrument | Binary (with IV) | Handles non-compliance |
+| PLIV | Continuous treatment with instrument | Continuous (with IV) | Partially linear IV |
+
+---
+
+## 16. BART-based Causal Inference with `bartCause`
+
+Bayesian Additive Regression Trees (BART) provide a flexible nonparametric approach to estimating causal effects. The `bartCause` package (Dorie, 2023) wraps BART for causal inference, automatically handling the response surface modeling and providing posterior distributions of treatment effects.
+
+Key advantages of BART for causal inference:
+
+- **Automatic regularization** via the prior on tree structure and leaf parameters.
+- **Posterior uncertainty** quantification through MCMC sampling.
+- **Handles nonlinearities and interactions** without explicit specification.
+
+### 16.1 Estimating ATE and ATT
+
+```{r bart-fit, eval = requireNamespace("bartCause", quietly = TRUE)}
+library(bartCause)
+
+set.seed(42)
+n <- 500
+
+# Covariates
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- rbinom(n, 1, 0.5)
+
+# Treatment assignment (depends on covariates)
+prob_treat <- plogis(0.5 * x1 + 0.3 * x2 - 0.2 * x3)
+treatment  <- rbinom(n, 1, prob_treat)
+
+# Outcome with nonlinear confounding
+y <- 3 + sin(x1) + x2^2 + 1.5 * treatment + rnorm(n)
+
+# Fit bartc for ATE
+fit_ate <- bartc(
+  response  = y,
+  treatment = treatment,
+  confounders = data.frame(x1, x2, x3),
+  estimand  = "ate",
+  seed      = 42,
+  verbose   = FALSE
+)
+
+summary(fit_ate)
+```
+
+### 16.2 ATT Estimation
+
+```{r bart-att, eval = requireNamespace("bartCause", quietly = TRUE)}
+fit_att <- bartc(
+  response  = y,
+  treatment = treatment,
+  confounders = data.frame(x1, x2, x3),
+  estimand  = "att",
+  seed      = 42,
+  verbose   = FALSE
+)
+
+summary(fit_att)
+```
+
+### 16.3 Posterior Distribution of Treatment Effects
+
+```{r bart-posterior, eval = requireNamespace("bartCause", quietly = TRUE)}
+# Extract posterior samples
+posterior_ate <- extract(fit_ate, type = "icate")
+posterior_means <- colMeans(posterior_ate)
+
+post_df <- data.frame(ate = as.numeric(fitted(fit_ate, type = "icate")))
+
+ggplot(post_df, aes(x = ate)) +
+  geom_histogram(bins = 40, fill = "steelblue", color = "white", alpha = 0.8) +
+  geom_vline(xintercept = mean(post_df$ate), color = "red", linewidth = 1) +
+  labs(
+    title = "Posterior Distribution of Individual Treatment Effects (BART)",
+    x     = "Individual Causal Effect",
+    y     = "Count"
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+## 17. Optimal Treatment Assignment with `policytree`
+
+Given estimated heterogeneous treatment effects, a natural next question is: **who should be treated?** The `policytree` package (Sverdrup et al., 2020) learns shallow, interpretable decision trees that map covariates to treatment recommendations, optimizing a welfare criterion based on doubly robust scores.
+
+### 17.1 Computing Doubly Robust Scores
+
+We first use a causal forest to obtain doubly robust scores (augmented inverse-propensity weighted estimates of individual treatment effects).
+
+```{r policytree-scores, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+library(policytree)
+library(grf)
+
+set.seed(42)
+n <- 2000
+p <- 5
+
+X <- matrix(rnorm(n * p), nrow = n)
+colnames(X) <- paste0("X", 1:p)
+
+W <- rbinom(n, 1, 0.5)
+tau_true <- ifelse(X[, 1] > 0 & X[, 2] > 0, 3, 0.5)
+Y <- X[, 1] + tau_true * W + rnorm(n)
+
+# Fit causal forest
+cf <- causal_forest(X, Y, W, num.trees = 2000, seed = 42)
+
+# Doubly robust scores
+dr_scores <- double_robust_scores(cf)
+head(dr_scores)
+```
+
+### 17.2 Learning an Optimal Policy Tree
+
+```{r policytree-fit, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+# Depth-2 policy tree for interpretability
+ptree <- policy_tree(X, dr_scores, depth = 2)
+print(ptree)
+plot(ptree)
+```
+
+### 17.3 Evaluating the Policy
+
+```{r policytree-eval, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+# Predicted optimal treatment for each unit
+recommended <- predict(ptree, X)
+
+eval_df <- data.frame(
+  recommended = factor(recommended),
+  tau_true    = tau_true
+)
+
+eval_summary <- eval_df |>
+  dplyr::group_by(recommended) |>
+  dplyr::summarise(
+    mean_true_effect = mean(tau_true),
+    n                = dplyr::n(),
+    .groups          = "drop"
+  )
+
+print(eval_summary)
+```
+
+Units recommended for treatment (action 2) should have systematically higher true treatment effects than those recommended for control (action 1), validating the policy tree's ability to identify who benefits most.
+
+---
+
+## 18. Adaptive Experiments and Multi-Armed Bandits
+
+In traditional RCTs, treatment assignment probabilities are fixed throughout the experiment. **Adaptive experiments** update assignment probabilities during the trial based on accumulating evidence, potentially improving both statistical efficiency and ethical outcomes (by assigning fewer units to inferior arms).
+
+However, adaptive assignment complicates inference because treatment probabilities vary across units and depend on past outcomes. The `banditsCI` package provides tools for valid inference from adaptively collected data.
+
+### 18.1 Thompson Sampling with Valid Inference
+
+```{r bandits, eval = requireNamespace("banditsCI", quietly = TRUE)}
+library(banditsCI)
+
+set.seed(42)
+
+# Simulate a two-arm bandit problem
+n <- 500
+K <- 2  # number of arms
+
+# True mean rewards
+mu <- c(0.3, 0.5)  # Arm 2 is better
+
+# Run Thompson sampling
+result <- run_experiment(
+  means = mu,
+  noise = rep(1, K),
+  num_obs = n,
+  policy = "thompson",
+  num_arms = K
+)
+
+# AIPW estimator for adaptively collected data
+aipw_result <- estimate_aipw(result)
+print(aipw_result)
+```
+
+### 18.2 Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Thompson Sampling** | Assigns treatment proportional to posterior probability of being optimal |
+| **AIPW Estimator** | Augmented IPW adjusts for time-varying assignment probabilities |
+| **Regret** | Cumulative loss from not always assigning the best arm |
+| **Adaptivity Bias** | Naive estimators are biased under adaptive assignment; AIPW corrects this |
+
+The AIPW estimator from Hadad et al. (2021) uses importance weighting with stabilized weights to provide consistent, asymptotically normal estimates of arm-specific means even under adaptive assignment.
+
+---
+
+## 19. Covariate-Adaptive Randomization
+
+Simple random assignment can produce covariate imbalance by chance, especially in small experiments. **Covariate-adaptive randomization** techniques improve balance by incorporating covariate information into the assignment mechanism. The `randomizr` package provides convenient tools for common designs.
+
+### 19.1 Block (Stratified) Randomization
+
+Block randomization ensures exact balance within strata defined by discrete covariates.
+
+```{r block-ra, eval = FALSE}
+library(randomizr)
+
+set.seed(42)
+n <- 200
+
+# Covariates
+gender <- sample(c("Male", "Female"), n, replace = TRUE)
+age_group <- sample(c("Young", "Middle", "Old"), n, replace = TRUE)
+strata <- paste(gender, age_group, sep = "_")
+
+# Block randomization
+Z_block <- block_ra(blocks = strata)
+table(strata, Z_block)
+```
+
+### 19.2 Cluster Randomization
+
+When individual randomization is infeasible (e.g., classrooms, villages), entire clusters are assigned to treatment.
+
+```{r cluster-ra, eval = FALSE}
+set.seed(42)
+n <- 300
+clusters <- rep(1:30, each = 10)  # 30 clusters of 10
+
+Z_cluster <- cluster_ra(clusters = clusters)
+
+# Verify: all units in a cluster get the same assignment
+cluster_check <- data.frame(cluster = clusters, Z = Z_cluster) |>
+  dplyr::group_by(cluster) |>
+  dplyr::summarise(n_treat = sum(Z), n_ctrl = sum(1 - Z), .groups = "drop")
+
+head(cluster_check, 10)
+```
+
+### 19.3 Block-and-Cluster Randomization
+
+Combining blocking and clustering ensures balance across strata while respecting cluster structure.
+
+```{r block-cluster-ra, eval = FALSE}
+set.seed(42)
+n <- 300
+clusters <- rep(1:30, each = 10)
+region <- rep(rep(c("North", "South", "East"), each = 10), 10)[1:n]
+
+# Block on region, randomize at cluster level
+Z_bc <- block_and_cluster_ra(
+  blocks   = region,
+  clusters = clusters
+)
+
+bc_table <- data.frame(region = region, cluster = clusters, Z = Z_bc) |>
+  dplyr::distinct(cluster, .keep_all = TRUE)
+
+table(bc_table$region, bc_table$Z)
+```
+
+### 19.4 Rerandomization
+
+Rerandomization (Morgan and Rubin, 2012) repeatedly draws random assignments and accepts only those that meet a balance criterion (e.g., Mahalanobis distance below a threshold). While `randomizr` does not directly implement rerandomization, it is straightforward to implement using rejection sampling.
+
+```{r rerand, eval = FALSE}
+set.seed(42)
+n <- 100
+X <- data.frame(x1 = rnorm(n), x2 = rnorm(n), x3 = rnorm(n))
+
+# Mahalanobis distance threshold (accept top 10% of assignments)
+mahal_threshold <- qchisq(0.9, df = ncol(X))
+
+accept <- FALSE
+attempts <- 0
+while (!accept) {
+  attempts <- attempts + 1
+  Z_cand <- complete_ra(N = n)
+
+  # Compute Mahalanobis distance of mean differences
+  X_t <- X[Z_cand == 1, ]
+  X_c <- X[Z_cand == 0, ]
+  diff_means <- colMeans(X_t) - colMeans(X_c)
+  S_pooled <- cov(X) * (1 / sum(Z_cand == 1) + 1 / sum(Z_cand == 0))
+  M <- as.numeric(t(diff_means) %*% solve(S_pooled) %*% diff_means)
+
+  if (M < mahal_threshold) accept <- TRUE
+}
+
+cat(sprintf("Accepted assignment after %d attempts (M = %.3f, threshold = %.3f)\n",
+            attempts, M, mahal_threshold))
+
+# Verify balance
+bal <- data.frame(
+  Variable   = names(X),
+  Mean_Treat = colMeans(X[Z_cand == 1, ]),
+  Mean_Ctrl  = colMeans(X[Z_cand == 0, ]),
+  Diff       = colMeans(X[Z_cand == 1, ]) - colMeans(X[Z_cand == 0, ])
+)
+print(bal)
+```
+
+---
+
+## 20. Practical Guidelines and Checklist
+
+### 20.1 Pre-Registration
+
+Pre-registration is the practice of publicly declaring the research design, hypotheses, primary outcomes, and analysis plan before collecting data. This prevents:
+
+- p-hacking (selective reporting of significant results).
+- HARKing (Hypothesizing After Results are Known).
+- Outcome switching (changing the primary outcome post-hoc).
+
+Common registries include the AEA RCT Registry, ClinicalTrials.gov, and the Open Science Framework (OSF).
+
+### 20.2 The CONSORT Framework
+
+The **CONSORT** (Consolidated Standards of Reporting Trials) statement provides guidelines for reporting RCTs transparently. The CONSORT flow diagram tracks participants through four stages:
+
+1. **Enrollment:** Assessed for eligibility, excluded, randomized.
+2. **Allocation:** Assigned to treatment/control, received intervention.
+3. **Follow-up:** Lost to follow-up, discontinued.
+4. **Analysis:** Analyzed, excluded from analysis.
+
+Reporting a CONSORT diagram is considered best practice for any RCT publication.
+
+### 20.3 Analysis Checklist
+
+The following checklist summarizes the key steps in analyzing an RCT:
+
+| Step | Description | Tool / Function |
+|------|-------------|-----------------|
+| 1. Data preparation | Clean data, define variables | Base R / `dplyr` |
+| 2. Balance checking | Verify covariate balance | `causalverse::balance_assessment()`, `causalverse::plot_density_by_treatment()`, SMD table |
+| 3. Primary analysis | Estimate ATE (difference in means) | `t.test()`, `fixest::feols()`, `estimatr::difference_in_means()` |
+| 4. Covariate adjustment | Improve precision | `fixest::feols()`, `estimatr::lm_lin()` |
+| 5. Robust SEs | Account for heteroskedasticity/clustering | `estimatr::lm_robust()`, `fixest::feols(cluster = ~)` |
+| 6. Heterogeneity | Examine treatment effect variation | Interaction models, subgroup analysis, `grf::causal_forest()` |
+| 7. Multiple testing | Correct for multiple comparisons | `p.adjust()` (Holm, BH) |
+| 8. Sensitivity | Assess robustness | `sensemakr::sensemakr()` |
+| 9. Reporting | CONSORT diagram, effect sizes, CIs | |
+
+### 20.4 Common Pitfalls
+
+- **Ignoring clustering:** When randomization is at the cluster level, standard errors must be clustered. Failing to do so leads to dramatically over-stated precision.
+- **Post-treatment controls:** Including covariates that are affected by treatment ("bad controls") introduces bias. Only adjust for pre-treatment variables.
+- **Attrition bias:** If treatment affects who remains in the sample, the surviving sample is no longer balanced. Conduct ITT (intent-to-treat) analysis and assess attrition differentially.
+- **Non-compliance:** When not everyone assigned to treatment actually takes the treatment (and vice versa), the ITT estimate differs from the effect of treatment on the compliers (LATE/CACE). Use instrumental variables (2SLS) to estimate the complier average causal effect.
+- **Multiple comparisons without correction:** Testing many outcomes or subgroups without adjustment inflates the false positive rate.
+- **Underpowered studies:** Running an RCT that is too small to detect a meaningful effect wastes resources and produces inconclusive results. Conduct power analysis before data collection.
+
+---
+
+## 21. Summary
+
+This vignette covered the essential theory and practice of analyzing Randomized Control Trials:
+
+| Topic | Section | Key Tools |
+|-------|---------|-----------|
+| Potential outcomes framework | 1 | Mathematical notation |
+| Simulated RCT data | 2 | Base R |
+| Balance checking | 3 | `causalverse::balance_assessment()`, `causalverse::plot_density_by_treatment()`, SMD |
+| Difference in means | 4.1 | `t.test()` |
+| OLS regression | 4.2--4.5 | `fixest::feols()` |
+| Lin (2013) estimator | 4.4 | `fixest::feols()`, `estimatr::lm_lin()` |
+| Robust standard errors | 5 | `estimatr::lm_robust()` |
+| Randomization inference | 6 | `ri2::conduct_ri()` |
+| Experimental design | 7 | `DeclareDesign` |
+| Randomization schemes | 8 | `randomizr` |
+| Heterogeneous effects | 9 | Interactions, `grf::causal_forest()` |
+| Multiple testing | 10 | `p.adjust()` |
+| Power analysis | 11 | `power.t.test()` |
+| Cluster-randomized trials | 12 | Cluster-robust SEs, ICC, design effect |
+| Sensitivity analysis | 13 | `sensemakr` |
+| Causal forests | 14 | `grf::causal_forest()`, `average_treatment_effect()`, `test_calibration()` |
+| Double/debiased ML | 15 | `DoubleML::DoubleMLPLR`, `DoubleML::DoubleMLIRM` |
+| BART causal inference | 16 | `bartCause::bartc()` |
+| Optimal treatment rules | 17 | `policytree::policy_tree()`, `double_robust_scores()` |
+| Adaptive experiments | 18 | `banditsCI`, Thompson sampling, AIPW |
+| Covariate-adaptive randomization | 19 | `randomizr::block_ra()`, `randomizr::cluster_ra()`, rerandomization |
+| Practical guidelines | 20 | CONSORT, pre-registration |
+
+For quasi-experimental methods when randomization is not possible, see the other vignettes in the `causalverse` package (Difference-in-Differences, Synthetic Control, Regression Discontinuity, etc.).
+
+---
+
+## 22. Adaptive Experimental Design
+
+Adaptive experimental designs modify the trial in response to accumulating data while maintaining valid inference. This section covers the methodological foundations beyond Section 18's banditsCI implementation, focusing on response-adaptive randomization, sequential testing, and Bayesian adaptive trials.
+
+### 22.1 Response-Adaptive Randomization
+
+Response-adaptive randomization (RAR) adjusts allocation probabilities toward the superior arm as data accumulate. While ethically attractive, RAR complicates inference and can inflate Type I error if not properly accounted for.
+
+```{r rar-simulation, eval = TRUE}
+set.seed(2024)
+
+# Simulate response-adaptive randomization (RAR) via Thompson sampling
+# with Beta-Bernoulli conjugate updates
+n_total <- 600
+K        <- 3          # arms
+true_p   <- c(0.25, 0.40, 0.55)  # true success probabilities
+
+# Prior: Beta(1, 1) for each arm
+alpha_prior <- rep(1, K)
+beta_prior  <- rep(1, K)
+
+alpha_post <- alpha_prior
+beta_post  <- beta_prior
+
+assignments <- integer(n_total)
+outcomes    <- integer(n_total)
+alloc_hist  <- matrix(0, nrow = n_total, ncol = K)
+
+for (t in seq_len(n_total)) {
+  # Thompson sampling: draw from each arm's posterior
+  theta_draws <- rbeta(K, alpha_post, beta_post)
+  arm         <- which.max(theta_draws)
+
+  # Observe outcome
+  y <- rbinom(1, 1, true_p[arm])
+
+  # Update posterior
+  alpha_post[arm] <- alpha_post[arm] + y
+  beta_post[arm]  <- beta_post[arm] + (1 - y)
+
+  assignments[t] <- arm
+  outcomes[t]    <- y
+  alloc_hist[t,] <- alpha_post / (alpha_post + beta_post)
+}
+
+# Allocation proportions over time
+arm_names <- paste0("Arm ", 1:K, " (p=", true_p, ")")
+cat("Final allocation counts:\n")
+print(table(factor(assignments, labels = arm_names)))
+
+cat("\nFinal posterior means:\n")
+post_means <- alpha_post / (alpha_post + beta_post)
+names(post_means) <- arm_names
+print(round(post_means, 3))
+```
+
+```{r rar-plot, eval = TRUE, fig.width = 9, fig.height = 5}
+library(ggplot2)
+
+# Plot allocation history: rolling proportion assigned to each arm
+window <- 50
+roll_prop <- lapply(1:K, function(k) {
+  sapply(seq(window, n_total, by = 1), function(i) {
+    mean(assignments[max(1, i - window + 1):i] == k)
+  })
+})
+
+df_roll <- do.call(rbind, lapply(1:K, function(k) {
+  data.frame(
+    t    = seq(window, n_total, by = 1),
+    prop = roll_prop[[k]],
+    arm  = factor(paste0("Arm ", k, " (true p=", true_p[k], ")"))
+  )
+}))
+
+ggplot(df_roll, aes(x = t, y = prop, color = arm)) +
+  geom_line(linewidth = 0.9, alpha = 0.85) +
+  geom_hline(yintercept = 1/K, linetype = "dashed", color = "gray50") +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0, 1)) +
+  labs(
+    title    = "Response-Adaptive Randomization: Rolling Allocation Proportions",
+    subtitle = paste0("Thompson sampling (Beta-Bernoulli); window = ", window, " observations"),
+    x        = "Trial time point",
+    y        = paste0("Rolling ", window, "-obs allocation proportion"),
+    color    = "Treatment arm",
+    caption  = "Dashed line = equal allocation (1/3)"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 22.2 Sequential Testing with Alpha-Spending Functions
+
+Group sequential trials allow for interim analyses while controlling the family-wise Type I error rate. The **O'Brien-Fleming** boundary is the most conservative and preserves power at the final analysis; the **Pocock** boundary spends error more uniformly.
+
+The alpha-spending function $\alpha^*(t)$ specifies the cumulative Type I error spent by information fraction $t \in [0, 1]$.
+
+**O'Brien-Fleming spending function:**
+$$\alpha^*(t) = 2\left(1 - \Phi\left(\frac{z_{\alpha/2}}{\sqrt{t}}\right)\right)$$
+
+**Lan-DeMets spending function (approximating O'Brien-Fleming):**
+$$\alpha^*(t) = 4\left(1 - \Phi\left(\frac{z_{\alpha/2}}{\sqrt{t}}\right)\right)$$
+
+```{r obf-spending, eval = TRUE, fig.width = 9, fig.height = 5}
+# O'Brien-Fleming and Pocock alpha-spending function comparison
+# K interim analyses at equally spaced information fractions
+K_looks  <- 5
+t_frac   <- seq(1/K_looks, 1, length.out = K_looks)  # information fractions
+alpha_total <- 0.05
+
+# O'Brien-Fleming alpha-spending function (Lan-DeMets approximation)
+obf_spend <- function(t, alpha = 0.05) {
+  2 * (1 - pnorm(qnorm(1 - alpha / 2) / sqrt(t)))
+}
+
+# Pocock alpha-spending function
+pocock_spend <- function(t, alpha = 0.05) {
+  alpha * log(1 + (exp(1) - 1) * t)
+}
+
+t_grid      <- seq(0.01, 1, by = 0.01)
+df_spending <- rbind(
+  data.frame(t = t_grid, alpha = obf_spend(t_grid), method = "O'Brien-Fleming"),
+  data.frame(t = t_grid, alpha = pocock_spend(t_grid), method = "Pocock")
+)
+
+# Incremental alpha at each look
+obf_incremental <- diff(c(0, obf_spend(t_frac)))
+pck_incremental <- diff(c(0, pocock_spend(t_frac)))
+
+# Compute critical z-boundaries at each look
+obf_z <- qnorm(1 - obf_incremental / 2)
+pck_z <- qnorm(1 - pck_incremental / 2)
+
+cat("=== O'Brien-Fleming Boundaries ===\n")
+cat(sprintf("Look %d (t=%.2f): spend=%.4f, z-boundary=%.3f\n",
+            1:K_looks, t_frac, obf_incremental, obf_z))
+
+cat("\n=== Pocock Boundaries ===\n")
+cat(sprintf("Look %d (t=%.2f): spend=%.4f, z-boundary=%.3f\n",
+            1:K_looks, t_frac, pck_incremental, pck_z))
+
+# Plot spending functions
+ggplot(df_spending, aes(x = t, y = alpha, color = method, linetype = method)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(
+    data = rbind(
+      data.frame(t = t_frac, alpha = obf_spend(t_frac), method = "O'Brien-Fleming"),
+      data.frame(t = t_frac, alpha = pocock_spend(t_frac), method = "Pocock")
+    ),
+    size = 3
+  ) +
+  geom_hline(yintercept = alpha_total, linetype = "dotted", color = "black") +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title    = "Alpha-Spending Functions for Group Sequential Trials",
+    subtitle = sprintf("Total alpha = %.2f; K = %d planned looks", alpha_total, K_looks),
+    x        = "Information fraction",
+    y        = "Cumulative alpha spent",
+    color    = "Method",
+    linetype = "Method",
+    caption  = "Dots mark interim analysis points; dotted line = total alpha"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 22.3 Bayesian Adaptive Trial Design
+
+Bayesian adaptive trials update beliefs about treatment effects in real time and can stop early for efficacy, futility, or harm. Key design decisions include:
+
+| Design Element | Frequentist | Bayesian |
+|----------------|-------------|---------|
+| Stopping rule | Alpha-spending boundary | Posterior probability threshold |
+| Interim analysis | Pre-specified looks | Continuous or flexible |
+| Prior information | Not incorporated | Explicitly modeled |
+| Sample size | Fixed a priori | Adaptive based on accumulating evidence |
+| Inference | p-value, confidence interval | Posterior distribution, credible interval |
+
+```{r bayes-adaptive, eval = TRUE, fig.width = 9, fig.height = 5}
+set.seed(42)
+
+# Bayesian adaptive trial: binary outcome, two arms
+# Prior: Beta(1, 1) for each arm's success probability
+# Stop early if P(p_treat > p_ctrl | data) > 0.975 (efficacy)
+#            or P(p_treat > p_ctrl | data) < 0.025 (futility)
+
+n_max   <- 400
+n_batch <- 20   # enroll in batches of 20
+p_ctrl  <- 0.35
+p_treat <- 0.50
+
+# Storage
+posterior_prob <- numeric(n_max / n_batch)
+n_enrolled     <- numeric(n_max / n_batch)
+n_ctrl_obs     <- n_treat_obs <- 0
+s_ctrl         <- s_treat     <- 0   # successes
+
+# Hyperparameters
+a0 <- b0 <- 1   # Beta(1,1) prior
+
+set.seed(42)
+stopped <- FALSE
+stop_look <- NA
+
+for (look in seq_len(n_max / n_batch)) {
+  # Enroll next batch (1:1 allocation)
+  n_this <- n_batch
+  y_c <- rbinom(n_this / 2, 1, p_ctrl)
+  y_t <- rbinom(n_this / 2, 1, p_treat)
+
+  s_ctrl    <- s_ctrl + sum(y_c)
+  s_treat   <- s_treat + sum(y_t)
+  n_ctrl_obs  <- n_ctrl_obs + length(y_c)
+  n_treat_obs <- n_treat_obs + length(y_t)
+
+  # Posterior: Beta(a0 + successes, b0 + failures)
+  a_ctrl  <- a0 + s_ctrl;  b_ctrl  <- b0 + (n_ctrl_obs - s_ctrl)
+  a_treat <- a0 + s_treat; b_treat <- b0 + (n_treat_obs - s_treat)
+
+  # Monte Carlo estimate of P(p_treat > p_ctrl | data)
+  draws_ctrl  <- rbeta(10000, a_ctrl, b_ctrl)
+  draws_treat <- rbeta(10000, a_treat, b_treat)
+  pp          <- mean(draws_treat > draws_ctrl)
+
+  posterior_prob[look] <- pp
+  n_enrolled[look]     <- n_ctrl_obs + n_treat_obs
+
+  if (!stopped && (pp > 0.975 || pp < 0.025)) {
+    stopped   <- TRUE
+    stop_look <- look
+    cat(sprintf("Early stopping at look %d (N=%d): P(treat>ctrl|data)=%.3f\n",
+                look, n_ctrl_obs + n_treat_obs, pp))
+  }
+}
+
+if (!stopped) cat("Trial completed without early stopping.\n")
+
+df_bayes <- data.frame(
+  look = seq_len(n_max / n_batch),
+  n    = n_enrolled,
+  pp   = posterior_prob
+)
+
+ggplot(df_bayes, aes(x = n, y = pp)) +
+  geom_line(color = "#2166AC", linewidth = 1) +
+  geom_point(color = "#2166AC", size = 2.5) +
+  geom_hline(yintercept = 0.975, linetype = "dashed", color = "#D73027") +
+  geom_hline(yintercept = 0.025, linetype = "dashed", color = "#D73027") +
+  geom_hline(yintercept = 0.5, linetype = "dotted", color = "gray50") +
+  {if (!is.na(stop_look)) list(
+    geom_vline(xintercept = n_enrolled[stop_look], color = "darkgreen",
+               linetype = "longdash", linewidth = 0.9),
+    annotate("text", x = n_enrolled[stop_look] + 5, y = 0.5,
+             label = paste0("Stop\n(N=", n_enrolled[stop_look], ")"),
+             color = "darkgreen", size = 3.5, hjust = 0)
+  )} +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0, 1)) +
+  labs(
+    title    = "Bayesian Adaptive Trial: Posterior Probability of Superiority",
+    subtitle = sprintf("P(treat > ctrl | data) at each interim analysis (true p_ctrl=%.2f, p_treat=%.2f)",
+                       p_ctrl, p_treat),
+    x        = "Cumulative sample size",
+    y        = "Posterior probability: P(p_treat > p_ctrl | data)",
+    caption  = "Red dashed lines: efficacy (0.975) and futility (0.025) boundaries"
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+## 23. Comprehensive Visualization Suite for RCTs
+
+Publication-quality figures are essential for communicating RCT results. This section demonstrates a complete suite of diagnostic and reporting visualizations.
+
+### 23.1 CONSORT Flow Diagram
+
+The CONSORT flow diagram tracks participant progression from eligibility through analysis. We construct it using base R graphics with `grid`.
+
+```{r consort-diagram, eval = TRUE, fig.width = 10, fig.height = 8}
+# CONSORT flow diagram using base R grid graphics
+# Simulated trial numbers
+assessed         <- 1200
+ineligible       <- 350
+declined         <- 80
+randomized       <- assessed - ineligible - declined
+allocated_treat  <- ceiling(randomized / 2)
+allocated_ctrl   <- randomized - allocated_treat
+lost_treat       <- 15
+disc_treat       <- 8
+lost_ctrl        <- 12
+disc_ctrl        <- 6
+analyzed_treat   <- allocated_treat - lost_treat - disc_treat
+analyzed_ctrl    <- allocated_ctrl - lost_ctrl - disc_ctrl
+excluded_treat   <- 5
+excluded_ctrl    <- 3
+
+# Use grid to draw CONSORT flow
+library(grid)
+grid.newpage()
+
+# Color palette
+box_bg   <- "#EBF5FB"
+box_bd   <- "#2980B9"
+arr_col  <- "#2C3E50"
+ttl_col  <- "#1A5276"
+
+# Helper: draw a rounded rectangle with text
+draw_box <- function(x, y, w, h, lines, cex = 0.78) {
+  grid.roundrect(
+    x = unit(x, "npc"), y = unit(y, "npc"),
+    width = unit(w, "npc"), height = unit(h, "npc"),
+    r = unit(3, "mm"),
+    gp = gpar(fill = box_bg, col = box_bd, lwd = 1.5)
+  )
+  n <- length(lines)
+  for (i in seq_along(lines)) {
+    grid.text(
+      lines[i],
+      x    = unit(x, "npc"),
+      y    = unit(y + h / 2 - (i) * h / (n + 1), "npc"),
+      gp   = gpar(fontsize = cex * 10, col = "#1C2833"),
+      just = "centre"
+    )
+  }
+}
+
+# Helper: draw arrow
+darrow <- function(x1, y1, x2, y2) {
+  grid.lines(
+    x   = unit(c(x1, x2), "npc"),
+    y   = unit(c(y1, y2), "npc"),
+    gp  = gpar(col = arr_col, lwd = 1.5, lineend = "butt"),
+    arrow = arrow(length = unit(2.5, "mm"), type = "closed", ends = "last")
+  )
+}
+
+# Title
+grid.text(
+  "CONSORT Flow Diagram",
+  x  = unit(0.5, "npc"), y = unit(0.97, "npc"),
+  gp = gpar(fontsize = 14, fontface = "bold", col = ttl_col)
+)
+
+# ---- Enrollment box ----
+draw_box(0.5, 0.85, 0.40, 0.09, c(
+  "Enrollment",
+  sprintf("Assessed for eligibility (n = %d)", assessed)
+), cex = 0.82)
+
+# ---- Excluded box ----
+draw_box(0.80, 0.78, 0.36, 0.12, c(
+  "Excluded (n = " %+% (ineligible + declined) %+% ")",
+  sprintf("  Not meeting criteria (n = %d)", ineligible),
+  sprintf("  Declined to participate (n = %d)", declined)
+), cex = 0.75)
+
+darrow(0.50, 0.805, 0.50, 0.73)          # down to randomization
+grid.lines(unit(c(0.50, 0.625), "npc"),   # right to excluded
+           unit(c(0.805, 0.805), "npc"),
+           gp = gpar(col = arr_col, lwd = 1.5))
+darrow(0.625, 0.805, 0.625, 0.84)
+
+# ---- Randomization box ----
+draw_box(0.5, 0.69, 0.38, 0.08, c(
+  "Randomization",
+  sprintf("Randomized (n = %d)", randomized)
+), cex = 0.82)
+
+# ---- Split to two arms ----
+darrow(0.50, 0.650, 0.50, 0.61)
+grid.lines(unit(c(0.27, 0.73), "npc"),
+           unit(c(0.61, 0.61), "npc"),
+           gp = gpar(col = arr_col, lwd = 1.5))
+darrow(0.27, 0.61, 0.27, 0.565)
+darrow(0.73, 0.61, 0.73, 0.565)
+
+# ---- Allocation boxes ----
+draw_box(0.27, 0.51, 0.42, 0.10, c(
+  "Allocated to Treatment",
+  sprintf("(n = %d)", allocated_treat),
+  sprintf("Received intervention (n = %d)", allocated_treat - 2)
+), cex = 0.76)
+
+draw_box(0.73, 0.51, 0.42, 0.10, c(
+  "Allocated to Control",
+  sprintf("(n = %d)", allocated_ctrl),
+  sprintf("Received control (n = %d)", allocated_ctrl - 1)
+), cex = 0.76)
+
+# ---- Follow-up arrows ----
+darrow(0.27, 0.460, 0.27, 0.395)
+darrow(0.73, 0.460, 0.73, 0.395)
+
+# ---- Follow-up boxes ----
+draw_box(0.27, 0.345, 0.42, 0.10, c(
+  "Lost to Follow-Up / Discontinued",
+  sprintf("Lost to follow-up (n = %d)", lost_treat),
+  sprintf("Discontinued (n = %d)", disc_treat)
+), cex = 0.76)
+
+draw_box(0.73, 0.345, 0.42, 0.10, c(
+  "Lost to Follow-Up / Discontinued",
+  sprintf("Lost to follow-up (n = %d)", lost_ctrl),
+  sprintf("Discontinued (n = %d)", disc_ctrl)
+), cex = 0.76)
+
+# ---- Analysis arrows ----
+darrow(0.27, 0.295, 0.27, 0.230)
+darrow(0.73, 0.295, 0.73, 0.230)
+
+# ---- Analysis boxes ----
+draw_box(0.27, 0.18, 0.42, 0.10, c(
+  "Analysed (Treatment)",
+  sprintf("(n = %d)", analyzed_treat),
+  sprintf("Excluded from analysis (n = %d)", excluded_treat)
+), cex = 0.76)
+
+draw_box(0.73, 0.18, 0.42, 0.10, c(
+  "Analysed (Control)",
+  sprintf("(n = %d)", analyzed_ctrl),
+  sprintf("Excluded from analysis (n = %d)", excluded_ctrl)
+), cex = 0.76)
+
+# Stage labels (left margin)
+for (ypos in c(0.85, 0.69, 0.51, 0.345, 0.18)) {
+  lbl <- switch(as.character(round(ypos * 100)),
+    "85"  = "Enrollment",
+    "69"  = "Allocation",
+    "51"  = "Allocation",
+    "34"  = "Follow-Up",
+    "18"  = "Analysis",
+    ""
+  )
+}
+```
+
+```{r consort-clean}
+# String concatenation helper used above
+`%+%` <- function(a, b) paste0(a, b)
+```
+
+### 23.2 Treatment Effect by Subgroup Forest Plot
+
+Using `causalverse::heterogeneity_plot()`, we visualize subgroup-specific treatment effects with confidence intervals — a standard deliverable for any RCT publication.
+
+```{r subgroup-forest, eval = TRUE, fig.width = 9, fig.height = 6}
+set.seed(42)
+n <- 800
+
+# Simulate RCT data with heterogeneous treatment effects
+age_group  <- sample(c("18-35", "36-50", "51-65", "65+"), n, replace = TRUE,
+                     prob = c(0.25, 0.30, 0.25, 0.20))
+female     <- rbinom(n, 1, 0.52)
+comorbid   <- rbinom(n, 1, 0.35)
+treat      <- rbinom(n, 1, 0.5)
+
+# Heterogeneous effect: older and comorbid patients benefit more
+tau_true <- 0.20 +
+  0.15 * (age_group %in% c("51-65", "65+")) +
+  0.10 * comorbid -
+  0.05 * female
+
+y <- 1.5 + tau_true * treat + 0.3 * (age_group == "36-50") +
+     0.5 * comorbid + rnorm(n, sd = 0.8)
+
+rct_data <- data.frame(
+  y          = y,
+  treat      = treat,
+  age_group  = age_group,
+  female     = female,
+  comorbid   = comorbid,
+  subgroup   = age_group
+)
+
+causalverse::heterogeneity_plot(
+  data         = rct_data,
+  subgroup_var = "subgroup",
+  outcome      = "y",
+  treatment    = "treat",
+  plot_type    = "forest",
+  title        = "Treatment Effect by Age Subgroup (Forest Plot)"
+) +
+  causalverse::ama_theme() +
+  labs(caption = "Error bars: 95% confidence intervals. Dashed line: overall ATE.")
+```
+
+### 23.3 Dose-Response Curve (Continuous Treatment)
+
+When treatment is continuous (e.g., drug dose, hours of training), the dose-response curve reveals the functional relationship between treatment intensity and the outcome.
+
+```{r dose-response, eval = TRUE, fig.width = 9, fig.height = 5}
+set.seed(42)
+n <- 500
+
+# Continuous treatment: dose from 0 to 10
+dose      <- runif(n, 0, 10)
+x1        <- rnorm(n)           # confounder
+x2        <- rbinom(n, 1, 0.4)
+
+# Nonlinear dose-response: log-linear with diminishing returns
+y <- 2 + 1.5 * log1p(dose) - 0.3 * dose^2 / 10 +
+     0.5 * x1 + 0.8 * x2 + rnorm(n, sd = 1.2)
+
+df_dose <- data.frame(dose = dose, y = y, x1 = x1, x2 = x2)
+
+# Estimate dose-response using LOESS and linear spline
+fit_loess <- loess(y ~ dose, data = df_dose, span = 0.4)
+dose_grid <- seq(0, 10, length.out = 100)
+pred_lo   <- predict(fit_loess, newdata = data.frame(dose = dose_grid),
+                     se = TRUE)
+
+df_curve <- data.frame(
+  dose  = dose_grid,
+  fit   = pred_lo$fit,
+  se    = pred_lo$se.fit,
+  lower = pred_lo$fit - 1.96 * pred_lo$se.fit,
+  upper = pred_lo$fit + 1.96 * pred_lo$se.fit
+)
+
+ggplot() +
+  geom_point(data = df_dose, aes(x = dose, y = y),
+             alpha = 0.25, size = 1, color = "gray60") +
+  geom_ribbon(data = df_curve, aes(x = dose, ymin = lower, ymax = upper),
+              fill = "#2166AC", alpha = 0.2) +
+  geom_line(data = df_curve, aes(x = dose, y = fit),
+            color = "#2166AC", linewidth = 1.2) +
+  geom_vline(xintercept = 5, linetype = "dashed", color = "#D73027", alpha = 0.7) +
+  annotate("text", x = 5.2, y = max(df_dose$y) * 0.92,
+           label = "Reference\ndose = 5", color = "#D73027", size = 3.2, hjust = 0) +
+  labs(
+    title    = "Dose-Response Curve: LOESS Estimate with 95% CI",
+    subtitle = "Continuous treatment: drug dose (0–10 units)",
+    x        = "Treatment dose",
+    y        = "Outcome (Y)",
+    caption  = "Gray points: observed data. Blue band: 95% pointwise confidence interval."
+  ) +
+  causalverse::ama_theme()
+```
+
+### 23.4 Compliance Diagram (Assignment vs. Receipt)
+
+The compliance diagram plots treatment assignment against actual receipt, revealing the prevalence of non-compliance patterns (always-takers, never-takers, compliers, defiers).
+
+```{r compliance-plot, eval = TRUE, fig.width = 8, fig.height = 6}
+set.seed(42)
+n <- 600
+
+# Potential compliance types
+u_comp <- runif(n)
+type   <- dplyr::case_when(
+  u_comp < 0.65 ~ "Complier",
+  u_comp < 0.80 ~ "Never-Taker",
+  u_comp < 0.93 ~ "Always-Taker",
+  TRUE           ~ "Defier"
+)
+
+# Assignment
+Z <- rbinom(n, 1, 0.5)
+
+# Actual receipt based on type
+D <- dplyr::case_when(
+  type == "Complier"    ~ Z,
+  type == "Never-Taker" ~ 0L,
+  type == "Always-Taker"~ 1L,
+  type == "Defier"      ~ 1L - Z,
+  TRUE                  ~ NA_integer_
+)
+
+df_comp <- data.frame(
+  assignment = factor(Z, labels = c("Control (Z=0)", "Treatment (Z=1)")),
+  receipt    = factor(D, labels = c("Did not receive (D=0)", "Received (D=1)")),
+  type       = type
+)
+
+# Stacked bar plot: proportion by compliance type within each assignment arm
+df_comp_sum <- df_comp |>
+  dplyr::group_by(assignment, type) |>
+  dplyr::summarise(n = dplyr::n(), .groups = "drop") |>
+  dplyr::group_by(assignment) |>
+  dplyr::mutate(prop = n / sum(n))
+
+type_colors <- c(
+  "Complier"     = "#2166AC",
+  "Never-Taker"  = "#D73027",
+  "Always-Taker" = "#4DAC26",
+  "Defier"       = "#F1A340"
+)
+
+ggplot(df_comp_sum, aes(x = assignment, y = prop, fill = type)) +
+  geom_col(position = "stack", width = 0.55, color = "white") +
+  geom_text(aes(label = scales::percent(prop, accuracy = 0.1)),
+            position = position_stack(vjust = 0.5), size = 3.2, color = "white",
+            fontface = "bold") +
+  scale_fill_manual(values = type_colors, name = "Compliance type") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(
+    title    = "Compliance Diagram: Assignment vs. Treatment Receipt",
+    subtitle = "Proportion of each compliance type by random assignment arm",
+    x        = "Random assignment (Z)",
+    y        = "Proportion",
+    caption  = paste0(
+      "Compliers: take treatment iff assigned. ",
+      "Never-takers: never take. Always-takers: always take. Defiers: do opposite."
+    )
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 23.5 Power Curve: Power vs. Sample Size
+
+A power curve shows how statistical power changes with sample size for different effect sizes, guiding pre-study sample size determination.
+
+```{r power-curve, eval = TRUE, fig.width = 9, fig.height = 6}
+# Power curves for two-sample t-test across effect sizes
+effect_sizes <- c(0.20, 0.35, 0.50, 0.65, 0.80)  # Cohen's d
+n_seq        <- seq(20, 500, by = 10)
+alpha_level  <- 0.05
+
+df_power <- do.call(rbind, lapply(effect_sizes, function(d) {
+  pwr_vals <- sapply(n_seq, function(n) {
+    power.t.test(n = n, delta = d, sd = 1, sig.level = alpha_level,
+                 type = "two.sample", alternative = "two.sided")$power
+  })
+  data.frame(
+    n      = n_seq,
+    power  = pwr_vals,
+    effect = factor(paste0("d = ", d),
+                    levels = paste0("d = ", sort(effect_sizes, decreasing = TRUE)))
+  )
+}))
+
+# Annotate 80% and 90% power lines
+ggplot(df_power, aes(x = n, y = power, color = effect, linetype = effect)) +
+  geom_line(linewidth = 1.0) +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "gray40", alpha = 0.8) +
+  geom_hline(yintercept = 0.90, linetype = "dotted", color = "gray40", alpha = 0.8) +
+  annotate("text", x = 490, y = 0.81, label = "80% power",
+           size = 3, color = "gray40", hjust = 1) +
+  annotate("text", x = 490, y = 0.91, label = "90% power",
+           size = 3, color = "gray40", hjust = 1) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0, 1.02)) +
+  scale_color_brewer(palette = "RdYlBu", direction = -1, name = "Effect size (Cohen's d)") +
+  scale_linetype_manual(
+    values = c("solid", "dashed", "dotdash", "longdash", "twodash"),
+    name = "Effect size (Cohen's d)"
+  ) +
+  labs(
+    title    = "Statistical Power vs. Sample Size",
+    subtitle = sprintf("Two-sample t-test, two-sided, alpha = %.2f", alpha_level),
+    x        = "Sample size per arm (n)",
+    y        = "Statistical power",
+    caption  = "Cohen's d: 0.20 = small, 0.50 = medium, 0.80 = large"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom",
+        legend.title = element_text(size = 10))
+```
+
+---
+
+## 24. Regression Adjustment and ANCOVA
+
+Covariate adjustment (ANCOVA) can substantially increase statistical power in RCTs by reducing residual variance. Unlike observational studies, covariate adjustment in randomized experiments is valid even with model misspecification (Freedman 2008; Lin 2013), though misspecification can reduce efficiency in small samples.
+
+### 24.1 Why ANCOVA Increases Power
+
+Let $Y_i$ be the outcome, $D_i \in \{0,1\}$ the treatment, and $X_i$ a pre-treatment covariate. The ANCOVA estimator:
+$$\hat{\tau}_{ANCOVA} = \bar{Y}_T - \bar{Y}_C - \hat{\gamma}(\bar{X}_T - \bar{X}_C)$$
+
+has asymptotic variance proportional to $\sigma^2(1 - \rho^2)$ where $\rho$ is the correlation between $Y$ and $X$. The variance reduction relative to the unadjusted estimator is $\rho^2$: adjusting for a covariate with $|\rho| = 0.5$ reduces variance by 25%, shrinking the required sample size by a commensurate amount.
+
+### 24.2 Lin (2013) Interaction Estimator
+
+Freedman (2008) showed that the standard ANCOVA estimator can be biased in finite samples under model misspecification. Lin (2013) proposed interacting the treatment indicator with **centered** covariates, which is unbiased and at least as efficient as ANCOVA asymptotically:
+
+$$Y_i = \alpha + \tau D_i + \beta (X_i - \bar{X}) + \delta D_i(X_i - \bar{X}) + \varepsilon_i$$
+
+The coefficient $\hat{\tau}$ estimates the ATE without requiring correct model specification.
+
+### 24.3 Simulation: Naive vs. ANCOVA vs. Lin Estimator
+
+```{r ancova-sim, eval = TRUE}
+library(estimatr)
+
+set.seed(2024)
+n   <- 300
+rho <- 0.60   # correlation between pre-treatment and outcome
+
+# Simulate: X ~ N(0,1), Y0 = rho*X + sqrt(1-rho^2)*eps, treatment effect tau = 0.4
+X   <- rnorm(n)
+eps <- rnorm(n)
+Y0  <- rho * X + sqrt(1 - rho^2) * eps   # potential outcome under control
+tau <- 0.40
+Y1  <- Y0 + tau                           # potential outcome under treatment
+
+# Random assignment
+D   <- rbinom(n, 1, 0.5)
+Y   <- ifelse(D == 1, Y1, Y0)
+
+df_rct2 <- data.frame(Y = Y, D = D, X = X, X_c = X - mean(X))
+
+# Method 1: Naive (difference in means)
+fit_naive <- lm_robust(Y ~ D, data = df_rct2)
+
+# Method 2: ANCOVA
+fit_ancova <- lm_robust(Y ~ D + X, data = df_rct2)
+
+# Method 3: Lin (2013) estimator (treatment x centered covariates)
+fit_lin <- lm_robust(Y ~ D * X_c, data = df_rct2)
+
+# Compare estimates
+results <- data.frame(
+  Method    = c("Naive", "ANCOVA", "Lin (2013)"),
+  Estimate  = c(coef(fit_naive)["D"], coef(fit_ancova)["D"], coef(fit_lin)["D"]),
+  SE        = c(fit_naive$std.error["D"], fit_ancova$std.error["D"],
+                fit_lin$std.error["D"]),
+  CI_lower  = c(confint(fit_naive)["D", 1], confint(fit_ancova)["D", 1],
+                confint(fit_lin)["D", 1]),
+  CI_upper  = c(confint(fit_naive)["D", 2], confint(fit_ancova)["D", 2],
+                confint(fit_lin)["D", 2])
+)
+results$Precision_gain <- round((results$SE[1] / results$SE - 1) * 100, 1)
+
+knitr::kable(results, digits = 4,
+             caption = paste0(
+               "Comparison of ATE estimators (true tau = ", tau,
+               ", rho = ", rho, ", n = ", n, ")"
+             ))
+```
+
+```{r ancova-monte-carlo, eval = TRUE, fig.width = 9, fig.height = 5}
+# Monte Carlo: compare SE across methods over many replications
+set.seed(42)
+B   <- 2000
+res <- replicate(B, {
+  X_   <- rnorm(n)
+  eps_ <- rnorm(n)
+  Y0_  <- rho * X_ + sqrt(1 - rho^2) * eps_
+  Y1_  <- Y0_ + tau
+  D_   <- rbinom(n, 1, 0.5)
+  Y_   <- ifelse(D_ == 1, Y1_, Y0_)
+  df_  <- data.frame(Y = Y_, D = D_, X = X_, Xc = X_ - mean(X_))
+
+  tau_naive <- coef(lm(Y ~ D, data = df_))["D"]
+  tau_ancova <- coef(lm(Y ~ D + X, data = df_))["D"]
+  tau_lin   <- coef(lm(Y ~ D * Xc, data = df_))["D"]
+  c(naive = tau_naive, ancova = tau_ancova, lin = tau_lin)
+})
+
+df_mc <- data.frame(
+  estimate = c(res["naive",], res["ancova",], res["lin",]),
+  method   = rep(c("Naive", "ANCOVA", "Lin (2013)"), each = B)
+)
+df_mc$method <- factor(df_mc$method, levels = c("Naive", "ANCOVA", "Lin (2013)"))
+
+# Compute empirical SDs
+sd_tab <- tapply(df_mc$estimate, df_mc$method, sd)
+cat("Empirical standard deviations across", B, "simulations:\n")
+print(round(sd_tab, 4))
+cat("\nVariance reduction vs. Naive:\n")
+print(round((1 - sd_tab^2 / sd_tab["Naive"]^2) * 100, 1))
+
+ggplot(df_mc, aes(x = estimate, fill = method, color = method)) +
+  geom_density(alpha = 0.35, linewidth = 0.8) +
+  geom_vline(xintercept = tau, linetype = "dashed", color = "black") +
+  annotate("text", x = tau + 0.01, y = Inf, label = paste0("True tau = ", tau),
+           vjust = 2, hjust = 0, size = 3.2) +
+  scale_fill_manual(values  = c("Naive" = "#D73027", "ANCOVA" = "#4DAC26",
+                                 "Lin (2013)" = "#2166AC"),
+                    name = "Estimator") +
+  scale_color_manual(values = c("Naive" = "#D73027", "ANCOVA" = "#4DAC26",
+                                 "Lin (2013)" = "#2166AC"),
+                     name = "Estimator") +
+  labs(
+    title    = "Sampling Distributions: Naive, ANCOVA, and Lin Estimators",
+    subtitle = sprintf("Monte Carlo simulation: B=%d, n=%d, true tau=%.2f, rho=%.2f",
+                       B, n, tau, rho),
+    x        = "ATE estimate",
+    y        = "Density",
+    caption  = "Dashed line = true treatment effect. ANCOVA and Lin show reduced variance."
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 24.4 ANCOVA Power Gain Formula
+
+The factor by which ANCOVA reduces the required sample size relative to a naive estimator is:
+
+$$\text{Relative efficiency} = \frac{1}{1 - \rho^2}$$
+
+```{r ancova-efficiency, eval = TRUE}
+rho_vals <- seq(0, 0.9, by = 0.1)
+rel_eff   <- 1 / (1 - rho_vals^2)
+pct_reduction <- (1 - 1/rel_eff) * 100
+
+df_eff <- data.frame(
+  rho              = rho_vals,
+  relative_efficiency = round(rel_eff, 3),
+  pct_sample_reduction = round(pct_reduction, 1)
+)
+knitr::kable(df_eff,
+             col.names = c("rho (pre-post correlation)", "Relative efficiency",
+                           "Sample size reduction (%)"),
+             caption = "Power gain from ANCOVA as a function of pre-post correlation")
+```
+
+---
+
+## 25. Intention-to-Treat, Per-Protocol, and LATE
+
+Non-compliance — participants assigned to treatment who do not take it, or control participants who obtain the treatment outside the trial — is endemic in field experiments. Three estimands address non-compliance differently.
+
+| Estimand | Population | Identifies | Uses |
+|----------|-----------|------------|------|
+| **ITT** (Intent-to-Treat) | All randomized | Effect of assignment | Policy relevance; no bias |
+| **PP** (Per-Protocol) | Only compliers | Biased (selective) | Not recommended |
+| **LATE/CACE** | Compliers only | Causal effect for compliers | IV/2SLS approach |
+
+### 25.1 Data Generating Process with Non-Compliance
+
+```{r itt-late-dgp, eval = TRUE}
+set.seed(42)
+n <- 1000
+
+# Latent compliance type
+u_type <- runif(n)
+type   <- dplyr::case_when(
+  u_type < 0.60 ~ "Complier",
+  u_type < 0.80 ~ "Never-Taker",
+  u_type < 0.97 ~ "Always-Taker",
+  TRUE           ~ "Defier"      # monotonicity assumption: minimal defiers
+)
+
+# Random assignment (instrument)
+Z <- rbinom(n, 1, 0.5)
+
+# Treatment receipt (first stage)
+D <- dplyr::case_when(
+  type == "Complier"     ~ Z,
+  type == "Never-Taker"  ~ 0L,
+  type == "Always-Taker" ~ 1L,
+  type == "Defier"       ~ 1L - Z
+)
+
+# Outcome: true LATE = 2.0 (only compliers respond to Z)
+X   <- rnorm(n)
+eps <- rnorm(n, sd = 1.5)
+Y   <- 1.0 +
+       2.0 * D * (type == "Complier") +   # treatment effect for compliers
+       0.8 * (type == "Always-Taker") +   # always-takers have higher baseline
+       0.5 * X + eps
+
+df_nc <- data.frame(Y = Y, D = as.integer(D), Z = Z, X = X, type = type)
+
+cat("Compliance type distribution:\n")
+print(prop.table(table(df_nc$type)) * 100)
+cat("\nFirst-stage compliance rate:\n")
+cat(sprintf("  P(D=1 | Z=1) = %.3f\n", mean(df_nc$D[df_nc$Z == 1])))
+cat(sprintf("  P(D=1 | Z=0) = %.3f\n", mean(df_nc$D[df_nc$Z == 0])))
+```
+
+### 25.2 Intent-to-Treat (ITT) Estimate
+
+The ITT estimates the **reduced-form** effect of assignment, regardless of actual compliance:
+
+```{r itt-estimate, eval = TRUE}
+# ITT: regress Y on Z (ignore D)
+fit_itt <- lm_robust(Y ~ Z, data = df_nc)
+cat(sprintf("ITT estimate: %.4f (SE: %.4f, 95%% CI: [%.4f, %.4f])\n",
+            coef(fit_itt)["Z"], fit_itt$std.error["Z"],
+            confint(fit_itt)["Z", 1], confint(fit_itt)["Z", 2]))
+```
+
+### 25.3 Per-Protocol (PP) Estimate
+
+The PP restricts to participants who complied with their assignment. This introduces **selection bias** because compliance correlates with potential outcomes.
+
+```{r pp-estimate, eval = TRUE}
+# Per-protocol: keep only compliant participants
+df_pp <- df_nc |>
+  dplyr::filter((Z == 1 & D == 1) | (Z == 0 & D == 0))
+
+fit_pp <- lm_robust(Y ~ D, data = df_pp)
+cat(sprintf("Per-Protocol estimate: %.4f (SE: %.4f)\n",
+            coef(fit_pp)["D"], fit_pp$std.error["D"]))
+cat(sprintf("  N in PP sample: %d / %d (%.1f%%)\n",
+            nrow(df_pp), n, 100 * nrow(df_pp) / n))
+cat("  [WARNING: PP estimate is biased due to selective inclusion]\n")
+```
+
+### 25.4 Local Average Treatment Effect (LATE) via Wald Estimator and 2SLS
+
+The **Wald estimator** (Wald, 1940; Angrist and Imbens, 1994) identifies the LATE as the ratio of the reduced form to the first stage:
+
+$$\widehat{LATE} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{D}_{Z=1} - \bar{D}_{Z=0}} = \frac{\text{Reduced form (ITT)}}{\text{First stage (compliance rate)}}$$
+
+Under the LATE assumptions (SUTVA, exclusion restriction, monotonicity), this identifies the ATE for compliers.
+
+```{r late-estimate, eval = TRUE}
+# Wald estimator
+reduced_form <- mean(df_nc$Y[df_nc$Z == 1]) - mean(df_nc$Y[df_nc$Z == 0])
+first_stage  <- mean(df_nc$D[df_nc$Z == 1]) - mean(df_nc$D[df_nc$Z == 0])
+wald_est     <- reduced_form / first_stage
+
+cat("=== LATE Estimation Pipeline ===\n")
+cat(sprintf("Reduced form (ITT):  %.4f\n", reduced_form))
+cat(sprintf("First stage (compliance): %.4f\n", first_stage))
+cat(sprintf("Wald/LATE estimate:  %.4f\n", wald_est))
+cat(sprintf("True LATE (compliers only): 2.0000\n"))
+
+# 2SLS for LATE with proper SE (using ivreg or manual 2SLS)
+# Manual 2SLS
+D_hat        <- predict(lm(D ~ Z, data = df_nc))
+fit_2sls     <- lm_robust(Y ~ D_hat, data = df_nc)
+late_2sls    <- coef(fit_2sls)["D_hat"]
+late_se      <- fit_2sls$std.error["D_hat"]
+
+cat(sprintf("\n2SLS LATE estimate:  %.4f (SE: %.4f)\n", late_2sls, late_se))
+cat(sprintf("95%% CI: [%.4f, %.4f]\n",
+            late_2sls - 1.96 * late_se, late_2sls + 1.96 * late_se))
+```
+
+```{r late-comparison-plot, eval = TRUE, fig.width = 9, fig.height = 5}
+# Summary comparison plot of all three estimands
+est_comparison <- data.frame(
+  Method   = c("ITT", "Per-Protocol", "LATE (Wald/2SLS)"),
+  Estimate = c(coef(fit_itt)["Z"], coef(fit_pp)["D"], wald_est),
+  SE       = c(fit_itt$std.error["Z"], fit_pp$std.error["D"], late_se),
+  Biased   = c(FALSE, TRUE, FALSE)
+)
+est_comparison$lower <- est_comparison$Estimate - 1.96 * est_comparison$SE
+est_comparison$upper <- est_comparison$Estimate + 1.96 * est_comparison$SE
+est_comparison$Method <- factor(est_comparison$Method,
+                                levels = c("ITT", "Per-Protocol", "LATE (Wald/2SLS)"))
+
+ggplot(est_comparison,
+       aes(x = Estimate, y = Method, color = Biased, shape = Biased)) +
+  geom_vline(xintercept = 0, color = "gray70") +
+  geom_vline(xintercept = 2.0, linetype = "dashed", color = "#2166AC", alpha = 0.6) +
+  geom_errorbar(aes(xmin = lower, xmax = upper), width = 0.2, orientation = "y", linewidth = 1) +
+  geom_point(size = 4) +
+  annotate("text", x = 2.05, y = 0.6, label = "True LATE = 2.0",
+           color = "#2166AC", size = 3, hjust = 0) +
+  scale_color_manual(values = c("FALSE" = "#2166AC", "TRUE" = "#D73027"),
+                     labels = c("FALSE" = "Unbiased", "TRUE" = "Potentially biased"),
+                     name = "") +
+  scale_shape_manual(values = c("FALSE" = 16, "TRUE" = 17),
+                     labels = c("FALSE" = "Unbiased", "TRUE" = "Potentially biased"),
+                     name = "") +
+  labs(
+    title    = "Comparison of ITT, Per-Protocol, and LATE Estimates",
+    subtitle = "With simulated non-compliance (60% compliers, 20% never-takers, 17% always-takers)",
+    x        = "Estimated treatment effect",
+    y        = NULL,
+    caption  = "Blue dashed line: true LATE for compliers. Red/triangle: per-protocol is biased."
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 25.5 IV Approach with Covariates (2SLS)
+
+For a more precise LATE estimate, 2SLS with covariates can be estimated using `estimatr::iv_robust()` or the `ivreg` package:
+
+```{r iv-covariates, eval = FALSE}
+# IV regression with covariates (requires ivreg or estimatr)
+library(estimatr)
+
+# iv_robust: Y ~ D + X | Z + X
+# Z is the instrument; X is exogenous covariate
+fit_iv_cov <- iv_robust(Y ~ D + X | Z + X, data = df_nc)
+summary(fit_iv_cov)
+```
+
+The IV approach requires four key assumptions:
+
+1. **Relevance:** $\text{Cov}(Z, D) \neq 0$ (instrument is correlated with treatment)
+2. **Exclusion restriction:** $Z$ affects $Y$ only through $D$ (no direct effect)
+3. **Independence:** $Z \perp (Y(0), Y(1), D(0), D(1))$ (satisfied by randomization)
+4. **Monotonicity:** No defiers — $D_i(1) \geq D_i(0)$ for all $i$
+
+---
+
+## References
+
+- Angrist, J. D., and Pischke, J.-S. (2009). *Mostly Harmless Econometrics: An Empiricist's Companion*. Princeton University Press.
+- Athey, S., Tibshirani, J., and Wager, S. (2019). "Generalized Random Forests." *Annals of Statistics*, 47(2), 1148--1178.
+- Blair, G., Cooper, J., Coppock, A., and Humphreys, M. (2019). "Declaring and Diagnosing Research Designs." *American Political Science Review*, 113(3), 838--859.
+- Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W., and Robins, J. (2018). "Double/Debiased Machine Learning for Treatment and Structural Parameters." *The Econometrics Journal*, 21(1), C1--C68.
+- Chernozhukov, V., Demirer, M., Duflo, E., and Fernandez-Val, I. (2022). "Generic Machine Learning Inference on Heterogeneous Treatment Effects in Randomized Experiments." *Annals of Statistics*, 50(2), 596--624.
+- Chipman, H. A., George, E. I., and McCulloch, R. E. (2010). "BART: Bayesian Additive Regression Trees." *Annals of Applied Statistics*, 4(1), 266--298.
+- Cinelli, C., and Hazlett, C. (2020). "Making Sense of Sensitivity: Extending Omitted Variable Bias." *Journal of the Royal Statistical Society: Series B*, 82(1), 39--67.
+- Coppock, A. (2023). *randomizr: Easy-to-Use Tools for Common Forms of Random Assignment and Sampling*. R package.
+- Dorie, V. (2023). *bartCause: Causal Inference using Bayesian Additive Regression Trees*. R package.
+- Fisher, R. A. (1935). *The Design of Experiments*. Oliver and Boyd.
+- Gerber, A. S., and Green, D. P. (2012). *Field Experiments: Design, Analysis, and Interpretation*. W. W. Norton.
+- Hadad, V., Hirshberg, D. A., Zhan, R., Wager, S., and Athey, S. (2021). "Confidence Intervals for Policy Evaluation in Adaptive Experiments." *Proceedings of the National Academy of Sciences*, 118(15), e2014602118.
+- Hill, J. L. (2011). "Bayesian Nonparametric Modeling for Causal Inference." *Journal of Computational and Graphical Statistics*, 20(1), 217--240.
+- Holland, P. W. (1986). "Statistics and Causal Inference." *Journal of the American Statistical Association*, 81(396), 945--960.
+- Imbens, G. W., and Rubin, D. B. (2015). *Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction*. Cambridge University Press.
+- Lin, W. (2013). "Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman's Critique." *Annals of Applied Statistics*, 7(1), 295--318.
+- Morgan, K. L., and Rubin, D. B. (2012). "Rerandomization to Improve Covariate Balance in Experiments." *Annals of Statistics*, 40(2), 1263--1282.
+- Neyman, J. (1923). "On the Application of Probability Theory to Agricultural Experiments." *Statistical Science*, 5(4), 465--472 (translated and republished 1990).
+- Robinson, P. M. (1988). "Root-N-Consistent Semiparametric Regression." *Econometrica*, 56(4), 931--954.
+- Rubin, D. B. (1974). "Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies." *Journal of Educational Psychology*, 66(5), 688--701.
+- Samii, C., and Aronow, P. M. (2012). "On Equivalencies Between Design-Based and Regression-Based Variance Estimators for Randomized Experiments." *Statistics and Probability Letters*, 82(2), 365--370.
+- Schulz, K. F., Altman, D. G., and Moher, D. (2010). "CONSORT 2010 Statement: Updated Guidelines for Reporting Parallel Group Randomised Trials." *BMJ*, 340, c332.
+- Sverdrup, E., Kanodia, A., Zhou, Z., Athey, S., and Wager, S. (2020). "policytree: Policy Learning via Doubly Robust Empirical Welfare Maximization over Trees." *Journal of Open Source Software*, 5(50), 2232.
+- Angrist, J. D., and Imbens, G. W. (1994). "Identification and Estimation of Local Average Treatment Effects." *Econometrica*, 62(2), 467--475.
+- Crump, R. K., Hotz, V. J., Imbens, G. W., and Mitnik, O. A. (2009). "Dealing with Limited Overlap in Estimation of Average Treatment Effects." *Biometrika*, 96(1), 187--199.
+- Freedman, D. A. (2008). "On Regression Adjustments to Experimental Data." *Advances in Applied Mathematics*, 40(2), 180--193.
+- Lan, K. K. G., and DeMets, D. L. (1983). "Discrete Sequential Boundaries for Clinical Trials." *Biometrika*, 70(3), 659--663.
+- O'Brien, P. C., and Fleming, T. R. (1979). "A Multiple Testing Procedure for Clinical Trials." *Biometrics*, 35(3), 549--556.
+- Thompson, W. R. (1933). "On the Likelihood that One Unknown Probability Exceeds Another in View of the Evidence of Two Samples." *Biometrika*, 25(3--4), 285--294.
+- VanderWeele, T. J., and Ding, P. (2017). "Sensitivity Analysis in Observational Research: Introducing the E-value." *Annals of Internal Medicine*, 167(4), 268--274.
+
+---
+
+## SUTVA Violations and Interference
+
+### The Stable Unit Treatment Value Assumption
+
+The **Stable Unit Treatment Value Assumption (SUTVA)**, articulated by Rubin (1980, 1990), combines two requirements that underpin the potential outcomes framework:
+
+1. **No interference:** The potential outcome of unit $i$ depends only on its own treatment assignment, not on the assignments of other units. Formally, $Y_i(d_1, d_2, \ldots, d_n) = Y_i(d_i)$ for all treatment vectors $(d_1, \ldots, d_n)$.
+
+2. **No hidden versions of treatment:** There is only one version of each treatment level. A pill of dosage $d$ is the same pill regardless of who administers it or how it is labeled.
+
+SUTVA is violated in many real settings:
+
+- **Social spillovers:** A job-training program that raises wages for participants may depress wages for similar non-participants (general equilibrium effects).
+- **Biological contagion:** Vaccination protects not only the vaccinated individual but also their contacts (herd immunity).
+- **Platform experiments:** In two-sided markets (e.g., ride-sharing), treating one driver affects passengers and thereby other drivers.
+- **Information diffusion:** A marketing campaign targeting one household may spread by word-of-mouth to neighbors.
+
+When SUTVA fails, the estimand $\tau_i = Y_i(1) - Y_i(0)$ is undefined because $Y_i(1)$ may take many values depending on what others around $i$ do.
+
+### Network Interference and Exposure Mapping
+
+**Aronow and Samii (2017)** propose the *exposure mapping* framework to handle interference systematically. Instead of assuming SUTVA, we define a function $f(\mathbf{d}, \mathcal{N}_i)$ that maps the full treatment vector and unit $i$'s neighborhood $\mathcal{N}_i$ to a scalar or vector *exposure* $e_i$. SUTVA is then assumed at the level of exposures:
+
+$$Y_i(\mathbf{d}) = Y_i(e_i) \quad \text{whenever } f(\mathbf{d}, \mathcal{N}_i) = e_i.$$
+
+Common exposure mappings:
+
+| Exposure type | Definition of $e_i$ |
+|---|---|
+| Direct only (SUTVA) | $d_i$ |
+| Any treated neighbor | $\mathbf{1}[\sum_{j \in \mathcal{N}_i} d_j > 0]$ |
+| Fraction treated neighbors | $\frac{1}{|\mathcal{N}_i|}\sum_{j \in \mathcal{N}_i} d_j$ |
+| Treated + any-neighbor | $(d_i,\; \mathbf{1}[\sum_{j} d_j > 0])$ |
+
+This allows identification of a richer set of causal estimands: direct effects, indirect (spillover) effects, total effects, and overall effects (Hudgens and Halloran 2008).
+
+### Simulating Spillover Effects in a Network
+
+```{r sutva-spillover, message=FALSE, warning=FALSE}
+set.seed(42)
+n <- 200
+
+# Random network (Erdos-Renyi with p = 0.05)
+adj <- matrix(rbinom(n^2, 1, 0.05), n, n)
+diag(adj) <- 0          # no self-loops
+adj <- pmax(adj, t(adj)) # symmetrise
+
+# Fraction of each unit's friends who are treated
+W <- rbinom(n, 1, 0.5)
+degree <- rowSums(adj) + 0.01   # avoid division by zero
+friends_treated <- as.numeric(adj %*% W) / degree
+
+# Potential outcomes: direct + spillover + noise
+# True DGP: direct effect = 0.5, spillover effect = 0.3
+Y <- 0.5 * W + 0.3 * friends_treated + rnorm(n, sd = 0.8)
+
+# Naive estimator ignoring spillovers
+naive_ate <- mean(Y[W == 1]) - mean(Y[W == 0])
+
+# Partial-linear regression controlling for exposure to treated friends
+df_net <- data.frame(Y = Y, W = W, friends_treated = friends_treated,
+                     degree = degree)
+mod_naive     <- lm(Y ~ W, data = df_net)
+mod_spillover <- lm(Y ~ W + friends_treated, data = df_net)
+
+cat("Naive ATE (ignoring spillovers):",  round(coef(mod_naive)["W"], 3), "\n")
+cat("Direct effect (controlling for spillovers):",
+    round(coef(mod_spillover)["W"], 3), "\n")
+cat("Estimated spillover (per unit fraction):",
+    round(coef(mod_spillover)["friends_treated"], 3), "\n")
+```
+
+```{r sutva-plot, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+# Visualise how spillover exposure varies with own treatment
+df_net$W_fac <- factor(df_net$W, labels = c("Control", "Treated"))
+ggplot(df_net, aes(x = friends_treated, y = Y, colour = W_fac)) +
+  geom_point(alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", se = TRUE) +
+  causalverse::ama_theme() +
+  scale_colour_manual(values = c("steelblue", "firebrick")) +
+  labs(
+    title    = "Network Spillovers: Outcome vs. Fraction of Treated Friends",
+    subtitle = "Ignoring the spillover slope biases the naive ATE upward",
+    x        = "Fraction of friends treated",
+    y        = "Outcome Y",
+    colour   = "Own treatment"
+  )
+```
+
+### Bipartite Experiments and Two-Sided Platforms
+
+In two-sided markets (users and items, riders and drivers, buyers and sellers), treatment of one side necessarily affects the other side. **Bipartite experiments** (Doudchenko et al. 2020; Johari et al. 2022) acknowledge this structure explicitly:
+
+- Units on side A (e.g., users) are randomized.
+- Outcomes on side B (e.g., items) are affected through marketplace interactions.
+- A pure randomization of users changes item-level prices or availability, creating spillovers back to control users.
+
+The standard remedy is **cluster randomization at the marketplace level**, accepting a loss in precision for a gain in internal validity. An alternative is to model the bipartite interference explicitly using a supply-demand equilibrium model.
+
+### Cluster-Level SUTVA: Conservative but Robust
+
+When interference is plausible within clusters but implausible across clusters, **cluster randomization** restores SUTVA at the cluster level. Let $G_i$ denote unit $i$'s cluster. Randomize at the cluster level: $D_{G_i} \in \{0, 1\}$. Under the assumption that interference does not cross cluster boundaries:
+
+$$Y_i(\mathbf{d}) = Y_i(D_{G_i}).$$
+
+This is a testable assumption if clusters are well-separated (e.g., geographically distinct markets). The cost is a reduction in the effective sample size from $n$ to the number of clusters $G$, often dramatically widening confidence intervals. The Moulton (1986) correction to standard errors is necessary when treatment is at the cluster level but analysis is at the individual level.
+
+### Manski (1993) Bounds Under Interference
+
+When interference is present but the full network structure is unknown, **Manski (1993)** sharp bounds on treatment responses remain valid. For binary outcomes $Y \in \{0, 1\}$ and binary treatment $W \in \{0, 1\}$, the worst-case bounds on the Average Treatment Effect are:
+
+$$\text{ATE} \in \left[E[Y|W=1]\Pr(W=1) + 0 \cdot \Pr(W=0) - \left(E[Y|W=0]\Pr(W=0) + 1 \cdot \Pr(W=1)\right),\right.$$
+$$\left.E[Y|W=1]\Pr(W=1) + 1 \cdot \Pr(W=0) - \left(E[Y|W=0]\Pr(W=0) + 0 \cdot \Pr(W=1)\right)\right].$$
+
+These bounds are wide (width = 1 when $Y \in [0,1]$) but require no model of the interference structure. The detection strategy is to test whether estimated effects are robust to re-specifying the cluster structure.
+
+```{r manski-interference, message=FALSE, warning=FALSE}
+# Manski sharp no-assumptions bounds under potential interference
+# (binary Y, binary W)
+set.seed(123)
+n_m <- 500
+W_m <- rbinom(n_m, 1, 0.5)
+# True potential outcomes with mild spillover contamination
+Y_m <- rbinom(n_m, 1, 0.3 + 0.25 * W_m)
+
+p1   <- mean(Y_m[W_m == 1])
+p0   <- mean(Y_m[W_m == 0])
+pw1  <- mean(W_m)
+pw0  <- 1 - pw1
+
+lb_manski <- p1 * pw1 + 0 * pw0 - (p0 * pw0 + 1 * pw1)
+ub_manski <- p1 * pw1 + 1 * pw0 - (p0 * pw0 + 0 * pw1)
+
+cat(sprintf("E[Y|W=1] = %.3f,  E[Y|W=0] = %.3f\n", p1, p0))
+cat(sprintf("Pr(W=1)  = %.3f,  Pr(W=0)  = %.3f\n", pw1, pw0))
+cat(sprintf("Manski no-assumptions ATE bounds: [%.3f, %.3f]\n",
+            lb_manski, ub_manski))
+cat(sprintf("Naive difference-in-means: %.3f\n", p1 - p0))
+```
+
+The bounds remind us that without additional structure, the data are consistent with a very wide range of ATEs. Narrowing the bounds requires substantive assumptions (e.g., monotone treatment response or cluster-level SUTVA).
+
+---
+
+## Adaptive Experiments: Thompson Sampling and Bayesian Updating
+
+### Why Adapt? The Exploration-Exploitation Trade-off
+
+Classical RCTs fix arm allocations before the experiment begins. This is statistically clean but ignores accumulating evidence: if one arm is clearly dominating early on, continuing to allocate participants to inferior arms is ethically wasteful and economically costly. **Adaptive experiments** update allocation probabilities as data arrive, trading off *exploration* (learning about all arms) with *exploitation* (allocating more participants to the best-performing arm).
+
+The canonical framework is the **multi-armed bandit** (Thompson 1933; Lai and Robbins 1985). At each round $t$, the experimenter selects arm $k_t \in \{1, \ldots, K\}$, observes reward $R_t \sim P_{k_t}$, and updates beliefs. The goal is to minimize *regret*:
+
+$$\text{Regret}(T) = T \cdot \mu^* - \sum_{t=1}^T \mu_{k_t},$$
+
+where $\mu^* = \max_k \mu_k$ is the best arm's mean reward.
+
+### Thompson Sampling for Bernoulli Arms
+
+**Thompson Sampling** (Thompson 1933; Chapelle and Li 2011) maintains a Beta posterior for each arm's success probability and allocates by sampling from these posteriors:
+
+1. For each arm $k$, sample $\tilde{\theta}_k \sim \text{Beta}(\alpha_k, \beta_k)$.
+2. Select arm $k^* = \arg\max_k \tilde{\theta}_k$.
+3. Observe reward $R_t \in \{0, 1\}$.
+4. Update: $\alpha_{k^*} \leftarrow \alpha_{k^*} + R_t$; $\beta_{k^*} \leftarrow \beta_{k^*} + (1 - R_t)$.
+
+The Beta-Bernoulli conjugacy makes the update $O(1)$ per round. Thompson Sampling achieves near-optimal regret (Agrawal and Goyal 2012) while being simple to implement.
+
+```{r thompson-sampling, message=FALSE, warning=FALSE}
+set.seed(1)
+n_rounds <- 500
+n_arms   <- 3
+
+# True win rates: 0.3, 0.5, 0.7
+true_p <- c(0.3, 0.5, 0.7)
+
+# Initialise Beta(1, 1) = Uniform priors
+alpha_post <- rep(1, n_arms)
+beta_post  <- rep(1, n_arms)
+
+rewards    <- integer(n_rounds)
+chosen     <- integer(n_rounds)
+cum_regret <- numeric(n_rounds)
+
+for (t in seq_len(n_rounds)) {
+  # Sample from posteriors
+  samples <- rbeta(n_arms, alpha_post, beta_post)
+  arm     <- which.max(samples)
+  reward  <- rbinom(1, 1, true_p[arm])
+
+  # Update posterior for selected arm
+  alpha_post[arm] <- alpha_post[arm] + reward
+  beta_post[arm]  <- beta_post[arm]  + (1L - reward)
+
+  chosen[t]  <- arm
+  rewards[t] <- reward
+  cum_regret[t] <- (if (t == 1L) 0 else cum_regret[t - 1L]) +
+                   (max(true_p) - true_p[arm])
+}
+
+# Summary: final allocation fractions
+cat("Final allocation fractions:\n")
+print(round(table(chosen) / n_rounds, 3))
+cat("\nTotal cumulative reward:", sum(rewards),
+    "  (optimal:", round(n_rounds * max(true_p)), ")\n")
+cat("Total regret:", round(sum(max(true_p) - true_p[chosen]), 2), "\n")
+```
+
+```{r thompson-plot-allocation, message=FALSE, warning=FALSE}
+# Allocation fractions over time using a rolling window
+window <- 50
+roll_frac <- function(arm_id) {
+  vapply(seq_len(n_rounds), function(t) {
+    lo <- max(1L, t - window + 1L)
+    mean(chosen[lo:t] == arm_id)
+  }, numeric(1))
+}
+
+roll_df <- do.call(rbind, lapply(seq_len(n_arms), function(k) {
+  data.frame(
+    round = seq_len(n_rounds),
+    arm   = paste0("Arm ", k, " (p=", true_p[k], ")"),
+    frac  = roll_frac(k)
+  )
+}))
+
+ggplot(roll_df, aes(x = round, y = frac, colour = arm)) +
+  geom_line(linewidth = 0.8) +
+  causalverse::ama_theme() +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(
+    title    = "Adaptive Experiment: Thompson Sampling Arm Allocation",
+    subtitle = paste0("Rolling ", window, "-round window; algorithm converges to best arm (p=0.7)"),
+    x        = "Round",
+    y        = "Allocation fraction",
+    colour   = "Arm"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+```{r thompson-plot-regret, message=FALSE, warning=FALSE}
+regret_df <- data.frame(round = seq_len(n_rounds), cum_regret = cum_regret)
+
+ggplot(regret_df, aes(x = round, y = cum_regret)) +
+  geom_line(colour = "firebrick", linewidth = 0.9) +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Cumulative Regret: Thompson Sampling",
+    subtitle = "Sub-linear growth confirms near-optimal performance",
+    x        = "Round",
+    y        = "Cumulative regret"
+  )
+```
+
+```{r thompson-posteriors, message=FALSE, warning=FALSE}
+# Final Beta posteriors after the run
+arm_counts <- as.integer(table(chosen))
+theta_grid <- seq(0, 1, length.out = 300)
+
+post_df <- do.call(rbind, lapply(seq_len(n_arms), function(k) {
+  data.frame(
+    theta   = theta_grid,
+    density = dbeta(theta_grid, alpha_post[k], beta_post[k]),
+    arm     = paste0("Arm ", k, "\n(true p=", true_p[k],
+                     ", n=", arm_counts[k], ")")
+  )
+}))
+
+true_df <- data.frame(
+  arm     = paste0("Arm ", seq_len(n_arms),
+                   "\n(true p=", true_p, ", n=", arm_counts, ")"),
+  true_p  = true_p
+)
+
+ggplot(post_df, aes(x = theta, y = density, fill = arm)) +
+  geom_area(alpha = 0.5, position = "identity") +
+  geom_vline(data = true_df, aes(xintercept = true_p),
+             linetype = "dashed", colour = "black") +
+  facet_wrap(~arm, ncol = 3) +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Final Beta Posteriors After Thompson Sampling",
+    subtitle = "Dashed lines = true success probabilities",
+    x        = expression(theta),
+    y        = "Posterior density"
+  ) +
+  theme(legend.position = "none")
+```
+
+### Inference After Adaptive Experiments
+
+A critical challenge: standard OLS confidence intervals are **invalid** after adaptive sampling because data are not i.i.d. -- the sampling distribution of arm allocations depends on past outcomes. Hadad et al. (2021) propose *adaptively weighted* (AW) estimators that reweight observations by the inverse square root of the allocation probability at each round, restoring asymptotic normality:
+
+$$\hat{\mu}_k^{\text{AW}} = \frac{\sum_{t=1}^T w_t \mathbf{1}[k_t=k] R_t}{\sum_{t=1}^T w_t \mathbf{1}[k_t=k]}, \qquad w_t = \frac{1}{\sqrt{e_t(k_t)}},$$
+
+where $e_t(k)$ is the probability of selecting arm $k$ at round $t$. The weight $1/\sqrt{e_t}$ down-weights rounds where the algorithm heavily exploited the leading arm, preventing the variance from collapsing in a way that invalidates the CLT.
+
+```{r adaptive-inference, message=FALSE, warning=FALSE}
+# Illustrate: compare arm 3 vs arm 1 (best vs worst) after adaptive run
+# Naive difference-in-means vs. true parameter
+naive_mean3 <- mean(rewards[chosen == 3L])
+naive_mean1 <- mean(rewards[chosen == 1L])
+naive_ate   <- naive_mean3 - naive_mean1
+
+cat(sprintf("Naive ATE (arm 3 vs arm 1): %.3f\n", naive_ate))
+cat(sprintf("True  ATE (arm 3 vs arm 1): %.3f\n", true_p[3] - true_p[1]))
+cat(sprintf("Counts: arm 1 = %d, arm 3 = %d\n",
+            sum(chosen == 1L), sum(chosen == 3L)))
+cat("\nNote: naive estimate is roughly unbiased here because Thompson\n")
+cat("Sampling still explores; but formal CI requires AW correction\n")
+cat("(Hadad et al. 2021) to achieve valid coverage.\n")
+```
+
+---
+
+## Rerandomization and Covariate-Adaptive Randomization
+
+### The Problem with Pure Randomization
+
+Even in a properly randomized experiment, a single draw of the randomization can produce substantial covariate imbalance by chance. With $K$ baseline covariates, the probability of observing some alarming imbalance grows with $K$. Fisher (1935) was unconcerned -- any particular randomization is equally valid -- but Efron (1971) and Morgan and Rubin (2012) argue that we should condition on *good* randomizations when inference is concerned.
+
+### Mahalanobis Rerandomization (Morgan and Rubin 2012)
+
+**Rerandomization** draws candidate randomizations repeatedly and accepts only those satisfying a covariate balance criterion. The Mahalanobis distance criterion is:
+
+$$M = \left(\bar{\mathbf{X}}_T - \bar{\mathbf{X}}_C\right)^\top \left[\frac{1}{n_T} + \frac{1}{n_C}\right]^{-1} \hat{\Sigma}_X^{-1} \left(\bar{\mathbf{X}}_T - \bar{\mathbf{X}}_C\right) \leq a,$$
+
+where $a$ is a pre-specified acceptance threshold. Under the null, $M \sim \chi^2_K$, so a common choice is $a = \chi^2_{K, 0.001}$.
+
+Key properties:
+
+- Reduces variance of the ATE estimator by restricting to balanced allocations.
+- The variance reduction factor is approximately $1 - p_a$, where $p_a$ is the acceptance probability.
+- Standard randomization-based inference remains valid if the rerandomization procedure is used to construct the reference distribution for hypothesis tests.
+
+```{r rerandomization-demo, message=FALSE, warning=FALSE}
+set.seed(42)
+n_units <- 200
+n_treat <- 100
+
+# Generate baseline covariates
+X_rr <- data.frame(
+  age    = rnorm(n_units, mean = 40, sd = 10),
+  income = rnorm(n_units, mean = 50000, sd = 15000),
+  educ   = rnorm(n_units, mean = 12, sd = 3),
+  female = rbinom(n_units, 1, 0.5)
+)
+X_mat    <- scale(as.matrix(X_rr))
+Sigma_inv <- solve(cov(X_mat) + diag(1e-6, ncol(X_mat)))
+
+mahal_dist <- function(idx_treat) {
+  idx_ctrl <- setdiff(seq_len(n_units), idx_treat)
+  d <- colMeans(X_mat[idx_treat, ]) - colMeans(X_mat[idx_ctrl, ])
+  as.numeric(t(d) %*% Sigma_inv %*% d)
+}
+
+# CRD: distribution of Mahalanobis distance across 2000 draws
+n_sim_crd <- 2000L
+m_crd <- vapply(seq_len(n_sim_crd), function(.) {
+  mahal_dist(sample(n_units, n_treat))
+}, numeric(1))
+
+# Rerandomization: accept only M <= threshold
+threshold <- qchisq(0.001, df = ncol(X_mat))
+m_rr   <- numeric(0)
+attempts <- 0L
+
+while (length(m_rr) < 2000L) {
+  attempts <- attempts + 1L
+  m_cand   <- mahal_dist(sample(n_units, n_treat))
+  if (m_cand <= threshold) m_rr <- c(m_rr, m_cand)
+}
+
+cat(sprintf("CRD   -- mean M = %.3f, sd = %.3f\n", mean(m_crd), sd(m_crd)))
+cat(sprintf("Reron -- mean M = %.3f, sd = %.3f\n", mean(m_rr),  sd(m_rr)))
+cat(sprintf("Acceptance rate: %.2f%%  (threshold = %.3f)\n",
+            100 * 2000 / attempts, threshold))
+```
+
+```{r rerandomization-plot, message=FALSE, warning=FALSE}
+balance_df <- rbind(
+  data.frame(method = "CRD",             M = m_crd),
+  data.frame(method = "Rerandomization", M = m_rr)
+)
+
+ggplot(balance_df, aes(x = M, fill = method)) +
+  geom_density(alpha = 0.5) +
+  geom_vline(xintercept = threshold, linetype = "dashed") +
+  causalverse::ama_theme() +
+  scale_fill_manual(values = c("steelblue", "firebrick")) +
+  labs(
+    title    = "Rerandomization vs. Complete Random Design",
+    subtitle = paste0("Dashed = acceptance threshold (chi2_{0.001} = ",
+                      round(threshold, 2),
+                      "); rerandomization truncates right tail"),
+    x        = "Mahalanobis distance M",
+    y        = "Density",
+    fill     = "Design"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+### Stratified Block Randomization
+
+**Stratified block randomization** partitions units into blocks (strata) defined by key covariates and randomizes treatment within each block. This guarantees exact balance on the stratifying variables and is especially effective when:
+
+- Sample sizes are small (rerandomization may reject too often).
+- The stratifying variable is a strong predictor of the outcome (precision gains are large).
+- Administrative constraints make sequential adaptation difficult.
+
+```{r stratified-block, message=FALSE, warning=FALSE}
+set.seed(7)
+n_b <- 240
+
+dat_b <- data.frame(
+  gender   = rep(c("M", "F"), each = n_b / 2),
+  age_grp  = rep(rep(c("Young", "Mid", "Old"), each = n_b / 6), 2),
+  baseline = rnorm(n_b, mean = 50, sd = 10)
+)
+dat_b$strata <- interaction(dat_b$gender, dat_b$age_grp)
+
+# Randomize within strata (equal allocation)
+dat_b <- dat_b[order(dat_b$strata), ]
+dat_b$treat <- unlist(lapply(split(seq_len(n_b), dat_b$strata), function(idx) {
+  n_s <- length(idx)
+  tr  <- rep(0L, n_s)
+  tr[sample(n_s, floor(n_s / 2))] <- 1L
+  tr
+}))
+
+# Balance check
+bal_check <- with(dat_b, tapply(treat, strata, mean))
+cat("Fraction treated by stratum (target = 0.5):\n")
+print(round(bal_check, 3))
+
+# Precision comparison
+dat_b$Y <- 2 * dat_b$treat + 0.8 * dat_b$baseline + rnorm(n_b)
+
+mod_unadj  <- lm(Y ~ treat, data = dat_b)
+mod_strata <- lm(Y ~ treat + strata, data = dat_b)
+
+cat(sprintf("\nSE of treat (unadjusted):      %.4f\n",
+            sqrt(vcov(mod_unadj)["treat", "treat"])))
+cat(sprintf("SE of treat (strata-adjusted): %.4f\n",
+            sqrt(vcov(mod_strata)["treat", "treat"])))
+```
+
+### Pairwise Matching Before Randomization
+
+An extreme form of covariate-adaptive randomization is to *match units into pairs* on baseline characteristics, then randomize one member of each pair to treatment. This is equivalent to a block design with block size 2 and maximises balance on the matched variables.
+
+```{r pairwise-match-random, message=FALSE, warning=FALSE}
+set.seed(9)
+n_pm <- 100
+
+dat_pm <- data.frame(
+  X1 = rnorm(n_pm),
+  X2 = rnorm(n_pm)
+)
+
+# Greedy nearest-neighbor pairing on X1 and X2
+dist_mat  <- as.matrix(dist(dat_pm))
+diag(dist_mat) <- Inf
+paired    <- rep(NA_integer_, n_pm)
+available <- seq_len(n_pm)
+
+while (length(available) >= 2L) {
+  sub <- dist_mat[available, available]
+  best_idx <- which(sub == min(sub), arr.ind = TRUE)[1, ]
+  u <- available[best_idx[1]]
+  v <- available[best_idx[2]]
+  paired[u] <- v
+  paired[v] <- u
+  available <- available[!available %in% c(u, v)]
+}
+
+# Within each pair, randomize treatment
+pair_id  <- rep(NA_integer_, n_pm)
+treat_pm <- rep(NA_integer_, n_pm)
+done     <- logical(n_pm)
+pair_num <- 0L
+
+for (i in seq_len(n_pm)) {
+  if (!done[i] && !is.na(paired[i])) {
+    pair_num <- pair_num + 1L
+    j <- paired[i]
+    pair_id[c(i, j)]  <- pair_num
+    treat_pm[c(i, j)] <- sample(c(0L, 1L))
+    done[c(i, j)] <- TRUE
+  }
+}
+
+dat_pm$pair_id <- pair_id
+dat_pm$treat   <- treat_pm
+dat_pm$Y       <- 1.5 * treat_pm + 0.6 * dat_pm$X1 - 0.4 * dat_pm$X2 + rnorm(n_pm)
+
+# Analysis with pair fixed effects (equivalent to paired t-test)
+mod_pair <- lm(Y ~ treat + factor(pair_id), data = dat_pm)
+mod_ols  <- lm(Y ~ treat, data = dat_pm)
+
+cat(sprintf("SE (naive OLS):            %.4f\n",
+            sqrt(vcov(mod_ols)["treat", "treat"])))
+cat(sprintf("SE (paired FE estimator):  %.4f\n",
+            sqrt(vcov(mod_pair)["treat", "treat"])))
+cat(sprintf("Efficiency gain: %.1f%%\n",
+            100 * (1 - sqrt(vcov(mod_pair)["treat", "treat"]) /
+                         sqrt(vcov(mod_ols)["treat", "treat"]))))
+```
+
+### Comparing Designs: CRD vs. Rerandomized vs. Stratified
+
+```{r design-comparison-sim, message=FALSE, warning=FALSE, cache=TRUE}
+set.seed(314)
+n_dc    <- 200
+n_dc_tr <- 100
+n_sims  <- 500   # keep manageable in vignette
+true_te <- 2.0
+
+# Fixed covariates for all simulations
+X_dc <- data.frame(X1 = rnorm(n_dc), X2 = rnorm(n_dc))
+X_sc <- scale(as.matrix(X_dc))
+Si   <- solve(cov(X_sc) + diag(1e-6, 2))
+mfun <- function(idx) {
+  ic <- setdiff(seq_len(n_dc), idx)
+  d  <- colMeans(X_sc[idx, ]) - colMeans(X_sc[ic, ])
+  as.numeric(t(d) %*% Si %*% d)
+}
+X_dc$strata <- interaction(X_dc$X1 > 0, X_dc$X2 > 0)
+thr_dc <- qchisq(0.001, df = 2)
+
+one_sim <- function(design) {
+  if (design == "CRD") {
+    idx_t <- sample(n_dc, n_dc_tr)
+  } else if (design == "Rerandomized") {
+    repeat {
+      idx_t <- sample(n_dc, n_dc_tr)
+      if (mfun(idx_t) <= thr_dc) break
+    }
+  } else {
+    idx_t <- unlist(lapply(split(seq_len(n_dc), X_dc$strata), function(s) {
+      sample(s, floor(length(s) / 2))
+    }))
+  }
+  tr_vec <- integer(n_dc); tr_vec[idx_t] <- 1L
+  Y_dc   <- true_te * tr_vec + 0.7 * X_dc$X1 - 0.5 * X_dc$X2 + rnorm(n_dc)
+  coef(lm(Y_dc ~ tr_vec))["tr_vec"]
+}
+
+se_crd <- replicate(n_sims, one_sim("CRD"))
+se_rr  <- replicate(n_sims, one_sim("Rerandomized"))
+se_st  <- replicate(n_sims, one_sim("Stratified"))
+
+design_res <- data.frame(
+  Design = rep(c("CRD", "Rerandomized", "Stratified"), each = n_sims),
+  Est    = c(se_crd, se_rr, se_st)
+)
+
+ggplot(design_res, aes(x = Est, fill = Design)) +
+  geom_density(alpha = 0.45) +
+  geom_vline(xintercept = true_te, linetype = "dashed") +
+  causalverse::ama_theme() +
+  scale_fill_manual(values = c("steelblue", "firebrick", "forestgreen")) +
+  labs(
+    title    = "Sampling Distribution of ATE Estimator by Design",
+    subtitle = paste0("N=", n_dc, ", ", n_sims, " simulations; dashed = true ATE = ", true_te),
+    x        = "Estimated ATE",
+    y        = "Density",
+    fill     = "Design"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+```{r design-comparison-table, message=FALSE, warning=FALSE}
+des_summary <- data.frame(
+  Design = c("CRD", "Rerandomized", "Stratified"),
+  Bias   = round(c(mean(se_crd), mean(se_rr), mean(se_st)) - true_te, 4),
+  SD     = round(c(sd(se_crd), sd(se_rr), sd(se_st)), 4),
+  RMSE   = round(sqrt(c(mean((se_crd - true_te)^2),
+                         mean((se_rr  - true_te)^2),
+                         mean((se_st  - true_te)^2))), 4)
+)
+knitr::kable(des_summary,
+             caption = "ATE estimator performance by randomization design")
+```
+
+**Key takeaways:**
+
+- All three designs produce (approximately) unbiased estimates of the ATE.
+- Rerandomization and stratification reduce the variance (SD) of the ATE estimator relative to CRD, with magnitude depending on how strongly the covariates predict the outcome.
+- The efficiency gain is free -- it requires no additional data, only a smarter allocation rule.
+- Inference after rerandomization must account for the restricted randomization distribution (Li, Ding, and Rubin 2018).
+
+---
+
+## Additional References (SUTVA, Adaptive, Rerandomization)
+
+- Agrawal, S., and Goyal, N. (2012). "Analysis of Thompson Sampling for the Multi-Armed Bandit Problem." *Proceedings of the 25th Annual Conference on Learning Theory*, 39.1--39.26.
+- Aronow, P. M., and Samii, C. (2017). "Estimating Average Causal Effects Under General Interference, with Application to a Social Network Experiment." *Annals of Applied Statistics*, 11(4), 1912--1947.
+- Chapelle, O., and Li, L. (2011). "An Empirical Evaluation of Thompson Sampling." *Advances in Neural Information Processing Systems*, 24.
+- Doudchenko, N., Zhang, M., Drynkin, E., Airoldi, E. M., Mirrokni, V., and Pouget-Abadie, J. (2020). "Causal Inference with Bipartite Designs." *arXiv:2010.02108*.
+- Efron, B. (1971). "Forcing a Sequential Experiment to be Balanced." *Biometrika*, 58(3), 403--417.
+- Hadad, V., Hirshberg, D. A., Zhan, R., Wager, S., and Athey, S. (2021). "Confidence Intervals for Policy Evaluation in Adaptive Experiments." *Proceedings of the National Academy of Sciences*, 118(15), e2014602118.
+- Hudgens, M. G., and Halloran, M. E. (2008). "Toward Causal Inference with Interference." *Journal of the American Statistical Association*, 103(482), 832--842.
+- Johari, R., Li, H., Liskovich, I., and Weintraub, G. Y. (2022). "Experimental Design in Two-Sided Platforms: An Analysis of Bias." *Management Science*, 68(10), 7069--7089.
+- Lai, T. L., and Robbins, H. (1985). "Asymptotically Efficient Adaptive Allocation Rules." *Advances in Applied Mathematics*, 6(1), 4--22.
+- Li, X., Ding, P., and Rubin, D. B. (2018). "Asymptotic Theory of Rerandomization in Treatment-Control Experiments." *Proceedings of the National Academy of Sciences*, 115(37), 9157--9162.
+- Manski, C. F. (1993). "Identification of Endogenous Social Effects: The Reflection Problem." *Review of Economic Studies*, 60(3), 531--542.
+- Morgan, K. L., and Rubin, D. B. (2012). "Rerandomization to Improve Covariate Balance in Experiments." *Annals of Statistics*, 40(2), 1263--1282.
+- Moulton, B. R. (1986). "Random Group Effects and the Precision of Regression Estimates." *Journal of Econometrics*, 32(3), 385--397.
+- Rubin, D. B. (1980). "Randomization Analysis of Experimental Data: The Fisher Randomization Test Comment." *Journal of the American Statistical Association*, 75(371), 591--593.

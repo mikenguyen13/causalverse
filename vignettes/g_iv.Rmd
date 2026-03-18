@@ -1,0 +1,3168 @@
+---
+title: "6. Instrumental Variables"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{6. Instrumental Variables}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE
+)
+```
+
+```{r setup}
+library(causalverse)
+library(fixest)
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Introduction
+
+Instrumental Variables (IV) estimation is one of the most important and widely used identification strategies in applied econometrics and causal inference. When the standard unconfoundedness assumption fails---meaning there exist unobserved factors that jointly influence both the treatment and the outcome---ordinary least squares (OLS) produces biased and inconsistent estimates of causal effects. IV methods provide a path to consistent estimation by leveraging an external source of variation in the treatment that is unrelated to the confounders.
+
+## The Endogeneity Problem
+
+Consider the linear model:
+
+$$Y_i = \beta_0 + \beta_1 D_i + \mathbf{X}_i' \boldsymbol{\gamma} + \varepsilon_i$$
+
+where $Y_i$ is the outcome, $D_i$ is the treatment (or endogenous regressor), $\mathbf{X}_i$ is a vector of exogenous covariates, and $\varepsilon_i$ is the structural error term. The parameter of interest is $\beta_1$, the causal effect of $D$ on $Y$.
+
+OLS consistently estimates $\beta_1$ only if $\text{Cov}(D_i, \varepsilon_i) = 0$. **Endogeneity** occurs when this condition fails, i.e., $\text{Cov}(D_i, \varepsilon_i) \neq 0$. There are three primary sources of endogeneity:
+
+### Omitted Variable Bias (OVB)
+
+Suppose there exists an unobserved variable $U_i$ that affects both $D_i$ and $Y_i$. If $U_i$ is omitted from the regression, it is absorbed into the error term $\varepsilon_i$, creating correlation between $D_i$ and $\varepsilon_i$. The OLS estimator then captures not only the causal effect of $D$ but also the spurious association induced by $U$.
+
+Formally, if the true model is $Y_i = \beta_1 D_i + \delta U_i + e_i$ and we omit $U_i$, then:
+
+$$\text{plim} \; \hat{\beta}_1^{OLS} = \beta_1 + \delta \cdot \frac{\text{Cov}(D_i, U_i)}{\text{Var}(D_i)}$$
+
+The bias term $\delta \cdot \text{Cov}(D_i, U_i) / \text{Var}(D_i)$ will be nonzero whenever $U$ affects both $D$ and $Y$.
+
+### Simultaneity (Reverse Causality)
+
+When $D$ and $Y$ are jointly determined---for example, in supply-and-demand systems or when the outcome feeds back into the treatment---the treatment variable is mechanically correlated with the error term. Classic examples include estimating the effect of price on quantity demanded when price is itself determined by demand conditions.
+
+### Measurement Error
+
+When the treatment variable $D_i$ is measured with classical error, i.e., we observe $\tilde{D}_i = D_i + \eta_i$ where $\eta_i$ is noise, OLS suffers from attenuation bias. The coefficient is biased toward zero by a factor related to the signal-to-noise ratio:
+
+$$\text{plim} \; \hat{\beta}_1^{OLS} = \beta_1 \cdot \frac{\text{Var}(D_i)}{\text{Var}(D_i) + \text{Var}(\eta_i)}$$
+
+## The IV Solution
+
+An instrumental variable $Z_i$ resolves endogeneity by providing variation in $D_i$ that is exogenous. The simplest IV estimator (the Wald estimator) in the just-identified case with a single binary instrument is:
+
+$$\hat{\beta}_1^{IV} = \frac{\text{Cov}(Z_i, Y_i)}{\text{Cov}(Z_i, D_i)} = \frac{\text{Reduced Form}}{\text{First Stage}}$$
+
+This ratio isolates the part of the treatment variation driven by the instrument and relates it to the corresponding variation in the outcome.
+
+## Potential Outcomes Framework for IV
+
+In the potential outcomes (Rubin) framework, IV estimation targets a specific causal parameter. Following the seminal work of Imbens and Angrist (1994), define for each individual $i$:
+
+-   $D_i(z)$: the potential treatment status when the instrument is set to $z$
+-   $Y_i(d)$: the potential outcome when treatment is set to $d$
+
+Individuals can be classified into four compliance types based on their response to the instrument:
+
+| Type            | $D_i(1)$ | $D_i(0)$ | Description                            |
+|:----------------|:---------:|:---------:|:---------------------------------------|
+| **Compliers**   |     1     |     0     | Take treatment when encouraged         |
+| **Always-takers** |   1     |     1     | Always take treatment                  |
+| **Never-takers** |    0     |     0     | Never take treatment                   |
+| **Defiers**     |     0     |     1     | Do opposite of encouragement           |
+
+## The LATE Interpretation
+
+Imbens and Angrist (1994) showed that under the IV assumptions, the IV estimand identifies the **Local Average Treatment Effect (LATE)**---the average causal effect for the subpopulation of compliers:
+
+$$\beta^{IV} = \frac{E[Y_i | Z_i = 1] - E[Y_i | Z_i = 0]}{E[D_i | Z_i = 1] - E[D_i | Z_i = 0]} = E[Y_i(1) - Y_i(0) \mid \text{Complier}]$$
+
+This is a crucial insight: IV does not generally estimate the Average Treatment Effect (ATE) for the entire population, but rather the effect for the subgroup whose treatment status is influenced by the instrument. The policy relevance of the LATE depends on the context and the nature of the instrument.
+
+## Core Assumptions
+
+A valid instrument $Z$ must satisfy four conditions:
+
+### 1. Relevance (First Stage)
+
+The instrument must be correlated with the endogenous treatment variable:
+
+$$\text{Cov}(Z_i, D_i) \neq 0 \quad \text{or equivalently} \quad E[D_i | Z_i = 1] \neq E[D_i | Z_i = 0]$$
+
+This is the only assumption that is directly testable from the data, via the first-stage regression. A weak first stage (small F-statistic) leads to severe finite-sample bias and unreliable inference.
+
+### 2. Exclusion Restriction
+
+The instrument affects the outcome $Y$ **only through** its effect on $D$:
+
+$$Z_i \perp\!\!\!\perp Y_i(d) \quad \text{for all } d$$
+
+Equivalently, there is no direct effect of $Z$ on $Y$. This assumption is **not testable** and must be justified on theoretical or institutional grounds. It is typically the most contested assumption in applied work.
+
+### 3. Independence (Exogeneity)
+
+The instrument is independent of potential outcomes and potential treatment assignments:
+
+$$Z_i \perp\!\!\!\perp (Y_i(d, z), D_i(z)) \quad \text{for all } d, z$$
+
+This means the instrument is "as good as randomly assigned" with respect to all unobserved factors. In practice, this is often achieved through natural experiments, randomized encouragement, or institutional features.
+
+### 4. Monotonicity
+
+There are no defiers---the instrument shifts everyone in the same direction (or not at all):
+
+$$D_i(1) \geq D_i(0) \quad \text{for all } i$$
+
+This rules out individuals who would do the opposite of what the instrument encourages. Without monotonicity, the LATE interpretation breaks down. This assumption is automatically satisfied when the instrument is a direct randomization of the treatment, but must be argued in observational settings.
+
+## Mathematical Notation for 2SLS
+
+Two-Stage Least Squares (2SLS) is the standard estimation procedure for IV. With endogenous variable $D$, instruments $\mathbf{Z}$, and exogenous covariates $\mathbf{X}$:
+
+**First stage:** Regress the endogenous variable on the instruments and exogenous covariates:
+
+$$D_i = \pi_0 + \mathbf{Z}_i' \boldsymbol{\pi}_1 + \mathbf{X}_i' \boldsymbol{\pi}_2 + v_i$$
+
+Obtain the fitted values $\hat{D}_i$.
+
+**Second stage:** Replace $D_i$ with $\hat{D}_i$ in the structural equation:
+
+$$Y_i = \beta_0 + \beta_1 \hat{D}_i + \mathbf{X}_i' \boldsymbol{\gamma} + \varepsilon_i$$
+
+The key insight is that $\hat{D}_i$ contains only the variation in $D$ that is driven by the instruments $\mathbf{Z}$, which is exogenous by assumption. The 2SLS estimator can be written in matrix form as:
+
+$$\hat{\boldsymbol{\beta}}_{2SLS} = (\hat{\mathbf{D}}'\mathbf{W})^{-1} \hat{\mathbf{D}}'\mathbf{Y}$$
+
+where $\hat{\mathbf{D}} = \mathbf{P}_Z \mathbf{D}$ is the projection of $\mathbf{D}$ onto the space spanned by $\mathbf{Z}$ and $\mathbf{X}$, and $\mathbf{W} = [\mathbf{D}, \mathbf{X}]$.
+
+**Important:** While 2SLS can be understood as a two-step procedure, standard errors must account for the generated regressor in the second stage. Software implementations such as `fixest::feols()` handle this correctly.
+
+
+# Simulated IV Data
+
+We begin by constructing a rich simulated dataset that illustrates the core endogeneity problem and demonstrates why IV is needed. The data-generating process (DGP) includes an unobserved confounder, an exogenous instrument, covariates, and realistic noise.
+
+```{r simulate-data}
+set.seed(42)
+n <- 2000
+
+# Exogenous covariates
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+
+# Unobserved confounder: affects both treatment and outcome
+u <- rnorm(n)
+
+# Instrument: correlated with D but NOT with U or epsilon
+z <- rnorm(n)
+
+# A second instrument for over-identification examples later
+z2 <- rnorm(n)
+
+# Endogenous treatment: depends on instruments, covariates, and confounder
+d <- 0.8 * z + 0.3 * z2 + 0.3 * x1 + 0.5 * u + rnorm(n, sd = 0.5)
+
+# Outcome: true causal effect of D on Y is 1.0
+# U creates the endogeneity problem
+y <- 1.0 * d + 0.5 * x1 - 0.3 * x2 + 0.7 * u + rnorm(n, sd = 0.5)
+
+# Panel structure for later examples
+group_id <- sample(1:50, n, replace = TRUE)
+time_id  <- sample(1:10, n, replace = TRUE)
+
+df <- data.frame(
+    y   = y,
+    d   = d,
+    z   = z,
+    z2  = z2,
+    x1  = x1,
+    x2  = x2,
+    gid = factor(group_id),
+    tid = factor(time_id)
+)
+```
+
+In this DGP:
+
+-   The **true causal effect** of $D$ on $Y$ is $\beta_1 = 1.0$.
+-   The confounder $U$ has a coefficient of 0.5 in the treatment equation and 0.7 in the outcome equation, creating **positive OVB** (OLS will overestimate $\beta_1$).
+-   The instrument $Z$ has a first-stage coefficient of 0.8 (strong relevance).
+-   The instrument $Z$ is independent of $U$ and $\varepsilon$ by construction (exclusion and independence hold).
+
+Let us verify the key relationships in the data:
+
+```{r verify-dgp}
+# Instrument is correlated with treatment (relevance)
+cat("Cor(Z, D):", round(cor(df$z, df$d), 3), "\n")
+
+# Instrument is uncorrelated with the confounder (by construction)
+cat("Cor(Z, U):", round(cor(df$z, u), 3), "\n")
+
+# Treatment is correlated with the confounder (endogeneity)
+cat("Cor(D, U):", round(cor(df$d, u), 3), "\n")
+```
+
+
+# OLS vs. IV: Demonstrating the Bias
+
+## OLS Estimation (Biased)
+
+OLS ignores the endogeneity problem and regresses $Y$ directly on $D$:
+
+```{r ols-biased}
+ols_naive <- fixest::feols(y ~ d, data = df)
+ols_controls <- fixest::feols(y ~ d + x1 + x2, data = df)
+```
+
+Both OLS specifications will overestimate the true effect because the positive correlation between $D$ and the omitted confounder $U$ inflates the coefficient. Even controlling for observed covariates $X_1$ and $X_2$ does not solve the problem because $U$ remains unobserved.
+
+## 2SLS Estimation (Consistent)
+
+The IV estimator uses only the variation in $D$ that is driven by the instrument $Z$, purging the endogenous component:
+
+```{r iv-consistent}
+iv_simple <- fixest::feols(y ~ 1 | 0 | d ~ z, data = df)
+iv_controls <- fixest::feols(y ~ x1 + x2 | 0 | d ~ z, data = df)
+```
+
+## Comparison Table
+
+```{r ols-vs-iv-table}
+fixest::etable(
+    ols_naive, ols_controls, iv_simple, iv_controls,
+    headers = c("OLS (naive)", "OLS (controls)", "IV (simple)", "IV (controls)"),
+    se.below = TRUE,
+    fitstat = ~ r2 + n + ivf
+)
+```
+
+The OLS estimates will be noticeably above 1.0, while the IV estimates should be centered around the true value of 1.0. Adding covariates to the IV specification can improve precision (smaller standard errors) without affecting consistency.
+
+
+# 2SLS with fixest
+
+The `fixest` package (Berge, 2018) provides a fast and flexible implementation of 2SLS that integrates seamlessly with fixed effects, clustering, and multiple estimation. This section covers the full range of `fixest` IV capabilities.
+
+## Basic Syntax
+
+The general formula structure for IV in `fixest` is:
+
+```
+feols(outcome ~ exog_covariates | fixed_effects | endog_var ~ instruments, data)
+```
+
+The three parts separated by `|` are:
+
+1.  **Linear part**: The outcome on the left, exogenous covariates on the right.
+2.  **Fixed effects**: Use `0` if none.
+3.  **IV specification**: Endogenous variable(s) on the left, instruments on the right.
+
+```{r fixest-basic}
+# No covariates, no fixed effects
+m1 <- fixest::feols(y ~ 1 | 0 | d ~ z, data = df)
+
+# With exogenous covariates, no fixed effects
+m2 <- fixest::feols(y ~ x1 + x2 | 0 | d ~ z, data = df)
+
+fixest::etable(m1, m2, headers = c("No controls", "With controls"),
+               fitstat = ~ r2 + n + ivf)
+```
+
+## Multiple Instruments
+
+When multiple instruments are available, include them on the right side of the IV formula. This yields an over-identified model, which can improve efficiency:
+
+```{r fixest-multi-iv}
+# Two instruments for one endogenous variable
+m3 <- fixest::feols(y ~ x1 + x2 | 0 | d ~ z + z2, data = df)
+summary(m3)
+```
+
+With multiple instruments, the 2SLS procedure projects $D$ onto the space spanned by both $Z_1$ and $Z_2$ (and the exogenous covariates), using more information about the exogenous variation in $D$.
+
+## Fixed Effects + IV
+
+One of the key strengths of `fixest` is the ability to combine high-dimensional fixed effects with IV estimation. The fixed effects are absorbed (projected out) in both stages:
+
+```{r fixest-fe-iv}
+# One-way fixed effects
+m4 <- fixest::feols(y ~ x1 + x2 | gid | d ~ z, data = df)
+
+# Two-way fixed effects
+m5 <- fixest::feols(y ~ x1 + x2 | gid + tid | d ~ z, data = df)
+
+# Two-way FE with multiple instruments
+m6 <- fixest::feols(y ~ x1 + x2 | gid + tid | d ~ z + z2, data = df)
+
+fixest::etable(m4, m5, m6,
+               headers = c("One-way FE", "Two-way FE", "Two-way FE + 2 IVs"),
+               fitstat = ~ r2 + n + ivf)
+```
+
+This is equivalent to first demeaning all variables by the fixed effects and then running 2SLS on the demeaned data, but `fixest` implements this much more efficiently through the method of alternating projections.
+
+## First-Stage F-statistic with fitstat()
+
+The `fitstat()` function extracts the first-stage F-statistic and other diagnostic statistics:
+
+```{r fixest-fitstat}
+# First-stage F-statistic (Kleibergen-Paap for clustered SEs)
+fitstat(m3, type = "ivf")
+
+# Multiple statistics
+fitstat(m6, type = "ivf")
+```
+
+The first-stage F-statistic tests the null hypothesis that the instruments are jointly irrelevant in the first stage. Values below 10 suggest weak instruments (Staiger and Stock, 1997), though more recent guidance suggests higher thresholds (Lee et al., 2022).
+
+## Wu-Hausman Test
+
+The Wu-Hausman test compares the OLS and IV estimates. Under the null hypothesis that $D$ is exogenous, OLS is efficient and consistent, while IV is consistent but less efficient. Rejection suggests that OLS is inconsistent and IV should be preferred:
+
+```{r fixest-hausman}
+fitstat(m3, type = "ivwald")
+```
+
+## Clustered Standard Errors
+
+In many applications, standard errors should be clustered to account for within-group correlation. `fixest` makes this straightforward:
+
+```{r fixest-cluster}
+# Cluster by group
+m7 <- fixest::feols(y ~ x1 + x2 | gid | d ~ z, data = df, cluster = ~gid)
+
+# Two-way clustering
+m8 <- fixest::feols(y ~ x1 + x2 | gid + tid | d ~ z, data = df,
+                    cluster = ~gid + tid)
+
+fixest::etable(m7, m8,
+               headers = c("Cluster by group", "Two-way cluster"),
+               fitstat = ~ r2 + n + ivf)
+```
+
+When fixed effects are included, `fixest` automatically clusters at the highest fixed effect level by default. You can override this with the `cluster` or `vcov` arguments.
+
+## Multiple Estimations
+
+`fixest` supports stepwise estimation using the `sw()` and `csw()` functions, which is useful for presenting robustness across specifications:
+
+```{r fixest-stepwise}
+# Stepwise addition of controls
+m_step <- fixest::feols(y ~ csw(x1, x2) | 0 | d ~ z, data = df)
+fixest::etable(m_step, fitstat = ~ r2 + n + ivf)
+```
+
+
+# ivreg Package
+
+The `ivreg` package (Fox, Kleiber, and Zeileis, 2023) provides a classical implementation of IV estimation with comprehensive built-in diagnostics. Its formula interface uses `|` to separate the structural equation from the list of instruments.
+
+```{r ivreg-example, eval=requireNamespace("ivreg", quietly = TRUE)}
+library(ivreg)
+
+# Basic 2SLS: y ~ endogenous + exogenous | instruments + exogenous
+iv_ivreg <- ivreg(y ~ d + x1 + x2 | z + x1 + x2, data = df)
+summary(iv_ivreg)
+```
+
+The key feature of `ivreg` is its rich diagnostic output:
+
+```{r ivreg-diagnostics, eval=requireNamespace("ivreg", quietly = TRUE)}
+# Full diagnostics
+summary(iv_ivreg, diagnostics = TRUE)
+```
+
+This reports three important tests:
+
+1.  **Weak instruments test**: Tests whether the instruments are sufficiently correlated with the endogenous variable. Based on the first-stage F-statistic.
+2.  **Wu-Hausman test**: Tests the null hypothesis that OLS is consistent (i.e., the treatment is exogenous). Rejection motivates the use of IV.
+3.  **Sargan test**: In over-identified models, tests the null that all instruments are valid (satisfy the exclusion restriction). Rejection suggests at least one instrument may be invalid.
+
+```{r ivreg-overid, eval=requireNamespace("ivreg", quietly = TRUE)}
+# Over-identified model with two instruments
+iv_overid_ivreg <- ivreg(y ~ d + x1 + x2 | z + z2 + x1 + x2, data = df)
+summary(iv_overid_ivreg, diagnostics = TRUE)
+```
+
+You can also extract components for custom analysis:
+
+```{r ivreg-extract, eval=requireNamespace("ivreg", quietly = TRUE)}
+# Coefficients and confidence intervals
+coef(iv_ivreg)
+confint(iv_ivreg)
+
+# Fitted values and residuals
+head(fitted(iv_ivreg))
+head(residuals(iv_ivreg))
+```
+
+
+# First-Stage Diagnostics
+
+Verifying instrument strength is arguably the most critical step in any IV analysis. A weak instrument leads to severe problems: the IV estimator is biased toward OLS in finite samples, standard confidence intervals have incorrect coverage, and hypothesis tests have incorrect size.
+
+## First-Stage Regression
+
+Always examine the first-stage regression to understand the instrument-treatment relationship:
+
+```{r first-stage-reg}
+first_stage <- fixest::feols(d ~ z + x1 + x2, data = df)
+summary(first_stage)
+```
+
+The coefficient on $Z$ should be statistically significant and economically meaningful. A large t-statistic (absolute value > 3.2) on the excluded instrument is necessary but not sufficient for strong identification.
+
+## F-Statistic and the Rule of Thumb
+
+The first-stage F-statistic tests the joint significance of the excluded instruments. Staiger and Stock (1997) proposed the widely-used rule of thumb that $F > 10$ indicates instruments that are strong enough to avoid severe weak instrument problems:
+
+```{r f-stat-check}
+# From the IV model directly
+fitstat(m3, type = "ivf")
+
+# Can also compute manually from the first stage
+first_stage_both <- fixest::feols(d ~ z + z2 + x1 + x2, data = df)
+summary(first_stage_both)
+```
+
+## Partial R-Squared
+
+The partial R-squared of the excluded instruments measures how much of the variation in $D$ is explained by the instruments after controlling for the included exogenous variables. This complements the F-statistic:
+
+```{r partial-r2}
+# R-squared from regression including instruments
+r2_full <- summary(fixest::feols(d ~ z + z2 + x1 + x2, data = df))$r2
+
+# R-squared from regression excluding instruments
+r2_restricted <- summary(fixest::feols(d ~ x1 + x2, data = df))$r2
+
+partial_r2 <- (r2_full - r2_restricted) / (1 - r2_restricted)
+cat("Partial R-squared of instruments:", round(partial_r2, 4), "\n")
+```
+
+A low partial R-squared (e.g., below 0.05) warrants concern about instrument strength, even if the F-statistic appears adequate.
+
+## Visualization of the First Stage
+
+Visual inspection of the first-stage relationship provides intuition that summary statistics alone cannot:
+
+```{r plot-first-stage-diagnostic, fig.width=7, fig.height=5}
+# Residualize D and Z with respect to covariates for a clean visual
+d_resid <- residuals(lm(d ~ x1 + x2, data = df))
+z_resid <- residuals(lm(z ~ x1 + x2, data = df))
+
+first_stage_plot_df <- data.frame(z_resid = z_resid, d_resid = d_resid)
+
+ggplot(first_stage_plot_df, aes(x = z_resid, y = d_resid)) +
+    geom_point(alpha = 0.12, size = 0.8, color = "grey40") +
+    geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6", linewidth = 1.2) +
+    labs(
+        title = "First Stage: Instrument vs. Treatment (Residualized)",
+        subtitle = "After partialling out covariates X1 and X2",
+        x = "Instrument (Z), residualized",
+        y = "Treatment (D), residualized"
+    ) +
+    causalverse::ama_theme()
+```
+
+A strong first stage will show a clear linear relationship. If the scatter plot shows a flat or very noisy relationship, the instrument may be too weak.
+
+## Stock-Yogo Critical Values
+
+Stock and Yogo (2005) derived critical values for the first-stage F-statistic that depend on the number of instruments and the tolerated degree of bias or size distortion. Their key results for 2SLS with one endogenous variable are:
+
+| Number of instruments | 10% max bias | 15% max bias | 20% max bias | 25% max bias |
+|:---------------------:|:------------:|:------------:|:------------:|:------------:|
+|           1           |    16.38     |     8.96     |     6.66     |     5.53     |
+|           2           |    19.93     |    11.59     |     8.75     |     7.25     |
+|           3           |    22.30     |    12.83     |     9.54     |     7.80     |
+|           5           |    26.87     |    15.09     |    10.27     |     8.84     |
+|          10           |    26.80     |    15.38     |    11.49     |     9.43     |
+
+These critical values are considerably higher than the rule-of-thumb of 10, especially when the researcher wants to limit relative bias to 10% or less. The table shows that with a single instrument, the F-statistic should exceed 16.38 to ensure bias is no more than 10% of the OLS bias.
+
+
+# Weak Instruments
+
+## The Problem
+
+When instruments are weak (low first-stage F), several problems arise:
+
+1.  **Finite-sample bias**: The 2SLS estimator is biased toward the OLS estimate. The bias is approximately $\text{Bias}_{2SLS} \approx \text{Bias}_{OLS} / F$, so with $F = 5$, the IV estimate retains about 20% of the OLS bias.
+2.  **Non-normal sampling distribution**: The 2SLS estimator is no longer approximately normally distributed, making standard t-tests and confidence intervals unreliable.
+3.  **Size distortion**: Hypothesis tests reject too often (or too rarely) at their nominal level.
+4.  **Confidence interval under-coverage**: Standard 95% confidence intervals may cover the true parameter far less than 95% of the time.
+
+To demonstrate, let us construct a weak instrument scenario:
+
+```{r weak-iv-demo}
+set.seed(123)
+n_weak <- 2000
+
+u_w  <- rnorm(n_weak)
+z_w  <- rnorm(n_weak)
+
+# Weak first stage: coefficient on z is only 0.05
+d_w <- 0.05 * z_w + 0.8 * u_w + rnorm(n_weak, sd = 0.5)
+y_w <- 1.0 * d_w + 0.7 * u_w + rnorm(n_weak, sd = 0.5)
+
+df_weak <- data.frame(y = y_w, d = d_w, z = z_w)
+
+# IV estimation with weak instrument
+iv_weak <- fixest::feols(y ~ 1 | 0 | d ~ z, data = df_weak)
+
+# Compare OLS and weak-IV
+ols_weak <- fixest::feols(y ~ d, data = df_weak)
+fixest::etable(ols_weak, iv_weak, headers = c("OLS", "IV (weak)"),
+               fitstat = ~ r2 + n + ivf)
+```
+
+Note how the first-stage F-statistic is very low, and the IV estimate may be far from the true effect and have enormous standard errors.
+
+## Anderson-Rubin Confidence Sets
+
+The Anderson and Rubin (1949) test inverts a test statistic that is robust to weak instruments. It tests the null $H_0: \beta_1 = \beta_0$ by checking whether the instruments are correlated with the residuals $Y - \beta_0 D$ after controlling for covariates.
+
+The Anderson-Rubin confidence set is the collection of all $\beta_0$ values that are not rejected:
+
+$$CS_{AR} = \{\beta_0 : AR(\beta_0) \leq \chi^2_{k, 1-\alpha}\}$$
+
+where $k$ is the number of instruments. This confidence set has correct coverage even when instruments are arbitrarily weak.
+
+```{r ar-confidence-set}
+# Manual Anderson-Rubin confidence set construction
+# Grid of hypothesized beta values
+beta_grid <- seq(-1, 4, by = 0.05)
+ar_pvals <- numeric(length(beta_grid))
+
+for (i in seq_along(beta_grid)) {
+    # Under H0: beta = beta_grid[i], form Y - beta*D
+    y_tilde <- df$y - beta_grid[i] * df$d
+    # Regress on instrument
+    ar_reg <- lm(y_tilde ~ df$z)
+    ar_pvals[i] <- summary(ar_reg)$coefficients["df$z", "Pr(>|t|)"]
+}
+
+ar_df <- data.frame(beta = beta_grid, pval = ar_pvals)
+
+# AR confidence set: values where p-value > 0.05
+ar_ci <- ar_df$beta[ar_df$pval > 0.05]
+cat("Anderson-Rubin 95% Confidence Set: [",
+    round(min(ar_ci), 3), ",", round(max(ar_ci), 3), "]\n")
+```
+
+```{r plot-ar-cs, fig.width=7, fig.height=4}
+ggplot(ar_df, aes(x = beta, y = pval)) +
+    geom_line(color = "#2c7bb6", linewidth = 0.8) +
+    geom_hline(yintercept = 0.05, linetype = "dashed", color = "red") +
+    geom_vline(xintercept = 1.0, linetype = "dotted", color = "grey40") +
+    annotate("text", x = 1.0, y = 0.9, label = "True effect = 1.0",
+             hjust = -0.1, size = 3.5) +
+    labs(
+        title = "Anderson-Rubin Confidence Set",
+        subtitle = "Values of beta where p-value > 0.05 form the confidence set",
+        x = expression(beta[0]),
+        y = "p-value"
+    ) +
+    causalverse::ama_theme()
+```
+
+## The tF Procedure (Lee et al. 2022)
+
+Lee, McCrary, Moreira, and Porter (2022) proposed the **tF procedure**, which adjusts critical values for the t-test based on the first-stage F-statistic. When the F-statistic is large, the adjusted critical value converges to the standard 1.96. When F is small, the critical value is inflated to account for weak instrument distortions.
+
+The procedure works as follows:
+
+1.  Compute the IV estimate $\hat{\beta}_{IV}$ and its standard error $SE(\hat{\beta}_{IV})$.
+2.  Compute the first-stage F-statistic.
+3.  Look up the adjusted critical value $c_{\alpha}(F)$ from the Lee et al. tables.
+4.  Reject $H_0: \beta = 0$ if $|\hat{\beta}_{IV} / SE(\hat{\beta}_{IV})| > c_{\alpha}(F)$.
+
+Key critical values for a 5% test:
+
+| First-stage F | Adjusted critical value |
+|:-------------:|:----------------------:|
+|       5       |         3.09           |
+|      10       |         2.28           |
+|      15       |         2.10           |
+|      20       |         2.04           |
+|      50       |         1.98           |
+|     100       |         1.97           |
+
+This approach provides valid inference even with moderately weak instruments and is straightforward to implement as a robustness check.
+
+### Implementing the tF Procedure
+
+The tF procedure is simple to apply manually. We (1) run the IV model, (2) extract the first-stage F-statistic and the t-ratio on the endogenous variable, and (3) compare the t-ratio against the Lee et al. adjusted critical value for the observed F.
+
+```{r tf-procedure, message=FALSE, warning=FALSE}
+library(ivreg)
+
+# Fit IV model using the main simulated data
+iv_for_tf <- ivreg(y ~ d + x1 + x2 | z + x1 + x2, data = df)
+
+# Extract the t-ratio on the endogenous variable d
+iv_summ    <- summary(iv_for_tf, diagnostics = TRUE)
+t_ratio    <- iv_summ$coefficients["d", "t value"]
+
+# Extract the first-stage F-statistic (Weak instruments diagnostic)
+fs_F <- iv_summ$diagnostics["Weak instruments", "statistic"]
+
+cat("=== tF Procedure (Lee et al. 2022) ===\n\n")
+cat(sprintf("IV estimate (d):        %.4f\n", coef(iv_for_tf)["d"]))
+cat(sprintf("Standard error:         %.4f\n", iv_summ$coefficients["d", "Std. Error"]))
+cat(sprintf("t-ratio:                %.4f\n", t_ratio))
+cat(sprintf("First-stage F:          %.2f\n\n", fs_F))
+```
+
+```{r tf-cv-lookup, message=FALSE, warning=FALSE}
+# Lee et al. (2022) tF critical value table for 5% two-sided test
+# Interpolated from Table I of Lee, McCrary, Moreira, Porter (2022, AER)
+tf_table <- data.frame(
+  F_stat  = c(3.84, 5, 7, 10, 12, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 500),
+  cv_5pct = c(Inf,  3.09, 2.54, 2.28, 2.19, 2.10, 2.04, 2.01, 1.99, 1.98, 1.97,
+              1.97, 1.96, 1.96, 1.96, 1.96)
+)
+
+# Function to interpolate the tF critical value for a given F-statistic
+get_tf_cv <- function(f_stat, table = tf_table) {
+  if (f_stat <= min(table$F_stat)) return(Inf)
+  if (f_stat >= max(table$F_stat)) return(1.96)
+  idx_upper <- which(table$F_stat >= f_stat)[1]
+  idx_lower <- idx_upper - 1
+  f_lo  <- table$F_stat[idx_lower];  cv_lo <- table$cv_5pct[idx_lower]
+  f_hi  <- table$F_stat[idx_upper];  cv_hi <- table$cv_5pct[idx_upper]
+  cv_lo + (cv_hi - cv_lo) * (f_stat - f_lo) / (f_hi - f_lo)
+}
+
+tf_cv <- get_tf_cv(fs_F)
+
+cat("=== tF Critical Value Decision ===\n\n")
+cat(sprintf("First-stage F:              %.2f\n", fs_F))
+cat(sprintf("tF adjusted critical value: %.4f\n", tf_cv))
+cat(sprintf("|t-ratio|:                  %.4f\n\n", abs(t_ratio)))
+
+if (abs(t_ratio) > tf_cv) {
+  cat(sprintf("Decision: REJECT H0 at 5%% level\n"))
+  cat(sprintf("(|t| = %.3f > tF critical value = %.3f)\n", abs(t_ratio), tf_cv))
+} else {
+  cat(sprintf("Decision: FAIL TO REJECT H0 at 5%% level\n"))
+  cat(sprintf("(|t| = %.3f <= tF critical value = %.3f)\n", abs(t_ratio), tf_cv))
+}
+
+cat(sprintf("\nStandard critical value (F = Inf): 1.96\n"))
+cat(sprintf("tF adjustment adds:                %.4f to the critical value\n",
+            tf_cv - 1.96))
+```
+
+```{r tf-comparison-plot, message=FALSE, warning=FALSE, fig.width=7, fig.height=4}
+# Visualize how the tF critical value varies with the first-stage F
+cv_curve <- data.frame(
+  F_stat = seq(3.84, 150, by = 0.5),
+  cv     = sapply(seq(3.84, 150, by = 0.5), get_tf_cv)
+)
+
+ggplot(cv_curve, aes(x = F_stat, y = cv)) +
+  geom_line(color = "#2c7bb6", linewidth = 1.2) +
+  geom_hline(yintercept = 1.96, linetype = "dashed", color = "grey40") +
+  geom_vline(xintercept = 10,   linetype = "dotted",  color = "orange") +
+  geom_vline(xintercept = min(fs_F, 140),
+             linetype = "solid", color = "red", alpha = 0.7) +
+  annotate("text", x = 10, y = 3.4, label = "F=10\n(rule of thumb)",
+           color = "orange", size = 3, hjust = -0.1) +
+  annotate("text", x = min(fs_F + 2, 130), y = 2.7,
+           label = sprintf("Our F=%.0f\ncv=%.2f", fs_F, tf_cv),
+           color = "red", size = 3, hjust = -0.1) +
+  annotate("text", x = 130, y = 2.01,
+           label = "Standard 1.96", color = "grey40", size = 3) +
+  labs(
+    title    = "Lee et al. (2022) tF Adjusted Critical Values",
+    subtitle = "As F grows, tF critical value converges to the standard 1.96",
+    x        = "First-Stage F-Statistic",
+    y        = "5% Two-Sided Critical Value"
+  ) +
+  causalverse::ama_theme()
+```
+
+```{r tf-weak-strong-compare, message=FALSE, warning=FALSE}
+# Apply tF to both a strong and a weak instrument scenario for comparison
+set.seed(42)
+n_tf <- 1000
+u_s  <- rnorm(n_tf)
+
+# Strong instrument: large first-stage coefficient
+z_s_strong <- rnorm(n_tf)
+d_s_strong <- 1.2 * z_s_strong + 0.5 * u_s + rnorm(n_tf, sd = 0.5)
+y_s_strong <- 1.0 * d_s_strong + 0.7 * u_s + rnorm(n_tf, sd = 0.5)
+iv_s <- ivreg(y_s_strong ~ d_s_strong | z_s_strong)
+sm_s <- summary(iv_s, diagnostics = TRUE)
+F_s  <- sm_s$diagnostics["Weak instruments", "statistic"]
+t_s  <- sm_s$coefficients["d_s_strong", "t value"]
+
+# Weak instrument: small first-stage coefficient
+z_s_weak <- rnorm(n_tf)
+d_s_weak <- 0.08 * z_s_weak + 0.5 * u_s + rnorm(n_tf, sd = 0.5)
+y_s_weak <- 1.0 * d_s_weak + 0.7 * u_s + rnorm(n_tf, sd = 0.5)
+iv_w <- ivreg(y_s_weak ~ d_s_weak | z_s_weak)
+sm_w <- summary(iv_w, diagnostics = TRUE)
+F_w  <- sm_w$diagnostics["Weak instruments", "statistic"]
+t_w  <- sm_w$coefficients["d_s_weak", "t value"]
+
+tf_results <- data.frame(
+  Scenario        = c("Strong Instrument", "Weak Instrument"),
+  First_stage_F   = round(c(F_s, F_w), 2),
+  abs_t_ratio     = round(c(abs(t_s), abs(t_w)), 3),
+  Standard_CV     = 1.96,
+  tF_CV           = round(c(get_tf_cv(F_s), get_tf_cv(F_w)), 3),
+  Reject_standard = c(abs(t_s) > 1.96, abs(t_w) > 1.96),
+  Reject_tF       = c(abs(t_s) > get_tf_cv(F_s), abs(t_w) > get_tf_cv(F_w))
+)
+
+knitr::kable(
+  tf_results,
+  caption = "tF Procedure: Standard vs. Adjusted Critical Values",
+  col.names = c("Scenario", "First-Stage F", "|t-ratio|",
+                "Standard CV (1.96)", "tF Adjusted CV",
+                "Reject (standard)", "Reject (tF)")
+)
+
+cat("\nKey lesson: with a weak first stage (F ~", round(F_w, 1), "),\n")
+cat("the standard 1.96 may reject too often (size distortion).\n")
+cat("The tF adjusted critical value of", round(get_tf_cv(F_w), 3),
+    "is more conservative and provides valid 5% inference.\n")
+```
+
+
+# Over-identification Tests
+
+When the number of instruments exceeds the number of endogenous variables, the model is **over-identified**. This extra information can be used both for efficiency and for testing instrument validity.
+
+## The Sargan-Hansen J Test
+
+The Sargan (1958) and Hansen (1982) J test examines whether the over-identifying restrictions are satisfied. Under the null hypothesis that all instruments are valid (exogenous), the test statistic is:
+
+$$J = n \cdot R^2_{\hat{\varepsilon} \text{ on } \mathbf{Z}, \mathbf{X}}$$
+
+where $\hat{\varepsilon}$ are the 2SLS residuals. Under $H_0$, $J \sim \chi^2(m - k)$ where $m$ is the number of instruments and $k$ is the number of endogenous variables.
+
+```{r sargan-manual}
+# 2SLS with two instruments
+iv_overid <- fixest::feols(y ~ x1 + x2 | 0 | d ~ z + z2, data = df)
+summary(iv_overid)
+
+# Manual Sargan test
+resid_iv <- residuals(iv_overid)
+sargan_reg <- lm(resid_iv ~ z + z2 + x1 + x2, data = df)
+sargan_stat <- n * summary(sargan_reg)$r.squared
+sargan_pval <- pchisq(sargan_stat, df = 1, lower.tail = FALSE)  # df = 2 instruments - 1 endog
+
+cat("Sargan J-statistic:", round(sargan_stat, 3), "\n")
+cat("p-value:", round(sargan_pval, 3), "\n")
+cat("Degrees of freedom:", 1, "(2 instruments - 1 endogenous variable)\n")
+```
+
+**Interpretation:**
+
+-   **Failure to reject** ($p > 0.05$): The over-identifying restrictions are not violated. This is consistent with (but does not prove) all instruments being valid.
+-   **Rejection** ($p < 0.05$): At least one instrument likely violates the exclusion restriction.
+
+**Caveat:** The Sargan test has low power when instruments are weak and can also reject when all instruments are invalid in the same direction. It tests whether different instruments give the same estimate, not whether any individual instrument is valid in an absolute sense.
+
+```{r sargan-ivreg, eval=requireNamespace("ivreg", quietly = TRUE)}
+# Using ivreg for automatic Sargan test
+library(ivreg)
+iv_overid_ivreg2 <- ivreg(y ~ d + x1 + x2 | z + z2 + x1 + x2, data = df)
+summary(iv_overid_ivreg2, diagnostics = TRUE)
+```
+
+## When to Use Multiple Instruments
+
+Using more instruments can improve efficiency but raises concerns:
+
+1.  **More instruments = more efficiency** (lower standard errors), but only if all instruments are valid.
+2.  **Many instruments bias**: With too many instruments relative to sample size, 2SLS becomes biased toward OLS. LIML (Limited Information Maximum Likelihood) is more robust to this problem.
+3.  **Pre-testing**: If you selected instruments based on their first-stage performance, the resulting estimates and tests may be unreliable.
+
+
+# Sensitivity Analysis with sensemakr
+
+The `sensemakr` package (Cinelli and Hazlett, 2020) provides a formal framework for sensitivity analysis to assess how robust an estimated causal effect is to potential omitted variable bias (OVB). While originally designed for OLS, the approach offers valuable insights for the IV context, particularly for assessing the plausibility of the exclusion restriction.
+
+## Basic Sensitivity Analysis
+
+```{r sensemakr-basic, eval=requireNamespace("sensemakr", quietly = TRUE)}
+library(sensemakr)
+
+# Fit OLS model (sensemakr works with lm objects)
+ols_for_sens <- lm(y ~ d + x1 + x2, data = df)
+
+# Sensitivity analysis: how strong would a confounder need to be
+# to explain away the effect of d?
+sens <- sensemakr(
+    model      = ols_for_sens,
+    treatment  = "d",
+    benchmark_covariates = "x1",
+    kd = 1:3,  # multiples of x1's confounding strength
+    ky = 1:3
+)
+
+summary(sens)
+```
+
+The summary reports the **Robustness Value (RV)**, which indicates the minimum strength of confounding (as a fraction of the residual variance of both treatment and outcome) needed to fully explain away the observed effect.
+
+## Contour Plots
+
+```{r sensemakr-contour, eval=requireNamespace("sensemakr", quietly = TRUE), fig.width=7, fig.height=5}
+# Contour plot of the estimated effect as a function of
+# confounding strength with treatment (R2_DZ.X) and outcome (R2_YZ.X)
+plot(sens, sensitivity.of = "estimate")
+```
+
+The contour plot shows:
+
+-   The x-axis represents the partial $R^2$ of the hypothetical confounder with the treatment.
+-   The y-axis represents the partial $R^2$ of the hypothetical confounder with the outcome.
+-   Contour lines show the adjusted estimate after accounting for such a confounder.
+-   The red line shows where the estimate would cross zero.
+
+## Benchmarking
+
+```{r sensemakr-benchmark, eval=requireNamespace("sensemakr", quietly = TRUE), fig.width=7, fig.height=5}
+# The benchmark uses observed covariates as reference points
+# "How strong would the confounder need to be relative to x1?"
+plot(sens, sensitivity.of = "estimate", type = "extreme")
+```
+
+Benchmarking allows researchers to frame sensitivity in interpretable terms: "A confounder would need to be 3 times as important as $X_1$ in explaining both treatment and outcome variation to reduce the effect below zero." This makes the abstract question of unobserved confounding concrete and communicable.
+
+## Application to the IV Context
+
+In IV estimation, `sensemakr` can be applied to:
+
+1.  **Assess the exclusion restriction**: Treat the reduced-form regression ($Y$ on $Z$) as the OLS model and evaluate sensitivity to violations of the exclusion restriction (direct effects of $Z$ on $Y$).
+2.  **Compare OLS and IV sensitivity**: If OLS is highly sensitive to confounding but IV is not, this strengthens the case for the IV strategy.
+3.  **Evaluate instrument independence**: Assess sensitivity of the first-stage relationship to potential confounders.
+
+
+# IV with Panel Data
+
+Panel data offers additional opportunities to address endogeneity by combining IV with fixed effects that absorb time-invariant confounders.
+
+## Fixed Effects IV
+
+When time-invariant unobserved heterogeneity is a concern, entity fixed effects can be combined with IV to control for both time-invariant confounders and time-varying endogeneity:
+
+```{r panel-iv}
+# Generate panel data
+set.seed(42)
+n_panel <- 5000
+n_groups <- 100
+n_time <- 50
+
+panel <- data.frame(
+    id   = rep(1:n_groups, each = n_time),
+    time = rep(1:n_time, n_groups)
+)
+
+# Group-level unobserved heterogeneity
+alpha_i <- rnorm(n_groups, sd = 1)
+panel$alpha <- alpha_i[panel$id]
+
+# Time-varying confounder
+panel$u <- rnorm(n_panel)
+
+# Instrument
+panel$z <- rnorm(n_panel)
+
+# Treatment
+panel$d <- 0.7 * panel$z + 0.3 * panel$alpha + 0.4 * panel$u + rnorm(n_panel, sd = 0.5)
+
+# Outcome
+panel$y <- 1.0 * panel$d + 0.5 * panel$alpha + 0.6 * panel$u + rnorm(n_panel, sd = 0.5)
+
+panel$id   <- factor(panel$id)
+panel$time <- factor(panel$time)
+
+# OLS without FE (biased by alpha and u)
+panel_ols <- fixest::feols(y ~ d, data = panel)
+
+# OLS with FE (still biased by u)
+panel_ols_fe <- fixest::feols(y ~ d | id, data = panel)
+
+# IV without FE (consistent if z is valid, but less efficient)
+panel_iv <- fixest::feols(y ~ 1 | 0 | d ~ z, data = panel)
+
+# IV with FE (preferred: controls for alpha, instruments for u)
+panel_iv_fe <- fixest::feols(y ~ 1 | id | d ~ z, data = panel)
+
+# IV with two-way FE
+panel_iv_twfe <- fixest::feols(y ~ 1 | id + time | d ~ z, data = panel)
+
+fixest::etable(panel_ols, panel_ols_fe, panel_iv, panel_iv_fe, panel_iv_twfe,
+               headers = c("OLS", "OLS+FE", "IV", "IV+FE", "IV+TWFE"),
+               fitstat = ~ r2 + n + ivf)
+```
+
+The key insight: entity fixed effects eliminate bias from time-invariant confounders ($\alpha_i$), while IV addresses bias from time-varying confounders ($U_{it}$). Combining both provides the strongest identification.
+
+## First-Differenced IV
+
+An alternative to within-transformation (fixed effects) is first differencing. For unit $i$ at time $t$:
+
+$$\Delta Y_{it} = \beta_1 \Delta D_{it} + \Delta \varepsilon_{it}$$
+
+First differencing removes time-invariant confounders, just like fixed effects. The instrument in this specification is $\Delta Z_{it}$.
+
+```{r fd-iv, eval=TRUE}
+# First-differenced IV can be estimated by:
+# 1. Computing first differences manually
+# 2. Using feols with differenced variables
+
+# The fixed effects IV estimator in fixest is equivalent to
+# within-transformed IV, which gives identical coefficients
+# to first-differenced IV only with T=2.
+```
+
+In practice, the fixed effects estimator is preferred for $T > 2$ because it is more efficient than first differencing under standard assumptions (homoskedasticity and no serial correlation). However, first differencing may be preferred when errors follow a random walk.
+
+
+# Shift-Share (Bartik) Instruments
+
+Shift-share instruments, also known as Bartik instruments after Bartik (1991), are among the most widely used IV strategies in applied economics. They exploit cross-sectional variation in exposure to aggregate shocks to instrument for local-level variables.
+
+## Structure
+
+A Bartik instrument takes the form:
+
+$$B_{it} = \sum_k s_{ik,t-1} \cdot g_{kt}$$
+
+where:
+
+-   $s_{ik,t-1}$ are **shares** measuring the initial exposure of unit $i$ to sector/category $k$ (e.g., industry employment shares in a region).
+-   $g_{kt}$ are **shifts** measuring aggregate changes in sector $k$ (e.g., national industry growth rates).
+
+The idea is that regions with different initial industry compositions are differentially exposed to national industry-level shocks, generating exogenous variation in the local variable of interest (e.g., employment growth, import exposure).
+
+## Identification
+
+Recent econometric work has clarified the conditions under which Bartik instruments are valid:
+
+-   **Goldsmith-Pinkham, Sorkin, and Swift (2020)**: Show that identification comes from the shares. The key identifying assumption is that the initial shares are exogenous (uncorrelated with local demand shocks). Valid if initial industry composition is quasi-random.
+
+-   **Borusyak, Hull, and Jaravel (2022)**: Show that identification can come from the shifts. The key assumption is that the national growth rates are exogenous (effectively random after conditioning on controls). This requires many sectors with no single sector dominating.
+
+-   **Adao, Kolesar, and Morales (2019)**: Highlight that standard errors are typically too small because residuals are correlated across regions with similar industry compositions. They propose a correction.
+
+## Practical Considerations
+
+1.  **Pre-period shares**: Always use shares from before the treatment period to avoid simultaneity.
+2.  **Leave-one-out shifts**: Compute national growth rates excluding the focal region to avoid mechanical correlation.
+3.  **Check share exogeneity**: Test whether initial shares predict pre-treatment outcomes or other placebo outcomes.
+4.  **Use appropriate standard errors**: Adao-Kolesar-Morales (AKM) standard errors or exposure-robust inference.
+
+
+# Judge/Examiner IV Designs
+
+Judge (or examiner) IV designs exploit the quasi-random assignment of cases to decision-makers---such as judges, patent examiners, disability examiners, or loan officers---who vary in their leniency or propensity to assign treatment.
+
+## Structure
+
+The instrument is typically the leave-out mean of the judge's decision rate:
+
+$$Z_{ij} = \frac{1}{n_j - 1} \sum_{i' \neq i, i' \in J_j} D_{i'}$$
+
+where $J_j$ is the set of cases assigned to judge $j$.
+
+## Key Assumptions
+
+1.  **Random (or quasi-random) assignment**: Cases must be assigned to judges independently of case characteristics. This is often ensured by institutional rules (e.g., random case rotation).
+2.  **Relevance**: Judges must vary in their treatment propensities.
+3.  **Exclusion**: A judge's leniency affects the outcome only through the treatment decision.
+4.  **Monotonicity**: A more lenient judge gives (weakly) more favorable treatment to every case. This is the most demanding assumption---it rules out judges who are lenient for some types of cases but strict for others.
+
+## Recent Methodological Advances
+
+-   **Frandsen, Lefgren, and Leslie (2023)**: Provide a test for the monotonicity assumption and show that violations can substantially bias estimates.
+-   **Blandhol, Bonney, Mogstad, and Torgovitsky (2022)**: Demonstrate that the standard IV estimand may not have a LATE interpretation when monotonicity fails, and propose alternative approaches.
+-   **Mueller-Smith (2015)**, **Dobbie, Goldin, and Yang (2018)**: Classic applications in criminal justice.
+
+## Practical Considerations
+
+1.  **Leave-out construction**: Always use leave-out means to avoid mechanical correlation.
+2.  **Control for court/time**: Include fixed effects for the court or location and time period to account for the assignment pool.
+3.  **Check random assignment**: Verify that the instrument is balanced with respect to case characteristics.
+4.  **Assess monotonicity**: Use the Frandsen et al. test or examine whether results are stable across subgroups.
+
+
+# Visualizing IV
+
+Good visualizations are essential for communicating the IV strategy and building intuition.
+
+## First-Stage Scatter
+
+The first-stage scatter plot shows the relationship between the instrument and the treatment:
+
+```{r viz-first-stage, fig.width=7, fig.height=5}
+ggplot(df, aes(x = z, y = d)) +
+    geom_point(alpha = 0.12, size = 0.8, color = "grey50") +
+    geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6", linewidth = 1.2) +
+    labs(
+        title    = "First Stage: Instrument (Z) vs. Treatment (D)",
+        subtitle = paste0("Slope = ", round(coef(lm(d ~ z, data = df))["z"], 3),
+                          ", F = ", round(summary(lm(d ~ z, data = df))$fstatistic[1], 1)),
+        x = "Instrument (Z)",
+        y = "Treatment (D)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## Reduced-Form Scatter
+
+The reduced-form relationship between the instrument and the outcome captures the total effect of $Z$ on $Y$ through $D$. The ratio of the reduced-form to the first-stage slope gives the IV estimate:
+
+```{r viz-reduced-form, fig.width=7, fig.height=5}
+rf_slope <- coef(lm(y ~ z, data = df))["z"]
+fs_slope <- coef(lm(d ~ z, data = df))["z"]
+
+ggplot(df, aes(x = z, y = y)) +
+    geom_point(alpha = 0.12, size = 0.8, color = "grey50") +
+    geom_smooth(method = "lm", se = TRUE, color = "#d7191c", linewidth = 1.2) +
+    labs(
+        title    = "Reduced Form: Instrument (Z) vs. Outcome (Y)",
+        subtitle = paste0("Slope = ", round(rf_slope, 3),
+                          "; IV = RF/FS = ", round(rf_slope, 3), "/",
+                          round(fs_slope, 3), " = ", round(rf_slope / fs_slope, 3)),
+        x = "Instrument (Z)",
+        y = "Outcome (Y)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## OLS vs. IV Coefficient Comparison
+
+A forest plot comparing estimates across specifications makes the bias in OLS visible:
+
+```{r viz-forest, fig.width=7, fig.height=5}
+# Gather estimates from multiple models
+coef_comparison <- data.frame(
+    Model = c("OLS (naive)", "OLS (controls)", "IV (simple)", "IV (controls)",
+              "IV (two instruments)", "IV + FE", "True Effect"),
+    Estimate = c(
+        coef(ols_naive)["d"],
+        coef(ols_controls)["d"],
+        coef(iv_simple)["fit_d"],
+        coef(iv_controls)["fit_d"],
+        coef(m3)["fit_d"],
+        coef(m5)["fit_d"],
+        1.0
+    ),
+    CI_lower = c(
+        confint(ols_naive)["d", 1],
+        confint(ols_controls)["d", 1],
+        confint(iv_simple)["fit_d", 1],
+        confint(iv_controls)["fit_d", 1],
+        confint(m3)["fit_d", 1],
+        confint(m5)["fit_d", 1],
+        NA
+    ),
+    CI_upper = c(
+        confint(ols_naive)["d", 2],
+        confint(ols_controls)["d", 2],
+        confint(iv_simple)["fit_d", 2],
+        confint(iv_controls)["fit_d", 2],
+        confint(m3)["fit_d", 2],
+        confint(m5)["fit_d", 2],
+        NA
+    )
+)
+
+coef_comparison$Model <- factor(
+    coef_comparison$Model,
+    levels = rev(coef_comparison$Model)
+)
+
+ggplot(coef_comparison, aes(x = Estimate, y = Model)) +
+    geom_point(size = 3) +
+    geom_errorbar(
+        aes(xmin = CI_lower, xmax = CI_upper),
+        width = 0.2, na.rm = TRUE, orientation = "y"
+    ) +
+    geom_vline(xintercept = 1.0, linetype = "dashed", color = "grey40") +
+    labs(
+        title    = "Comparison of OLS and IV Estimates",
+        subtitle = "Dashed line indicates the true causal effect (1.0)",
+        x        = "Estimated Coefficient on D",
+        y        = NULL
+    ) +
+    causalverse::ama_theme()
+```
+
+The plot should clearly show that OLS estimates are biased upward, while IV estimates across various specifications are clustered around the true value.
+
+## Binned Scatter Plot for First Stage
+
+For presentations and publications, a binned scatter plot can provide a cleaner visual of the first stage by averaging across bins of the instrument:
+
+```{r viz-binscatter, fig.width=7, fig.height=5}
+# Create 20 equal-sized bins of the instrument
+df$z_bin <- cut(df$z, breaks = 20, labels = FALSE)
+bin_means <- df %>%
+    group_by(z_bin) %>%
+    summarise(
+        z_mean = mean(z),
+        d_mean = mean(d),
+        d_se   = sd(d) / sqrt(n()),
+        .groups = "drop"
+    )
+
+ggplot(bin_means, aes(x = z_mean, y = d_mean)) +
+    geom_point(size = 2.5, color = "#2c7bb6") +
+    geom_errorbar(aes(ymin = d_mean - 1.96 * d_se,
+                      ymax = d_mean + 1.96 * d_se),
+                  width = 0.05, color = "#2c7bb6", alpha = 0.5) +
+    geom_smooth(method = "lm", se = FALSE, color = "#d7191c",
+                linewidth = 0.8, linetype = "dashed") +
+    labs(
+        title = "Binned Scatter: First Stage Relationship",
+        subtitle = "Each point is the mean within a bin of the instrument",
+        x = "Instrument (Z), bin mean",
+        y = "Treatment (D), bin mean"
+    ) +
+    causalverse::ama_theme()
+```
+
+
+# LIML, Fuller, and K-Class Estimators
+
+## The K-Class Family
+
+The k-class estimator unifies several well-known IV estimators under a single parameterization. For the standard IV model $Y = D\beta + X\gamma + \varepsilon$ with instruments $Z$, the k-class estimator solves:
+
+$$\hat{\beta}_k = (D'(I - kM_Z)D)^{-1} D'(I - kM_Z)Y$$
+
+where $M_Z = I - Z(Z'Z)^{-1}Z'$ is the residual-maker matrix from projecting onto the instruments. Different values of $k$ yield different estimators:
+
+-   **$k = 0$**: OLS (ignores endogeneity)
+-   **$k = 1$**: Two-Stage Least Squares (2SLS)
+-   **$k = \hat{\lambda}_{\min}$**: Limited Information Maximum Likelihood (LIML), where $\hat{\lambda}_{\min}$ is the smallest eigenvalue of a certain matrix
+-   **$k = \hat{\lambda}_{\min} - a/(n-K)$**: Fuller's modified LIML (with bias parameter $a$, commonly $a = 1$ or $a = 4$)
+
+**Why LIML?** When instruments are weak or numerous, 2SLS suffers from finite-sample bias toward OLS. LIML is approximately median-unbiased even with weak instruments, making it a safer default. Fuller's estimator further reduces bias and has finite moments (unlike LIML whose moments may not exist).
+
+The Anderson-Rubin (AR) test and the Conditional Likelihood Ratio (CLR) test provide inference that remains valid regardless of instrument strength---they do not rely on first-stage F-statistics being large.
+
+## Implementation with `ivmodel`
+
+```{r liml-kclass, eval = requireNamespace("ivmodel", quietly = TRUE)}
+library(ivmodel)
+
+# Simulate IV data with a moderately weak instrument
+set.seed(42)
+n <- 500
+z <- rnorm(n)
+u <- rnorm(n)
+x_covar <- rnorm(n)
+d <- 0.3 * z + 0.8 * u + rnorm(n)  # weak instrument (pi = 0.3)
+y <- 1.5 * d + 0.5 * x_covar + u + rnorm(n)  # true beta = 1.5
+
+# Fit the ivmodel object
+iv_fit <- ivmodel(
+    Y = y, D = d, Z = z, X = x_covar,
+    intercept = TRUE
+)
+
+# K-class estimators via KClass() — 2SLS uses k=1, LIML uses k=liml_k
+tsls_est   <- KClass(iv_fit, k = 1)         # 2SLS
+liml_k     <- iv_fit$LIML$k                  # LIML characteristic root
+liml_est   <- KClass(iv_fit, k = liml_k)    # LIML
+full_est   <- Fuller(iv_fit, b = 1)          # Fuller with b=1
+full4_est  <- Fuller(iv_fit, b = 4)          # Fuller with b=4
+kclass_est <- KClass(iv_fit, k = 0.5)       # Custom k-class between OLS and 2SLS
+
+# Anderson-Rubin test (valid even with weak instruments)
+ar_result  <- AR.test(iv_fit)
+clr_result <- CLR(iv_fit)
+
+# Build comparison table
+comparison <- data.frame(
+    Estimator = c("2SLS (k=1)", "LIML", "Fuller(b=1)", "Fuller(b=4)", "K-Class(k=0.5)"),
+    Estimate  = round(c(
+        tsls_est$point.est, liml_est$point.est,
+        full_est$point.est, full4_est$point.est,
+        kclass_est$point.est
+    ), 3),
+    Std.Error = round(c(
+        tsls_est$std.err, liml_est$std.err,
+        full_est$std.err, full4_est$std.err,
+        kclass_est$std.err
+    ), 3),
+    CI.Lower = round(c(
+        tsls_est$ci[1], liml_est$ci[1],
+        full_est$ci[1], full4_est$ci[1],
+        kclass_est$ci[1]
+    ), 3),
+    CI.Upper = round(c(
+        tsls_est$ci[2], liml_est$ci[2],
+        full_est$ci[2], full4_est$ci[2],
+        kclass_est$ci[2]
+    ), 3)
+)
+knitr::kable(comparison, caption = "K-Class Estimator Comparison (True beta = 1.5)")
+cat("\nAnderson-Rubin test p-value:", round(ar_result$p.value, 4),
+    "\nCLR test p-value:",            round(clr_result$p.value, 4), "\n")
+```
+
+When 2SLS and LIML estimates diverge substantially, this signals that weak instruments may be biasing 2SLS. In such cases, prefer LIML or Fuller, and rely on AR/CLR confidence sets for inference.
+
+
+# Comprehensive IV Diagnostics with `ivDiag`
+
+## The Effective F-Statistic
+
+The conventional first-stage F-statistic (Staiger and Stock 1997) can be misleading with heteroskedastic, clustered, or serially correlated errors. @olea2013robust proposed the **effective F-statistic**, which accounts for non-iid errors and provides a single threshold (approximately 10) for detecting weak instruments in the presence of heteroskedasticity or clustering.
+
+The **tF procedure** (Lee et al. 2022) adjusts the t-ratio critical values based on the effective F-statistic, providing valid inference even when instruments are not strong. This avoids the binary strong/weak classification and instead continuously adjusts for instrument strength.
+
+## Implementation with `ivDiag`
+
+```{r ivdiag-diagnostics, eval = FALSE}
+library(ivDiag)
+
+# Simulate panel-like data
+set.seed(42)
+n <- 1000
+df_diag <- data.frame(
+    Y  = rnorm(n),
+    D  = rnorm(n),
+    Z  = rnorm(n),
+    X1 = rnorm(n),
+    X2 = rnorm(n),
+    cl = sample(1:50, n, replace = TRUE)
+)
+# Create endogeneity and instrument relevance
+u <- rnorm(n)
+df_diag$D <- 0.4 * df_diag$Z + 0.3 * df_diag$X1 + 0.6 * u + rnorm(n, sd = 0.5)
+df_diag$Y <- 2.0 * df_diag$D + 0.5 * df_diag$X1 - 0.3 * df_diag$X2 + u + rnorm(n, sd = 0.5)
+
+# One-call comprehensive diagnostics
+diag_result <- ivDiag(
+    data    = df_diag,
+    Y       = "Y",
+    D       = "D",
+    Z       = "Z",
+    controls = c("X1", "X2"),
+    cl       = df_diag$cl  # cluster variable
+)
+
+# Display all diagnostic results
+diag_result
+
+# Individual diagnostic functions
+eff_f <- eff_F(
+    data     = df_diag,
+    Y        = "Y",
+    D        = "D",
+    Z        = "Z",
+    controls = c("X1", "X2"),
+    cl       = df_diag$cl
+)
+cat("Effective F-statistic:", eff_f$F_eff, "\n")
+
+# tF-adjusted inference
+tf_result <- tF(
+    data     = df_diag,
+    Y        = "Y",
+    D        = "D",
+    Z        = "Z",
+    controls = c("X1", "X2"),
+    cl       = df_diag$cl
+)
+tf_result
+```
+
+The `ivDiag` package (Lal et al. 2023) consolidates best-practice diagnostics into a single call. If `ivDiag` is not available on CRAN, the effective F-statistic can also be computed manually by adjusting the Kleibergen-Paap F-statistic for non-iid errors.
+
+
+# LASSO-Selected Instruments and Many Instruments
+
+## The Many-Instruments Problem
+
+When the number of candidate instruments $K$ is large relative to the sample size $n$, 2SLS suffers from severe finite-sample bias---the bias approaches that of OLS as $K/n$ grows. Even when $K < n$, overfitting in the first stage inflates the effective endogeneity of the fitted values.
+
+**LASSO-based instrument selection** (Belloni, Chen, Chernozhukov, and Hansen 2012) addresses this by using $\ell_1$-penalized regression in the first stage to select the most relevant instruments, then performing IV estimation with only the selected instruments. The `hdm` package implements the post-LASSO IV estimator with formal guarantees on inference validity.
+
+Three variants are available:
+
+-   `rlassoIV()`: LASSO selects instruments in the first stage
+-   `rlassoIVselectZ()`: LASSO selects among instruments only
+-   `rlassoIVselectX()`: LASSO selects among controls only
+
+## Implementation with `hdm`
+
+```{r lasso-iv, eval = requireNamespace("hdm", quietly = TRUE)}
+library(hdm)
+
+# Simulate data with many candidate instruments
+set.seed(42)
+n <- 500
+K <- 100  # many candidate instruments
+
+# Generate instruments: only first 5 are truly relevant
+Z_mat <- matrix(rnorm(n * K), n, K)
+colnames(Z_mat) <- paste0("z", 1:K)
+
+pi_true <- c(rep(0.3, 5), rep(0, K - 5))  # sparse first stage
+u <- rnorm(n)
+x_ctrl <- rnorm(n)
+
+d <- Z_mat %*% pi_true + 0.7 * u + rnorm(n, sd = 0.5)
+y <- 1.0 * d + 0.5 * x_ctrl + u + rnorm(n, sd = 0.5)  # true beta = 1.0
+
+# LASSO-selected IV estimation
+lasso_iv <- rlassoIV(
+    x = x_ctrl, d = d, y = y, z = Z_mat,
+    select.X = TRUE, select.Z = TRUE
+)
+summary(lasso_iv)
+
+# Variant: select only among instruments
+lasso_z <- rlassoIVselectZ(
+    x = x_ctrl, d = d, y = y, z = Z_mat
+)
+summary(lasso_z)
+
+# Variant: select only among controls
+lasso_x <- rlassoIVselectX(
+    x = x_ctrl, d = d, y = y, z = Z_mat[, 1:5]
+)
+summary(lasso_x)
+
+# Compare with naive 2SLS using all instruments
+cat("\nLASSO IV estimate:", coef(lasso_iv)["d"],
+    "\nTrue parameter: 1.0\n")
+```
+
+When the number of candidate instruments is large, LASSO selection dramatically reduces finite-sample bias while maintaining valid post-selection inference.
+
+
+# Jackknife Instrumental Variables (JIVE)
+
+## Leave-One-Out First Stage
+
+The Jackknife IV Estimator (JIVE) addresses finite-sample bias in 2SLS by using **leave-one-out** predictions from the first stage. For each observation $i$, the first-stage fitted value $\hat{D}_{-i}$ is computed from a regression that excludes observation $i$:
+
+$$\hat{D}_{-i} = Z_i' \hat{\pi}_{-i}$$
+
+This breaks the mechanical correlation between the first-stage fitted values and the second-stage errors that drives 2SLS bias, particularly when instruments are numerous or weak. JIVE1 uses $\hat{D}_{-i}$ directly; JIVE2 uses a bias-corrected version that further improves performance.
+
+Angrist, Imbens, and Krueger (1999) showed that JIVE is approximately unbiased for the coefficient on the endogenous variable when the number of instruments is large.
+
+## Implementation with `SteinIV`
+
+```{r jive, eval = requireNamespace("SteinIV", quietly = TRUE)}
+library(SteinIV)
+
+# Simulate data with multiple instruments
+set.seed(42)
+n <- 300
+K <- 20  # number of instruments
+
+Z_mat <- matrix(rnorm(n * K), n, K)
+pi_coefs <- runif(K, 0.05, 0.15)
+u <- rnorm(n)
+
+d <- Z_mat %*% pi_coefs + 0.6 * u + rnorm(n, sd = 0.5)
+y <- 2.0 * d + u + rnorm(n, sd = 0.5)  # true beta = 2.0
+
+# JIVE estimation
+jive_result <- jive.est(
+    y = y, X = d, Z = Z_mat
+)
+
+cat("JIVE1 estimate:", jive_result$est["JIVE1"],
+    "\nJIVE2 estimate:", jive_result$est["JIVE2"],
+    "\n2SLS estimate:", jive_result$est["TSLS"],
+    "\nOLS estimate:", jive_result$est["OLS"],
+    "\nTrue parameter: 2.0\n")
+```
+
+JIVE typically produces estimates closer to the true parameter than 2SLS when instruments are numerous, at the cost of slightly larger standard errors.
+
+
+# Marginal Treatment Effects (MTE)
+
+## The MTE Framework
+
+The **Marginal Treatment Effect** (Heckman and Vytlacil 2005) generalizes the LATE framework by defining a treatment effect for each value of the unobserved resistance to treatment $U_D$:
+
+$$\text{MTE}(x, u_D) = E[Y_1 - Y_0 \mid X = x, U_D = u_D]$$
+
+where $U_D$ is the quantile of the first-stage unobservable such that $D = \mathbf{1}[p(Z) \geq U_D]$ with $p(Z) = P(D = 1 \mid Z)$ being the propensity score. The MTE evaluated at $u_D$ gives the treatment effect for individuals who are indifferent between treatment and control when the propensity score equals $u_D$.
+
+All conventional treatment effect parameters can be recovered as weighted averages of the MTE:
+
+-   **ATE**: $\int_0^1 \text{MTE}(u) du$
+-   **ATT**: $\int_0^1 \text{MTE}(u) \cdot h_{\text{ATT}}(u) du$
+-   **LATE**: $\int_0^1 \text{MTE}(u) \cdot h_{\text{LATE}}(u) du$
+
+This makes the MTE a fundamental building block for extrapolation beyond LATE.
+
+## Implementation with `ivmte`
+
+```{r mte, eval = requireNamespace("ivmte", quietly = TRUE)}
+library(ivmte)
+
+# Simulate data for MTE estimation
+set.seed(42)
+n <- 2000
+z <- sample(1:5, n, replace = TRUE)  # discrete instrument
+x <- rnorm(n)
+u_d <- runif(n)  # unobserved resistance
+
+# Propensity score depends on Z
+pscore <- plogis(-1 + 0.5 * z)
+d <- as.integer(pscore >= u_d)
+
+# Heterogeneous treatment effects: MTE varies with u_d
+y0 <- 1 + 0.5 * x + rnorm(n, sd = 0.5)
+y1 <- y0 + 2 - 1.5 * u_d + 0.3 * x  # MTE decreasing in u_d
+y <- d * y1 + (1 - d) * y0
+
+df_mte <- data.frame(y = y, d = d, z = z, x = x)
+
+# Parametric MTE specification
+# m0 and m1 are the potential outcome equations
+mte_fit <- ivmte(
+    data = df_mte,
+    target = "ate",
+    m0 = ~ x + u,         # control potential outcome
+    m1 = ~ x + u,         # treated potential outcome
+    propensity = d ~ z,    # first stage for propensity score
+    instrument = "z"
+)
+
+mte_fit
+
+# Semiparametric specification with Bernstein polynomials
+mte_fit_semi <- ivmte(
+    data = df_mte,
+    target = "ate",
+    m0 = ~ 0 + u + I(u^2) + x + x:u,
+    m1 = ~ 0 + u + I(u^2) + x + x:u,
+    propensity = d ~ z,
+    instrument = "z",
+    uname = "u"
+)
+
+mte_fit_semi
+```
+
+The MTE framework is particularly valuable when treatment effects vary across individuals and you want to extrapolate beyond the complier subpopulation identified by a specific instrument.
+
+
+# Control Function Approach
+
+## Two-Stage Residual Inclusion
+
+The **control function** approach provides an alternative to standard IV by explicitly modeling the source of endogeneity. The key insight is that endogeneity arises because the treatment $D$ is correlated with the structural error $\varepsilon$. If we can recover the component of $D$ that is correlated with $\varepsilon$---via the first-stage residuals---we can include it as a control to remove the bias.
+
+**Procedure:**
+
+1.  Regress $D$ on $Z$ and $X$ to obtain residuals $\hat{v}_i = D_i - \hat{D}_i$
+2.  Regress $Y$ on $D$, $X$, and $\hat{v}$ to obtain $\hat{\beta}$
+
+In the linear model, this is numerically identical to 2SLS. However, the control function approach has two major advantages:
+
+-   It extends naturally to **nonlinear models** (probit, Poisson, etc.) where standard 2SLS is inconsistent
+-   The t-statistic on $\hat{v}$ provides a direct **test of endogeneity** (equivalent to the Hausman test)
+
+**Important:** Standard errors from the second stage are incorrect because they ignore estimation error in $\hat{v}$. Bootstrap or analytical corrections are required.
+
+## Manual Implementation with `fixest`
+
+```{r control-function, eval = TRUE}
+# Simulate data
+set.seed(42)
+n <- 1000
+z <- rnorm(n)
+u <- rnorm(n)
+x <- rnorm(n)
+d <- 0.5 * z + 0.3 * x + 0.7 * u + rnorm(n, sd = 0.5)
+y <- 1.5 * d + 0.8 * x + u + rnorm(n, sd = 0.5)
+
+df_cf <- data.frame(y = y, d = d, z = z, x = x)
+
+# Step 1: First-stage regression
+first_stage <- feols(d ~ z + x, data = df_cf)
+df_cf$v_hat <- residuals(first_stage)
+
+# Step 2: Second-stage with control function
+cf_stage2 <- feols(y ~ d + x + v_hat, data = df_cf)
+
+# Compare with standard 2SLS
+iv_standard <- feols(y ~ x | d ~ z, data = df_cf)
+
+# Display results
+etable(
+    iv_standard, cf_stage2,
+    headers = c("2SLS", "Control Function"),
+    notes = "Note: CF standard errors require bootstrap correction."
+)
+
+# The t-stat on v_hat tests endogeneity
+cat("\nEndogeneity test (t-stat on v_hat):",
+    coef(cf_stage2)["v_hat"] / se(cf_stage2)["v_hat"], "\n")
+
+# Bootstrap for correct standard errors
+set.seed(42)
+boot_coefs <- replicate(500, {
+    idx <- sample(n, replace = TRUE)
+    df_b <- df_cf[idx, c("y", "d", "z", "x")]
+    fs <- lm(d ~ z + x, data = df_b)
+    df_b$v_hat <- residuals(fs)
+    ss <- lm(y ~ d + x + v_hat, data = df_b)
+    coef(ss)["d"]
+})
+cat("Bootstrap SE for beta_d:", sd(boot_coefs),
+    "\nBootstrap 95% CI: [", quantile(boot_coefs, 0.025),
+    ",", quantile(boot_coefs, 0.975), "]\n")
+```
+
+The control function approach is especially useful in nonlinear settings (e.g., probit or Poisson models) where plugging in first-stage fitted values (as in standard 2SLS) produces inconsistent estimates.
+
+
+# Internal Instruments: Heteroskedasticity-Based and Copula Methods
+
+## When No External Instrument Is Available
+
+In many empirical settings, a valid external instrument simply does not exist. Two classes of methods exploit features of the data itself to achieve identification:
+
+**Lewbel (2012) heteroskedasticity-based instruments** exploit heteroskedasticity in the first-stage errors to construct instruments from the data. The identifying assumption is that the covariance between the first-stage regressors and the product of the first- and second-stage errors is zero, while the first-stage errors are heteroskedastic. The constructed instruments are $(X - \bar{X}) \hat{v}$, where $\hat{v}$ are first-stage residuals.
+
+**Gaussian copula correction** (Park and Gupta 2012) exploits the assumption that the endogenous regressor is non-normally distributed while the errors are normal. Under a Gaussian copula, the correlation between the endogenous variable and the error can be identified from the marginal distribution of the regressor.
+
+Both methods trade the standard exclusion restriction for alternative (untestable) assumptions. They are best used as robustness checks or when supplementing weak external instruments.
+
+## Implementation with `REndo`
+
+```{r internal-instruments, eval = FALSE}
+library(REndo)
+
+# Simulate data with endogeneity but no external instrument
+set.seed(42)
+n <- 1000
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+
+# Create endogeneity: d correlated with error
+u <- rnorm(n)
+# Non-normal endogenous variable (needed for copula)
+d_latent <- 0.5 * x1 + 0.3 * x2 + 0.6 * u + rexp(n, rate = 1)
+d <- d_latent
+
+y <- 1.0 * d + 0.5 * x1 - 0.3 * x2 + u + rnorm(n, sd = 0.5)
+
+df_endo <- data.frame(y = y, d = d, x1 = x1, x2 = x2)
+
+# Gaussian copula correction
+cop_fit <- copulaCorrection(
+    y ~ d + x1 + x2 | continuous(d),
+    data = df_endo
+)
+summary(cop_fit)
+
+# Lewbel (2012) heteroskedasticity-based instruments
+het_fit <- hetErrorsIV(
+    y ~ d + x1 + x2 | IIV(d),
+    data = df_endo
+)
+summary(het_fit)
+```
+
+These methods should be applied with caution: the Gaussian copula requires non-normality of the endogenous regressor, and Lewbel's approach requires heteroskedasticity in the first stage. Diagnostic checks (e.g., testing for heteroskedasticity, assessing distributional assumptions) are essential.
+
+
+# Partial Identification and Bounds
+
+## When the Exclusion Restriction is Imperfect
+
+When the exclusion restriction is only approximately valid---the instrument may have a small direct effect on the outcome---point identification fails. Instead, we can obtain **bounds** on the causal effect that remain valid under weaker assumptions.
+
+**Nevo and Rosen (2012)** derive bounds when the instrument is "imperfect" (correlated with the error, but the direction and rough magnitude of the correlation are known). **Conley, Hansen, and Rossi (2012)** propose a framework where the direct effect of the instrument on the outcome $\gamma$ lies in a known interval $[\gamma_l, \gamma_u]$, yielding bounds on the structural parameter.
+
+For the binary treatment and binary instrument case, **Balke and Pearl (1997)** derived sharp bounds using the potential outcomes framework without assuming monotonicity:
+
+$$\max\{P(Y=1|Z=1) - P(Y=1|Z=0) - P(D=0|Z=1) - P(D=1|Z=0), \; 0\} \;\leq\; \text{LATE} \;\leq\; \ldots$$
+
+## Manual Implementation: Sensitivity to Exclusion Restriction Violations
+
+```{r partial-id-bounds, eval = FALSE}
+# Simulate IV data
+set.seed(42)
+n <- 2000
+z <- rnorm(n)
+u <- rnorm(n)
+d <- 0.5 * z + 0.6 * u + rnorm(n)
+y <- 1.5 * d + u + rnorm(n)  # true beta = 1.5
+
+# Standard 2SLS (assumes gamma = 0)
+iv_fit <- feols(y ~ 1 | d ~ z)
+
+# Sensitivity analysis: what if Z has direct effect gamma on Y?
+# Y = beta*D + gamma*Z + u
+# 2SLS estimates beta + gamma/pi, where pi is first-stage coefficient
+pi_hat <- coef(feols(d ~ z))["z"]
+beta_2sls <- coef(iv_fit)["fit_d"]
+
+# Bounds for different assumptions about gamma
+gamma_grid <- seq(-0.3, 0.3, by = 0.05)
+beta_bounds <- beta_2sls - gamma_grid / pi_hat
+
+bounds_df <- data.frame(
+    gamma = gamma_grid,
+    beta_adjusted = beta_bounds
+)
+
+# Plot sensitivity
+ggplot(bounds_df, aes(x = gamma, y = beta_adjusted)) +
+    geom_line(linewidth = 1) +
+    geom_hline(yintercept = 1.5, linetype = "dashed", color = "red") +
+    geom_vline(xintercept = 0, linetype = "dotted") +
+    geom_ribbon(
+        data = subset(bounds_df, gamma >= -0.1 & gamma <= 0.1),
+        aes(ymin = -Inf, ymax = Inf), alpha = 0.15, fill = "steelblue"
+    ) +
+    labs(
+        title = "Sensitivity of IV Estimate to Exclusion Restriction Violations",
+        x = expression(gamma ~ "(direct effect of Z on Y)"),
+        y = expression(hat(beta) ~ "(adjusted estimate)"),
+        caption = "Dashed red line = true beta. Shaded region: |gamma| < 0.1"
+    ) +
+    causalverse::ama_theme()
+```
+
+Partial identification provides honest inference when the exclusion restriction is doubtful. Reporting bounds alongside point estimates can strengthen the credibility of IV analyses.
+
+
+# Nonparametric IV Estimation
+
+## Beyond Linearity
+
+Standard IV assumes a linear relationship between the treatment and outcome. When this functional form is misspecified, 2SLS estimates a weighted average of marginal effects that may not correspond to any policy-relevant parameter.
+
+**Nonparametric IV** (NPIV) estimation relaxes the linearity assumption entirely, estimating the structural function $g(\cdot)$ in:
+
+$$Y = g(D) + \varepsilon, \quad E[\varepsilon \mid Z] = 0$$
+
+This is an **ill-posed inverse problem**: the conditional expectation restriction does not uniquely pin down $g$ without regularization. Various approaches exist, including sieve estimation (Newey and Powell 2003), Tikhonov regularization, and kernel-based methods.
+
+## Implementation with `npiv`
+
+```{r npiv-estimation, eval = requireNamespace("npiv", quietly = TRUE)}
+library(npiv)
+
+# Simulate data with nonlinear structural function
+set.seed(42)
+n <- 1000
+z <- rnorm(n)
+u <- rnorm(n)
+d <- 0.6 * z + 0.5 * u + rnorm(n, sd = 0.5)
+
+# True structural function: g(d) = sin(d) + 0.5*d
+y <- sin(d) + 0.5 * d + u + rnorm(n, sd = 0.3)
+
+# NPIV estimation using series/sieve approach
+npiv_fit <- npiv(y = y, d = d, z = z)
+
+# Plot estimated vs true structural function
+plot(npiv_fit,
+     main = "Nonparametric IV: Estimated vs True Structural Function")
+```
+
+NPIV is most useful for exploratory analysis to check whether the linear specification is adequate, or when theory suggests a nonlinear structural relationship.
+
+
+# Randomization Inference for IV
+
+## Finite-Sample Valid P-Values
+
+Standard IV inference relies on asymptotic approximations that may perform poorly in small samples or with weak instruments. **Randomization inference** (also called permutation inference) provides exact, finite-sample valid p-values by exploiting the known or assumed assignment mechanism of the instrument.
+
+The key idea: under the sharp null hypothesis $H_0: \beta = \beta_0$ for all units, we can compute the implied residual $\tilde{Y}_i = Y_i - \beta_0 D_i$ for each observation. If the instrument is randomly assigned, permuting $Z$ should not systematically affect the relationship between $Z$ and $\tilde{Y}$. The randomization distribution of the Wald statistic under $H_0$ provides exact p-values.
+
+## Manual Implementation
+
+```{r randomization-inference-iv, eval = TRUE}
+# Simulate IV data
+set.seed(42)
+n <- 200
+z <- rbinom(n, 1, 0.5)  # randomly assigned binary instrument
+u <- rnorm(n)
+d <- 0.4 * z + 0.5 * u + rnorm(n, sd = 0.5)
+y <- 1.0 * d + u + rnorm(n, sd = 0.5)  # true beta = 1.0
+
+# Observed Wald statistic
+wald_obs <- (mean(y[z == 1]) - mean(y[z == 0])) /
+    (mean(d[z == 1]) - mean(d[z == 0]))
+
+# Permutation distribution under H0: beta = 0
+set.seed(42)
+n_perm <- 2000
+wald_perm <- numeric(n_perm)
+
+for (b in seq_len(n_perm)) {
+    z_perm <- sample(z)  # permute instrument assignment
+    wald_perm[b] <- (mean(y[z_perm == 1]) - mean(y[z_perm == 0])) /
+        (mean(d[z_perm == 1]) - mean(d[z_perm == 0]))
+}
+
+# Two-sided p-value
+p_value_ri <- mean(abs(wald_perm) >= abs(wald_obs))
+
+# Visualize
+perm_df <- data.frame(wald = wald_perm)
+ggplot(perm_df, aes(x = wald)) +
+    geom_histogram(bins = 50, fill = "grey70", color = "white") +
+    geom_vline(xintercept = wald_obs, color = "red", linewidth = 1) +
+    geom_vline(xintercept = -wald_obs, color = "red",
+               linewidth = 1, linetype = "dashed") +
+    labs(
+        title = "Randomization Inference for IV",
+        subtitle = paste0("Observed Wald = ", round(wald_obs, 3),
+                          ", RI p-value = ", round(p_value_ri, 3)),
+        x = "Wald statistic (permutation distribution)",
+        y = "Count"
+    ) +
+    causalverse::ama_theme()
+```
+
+Randomization inference is especially valuable when the instrument is experimentally assigned (e.g., lottery-based instruments) and the sample is small.
+
+
+# Regression Kink Design
+
+## Exploiting Kinks in Policy Rules
+
+The **Regression Kink Design** (RKD; Card, Lee, Pei, and Weber 2015) is an IV strategy that exploits a **kink** (change in slope) in the relationship between a running variable and the treatment at a known threshold, rather than a discontinuous jump as in the standard RDD.
+
+If a policy rule creates a kink in the treatment at threshold $c$:
+
+$$D = \begin{cases} f_0(X) & \text{if } X < c \\ f_1(X) & \text{if } X \geq c \end{cases}$$
+
+where $f_0$ and $f_1$ join continuously at $c$ but have different slopes, then the ratio of the change in the slope of $E[Y \mid X]$ to the change in the slope of $E[D \mid X]$ at $c$ identifies a causal effect:
+
+$$\tau_{\text{RKD}} = \frac{\lim_{x \downarrow c} \frac{dE[Y|X=x]}{dx} - \lim_{x \uparrow c} \frac{dE[Y|X=x]}{dx}}{\lim_{x \downarrow c} \frac{dE[D|X=x]}{dx} - \lim_{x \uparrow c} \frac{dE[D|X=x]}{dx}}$$
+
+This is estimated using local polynomial regression with `deriv = 1` in the `rdrobust` package.
+
+## Implementation with `rdrobust`
+
+```{r regression-kink, eval = requireNamespace("rdrobust", quietly = TRUE)}
+library(rdrobust)
+
+# Simulate data with a kink in the treatment at x = 0
+set.seed(42)
+n <- 2000
+x <- runif(n, -2, 2)  # running variable
+u <- rnorm(n)
+
+# Treatment has different slopes on each side of the kink
+d <- ifelse(x < 0, 0.5 * x, 0.5 * x + 0.8 * x) + 0.3 * u + rnorm(n, sd = 0.3)
+
+# Outcome depends on treatment
+y <- 1.5 * d + 0.5 * x + u + rnorm(n, sd = 0.5)
+
+# RKD estimation: use deriv = 1 for kink (slope change)
+rkd_fit <- rdrobust(y = y, x = x, c = 0, deriv = 1)
+summary(rkd_fit)
+
+# First stage kink
+rkd_first <- rdrobust(y = d, x = x, c = 0, deriv = 1)
+summary(rkd_first)
+
+# Fuzzy RKD: ratio of outcome kink to treatment kink
+cat("\nFuzzy RKD estimate (ratio):",
+    rkd_fit$coef["Conventional"] / rkd_first$coef["Conventional"], "\n")
+```
+
+The RKD is identified under weaker conditions than the standard RDD (no discontinuity needed), but it requires smoothness of potential outcomes at a higher order and is more sensitive to bandwidth choice.
+
+
+# Mendelian Randomization
+
+## Genetic Variants as Instruments
+
+**Mendelian randomization** (MR) applies the IV framework to epidemiology, using genetic variants (SNPs) as instruments for modifiable risk factors (e.g., BMI, cholesterol) to estimate their causal effects on health outcomes. The random assortment of alleles during meiosis provides a natural randomization that satisfies instrument relevance, and the exclusion restriction holds if the SNP affects the outcome only through the risk factor (no horizontal pleiotropy).
+
+The standard MR assumptions mirror IV:
+
+1.  **Relevance**: The SNP is associated with the risk factor
+2.  **Independence**: The SNP is independent of confounders (satisfied by random genetic inheritance)
+3.  **Exclusion**: The SNP affects the outcome only through the risk factor
+
+When multiple SNPs are available, MR-Egger regression provides a test for and correction of horizontal pleiotropy.
+
+```{r mendelian-randomization, eval = requireNamespace("MendelianRandomization", quietly = TRUE)}
+library(MendelianRandomization)
+
+# Simulated summary-level MR data (as typically available from GWAS)
+set.seed(42)
+n_snps <- 20
+
+# True causal effect of risk factor on outcome: beta = 0.5
+beta_true <- 0.5
+bx <- rnorm(n_snps, mean = 0.3, sd = 0.1)  # SNP-exposure associations
+by <- beta_true * bx + rnorm(n_snps, sd = 0.05)  # SNP-outcome associations
+sx <- rep(0.05, n_snps)  # SE of SNP-exposure
+sy <- rep(0.05, n_snps)  # SE of SNP-outcome
+
+# Create MR input object
+mr_input <- mr_input(
+    bx = bx, bxse = sx,
+    by = by, byse = sy
+)
+
+# IVW (inverse-variance weighted) estimate
+mr_ivw <- mr_ivw(mr_input)
+mr_ivw
+
+# MR-Egger (allows for pleiotropy)
+mr_egger <- mr_egger(mr_input)
+mr_egger
+
+# Weighted median (robust to up to 50% invalid instruments)
+mr_median <- mr_median(mr_input)
+mr_median
+```
+
+Mendelian randomization is an active area connecting genetics and causal inference. The `MendelianRandomization` package provides a comprehensive toolkit for summary-level MR analysis.
+
+
+# Practical Guidelines
+
+This section provides a checklist for conducting and reporting IV analyses in applied research.
+
+## Before Estimation
+
+1.  **Justify the instrument theoretically.** Explain the institutional or natural variation that generates the instrument. The exclusion restriction cannot be tested---it must be argued.
+
+2.  **State the target parameter.** Are you estimating a LATE? If so, who are the compliers? Is the LATE policy-relevant?
+
+3.  **Discuss monotonicity.** Is it plausible that the instrument shifts everyone in the same direction? Are there subgroups for whom the instrument might work in opposite directions?
+
+4.  **Consider the exclusion restriction carefully.** List all possible channels through which the instrument might affect the outcome. Discuss why these alternative channels are unlikely or have been controlled for.
+
+## During Estimation
+
+5.  **Report the first-stage regression.** Show the coefficient, standard error, and F-statistic of the excluded instruments. Plot the first stage.
+
+6.  **Check for weak instruments.** The first-stage F-statistic should exceed the Stock-Yogo critical values for the desired bias or size threshold. Consider the Lee et al. (2022) tF procedure for robust inference.
+
+7.  **Report both OLS and IV.** The comparison is informative: if OLS and IV are similar, either the endogeneity problem is small or the instrument is weak.
+
+8.  **Test for endogeneity.** The Wu-Hausman test helps determine whether IV is actually needed. If it fails to reject, OLS may be preferred (more efficient).
+
+9.  **Test over-identifying restrictions.** If you have more instruments than endogenous variables, report the Sargan/Hansen J test. But remember: failure to reject does not prove instruments are valid.
+
+10. **Cluster standard errors appropriately.** Cluster at the level of variation of the instrument or treatment assignment. When in doubt, use larger clusters.
+
+## Robustness Checks
+
+11. **Vary the set of controls.** The IV estimate should be stable when adding or removing exogenous covariates (they affect precision, not consistency).
+
+12. **Try different instrument sets.** If multiple instruments are available, report results using each separately and all together.
+
+13. **Conduct placebo tests.** Test whether the instrument predicts pre-treatment outcomes or outcomes that it should not affect under the exclusion restriction.
+
+14. **Perform sensitivity analysis.** Use frameworks like `sensemakr` to quantify how strong violations of the exclusion restriction would need to be to overturn the results.
+
+15. **Check for many-instruments bias.** If the number of instruments is large relative to the sample size, consider LIML or JIVE estimators as alternatives to 2SLS.
+
+## Reporting
+
+16. **Present a clear IV "story."** Readers should understand the source of exogenous variation, who the compliers are, and why the exclusion restriction is plausible.
+
+17. **Include all diagnostic tests.** First-stage F, Wu-Hausman, Sargan (if applicable), and any weak instrument-robust inference.
+
+18. **Report reduced-form estimates.** The reduced form ($Y$ on $Z$) provides a model-free intent-to-treat effect that does not rely on the first-stage specification.
+
+19. **Discuss external validity.** The LATE applies to compliers. Discuss whether the complier subpopulation is representative and whether the results can be generalized.
+
+20. **Be transparent about limitations.** No instrument is perfect. Acknowledge the strongest threats to validity and discuss how they might affect the conclusions.
+
+
+# 22. Comprehensive Visualization Suite for IV
+
+## 22.1 First-Stage Visualization
+
+The first-stage F-statistic and partial R-squared are not sufficient on their own. Visualize the first stage to communicate instrument strength clearly.
+
+```{r iv-fs-viz, message=FALSE, fig.width=8, fig.height=5}
+set.seed(2024)
+n_iv  <- 1000
+
+# Simulate: Card (1995)-style education-wage IV
+proximity <- rbinom(n_iv, 1, 0.5)          # Instrument: near college
+ability   <- rnorm(n_iv)                   # Unobserved confounder
+educ      <- 12 + 2 * proximity + ability + rnorm(n_iv, 0, 1.5)
+log_wage  <- 0.08 * educ + 0.3 * ability + rnorm(n_iv, 0, 0.5)
+
+df_iv <- data.frame(log_wage, educ, proximity, ability)
+
+# First stage: education ~ proximity
+fs_mod <- lm(educ ~ proximity, data = df_iv)
+
+# Binned scatter: education by proximity
+agg_fs <- aggregate(educ ~ proximity, df_iv, mean)
+cat("=== First Stage ===\n")
+cat("Mean educ (near college):  ", round(agg_fs$educ[agg_fs$proximity == 1], 3), "\n")
+cat("Mean educ (far):           ", round(agg_fs$educ[agg_fs$proximity == 0], 3), "\n")
+cat("First stage coef:          ", round(coef(fs_mod)["proximity"], 3), "\n")
+cat("First stage F-stat:        ",
+    round(summary(fs_mod)$fstatistic[1], 2), "\n")
+
+# Visualization
+ggplot2::ggplot(df_iv, ggplot2::aes(x = factor(proximity), y = educ,
+                                     fill = factor(proximity))) +
+    ggplot2::geom_violin(alpha = 0.7, draw_quantiles = c(0.25, 0.5, 0.75)) +
+    ggplot2::geom_jitter(width = 0.05, alpha = 0.1, size = 0.8) +
+    ggplot2::scale_fill_manual(
+        values = c("0" = "#4393C3", "1" = "#D73027"),
+        labels = c("0" = "Far from College", "1" = "Near College"),
+        name   = "Instrument"
+    ) +
+    ggplot2::labs(
+        title    = "First Stage: Instrument Strength",
+        subtitle = sprintf("College proximity raises education by %.2f years (F = %.1f)",
+                           coef(fs_mod)["proximity"],
+                           summary(fs_mod)$fstatistic[1]),
+        x        = "College Proximity (Instrument)",
+        y        = "Years of Education"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 22.2 IV vs OLS Comparison Plot
+
+A fundamental result is the upward OLS bias when ability is confounded with education. Compare OLS, reduced form, first stage, and IV estimates:
+
+```{r iv-comparison-viz, message=FALSE, fig.width=8, fig.height=5}
+ols_est  <- coef(lm(log_wage ~ educ, data = df_iv))["educ"]
+iv_2sls  <- if (requireNamespace("ivreg", quietly = TRUE)) {
+    coef(ivreg::ivreg(log_wage ~ educ | proximity, data = df_iv))["educ"]
+} else {
+    # Manual 2SLS
+    d_hat <- predict(lm(educ ~ proximity, data = df_iv))
+    coef(lm(log_wage ~ d_hat, data = df_iv))["d_hat"]
+}
+true_ret <- 0.08
+
+est_df <- data.frame(
+    estimator = c("True Return", "OLS (biased)", "IV (2SLS)"),
+    estimate  = c(true_ret, ols_est, iv_2sls),
+    type      = c("True", "Biased", "Consistent")
+)
+
+ggplot2::ggplot(est_df, ggplot2::aes(x = estimator, y = estimate,
+                                      color = type)) +
+    ggplot2::geom_hline(yintercept = true_ret, linetype = "dashed",
+                        color = "green4", alpha = 0.7) +
+    ggplot2::geom_point(size = 5) +
+    ggplot2::scale_color_manual(
+        values = c("True" = "green4", "Biased" = "#D73027",
+                   "Consistent" = "#2166AC"),
+        name   = "Estimator Type"
+    ) +
+    ggplot2::labs(
+        title    = "OLS vs. IV: Correcting for Ability Bias",
+        subtitle = sprintf("True return = %.2f | OLS = %.4f | IV = %.4f",
+                           true_ret, ols_est, iv_2sls),
+        x        = NULL,
+        y        = "Returns to Education Estimate"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 22.3 Weak Instrument Diagnostics Plot
+
+When instruments are weak, 2SLS is biased toward OLS. This plot shows how 2SLS coverage deteriorates with F-statistics:
+
+```{r iv-weak-diag, message=FALSE, fig.width=7, fig.height=5}
+# Simulate 2SLS performance across different first-stage strengths
+set.seed(42)
+n_sim  <- 500
+f_vals <- c(2, 5, 10, 20, 50, 100)
+results_weak <- lapply(f_vals, function(f_target) {
+    # Adjust instrument strength to hit target F
+    pi_val <- sqrt(f_target / n_sim) * 1.5  # approx
+    ests <- replicate(n_sim, {
+        Z_s  <- rnorm(100)
+        D_s  <- pi_val * Z_s + rnorm(100, 0, 1)
+        U_s  <- rnorm(100)
+        Y_s  <- 0.5 * D_s + U_s
+        d_h  <- predict(lm(D_s ~ Z_s))
+        coef(lm(Y_s ~ d_h))["d_h"]
+    })
+    data.frame(
+        f_target = f_target,
+        mean_est = mean(ests),
+        sd_est   = sd(ests),
+        coverage = mean(abs((ests - 0.5) / sd(ests)) < 1.96)
+    )
+})
+weak_df <- do.call(rbind, results_weak)
+
+ggplot2::ggplot(weak_df, ggplot2::aes(x = f_target, y = coverage)) +
+    ggplot2::geom_line(color = "#2166AC", linewidth = 1.2) +
+    ggplot2::geom_point(size = 4, color = "#2166AC") +
+    ggplot2::geom_hline(yintercept = 0.95, linetype = "dashed", color = "red") +
+    ggplot2::scale_x_log10() +
+    ggplot2::labs(
+        title    = "2SLS Coverage by First-Stage F-Statistic",
+        subtitle = "Coverage below 0.95 (red) indicates size distortion from weak instruments",
+        x        = "First-Stage F-Statistic (log scale)",
+        y        = "Empirical Coverage of 95% CI"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 22.4 IV Sensitivity Analysis: Exclusion Restriction
+
+Use `causalverse::iv_sensitivity()` to assess robustness to partial violations:
+
+```{r iv-sensitivity-plot, message=FALSE, fig.width=7, fig.height=5}
+sens_result <- causalverse::iv_sensitivity(
+    data       = df_iv,
+    outcome    = "log_wage",
+    treatment  = "educ",
+    instrument = "proximity"
+)
+sens_result$plot + causalverse::ama_theme()
+```
+
+```{r iv-breakdown, message=FALSE}
+cat("=== IV Exclusion Restriction Sensitivity ===\n")
+cat("Original IV estimate:  ", round(sens_result$iv_estimate, 4), "\n")
+cat("Breakdown delta:       ", round(sens_result$breakdown_delta, 4), "\n")
+cat("Interpretation: The IV estimate is nullified only if the direct\n")
+cat("effect of the instrument on the outcome exceeds delta =",
+    round(sens_result$breakdown_delta, 4), "\n")
+```
+
+## 22.5 Anderson-Rubin Weak-IV Robust Confidence Intervals
+
+Standard 2SLS CI may be invalid under weak instruments. Anderson-Rubin (AR) CIs are valid regardless of instrument strength:
+
+```{r iv-ar-ci, message=FALSE}
+# Manual Anderson-Rubin CI via grid search
+ar_ci <- function(Y, D, Z, conf_level = 0.95) {
+    n      <- length(Y)
+    alphas <- seq(-2, 4, by = 0.001)
+    crit   <- qchisq(conf_level, df = 1)
+
+    ar_stats <- vapply(alphas, function(a) {
+        resid_a  <- Y - a * D
+        mod_ar   <- lm(resid_a ~ Z)
+        rss_r    <- sum(resid(lm(resid_a ~ 1))^2)
+        rss_u    <- sum(resid(mod_ar)^2)
+        f_ar     <- (rss_r - rss_u) / (rss_u / (n - 2))
+        f_ar
+    }, numeric(1))
+
+    # Find values where AR stat < chi2 crit
+    in_ci <- alphas[ar_stats < qf(conf_level, 1, n - 2)]
+    c(min(in_ci), max(in_ci))
+}
+
+ar_bounds <- ar_ci(log_wage, educ, proximity)
+cat("Anderson-Rubin 95% CI: [", round(ar_bounds[1], 4),
+    ",", round(ar_bounds[2], 4), "]\n")
+cat("2SLS 95% CI:           [", round(iv_2sls - 1.96 * 0.05, 4),
+    ",", round(iv_2sls + 1.96 * 0.05, 4), "]\n")
+```
+
+## 22.6 Shift-Share (Bartik) Instrument Diagnostics
+
+Bartik instruments are widely used but require specific validity checks. The Adao-Kolesar-Morales (2019) test checks for correlation between shares and industry-level shocks.
+
+```{r bartik-diagnostics, message=FALSE}
+# Simulate Bartik structure
+set.seed(99)
+n_regions <- 100
+n_sectors <- 20
+
+# Employment shares (sum to 1 across sectors per region)
+shares <- matrix(abs(rnorm(n_regions * n_sectors, 0.05, 0.03)),
+                 n_regions, n_sectors)
+shares <- shares / rowSums(shares)
+
+# National employment growth shocks by sector
+shocks <- rnorm(n_sectors, mean = 0.02, sd = 0.05)
+
+# Bartik instrument: Z_i = sum_k (s_ik * g_k)
+bartik_z <- as.vector(shares %*% shocks)
+
+# Outcome (simulated)
+treatment_b <- 0.8 * bartik_z + rnorm(n_regions, 0, 0.1)
+outcome_b   <- 0.5 * treatment_b + rnorm(n_regions, 0, 0.3)
+
+# Diagnostics
+cat("=== Bartik Instrument Diagnostics ===\n\n")
+cat("Mean Bartik Z:           ", round(mean(bartik_z), 4), "\n")
+cat("SD Bartik Z:             ", round(sd(bartik_z), 4), "\n")
+cat("Correlation(Z, D):       ",
+    round(cor(bartik_z, treatment_b), 4), "\n")
+
+# First-stage F
+fs_bartik <- summary(lm(treatment_b ~ bartik_z))$fstatistic[1]
+cat("First-stage F:           ", round(fs_bartik, 2), "\n")
+
+# Concentration index (Borusyak-Hull-Jaravel measure of effective # instruments)
+conc_index <- sum((colMeans(shares))^2)^(-1)
+cat("Effective # instruments  (Herfindahl): ", round(conc_index, 1), "\n")
+cat("Note: Low concentration index suggests many effective instruments.\n")
+```
+
+## 22.7 LATE Heterogeneity: Who are the Compliers?
+
+Understanding the LATE requires characterizing compliers — the subpopulation for whom the instrument changes treatment status. Imbens-Rubin (1997) complier characteristics:
+
+```{r complier-chars, message=FALSE}
+# Complier characteristics analysis
+D_1   <- ifelse(proximity == 1, rbinom(n_iv, 1, 0.85),
+                                rbinom(n_iv, 1, 0.05))  # Simulate potential treatments
+D_0   <- ifelse(proximity == 0, rbinom(n_iv, 1, 0.05),
+                                rbinom(n_iv, 1, 0.85))
+
+# Compliers: D(1) = 1 and D(0) = 0 (cannot observe directly)
+# Imbens-Rubin estimator of complier covariate means
+# E[X | complier] ≈ (E[X * D | Z=1] - E[X * D | Z=0]) / P(complier)
+
+p_comply <- mean(D_1 - D_0)  # In simulation we can compute directly
+
+# Covariate means for compliers (using simulation truth)
+compliers <- D_1 == 1 & D_0 == 0
+cat("=== Complier Characteristics ===\n\n")
+cat("Share compliers:         ", round(mean(compliers), 4), "\n")
+cat("Share always-takers:     ", round(mean(D_1 == 1 & D_0 == 1), 4), "\n")
+cat("Share never-takers:      ", round(mean(D_1 == 0 & D_0 == 0), 4), "\n\n")
+
+# Compare complier vs full-sample ability (should be similar for valid IV)
+cat("Ability (full sample):   ", round(mean(ability), 4), "\n")
+cat("Ability (compliers):     ", round(mean(ability[compliers]), 4), "\n")
+cat("Interpretation: If compliers differ from full sample on observables,\n")
+cat("the LATE may not generalize well to the full population.\n")
+```
+
+## 22.8 Complete IV Publication Pipeline
+
+```{r iv-full-pipeline, message=FALSE}
+cat("=====================================================\n")
+cat("COMPLETE IV ANALYSIS PIPELINE\n")
+cat("=====================================================\n\n")
+
+cat("--- Data Summary ---\n")
+cat("N observations:         ", n_iv, "\n")
+cat("Treatment:              Education (years)\n")
+cat("Instrument:             College proximity (binary)\n\n")
+
+cat("--- Step 1: OLS (baseline, biased) ---\n")
+ols_mod <- lm(log_wage ~ educ, data = df_iv)
+cat("OLS coef on educ:       ", round(coef(ols_mod)["educ"], 4), "\n\n")
+
+cat("--- Step 2: First Stage ---\n")
+fs_full <- lm(educ ~ proximity, data = df_iv)
+fs_summ <- summary(fs_full)
+cat("First-stage coef:       ", round(coef(fs_full)["proximity"], 4), "\n")
+cat("First-stage F:          ", round(fs_summ$fstatistic[1], 2),
+    " (>10: strong; >100: very strong)\n")
+cat("Partial R-squared:      ",
+    round(1 - fs_summ$r.squared / summary(lm(educ ~ 1, df_iv))$r.squared
+          + fs_summ$r.squared, 4), "\n\n")
+
+cat("--- Step 3: Reduced Form ---\n")
+rf_mod <- lm(log_wage ~ proximity, data = df_iv)
+cat("Reduced form (Z->Y):    ", round(coef(rf_mod)["proximity"], 4), "\n\n")
+
+cat("--- Step 4: 2SLS Estimate ---\n")
+cat("Wald = RF / FS:         ",
+    round(coef(rf_mod)["proximity"] / coef(fs_full)["proximity"], 4), "\n")
+if (requireNamespace("ivreg", quietly = TRUE)) {
+    iv_full <- ivreg::ivreg(log_wage ~ educ | proximity, data = df_iv)
+    cat("2SLS (ivreg):           ", round(coef(iv_full)["educ"], 4), "\n\n")
+}
+
+cat("--- Step 5: Robustness ---\n")
+cat("AR confidence interval: [", round(ar_bounds[1], 4), ",",
+                                 round(ar_bounds[2], 4), "]\n")
+cat("IV sensitivity delta:   ", round(sens_result$breakdown_delta, 4), "\n\n")
+
+cat("=== PIPELINE COMPLETE ===\n")
+```
+
+---
+
+# References
+
+-   Adao, R., Kolesar, M., and Morales, E. (2019). "Shift-Share Designs: Theory and Inference." *Quarterly Journal of Economics*, 134(4), 1949-2010.
+
+-   Anderson, T. W. and Rubin, H. (1949). "Estimation of the Parameters of a Single Equation in a Complete System of Stochastic Equations." *Annals of Mathematical Statistics*, 20(1), 46-63.
+
+-   Angrist, J. D. and Pischke, J.-S. (2009). *Mostly Harmless Econometrics: An Empiricist's Companion.* Princeton University Press.
+
+-   Bartik, T. J. (1991). *Who Benefits from State and Local Economic Development Policies?* W.E. Upjohn Institute.
+
+-   Berge, L. (2018). "Efficient Estimation of Maximum Likelihood Models with Multiple Fixed-Effects: the R Package FENmlm." CREA Discussion Paper.
+
+-   Blandhol, C., Bonney, J., Mogstad, M., and Torgovitsky, A. (2022). "When is TSLS Actually LATE?" *Review of Economic Studies*, forthcoming.
+
+-   Borusyak, K., Hull, P., and Jaravel, X. (2022). "Quasi-Experimental Shift-Share Research Designs." *Review of Economic Studies*, 89(1), 181-213.
+
+-   Cinelli, C. and Hazlett, C. (2020). "Making Sense of Sensitivity: Extending Omitted Variable Bias." *Journal of the Royal Statistical Society: Series B*, 82(1), 39-67.
+
+-   Dobbie, W., Goldin, J., and Yang, C. S. (2018). "The Effects of Pretrial Detention on Conviction, Future Crime, and Employment." *American Economic Review*, 108(2), 201-240.
+
+-   Fox, J., Kleiber, C., and Zeileis, A. (2023). "ivreg: Instrumental-Variables Regression by 2SLS, 2SM, or 2SMM, with Diagnostics." R package.
+
+-   Frandsen, B. R., Lefgren, L. J., and Leslie, E. C. (2023). "Judging Judge Fixed Effects." *American Economic Review*, 113(1), 253-277.
+
+-   Goldsmith-Pinkham, P., Sorkin, I., and Swift, H. (2020). "Bartik Instruments: What, When, Why, and How." *American Economic Review*, 110(8), 2586-2624.
+
+-   Hansen, L. P. (1982). "Large Sample Properties of Generalized Method of Moments Estimators." *Econometrica*, 50(4), 1029-1054.
+
+-   Imbens, G. W. and Angrist, J. D. (1994). "Identification and Estimation of Local Average Treatment Effects." *Econometrica*, 62(2), 467-475.
+
+-   Lee, D. S., McCrary, J., Moreira, M. J., and Porter, J. (2022). "Valid t-Ratio Inference for IV." *American Economic Review*, 112(10), 3260-3290.
+
+-   Mueller-Smith, M. (2015). "The Criminal and Labor Market Impacts of Incarceration." Working Paper.
+
+-   Sargan, J. D. (1958). "The Estimation of Economic Relationships Using Instrumental Variables." *Econometrica*, 26(3), 393-415.
+
+-   Staiger, D. and Stock, J. H. (1997). "Instrumental Variables Regression with Weak Instruments." *Econometrica*, 65(3), 557-586.
+
+-   Stock, J. H. and Yogo, M. (2005). "Testing for Weak Instruments in Linear IV Regression." In *Identification and Inference for Econometric Models: Essays in Honor of Thomas Rothenberg*, Cambridge University Press.
+
+-   Stock, J. H. and Watson, M. W. (2019). *Introduction to Econometrics.* 4th Edition. Pearson.
+
+-   Angrist, J. D., Imbens, G. W., and Krueger, A. B. (1999). "Jackknife Instrumental Variables Estimation." *Journal of Applied Econometrics*, 14(1), 57-67.
+
+-   Balke, A. and Pearl, J. (1997). "Bounds on Treatment Effects from Studies with Imperfect Compliance." *Journal of the American Statistical Association*, 92(439), 1171-1176.
+
+-   Belloni, A., Chen, D., Chernozhukov, V., and Hansen, C. (2012). "Sparse Models and Methods for Optimal Instruments with an Application to Eminent Domain." *Econometrica*, 80(6), 2369-2429.
+
+-   Card, D., Lee, D. S., Pei, Z., and Weber, A. (2015). "Inference on Causal Effects in a Generalized Regression Kink Design." *Econometrica*, 83(6), 2453-2483.
+
+-   Conley, T. G., Hansen, C. B., and Rossi, P. E. (2012). "Plausibly Exogenous." *Review of Economics and Statistics*, 94(1), 260-272.
+
+-   Heckman, J. J. and Vytlacil, E. (2005). "Structural Equations, Treatment Effects, and Econometric Policy Evaluation." *Econometrica*, 73(3), 669-738.
+
+-   Lal, A., Lockhart, M., Xu, Y., and Zu, Z. (2023). "How Much Should We Trust Instrumental Variable Estimates in Political Science? Practical Advice Based on 67 Replicated Studies." Working Paper.
+
+-   Lewbel, A. (2012). "Using Heteroscedasticity to Identify and Estimate Mismeasured and Endogenous Regressor Models." *Journal of Business and Economic Statistics*, 30(1), 67-80.
+
+-   Nevo, A. and Rosen, A. M. (2012). "Identification with Imperfect Instruments." *Review of Economics and Statistics*, 94(3), 659-671.
+
+-   Newey, W. K. and Powell, J. L. (2003). "Instrumental Variable Estimation of Nonparametric Models." *Econometrica*, 71(5), 1565-1578.
+
+-   Olea, J. L. M. and Pflueger, C. (2013). "A Robust Test for Weak Instruments." *Journal of Business and Economic Statistics*, 31(3), 358-369.
+
+-   Park, S. and Gupta, S. (2012). "Handling Endogenous Regressors by Joint Estimation Using Copulas." *Marketing Science*, 31(4), 567-586.
+
+---
+
+# Mendelian Randomization (Genomic IVs)
+
+Mendelian Randomization (MR) applies the logic of instrumental variables to genetic epidemiology. Genetic variants—single nucleotide polymorphisms (SNPs)—are assigned at conception through Mendelian inheritance, making them effectively randomly allocated across individuals in a population. This random allocation provides a natural instrument for the causal effect of a biological trait (the "exposure") on a health outcome. Since genetic variants are determined before birth, they cannot be caused by adult lifestyle choices or disease status, satisfying the exclusion restriction under the assumption that the variant only affects the outcome through the exposure of interest (no pleiotropy).
+
+## The Three MR Assumptions
+
+For SNP $G_j$ to be a valid instrument for exposure $X$ affecting outcome $Y$:
+
+1. **Relevance:** $G_j$ must be associated with the exposure — $\text{Cov}(G_j, X) \neq 0$.
+2. **Independence:** $G_j$ must be independent of all confounders $U$ — $G_j \perp U$.
+3. **Exclusion restriction:** $G_j$ must affect $Y$ only through $X$ — no direct effect of $G_j$ on $Y$ except via $X$.
+
+The critical threat in MR is **horizontal pleiotropy**: a genetic variant affects multiple traits, some of which are independent pathways to the outcome. When pleiotropy is present, the exclusion restriction fails and MR estimates are biased.
+
+## Summary-Level MR: IVW, Egger, and Weighted Median
+
+Modern MR typically uses summary-level data (GWAS summary statistics) rather than individual-level data. Each SNP provides an instrument-specific Wald ratio estimate:
+
+$$\hat{\beta}^{Wald}_j = \frac{\hat{\gamma}_j}{\hat{\alpha}_j}$$
+
+where $\hat{\alpha}_j$ is the SNP-exposure association (first stage) and $\hat{\gamma}_j$ is the SNP-outcome association (reduced form), both drawn from separate GWAS studies.
+
+The three main summary-level estimators are:
+
+- **Inverse Variance Weighted (IVW):** Weighted average of Wald ratios; consistent under no pleiotropy.
+- **MR-Egger:** Allows for uncorrelated pleiotropy via an intercept term; consistent when pleiotropic effects are mean-zero (InSIDE assumption).
+- **Weighted Median:** Consistent if at least 50% of instruments are valid (no pleiotropy).
+
+```{r mr_setup, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+library(MendelianRandomization)
+
+# Simulate two-sample MR data
+# Gene G -> Exposure X -> Outcome Y, confounded by U
+# Some SNPs are pleiotropic (direct effect on Y)
+set.seed(1)
+n    <- 5000
+k    <- 10        # number of genetic variants (SNPs)
+k_valid <- 8      # 8 valid, 2 pleiotropic
+
+G <- matrix(rbinom(n * k, 2, 0.3), nrow = n, ncol = k)
+
+# Unmeasured confounder
+U <- rnorm(n)
+
+# Exposure: linear combination of SNPs + confounder + noise
+alpha_true <- c(rnorm(k, 0, 0.3))  # SNP-exposure effects
+X <- G %*% alpha_true + U + rnorm(n)
+
+# Outcome: causal effect of X + confounder
+# Add direct pleiotropy for last 2 SNPs
+gamma_pleiotropic <- c(rep(0, k_valid), rnorm(k - k_valid, 0, 0.5))
+Y <- 0.5 * X + U + G %*% gamma_pleiotropic + rnorm(n)
+
+# Summary-level estimates (as if from two separate GWAS)
+bx   <- apply(G, 2, function(g) cov(g, X) / var(g))
+bxse <- apply(G, 2, function(g) sqrt(var(X) / ((n - 2) * var(g))))
+by   <- apply(G, 2, function(g) cov(g, Y) / var(g))
+byse <- apply(G, 2, function(g) sqrt(var(Y) / ((n - 2) * var(g))))
+
+# Wald ratio for each SNP
+wald_ratios <- by / bx
+cat("Instrument-specific Wald ratio estimates:\n")
+print(round(data.frame(SNP = 1:k, bx = bx, by = by, wald_ratio = wald_ratios), 4))
+```
+
+```{r mr_input, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+# Construct MR input object from summary statistics
+mr_input <- MendelianRandomization::mr_input(
+  bx   = bx,
+  bxse = bxse,
+  by   = by,
+  byse = byse
+)
+
+# IVW estimator (standard MR)
+mr_ivw <- MendelianRandomization::mr_ivw(mr_input)
+cat("IVW Estimate:\n")
+print(mr_ivw)
+
+# MR-Egger (tests for pleiotropy via Egger intercept)
+mr_egger <- MendelianRandomization::mr_egger(mr_input)
+cat("\nMR-Egger Estimate:\n")
+print(mr_egger)
+
+# Weighted Median (robust to up to 50% invalid instruments)
+mr_wm <- MendelianRandomization::mr_weighted_median(mr_input)
+cat("\nWeighted Median Estimate:\n")
+print(mr_wm)
+```
+
+```{r mr_comparison_table, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+# Comparison table across estimators
+mr_comparison <- data.frame(
+  Estimator = c("IVW", "MR-Egger", "Weighted Median"),
+  Estimate  = c(
+    mr_ivw@Estimate,
+    mr_egger@Estimate,
+    mr_wm@Estimate
+  ),
+  SE = c(
+    mr_ivw@StdError,
+    mr_egger@StdError.Est,
+    mr_wm@StdError
+  ),
+  Lower_95 = c(
+    mr_ivw@CILower,
+    mr_egger@CILower.Est,
+    mr_wm@CILower
+  ),
+  Upper_95 = c(
+    mr_ivw@CIUpper,
+    mr_egger@CIUpper.Est,
+    mr_wm@CIUpper
+  ),
+  P_value = c(
+    mr_ivw@Pvalue,
+    mr_egger@Pvalue.Est,
+    mr_wm@Pvalue
+  )
+)
+
+mr_comparison[, 2:5] <- round(mr_comparison[, 2:5], 4)
+mr_comparison$P_value <- formatC(mr_comparison$P_value,
+                                  format = "e", digits = 3)
+
+knitr::kable(
+  mr_comparison,
+  caption = "Comparison of MR Estimators (True Causal Effect = 0.5)",
+  col.names = c("Estimator", "Estimate", "SE", "Lower 95%",
+                "Upper 95%", "P-value")
+)
+```
+
+```{r mr_plots, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+# Scatter plot: SNP-exposure vs. SNP-outcome associations with IVW line
+MendelianRandomization::mr_plot(mr_input, error = TRUE, line = "ivw",
+                                 orientate = FALSE, interactive = FALSE)
+```
+
+```{r mr_funnel, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+# Funnel plot: asymmetry indicates potential pleiotropy
+# Each point = one SNP's Wald ratio; symmetric around true value if valid
+mr_funnel <- MendelianRandomization::mr_funnel(mr_input, CI = TRUE)
+```
+
+```{r mr_forest, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+# Forest plot: instrument-specific Wald ratios with CIs
+MendelianRandomization::mr_forest(
+  mr_input,
+  ordered    = TRUE,
+  methods    = "ivw",
+  snp_labels = paste0("SNP", 1:k)
+)
+```
+
+**Interpreting the diagnostics:**
+
+- **Funnel plot asymmetry:** If individual Wald ratios cluster symmetrically around the causal estimate, this supports instrument validity. Asymmetry suggests directional pleiotropy (MR-Egger intercept $\neq 0$).
+- **Egger intercept:** A significant intercept indicates that the InSIDE assumption (Instrument Strength Independent of Direct Effect) fails—some SNPs have direct effects on the outcome independent of the exposure.
+- **Heterogeneity:** Large $Q$-statistic heterogeneity across Wald ratios suggests some instruments may be invalid (pleiotropic).
+
+## Egger Intercept as a Pleiotropy Test
+
+```{r mr_egger_intercept, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
+cat("MR-Egger Intercept Test for Pleiotropy:\n")
+cat(sprintf("  Intercept:  %.4f\n", mr_egger@Intercept))
+cat(sprintf("  SE:         %.4f\n", mr_egger@StdError.Int))
+cat(sprintf("  95%% CI:    [%.4f, %.4f]\n",
+            mr_egger@CILower.Int, mr_egger@CIUpper.Int))
+cat(sprintf("  p-value:    %.4f\n", mr_egger@Pvalue.Int))
+cat("\nInterpretation:\n")
+if (mr_egger@Pvalue.Int < 0.05) {
+  cat("Significant intercept: evidence of directional pleiotropy.\n")
+  cat("IVW estimate is likely biased; prefer MR-Egger or Weighted Median.\n")
+} else {
+  cat("Non-significant intercept: no strong evidence of directional pleiotropy.\n")
+  cat("IVW may be appropriate if other assumptions hold.\n")
+}
+```
+
+---
+
+# Local Average Structural Function (LASF) and Heterogeneous LATE
+
+The standard IV estimator identifies the **Local Average Treatment Effect (LATE)**: the average treatment effect for compliers—units whose treatment status is changed by the instrument. However, in settings with heterogeneous treatment effects, the LATE may differ substantially from the average treatment effect (ATE) for the full population.
+
+## The Complier Population
+
+Under the monotonicity assumption, four latent compliance types exist:
+
+| Type        | $D_i(Z=1)$ | $D_i(Z=0)$ | IV Relevance |
+|:------------|:----------:|:----------:|:-------------|
+| Complier    | 1          | 0          | Identified   |
+| Always-taker| 1          | 1          | Not identified |
+| Never-taker | 0          | 0          | Not identified |
+| Defier      | 0          | 1          | Ruled out by monotonicity |
+
+The LATE identifies the causal effect only for compliers. Whether this is the policy-relevant population depends critically on the research question.
+
+## Characterizing Compliers
+
+Understanding who the compliers are is crucial for external validity. The share of compliers can be computed from the first stage: $P(\text{complier}) = E[D|Z=1] - E[D|Z=0]$. Complier characteristics can be estimated by comparing the distribution of covariates across instrument values, weighted by compliance probability.
+
+```{r late_complier_char, eval=requireNamespace("fixest", quietly=TRUE)}
+library(fixest)
+
+# Simulate a setting with heterogeneous treatment effects
+set.seed(7)
+n_late <- 2000
+
+# Instrument: binary, randomly assigned
+Z <- rbinom(n_late, 1, 0.5)
+
+# Unobserved heterogeneity: high-types benefit more from treatment
+type_high <- rbinom(n_late, 1, 0.4)  # 40% are high-benefit types
+
+# Compliance: high-types are more likely to comply
+D <- rbinom(n_late, 1, 0.2 + 0.5 * Z + 0.1 * type_high)
+
+# Potential outcomes: heterogeneous treatment effects
+# High-type compliers get treatment effect = 3; low-type = 1
+Y0 <- rnorm(n_late)                              # untreated potential outcome
+Y1 <- Y0 + 1 + 2 * type_high + rnorm(n_late)    # treated potential outcome
+Y  <- ifelse(D == 1, Y1, Y0)                     # observed outcome
+
+df_late <- data.frame(Y = Y, D = D, Z = Z, type_high = type_high)
+
+# First stage: instrument effect on treatment
+fs_fit <- feols(D ~ Z, data = df_late)
+first_stage_coef <- coef(fs_fit)[["Z"]]
+cat(sprintf("First stage (P(complier)): %.4f\n", first_stage_coef))
+cat(sprintf("Compliance share: %.1f%%\n", first_stage_coef * 100))
+
+# IV estimate (LATE)
+iv_fit <- feols(Y ~ 1 | D ~ Z, data = df_late)
+late_est <- coef(iv_fit)[["D"]]
+cat(sprintf("\nIV (LATE) estimate:  %.4f\n", late_est))
+
+# OLS estimate (biased ATE - confounded by type_high)
+ols_fit <- feols(Y ~ D, data = df_late)
+ols_est <- coef(ols_fit)[["D"]]
+cat(sprintf("OLS estimate (biased): %.4f\n", ols_est))
+
+# True ATE (infeasible, using potential outcomes)
+true_ate <- mean(Y1 - Y0)
+true_late <- mean((Y1 - Y0)[D[Z == 1] == 1 & D[Z == 0] == 0])
+cat(sprintf("\nTrue ATE:  %.4f\n", true_ate))
+cat(sprintf("True LATE (compliers only): %.4f\n", true_late))
+```
+
+```{r complier_balance, eval=requireNamespace("fixest", quietly=TRUE)}
+# Characterize compliers using Abadie (2003) kappa-weighting
+# kappa = 1 - D(1-Z)/(1-P(Z=1)) - (1-D)Z/P(Z=1)
+# E[X | complier] = E[kappa * X] / P(complier)
+
+pZ <- mean(Z)
+kappa <- 1 - D * (1 - Z) / (1 - pZ) - (1 - D) * Z / pZ
+
+# Complier mean of type_high vs. population mean
+complier_share_high <- sum(kappa * type_high) / sum(kappa)
+pop_share_high      <- mean(type_high)
+
+cat("Complier Characterization:\n")
+cat(sprintf("  Share high-benefit type (population):  %.3f\n", pop_share_high))
+cat(sprintf("  Share high-benefit type (compliers):   %.3f\n", complier_share_high))
+cat(sprintf("  Compliers are %.1f%% more likely to be high-benefit type\n",
+            (complier_share_high / pop_share_high - 1) * 100))
+cat("\nThis explains why LATE > ATE in this simulation:\n")
+cat("compliers disproportionately benefit from treatment.\n")
+
+# Use causalverse::iv_diagnostic_summary for structured output
+iv_diag <- causalverse::iv_diagnostic_summary(
+  data        = df_late,
+  outcome     = "Y",
+  treatment   = "D",
+  instrument  = "Z",
+  covariates  = "type_high"
+)
+print(iv_diag)
+```
+
+## Local Average Response Function
+
+The LARF generalizes LATE to settings with continuous instruments, tracing out the treatment effect as a function of the instrument value (or resistance to treatment).
+
+```{r larf_viz, eval=requireNamespace("fixest", quietly=TRUE)}
+# Visualize heterogeneity in Wald ratios across instrument strength quantiles
+# (approximates the Local Average Response Function)
+set.seed(8)
+n_larf <- 3000
+
+# Continuous instrument with varying strength
+Z_cont <- runif(n_larf, 0, 1)  # instrument strength varies from 0 to 1
+U_larf <- rnorm(n_larf)
+
+# Compliance probability increases with instrument value
+comply_prob <- plogis(-1 + 3 * Z_cont)
+D_larf      <- rbinom(n_larf, 1, comply_prob)
+
+# Heterogeneous treatment effects correlated with resistance
+resist  <- qlogis(pmax(0.01, pmin(0.99, 1 - comply_prob)))  # unobserved resistance
+TE_indiv <- 2 - 0.5 * resist   # those harder to treat benefit less
+Y_larf   <- TE_indiv * D_larf + U_larf + rnorm(n_larf)
+
+df_larf <- data.frame(Y = Y_larf, D = D_larf, Z = Z_cont,
+                       comply_prob = comply_prob)
+
+# Bin instrument into deciles and compute local Wald ratios
+df_larf$Z_decile <- cut(df_larf$Z, breaks = quantile(df_larf$Z, seq(0, 1, 0.2)),
+                         include.lowest = TRUE, labels = 1:5)
+
+larf_df <- df_larf |>
+  group_by(Z_decile) |>
+  summarise(
+    Z_mid       = mean(Z),
+    compliance  = mean(D),
+    rf          = cov(Y, Z) / var(Z),   # reduced form approximation
+    fs          = cov(D, Z) / var(Z),   # first stage approximation
+    wald_ratio  = (cov(Y, Z) / var(Z)) / (cov(D, Z) / var(Z)),
+    .groups     = "drop"
+  )
+
+ggplot(larf_df, aes(x = Z_mid, y = wald_ratio)) +
+  geom_point(aes(size = compliance), color = "steelblue") +
+  geom_smooth(method = "lm", se = TRUE, color = "tomato", linewidth = 1) +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Local Average Response Function (LARF)",
+    subtitle = "Wald ratio by instrument value; slope indicates effect heterogeneity",
+    x        = "Instrument Value (Z)",
+    y        = "Local Wald Ratio (Approx. MTE)",
+    size     = "Compliance Rate"
+  )
+```
+
+---
+
+# Bartik Instruments in Depth (Shift-Share IV)
+
+The Bartik (1991) instrument—also known as the shift-share instrument—is ubiquitous in regional economics, labor economics, and public finance. The instrument combines national industry growth rates ("shifts") with local industry shares ("shares") to construct a local labor demand shock:
+
+$$Z_\ell = \sum_k s_{\ell k} g_k$$
+
+where $s_{\ell k}$ is the initial share of industry $k$ in location $\ell$, and $g_k$ is the national growth rate of industry $k$ (excluding location $\ell$, to avoid mechanical correlation).
+
+## Identification Conditions: Two Views
+
+Goldsmith-Pinkham, Sorkin, and Swift (2020) show that the Bartik IV estimator can be written as a weighted average of industry-specific just-identified IV estimates, where the weights—**Rotemberg weights**—sum to one and can be negative:
+
+$$\hat{\beta}^{Bartik} = \sum_k \hat{\alpha}_k \hat{\beta}^{IV}_k$$
+
+Here $\hat{\alpha}_k$ is the Rotemberg weight for industry $k$, and $\hat{\beta}^{IV}_k$ is the just-identified IV estimate using only industry $k$'s share as the instrument. Identification rests on the *shares* being exogenous—a stronger requirement than commonly acknowledged.
+
+Borusyak, Hull, and Jaravel (2022) provide an alternative: identification from the *shifts* being as-good-as-randomly assigned across industries, conditional on share-level controls. This requires many industries and a research design argument that industry-level shocks are plausibly exogenous.
+
+## Rotemberg Weights and Industry Concentration
+
+```{r bartik_setup, eval=requireNamespace("fixest", quietly=TRUE)}
+library(fixest)
+library(dplyr)
+
+set.seed(314)
+
+# Simulate a Bartik-type dataset
+n_loc  <- 200    # locations
+n_ind  <- 15     # industries
+n_time <- 2      # periods (initial and end)
+
+# Initial employment shares (Dirichlet-like, sum to 1 per location)
+raw_shares <- matrix(rexp(n_loc * n_ind), n_loc, n_ind)
+shares     <- raw_shares / rowSums(raw_shares)
+colnames(shares) <- paste0("ind", 1:n_ind)
+
+# National industry growth rates (leave-one-out not implemented for simplicity)
+g_national <- rnorm(n_ind, mean = 0.02, sd = 0.05)
+
+# Local Bartik instrument: weighted sum of national growth rates
+bartik_iv <- shares %*% g_national
+
+# Outcome: local employment growth (affected by Bartik shock + confounder)
+confounder <- rnorm(n_loc)
+outcome    <- 0.8 * bartik_iv + confounder + rnorm(n_loc, 0, 0.1)
+
+# Treatment: local wage growth (endogenous due to confounder)
+treatment  <- 0.6 * bartik_iv + 0.5 * confounder + rnorm(n_loc, 0, 0.1)
+
+df_bartik <- data.frame(
+  loc       = 1:n_loc,
+  outcome   = as.numeric(outcome),
+  treatment = as.numeric(treatment),
+  bartik    = as.numeric(bartik_iv)
+)
+
+# 2SLS using Bartik instrument
+bartik_2sls <- feols(outcome ~ 1 | treatment ~ bartik, data = df_bartik)
+summary(bartik_2sls)
+```
+
+```{r rotemberg_weights, eval=requireNamespace("fixest", quietly=TRUE)}
+# Rotemberg (2019) weights: decompose the Bartik estimate
+# alpha_k = weight on industry k's just-identified IV estimate
+# = (share_k' * D / share_k' * Z_k) * (var(Z_k) / var(Z_bartik))
+
+# First stage of full Bartik
+fs_bartik <- feols(treatment ~ bartik, data = df_bartik)
+
+# Industry-specific just-identified IV estimates
+iv_k      <- numeric(n_ind)
+alpha_k   <- numeric(n_ind)
+
+for (k in 1:n_ind) {
+  Z_k       <- shares[, k] * g_national[k]
+  iv_k[k]   <- cov(outcome, Z_k) / cov(treatment, Z_k)
+  alpha_k[k] <- cov(treatment, Z_k) * cov(Z_k, treatment) /
+                (var(as.numeric(bartik_iv)) * cov(treatment, treatment))
+}
+
+# Normalize to sum to 1
+alpha_k_norm <- alpha_k / sum(alpha_k)
+
+# Rotemberg weight table
+rotemberg_df <- data.frame(
+  Industry         = paste0("Industry ", 1:n_ind),
+  National_Growth  = round(g_national, 4),
+  Mean_Share       = round(colMeans(shares), 4),
+  Rotemberg_Weight = round(alpha_k_norm, 4),
+  JustID_IV_Est    = round(iv_k, 4)
+)
+
+# Sort by absolute Rotemberg weight
+rotemberg_df <- rotemberg_df[order(abs(rotemberg_df$Rotemberg_Weight),
+                                    decreasing = TRUE), ]
+
+knitr::kable(
+  rotemberg_df,
+  caption = "Rotemberg Weights: Industry Contributions to Bartik Estimate",
+  row.names = FALSE
+)
+```
+
+```{r rotemberg_concentration, eval=requireNamespace("fixest", quietly=TRUE)}
+# Herfindahl index of Rotemberg weight concentration
+# High HHI means identification driven by few industries -- less credible
+hhi_rotemberg <- sum(alpha_k_norm^2)
+cat(sprintf("Herfindahl Index of Rotemberg Weights: %.4f\n", hhi_rotemberg))
+cat("(0 = perfectly dispersed; 1 = one industry drives all identification)\n\n")
+
+# Use causalverse::iv_diagnostic_summary for IV diagnostics including concentration
+iv_diag_bartik <- causalverse::iv_diagnostic_summary(
+  data       = df_bartik,
+  outcome    = "outcome",
+  treatment  = "treatment",
+  instrument = "bartik"
+)
+print(iv_diag_bartik)
+```
+
+## Sensitivity: Drop Top Industry
+
+A critical robustness check is to exclude the highest-Rotemberg-weight industry and re-estimate. If the estimate changes substantially, identification is driven by a single industry whose exogeneity must be defended.
+
+```{r bartik_leaveoneout, eval=requireNamespace("fixest", quietly=TRUE)}
+# Identify top industry by absolute Rotemberg weight
+top_ind <- which.max(abs(alpha_k_norm))
+cat(sprintf("Top industry by Rotemberg weight: Industry %d (weight = %.4f)\n",
+            top_ind, alpha_k_norm[top_ind]))
+
+# Recompute Bartik instrument excluding top industry
+shares_excl    <- shares[, -top_ind]
+g_excl         <- g_national[-top_ind]
+bartik_excl_iv <- as.numeric(shares_excl %*% g_excl)
+
+df_bartik$bartik_excl <- bartik_excl_iv
+
+# 2SLS excluding top industry
+bartik_2sls_excl <- feols(
+  outcome ~ 1 | treatment ~ bartik_excl,
+  data = df_bartik
+)
+
+# Leave-one-out for all industries
+loo_ests <- numeric(n_ind)
+for (k in 1:n_ind) {
+  sh_loo  <- shares[, -k]
+  g_loo   <- g_national[-k]
+  Z_loo   <- as.numeric(sh_loo %*% g_loo)
+  df_loo  <- df_bartik
+  df_loo$Z_loo <- Z_loo
+  fit_loo <- tryCatch(
+    feols(outcome ~ 1 | treatment ~ Z_loo, data = df_loo, warn = FALSE),
+    error = function(e) NULL
+  )
+  if (!is.null(fit_loo)) loo_ests[k] <- coef(fit_loo)[["treatment"]]
+}
+
+# Leave-one-out plot
+loo_df <- data.frame(
+  industry     = paste0("Excl. Ind. ", 1:n_ind),
+  estimate     = loo_ests,
+  rotemberg_wt = abs(alpha_k_norm)
+)
+
+ggplot(loo_df, aes(x = reorder(industry, -rotemberg_wt),
+                    y = estimate, size = rotemberg_wt)) +
+  geom_point(color = "steelblue") +
+  geom_hline(yintercept = coef(bartik_2sls)[["treatment"]],
+             color = "red", linetype = "dashed") +
+  causalverse::ama_theme() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title    = "Leave-One-Out Bartik Robustness",
+    subtitle = "Each point = 2SLS estimate excluding one industry; red = full estimate",
+    x        = "Industry Excluded (ordered by Rotemberg weight)",
+    y        = "2SLS Estimate",
+    size     = "|Rotemberg wt.|"
+  )
+
+cat(sprintf("\nFull Bartik estimate:        %.4f\n",
+            coef(bartik_2sls)[["treatment"]]))
+cat(sprintf("Excluding top industry:      %.4f\n",
+            coef(bartik_2sls_excl)[["treatment"]]))
+cat(sprintf("Change:                      %.4f (%.1f%%)\n",
+            coef(bartik_2sls_excl)[["treatment"]] -
+              coef(bartik_2sls)[["treatment"]],
+            (coef(bartik_2sls_excl)[["treatment"]] /
+               coef(bartik_2sls)[["treatment"]] - 1) * 100))
+```
+
+---
+
+# Many-Weak Instruments and LIML
+
+When the researcher has access to many instruments—each individually weak—the standard two-stage least squares (2SLS) estimator performs poorly. In the many-instruments asymptotic sequence (where $K/n \to c > 0$ as $n \to \infty$), 2SLS is biased toward OLS. The bias is proportional to the concentration parameter $\mu^2 / K$, and can be severe when instruments are weak.
+
+## The Many-IV Problem
+
+The 2SLS bias in the many-weak-IV setting is:
+
+$$\text{Bias}(2SLS) \approx \beta_{OLS} - \beta_{true}) \cdot \frac{K}{\mu^2}$$
+
+where $K$ is the number of instruments and $\mu^2 = \alpha' Z'Z \alpha / \sigma_u^2$ is the concentration parameter (a population analog of the first-stage F-statistic).
+
+Three remedies are widely used:
+
+- **LIML (Limited Information Maximum Likelihood):** Consistent under many-weak-IV asymptotics; finite sample median-unbiased under normality.
+- **Fuller(1) Estimator:** LIML minus $1/(n-K)$ times an adjustment; slightly biased but with much lower variance than LIML.
+- **JIVE (Jackknife IV Estimator):** Uses leave-one-out predicted values; consistent and avoids the LIML large-variance problem.
+
+```{r many_iv_setup, eval=requireNamespace("ivmodel", quietly=TRUE)}
+library(ivmodel)
+
+# Simulate many-weak-IV setting
+set.seed(2)
+n_miv <- 500
+K_miv <- 20      # 20 instruments -- many, but each weak
+
+# Instruments: iid standard normal
+Z_miv <- matrix(rnorm(n_miv * K_miv), n_miv, K_miv)
+
+# Unmeasured confounder
+U_miv <- rnorm(n_miv)
+
+# Endogenous variable: weak first stage (each instrument has small effect)
+pi_true <- rnorm(K_miv, 0, 0.1)   # small coefficients -> weak instruments
+X_miv   <- Z_miv %*% pi_true + U_miv + rnorm(n_miv)
+
+# Outcome: true causal effect = 0.5
+Y_miv <- 0.5 * X_miv + U_miv + rnorm(n_miv)
+
+# Compute first-stage F-statistic manually
+fs_manual <- lm(X_miv ~ Z_miv)
+fs_resid  <- residuals(fs_manual)
+ss_model  <- sum((fitted(fs_manual) - mean(X_miv))^2) / K_miv
+ss_resid  <- sum(fs_resid^2) / (n_miv - K_miv - 1)
+f_stat_manual <- ss_model / ss_resid
+cat(sprintf("First-stage F-statistic: %.3f\n", f_stat_manual))
+cat(sprintf("Rule of thumb (>10 for one IV): %.3f\n", 10.0))
+cat(sprintf("Cragg-Donald threshold at K=%d: ~2.0 (weak by Staiger-Stock)\n\n",
+            K_miv))
+```
+
+```{r many_iv_compare, eval=requireNamespace("ivmodel", quietly=TRUE)}
+# Compare 2SLS, LIML, Fuller(1) using ivmodel package
+mod_ivmodel <- ivmodel(Y = Y_miv, D = X_miv, Z = Z_miv, intercept = TRUE)
+summary(mod_ivmodel)
+```
+
+```{r many_iv_extract, eval=requireNamespace("ivmodel", quietly=TRUE)}
+# Extract point estimates and SEs for each estimator
+est_tsls   <- mod_ivmodel$TSLS$point.est
+se_tsls    <- mod_ivmodel$TSLS$std.err
+est_liml   <- mod_ivmodel$LIML$point.est
+se_liml    <- mod_ivmodel$LIML$std.err
+est_fuller <- mod_ivmodel$Fuller$point.est[1]
+se_fuller  <- mod_ivmodel$Fuller$std.err[1]
+
+# OLS estimate (biased toward 0.5 + bias from confounding)
+ols_miv    <- coef(lm(Y_miv ~ X_miv))[["X_miv"]]
+
+comparison_miv <- data.frame(
+  Estimator    = c("OLS (biased)", "2SLS (many-IV bias)",
+                   "LIML (consistent)", "Fuller(1) (bias-variance tradeoff)"),
+  Estimate     = round(c(ols_miv, est_tsls, est_liml, est_fuller), 4),
+  SE           = round(c(NA, se_tsls, se_liml, se_fuller), 4),
+  Bias_from_truth = round(c(ols_miv, est_tsls, est_liml, est_fuller) - 0.5, 4)
+)
+
+knitr::kable(
+  comparison_miv,
+  caption = "Many-Weak-IV Estimator Comparison (True Causal Effect = 0.5)",
+  col.names = c("Estimator", "Estimate", "Std. Error", "Bias from Truth"),
+  na = "--"
+)
+
+cat("\nKey takeaway:\n")
+cat("2SLS is biased toward OLS under many weak instruments.\n")
+cat("LIML is consistent but may have heavy tails (large variance).\n")
+cat("Fuller(1) trades a small bias for substantially lower variance.\n")
+```
+
+```{r many_iv_simulation, eval=requireNamespace("ivmodel", quietly=TRUE)}
+# Monte Carlo: compare bias of 2SLS vs. LIML vs. Fuller(1) across replications
+set.seed(99)
+n_mc <- 500
+mc_results <- replicate(n_mc, {
+  U_mc <- rnorm(n_miv)
+  X_mc <- Z_miv %*% pi_true + U_mc + rnorm(n_miv)
+  Y_mc <- 0.5 * X_mc + U_mc + rnorm(n_miv)
+  ols_mc <- coef(lm(Y_mc ~ X_mc))[["X_mc"]]
+  mod_mc <- tryCatch(
+    ivmodel(Y = Y_mc, D = X_mc, Z = Z_miv, intercept = TRUE),
+    error = function(e) NULL
+  )
+  if (is.null(mod_mc)) return(c(NA, NA, NA, NA))
+  c(ols_mc,
+    mod_mc$TSLS$point.est,
+    mod_mc$LIML$point.est,
+    mod_mc$Fuller$point.est[1])
+})
+
+mc_df <- as.data.frame(t(mc_results))
+names(mc_df) <- c("OLS", "TSLS", "LIML", "Fuller1")
+
+mc_long <- tidyr::pivot_longer(mc_df, cols = everything(),
+                                names_to = "Estimator", values_to = "Estimate")
+
+ggplot(mc_long |> filter(!is.na(Estimate), abs(Estimate) < 5),
+       aes(x = Estimate, fill = Estimator)) +
+  geom_density(alpha = 0.4) +
+  geom_vline(xintercept = 0.5, color = "black", linewidth = 1,
+             linetype = "dashed") +
+  scale_fill_manual(values = c(
+    "OLS"     = "gray50",
+    "TSLS"    = "tomato",
+    "LIML"    = "steelblue",
+    "Fuller1" = "forestgreen"
+  )) +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Monte Carlo: Estimator Distributions under Many Weak IVs",
+    subtitle = "Vertical dashed line = true causal effect (0.5)",
+    x        = "Estimate",
+    y        = "Density",
+    fill     = "Estimator"
+  )
+```
+
+---
+
+# IV with Heterogeneous Effects: Marginal Treatment Effects (Heckman-Vytlacil)
+
+When treatment effects are heterogeneous—different individuals benefit differently from treatment—the standard IV estimator identifies a weighted average that depends on the instrument used. The **Marginal Treatment Effect (MTE)** framework of Heckman and Vytlacil (2005) provides a unifying structure: all standard treatment effect parameters (ATE, ATT, ATU, LATE) are weighted averages of the MTE function.
+
+## The MTE Framework
+
+Suppose the treatment decision follows a latent index model:
+
+$$D_i = \mathbf{1}\{v(Z_i, X_i) \geq U_{Di}\}$$
+
+where $U_{Di} \sim \text{Uniform}[0, 1]$ is the individual's unobserved "resistance to treatment" (propensity to remain untreated), and $v(Z_i, X_i) = P(D_i = 1 | Z_i, X_i)$ is the propensity score.
+
+The MTE at resistance level $u$ is:
+
+$$MTE(x, u) = E[Y_i(1) - Y_i(0) \mid X_i = x, U_{Di} = u]$$
+
+Intuitively, $u$ indexes how much resistance an individual has to taking treatment. Those with low $u$ would take treatment even with minimal encouragement (always-takers at the margin); those with high $u$ require a very strong instrument to be induced into treatment.
+
+## From MTE to Standard Parameters
+
+Every standard IV/treatment effect parameter is a weighted integral of MTE:
+
+$$ATE = \int_0^1 MTE(u) \, du$$
+
+$$ATT = \int_0^1 MTE(u) \cdot \frac{1 - P(U_D \leq u)}{1 - E[D]} \, du = \int_0^1 MTE(u) \cdot h_{ATT}(u) \, du$$
+
+$$LATE(z, z') = \int_0^1 MTE(u) \cdot \mathbf{1}\{p(z') \leq u \leq p(z)\} \, du \cdot \frac{1}{p(z) - p(z')}$$
+
+The weights $h_{ATE}(u) = 1$, $h_{ATT}(u)$, $h_{LATE}(u)$ determine which part of the MTE curve each estimator averages over.
+
+```{r mte_conceptual, eval=requireNamespace("fixest", quietly=TRUE)}
+# Illustrate MTE concept with a simulated dataset
+set.seed(42)
+n_mte <- 3000
+
+# Instrument: continuous (e.g., distance to college)
+Z_mte <- runif(n_mte, 0, 1)
+
+# Unobserved resistance (uniform, as in latent index model)
+U_D <- runif(n_mte)
+
+# Propensity score: linear in Z
+p_score <- 0.2 + 0.6 * Z_mte   # ranges from 0.2 to 0.8
+
+# Treatment assignment: take treatment if resistance < propensity
+D_mte <- as.integer(U_D <= p_score)
+
+# Heterogeneous treatment effects: declining in resistance
+# High-resistance individuals (large U_D) benefit less from treatment
+mte_true <- function(u) 2 - 1.5 * u   # MTE declines from 2.0 to 0.5
+
+Y0_mte <- rnorm(n_mte)
+Y1_mte <- Y0_mte + mte_true(U_D) + rnorm(n_mte, 0, 0.5)
+Y_mte  <- ifelse(D_mte == 1, Y1_mte, Y0_mte)
+
+# True ATE, ATT, LATE
+true_ate_mte  <- integrate(mte_true, 0, 1)$value
+true_att_mte  <- mean(mte_true(U_D[D_mte == 1]))
+true_late_mte <- mean(mte_true(U_D[D_mte == 1 & Z_mte > 0.5]) )  # approx
+
+cat("True treatment effect parameters:\n")
+cat(sprintf("  ATE:          %.4f (integral of MTE over [0,1])\n", true_ate_mte))
+cat(sprintf("  ATT:          %.4f (MTE weighted toward low-resistance compliers)\n",
+            true_att_mte))
+cat(sprintf("  Approx LATE:  %.4f (MTE in range induced by instrument)\n",
+            true_late_mte))
+
+# IV (LATE) estimate using the instrument
+df_mte <- data.frame(Y = Y_mte, D = D_mte, Z = Z_mte, p_score = p_score)
+iv_mte <- feols(Y ~ 1 | D ~ Z, data = df_mte)
+cat(sprintf("\nIV estimate (LATE):  %.4f\n", coef(iv_mte)[["D"]]))
+cat(sprintf("OLS estimate:        %.4f\n",
+            coef(lm(Y_mte ~ D_mte))[["D_mte"]]))
+```
+
+```{r mte_curve, eval=requireNamespace("fixest", quietly=TRUE)}
+# Estimate and plot the MTE curve using local linear regression
+# on the derivative of the conditional mean with respect to propensity score
+
+# Estimate E[Y | Z] nonparametrically, then differentiate
+# LIV (Local Instrumental Variable) estimator
+library(dplyr)
+
+# Bin the propensity score into quantiles and estimate local IV
+df_mte$p_bin <- cut(df_mte$p_score,
+                     breaks = quantile(df_mte$p_score, seq(0, 1, 0.1)),
+                     include.lowest = TRUE, labels = FALSE)
+
+# Local Wald estimates in each p-score bin
+mte_estimates <- df_mte |>
+  group_by(p_bin) |>
+  summarise(
+    p_mid   = mean(p_score),
+    ey      = mean(Y),
+    ed      = mean(D),
+    ey_z1   = mean(Y[Z > median(Z)]),
+    ey_z0   = mean(Y[Z <= median(Z)]),
+    ed_z1   = mean(D[Z > median(Z)]),
+    ed_z0   = mean(D[Z <= median(Z)]),
+    wald    = (ey_z1 - ey_z0) / pmax(ed_z1 - ed_z0, 0.01),
+    .groups = "drop"
+  )
+
+# True MTE for reference
+u_grid     <- seq(0.01, 0.99, length.out = 100)
+true_mte_df <- data.frame(u = u_grid, mte = mte_true(u_grid))
+
+ggplot() +
+  geom_line(data = true_mte_df, aes(x = u, y = mte),
+            color = "black", linewidth = 1.2, linetype = "dashed") +
+  geom_point(data = mte_estimates, aes(x = p_mid, y = wald),
+             color = "steelblue", size = 3) +
+  geom_smooth(data = mte_estimates, aes(x = p_mid, y = wald),
+              method = "lm", se = TRUE, color = "tomato",
+              linewidth = 1) +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Marginal Treatment Effect (MTE) Curve",
+    subtitle = "Dashed = true MTE; points = local Wald estimates; line = estimated MTE",
+    x        = expression(u ~ "(Unobserved Resistance to Treatment)"),
+    y        = "Marginal Treatment Effect",
+    caption  = "MTE declines with resistance: those harder to treat benefit less"
+  )
+```
+
+## Policy-Relevant Treatment Effects (PRTE)
+
+The PRTE, introduced by Heckman and Vytlacil (2001), answers the question: what is the average treatment effect for those whose treatment status would change under an alternative policy $\tilde{p}$ relative to the baseline policy $p$?
+
+$$PRTE = \frac{\int_0^1 MTE(u) \cdot [\tilde{p}(u) - p(u)] \, du}{E[\tilde{D} - D]}$$
+
+This is directly policy-relevant: if the proposed policy changes the propensity score from $p(Z)$ to $\tilde{p}(Z)$ for each individual, the PRTE is the average treatment effect for the newly treated.
+
+```{r prte_concept}
+# Conceptual illustration of PRTE vs LATE
+# Policy A: increase instrument Z by 0.1 for everyone (small nudge)
+# Policy B: set Z = 1 for everyone (universal eligibility)
+
+p_baseline  <- 0.2 + 0.6 * df_mte$Z    # current propensity
+p_policyA   <- pmin(0.2 + 0.6 * (df_mte$Z + 0.1), 1)  # small increase
+p_policyB   <- rep(0.8, nrow(df_mte))   # universal high propensity
+
+# PRTE is weighted average of MTE in the margin induced by each policy
+# Weights = (p_new - p_baseline) / E[p_new - p_baseline]
+
+# Policy A: affects the margin around current propensity
+wt_A <- (p_policyA - p_baseline)
+wt_A <- wt_A / sum(wt_A)
+prte_A <- sum(wt_A * mte_true(df_mte$p_score))  # approx using p as proxy for u
+
+# Policy B: affects a broader margin
+wt_B <- (p_policyB - p_baseline)
+wt_B <- wt_B / sum(wt_B)
+prte_B <- sum(wt_B * mte_true(df_mte$p_score))
+
+cat("Policy-Relevant Treatment Effect Comparison:\n")
+cat(sprintf("  ATE (average over all):         %.4f\n", true_ate_mte))
+cat(sprintf("  PRTE Policy A (small nudge):    %.4f\n", prte_A))
+cat(sprintf("  PRTE Policy B (universal high): %.4f\n", prte_B))
+cat(sprintf("  LATE (current instrument):      %.4f\n",
+            coef(iv_mte)[["D"]]))
+cat("\nPolicy A nudges people at the margin of current compliance:\n")
+cat("those induced have moderate resistance, moderate treatment effects.\n")
+cat("Policy B enrolls even high-resistance individuals who benefit less.\n")
+```
+
+## The ivmte Package for MTE Estimation
+
+The `ivmte` package implements the Mogstad, Santos, and Torgovitsky (2018) approach, which uses shape restrictions (monotonicity of MTE in $u$, linear MTE in $u$) to bound or point-identify the MTE and derive PRTE under alternative policies.
+
+```{r ivmte_note, eval=FALSE}
+# ivmte package: Mogstad-Santos-Torgovitsky (2018) approach
+# install.packages("ivmte")
+# library(ivmte)
+#
+# The ivmte package parameterizes MTE using Bernstein polynomials
+# and imposes shape restrictions to sharpen identification.
+#
+# Key inputs:
+#   ivmte(
+#     ivlike  = Y ~ D + Z,         # IV-like estimating equations
+#     target  = "ate",             # target parameter (ate, att, late, prte)
+#     m0      = ~ uSplines(u, knots=c(0.25, 0.5, 0.75)),  # untreated MTE
+#     m1      = ~ uSplines(u, knots=c(0.25, 0.5, 0.75)),  # treated MTE
+#     data    = df_mte,
+#     propensity = list(model = D ~ Z, link = "probit")
+#   )
+#
+# The package returns bounds on the target parameter, not just a point estimate.
+# This is especially useful when the support of p(Z) does not cover [0,1].
+#
+# Reference:
+# Mogstad, M., Santos, A., and Torgovitsky, A. (2018).
+# "Using Instrumental Variables for Inference About Policy Relevant Treatment Effects."
+# Econometrica, 86(5), 1589-1619.
+```
+
+---
+
+## Additional References (MR, Bartik, Many-IV, MTE)
+
+- Rambachan, A. and Roth, J. (2023). "A More Credible Approach to Parallel Trends." *Review of Economic Studies*, 90(5), 2555-2591.
+- Davey Smith, G. and Ebrahim, S. (2003). "Mendelian Randomization: Can Genetic Epidemiology Contribute to Understanding Environmental Determinants of Disease?" *International Journal of Epidemiology*, 32(1), 1-22.
+- Burgess, S. and Thompson, S. G. (2015). *Mendelian Randomization: Methods for Using Genetic Variants in Causal Estimation.* CRC Press.
+- Bowden, J., Davey Smith, G., and Burgess, S. (2015). "Mendelian Randomization with Invalid Instruments: Effect Estimation and Bias Detection Through Egger Regression." *International Journal of Epidemiology*, 44(2), 512-525.
+- Goldsmith-Pinkham, P., Sorkin, I., and Swift, H. (2020). "Bartik Instruments: What, When, Why, and How." *American Economic Review*, 110(8), 2586-2624.
+- Borusyak, K., Hull, P., and Jaravel, X. (2022). "Quasi-Experimental Shift-Share Research Designs." *Review of Economic Studies*, 89(1), 181-213.
+- Rotemberg, M. (2019). "Equilibrium Effects of Firm Subsidies." *American Economic Review*, 109(10), 3475-3513.
+- Anderson, T. W. and Rubin, H. (1949). "Estimation of the Parameters of a Single Equation in a Complete System of Stochastic Equations." *Annals of Mathematical Statistics*, 20(1), 46-63.
+- Fuller, W. A. (1977). "Some Properties of a Modification of the Limited Information Estimator." *Econometrica*, 45(4), 939-953.
+- Heckman, J. J. and Vytlacil, E. (2005). "Structural Equations, Treatment Effects, and Econometric Policy Evaluation." *Econometrica*, 73(3), 669-738.
+- Mogstad, M., Santos, A., and Torgovitsky, A. (2018). "Using Instrumental Variables for Inference About Policy Relevant Treatment Effects." *Econometrica*, 86(5), 1589-1619.
+- Abadie, A. (2003). "Semiparametric Instrumental Variable Estimation of Treatment Response Models." *Journal of Econometrics*, 113(2), 231-263.
+- Imbens, G. W. and Angrist, J. D. (1994). "Identification and Estimation of Local Average Treatment Effects." *Econometrica*, 62(2), 467-475.

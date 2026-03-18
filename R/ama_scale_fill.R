@@ -22,16 +22,14 @@ ama_scale_fill <- function(use_color = FALSE, palette_name = "OkabeIto", graysca
   
   if (is.factor(data[[aes_mapping]]) || is.character(data[[aes_mapping]])) {
     if (use_color) {
-      # You might want to replace this with the correct function call
-      fills <- grDevices::palette()
-      return(scale_fill_manual(values = fills))
+      fills <- grDevices::palette.colors(palette = palette_name)
+      return(ggplot2::scale_fill_manual(values = fills))
     } else {
       return(ggplot2::scale_fill_grey(start = grayscale_limits[1], end = grayscale_limits[2]))
     }
   } else {
     if (use_color) {
-      # You might want to replace this with the correct function call
-      fills <- grDevices::palette()
+      fills <- grDevices::palette.colors(palette = palette_name)
       return(ggplot2::scale_fill_gradientn(colors = fills))
     } else {
       gray_low <- scales::percent(grayscale_limits[1], accuracy = 1)

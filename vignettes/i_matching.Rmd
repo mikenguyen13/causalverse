@@ -1,0 +1,3163 @@
+---
+title: "8. Matching Methods"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{8. Matching Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
+```
+
+```{r setup}
+library(causalverse)
+library(dplyr)
+library(ggplot2)
+```
+
+# 1. Introduction
+
+## 1.1 The Fundamental Problem and Why Matching Helps
+
+The fundamental problem of causal inference is that we never observe the same unit in both the treated and untreated state at the same time. For a unit $i$ that receives treatment ($D_i = 1$), we observe $Y_i(1)$ but not the counterfactual $Y_i(0)$. Conversely, for an untreated unit ($D_i = 0$), we observe $Y_i(0)$ but not $Y_i(1)$.
+
+When treatment is not randomly assigned, treated and control groups will generally differ in their pre-treatment characteristics. A naive comparison of outcomes between the two groups conflates the treatment effect with pre-existing differences. **Matching** addresses this problem by constructing a comparison group that is as similar as possible to the treated group in terms of observed covariates, thereby isolating the causal effect of treatment.
+
+The intuition is straightforward: if a treated unit and a matched control unit share the same values of all relevant pre-treatment covariates $\mathbf{X}$, then any difference in their outcomes can be attributed to the treatment rather than to confounders.
+
+## 1.2 Selection on Observables
+
+Matching methods rely on the **selection on observables** assumption (also called unconfoundedness, ignorability, or exogeneity of treatment conditional on covariates). Formally, this requires two conditions:
+
+### Conditional Independence Assumption (CIA)
+
+$$
+\{Y_i(0), Y_i(1)\} \perp\!\!\!\perp D_i \mid \mathbf{X}_i
+$$
+
+This states that, conditional on the observed covariates $\mathbf{X}_i$, treatment assignment $D_i$ is independent of potential outcomes. In other words, after conditioning on $\mathbf{X}$, there are no remaining unobserved confounders that jointly affect both treatment selection and outcomes. This is a strong and fundamentally untestable assumption. The credibility of any matching analysis rests on whether the researcher has measured and included all relevant confounders.
+
+### Common Support (Overlap) Condition
+
+$$
+0 < \Pr(D_i = 1 \mid \mathbf{X}_i = \mathbf{x}) < 1 \quad \text{for all } \mathbf{x} \in \mathcal{X}
+$$
+
+This requires that for every value of the covariates, there exist both treated and untreated units. Without common support, extrapolation replaces interpolation, and causal inference becomes unreliable. In practice, violations of common support are diagnosed by examining the distribution of propensity scores across treatment groups. Regions where one group has propensity scores near 0 or 1 with no overlap from the other group indicate lack of common support, and observations in these regions should typically be trimmed from the analysis.
+
+## 1.3 The Curse of Dimensionality
+
+If the covariate vector $\mathbf{X}_i$ is high-dimensional, exact matching---finding control units with identical values on every covariate---becomes infeasible. With $k$ binary covariates, there are $2^k$ possible strata. With continuous covariates, exact matching is essentially impossible. This is the **curse of dimensionality**.
+
+Rosenbaum and Rubin (1983) provided the key theoretical breakthrough to address this problem:
+
+**Propensity Score Theorem.** If the CIA holds conditional on $\mathbf{X}$, then it also holds conditional on the propensity score $e(\mathbf{X}) = \Pr(D = 1 \mid \mathbf{X})$:
+
+$$
+\{Y(0), Y(1)\} \perp\!\!\!\perp D \mid e(\mathbf{X})
+$$
+
+This reduces a potentially high-dimensional matching problem to a one-dimensional one: instead of matching on all covariates simultaneously, one can match on the scalar propensity score. However, it is important to verify that matching on the propensity score actually achieves covariate balance---it is balance on the covariates, not the propensity score itself, that matters for causal identification.
+
+## 1.4 ATT vs. ATE
+
+Matching methods can target different causal estimands:
+
+**Average Treatment Effect on the Treated (ATT):**
+
+$$
+\tau_{\text{ATT}} = E[Y_i(1) - Y_i(0) \mid D_i = 1]
+$$
+
+This is the average effect of treatment for those who actually received treatment. It asks: "For units that were treated, what would have happened on average if they had not been treated?" Most matching estimators naturally target the ATT, because they search for control matches for each treated unit.
+
+**Average Treatment Effect (ATE):**
+
+$$
+\tau_{\text{ATE}} = E[Y_i(1) - Y_i(0)]
+$$
+
+This is the average effect across the entire population. It requires matching in both directions---finding control matches for treated units and treated matches for control units---or reweighting the sample to represent the full population. Full matching and propensity score weighting methods more naturally target the ATE.
+
+**Average Treatment Effect on the Controls (ATC):**
+
+$$
+\tau_{\text{ATC}} = E[Y_i(1) - Y_i(0) \mid D_i = 0]
+$$
+
+The choice of estimand has practical implications. The ATT requires common support only in the region of covariate space occupied by treated units. The ATE requires common support across the entire covariate distribution, which is a stronger requirement. When treated and control groups differ substantially in their covariate distributions, the ATT is often more credible.
+
+## 1.5 Mathematical Framework for Matching Estimators
+
+### Nearest-Neighbor Matching
+
+For each treated unit $i$, define the set of matched controls as:
+
+$$
+\mathcal{M}(i) = \arg\min_{j \in \{D_j=0\}} \|\mathbf{X}_i - \mathbf{X}_j\|
+$$
+
+where $\|\cdot\|$ is a distance metric (Euclidean, Mahalanobis, etc.). The matching estimator for the ATT is then:
+
+$$
+\hat{\tau}_{\text{ATT}}^{\text{match}} = \frac{1}{N_1} \sum_{i: D_i=1} \left[ Y_i - \frac{1}{|\mathcal{M}(i)|} \sum_{j \in \mathcal{M}(i)} Y_j \right]
+$$
+
+where $N_1$ is the number of treated units.
+
+### Propensity Score Matching
+
+Replace the multidimensional $\mathbf{X}$ with the scalar propensity score $\hat{e}(\mathbf{X}_i)$:
+
+$$
+\mathcal{M}(i) = \arg\min_{j \in \{D_j=0\}} |\hat{e}(\mathbf{X}_i) - \hat{e}(\mathbf{X}_j)|
+$$
+
+### Inverse Probability Weighting (IPW)
+
+Rather than matching, one can reweight observations:
+
+$$
+\hat{\tau}_{\text{IPW}} = \frac{1}{N} \sum_{i=1}^{N} \left[ \frac{D_i Y_i}{\hat{e}(\mathbf{X}_i)} - \frac{(1-D_i) Y_i}{1 - \hat{e}(\mathbf{X}_i)} \right]
+$$
+
+This estimates the ATE. For the ATT, the weights for the control group become $\hat{e}(\mathbf{X}_i) / (1 - \hat{e}(\mathbf{X}_i))$. IPW estimators can be sensitive to extreme propensity scores (near 0 or 1), motivating trimming or stabilization strategies.
+
+### Subclassification (Stratification)
+
+Divide the propensity score distribution into $K$ strata and estimate within-stratum treatment effects:
+
+$$
+\hat{\tau}_{\text{strat}} = \sum_{k=1}^{K} w_k \hat{\tau}_k
+$$
+
+where $\hat{\tau}_k$ is the estimated treatment effect in stratum $k$ and $w_k$ is a weight (e.g., the fraction of treated units in stratum $k$ for the ATT). Cochran (1968) showed that five strata remove approximately 90% of the bias due to the stratifying variable.
+
+---
+
+# 2. Simulated Data
+
+We construct a simulated dataset with realistic confounding to demonstrate matching methods. The data-generating process ensures that treatment assignment depends on observed covariates, creating selection bias that matching methods must address.
+
+```{r sim-data}
+set.seed(42)
+
+n <- 1000
+
+# Covariates
+age         <- rnorm(n, mean = 40, sd = 10)
+income      <- rnorm(n, mean = 50000, sd = 15000)
+education   <- rbinom(n, size = 1, prob = 0.4)
+experience  <- pmax(0, age - 22 + rnorm(n, 0, 3))
+region      <- sample(c("North", "South", "East", "West"), n, replace = TRUE)
+
+# Treatment assignment depends on covariates (creates confounding)
+# Older, higher-income, more educated individuals are more likely to be treated
+propensity_true <- plogis(
+  -2 + 0.03 * age + 0.00002 * income + 0.8 * education + 0.02 * experience
+)
+treatment <- rbinom(n, 1, propensity_true)
+
+# Potential outcomes
+# Y(0): baseline outcome depends on covariates
+y0 <- 10 + 0.5 * age + 0.0001 * income + 3 * education +
+  0.2 * experience + rnorm(n, 0, 5)
+
+# Y(1): treatment effect is heterogeneous
+tau_i <- 5 + 0.1 * age - 0.00001 * income + 2 * education
+y1 <- y0 + tau_i
+
+# Observed outcome
+outcome <- treatment * y1 + (1 - treatment) * y0
+
+# Assemble data
+sim_data <- data.frame(
+  id        = 1:n,
+  age       = age,
+  income    = income,
+  education = education,
+  experience = experience,
+  region    = region,
+  treatment = treatment,
+  outcome   = outcome,
+  ps_true   = propensity_true
+)
+
+head(sim_data)
+```
+
+```{r sim-summary}
+# Summary statistics by treatment group
+sim_data %>%
+  group_by(treatment) %>%
+  summarise(
+    n         = n(),
+    mean_age  = mean(age),
+    mean_inc  = mean(income),
+    pct_educ  = mean(education),
+    mean_exp  = mean(experience),
+    mean_y    = mean(outcome),
+    .groups   = "drop"
+  )
+```
+
+Notice that the treated group is older, has higher income, is more educated, and has more experience than the control group. A naive comparison of mean outcomes between treated and control will overstate the treatment effect because these confounders positively affect both treatment probability and outcomes.
+
+```{r naive-estimate}
+# Naive estimate (biased)
+naive_att <- mean(sim_data$outcome[sim_data$treatment == 1]) -
+  mean(sim_data$outcome[sim_data$treatment == 0])
+cat("Naive ATT estimate:", round(naive_att, 2), "\n")
+
+# True ATT (from the DGP)
+true_att <- mean(tau_i[treatment == 1])
+cat("True ATT:", round(true_att, 2), "\n")
+```
+
+---
+
+# 3. Balance Assessment with `causalverse`
+
+Before and after matching, it is essential to assess whether the covariate distributions are balanced across treatment groups. The `causalverse` package provides several functions for this purpose.
+
+## 3.1 `balance_assessment()`: SUR and Hotelling's T-Test
+
+The `balance_assessment()` function performs a joint test of covariate balance using two complementary approaches:
+
+1. **Seemingly Unrelated Regression (SUR):** Regresses each covariate on the treatment indicator in a system of equations. The SUR framework accounts for correlations among covariates when testing whether treatment predicts any of them. A significant coefficient on treatment for any covariate indicates imbalance on that dimension.
+
+2. **Hotelling's T-squared test:** A multivariate generalization of the two-sample $t$-test. It tests the null hypothesis that the mean vectors of covariates are equal across treatment and control groups. Rejection of this test indicates that the groups differ on at least one covariate (or a linear combination of covariates).
+
+Together, these tests provide a rigorous assessment of whether the treated and control groups are comparable prior to (or after) matching.
+
+```{r balance-assessment, eval=TRUE, warning=FALSE, message=FALSE}
+balance_results <- causalverse::balance_assessment(
+  data          = sim_data,
+  treatment_col = "treatment",
+  "age", "income", "education", "experience"
+)
+
+# SUR results: coefficient on treatment for each covariate
+print(balance_results$SUR)
+
+# Hotelling's T-squared test: joint test of mean equality
+print(balance_results$Hotelling)
+```
+
+The SUR results show whether treatment significantly predicts each covariate individually (within the joint system), while the Hotelling test provides an overall assessment. If the Hotelling test rejects (small p-value), the groups are not balanced, and matching or weighting is needed.
+
+## 3.2 `plot_density_by_treatment()`: Density Plots
+
+Visual inspection of covariate distributions is equally important. The `plot_density_by_treatment()` function creates overlapping density plots for each covariate, split by treatment group. Non-overlapping densities indicate covariate imbalance.
+
+```{r density-plots, eval=TRUE, fig.width=7, fig.height=5}
+density_plots <- causalverse::plot_density_by_treatment(
+  data = sim_data,
+  var_map = list(
+    "age"        = "Age",
+    "income"     = "Income",
+    "experience" = "Experience"
+  ),
+  treatment_var = c("treatment" = "Treatment\nGroup")
+)
+
+# Display individual plots
+density_plots[["Age"]]
+density_plots[["Income"]]
+density_plots[["Experience"]]
+```
+
+Ideal balance would show nearly identical density curves for treated and control groups. Visible separation between the curves indicates confounding that must be addressed.
+
+## 3.3 `balance_scatter_custom()`: Standardized Mean Difference Scatter Plot
+
+The `balance_scatter_custom()` function creates a scatter plot comparing covariate balance before and after matching refinement. Each point represents a covariate: the x-axis shows the standardized mean difference (SMD) before refinement and the y-axis shows the SMD after refinement. Points below the 45-degree line indicate that refinement improved balance.
+
+This function is designed to work with `PanelMatch` objects and is most useful in panel data settings. See the DID vignette for a complete worked example.
+
+```{r balance-scatter, eval=FALSE}
+# Requires PanelMatch objects - not runnable without panel data setup
+# See the DID vignette (vignettes/c_did.Rmd) for a complete example
+
+library(PanelMatch)
+
+# Example usage (not run):
+# balance_scatter_custom(
+#   pm_result_list = list(PM.results.5m, PM.results.10m),
+#   panel.data     = pd,
+#   set.names      = c("5 Matches", "10 Matches"),
+#   covariates     = c("y", "tradewb"),
+#   xlim           = c(0, 0.5),
+#   ylim           = c(0, 0.5)
+# )
+```
+
+## 3.4 `plot_covariate_balance_pretrend()`: Balance Over Time
+
+For panel data, it is important to check that covariate balance holds not just on average but across the entire pre-treatment period. The `plot_covariate_balance_pretrend()` function plots the standardized mean difference for each covariate at each pre-treatment time point.
+
+```{r balance-pretrend, eval=TRUE, fig.width=7, fig.height=5}
+# Create a sample balance matrix (rows = time periods, columns = covariates)
+set.seed(123)
+balance_matrix <- matrix(
+  c(
+    0.05, -0.02,  0.08, -0.03,   # t_4
+    0.03,  0.01,  0.06, -0.01,   # t_3
+    0.02, -0.01,  0.04,  0.02,   # t_2
+   -0.01,  0.03,  0.01,  0.01    # t_1
+  ),
+  nrow  = 4,
+  byrow = TRUE
+)
+rownames(balance_matrix) <- paste0("t_", 4:1)
+colnames(balance_matrix) <- c("Age", "Income", "Education", "Experience")
+
+p <- causalverse::plot_covariate_balance_pretrend(
+  balance_data = balance_matrix,
+  y_limits     = c(-0.15, 0.15),
+  main_title   = "Covariate Balance Over Pre-Treatment Period",
+  theme_use    = ggplot2::theme_minimal()
+)
+print(p)
+```
+
+All lines should hover close to zero across the pre-treatment period. A sharp divergence near the treatment date suggests an anticipation effect or a violation of the parallel trends assumption.
+
+---
+
+# 4. The `MatchIt` Package
+
+The `MatchIt` package (Ho, Imai, King, and Stuart, 2011) is the gold standard for implementing matching in R. It provides a unified interface for a wide variety of matching methods and integrates seamlessly with balance diagnostics.
+
+The workflow follows a principled three-step process:
+
+1. **Match**: Use `matchit()` to create matched data.
+2. **Check**: Use `summary()` and `plot()` to assess balance.
+3. **Estimate**: Use the matched data for outcome analysis.
+
+## 4.1 Nearest Neighbor Matching
+
+Nearest neighbor matching pairs each treated unit with the closest control unit based on a distance measure (default: propensity score distance estimated via logistic regression).
+
+```{r matchit-nn, eval=requireNamespace("MatchIt", quietly = TRUE)}
+library(MatchIt)
+
+# 1:1 nearest neighbor matching on the propensity score
+m_nn <- matchit(
+  treatment ~ age + income + education + experience,
+  data    = sim_data,
+  method  = "nearest",
+  distance = "glm",       # logistic regression for PS
+  ratio   = 1,            # 1 control per treated
+  replace = FALSE         # without replacement
+)
+
+# Summary of balance before and after matching
+summary(m_nn)
+
+# Balance improvement plot (Love plot equivalent)
+plot(m_nn, type = "jitter", interactive = FALSE)
+
+# QQ plots for each covariate
+plot(summary(m_nn))
+
+# Extract matched data for outcome analysis
+matched_nn <- match.data(m_nn)
+nrow(matched_nn)
+```
+
+Key options for nearest neighbor matching:
+
+- `ratio`: Number of controls matched to each treated unit ($k$:1 matching). Higher ratios retain more data but may increase bias if distant matches are used.
+- `replace`: Whether controls can be matched to multiple treated units. Matching with replacement reduces bias (each treated unit gets its best match) but increases variance (matched controls are reused).
+- `caliper`: Maximum allowable distance between matched pairs. Treated units without a sufficiently close control are dropped. Calipers improve balance but may reduce the effective sample size.
+
+```{r matchit-nn-caliper, eval=requireNamespace("MatchIt", quietly = TRUE)}
+# Nearest neighbor with caliper and 2:1 matching
+m_nn_cal <- matchit(
+  treatment ~ age + income + education + experience,
+  data    = sim_data,
+  method  = "nearest",
+  distance = "glm",
+  ratio   = 2,
+  caliper = 0.2,       # 0.2 SD of the propensity score
+  replace = FALSE
+)
+
+summary(m_nn_cal)
+```
+
+## 4.2 Optimal Matching
+
+Optimal matching minimizes the total distance across all matched pairs, unlike greedy nearest-neighbor matching which minimizes each pair's distance sequentially. This typically produces better overall balance, especially when the supply of good matches is limited.
+
+```{r matchit-optimal, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("optmatch", quietly = TRUE)}
+m_opt <- matchit(
+  treatment ~ age + income + education + experience,
+  data   = sim_data,
+  method = "optimal",
+  distance = "glm"
+)
+
+summary(m_opt)
+
+# Compare balance with nearest neighbor
+summary(m_nn)$sum.matched
+summary(m_opt)$sum.matched
+```
+
+Optimal matching requires the `optmatch` package. It is generally preferred over nearest neighbor matching for pair matching, although it can be computationally expensive for large datasets.
+
+## 4.3 Full Matching
+
+Full matching creates subclasses (strata) where each subclass contains at least one treated and one control unit. Every unit in the data is assigned to a subclass, so no data are discarded. Full matching is optimal in the sense that it minimizes the average within-subclass distance.
+
+```{r matchit-full, eval=requireNamespace("MatchIt", quietly = TRUE)}
+m_full <- matchit(
+  treatment ~ age + income + education + experience,
+  data   = sim_data,
+  method = "full",
+  distance = "glm"
+)
+
+summary(m_full)
+
+# Extract matched data with subclass weights
+matched_full <- match.data(m_full)
+
+# Each observation gets a weight reflecting its role in the matched sample
+table(matched_full$subclass[1:20])
+summary(matched_full$weights)
+```
+
+Full matching naturally targets the ATE (or the ATT with appropriate arguments). Because it uses all observations, it is generally more efficient than pair matching, though the resulting weights can be highly variable.
+
+## 4.4 Coarsened Exact Matching (CEM)
+
+Coarsened Exact Matching (Iacus, King, and Porro, 2012) temporarily coarsens continuous covariates into bins, performs exact matching on the coarsened values, and then retains the original (uncoarsened) data for analysis. This ensures that matched units are within the same bin on every covariate.
+
+```{r matchit-cem, eval=requireNamespace("MatchIt", quietly = TRUE)}
+m_cem <- matchit(
+  treatment ~ age + income + education + experience,
+  data   = sim_data,
+  method = "cem",
+  cutpoints = list(
+    age        = 5,    # bin width for age
+    income     = 4,    # number of bins for income
+    experience = 5     # bin width for experience
+  )
+)
+
+summary(m_cem)
+
+# CEM produces strata-based weights
+matched_cem <- match.data(m_cem)
+summary(matched_cem$weights)
+```
+
+Advantages of CEM:
+
+- Guarantees that imbalance is bounded by the coarsening level.
+- Does not require a propensity score model.
+- Transparent: the researcher directly controls the matching criteria.
+
+Disadvantages:
+
+- Sensitive to the coarsening scheme. Too fine a coarsening leads to many unmatched units; too coarse sacrifices precision.
+- In high dimensions, many strata will contain only treated or only control units, leading to substantial data loss.
+
+## 4.5 Subclassification
+
+Subclassification divides the propensity score distribution into a fixed number of strata and estimates treatment effects within each stratum. The overall effect is a weighted average of stratum-specific effects.
+
+```{r matchit-subclass, eval=requireNamespace("MatchIt", quietly = TRUE)}
+m_sub <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "subclass",
+  subclass = 6    # number of subclasses
+)
+
+summary(m_sub)
+
+# Balance within each subclass
+summary(m_sub, subclass = TRUE)
+
+# Matched data with subclass indicators
+matched_sub <- match.data(m_sub)
+table(matched_sub$subclass)
+```
+
+## 4.6 Propensity Score Matching (Detailed)
+
+Propensity score matching uses the estimated propensity score as the distance measure. `MatchIt` estimates the propensity score via logistic regression by default, but supports many alternatives.
+
+```{r matchit-ps-methods, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("randomForest", quietly = TRUE) && requireNamespace("gbm", quietly = TRUE)}
+# Logistic regression (default)
+m_ps_logit <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = "glm",
+  link     = "logit"
+)
+
+# Probit model
+m_ps_probit <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = "glm",
+  link     = "probit"
+)
+
+# Random forest (via the randomForest package)
+m_ps_rf <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = "randomforest"
+)
+
+# Generalized boosted model (via the gbm package)
+m_ps_gbm <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = "gbm"
+)
+
+# Compare balance across PS estimation methods
+summary(m_ps_logit)$sum.matched
+summary(m_ps_rf)$sum.matched
+```
+
+## 4.7 Mahalanobis Distance Matching
+
+Instead of matching on the propensity score, one can match directly on the covariate space using Mahalanobis distance:
+
+$$
+d_M(\mathbf{X}_i, \mathbf{X}_j) = \sqrt{(\mathbf{X}_i - \mathbf{X}_j)^\top \hat{\Sigma}^{-1} (\mathbf{X}_i - \mathbf{X}_j)}
+$$
+
+where $\hat{\Sigma}$ is the sample covariance matrix. This accounts for correlations and scaling differences among covariates.
+
+```{r matchit-maha, eval=requireNamespace("MatchIt", quietly = TRUE)}
+m_maha <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = "mahalanobis"
+)
+
+summary(m_maha)
+
+# Mahalanobis distance matching with a caliper on age
+m_maha_cal <- matchit(
+  treatment ~ age + income + education + experience,
+  data      = sim_data,
+  method    = "nearest",
+  distance  = "mahalanobis",
+  caliper   = c(age = 0.2),
+  std.caliper = TRUE
+)
+
+summary(m_maha_cal)
+```
+
+## 4.8 Estimation After Matching
+
+After obtaining matched data, treatment effects are estimated using regression on the matched sample. Including the matching covariates in the regression provides doubly robust estimation: the estimate is consistent if either the matching or the regression model is correctly specified.
+
+```{r matchit-estimation, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+# Get matched data
+matched_data <- match.data(m_nn)
+
+# Simple difference in means
+lm_simple <- lm(outcome ~ treatment, data = matched_data, weights = weights)
+summary(lm_simple)
+
+# Regression adjustment with covariates (doubly robust)
+lm_adj <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = matched_data,
+  weights = weights
+)
+summary(lm_adj)
+coef(lm_adj)["treatment"]
+
+# Using fixest for cluster-robust standard errors
+library(fixest)
+feols_fit <- fixest::feols(
+  outcome ~ treatment + age + income + education + experience,
+  data    = matched_data,
+  weights = ~ weights,
+  vcov    = "HC1"
+)
+summary(feols_fit)
+```
+
+When matching is done with replacement or with variable numbers of controls, one should use cluster-robust standard errors (clustering on the matched pair or subclass) or use the weights produced by `match.data()`.
+
+```{r matchit-cluster-se, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+# Cluster-robust SEs, clustering on the subclass (matched pair)
+feols_cluster <- fixest::feols(
+  outcome ~ treatment + age + income + education + experience,
+  data     = matched_data,
+  weights  = ~ weights,
+  cluster  = ~ subclass
+)
+summary(feols_cluster)
+```
+
+---
+
+# 5. The `cobalt` Package: Balance Assessment
+
+The `cobalt` package (Greifer, 2024) provides a comprehensive toolkit for assessing covariate balance after matching or weighting. It works seamlessly with objects from `MatchIt`, `WeightIt`, and many other packages.
+
+## 5.1 Balance Tables with `bal.tab()`
+
+```{r cobalt-baltab, eval=requireNamespace("cobalt", quietly = TRUE) && requireNamespace("MatchIt", quietly = TRUE)}
+library(cobalt)
+
+# From a MatchIt object
+bal.tab(m_nn, thresholds = c(m = 0.1))  # flag covariates with SMD > 0.1
+
+# From a WeightIt object (see Section 6)
+# bal.tab(w_out, thresholds = c(m = 0.1))
+
+# From raw data with a formula
+bal.tab(
+  treatment ~ age + income + education + experience,
+  data = sim_data,
+  thresholds = c(m = 0.1),
+  un = TRUE   # show unadjusted balance too
+)
+```
+
+The balance table reports the standardized mean difference (SMD), variance ratio, and other balance statistics for each covariate. The conventional threshold for acceptable balance is $|SMD| < 0.1$ (Austin, 2011), though this is a guideline rather than a hard rule.
+
+## 5.2 Love Plots with `love.plot()`
+
+Love plots provide a visual summary of covariate balance. Each covariate is represented by a point; the x-axis shows the absolute standardized mean difference. Points are shown for both the unadjusted and adjusted samples, making it easy to see which covariates improved and whether all covariates meet the balance threshold.
+
+```{r cobalt-love, eval=requireNamespace("cobalt", quietly = TRUE) && requireNamespace("MatchIt", quietly = TRUE)}
+# Love plot from a MatchIt object
+love.plot(
+  m_nn,
+  binary   = "std",
+  abs      = TRUE,
+  thresholds = c(m = 0.1),
+  var.order  = "unadjusted",
+  colors     = c("red", "blue"),
+  shapes     = c(17, 15),
+  sample.names = c("Unadjusted", "Matched"),
+  title      = "Covariate Balance: Nearest Neighbor Matching"
+)
+
+# Compare multiple matching methods
+love.plot(
+  treatment ~ age + income + education + experience,
+  data    = sim_data,
+  weights = list(
+    NN   = m_nn,
+    Full = m_full,
+    CEM  = m_cem
+  ),
+  abs       = TRUE,
+  var.order = "unadjusted",
+  thresholds = c(m = 0.1),
+  title     = "Balance Comparison Across Methods"
+)
+```
+
+## 5.3 Distributional Balance with `bal.plot()`
+
+While SMDs assess differences in means, `bal.plot()` visualizes the entire distribution of each covariate across treatment groups.
+
+```{r cobalt-balplot, eval=requireNamespace("cobalt", quietly = TRUE) && requireNamespace("MatchIt", quietly = TRUE)}
+# Density plot for a continuous covariate
+bal.plot(m_nn, var.name = "age", which = "both")
+
+# Mirror plot (treated density above, control below)
+bal.plot(m_nn, var.name = "income", which = "both", type = "density",
+         mirror = TRUE)
+
+# Bar plot for a binary covariate
+bal.plot(m_nn, var.name = "education", which = "both")
+```
+
+---
+
+# 6. The `WeightIt` Package: Propensity Score Weighting
+
+The `WeightIt` package (Greifer, 2024) provides a unified interface for estimating balancing weights. Unlike matching, weighting retains all observations and assigns weights to create a pseudo-population in which covariates are balanced.
+
+## 6.1 Basic Usage
+
+```{r weightit-basic, eval=requireNamespace("WeightIt", quietly = TRUE)}
+library(WeightIt)
+
+# Standard IPW (inverse probability weighting)
+w_ipw <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ps",       # propensity score weighting
+  estimand = "ATT"
+)
+
+summary(w_ipw)
+
+# Examine the weight distribution
+summary(w_ipw$weights)
+hist(w_ipw$weights, breaks = 30, main = "IPW Weight Distribution")
+```
+
+## 6.2 Entropy Balancing
+
+Entropy balancing (Hainmueller, 2012) finds weights that satisfy exact moment conditions (equality of means, and optionally variances and skewness) while minimizing the entropy distance from uniform weights. This guarantees exact balance on the specified moments.
+
+```{r weightit-ebal, eval=requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("cobalt", quietly = TRUE)}
+w_ebal <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ebal",      # entropy balancing
+  estimand = "ATT"
+)
+
+summary(w_ebal)
+
+# Entropy balancing achieves near-exact balance
+bal.tab(w_ebal, thresholds = c(m = 0.01))
+```
+
+## 6.3 Covariate Balancing Propensity Score (CBPS)
+
+CBPS (Imai and Ratkovic, 2014) jointly estimates the propensity score and optimizes covariate balance. It modifies the propensity score estimation to explicitly target balance, rather than treating balance as a byproduct.
+
+```{r weightit-cbps, eval=requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("cobalt", quietly = TRUE)}
+w_cbps <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "cbps",
+  estimand = "ATT"
+)
+
+summary(w_cbps)
+bal.tab(w_cbps, thresholds = c(m = 0.1))
+```
+
+## 6.4 Energy Balancing
+
+Energy balancing minimizes the energy distance between the weighted control distribution and the treated distribution. Unlike moment-based methods, it targets balance on the entire distribution, not just selected moments.
+
+```{r weightit-energy, eval=requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("cobalt", quietly = TRUE)}
+w_energy <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "energy",
+  estimand = "ATT"
+)
+
+summary(w_energy)
+bal.tab(w_energy, thresholds = c(m = 0.1))
+```
+
+## 6.5 Estimation After Weighting
+
+```{r weightit-estimation, eval=requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("survey", quietly = TRUE)}
+# Using survey-weighted regression
+library(survey)
+d_ipw <- svydesign(ids = ~1, weights = ~weights, data = data.frame(
+  sim_data, weights = w_ipw$weights
+))
+svyglm_fit <- svyglm(outcome ~ treatment, design = d_ipw)
+summary(svyglm_fit)
+
+# Or more simply using lm with weights
+lm_weighted <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = sim_data,
+  weights = w_ebal$weights
+)
+summary(lm_weighted)
+coef(lm_weighted)["treatment"]
+```
+
+---
+
+# 7. Propensity Score Methods in Detail
+
+## 7.1 Propensity Score Estimation
+
+The propensity score $e(\mathbf{X}) = \Pr(D = 1 \mid \mathbf{X})$ is most commonly estimated via logistic regression, but flexible methods often perform better.
+
+```{r ps-estimation, eval=requireNamespace("gbm", quietly = TRUE)}
+# Logistic regression
+ps_logit <- glm(
+  treatment ~ age + income + education + experience + I(age^2) +
+    age:education + income:experience,
+  data   = sim_data,
+  family = binomial(link = "logit")
+)
+sim_data$ps_logit <- predict(ps_logit, type = "response")
+
+# Generalized Boosted Model (GBM)
+library(gbm)
+ps_gbm_fit <- gbm(
+  treatment ~ age + income + education + experience,
+  data         = sim_data,
+  distribution = "bernoulli",
+  n.trees      = 3000,
+  interaction.depth = 3,
+  shrinkage    = 0.01,
+  cv.folds     = 5,
+  verbose      = FALSE
+)
+best_iter <- gbm.perf(ps_gbm_fit, method = "cv", plot.it = FALSE)
+sim_data$ps_gbm <- predict(ps_gbm_fit, n.trees = best_iter, type = "response")
+
+# Compare PS distributions
+par(mfrow = c(1, 2))
+hist(sim_data$ps_logit[sim_data$treatment == 1], col = rgb(1, 0, 0, 0.5),
+     main = "Logistic PS", xlab = "Propensity Score", breaks = 30)
+hist(sim_data$ps_logit[sim_data$treatment == 0], col = rgb(0, 0, 1, 0.5),
+     add = TRUE, breaks = 30)
+legend("topright", c("Treated", "Control"), fill = c(rgb(1,0,0,0.5), rgb(0,0,1,0.5)))
+
+hist(sim_data$ps_gbm[sim_data$treatment == 1], col = rgb(1, 0, 0, 0.5),
+     main = "GBM PS", xlab = "Propensity Score", breaks = 30)
+hist(sim_data$ps_gbm[sim_data$treatment == 0], col = rgb(0, 0, 1, 0.5),
+     add = TRUE, breaks = 30)
+legend("topright", c("Treated", "Control"), fill = c(rgb(1,0,0,0.5), rgb(0,0,1,0.5)))
+```
+
+## 7.2 Propensity Score Matching
+
+```{r ps-matching, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("gbm", quietly = TRUE)}
+# Manual PS matching using MatchIt with a user-supplied PS
+m_user_ps <- matchit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "nearest",
+  distance = sim_data$ps_logit,  # user-supplied propensity scores
+  caliper  = 0.1,
+  replace  = FALSE
+)
+
+summary(m_user_ps)
+```
+
+## 7.3 Propensity Score Weighting (IPW / IPTW)
+
+Inverse Probability of Treatment Weighting (IPTW) uses the propensity score to reweight the sample. The weights are:
+
+- **ATE weights:** $w_i = \frac{D_i}{\hat{e}(\mathbf{X}_i)} + \frac{1 - D_i}{1 - \hat{e}(\mathbf{X}_i)}$
+- **ATT weights:** $w_i = D_i + (1 - D_i) \cdot \frac{\hat{e}(\mathbf{X}_i)}{1 - \hat{e}(\mathbf{X}_i)}$
+
+```{r ipw-manual, eval=requireNamespace("gbm", quietly = TRUE)}
+# Manual IPTW for ATT
+sim_data <- sim_data %>%
+  mutate(
+    ipw_att = ifelse(treatment == 1, 1,
+                     ps_logit / (1 - ps_logit)),
+    ipw_ate = ifelse(treatment == 1, 1 / ps_logit,
+                     1 / (1 - ps_logit))
+  )
+
+# Stabilized weights (reduce variability)
+sim_data <- sim_data %>%
+  mutate(
+    p_treat = mean(treatment),
+    sw_ate  = ifelse(treatment == 1,
+                     p_treat / ps_logit,
+                     (1 - p_treat) / (1 - ps_logit))
+  )
+
+# Weighted regression for ATT
+lm_ipw_att <- lm(outcome ~ treatment, data = sim_data, weights = ipw_att)
+coef(lm_ipw_att)["treatment"]
+```
+
+## 7.4 Propensity Score Stratification
+
+```{r ps-strat, eval=requireNamespace("gbm", quietly = TRUE)}
+# Create 5 strata based on PS quantiles
+sim_data$ps_stratum <- cut(
+  sim_data$ps_logit,
+  breaks   = quantile(sim_data$ps_logit, probs = seq(0, 1, 0.2)),
+  include.lowest = TRUE,
+  labels   = 1:5
+)
+
+# Within-stratum treatment effects
+strat_effects <- sim_data %>%
+  group_by(ps_stratum) %>%
+  summarise(
+    n_treat   = sum(treatment),
+    n_control = sum(1 - treatment),
+    att_strat = mean(outcome[treatment == 1]) - mean(outcome[treatment == 0]),
+    .groups   = "drop"
+  )
+
+print(strat_effects)
+
+# Weighted average (ATT weights = proportion of treated in each stratum)
+strat_effects <- strat_effects %>%
+  mutate(weight = n_treat / sum(n_treat))
+
+att_strat <- sum(strat_effects$att_strat * strat_effects$weight)
+cat("Stratified ATT:", round(att_strat, 2), "\n")
+```
+
+## 7.5 Trimming and Truncation
+
+Extreme propensity scores can lead to highly variable weights and unstable estimates. Two remedies:
+
+1. **Trimming:** Discard observations with extreme propensity scores (e.g., outside $[0.05, 0.95]$).
+2. **Truncation (Winsorizing):** Cap extreme weights at a percentile (e.g., the 99th percentile).
+
+```{r ps-trimming, eval=requireNamespace("MatchIt", quietly = TRUE) && requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("gbm", quietly = TRUE)}
+# Trimming: drop observations with extreme PS
+sim_trimmed <- sim_data %>%
+  filter(ps_logit >= 0.05 & ps_logit <= 0.95)
+
+cat("Observations retained after trimming:",
+    nrow(sim_trimmed), "of", nrow(sim_data), "\n")
+
+# Re-estimate on trimmed sample
+m_nn_trimmed <- matchit(
+  treatment ~ age + income + education + experience,
+  data   = sim_trimmed,
+  method = "nearest"
+)
+
+# Truncation: cap extreme weights
+w_trunc <- w_ipw$weights
+threshold <- quantile(w_trunc[w_trunc > 0], 0.99)
+w_trunc[w_trunc > threshold] <- threshold
+summary(w_trunc)
+```
+
+## 7.6 Common Support Assessment
+
+```{r common-support, eval=requireNamespace("gbm", quietly = TRUE), fig.width=7, fig.height=5}
+# Visual assessment of common support
+ggplot(sim_data, aes(x = ps_logit, fill = factor(treatment))) +
+  geom_density(alpha = 0.5) +
+  labs(
+    title = "Propensity Score Distributions by Treatment Group",
+    x     = "Propensity Score",
+    y     = "Density",
+    fill  = "Treatment"
+  ) +
+  theme_minimal()
+
+# Identify the region of common support
+ps_range_treat   <- range(sim_data$ps_logit[sim_data$treatment == 1])
+ps_range_control <- range(sim_data$ps_logit[sim_data$treatment == 0])
+common_support   <- c(
+  max(ps_range_treat[1], ps_range_control[1]),
+  min(ps_range_treat[2], ps_range_control[2])
+)
+cat("Common support region:", round(common_support, 3), "\n")
+
+# Fraction of observations within common support
+in_support <- sim_data$ps_logit >= common_support[1] &
+  sim_data$ps_logit <= common_support[2]
+cat("Fraction in common support:", mean(in_support), "\n")
+```
+
+---
+
+# 8. Coarsened Exact Matching (CEM) in Depth
+
+CEM (Iacus, King, and Porro, 2012) takes a fundamentally different approach from propensity score methods. Instead of modeling the treatment assignment mechanism, CEM directly imposes a bound on the maximum imbalance.
+
+## 8.1 How CEM Works
+
+The algorithm proceeds in three steps:
+
+1. **Coarsen** each continuous covariate into bins (strata). Binary and categorical variables are left as-is.
+2. **Exact match** on the coarsened covariates. Observations in strata containing both treated and control units are retained; others are discarded.
+3. **Analyze** the original (uncoarsened) data from matched strata, using stratum-level weights to account for different numbers of treated and control units per stratum.
+
+The key property of CEM is the **congruence principle**: restricting the analysis to well-matched strata guarantees that the maximum imbalance (measured by the $L_1$ statistic) is bounded by the coarsening level. Finer coarsening yields better balance but more discarded observations.
+
+```{r cem-detail, eval=requireNamespace("MatchIt", quietly = TRUE)}
+library(MatchIt)
+
+# CEM with automatic coarsening
+m_cem_auto <- matchit(
+  treatment ~ age + income + education + experience,
+  data   = sim_data,
+  method = "cem"
+)
+
+summary(m_cem_auto)
+
+# CEM with user-specified cut points
+m_cem_custom <- matchit(
+  treatment ~ age + income + education + experience,
+  data      = sim_data,
+  method    = "cem",
+  cutpoints = list(
+    age        = seq(20, 65, by = 5),
+    income     = seq(10000, 90000, by = 10000),
+    experience = seq(0, 40, by = 5)
+  ),
+  grouping = list(
+    education = list(c("0"), c("1"))
+  )
+)
+
+summary(m_cem_custom)
+
+# Check how many observations were retained
+matched_cem_custom <- match.data(m_cem_custom)
+cat("Retained:", nrow(matched_cem_custom), "of", nrow(sim_data), "\n")
+cat("Treated retained:", sum(matched_cem_custom$treatment), "\n")
+cat("Control retained:", sum(1 - matched_cem_custom$treatment), "\n")
+```
+
+## 8.2 Estimation After CEM
+
+```{r cem-estimation, eval=requireNamespace("MatchIt", quietly = TRUE)}
+# Weighted regression on matched CEM data
+matched_cem_est <- match.data(m_cem_custom)
+
+lm_cem <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = matched_cem_est,
+  weights = weights
+)
+summary(lm_cem)
+coef(lm_cem)["treatment"]
+```
+
+---
+
+# 9. Entropy Balancing
+
+## 9.1 Theory
+
+Entropy balancing (Hainmueller, 2012) reweights the control group so that the reweighted control moments exactly match the treated group moments. The optimization problem is:
+
+$$
+\min_{w_i} \sum_{i: D_i=0} h(w_i)
+$$
+
+subject to:
+
+$$
+\sum_{i: D_i=0} w_i \cdot c_r(\mathbf{X}_i) = m_r, \quad r = 1, \ldots, R
+$$
+
+$$
+\sum_{i: D_i=0} w_i = 1, \quad w_i \geq 0 \quad \forall i
+$$
+
+where $h(w_i) = w_i \log(w_i / q_i)$ is the entropy divergence from base weights $q_i$, $c_r(\cdot)$ are moment functions (means, variances, etc.), and $m_r$ are the corresponding moments in the treated group.
+
+The key advantage is that exact balance is achieved *by construction*, not checked post hoc. The weights are as close to uniform as possible while satisfying the balance constraints, avoiding the extreme weights that plague traditional IPW.
+
+## 9.2 Implementation
+
+```{r ebal-impl, eval=requireNamespace("WeightIt", quietly = TRUE)}
+library(WeightIt)
+
+# First moment (mean) balancing
+w_ebal_m1 <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ebal",
+  estimand = "ATT",
+  moments  = 1    # balance means only
+)
+
+# Second moment (mean + variance) balancing
+w_ebal_m2 <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ebal",
+  estimand = "ATT",
+  moments  = 2    # balance means and variances
+)
+
+# Third moment (mean + variance + skewness)
+w_ebal_m3 <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ebal",
+  estimand = "ATT",
+  moments  = 3
+)
+
+# Compare weight distributions
+summary(w_ebal_m1$weights)
+summary(w_ebal_m2$weights)
+summary(w_ebal_m3$weights)
+
+# Higher moments = better balance but more variable weights
+```
+
+## 9.3 Checking Balance After Entropy Balancing
+
+```{r ebal-balance, eval=requireNamespace("WeightIt", quietly = TRUE) && requireNamespace("cobalt", quietly = TRUE)}
+library(cobalt)
+
+bal.tab(w_ebal_m1, thresholds = c(m = 0.01))
+
+love.plot(
+  w_ebal_m1,
+  abs        = TRUE,
+  thresholds = c(m = 0.05),
+  title      = "Entropy Balancing: Balance Assessment"
+)
+```
+
+---
+
+# 10. Panel Data Matching with `PanelMatch`
+
+While the methods above are designed for cross-sectional settings, panel data require specialized approaches. The `PanelMatch` package (Imai, Kim, and Wang, 2023) performs matching in panel data by finding control units with similar treatment and covariate histories.
+
+## 10.1 How PanelMatch Differs from Cross-Sectional Matching
+
+In cross-sectional matching, each treated unit is matched to control units with similar covariate values at a single point in time. In panel data, `PanelMatch`:
+
+1. **Matches on treatment history:** Control units must have the same treatment status as the treated unit in the $L$ periods prior to treatment (exact matching on lagged treatment).
+2. **Refines on covariate history:** Among the exactly matched controls, further refinement is performed using Mahalanobis distance or propensity score matching on lagged covariates.
+3. **Accounts for time-varying confounders:** By matching on the trajectory of covariates, not just their level, `PanelMatch` addresses time-varying confounding.
+
+```{r panelmatch-overview, eval=FALSE}
+library(PanelMatch)
+
+# PanelMatch requires a PanelData object
+# See the DID vignette (vignettes/c_did.Rmd) for complete examples
+
+# pd <- PanelData(
+#   panel.data = my_panel,
+#   unit.id    = "unit",
+#   time.id    = "year",
+#   treatment  = "treat",
+#   outcome    = "y"
+# )
+
+# PM.results <- PanelMatch(
+#   panel.data         = pd,
+#   lag                = 4,
+#   refinement.method  = "mahalanobis",
+#   covs.formula       = ~ I(lag(x1, 1:4)) + I(lag(x2, 1:4)),
+#   size.match         = 5,
+#   qoi                = "att",
+#   lead               = 0:4,
+#   match.missing      = TRUE
+# )
+```
+
+## 10.2 Balance Assessment for PanelMatch
+
+After panel matching, use the `causalverse` balance functions described in Section 3:
+
+- `balance_scatter_custom()` to compare SMDs before and after matching refinement.
+- `plot_covariate_balance_pretrend()` to visualize balance trajectories across pre-treatment periods.
+
+See the DID vignette for worked examples with real data.
+
+---
+
+# 11. Sensitivity Analysis
+
+All matching methods rely on the untestable assumption of no unmeasured confounding. Sensitivity analysis quantifies how robust the findings are to potential violations of this assumption.
+
+## 11.1 Rosenbaum Bounds
+
+Rosenbaum's sensitivity analysis framework asks: "How large would an unmeasured confounder need to be to explain away the observed treatment effect?" The sensitivity parameter $\Gamma$ (gamma) represents the maximum factor by which two units with the same observed covariates can differ in their odds of treatment due to an unmeasured confounder.
+
+$$
+\frac{1}{\Gamma} \leq \frac{\Pr(D_i=1 \mid \mathbf{X})/\Pr(D_i=0 \mid \mathbf{X})}{\Pr(D_j=1 \mid \mathbf{X})/\Pr(D_j=0 \mid \mathbf{X})} \leq \Gamma
+$$
+
+At $\Gamma = 1$, there is no hidden bias. As $\Gamma$ increases, the assumption of no unmeasured confounding is progressively relaxed. The analyst reports the value of $\Gamma$ at which the result first becomes insignificant.
+
+```{r rosenbaum, eval=FALSE}
+library(rbounds)
+library(Matching)
+
+# First, perform matching
+match_out <- Match(
+  Y     = sim_data$outcome,
+  Tr    = sim_data$treatment,
+  X     = sim_data[, c("age", "income", "education", "experience")],
+  estimand = "ATT",
+  M     = 1
+)
+
+summary(match_out)
+
+# Rosenbaum bounds for the matched estimate
+psens(match_out, Gamma = 2, GammaInc = 0.1)
+
+# Hodges-Lehmann point estimate sensitivity
+hlsens(match_out, Gamma = 2, GammaInc = 0.1)
+```
+
+## 11.2 Sensitivity Analysis with `sensemakr`
+
+The `sensemakr` package (Cinelli and Hazlett, 2020) provides a different approach to sensitivity analysis based on omitted variable bias (OVB). It quantifies how strong an omitted confounder would need to be---in terms of its partial $R^2$ with both treatment and outcome---to explain away the estimated effect.
+
+```{r sensemakr-analysis, eval=requireNamespace("sensemakr", quietly = TRUE) && requireNamespace("MatchIt", quietly = TRUE)}
+library(sensemakr)
+
+# Fit a regression on matched data
+matched_data_sens <- match.data(m_nn)
+lm_fit <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = matched_data_sens,
+  weights = weights
+)
+
+# Sensitivity analysis
+sens <- sensemakr(
+  model      = lm_fit,
+  treatment  = "treatment",
+  benchmark_covariates = c("age", "income", "education"),
+  kd = 1:3,    # multiples of benchmark strength
+  ky = 1:3
+)
+
+summary(sens)
+
+# Contour plot: shows combinations of confounder strength
+# that would reduce the estimate to zero
+plot(sens)
+
+# Extreme scenario plot
+plot(sens, sensitivity.of = "t-value")
+
+# The Robustness Value (RV) tells us the minimum
+# strength of association an omitted confounder would
+# need to have with both treatment and outcome to
+# explain away the entire estimated effect
+```
+
+Key outputs from `sensemakr`:
+
+- **Robustness Value ($RV_q$):** The minimum partial $R^2$ that an omitted confounder would need to have with both treatment and outcome to reduce the effect by $q\%$ (e.g., to zero when $q=1$).
+- **Contour plots:** Show how the estimate changes under different assumptions about confounder strength.
+- **Benchmarking:** Compares the required confounder strength to the strength of observed covariates.
+
+---
+
+# 12. Doubly Robust Estimation
+
+## 12.1 Motivation
+
+Each approach to causal inference under selection on observables involves modeling assumptions:
+
+- **Matching/weighting** requires a correct model for the treatment assignment mechanism (propensity score).
+- **Regression adjustment** requires a correct model for the outcome.
+
+**Doubly robust (DR)** estimators combine both approaches and are consistent if *either* model is correctly specified (but not necessarily both). This provides a safety net against model misspecification.
+
+## 12.2 The Augmented IPW Estimator
+
+The classic doubly robust estimator is the Augmented Inverse Probability Weighted (AIPW) estimator:
+
+$$
+\hat{\tau}_{DR} = \frac{1}{N} \sum_{i=1}^{N} \left\{ \frac{D_i Y_i}{\hat{e}(\mathbf{X}_i)} - \frac{D_i - \hat{e}(\mathbf{X}_i)}{\hat{e}(\mathbf{X}_i)} \hat{m}_1(\mathbf{X}_i) \right\} - \frac{1}{N} \sum_{i=1}^{N} \left\{ \frac{(1-D_i) Y_i}{1-\hat{e}(\mathbf{X}_i)} + \frac{D_i - \hat{e}(\mathbf{X}_i)}{1-\hat{e}(\mathbf{X}_i)} \hat{m}_0(\mathbf{X}_i) \right\}
+$$
+
+where $\hat{e}(\mathbf{X})$ is the estimated propensity score and $\hat{m}_d(\mathbf{X}) = E[Y \mid D = d, \mathbf{X}]$ is the estimated outcome model for treatment group $d$.
+
+## 12.3 Implementation Strategies
+
+**Strategy 1: Regression on matched data (practical DR)**
+
+The simplest form of doubly robust estimation is to include covariates in the outcome regression estimated on matched data. This is what was demonstrated in Section 4.8.
+
+```{r dr-matched, eval=requireNamespace("MatchIt", quietly = TRUE)}
+matched_data_dr <- match.data(m_nn)
+
+# Including covariates in the regression on matched data
+# is a form of doubly robust estimation
+lm_dr <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = matched_data_dr,
+  weights = weights
+)
+coef(lm_dr)["treatment"]
+```
+
+**Strategy 2: WeightIt + regression**
+
+```{r dr-weighted, eval=requireNamespace("WeightIt", quietly = TRUE)}
+w_out <- weightit(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  method   = "ebal",
+  estimand = "ATT"
+)
+
+lm_dr_wt <- lm(
+  outcome ~ treatment + age + income + education + experience,
+  data    = sim_data,
+  weights = w_out$weights
+)
+coef(lm_dr_wt)["treatment"]
+```
+
+**Strategy 3: DRDID package for panel data**
+
+The `DRDID` package (Sant'Anna and Zhao, 2020) implements doubly robust difference-in-differences estimators that combine inverse probability weighting with outcome regression in a panel data setting.
+
+```{r drdid, eval=requireNamespace("DRDID", quietly = TRUE)}
+library(DRDID)
+
+# Simulate repeated cross-section data for DRDID
+set.seed(123)
+n_rc <- 500
+outcome_data <- data.frame(
+  x1    = rnorm(n_rc),
+  x2    = rnorm(n_rc),
+  x3    = rbinom(n_rc, 1, 0.5),
+  treat = rbinom(n_rc, 1, 0.4),
+  post  = rbinom(n_rc, 1, 0.5)
+)
+outcome_data$y <- 2 + 0.5 * outcome_data$x1 - 0.3 * outcome_data$x2 +
+  outcome_data$x3 + 3 * outcome_data$treat * outcome_data$post +
+  rnorm(n_rc)
+
+# For repeated cross-sections
+dr_rc <- drdid_rc(
+  y    = outcome_data$y,
+  post = outcome_data$post,
+  D    = outcome_data$treat,
+  covariates = as.matrix(outcome_data[, c("x1", "x2", "x3")])
+)
+summary(dr_rc)
+
+# Simulate panel data for DRDID
+n_panel <- 300
+panel_data <- data.frame(
+  x1 = rnorm(n_panel),
+  x2 = rnorm(n_panel),
+  x3 = rbinom(n_panel, 1, 0.5)
+)
+panel_data$treat <- rbinom(n_panel, 1, plogis(-0.5 + 0.3 * panel_data$x1))
+panel_data$y_pre  <- 1 + 0.5 * panel_data$x1 + panel_data$x2 + rnorm(n_panel)
+panel_data$y_post <- panel_data$y_pre + 2 * panel_data$treat +
+  0.3 * panel_data$x1 + rnorm(n_panel)
+
+# For panel data
+dr_panel <- drdid_panel(
+  y1   = panel_data$y_post,
+  y0   = panel_data$y_pre,
+  D    = panel_data$treat,
+  covariates = as.matrix(panel_data[, c("x1", "x2", "x3")])
+)
+summary(dr_panel)
+```
+
+---
+
+# 13. Propensity Score Weighting with `PSweight`
+
+The `PSweight` package (Zhou, Matsouaka, and Thomas, 2020) provides a unified framework for propensity score weighting that goes beyond standard IPW. It supports overlap weights (which target the population with the most clinical equipoise), trimming weights, and entropy weights. Overlap weights are particularly attractive because they naturally downweight units in regions of poor overlap, avoiding the extreme weights that plague IPW.
+
+## 13.1 Overlap Weights for Binary Treatment
+
+Overlap weights assign each unit a weight proportional to the probability of receiving the *opposite* treatment: treated units receive weight $1 - e(\mathbf{X})$ and control units receive weight $e(\mathbf{X})$, where $e(\mathbf{X})$ is the propensity score. This targets the **average treatment effect for the overlap population (ATO)**, which emphasizes the subpopulation where treated and control groups are most comparable.
+
+```{r psweight-binary, eval = requireNamespace("PSweight", quietly = TRUE)}
+library(PSweight)
+
+# Fit propensity score model and compute overlap weights
+ps_formula <- treatment ~ age + income + education + experience
+
+# Summary statistics with overlap weights
+ps_sum <- SumStat(
+  ps.formula  = ps_formula,
+  data        = sim_data,
+  weight      = c("IPW", "overlap", "entropy", "treated")
+)
+# Compare effective sample sizes across weighting schemes
+ps_sum
+
+# Plot propensity score distributions (mirror plot)
+plot(ps_sum, type = "balance")
+```
+
+## 13.2 Treatment Effect Estimation and Trimming
+
+```{r psweight-ate, eval = requireNamespace("PSweight", quietly = TRUE)}
+# Estimate ATO using overlap weights
+ato_fit <- PSweight(
+  ps.formula  = ps_formula,
+  yname       = "outcome",
+  data        = sim_data,
+  weight      = "overlap"
+)
+summary(ato_fit)
+
+# Compare with entropy weights (another smooth weighting scheme)
+ate_entropy <- PSweight(
+  ps.formula  = ps_formula,
+  yname       = "outcome",
+  data        = sim_data,
+  weight      = "entropy"
+)
+summary(ate_entropy)
+
+# Trimming extreme propensity scores before IPW estimation
+ps_trimmed <- PStrim(
+  ps.formula = ps_formula,
+  data       = sim_data,
+  zname      = "treatment",
+  delta      = 0.05    # trim units with PS < 0.05 or > 0.95
+)
+cat("Observations retained after trimming:", nrow(ps_trimmed), "\n")
+```
+
+## 13.3 Multiple Treatments
+
+`PSweight` handles multiple treatment arms via generalized propensity scores. Overlap weights generalize naturally: each unit is weighted by the product of the probabilities of all treatments it did *not* receive.
+
+```{r psweight-multi, eval = requireNamespace("PSweight", quietly = TRUE)}
+set.seed(42)
+
+# Simulate 3-arm treatment
+n_multi <- 800
+x1_m <- rnorm(n_multi)
+x2_m <- rnorm(n_multi)
+lp2  <- 0.5 * x1_m + 0.3 * x2_m
+lp3  <- -0.3 * x1_m + 0.6 * x2_m
+denom <- 1 + exp(lp2) + exp(lp3)
+p1   <- 1 / denom; p2 <- exp(lp2) / denom; p3 <- exp(lp3) / denom
+trt_multi <- apply(cbind(p1, p2, p3), 1, function(p) sample(1:3, 1, prob = p))
+y_multi   <- 2 * x1_m + 3 * (trt_multi == 2) + 5 * (trt_multi == 3) + rnorm(n_multi)
+
+multi_data <- data.frame(
+  trt = as.factor(trt_multi), x1 = x1_m, x2 = x2_m, y = y_multi
+)
+
+# Overlap weights for multiple treatments
+multi_fit <- PSweight(
+  ps.formula = trt ~ x1 + x2,
+  yname      = "y",
+  data       = multi_data,
+  weight     = "overlap"
+)
+summary(multi_fit)
+```
+
+---
+
+# 14. GBM-based Propensity Scores with `twang`
+
+The `twang` package (Ridgeway et al., 2024) uses generalized boosted models (GBM) to estimate propensity scores. GBM is a nonparametric machine learning method that automatically captures nonlinearities and interactions in the relationship between covariates and treatment assignment. Importantly, `twang` selects the number of boosting iterations by directly optimizing covariate balance (e.g., minimizing the maximum absolute standardized mean difference), rather than optimizing prediction accuracy.
+
+## 14.1 Estimating Propensity Scores with GBM
+
+```{r twang-ps, eval = requireNamespace("twang", quietly = TRUE)}
+library(twang)
+
+# Estimate propensity scores using GBM
+# stop.method controls how the optimal iteration is selected
+ps_gbm <- ps(
+  treatment ~ age + income + education + experience,
+  data           = sim_data,
+  n.trees        = 5000,
+  interaction.depth = 2,
+  shrinkage      = 0.01,
+  stop.method    = c("es.mean", "ks.max"),
+  estimand       = "ATT",
+  verbose        = FALSE
+)
+
+# Plot the optimization path: balance vs. number of iterations
+plot(ps_gbm)
+
+# Summary of balance achieved
+summary(ps_gbm)
+```
+
+## 14.2 Balance Diagnostics
+
+```{r twang-balance, eval = requireNamespace("twang", quietly = TRUE)}
+# Detailed balance table across all covariates
+bal <- bal.table(ps_gbm, digits = 3)
+print(bal)
+
+# Relative influence of covariates in the GBM model
+# Shows which variables most influence treatment assignment
+summary(ps_gbm$gbm.obj, n.trees = ps_gbm$desc$es.mean.ATT$n.trees)
+
+# Visualize propensity score distributions
+plot(ps_gbm, plots = 2)   # PS overlap by treatment group
+plot(ps_gbm, plots = 3)   # Standardized effect sizes
+```
+
+## 14.3 Using GBM Weights for Outcome Analysis
+
+```{r twang-outcome, eval = requireNamespace("twang", quietly = TRUE) && requireNamespace("survey", quietly = TRUE)}
+library(survey)
+
+# Extract weights
+sim_data$gbm_weights <- get.weights(ps_gbm, stop.method = "es.mean")
+
+# Weighted outcome model using survey design
+design_gbm <- svydesign(ids = ~1, weights = ~gbm_weights, data = sim_data)
+fit_gbm    <- svyglm(outcome ~ treatment, design = design_gbm)
+summary(fit_gbm)
+```
+
+---
+
+# 15. Optimal Matching with Constraints using `designmatch`
+
+The `designmatch` package (Zubizarreta, Kilcioglu, and Vielma, 2023) formulates matching as a mathematical optimization problem. Instead of sequentially finding nearest neighbors, it solves for the *globally optimal* set of matched pairs (or groups) subject to explicit balance constraints, sample size constraints, and other user-specified requirements. This approach guarantees that the matched sample satisfies all specified balance criteria simultaneously.
+
+## 15.1 Cardinality Matching
+
+Cardinality matching finds the largest matched sample that satisfies user-specified balance constraints. This is the inverse of the usual matching problem: instead of minimizing distance for a given sample size, it maximizes sample size for a given level of balance.
+
+```{r designmatch-card, eval = requireNamespace("designmatch", quietly = TRUE)}
+library(designmatch)
+
+set.seed(42)
+
+# Prepare inputs for designmatch
+t_ind <- which(sim_data$treatment == 1)
+c_ind <- which(sim_data$treatment == 0)
+
+# Covariate matrix (standardize for distance computation)
+X_match <- scale(sim_data[, c("age", "income", "education", "experience")])
+
+# Distance matrix between treated and control
+dist_mat <- distmat(t_ind, c_ind, X_match)
+
+# Balance constraints: mean differences within 0.05 SD
+mom_covs  <- X_match
+mom_tols  <- rep(0.05, ncol(X_match))
+
+# Cardinality matching: maximize matched pairs subject to balance
+card_out <- cardmatch(
+  t_ind      = t_ind,
+  c_ind      = c_ind,
+  dist_mat   = dist_mat,
+  mom        = list(covs = mom_covs, tols = mom_tols),
+  solver     = "glpk"
+)
+
+# Matched pair indices
+cat("Matched treated units:", sum(card_out$t_id != 0), "\n")
+cat("Matched control units:", sum(card_out$c_id != 0), "\n")
+```
+
+## 15.2 Profile Matching with `bmatch`
+
+Profile matching uses `bmatch()` to find an optimal set of matched pairs that minimizes total distance while respecting balance constraints.
+
+```{r designmatch-bmatch, eval = requireNamespace("designmatch", quietly = TRUE)}
+# Fine balance on education (exact marginal balance)
+fine_covs <- sim_data$education
+
+# Balanced matching: minimize distance subject to constraints
+bm_out <- bmatch(
+  t_ind    = t_ind,
+  c_ind    = c_ind,
+  dist_mat = dist_mat,
+  mom      = list(covs = mom_covs, tols = mom_tols),
+  n_controls = 1,
+  solver   = "glpk"
+)
+
+# Check balance in the matched sample
+matched_t <- bm_out$t_id[bm_out$t_id != 0]
+matched_c <- bm_out$c_id[bm_out$c_id != 0]
+
+cat("Number of matched pairs:", length(matched_t), "\n")
+cat("Mean age diff:", round(mean(sim_data$age[matched_t]) -
+  mean(sim_data$age[matched_c]), 3), "\n")
+cat("Mean income diff:", round(mean(sim_data$income[matched_t]) -
+  mean(sim_data$income[matched_c]), 1), "\n")
+```
+
+---
+
+# 16. Matching with Clustered Data using `CMatching`
+
+When data have a natural clustering structure (e.g., patients within hospitals, students within schools), standard matching methods can produce matches that violate the cluster structure, leading to invalid inference. The `CMatching` package (Galdi and Ferraro, 2023) provides propensity score matching that accounts for clustering, offering within-cluster matching and preferential within-cluster matching.
+
+## 16.1 Within-Cluster Propensity Score Matching
+
+```{r cmatching-basic, eval = requireNamespace("CMatching", quietly = TRUE)}
+library(CMatching)
+
+set.seed(42)
+
+# Simulate clustered data (e.g., patients in 20 hospitals)
+n_clust   <- 20
+n_per     <- 50
+n_total   <- n_clust * n_per
+cluster   <- rep(1:n_clust, each = n_per)
+x1_c      <- rnorm(n_total) + 0.3 * (cluster / n_clust)
+x2_c      <- rbinom(n_total, 1, plogis(-0.5 + 0.2 * cluster / n_clust))
+ps_c      <- plogis(-1 + 0.5 * x1_c + 0.8 * x2_c + 0.1 * cluster / n_clust)
+treat_c   <- rbinom(n_total, 1, ps_c)
+y_c       <- 2 + 3 * treat_c + x1_c + 2 * x2_c + rnorm(n_total)
+
+clust_data <- data.frame(
+  y = y_c, treat = treat_c, x1 = x1_c, x2 = x2_c, cluster = cluster
+)
+
+# Estimate propensity scores
+ps_model <- glm(treat ~ x1 + x2, data = clust_data, family = binomial)
+clust_data$ps <- fitted(ps_model)
+
+# Within-cluster matching
+cm_out <- CMatch(
+  type    = "within",
+  dataset = clust_data,
+  cluster_var = cluster,
+  pscore  = clust_data$ps,
+  treat   = clust_data$treat,
+  outcome = clust_data$y
+)
+cm_out
+```
+
+## 16.2 Balance Assessment for Clustered Matching
+
+```{r cmatching-balance, eval = requireNamespace("CMatching", quietly = TRUE)}
+# Assess balance accounting for cluster structure
+bal_cm <- CMatchBalance(
+  cm_out,
+  dataset     = clust_data,
+  covariates  = clust_data[, c("x1", "x2")]
+)
+bal_cm
+```
+
+---
+
+# 17. Matching with Multiple Imputation using `MatchThem`
+
+Missing data is ubiquitous in observational studies. The `MatchThem` package (Pishgar et al., 2021) bridges multiple imputation (via `mice`) with matching and weighting (via `MatchIt` and `WeightIt`). It applies matching or weighting within each imputed dataset and then pools the treatment effect estimates using Rubin's rules, properly accounting for both within-imputation and between-imputation variability.
+
+## 17.1 Matching Across Imputed Datasets
+
+```{r matchthem-match, eval = requireNamespace("MatchThem", quietly = TRUE) && requireNamespace("mice", quietly = TRUE)}
+library(MatchThem)
+library(mice)
+
+set.seed(42)
+
+# Introduce missing data (~15%) into sim_data
+sim_miss <- sim_data
+sim_miss$age[sample(n, 0.15 * n)]        <- NA
+sim_miss$income[sample(n, 0.10 * n)]     <- NA
+sim_miss$experience[sample(n, 0.12 * n)] <- NA
+
+# Multiply impute (m = 5 imputations)
+imp <- mice(
+  sim_miss[, c("age", "income", "education", "experience", "treatment", "outcome")],
+  m       = 5,
+  method  = "pmm",
+  maxit   = 10,
+  printFlag = FALSE
+)
+
+# Match within each imputed dataset using MatchIt
+matched_imp <- matchthem(
+  treatment ~ age + income + education + experience,
+  datasets  = imp,
+  approach  = "within",
+  method    = "nearest",
+  ratio     = 1
+)
+summary(matched_imp)
+```
+
+## 17.2 Weighting Across Imputed Datasets
+
+```{r matchthem-weight, eval = requireNamespace("MatchThem", quietly = TRUE) && requireNamespace("mice", quietly = TRUE) && requireNamespace("WeightIt", quietly = TRUE)}
+# Weight within each imputed dataset using WeightIt
+weighted_imp <- weightthem(
+  treatment ~ age + income + education + experience,
+  datasets = imp,
+  approach = "within",
+  method   = "ebal",
+  estimand = "ATT"
+)
+summary(weighted_imp)
+
+# Pool treatment effect estimates across imputations using Rubin's rules
+with_result <- with(matched_imp, lm(outcome ~ treatment))
+pooled_est  <- pool(with_result)
+summary(pooled_est)
+```
+
+---
+
+# 18. CBPS: Covariate Balancing Propensity Score
+
+The `CBPS` package (Imai and Ratkovic, 2014; Fong, Hazlett, and Imai, 2022) estimates propensity scores by jointly optimizing prediction of treatment assignment and covariate balance. Standard propensity score estimation (e.g., logistic regression) maximizes the likelihood of treatment given covariates but treats balance as a byproduct. CBPS adds moment conditions that directly enforce balance, so the resulting propensity scores yield better covariate balance by construction.
+
+## 18.1 Basic CBPS Estimation
+
+```{r cbps-basic, eval = requireNamespace("CBPS", quietly = TRUE)}
+library(CBPS)
+
+set.seed(42)
+
+# Estimate CBPS (default: exact balance on means)
+cbps_fit <- CBPS(
+  treatment ~ age + income + education + experience,
+  data     = sim_data,
+  ATT      = 1      # target ATT; set to 0 for ATE
+)
+summary(cbps_fit)
+
+# Compare fitted propensity scores with true scores
+plot(
+  sim_data$ps_true,
+  cbps_fit$fitted.values,
+  xlab = "True Propensity Score",
+  ylab = "CBPS Estimated Propensity Score",
+  main = "CBPS vs. True Propensity Scores",
+  pch  = 16, cex = 0.5,
+  col  = ifelse(sim_data$treatment == 1, "steelblue", "coral")
+)
+abline(0, 1, lty = 2)
+```
+
+## 18.2 Balance Diagnostics for CBPS
+
+```{r cbps-balance, eval = requireNamespace("CBPS", quietly = TRUE)}
+# Built-in balance assessment
+bal_cbps <- balance(cbps_fit)
+print(bal_cbps)
+
+# Visualize balance improvement with causalverse
+smd_before <- sapply(sim_data[, c("age", "income", "education", "experience")],
+  function(x) {
+    (mean(x[sim_data$treatment == 1]) - mean(x[sim_data$treatment == 0])) /
+      sqrt((var(x[sim_data$treatment == 1]) + var(x[sim_data$treatment == 0])) / 2)
+  }
+)
+
+w <- cbps_fit$weights
+smd_after <- sapply(sim_data[, c("age", "income", "education", "experience")],
+  function(x) {
+    wt  <- w * sim_data$treatment + w * (1 - sim_data$treatment)
+    m1  <- weighted.mean(x[sim_data$treatment == 1], w[sim_data$treatment == 1])
+    m0  <- weighted.mean(x[sim_data$treatment == 0], w[sim_data$treatment == 0])
+    s   <- sqrt((var(x[sim_data$treatment == 1]) + var(x[sim_data$treatment == 0])) / 2)
+    (m1 - m0) / s
+  }
+)
+
+smd_df <- data.frame(
+  covariate = rep(names(smd_before), 2),
+  smd       = c(abs(smd_before), abs(smd_after)),
+  stage     = rep(c("Before", "After CBPS"), each = length(smd_before))
+)
+
+ggplot(smd_df, aes(x = abs(smd), y = covariate, color = stage, shape = stage)) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 0.1, linetype = "dashed", color = "grey50") +
+  labs(
+    x     = "Absolute Standardized Mean Difference",
+    y     = NULL,
+    title = "Covariate Balance Before and After CBPS"
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+# 19. Practical Guidelines
+
+## 19.1 Choosing a Matching Method
+
+There is no universally best matching method. The choice depends on the data structure, sample size, and research goals:
+
+| Method | Strengths | Weaknesses | Best When |
+|--------|-----------|------------|-----------|
+| Nearest Neighbor | Simple, intuitive | Greedy, order-dependent | Large control pool |
+| Optimal | Minimizes total distance | Computationally intensive | Moderate sample size |
+| Full | Uses all data, efficient | Weights can be variable | Need all observations |
+| CEM | Transparent, bounded imbalance | Data loss in high dimensions | Few key covariates |
+| PS Weighting (IPW) | Retains all data | Extreme weights possible | Large samples |
+| Entropy Balancing | Exact moment balance | May not balance tails | Many confounders |
+| CBPS | Targets balance directly | Model assumptions | Moderate dimensions |
+
+## 19.2 Diagnostics Checklist
+
+After any matching or weighting procedure, verify the following:
+
+1. **Covariate balance:**
+   - All standardized mean differences $< 0.1$ (ideal: $< 0.05$).
+   - Variance ratios close to 1 (acceptable range: 0.5 to 2).
+   - Use Love plots, density plots, and QQ plots.
+   - Check interactions and higher-order terms, not just main effects.
+
+2. **Common support:**
+   - Inspect the propensity score distributions.
+   - Report how many (if any) observations are outside common support.
+   - Consider trimming if overlap is poor.
+
+3. **Effective sample size:**
+   - Report the effective sample size after matching/weighting:
+     $N_{\text{eff}} = \frac{(\sum w_i)^2}{\sum w_i^2}$
+   - Large reductions in effective sample size indicate highly variable weights.
+
+4. **Weight diagnostics (for weighting methods):**
+   - Examine the weight distribution: mean, median, max, coefficient of variation.
+   - Flag extreme weights and consider truncation.
+
+5. **Sensitivity to specification:**
+   - Vary the matching method, distance measure, caliper, and number of matches.
+   - Check whether the treatment effect estimate is stable across specifications.
+
+## 19.3 Common Pitfalls
+
+1. **Matching on post-treatment variables.** Never match on variables that could be affected by treatment. This introduces post-treatment bias and can amplify, rather than remove, confounding. All matching covariates must be measured *before* treatment assignment.
+
+2. **Using hypothesis tests (p-values) to assess balance.** Statistical significance of balance tests depends on sample size, not balance quality. In large samples, trivially small imbalances can be statistically significant; in small samples, large imbalances can be insignificant. Use standardized mean differences instead.
+
+3. **Iterating between matching and outcome analysis.** Adjusting the matching specification based on outcome results (e.g., trying different methods until you get a significant effect) invalidates inference. Matching decisions should be finalized based on balance diagnostics alone, before examining the outcome.
+
+4. **Ignoring common support violations.** If treated units have propensity scores far from any control unit, matches will be poor. Report and address violations rather than ignoring them.
+
+5. **Forgetting about unmeasured confounders.** Matching can only adjust for *observed* covariates. Always conduct sensitivity analysis (Section 11) and discuss what unmeasured confounders might remain.
+
+6. **Matching without replacement when the control pool is small.** With a small number of controls relative to treated units, matching without replacement forces later treated units to accept poor matches (the best controls are already taken). Consider matching with replacement or full matching in this situation.
+
+7. **Discarding matched data structure in estimation.** After pair matching, standard errors should account for the matched structure (e.g., by clustering on the matched pair). After weighting, use survey-weighted standard errors or the bootstrap.
+
+8. **Over-relying on propensity score balance.** The propensity score is a balancing score, but achieving PS balance does not guarantee covariate balance. Always check balance on the individual covariates, not just the propensity score.
+
+## 19.4 Recommended Workflow
+
+A recommended workflow for matching analysis:
+
+1. **Specify covariates** based on subject-matter knowledge. Include all pre-treatment variables that plausibly affect both treatment and outcome.
+
+2. **Assess initial balance** to document the degree of confounding. Use `causalverse::balance_assessment()` and `causalverse::plot_density_by_treatment()`.
+
+3. **Choose and implement matching/weighting.** Start with a method that suits the data structure (see the table above). Use `MatchIt` or `WeightIt`.
+
+4. **Assess post-matching balance.** Check that all SMDs are below 0.1. If not, revise the matching specification (add covariates, change method, adjust caliper) and re-assess. Do *not* look at outcomes yet.
+
+5. **Estimate the treatment effect** on the matched/weighted sample, including covariates for doubly robust estimation.
+
+6. **Conduct sensitivity analysis** to assess robustness to unmeasured confounding. Use `sensemakr` or Rosenbaum bounds.
+
+7. **Report transparently.** Present the balance diagnostics, effective sample size, matching details, and sensitivity analysis alongside the treatment effect estimate.
+
+---
+
+# 20. Comprehensive Visualization Suite for Matching
+
+Publication-quality figures are the cornerstone of a credible matching analysis. This section demonstrates a full diagnostic and reporting visualization pipeline using the LaLonde (1986) dataset — the canonical benchmark for matching methods — available via the `MatchIt` package.
+
+## 20.1 Data Setup with LaLonde
+
+```{r matching-viz-setup, eval = TRUE, message = FALSE, warning = FALSE}
+library(MatchIt)
+library(ggplot2)
+library(dplyr)
+
+data("lalonde", package = "MatchIt")
+
+# Quick overview
+cat("LaLonde dataset dimensions:", nrow(lalonde), "x", ncol(lalonde), "\n")
+cat("Treatment prevalence:", round(mean(lalonde$treat), 3), "\n\n")
+
+# Covariates to balance
+covs <- c("age", "educ", "black", "hispan", "married", "nodegree", "re74", "re75")
+
+# Unadjusted SMDs (before matching)
+compute_smd <- function(data, treat_var, vars) {
+  treat_vec <- data[[treat_var]]
+  sapply(vars, function(v) {
+    x1 <- data[[v]][treat_vec == 1]
+    x0 <- data[[v]][treat_vec == 0]
+    pooled_sd <- sqrt((var(x1) + var(x0)) / 2)
+    if (pooled_sd == 0) return(NA_real_)
+    (mean(x1) - mean(x0)) / pooled_sd
+  })
+}
+
+smd_pre <- compute_smd(lalonde, "treat", covs)
+cat("Pre-matching absolute SMDs:\n")
+print(round(abs(smd_pre), 3))
+```
+
+## 20.2 Love Plot Using `causalverse::love_plot()`
+
+The Love plot is the single most important balance diagnostic: it displays standardized mean differences (SMDs) before and after matching for all covariates, with a conventional threshold of |SMD| < 0.1.
+
+```{r love-plot-demo, eval = TRUE, fig.width = 9, fig.height = 6, message = FALSE}
+# Perform 1:1 nearest-neighbor matching on propensity score
+m_nn <- matchit(
+  treat ~ age + educ + black + hispan + married + nodegree + re74 + re75,
+  data   = lalonde,
+  method = "nearest",
+  ratio  = 1
+)
+
+md_nn <- match.data(m_nn)
+
+# Use causalverse::love_plot() for publication-ready balance visualization
+causalverse::love_plot(
+  data_pre     = lalonde,
+  data_post    = md_nn,
+  treatment    = "treat",
+  covariates   = covs,
+  weights_post = md_nn$weights,
+  threshold    = 0.1,
+  title        = "Love Plot: Covariate Balance Before and After 1:1 NN Matching"
+) +
+  causalverse::ama_theme() +
+  theme(axis.text.y = element_text(size = 9))
+```
+
+## 20.3 Distributional Plots Before and After Matching
+
+Beyond mean differences, the full distributional overlap should be verified. Density overlays for each covariate reveal whether matching has achieved distributional balance, not just mean balance.
+
+```{r density-overlays, eval = TRUE, fig.width = 11, fig.height = 9, message = FALSE}
+# Prepare long-format data: pre- and post-matching, both groups
+df_pre <- lalonde[, c("treat", covs)] |>
+  mutate(sample = "Before Matching",
+         wt     = 1)
+
+df_post <- md_nn[, c("treat", covs, "weights")] |>
+  rename(wt = weights) |>
+  mutate(sample = "After Matching")
+
+df_both <- bind_rows(df_pre, df_post) |>
+  mutate(
+    group  = factor(treat, labels = c("Control", "Treated")),
+    sample = factor(sample, levels = c("Before Matching", "After Matching"))
+  )
+
+# Reshape to long for faceting
+df_long <- df_both |>
+  tidyr::pivot_longer(cols = all_of(covs), names_to = "covariate", values_to = "value")
+
+ggplot(df_long, aes(x = value, fill = group, color = group)) +
+  geom_density(alpha = 0.35, linewidth = 0.6, aes(weight = wt)) +
+  facet_grid(covariate ~ sample, scales = "free") +
+  scale_fill_manual(values  = c("Treated" = "#D73027", "Control" = "#2166AC"),
+                    name = "Group") +
+  scale_color_manual(values = c("Treated" = "#D73027", "Control" = "#2166AC"),
+                     name = "Group") +
+  labs(
+    title    = "Covariate Distributional Balance Before and After Matching",
+    subtitle = "Density overlays for treated (red) and control (blue) units",
+    x        = "Covariate value",
+    y        = "Density",
+    caption  = "Left: unmatched sample. Right: 1:1 NN matched sample."
+  ) +
+  causalverse::ama_theme() +
+  theme(
+    legend.position  = "bottom",
+    strip.text.y     = element_text(angle = 0, size = 7),
+    strip.text.x     = element_text(size = 9),
+    axis.text        = element_text(size = 6)
+  )
+```
+
+## 20.4 Propensity Score Distribution with Overlap Weights
+
+Propensity score overlap plots reveal regions of common support. Overlap weights (Li, Morgan, and Zaslavsky 2018) upweight units near the center of propensity score distribution and are robust to lack of overlap.
+
+```{r ps-overlap, eval = TRUE, fig.width = 9, fig.height = 5, message = FALSE}
+# Estimate propensity scores
+ps_model <- glm(
+  treat ~ age + educ + black + hispan + married + nodegree + re74 + re75,
+  data   = lalonde,
+  family = binomial(link = "logit")
+)
+
+lalonde$ps     <- predict(ps_model, type = "response")
+
+# Compute overlap (ATO) weights: e(X) * (1 - e(X))
+# Treated: w_i = 1 - e(X); Control: w_i = e(X)
+lalonde$ow_wt  <- ifelse(lalonde$treat == 1,
+                         1 - lalonde$ps,
+                         lalonde$ps)
+lalonde$group  <- factor(lalonde$treat, labels = c("Control", "Treated"))
+
+# Effective sample size with overlap weights
+ess_treat <- sum(lalonde$ow_wt[lalonde$treat == 1])^2 /
+             sum(lalonde$ow_wt[lalonde$treat == 1]^2)
+ess_ctrl  <- sum(lalonde$ow_wt[lalonde$treat == 0])^2 /
+             sum(lalonde$ow_wt[lalonde$treat == 0]^2)
+cat(sprintf("ESS (overlap weights): treated = %.1f, control = %.1f\n",
+            ess_treat, ess_ctrl))
+cat(sprintf("Original N: treated = %d, control = %d\n",
+            sum(lalonde$treat), sum(1 - lalonde$treat)))
+
+# Mirror histogram (treated above x-axis, control below)
+df_ps_hist <- lalonde |>
+  mutate(display_density = ifelse(treat == 1, 1, -1))
+
+ggplot(lalonde, aes(x = ps, fill = group)) +
+  geom_histogram(
+    data    = filter(lalonde, treat == 1),
+    aes(y = after_stat(density)),
+    bins    = 30, alpha = 0.7, color = "white"
+  ) +
+  geom_histogram(
+    data    = filter(lalonde, treat == 0),
+    aes(y = -after_stat(density)),
+    bins    = 30, alpha = 0.7, color = "white"
+  ) +
+  geom_hline(yintercept = 0, color = "black", linewidth = 0.4) +
+  scale_fill_manual(values = c("Treated" = "#D73027", "Control" = "#2166AC"),
+                    name = "Group") +
+  scale_y_continuous(labels = function(x) abs(round(x, 2))) +
+  labs(
+    title    = "Propensity Score Distribution by Treatment Status",
+    subtitle = "Treated above axis (red), control below (blue). Overlap region indicates common support.",
+    x        = "Estimated propensity score P(D=1 | X)",
+    y        = "Density",
+    caption  = sprintf(
+      "Overlap (ATO) weights ESS: treated=%.1f, control=%.1f (original: %d, %d)",
+      ess_treat, ess_ctrl, sum(lalonde$treat), sum(1 - lalonde$treat)
+    )
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+## 20.5 Caliper Sensitivity Plot (ATT vs. Caliper Width)
+
+The caliper restricts matches to pairs whose propensity scores differ by less than a threshold. Wider calipers include more matches but allow poorer-quality matches. A caliper sensitivity plot reveals the bias-variance tradeoff.
+
+```{r caliper-sensitivity, eval = TRUE, fig.width = 9, fig.height = 5, message = FALSE, warning = FALSE}
+# Vary caliper width and record: N matched, balance (max |SMD|), ATT estimate
+calipers <- c(0.005, 0.01, 0.02, 0.05, 0.10, 0.20, Inf)
+
+cal_results <- lapply(calipers, function(cal) {
+  m <- tryCatch({
+    matchit(
+      treat ~ age + educ + black + hispan + married + nodegree + re74 + re75,
+      data    = lalonde,
+      method  = "nearest",
+      ratio   = 1,
+      caliper = if (is.infinite(cal)) NULL else cal,
+      std.caliper = FALSE
+    )
+  }, error = function(e) NULL)
+
+  if (is.null(m)) return(NULL)
+  md <- match.data(m)
+
+  # ATT: difference in means on matched sample
+  att <- mean(md$re78[md$treat == 1]) - mean(md$re78[md$treat == 0])
+
+  # Balance: max |SMD| across covariates
+  smd_post  <- compute_smd(md, "treat", covs)
+  max_smd   <- max(abs(smd_post), na.rm = TRUE)
+  n_matched <- nrow(md)
+
+  data.frame(
+    caliper   = ifelse(is.infinite(cal), "None", as.character(cal)),
+    cal_val   = ifelse(is.infinite(cal), 0.25, cal),
+    att       = att,
+    max_smd   = max_smd,
+    n_matched = n_matched
+  )
+})
+
+df_cal <- do.call(rbind, cal_results)
+df_cal$caliper <- factor(df_cal$caliper,
+                         levels = df_cal$caliper[order(df_cal$cal_val)])
+
+# Dual-axis plot: ATT and max |SMD| vs caliper
+p1 <- ggplot(df_cal, aes(x = caliper, y = att, group = 1)) +
+  geom_line(color = "#2166AC", linewidth = 1) +
+  geom_point(aes(size = n_matched), color = "#2166AC") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  scale_size_continuous(name = "N matched", range = c(2, 6)) +
+  labs(y = "ATT estimate (re78)", title = "ATT Estimate") +
+  causalverse::ama_theme() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+p2 <- ggplot(df_cal, aes(x = caliper, y = max_smd, group = 1)) +
+  geom_line(color = "#D73027", linewidth = 1) +
+  geom_point(color = "#D73027", size = 3) +
+  geom_hline(yintercept = 0.1, linetype = "dashed", color = "gray40") +
+  annotate("text", x = 1.2, y = 0.105, label = "|SMD| = 0.1 threshold",
+           size = 3, color = "gray40") +
+  labs(y = "Max |SMD|", title = "Worst-Case Balance") +
+  causalverse::ama_theme() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+gridExtra::grid.arrange(p1, p2, ncol = 2,
+  top = grid::textGrob(
+    "Caliper Sensitivity: ATT Estimate and Balance vs. Caliper Width",
+    gp = grid::gpar(fontsize = 12, fontface = "bold")
+  ))
+```
+
+## 20.6 Balance Improvement over Matching Ratio (1:1, 1:2, 1:3)
+
+Increasing the matching ratio (1:$k$) uses more control units per treated unit, reducing variance at the cost of increased bias (as matches become less similar). This plot shows the tradeoff.
+
+```{r matching-ratio, eval = TRUE, fig.width = 9, fig.height = 5, message = FALSE, warning = FALSE}
+ratios <- 1:4
+ratio_results <- lapply(ratios, function(k) {
+  m <- matchit(
+    treat ~ age + educ + black + hispan + married + nodegree + re74 + re75,
+    data   = lalonde,
+    method = "nearest",
+    ratio  = k
+  )
+  md <- match.data(m)
+
+  att       <- mean(md$re78[md$treat == 1]) - mean(md$re78[md$treat == 0])
+  smd_post  <- compute_smd(md, "treat", covs)
+  mean_smd  <- mean(abs(smd_post), na.rm = TRUE)
+  max_smd   <- max(abs(smd_post), na.rm = TRUE)
+  n_treat   <- sum(md$treat == 1)
+  n_ctrl    <- sum(md$treat == 0)
+
+  data.frame(ratio = paste0("1:", k), k = k, att = att,
+             mean_smd = mean_smd, max_smd = max_smd,
+             n_treat = n_treat, n_ctrl = n_ctrl)
+})
+
+df_ratio <- do.call(rbind, ratio_results)
+df_ratio$ratio <- factor(df_ratio$ratio, levels = df_ratio$ratio)
+
+knitr::kable(df_ratio |>
+  select(ratio, att, mean_smd, max_smd, n_treat, n_ctrl) |>
+  mutate(across(c(att, mean_smd, max_smd), ~round(., 3))),
+  col.names = c("Ratio", "ATT", "Mean |SMD|", "Max |SMD|",
+                "N Treated", "N Control"),
+  caption = "Matching ratio comparison: ATT and balance statistics")
+
+# Visualize
+df_ratio_long <- tidyr::pivot_longer(
+  df_ratio, cols = c("mean_smd", "max_smd"),
+  names_to = "metric", values_to = "value"
+) |>
+  mutate(metric = dplyr::recode(metric,
+    "mean_smd" = "Mean |SMD|",
+    "max_smd"  = "Max |SMD|"
+  ))
+
+ggplot(df_ratio_long, aes(x = ratio, y = value, color = metric, group = metric)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 3.5) +
+  geom_hline(yintercept = 0.1, linetype = "dashed", color = "gray40") +
+  annotate("text", x = 0.7, y = 0.104, label = "Threshold = 0.1",
+           size = 3, color = "gray40") +
+  scale_color_manual(values = c("Mean |SMD|" = "#2166AC", "Max |SMD|" = "#D73027"),
+                     name = "Balance metric") +
+  labs(
+    title    = "Balance vs. Matching Ratio",
+    subtitle = "LaLonde data; nearest-neighbor matching on logistic propensity score",
+    x        = "Matching ratio (treated : control)",
+    y        = "Standardized mean difference",
+    caption  = "Dashed line: conventional |SMD| < 0.1 threshold"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+---
+
+# 21. Trimming and Overlap
+
+## 21.1 Crump et al. (2009) Optimal Trimming Rule
+
+Crump et al. (2009) derived the asymptotically optimal rule for trimming units with extreme propensity scores when the target estimand is the ATE. The optimal trim keeps units with propensity scores in $[\alpha^*, 1 - \alpha^*]$, where $\alpha^*$ solves:
+
+$$\frac{1}{2\alpha(1-\alpha)} = \frac{1}{N}\sum_{i=1}^{N} \frac{1}{e(X_i)(1-e(X_i))} \cdot \mathbf{1}\left[\alpha \leq e(X_i) \leq 1-\alpha\right]$$
+
+The simple rule-of-thumb from Crump et al. is $\alpha = 0.1$, which retains units with propensity scores in $[0.1, 0.9]$.
+
+```{r crump-trim, eval = TRUE, fig.width = 9, fig.height = 5}
+# Crump et al. (2009) trimming: retain [alpha, 1-alpha]
+# Simulate data with limited overlap
+set.seed(42)
+n    <- 1000
+X1   <- rnorm(n)
+X2   <- rnorm(n)
+X3   <- rbinom(n, 1, 0.4)
+lp   <- -0.5 + 1.2 * X1 - 0.8 * X2 + 0.4 * X3
+ps   <- plogis(lp)
+D    <- rbinom(n, 1, ps)
+tau  <- 2.0
+Y    <- 1 + tau * D + 0.5 * X1 - 0.3 * X2 + rnorm(n)
+
+df_trim <- data.frame(Y = Y, D = D, X1 = X1, X2 = X2, X3 = X3, ps = ps)
+
+# Crump optimal trim: solve for alpha* numerically
+crump_lhs <- function(alpha, ps_vec) {
+  keep_idx <- ps_vec >= alpha & ps_vec <= 1 - alpha
+  if (sum(keep_idx) == 0) return(Inf)
+  1 / (2 * alpha * (1 - alpha))
+}
+
+crump_rhs <- function(alpha, ps_vec) {
+  keep_idx <- ps_vec >= alpha & ps_vec <= 1 - alpha
+  if (sum(keep_idx) == 0) return(0)
+  mean(1 / (ps_vec[keep_idx] * (1 - ps_vec[keep_idx])))
+}
+
+# Find alpha* via bisection (Crump et al. Theorem 2)
+find_alpha_star <- function(ps_vec, alpha_grid = seq(0.001, 0.499, by = 0.001)) {
+  diffs <- sapply(alpha_grid, function(a) crump_lhs(a, ps_vec) - crump_rhs(a, ps_vec))
+  # Find first crossing
+  sign_change <- which(diff(sign(diffs)) != 0)
+  if (length(sign_change) == 0) return(NA)
+  alpha_grid[sign_change[1]]
+}
+
+alpha_star <- find_alpha_star(df_trim$ps)
+cat(sprintf("Crump optimal alpha* = %.4f\n", alpha_star))
+cat(sprintf("Retains units with ps in [%.4f, %.4f]\n",
+            alpha_star, 1 - alpha_star))
+
+# Trimming comparison
+rule_of_thumb_alpha <- 0.10
+df_trim$trimmed_opt <- df_trim$ps >= alpha_star & df_trim$ps <= 1 - alpha_star
+df_trim$trimmed_rot <- df_trim$ps >= rule_of_thumb_alpha &
+                       df_trim$ps <= 1 - rule_of_thumb_alpha
+
+cat(sprintf("\nOptimal trim: retain %d / %d (%.1f%%)\n",
+            sum(df_trim$trimmed_opt), n, 100 * mean(df_trim$trimmed_opt)))
+cat(sprintf("Rule-of-thumb (0.10) trim: retain %d / %d (%.1f%%)\n",
+            sum(df_trim$trimmed_rot), n, 100 * mean(df_trim$trimmed_rot)))
+
+# IPW-ATE estimates before and after trimming
+ipw_ate <- function(data) {
+  wt_treat <- 1 / data$ps
+  wt_ctrl  <- 1 / (1 - data$ps)
+  mu1 <- weighted.mean(data$Y[data$D == 1], wt_treat[data$D == 1])
+  mu0 <- weighted.mean(data$Y[data$D == 0], wt_ctrl[data$D == 0])
+  mu1 - mu0
+}
+
+ate_full    <- ipw_ate(df_trim)
+ate_opt     <- ipw_ate(df_trim[df_trim$trimmed_opt, ])
+ate_rot     <- ipw_ate(df_trim[df_trim$trimmed_rot, ])
+
+cat(sprintf("\nIPW-ATE estimates (true = %.2f):\n", tau))
+cat(sprintf("  Full sample (no trimming): %.4f\n", ate_full))
+cat(sprintf("  Optimal trim (alpha*=%.3f): %.4f\n", alpha_star, ate_opt))
+cat(sprintf("  Rule-of-thumb (alpha=0.10): %.4f\n", ate_rot))
+
+# Propensity score histogram with trim regions
+ggplot(df_trim, aes(x = ps, fill = factor(D, labels = c("Control", "Treated")))) +
+  geom_histogram(bins = 40, position = "identity", alpha = 0.5, color = "white") +
+  geom_vline(xintercept = c(alpha_star, 1 - alpha_star),
+             linetype = "dashed", color = "#D73027", linewidth = 1) +
+  geom_vline(xintercept = c(0.10, 0.90),
+             linetype = "dotted", color = "#4DAC26", linewidth = 1) +
+  annotate("text", x = alpha_star + 0.01, y = 60,
+           label = sprintf("alpha*=%.3f", alpha_star),
+           color = "#D73027", size = 3, hjust = 0) +
+  annotate("text", x = 0.10 + 0.01, y = 45,
+           label = "0.10 (rule)", color = "#4DAC26", size = 3, hjust = 0) +
+  scale_fill_manual(values = c("Control" = "#2166AC", "Treated" = "#D73027"),
+                    name = "Group") +
+  labs(
+    title    = "Propensity Score Distribution with Crump Trimming Regions",
+    subtitle = "Red dashed: optimal alpha*. Green dotted: rule-of-thumb (0.10).",
+    x        = "Propensity score",
+    y        = "Count",
+    caption  = sprintf("Optimal trim retains %.1f%%; rule-of-thumb retains %.1f%%",
+                       100 * mean(df_trim$trimmed_opt),
+                       100 * mean(df_trim$trimmed_rot))
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+## 21.2 Overlap Weights Comparison with IPW and Matching
+
+Overlap weights (OW; Li et al. 2018) assign weights $w_i = (1-e_i)$ to treated and $w_i = e_i$ to controls, targeting the **average treatment effect in the overlap population** (ATO). This estimand is well-defined even with poor overlap and has the smallest asymptotic variance among all balancing weights.
+
+```{r overlap-comparison, eval = TRUE, fig.width = 9, fig.height = 6, message = FALSE}
+# Compare ATE/ATT/ATO estimates under different weighting schemes
+# Use lalonde data with full covariate set
+ps_lal <- predict(
+  glm(treat ~ age + educ + black + hispan + married + nodegree + re74 + re75,
+      data = lalonde, family = binomial),
+  type = "response"
+)
+lalonde$ps <- ps_lal
+
+# Compute weights
+lalonde <- lalonde |>
+  mutate(
+    # IPW for ATE
+    wt_ate = ifelse(treat == 1, 1 / ps, 1 / (1 - ps)),
+    # IPW for ATT (stabilized)
+    wt_att = ifelse(treat == 1, 1, ps / (1 - ps)),
+    # Overlap (ATO) weights
+    wt_ato = ifelse(treat == 1, 1 - ps, ps)
+  )
+
+# Estimate effects under each weighting scheme
+wt_ate_est <- with(lalonde, {
+  mu1 <- weighted.mean(re78[treat == 1], wt_ate[treat == 1])
+  mu0 <- weighted.mean(re78[treat == 0], wt_ate[treat == 0])
+  mu1 - mu0
+})
+
+wt_att_est <- with(lalonde, {
+  mu1 <- mean(re78[treat == 1])
+  mu0 <- weighted.mean(re78[treat == 0], wt_att[treat == 0])
+  mu1 - mu0
+})
+
+wt_ato_est <- with(lalonde, {
+  mu1 <- weighted.mean(re78[treat == 1], wt_ato[treat == 1])
+  mu0 <- weighted.mean(re78[treat == 0], wt_ato[treat == 0])
+  mu1 - mu0
+})
+
+# Matching ATT from section above
+matching_att <- mean(md_nn$re78[md_nn$treat == 1]) -
+                mean(md_nn$re78[md_nn$treat == 0])
+
+# Effective sample sizes
+ess_ate_t <- sum(lalonde$wt_ate[lalonde$treat == 1])^2 /
+             sum(lalonde$wt_ate[lalonde$treat == 1]^2)
+ess_ate_c <- sum(lalonde$wt_ate[lalonde$treat == 0])^2 /
+             sum(lalonde$wt_ate[lalonde$treat == 0]^2)
+ess_ato_t <- sum(lalonde$wt_ato[lalonde$treat == 1])^2 /
+             sum(lalonde$wt_ato[lalonde$treat == 1]^2)
+ess_ato_c <- sum(lalonde$wt_ato[lalonde$treat == 0])^2 /
+             sum(lalonde$wt_ato[lalonde$treat == 0]^2)
+
+df_compare <- data.frame(
+  Method    = c("IPW (ATE)", "IPW (ATT)", "Overlap Weights (ATO)", "1:1 NN Matching (ATT)"),
+  Estimand  = c("ATE", "ATT", "ATO", "ATT"),
+  Estimate  = round(c(wt_ate_est, wt_att_est, wt_ato_est, matching_att), 1),
+  ESS_treat = round(c(ess_ate_t, sum(lalonde$treat == 1), ess_ato_t,
+                      sum(md_nn$treat == 1)), 1),
+  ESS_ctrl  = round(c(ess_ate_c, NA, ess_ato_c, sum(md_nn$treat == 0)), 1)
+)
+df_compare$ESS_ctrl[is.na(df_compare$ESS_ctrl)] <- "-"
+
+knitr::kable(df_compare,
+             col.names = c("Method", "Estimand", "Estimate (re78)",
+                           "ESS Treated", "ESS Control"),
+             caption = "Treatment effect estimates and effective sample sizes by weighting method")
+
+# Visualization: weight distributions
+df_wts <- data.frame(
+  weight = c(lalonde$wt_ate, lalonde$wt_att, lalonde$wt_ato),
+  method = rep(c("IPW (ATE)", "IPW (ATT)", "Overlap (ATO)"), each = nrow(lalonde)),
+  group  = rep(factor(lalonde$treat, labels = c("Control", "Treated")), 3)
+) |>
+  filter(weight < quantile(weight, 0.98))  # trim extreme weights for display
+
+ggplot(df_wts, aes(x = weight, fill = group)) +
+  geom_histogram(bins = 40, position = "identity", alpha = 0.5, color = "white") +
+  facet_wrap(~ method, scales = "free_x", ncol = 3) +
+  scale_fill_manual(values = c("Treated" = "#D73027", "Control" = "#2166AC"),
+                    name = "Group") +
+  labs(
+    title    = "Weight Distributions by Method: IPW vs. Overlap",
+    subtitle = "Overlap weights have bounded, well-behaved distributions; IPW can produce extreme weights",
+    x        = "Weight value",
+    y        = "Count",
+    caption  = "Extreme weights (>98th percentile) trimmed for display"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+---
+
+# 22. Sensitivity Analysis for Matching
+
+Matching eliminates observed confounding but cannot address unmeasured confounders. Sensitivity analysis quantifies how strong unmeasured confounding must be to overturn the study's conclusions.
+
+## 22.1 Rosenbaum Bounds (Gamma Sensitivity Analysis)
+
+Rosenbaum's sensitivity analysis for matched observational studies (Rosenbaum 2002) asks: if two units that appear identical on observed covariates had odds of treatment receipt that differ by a factor of $\Gamma$, how large must $\Gamma$ be before the observed association could be entirely explained by unmeasured confounding?
+
+The analysis examines the range of p-values for the sharp null hypothesis $H_0: \tau_i = 0$ for all units, across all possible unmeasured confounder allocations consistent with the assumed $\Gamma$.
+
+**Interpretation:** If the result remains significant for $\Gamma = 2$, then unmeasured confounders would need to double the odds of treatment receipt to explain away the results. Values of $\Gamma \geq 2$ in social/economic studies are considered strong evidence.
+
+```{r rosenbaum-bounds, eval = FALSE}
+# Rosenbaum bounds require the rbounds package
+# install.packages("rbounds")
+library(rbounds)
+
+# Use the 1:1 matched lalonde data
+# Outcome: re78 (earnings in 1978)
+matched_ids <- as.numeric(rownames(md_nn[md_nn$treat == 1, ]))
+y_treat  <- md_nn$re78[md_nn$treat == 1]
+y_ctrl   <- md_nn$re78[md_nn$treat == 0]
+
+# Hodges-Lehmann aligned ranks test: Gamma sensitivity
+# psens() performs Wilcoxon signed-rank sensitivity analysis
+psens_result <- psens(y_treat, y_ctrl, Gamma = 2.5, GammaInc = 0.25)
+print(psens_result)
+
+# Interpret: find critical Gamma where upper p-value > 0.05
+# This is the "sensitivity value" or Gamma-threshold
+cat("\nInterpretation:\n")
+cat("The study is sensitive to unmeasured confounding if Gamma reaches the\n")
+cat("value where the upper bound p-value first exceeds 0.05.\n")
+```
+
+A narrative summary of what Rosenbaum bounds yield on the LaLonde data: with $\Gamma = 1$ (no unmeasured confounding), the signed-rank test yields a highly significant p-value. As $\Gamma$ increases from 1, the upper-bound p-value rises. The **sensitivity threshold** $\Gamma^*$ is the value where the upper bound first exceeds 0.05. For the LaLonde data with NN matching, $\Gamma^* \approx 1.5$--$2.0$ depending on the outcome and matching specification, indicating moderate robustness.
+
+```{r gamma-narrative-plot, eval = TRUE, fig.width = 8, fig.height = 5}
+# Simulate Rosenbaum bound output for illustration
+# (illustrates the pattern without requiring rbounds)
+gamma_vals  <- seq(1.0, 3.0, by = 0.1)
+
+# Approximate upper-bound p-value (illustrative, not exact Rosenbaum bounds)
+set.seed(42)
+y_t <- md_nn$re78[md_nn$treat == 1]
+y_c <- md_nn$re78[md_nn$treat == 0]
+d   <- y_t - y_c
+
+# Wilcoxon signed-rank statistic under different Gamma assumptions
+# (using normal approximation to Wilcoxon; true bounds from rbounds package)
+n_pairs <- length(d)
+W_obs   <- sum(rank(abs(d)) * sign(d))   # Wilcoxon statistic
+
+approx_upper_p <- sapply(gamma_vals, function(gamma) {
+  # Maximum expected value and variance of W under Gamma
+  max_p_i <- gamma / (1 + gamma)   # max treatment probability for each pair
+  mu_max  <- n_pairs * (n_pairs + 1) / 2 * max_p_i
+  var_max <- n_pairs * (n_pairs + 1) * (2 * n_pairs + 1) / 6 *
+             max_p_i * (1 - max_p_i)
+  # Upper bound p-value (one-sided)
+  z_upper <- (W_obs - mu_max) / sqrt(var_max)
+  pnorm(z_upper)   # normal approximation, one-tailed upper bound
+})
+
+df_gamma <- data.frame(Gamma = gamma_vals, upper_p = approx_upper_p)
+
+# Find sensitivity threshold
+gamma_star_idx <- which(df_gamma$upper_p > 0.05)[1]
+gamma_star     <- if (!is.na(gamma_star_idx)) df_gamma$Gamma[gamma_star_idx] else NA
+
+ggplot(df_gamma, aes(x = Gamma, y = upper_p)) +
+  geom_line(color = "#2166AC", linewidth = 1.2) +
+  geom_hline(yintercept = 0.05, linetype = "dashed", color = "#D73027") +
+  {if (!is.na(gamma_star)) list(
+    geom_vline(xintercept = gamma_star, linetype = "dotdash",
+               color = "#4DAC26", linewidth = 0.9),
+    annotate("text", x = gamma_star + 0.05, y = 0.25,
+             label = sprintf("Gamma* ~ %.1f", gamma_star),
+             color = "#4DAC26", size = 3.5, hjust = 0)
+  )} +
+  annotate("text", x = 2.8, y = 0.06, label = "alpha = 0.05",
+           color = "#D73027", size = 3, hjust = 1) +
+  scale_y_continuous(limits = c(0, 1),
+                     labels = scales::number_format(accuracy = 0.01)) +
+  labs(
+    title    = "Rosenbaum Sensitivity Analysis: Upper-Bound p-value vs. Gamma",
+    subtitle = "LaLonde data, 1:1 nearest-neighbor matched pairs; outcome = re78",
+    x        = "Sensitivity parameter (Gamma)",
+    y        = "Upper-bound p-value (H0: no treatment effect)",
+    caption  = paste0(
+      "Gamma=1: no unmeasured confounding. ",
+      "Gamma*: confounders would need to multiply odds of treatment by Gamma* to explain results. ",
+      "Note: approximation for illustration; use rbounds::psens() for exact bounds."
+    )
+  ) +
+  causalverse::ama_theme()
+```
+
+## 22.2 E-Values for Matched Estimates
+
+The **E-value** (VanderWeele and Ding, 2017) is a sensitivity metric that does not require matched pairs: it quantifies the minimum strength of association an unmeasured confounder must have with both treatment and outcome (on the risk ratio scale) to fully explain away the observed effect.
+
+For a risk ratio $RR$ (or approximated from other effect sizes), the E-value is:
+$$E = RR + \sqrt{RR(RR - 1)}$$
+
+For confidence intervals, compute the E-value at the CI bound closest to the null.
+
+```{r evalues, eval = TRUE}
+# E-value for matched estimate (LaLonde data)
+# Outcome: re78 (continuous; approximate using ratio of geometric means)
+y_t_m <- md_nn$re78[md_nn$treat == 1] + 1  # add 1 to handle zeros
+y_c_m <- md_nn$re78[md_nn$treat == 0] + 1
+
+# Approximate E-value using ratio of means (not a true RR for continuous outcomes;
+# for illustration — use EValue package for proper computation)
+ratio_means <- mean(y_t_m) / mean(y_c_m)
+evalue_point <- ratio_means + sqrt(ratio_means * (ratio_means - 1))
+
+cat(sprintf("Matched ATT (re78): %.2f\n",
+            mean(y_t_m) - mean(y_c_m)))
+cat(sprintf("Ratio of (mean+1): %.4f\n", ratio_means))
+cat(sprintf("E-value (approximate): %.4f\n", evalue_point))
+cat(sprintf("\nInterpretation: An unmeasured confounder would need to be associated\n"))
+cat(sprintf("with BOTH treatment and outcome by a factor of at least %.2f\n", evalue_point))
+cat(sprintf("to explain away the observed effect. Values > 2-3 are considered robust.\n"))
+
+# E-value formula for different RR magnitudes
+rr_grid <- seq(1.0, 5.0, by = 0.5)
+ev_grid <- rr_grid + sqrt(rr_grid * (rr_grid - 1))
+df_ev   <- data.frame(risk_ratio = rr_grid, evalue = round(ev_grid, 2))
+knitr::kable(df_ev,
+             col.names = c("Point estimate (RR or ratio)", "E-value"),
+             caption = "E-values for various effect size magnitudes")
+```
+
+## 22.3 Placebo Tests for Matching
+
+Placebo tests evaluate whether the matching procedure itself introduces spurious associations. Two common approaches:
+
+**1. Pre-treatment outcome placebo:** Use an outcome measured before the treatment. If matching is valid, the treatment effect on the pre-treatment outcome should be zero.
+
+**2. False treatment timing:** Assign treatment at a time when no effect should yet be observed.
+
+```{r placebo-test, eval = TRUE, fig.width = 9, fig.height = 5}
+# Placebo test using LaLonde data:
+# True treatment effect is on re78 (1978 earnings)
+# Placebo: effect on re74 (1974 earnings) — should be zero if matching is valid
+
+fit_placebo_pre  <- lm(re74 ~ treat, data = md_nn)
+fit_outcome_post <- lm(re78 ~ treat, data = md_nn)
+
+cat("=== Placebo Test Results ===\n")
+cat(sprintf("Effect on re74 (pre-treatment PLACEBO): %.2f (SE: %.2f, p = %.4f)\n",
+            coef(fit_placebo_pre)["treat"],
+            summary(fit_placebo_pre)$coefficients["treat", 2],
+            summary(fit_placebo_pre)$coefficients["treat", 4]))
+
+cat(sprintf("Effect on re78 (post-treatment OUTCOME): %.2f (SE: %.2f, p = %.4f)\n",
+            coef(fit_outcome_post)["treat"],
+            summary(fit_outcome_post)$coefficients["treat", 2],
+            summary(fit_outcome_post)$coefficients["treat", 4]))
+
+# Also test on re75 (1975 earnings)
+fit_placebo_75 <- lm(re75 ~ treat, data = md_nn)
+cat(sprintf("Effect on re75 (pre-treatment PLACEBO): %.2f (SE: %.2f, p = %.4f)\n",
+            coef(fit_placebo_75)["treat"],
+            summary(fit_placebo_75)$coefficients["treat", 2],
+            summary(fit_placebo_75)$coefficients["treat", 4]))
+
+# Visualization: placebo vs. outcome estimates
+df_placebo <- data.frame(
+  variable = factor(c("re74\n(Placebo: pre-1974)",
+                      "re75\n(Placebo: pre-1975)",
+                      "re78\n(Outcome: post-1978)"),
+                    levels = c("re74\n(Placebo: pre-1974)",
+                               "re75\n(Placebo: pre-1975)",
+                               "re78\n(Outcome: post-1978)")),
+  estimate = c(coef(fit_placebo_pre)["treat"],
+               coef(fit_placebo_75)["treat"],
+               coef(fit_outcome_post)["treat"]),
+  se       = c(summary(fit_placebo_pre)$coefficients["treat", 2],
+               summary(fit_placebo_75)$coefficients["treat", 2],
+               summary(fit_outcome_post)$coefficients["treat", 2]),
+  type     = c("Placebo", "Placebo", "Outcome")
+)
+df_placebo$lower <- df_placebo$estimate - 1.96 * df_placebo$se
+df_placebo$upper <- df_placebo$estimate + 1.96 * df_placebo$se
+
+ggplot(df_placebo, aes(x = estimate, y = variable, color = type, shape = type)) +
+  geom_vline(xintercept = 0, color = "gray60") +
+  geom_errorbar(aes(xmin = lower, xmax = upper), width = 0.2, orientation = "y", linewidth = 1) +
+  geom_point(size = 4) +
+  scale_color_manual(values = c("Placebo" = "#D73027", "Outcome" = "#2166AC"),
+                     name = "") +
+  scale_shape_manual(values = c("Placebo" = 17, "Outcome" = 16), name = "") +
+  labs(
+    title    = "Placebo Tests: Treatment Effects on Pre-treatment Earnings",
+    subtitle = "LaLonde data; 1:1 nearest-neighbor matched sample",
+    x        = "Estimated treatment effect (USD)",
+    y        = NULL,
+    caption  = paste0(
+      "Placebo tests (red): treatment should have NO effect on pre-treatment earnings. ",
+      "Non-zero placebo estimates suggest residual imbalance."
+    )
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+### 22.4 Comprehensive Sensitivity Summary Table
+
+A complete sensitivity analysis report for a matched study should include:
+
+| Diagnostic | What it tests | Tool | Threshold |
+|------------|--------------|------|-----------|
+| **Rosenbaum Gamma** | Strength of unmeasured confounder needed to overturn result | `rbounds::psens()` | Gamma >= 2 = moderately robust |
+| **E-value** | Minimum confounder-outcome and confounder-treatment association | `EValue` package | E-value >= 2-3 = robust |
+| **Placebo test (pre-outcome)** | Residual imbalance on pre-treatment outcomes | `lm()` on pre-treatment Y | p > 0.10 = no evidence of imbalance |
+| **Caliper sensitivity** | Robustness of ATT to caliper choice | Loop over calipers | Stable across reasonable calipers |
+| **Covariate exclusion** | Sensitivity to omitting individual covariates | Refit without each covariate | Stable estimates = robust |
+| **Alternative estimator** | Agreement between matching/IPW/OW/doubly-robust | Multiple methods | Consistent across methods = robust |
+
+---
+
+# 23. References
+
+- Austin, P. C. (2011). An introduction to propensity score methods for reducing the effects of confounding in observational studies. *Multivariate Behavioral Research*, 46(3), 399-424.
+
+- Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. *Journal of Economic Surveys*, 22(1), 31-72.
+
+- Cinelli, C., & Hazlett, C. (2020). Making sense of sensitivity: Extending omitted variable bias. *Journal of the Royal Statistical Society: Series B*, 82(1), 39-67.
+
+- Cochran, W. G. (1968). The effectiveness of adjustment by subclassification in removing bias in observational studies. *Biometrics*, 24(2), 295-313.
+
+- Greifer, N. (2024). *cobalt: Covariate balance tables and plots.* R package.
+
+- Greifer, N. (2024). *WeightIt: Weighting for covariate balance in observational studies.* R package.
+
+- Hainmueller, J. (2012). Entropy balancing for causal effects: A multivariate reweighting method to produce balanced samples in observational studies. *Political Analysis*, 20(1), 25-46.
+
+- Ho, D. E., Imai, K., King, G., & Stuart, E. A. (2007). Matching as nonparametric preprocessing for reducing model dependence in parametric causal inference. *Political Analysis*, 15(3), 199-236.
+
+- Ho, D. E., Imai, K., King, G., & Stuart, E. A. (2011). MatchIt: Nonparametric preprocessing for parametric causal inference. *Journal of Statistical Software*, 42(8), 1-28.
+
+- Iacus, S. M., King, G., & Porro, G. (2012). Causal inference without balance checking: Coarsened exact matching. *Political Analysis*, 20(1), 1-24.
+
+- Imai, K., Kim, I. S., & Wang, E. H. (2023). Matching methods for causal inference with time-series cross-sectional data. *American Journal of Political Science*, 67(3), 587-605.
+
+- Imai, K., & Ratkovic, M. (2014). Covariate balancing propensity score. *Journal of the Royal Statistical Society: Series B*, 76(1), 243-263.
+
+- Imbens, G. W. (2004). Nonparametric estimation of average treatment effects under exogeneity: A review. *Review of Economics and Statistics*, 86(1), 4-29.
+
+- King, G., & Nielsen, R. (2019). Why propensity scores should not be used for matching. *Political Analysis*, 27(4), 435-454.
+
+- Rosenbaum, P. R. (2002). *Observational Studies* (2nd ed.). Springer.
+
+- Rosenbaum, P. R., & Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. *Biometrika*, 70(1), 41-55.
+
+- Rosenbaum, P. R., & Rubin, D. B. (1985). Constructing a control group using multivariate matched sampling methods that incorporate the propensity score. *The American Statistician*, 39(1), 33-38.
+
+- Sant'Anna, P. H. C., & Zhao, J. (2020). Doubly robust difference-in-differences estimators. *Journal of Econometrics*, 219(1), 101-122.
+
+- Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. *Statistical Science*, 25(1), 1-21.
+
+- Crump, R. K., Hotz, V. J., Imbens, G. W., & Mitnik, O. A. (2009). Dealing with limited overlap in estimation of average treatment effects. *Biometrika*, 96(1), 187-199.
+
+- LaLonde, R. J. (1986). Evaluating the econometric evaluations of training programs with experimental data. *American Economic Review*, 76(4), 604-620.
+
+- Li, F., Morgan, K. L., & Zaslavsky, A. M. (2018). Balancing covariates via propensity score weighting. *Journal of the American Statistical Association*, 113(521), 390-400.
+
+- Love, T. E. (2002). Displaying covariate balance after adjustment for selection bias: An application in healthcare. *Annual Conference of the American Statistical Association*.
+
+- Rosenbaum, P. R. (1987). Sensitivity analysis for certain permutation inferences in matched observational studies. *Biometrika*, 74(1), 13-26.
+
+- VanderWeele, T. J., & Ding, P. (2017). Sensitivity analysis in observational research: Introducing the E-value. *Annals of Internal Medicine*, 167(4), 268-274.
+
+---
+
+## Genetic Matching (Sekhon 2011)
+
+### Motivation: Going Beyond Propensity Score Weights
+
+Standard matching methods select a distance metric (Mahalanobis, propensity score) before examining balance. If the chosen metric does not produce balance on all relevant covariates, the analyst must iterate manually. **Genetic Matching** (GenMatch; Sekhon 2011) automates this search: it uses an evolutionary algorithm to find a weight matrix $W$ such that the weighted Mahalanobis distance
+
+$$d_W(i, j) = \sqrt{(\mathbf{X}_i - \mathbf{X}_j)^\top (S^{-1/2})^\top W\, S^{-1/2} (\mathbf{X}_i - \mathbf{X}_j)}$$
+
+produces the best possible balance on the observed covariates, where $S$ is the sample covariance matrix. The objective function minimised by the genetic algorithm is typically the largest standardised mean difference or the smallest $p$-value from a balance test across all covariates.
+
+### Key Properties
+
+- **Data-driven:** No need to specify a distance metric a priori; the algorithm learns which covariates need extra weight.
+- **Optimises balance directly:** Unlike PS matching (which optimises estimated treatment probability), GenMatch optimises actual balance on covariates.
+- **Computationally intensive:** Requires many evaluations of the objective function; parallelisation via the `cluster` argument is recommended for large datasets.
+- **Post-matching inference:** After GenMatch produces matched pairs, causal effects are estimated with `Match()` using the weight matrix `genout$Weight.matrix`.
+
+```{r genMatch-demo, eval=requireNamespace("Matching", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(Matching)
+data("lalonde", package = "MatchIt")
+
+# Covariates to match on
+X_gm <- cbind(lalonde$age, lalonde$educ, lalonde$re74, lalonde$re75)
+Tr   <- lalonde$treat
+Y_gm <- lalonde$re78
+
+set.seed(42)
+# GenMatch: finds covariate weights minimising imbalance
+# pop.size and max.generations kept small for vignette speed
+genout <- GenMatch(
+  Tr              = Tr,
+  X               = X_gm,
+  estimand        = "ATT",
+  pop.size        = 50,
+  max.generations = 20,
+  wait.generations = 10,
+  verbose         = FALSE
+)
+
+# Match using the optimised weight matrix
+mout_gen <- Match(
+  Y             = Y_gm,
+  Tr            = Tr,
+  X             = X_gm,
+  estimand      = "ATT",
+  Weight.matrix = genout
+)
+
+summary(mout_gen)
+```
+
+```{r genMatch-balance, eval=requireNamespace("Matching", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Formal balance assessment after genetic matching
+MatchBalance(
+  Tr ~ age + educ + re74 + re75,
+  data      = lalonde,
+  match.out = mout_gen,
+  nboots    = 500
+)
+```
+
+### Comparison: Propensity Score Matching vs. Genetic Matching
+
+```{r genMatch-compare, eval=requireNamespace("Matching", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(MatchIt)
+
+# Standard 1:1 nearest-neighbour PS matching for comparison
+ps_out  <- matchit(treat ~ age + educ + re74 + re75,
+                   data     = lalonde,
+                   method   = "nearest",
+                   distance = "logit",
+                   estimand = "ATT")
+
+# Extract matched data and estimate ATT
+mdat_ps <- match.data(ps_out)
+att_ps  <- lm(re78 ~ treat, data = mdat_ps, weights = weights)
+
+# ATT from GenMatch
+att_gen <- mout_gen$est
+
+compare_df <- data.frame(
+  Method    = c("PS Nearest Neighbour", "Genetic Matching"),
+  ATT_est   = round(c(coef(att_ps)["treat"], att_gen), 2),
+  SE        = round(c(sqrt(vcov(att_ps)["treat", "treat"]),
+                      mout_gen$se), 2)
+)
+knitr::kable(compare_df, caption = "ATT estimates: PSM vs. GenMatch")
+```
+
+---
+
+## Coarsened Exact Matching (CEM): A Deep Dive
+
+### The CEM Idea
+
+**Coarsened Exact Matching** (Iacus, King, and Porro 2012) proceeds in two steps:
+
+1. **Coarsen:** Temporarily discretise each continuous covariate $X_k$ into $L_k$ bins (e.g., quintiles, or user-specified cutpoints). Form a strata cell as the Cartesian product of all coarsened bins.
+
+2. **Match exactly within cells:** Retain only units whose coarsened covariate vector matches at least one treated and one control unit. Discard unmatched units.
+
+Weights are assigned so that within each matched stratum, treated and control groups have equal effective sample sizes. No post-matching model is required (the matching itself is the non-parametric pre-processing), though including the original (uncoarsened) covariates in a follow-up regression further reduces bias.
+
+**Why CEM over PSM?**
+
+- Guarantees exact balance on the coarsened covariates within each stratum.
+- Avoids the *propensity score paradox* (King and Nielsen 2019): PS matching can actually increase imbalance on the original covariates even as it improves balance on the PS.
+- The researcher controls the coarsening explicitly and can adjust bins to satisfy substantive prior knowledge.
+
+```{r cem-demo, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(MatchIt)
+data("lalonde", package = "MatchIt")
+
+# CEM with custom cutpoints on earnings variables
+cem_out <- matchit(
+  treat ~ age + educ + re74 + re75,
+  data      = lalonde,
+  method    = "cem",
+  estimand  = "ATT",
+  cutpoints = list(
+    re74 = c(0, 1000, 5000, 10000, Inf),
+    re75 = c(0, 1000, 5000, 10000, Inf)
+  )
+)
+
+summary(cem_out, un = FALSE)
+```
+
+```{r cem-love-plot, eval=requireNamespace("MatchIt", quietly=TRUE) && requireNamespace("cobalt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(cobalt)
+
+# Love plot: standardised mean differences before and after CEM
+love.plot(
+  cem_out,
+  abs        = TRUE,
+  thresholds = c(m = 0.1),
+  var.order  = "unadjusted",
+  shapes     = c("circle filled", "triangle filled"),
+  colors     = c("firebrick", "steelblue"),
+  title      = "Covariate Balance Before and After CEM"
+)
+```
+
+```{r cem-outcome, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Outcome analysis using matched data with CEM weights
+mdat_cem <- match.data(cem_out)
+
+# Weighted regression on matched sample (Lin 2013 interaction estimator)
+mod_cem <- lm(re78 ~ treat * (age + educ + re74 + re75),
+              data    = mdat_cem,
+              weights = weights)
+
+# ATT estimate and SE
+att_cem <- coef(mod_cem)["treat"]
+se_cem  <- sqrt(vcov(mod_cem)["treat", "treat"])
+
+cat(sprintf("CEM ATT estimate: %.2f  (SE = %.2f,  95%% CI: [%.2f, %.2f])\n",
+            att_cem, se_cem,
+            att_cem - 1.96 * se_cem,
+            att_cem + 1.96 * se_cem))
+cat(sprintf("Matched sample: %d treated, %d control (of %d original)\n",
+            sum(mdat_cem$treat == 1), sum(mdat_cem$treat == 0), nrow(lalonde)))
+```
+
+### Sensitivity to Coarsening Choice
+
+The CEM estimator depends on the choice of bins. A useful robustness check is to vary the coarsening and observe how the ATT estimate changes:
+
+```{r cem-sensitivity, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Try three coarsening schemes for re74/re75
+coarsen_schemes <- list(
+  Coarse = list(re74 = c(0, 5000, Inf),        re75 = c(0, 5000, Inf)),
+  Medium = list(re74 = c(0, 1000, 5000, 10000, Inf),
+                re75 = c(0, 1000, 5000, 10000, Inf)),
+  Fine   = list(re74 = quantile(lalonde$re74, seq(0, 1, by = 0.2)),
+                re75 = quantile(lalonde$re75, seq(0, 1, by = 0.2)))
+)
+
+cem_sens <- do.call(rbind, lapply(names(coarsen_schemes), function(nm) {
+  co <- tryCatch(
+    matchit(treat ~ age + educ + re74 + re75,
+            data = lalonde, method = "cem", estimand = "ATT",
+            cutpoints = coarsen_schemes[[nm]]),
+    error = function(e) NULL
+  )
+  if (is.null(co)) return(NULL)
+  md  <- match.data(co)
+  m   <- lm(re78 ~ treat, data = md, weights = weights)
+  data.frame(
+    Coarsening   = nm,
+    ATT          = round(coef(m)["treat"], 2),
+    SE           = round(sqrt(vcov(m)["treat", "treat"]), 2),
+    N_matched    = nrow(md)
+  )
+}))
+
+knitr::kable(cem_sens, caption = "CEM ATT sensitivity to coarsening choice")
+```
+
+---
+
+## Entropy Balancing (Hainmueller 2012)
+
+### The Entropy Balancing Idea
+
+**Entropy Balancing** (Hainmueller 2012) reweights control units so that the weighted moments (means, variances, covariances) of the control group exactly match those of the treated group. The weights are chosen to minimise the Kullback-Leibler divergence from the base weights (uniform) subject to the balance constraints. This is a convex optimisation problem with a unique solution.
+
+Unlike propensity score weighting, entropy balancing:
+
+- Achieves **exact** moment balance by construction (not approximately, as with IPTW).
+- Does not require specifying a propensity score model or iterating until convergence.
+- Extends naturally to higher-order moments (variances, skewness) and interactions, allowing richer balance than mean-balance alone.
+
+The estimand is the ATT: the treated group is left unweighted, and control units receive weights $w_i^c$ satisfying the balance constraints $\sum_{i:D_i=0} w_i^c X_i^k = \bar{X}_T^k$ for each moment $k$.
+
+```{r entropy-balancing, eval=requireNamespace("WeightIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(WeightIt)
+data("lalonde", package = "MatchIt")
+
+# Entropy balancing: exact balance on means (and optionally variances)
+eb_out <- weightit(
+  treat ~ age + educ + re74 + re75,
+  data     = lalonde,
+  method   = "ebal",
+  estimand = "ATT",
+  moments  = 1   # balance on means; use moments=2 for means+variances
+)
+
+summary(eb_out)
+```
+
+```{r eb-balance-summary, eval=requireNamespace("WeightIt", quietly=TRUE) && requireNamespace("cobalt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(cobalt)
+
+# Love plot after entropy balancing
+love.plot(
+  eb_out,
+  abs        = TRUE,
+  thresholds = c(m = 0.05),
+  var.order  = "unadjusted",
+  shapes     = c("circle filled", "triangle filled"),
+  colors     = c("firebrick", "steelblue"),
+  title      = "Covariate Balance Before and After Entropy Balancing"
+)
+```
+
+```{r eb-outcome, eval=requireNamespace("WeightIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Outcome regression with entropy balancing weights
+lalonde$eb_weights <- eb_out$weights
+
+mod_eb <- lm(re78 ~ treat, data = lalonde, weights = eb_weights)
+att_eb <- coef(mod_eb)["treat"]
+se_eb  <- sqrt(vcov(mod_eb)["treat", "treat"])
+
+cat(sprintf("Entropy balancing ATT: %.2f  (SE = %.2f)\n", att_eb, se_eb))
+
+# Doubly robust: include covariates in weighted regression
+mod_eb_dr <- lm(re78 ~ treat + age + educ + re74 + re75,
+                data    = lalonde,
+                weights = eb_weights)
+att_eb_dr <- coef(mod_eb_dr)["treat"]
+se_eb_dr  <- sqrt(vcov(mod_eb_dr)["treat", "treat"])
+
+cat(sprintf("Doubly robust EB ATT:  %.2f  (SE = %.2f)\n", att_eb_dr, se_eb_dr))
+```
+
+### Higher-Order Entropy Balancing
+
+Balancing on means alone may leave variance and covariance imbalances that bias the treatment effect estimate when the outcome model is non-linear. Setting `moments = 2` in `weightit()` adds constraints on the variances of each covariate:
+
+```{r eb-higher-order, eval=requireNamespace("WeightIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Balance on means AND variances
+eb_out2 <- weightit(
+  treat ~ age + educ + re74 + re75,
+  data     = lalonde,
+  method   = "ebal",
+  estimand = "ATT",
+  moments  = 2
+)
+
+# Effective sample size (ESS) for control group
+ess_eb1 <- eb_out$ESS
+ess_eb2 <- eb_out2$ESS
+
+cat(sprintf("ESS (means only):          %.1f\n", ess_eb1))
+cat(sprintf("ESS (means + variances):   %.1f\n", ess_eb2))
+cat("Adding variance constraints typically reduces ESS.\n")
+```
+
+---
+
+## Matching Quality: Distribution Tests
+
+### Beyond Mean Balance
+
+Standard balance diagnostics (standardised mean differences, variance ratios) only check first- and second-order moments. When the outcome model is non-linear or heterogeneous treatment effects are present, **full distributional balance** matters. Three complementary tests address this:
+
+1. **Kolmogorov-Smirnov (KS) test:** Maximum absolute difference between empirical CDFs. Sensitive to differences anywhere in the distribution, not just the mean.
+
+2. **Variance ratio:** $\text{VR}_k = \hat{\sigma}^2_{T,k} / \hat{\sigma}^2_{C,k}$. Should be near 1 after matching; values outside $[0.5, 2]$ suggest residual distributional imbalance.
+
+3. **Energy distance:** A kernel-based measure of distributional discrepancy that is zero if and only if the two distributions are identical (Szekely and Rizzo 2013). More sensitive than KS to differences in tails.
+
+```{r distributional-balance, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(MatchIt)
+data("lalonde", package = "MatchIt")
+
+# 1:1 nearest-neighbour matching
+ps_match <- matchit(
+  treat ~ age + educ + re74 + re75,
+  data     = lalonde,
+  method   = "nearest",
+  distance = "logit",
+  ratio    = 1,
+  estimand = "ATT"
+)
+mdat <- match.data(ps_match)
+
+covs <- c("age", "educ", "re74", "re75")
+
+# KS statistics and variance ratios before and after matching
+ks_before <- sapply(covs, function(v) {
+  ks.test(lalonde[[v]][lalonde$treat == 1],
+          lalonde[[v]][lalonde$treat == 0])$statistic
+})
+ks_after <- sapply(covs, function(v) {
+  ks.test(mdat[[v]][mdat$treat == 1],
+          mdat[[v]][mdat$treat == 0])$statistic
+})
+
+vr_before <- sapply(covs, function(v) {
+  var(lalonde[[v]][lalonde$treat == 1]) /
+  var(lalonde[[v]][lalonde$treat == 0])
+})
+vr_after <- sapply(covs, function(v) {
+  var(mdat[[v]][mdat$treat == 1]) /
+  var(mdat[[v]][mdat$treat == 0])
+})
+
+bal_table <- data.frame(
+  Covariate  = covs,
+  KS_before  = round(ks_before, 3),
+  KS_after   = round(ks_after,  3),
+  VR_before  = round(vr_before, 3),
+  VR_after   = round(vr_after,  3)
+)
+knitr::kable(bal_table,
+             caption = "KS statistic and variance ratio before and after PSM")
+```
+
+```{r distributional-balance-plot, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Empirical CDF comparison for re74 before and after matching
+plot_ecdf <- function(var_name, before_data, after_data) {
+  df_b <- data.frame(
+    x      = c(before_data[[var_name]][before_data$treat == 1],
+               before_data[[var_name]][before_data$treat == 0]),
+    group  = c(rep("Treated", sum(before_data$treat == 1)),
+               rep("Control", sum(before_data$treat == 0))),
+    period = "Before matching"
+  )
+  df_a <- data.frame(
+    x      = c(after_data[[var_name]][after_data$treat == 1],
+               after_data[[var_name]][after_data$treat == 0]),
+    group  = c(rep("Treated", sum(after_data$treat == 1)),
+               rep("Control", sum(after_data$treat == 0))),
+    period = "After matching"
+  )
+  rbind(df_b, df_a)
+}
+
+ecdf_df <- plot_ecdf("re74", lalonde, mdat)
+
+ggplot(ecdf_df, aes(x = x, colour = group, linetype = period)) +
+  stat_ecdf(linewidth = 0.8) +
+  causalverse::ama_theme() +
+  scale_colour_manual(values = c("steelblue", "firebrick")) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1e-3, suffix = "k")) +
+  labs(
+    title    = "Empirical CDF: Pre-treatment Earnings (re74)",
+    subtitle = "KS statistic measures the maximum vertical gap between CDFs",
+    x        = "1974 earnings",
+    y        = "Empirical CDF",
+    colour   = "Group",
+    linetype = "Matching status"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+```{r ks-plot-all-covs, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Bar chart of KS statistics before and after for all covariates
+ks_df <- data.frame(
+  Covariate = rep(covs, 2),
+  KS        = c(ks_before, ks_after),
+  Period    = rep(c("Before", "After"), each = length(covs))
+)
+
+ggplot(ks_df, aes(x = Covariate, y = KS, fill = Period)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_hline(yintercept = 0.1, linetype = "dashed", colour = "black") +
+  causalverse::ama_theme() +
+  scale_fill_manual(values = c("steelblue", "firebrick")) +
+  labs(
+    title    = "Kolmogorov-Smirnov Statistics Before and After Matching",
+    subtitle = "Dashed line = 0.1 threshold; smaller KS = better distributional balance",
+    x        = "Covariate",
+    y        = "KS statistic",
+    fill     = "Matching"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+### Energy Distance
+
+The **energy distance** between empirical distributions $F$ and $G$ is:
+
+$$\mathcal{E}(F, G) = 2\,\mathbb{E}\|X - Y\| - \mathbb{E}\|X - X'\| - \mathbb{E}\|Y - Y'\|,$$
+
+where $(X, X') \sim F$ and $(Y, Y') \sim G$ independently. It equals zero if and only if $F = G$, making it a proper measure of distributional discrepancy.
+
+```{r energy-distance, message=FALSE, warning=FALSE}
+# Manual energy distance computation (no extra package needed)
+energy_dist <- function(x, y) {
+  n <- length(x); m <- length(y)
+  cross <- mean(outer(x, y, function(a, b) abs(a - b)))
+  self_x <- mean(outer(x, x, function(a, b) abs(a - b)))
+  self_y <- mean(outer(y, y, function(a, b) abs(a - b)))
+  2 * cross - self_x - self_y
+}
+
+ed_before <- sapply(covs, function(v) {
+  energy_dist(
+    scale(lalonde[[v]])[lalonde$treat == 1],
+    scale(lalonde[[v]])[lalonde$treat == 0]
+  )
+})
+
+ed_after <- sapply(covs, function(v) {
+  energy_dist(
+    scale(mdat[[v]])[mdat$treat == 1],
+    scale(mdat[[v]])[mdat$treat == 0]
+  )
+})
+
+ed_df <- data.frame(
+  Covariate     = covs,
+  Energy_before = round(ed_before, 4),
+  Energy_after  = round(ed_after,  4),
+  Reduction_pct = round(100 * (1 - ed_after / ed_before), 1)
+)
+knitr::kable(ed_df,
+             caption = "Energy distance before and after PSM (standardised covariates)")
+```
+
+### Variance Ratio Plot
+
+```{r variance-ratio-plot, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+vr_df <- data.frame(
+  Covariate = rep(covs, 2),
+  VR        = c(vr_before, vr_after),
+  Period    = rep(c("Before", "After"), each = length(covs))
+)
+
+ggplot(vr_df, aes(x = Covariate, y = VR, shape = Period, colour = Period)) +
+  geom_point(size = 4) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_hline(yintercept = c(0.5, 2), linetype = "dotted", colour = "grey50") +
+  causalverse::ama_theme() +
+  scale_colour_manual(values = c("steelblue", "firebrick")) +
+  labs(
+    title    = "Variance Ratios Before and After Matching",
+    subtitle = "Dashed = ratio of 1 (perfect); dotted = 0.5 and 2.0 boundaries",
+    x        = "Covariate",
+    y        = "Variance ratio (Treated / Control)",
+    shape    = "Matching",
+    colour   = "Matching"
+  ) +
+  theme(legend.position = "bottom")
+```
+
+---
+
+## Additional References (Advanced Matching)
+
+- Hainmueller, J. (2012). Entropy balancing for causal effects: A multivariate reweighting method to produce balanced samples in observational studies. *Political Analysis*, 20(1), 25-46.
+- Iacus, S. M., King, G., & Porro, G. (2012). Causal inference without balance checking: Coarsened exact matching. *Political Analysis*, 20(1), 1-24.
+- King, G., & Nielsen, R. (2019). Why propensity scores should not be used for matching. *Political Analysis*, 27(4), 435-454.
+- Sekhon, J. S. (2011). Multivariate and propensity score matching software with automated balance optimization: The Matching package for R. *Journal of Statistical Software*, 42(7), 1-52.
+- Szekely, G. J., & Rizzo, M. L. (2013). Energy statistics: A class of statistics based on distances. *Journal of Statistical Planning and Inference*, 143(8), 1249-1272.
+- Zubizarreta, J. R. (2012). Using mixed integer programming for matching in an observational study of kidney failure after surgery. *Journal of the American Statistical Association*, 107(500), 1360-1371.

@@ -2,12 +2,4 @@ causalverse
 synthdid
 ggplot2
 fixest
-tidyverse
-tibble
-tidyr
-readr
-purrr
 dplyr
-stringr
-forcats
-lubridate

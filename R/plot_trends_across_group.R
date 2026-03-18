@@ -26,7 +26,7 @@
 #'   group = rep(c("treated", "control"), times = 5),
 #'   industry = rep(c("Tech", "Healthcare"), each = 5)
 #' )
-#' 
+#'
 #' # Use the function
 #' plot_trends_across_group(data = sample_data,
 #'                         x_var = "year",
@@ -39,7 +39,8 @@
 #' @return A ggplot object.
 #' @export
 #'
-#' @importFrom ggplot2 ggplot aes_string geom_line facet_wrap theme_minimal labs
+#' @importFrom ggplot2 ggplot aes geom_line geom_ribbon facet_wrap theme_minimal labs theme
+#' @importFrom rlang sym .data
 
 plot_trends_across_group <- function(data,
                                     x_var,
@@ -52,18 +53,18 @@ plot_trends_across_group <- function(data,
                                     x_label = "Year",
                                     y_label = "Dependent Variable",
                                     theme = causalverse::ama_theme(), ...){
-  
+
   # Check if the variables exist in the dataset
   necessary_vars <- c(x_var, y_var, grouping_var, facet_var)
   if (!all(necessary_vars %in% names(data))) {
     stop("One or more of the specified variables do not exist in the dataset.")
   }
-  
+
   # Check if y_var is numeric
   if (!is.numeric(data[[y_var]])) {
     stop(paste0("'", y_var, "' must be numeric."))
   }
-  
+
   # If se is provided, check it as well
   if (!is.null(se)) {
     if (!se %in% names(data)) {
@@ -73,32 +74,41 @@ plot_trends_across_group <- function(data,
       stop(paste0("'", se, "' must be numeric."))
     }
   }
-  
-  # Base plot
-  plot <- ggplot(data, aes(x = x_var, y = y_var, color = grouping_var)) +
-    geom_line() +
-    facet_wrap(as.formula(paste("~", facet_var)), ncol = 2) +
-    theme_minimal() +
-    labs(title = title, x = x_label, y = y_label, color = grouping_var, fill = grouping_var) +
+
+  # Base plot using .data pronoun for tidy evaluation
+  plot <- ggplot2::ggplot(data, ggplot2::aes(
+    x = .data[[x_var]],
+    y = .data[[y_var]],
+    color = .data[[grouping_var]]
+  )) +
+    ggplot2::geom_line() +
+    ggplot2::facet_wrap(stats::as.formula(paste("~", facet_var)), ncol = 2) +
+    ggplot2::theme_minimal() +
+    ggplot2::labs(title = title, x = x_label, y = y_label, color = grouping_var, fill = grouping_var) +
     theme
-  
+
   # Add geom_ribbon if se is provided
   if (!is.null(se)) {
-    plot <- plot + 
-      geom_ribbon(aes_string(ymin = paste(y_var, "-", se),
-                             ymax = paste(y_var, "+", se),
-                             fill = grouping_var), alpha = 0.3)
+    plot <- plot +
+      ggplot2::geom_ribbon(
+        ggplot2::aes(
+          ymin = .data[[y_var]] - .data[[se]],
+          ymax = .data[[y_var]] + .data[[se]],
+          fill = .data[[grouping_var]]
+        ),
+        alpha = 0.3
+      )
   }
-  
+
   # Remove legend if not desired
   if (!include_legend) {
-    plot <- plot + theme(legend.position = "none")
+    plot <- plot + ggplot2::theme(legend.position = "none")
   }
-  
+
   # Add additional labelling arguments from ...
   if (!missing(...)) {
-    plot <- plot + labs(...)
+    plot <- plot + ggplot2::labs(...)
   }
-  
+
   return(plot)
 }

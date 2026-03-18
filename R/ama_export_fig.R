@@ -11,7 +11,6 @@
 #' @param height The height of the image in inches (default is 7 inches).
 #'
 #' @import ggplot2
-#' @import lubridate
 #' @export
 #'
 #' @examples

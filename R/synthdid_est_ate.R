@@ -29,14 +29,15 @@
 #' @param subgroup Vector, IDs for subgroup analysis.
 #' @param conf_level Numeric, confidence level for the interval estimation (Default: 95%).
 #' @param seed A numeric value for setting the random seed (for placebo SE and placebo analysis). Default is 1.
-#' @param method The estimation method to be used. Methods include:
-#'   - 'did': Difference-in-Differences.
-#'   - 'sc': Synthetic Control Method. 
-#'   - 'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.
-#'   - 'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).
-#'   - 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.
-#'   - 'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
-#' Defaults to 'synthdid'.
+#' @param method The estimation method to be used. Defaults to 'synthdid'. Methods include:
+#' \itemize{
+#'   \item 'did': Difference-in-Differences.
+#'   \item 'sc': Synthetic Control Method.
+#'   \item 'sc_ridge': Synthetic Control Method with Ridge Penalty.
+#'   \item 'difp': De-meaned Synthetic Control Method (Doudchenko and Imbens, 2016; Ferman and Pinto, 2021).
+#'   \item 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty.
+#'   \item 'synthdid': Synthetic Difference-in-Differences (Arkhangelsky et al., 2021).
+#' }
 #' @references
 #' Ferman, B., & Pinto, C. (2021). Synthetic controls with imperfect pretreatment fit. 
 #' Quantitative Economics, 12(4), 1197-1221.
@@ -50,20 +51,20 @@
 #' American Economic Review, 111(12), 4088-4118.
 #'
 #' @return A list containing the following elements:
-#' \itemize{
-#'   \item{time}{: Vector of time periods used in estimation from -lags to leads (relative to the adoption period)}
-#'   \item{TE_mean}{: Vector of ATT in each time period}
-#'   \item{SE_mean}{: Vector of Standard error of ATT each time period}
-#'   \item{TE_mean_lower}{: Vector of Lower C.I. for ATT per period}
-#'   \item{TE_mean_upper}{: Vector of Upper C.I. for ATT per period}
-#'   \item{TE_mean_w, SE_mean_w, TE_mean_w_lower, TE_mean_w_upper}{: Weighted versions of the above metrics by the number of treated units in each time period }
-#'   \item{Ntr}{: Number of treated units}
-#'   \item{Nco}{: Number of control units}
-#'   \item{TE}{: Treatment effect for each cohort in each time period}
-#'   \item{SE}{: Standard error of TE of each cohort in each time period}
-#'   \item{y_obs}{: Observed outcomes of treated units}
-#'   \item{y_pred}{: Predicted outcomes of treated units}
-#'   \item{col_names}{: Column names for TE and SE matrices (times and ATTs)}
+#' \describe{
+#'   \item{time}{Vector of time periods used in estimation from -lags to leads (relative to the adoption period).}
+#'   \item{TE_mean}{Vector of ATT in each time period.}
+#'   \item{SE_mean}{Vector of standard error of ATT each time period.}
+#'   \item{TE_mean_lower}{Vector of lower C.I. for ATT per period.}
+#'   \item{TE_mean_upper}{Vector of upper C.I. for ATT per period.}
+#'   \item{TE_mean_w, SE_mean_w, TE_mean_w_lower, TE_mean_w_upper}{Weighted versions of the above metrics by the number of treated units in each time period.}
+#'   \item{Ntr}{Number of treated units.}
+#'   \item{Nco}{Number of control units.}
+#'   \item{TE}{Treatment effect for each cohort in each time period.}
+#'   \item{SE}{Standard error of TE of each cohort in each time period.}
+#'   \item{y_obs}{Observed outcomes of treated units.}
+#'   \item{y_pred}{Predicted outcomes of treated units.}
+#'   \item{col_names}{Column names for TE and SE matrices (times and ATTs).}
 #' }
 #' @export
 #' @examples
@@ -149,7 +150,7 @@ synthdid_est_ate <-
         
         balanced_df <- balanced_df %>%
           
-          filter(.data[[treated_period_var]] > adoption_cohort) %>%
+          dplyr::filter(.data[[treated_period_var]] > adoption_cohort) %>%
           
           mutate(
             !!treated_period_var := dplyr::if_else(.data[[unit_id_var]] %in% placebo_treat_ids, adoption_cohort, .data[[treated_period_var]]),
@@ -256,7 +257,7 @@ synthdid_est_ate <-
     SE_mean      <- apply(SE, 2, weighted_avg_SE)
     
     # Calculate the z-value for the confidence interval
-    z_val           <- qnorm((1 + conf_level) / 2)
+    z_val           <- stats::qnorm((1 + conf_level) / 2)
     
     TE_mean_lower   <-  TE_mean - z_val * SE_mean
     TE_mean_upper   <-  TE_mean + z_val * SE_mean

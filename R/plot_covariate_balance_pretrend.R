@@ -44,7 +44,7 @@ plot_covariate_balance_pretrend <- function(balance_data,
   # Convert the matrix to a dataframe and then to a long format
   df <- as.data.frame(balance_data)
   df$Time <- rownames(df)
-  df_long <- tidyr::gather(df, key = "Covariate", value = "Balance",-Time)
+  df_long <- tidyr::pivot_longer(df, cols = -Time, names_to = "Covariate", values_to = "Balance")
   
   # Convert Time labels from t_1, t_2, etc. to -1, -2, etc.
   df_long$Time <- as.numeric(gsub("t_", "-", df_long$Time))

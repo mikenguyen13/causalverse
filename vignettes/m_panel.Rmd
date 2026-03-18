@@ -1,0 +1,2542 @@
+---
+title: "Panel Data Methods"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{12. Panel Data Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE,
+                      warning = FALSE, message = FALSE)
+library(causalverse)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+```
+
+# Panel Data Methods
+
+Panel data (also called longitudinal or cross-sectional time-series data) combine observations on multiple units (firms, individuals, countries) across multiple time periods. This vignette provides a comprehensive treatment of panel data estimation, diagnostics, and inference, with emphasis on the practical choices a researcher faces.
+
+---
+
+## 1. Introduction to Panel Data
+
+### 1.1 What Is Panel Data?
+
+A panel dataset has the structure $\{(y_{it}, \mathbf{x}_{it})\}$ where $i = 1, \ldots, N$ indexes units and $t = 1, \ldots, T$ indexes time periods. The fundamental model is:
+
+$$y_{it} = \alpha_i + \lambda_t + \mathbf{x}_{it}'\boldsymbol{\beta} + \varepsilon_{it}$$
+
+where $\alpha_i$ is a unit-specific intercept (absorbing all time-invariant unit heterogeneity) and $\lambda_t$ is a time fixed effect (absorbing all unit-invariant time shocks).
+
+**Cross-sectional data** observe each unit once ($T = 1$). **Time-series data** observe a single unit repeatedly. Panel data do both simultaneously, enabling identification strategies unavailable in either cross-section or pure time-series alone.
+
+### 1.2 Balanced vs. Unbalanced Panels
+
+A **balanced panel** has the same set of time periods for every unit: the total observations equal $N \times T$. An **unbalanced panel** has gaps — some units are observed in some periods but not others. Unbalancedness can arise from:
+
+- Survey attrition (units drop out)
+- Firm entry and exit
+- Mergers and acquisitions
+- Data collection failures
+
+Most estimators can handle unbalanced panels, but some (e.g., first-differences) require care when periods are non-consecutive.
+
+### 1.3 Long vs. Wide Format
+
+Panel data can be stored in two formats:
+
+| Format | Structure | Typical Use |
+|--------|-----------|-------------|
+| Long   | One row per unit-time observation | Most panel estimators |
+| Wide   | One row per unit, one column per time period | Descriptive summaries, SynthControl |
+
+```{r format-demo}
+set.seed(42)
+# Wide format
+wide_df <- data.frame(
+  unit = 1:5,
+  y_2000 = rnorm(5, 10, 2),
+  y_2001 = rnorm(5, 11, 2),
+  y_2002 = rnorm(5, 12, 2)
+)
+
+# Convert to long
+long_df <- wide_df |>
+  tidyr::pivot_longer(cols = starts_with("y_"),
+                      names_to  = "year",
+                      names_prefix = "y_",
+                      values_to = "y") |>
+  mutate(year = as.integer(year))
+
+head(long_df)
+```
+
+### 1.4 Why Use Panel Data?
+
+The central advantage of panel data is the ability to control for **time-invariant unobserved heterogeneity**. Suppose units differ in an unobserved characteristic $a_i$ (e.g., managerial quality, innate ability) that is correlated with $\mathbf{x}_{it}$. Cross-sectional OLS would be biased. With panel data, the within estimator eliminates $a_i$ entirely by differencing it out. Additional advantages include:
+
+- **More observations**: $N \times T$ rather than just $N$
+- **Dynamic modeling**: exploit within-unit variation over time
+- **Richer identification**: instrument time-varying endogeneity
+
+---
+
+## 2. Panel Data Structure & Exploration
+
+### 2.1 Simulating a Panel Dataset
+
+We will use a single simulated dataset throughout this vignette to allow direct comparison of estimators.
+
+```{r simulate-panel}
+set.seed(2024)
+
+N    <- 100   # units
+T    <- 10    # time periods
+NT   <- N * T
+
+# Unit effects (time-invariant, correlated with x)
+unit_fe    <- rnorm(N, mean = 0, sd = 2)
+# Time effects
+time_fe    <- seq(0, 1, length.out = T)
+
+# Expand to long format
+panel_df <- expand.grid(unit = 1:N, year = 1:T) |>
+  arrange(unit, year) |>
+  mutate(
+    # Unit and time fixed effects
+    alpha_i  = unit_fe[unit],
+    lambda_t = time_fe[year],
+    # Covariate: correlated with unit FE (endogenous in pooled OLS)
+    x1       = 0.5 * alpha_i + rnorm(NT, 0, 1),
+    x2       = rnorm(NT, 2, 1),
+    # True coefficient: beta1 = 1, beta2 = 0.5
+    y        = 2 + alpha_i + lambda_t + 1.0 * x1 + 0.5 * x2 + rnorm(NT, 0, 1),
+    # Treatment: assigned at unit level, correlated with unit FE
+    treated  = as.integer(alpha_i > 0)
+  )
+
+cat("Dimensions:", nrow(panel_df), "x", ncol(panel_df), "\n")
+cat("N =", N, "| T =", T, "| NT =", NT, "\n")
+```
+
+### 2.2 Checking Balance
+
+```{r check-balance}
+# Count observations per unit
+obs_per_unit <- panel_df |>
+  group_by(unit) |>
+  summarise(n_obs = n(), n_years = n_distinct(year))
+
+cat("All units balanced:", all(obs_per_unit$n_obs == T), "\n")
+cat("Min observations per unit:", min(obs_per_unit$n_obs), "\n")
+cat("Max observations per unit:", max(obs_per_unit$n_obs), "\n")
+```
+
+### 2.3 Using `get_balanced_panel()` from causalverse
+
+The `get_balanced_panel()` function extracts a balanced panel for a specific adoption cohort in a staggered treatment design.
+
+```{r balanced-panel-demo, eval = requireNamespace("fixest", quietly = TRUE)}
+library(fixest)
+
+# Demonstrate with fixest's built-in staggered data
+balanced_ex <- get_balanced_panel(
+  data               = fixest::base_stagg,
+  adoption_cohort    = 5,
+  lags               = 2,
+  leads              = 3,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated"
+)
+
+cat("Balanced panel rows:", nrow(balanced_ex), "\n")
+cat("Time periods covered:", sort(unique(balanced_ex$year)), "\n")
+```
+
+### 2.4 Within and Between Variation Decomposition
+
+A key diagnostic for panel data is decomposing the total variation of each variable into **within-unit** variation (variation across time for a given unit) and **between-unit** variation (variation in unit means).
+
+```{r variance-decomp}
+decompose_variance <- function(df, var, unit_var = "unit") {
+  grand_mean <- mean(df[[var]], na.rm = TRUE)
+
+  unit_means <- df |>
+    group_by(across(all_of(unit_var))) |>
+    summarise(unit_mean = mean(.data[[var]], na.rm = TRUE), .groups = "drop")
+
+  df2 <- df |> left_join(unit_means, by = unit_var)
+
+  # Between SS: variation of unit means around grand mean
+  between_ss <- sum((unit_means$unit_mean - grand_mean)^2, na.rm = TRUE)
+  # Within SS: variation of observations around their unit mean
+  within_ss  <- sum((df2[[var]] - df2$unit_mean)^2, na.rm = TRUE)
+  total_ss   <- sum((df[[var]] - grand_mean)^2, na.rm = TRUE)
+
+  data.frame(
+    variable     = var,
+    total_sd     = sqrt(total_ss  / (nrow(df) - 1)),
+    between_sd   = sqrt(between_ss / (length(unique(df[[unit_var]])) - 1)),
+    within_sd    = sqrt(within_ss  / (nrow(df) - length(unique(df[[unit_var]])))),
+    pct_between  = round(100 * between_ss / total_ss, 1),
+    pct_within   = round(100 * within_ss  / total_ss, 1)
+  )
+}
+
+var_decomp <- bind_rows(
+  decompose_variance(panel_df, "y"),
+  decompose_variance(panel_df, "x1"),
+  decompose_variance(panel_df, "x2")
+)
+
+print(var_decomp)
+```
+
+The between SD captures heterogeneity across units; the within SD captures how much units fluctuate over time. Fixed effects estimators only use the **within** variation.
+
+### 2.5 Intraclass Correlation (ICC)
+
+The ICC measures what fraction of total variance is attributable to unit-level differences:
+
+$$\text{ICC} = \frac{\sigma^2_\alpha}{\sigma^2_\alpha + \sigma^2_\varepsilon}$$
+
+A high ICC (close to 1) means units are very different from each other but stable over time — FE is critical. A low ICC means most variation is within-unit over time.
+
+```{r icc}
+compute_icc <- function(df, outcome = "y", unit_var = "unit") {
+  grand_mean <- mean(df[[outcome]])
+
+  unit_means <- df |>
+    group_by(across(all_of(unit_var))) |>
+    summarise(u_mean = mean(.data[[outcome]]), n_t = n(), .groups = "drop")
+
+  n_i  <- mean(unit_means$n_t)
+  N_u  <- nrow(unit_means)
+
+  # Mean squares
+  ss_between <- sum(unit_means$n_t * (unit_means$u_mean - grand_mean)^2)
+  ms_between <- ss_between / (N_u - 1)
+
+  df3 <- df |> left_join(unit_means, by = unit_var)
+  ss_within <- sum((df3[[outcome]] - df3$u_mean)^2)
+  ms_within  <- ss_within / (nrow(df) - N_u)
+
+  icc <- (ms_between - ms_within) / (ms_between + (n_i - 1) * ms_within)
+  list(icc = round(icc, 4), ms_between = ms_between, ms_within = ms_within)
+}
+
+icc_result <- compute_icc(panel_df, "y", "unit")
+cat("ICC for y:", icc_result$icc, "\n")
+cat("  -> ~", round(icc_result$icc * 100, 1),
+    "% of variance is between-unit\n")
+```
+
+### 2.6 Missing Data Visualization
+
+```{r missing-vis, fig.width=7, fig.height=4}
+# Introduce some artificial missingness
+set.seed(99)
+panel_missing <- panel_df
+miss_idx <- sample(nrow(panel_missing), size = floor(0.05 * nrow(panel_missing)))
+panel_missing$y[miss_idx] <- NA
+
+# Build a missingness matrix
+miss_mat <- panel_missing |>
+  mutate(missing = is.na(y)) |>
+  select(unit, year, missing) |>
+  filter(unit <= 30) |>  # show first 30 units for readability
+  mutate(missing = factor(missing, levels = c(FALSE, TRUE),
+                          labels = c("Observed", "Missing")))
+
+ggplot(miss_mat, aes(x = factor(year), y = factor(unit), fill = missing)) +
+  geom_tile(color = "white", linewidth = 0.3) +
+  scale_fill_manual(values = c("Observed" = "#2166ac", "Missing" = "#d73027")) +
+  labs(title    = "Missing Data Pattern (First 30 Units)",
+       subtitle = "Red = missing observation",
+       x        = "Year",
+       y        = "Unit",
+       fill     = NULL) +
+  ama_theme() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+```
+
+---
+
+## 3. Pooled OLS
+
+### 3.1 Assumptions and Validity
+
+Pooled OLS stacks all observations and runs a single regression ignoring the panel structure:
+
+$$y_{it} = \mathbf{x}_{it}'\boldsymbol{\beta} + u_{it}, \quad u_{it} = \alpha_i + \varepsilon_{it}$$
+
+Pooled OLS is **consistent** only if $E[\alpha_i | \mathbf{x}_{it}] = 0$ — i.e., there is no correlation between the unit effect and the regressors. When this fails (the typical case), pooled OLS is biased. Even when consistent, standard errors must be clustered at the unit level to account for serial correlation in $u_{it}$.
+
+### 3.2 Estimation
+
+```{r pooled-ols, eval = requireNamespace("fixest", quietly = TRUE)}
+library(fixest)
+
+# Pooled OLS (no fixed effects)
+ols_pool <- feols(y ~ x1 + x2, data = panel_df, cluster = ~unit)
+summary(ols_pool)
+```
+
+### 3.3 Cluster-Robust Standard Errors (Liang-Zeger)
+
+The Liang-Zeger (1986) cluster-robust sandwich estimator allows arbitrary within-cluster correlation:
+
+$$\hat{V}_{LZ} = (X'X)^{-1} \left(\sum_{i=1}^{N} X_i' \hat{u}_i \hat{u}_i' X_i\right) (X'X)^{-1}$$
+
+Clustering at the unit level accounts for serial correlation within units. This is the minimum adjustment any panel regression should make.
+
+```{r ols-se-comparison, eval = requireNamespace("fixest", quietly = TRUE)}
+# Compare heteroskedasticity-robust vs cluster-robust SEs
+ols_hc  <- feols(y ~ x1 + x2, data = panel_df, se = "hetero")
+ols_cl  <- feols(y ~ x1 + x2, data = panel_df, cluster = ~unit)
+
+etable(ols_hc, ols_cl,
+       headers = c("HC Robust", "Cluster (unit)"),
+       keep    = c("x1", "x2"))
+```
+
+The cluster-robust SEs are typically larger than HC-robust SEs because they account for within-unit temporal correlation — a form of serial correlation that HC-robust SEs ignore.
+
+---
+
+## 4. Fixed Effects (Within Estimator)
+
+### 4.1 The Within Transformation
+
+The FE estimator eliminates $\alpha_i$ by demeaning each variable within units:
+
+$$\tilde{y}_{it} = y_{it} - \bar{y}_i, \quad \tilde{\mathbf{x}}_{it} = \mathbf{x}_{it} - \bar{\mathbf{x}}_i$$
+
+Then estimate:
+
+$$\tilde{y}_{it} = \tilde{\mathbf{x}}_{it}'\boldsymbol{\beta} + \tilde{\varepsilon}_{it}$$
+
+This within OLS estimator is identical to including $N$ unit dummies but is computationally far more efficient for large $N$. **Important**: time-invariant regressors (e.g., gender, country of origin) are differenced out and cannot be estimated under unit FE.
+
+### 4.2 Two-Way FE
+
+Including both unit and time fixed effects absorbs:
+
+1. All unobserved time-invariant unit heterogeneity ($\alpha_i$)
+2. All unobserved unit-invariant time shocks ($\lambda_t$, e.g., recessions, policy changes)
+
+```{r twfe, eval = requireNamespace("fixest", quietly = TRUE)}
+# Unit FE only
+fe_unit <- feols(y ~ x1 + x2 | unit, data = panel_df, cluster = ~unit)
+
+# Two-way FE (unit + time)
+fe_twoway <- feols(y ~ x1 + x2 | unit + year, data = panel_df, cluster = ~unit)
+
+etable(fe_unit, fe_twoway,
+       headers = c("Unit FE", "Two-Way FE"),
+       keep    = c("x1", "x2"))
+```
+
+### 4.3 Interpreting Fixed Effects
+
+The coefficient $\hat{\beta}$ under unit FE is identified solely from **within-unit variation over time**. It answers: "How does a change in $x_{it}$ within unit $i$ relate to a change in $y_{it}$ for that same unit?" Between-unit comparisons are entirely excluded. This is both FE's strength (no between-unit confounding) and limitation (external validity may be limited).
+
+### 4.4 Two-Way Cluster-Robust Standard Errors
+
+When the error may be correlated both within units (across time) and within time periods (across units), two-way clustering (Thompson 2011) is appropriate:
+
+$$\hat{V}_{2W} = \hat{V}_{cluster_i} + \hat{V}_{cluster_t} - \hat{V}_{HC}$$
+
+```{r twoway-cluster, eval = requireNamespace("fixest", quietly = TRUE)}
+# Two-way clustered SEs: cluster by unit AND year
+fe_2wc <- feols(y ~ x1 + x2 | unit + year,
+                data    = panel_df,
+                cluster = ~unit + year)
+
+etable(fe_twoway, fe_2wc,
+       headers = c("Cluster: Unit", "Two-Way Cluster"),
+       keep    = c("x1", "x2"))
+```
+
+Two-way clustering inflates SEs further when there is cross-sectional dependence (e.g., macro shocks affecting many units simultaneously).
+
+### 4.5 Extracting Fixed Effects
+
+```{r extract-fe, eval = requireNamespace("fixest", quietly = TRUE)}
+# Extract estimated unit fixed effects
+fe_vals <- fixef(fe_twoway)
+fe_unit_vals <- fe_vals$unit
+
+cat("Summary of estimated unit FEs:\n")
+summary(fe_unit_vals)
+
+# Compare to true unit effects
+cor_fe <- cor(fe_unit_vals, unit_fe[as.integer(names(fe_unit_vals))])
+cat("Correlation between estimated and true unit FEs:", round(cor_fe, 4), "\n")
+```
+
+### 4.6 Using `tidy_causal()` for FE Results
+
+```{r tidy-fe, eval = requireNamespace("fixest", quietly = TRUE)}
+fe_tidy <- tidy_causal(fe_twoway)
+print(fe_tidy)
+```
+
+---
+
+## 5. Random Effects (GLS)
+
+### 5.1 The Random Effects Model
+
+The RE model assumes $\alpha_i \sim \text{iid}(0, \sigma^2_\alpha)$ and is **uncorrelated** with $\mathbf{x}_{it}$. Under this assumption, $\alpha_i$ becomes part of a compound error:
+
+$$y_{it} = \mathbf{x}_{it}'\boldsymbol{\beta} + (\alpha_i + \varepsilon_{it})$$
+
+The GLS (quasi-demeaning) estimator:
+
+$$\tilde{y}_{it} = y_{it} - \hat{\theta} \bar{y}_i, \quad \hat{\theta} = 1 - \frac{\sigma_\varepsilon}{\sqrt{T \sigma^2_\alpha + \sigma^2_\varepsilon}}$$
+
+When $\hat{\theta} \to 1$ the RE estimator converges to FE; when $\hat{\theta} \to 0$ it converges to pooled OLS.
+
+```{r re-model, eval = requireNamespace("plm", quietly = TRUE)}
+library(plm)
+
+panel_pdata <- pdata.frame(panel_df, index = c("unit", "year"))
+
+re_model <- plm(y ~ x1 + x2,
+                data   = panel_pdata,
+                effect = "individual",
+                model  = "random")
+
+summary(re_model)
+```
+
+### 5.2 Hausman Test: FE vs RE
+
+The Hausman (1978) test exploits the fact that:
+
+- Under $H_0$ ($\alpha_i$ uncorrelated with $\mathbf{x}$): both FE and RE are consistent; RE is efficient
+- Under $H_1$ ($\alpha_i$ correlated with $\mathbf{x}$): FE is consistent; RE is inconsistent
+
+The test statistic:
+
+$$H = (\hat{\beta}_{FE} - \hat{\beta}_{RE})' \left[\text{Var}(\hat{\beta}_{FE}) - \text{Var}(\hat{\beta}_{RE})\right]^{-1} (\hat{\beta}_{FE} - \hat{\beta}_{RE}) \sim \chi^2_k$$
+
+```{r hausman-test, eval = requireNamespace("plm", quietly = TRUE)}
+fe_plm <- plm(y ~ x1 + x2,
+              data   = panel_pdata,
+              effect = "individual",
+              model  = "within")
+
+re_plm <- plm(y ~ x1 + x2,
+              data   = panel_pdata,
+              effect = "individual",
+              model  = "random")
+
+haus <- phtest(fe_plm, re_plm)
+print(haus)
+
+cat("\nInterpretation:\n")
+if (haus$p.value < 0.05) {
+  cat("Reject H0 at 5%: FE is preferred (unit effects are correlated with regressors)\n")
+} else {
+  cat("Fail to reject H0: RE is preferred (no evidence of correlation)\n")
+}
+```
+
+### 5.3 Mundlak Correlated Random Effects (CRE)
+
+Mundlak (1978) proposes an elegant test: augment the RE model with unit means of each time-varying regressor:
+
+$$y_{it} = \mathbf{x}_{it}'\boldsymbol{\beta} + \bar{\mathbf{x}}_i'\boldsymbol{\gamma} + \alpha_i^* + \varepsilon_{it}$$
+
+If $\boldsymbol{\gamma} = 0$, RE is consistent. If $\boldsymbol{\gamma} \neq 0$, the unit effects are correlated with regressors and FE is required. The coefficient $\boldsymbol{\beta}$ in this CRE model equals the FE estimate.
+
+```{r mundlak-cre, eval = requireNamespace("plm", quietly = TRUE) && requireNamespace("car", quietly = TRUE)}
+library(car)
+# Compute unit means
+panel_cre <- panel_df |>
+  group_by(unit) |>
+  mutate(
+    x1_bar = mean(x1),
+    x2_bar = mean(x2)
+  ) |>
+  ungroup()
+
+pdata_cre <- pdata.frame(panel_cre, index = c("unit", "year"))
+
+cre_model <- plm(y ~ x1 + x2 + x1_bar + x2_bar,
+                 data   = pdata_cre,
+                 effect = "individual",
+                 model  = "random")
+
+summary(cre_model)
+
+cat("\nMundlak test: joint significance of x1_bar and x2_bar\n")
+# Test H0: gamma = 0
+mundlak_test <- linearHypothesis(
+  cre_model,
+  c("x1_bar = 0", "x2_bar = 0"),
+  test = "Chisq"
+)
+print(mundlak_test)
+```
+
+---
+
+## 6. First-Differences Estimator
+
+### 6.1 When to Use First Differences
+
+The first-difference (FD) estimator transforms data by taking adjacent-period differences:
+
+$$\Delta y_{it} = \Delta \mathbf{x}_{it}' \boldsymbol{\beta} + \Delta \varepsilon_{it}, \quad \Delta = (1 - L)$$
+
+FD eliminates $\alpha_i$ just like the within estimator. Key considerations:
+
+- **T = 2**: FD and FE are identical
+- **T > 2**: FD is less efficient than FE if $\varepsilon_{it}$ is serially uncorrelated (FE uses more information). However, FD may be **more efficient** if $\varepsilon_{it}$ follows a random walk ($\Delta \varepsilon_{it}$ is white noise)
+- FD is natural for cointegrated variables
+
+```{r fd-estimator, eval = requireNamespace("plm", quietly = TRUE)}
+fd_model <- plm(y ~ x1 + x2,
+                data  = panel_pdata,
+                model = "fd")
+
+summary(fd_model)
+```
+
+### 6.2 FD vs FE Comparison
+
+```{r fd-vs-fe, eval = requireNamespace("plm", quietly = TRUE)}
+cat("First-difference estimates:\n")
+cat("  x1:", round(coef(fd_model)["x1"], 4), "\n")
+cat("  x2:", round(coef(fd_model)["x2"], 4), "\n\n")
+
+cat("Within (FE) estimates:\n")
+cat("  x1:", round(coef(fe_plm)["x1"], 4), "\n")
+cat("  x2:", round(coef(fe_plm)["x2"], 4), "\n")
+```
+
+Both should be close to the true values (1.0 for x1, 0.5 for x2). Differences reflect efficiency, not consistency.
+
+### 6.3 First-Difference IV
+
+When $\Delta \mathbf{x}_{it}$ is endogenous, we can instrument with lagged levels $\mathbf{x}_{i,t-2}$ (Anderson-Hsiao 1981):
+
+```{r fd-iv, eval = requireNamespace("plm", quietly = TRUE)}
+# Anderson-Hsiao IV: instrument Δx1 with x1 lagged two periods
+fd_iv <- plm(
+  y ~ x1 + x2 | lag(x1, 2) + x2,
+  data   = panel_pdata,
+  model  = "fd"
+)
+summary(fd_iv)
+```
+
+---
+
+## 7. Between Estimator
+
+### 7.1 The Between Regression
+
+The between estimator regresses the unit-mean of $y$ on the unit-mean of $\mathbf{x}$:
+
+$$\bar{y}_i = \bar{\mathbf{x}}_i' \boldsymbol{\beta} + \bar{\varepsilon}_i$$
+
+This uses **only between-unit variation** — it is a simple cross-sectional OLS on unit averages.
+
+```{r between-est, eval = requireNamespace("plm", quietly = TRUE)}
+between_model <- plm(y ~ x1 + x2,
+                     data  = panel_pdata,
+                     model = "between")
+
+summary(between_model)
+```
+
+### 7.2 Interpretation and Limitations
+
+The between estimator is inconsistent when unit effects $\alpha_i$ are correlated with $\mathbf{x}$ (the common case). However, it has value in:
+
+- **Long-run effects**: unit means capture permanent variation, so the between estimator approximates long-run elasticities
+- **Diagnosis**: large differences between FE (within) and between estimates signal that unit effects are correlated with regressors
+
+```{r between-vs-within}
+# Compare all three estimators
+est_comparison <- data.frame(
+  Estimator = c("Pooled OLS", "Between", "Within (FE)"),
+  beta_x1   = c(
+    coef(lm(y ~ x1 + x2, data = panel_df))["x1"],
+    if (requireNamespace("plm", quietly = TRUE)) coef(between_model)["x1"] else NA,
+    if (requireNamespace("plm", quietly = TRUE)) coef(fe_plm)["x1"] else NA
+  ),
+  beta_x2   = c(
+    coef(lm(y ~ x1 + x2, data = panel_df))["x2"],
+    if (requireNamespace("plm", quietly = TRUE)) coef(between_model)["x2"] else NA,
+    if (requireNamespace("plm", quietly = TRUE)) coef(fe_plm)["x2"] else NA
+  )
+)
+
+cat("True values: beta_x1 = 1.0, beta_x2 = 0.5\n\n")
+print(round(est_comparison, 4))
+```
+
+Notice that pooled OLS and between estimates are biased for $\beta_{x1}$ because $x1$ is correlated with the unit effect. The within (FE) estimate recovers the true parameter.
+
+---
+
+## 8. Two-Way Mundlak / Correlated Random Effects
+
+### 8.1 The Mundlak Device
+
+Mundlak (1978) showed that including unit means of time-varying regressors in a RE model produces the same slope estimates as FE — while retaining the ability to estimate time-invariant regressors.
+
+The key insight: assume $\alpha_i = \bar{\mathbf{x}}_i' \boldsymbol{\gamma} + \zeta_i$ where $E[\zeta_i | \mathbf{x}_{it}] = 0$.
+
+### 8.2 Two-Way CRE (Wooldridge 2021)
+
+Wooldridge (2021) extends Mundlak to two-way FE: include both unit means AND time means of each regressor.
+
+$$y_{it} = \mu + \mathbf{x}_{it}'\boldsymbol{\beta} + \bar{\mathbf{x}}_i'\boldsymbol{\gamma}_1 + \bar{\mathbf{x}}_{\cdot t}'\boldsymbol{\gamma}_2 + u_{it}$$
+
+**Advantages over standard TWFE**:
+1. Valid with unbalanced panels (no need for balanced panel)
+2. Allows estimation of time-invariant and unit-invariant covariates
+3. Can accommodate varying-slope models
+
+```{r twoway-cre}
+# Two-way CRE: add unit means AND time means
+panel_twcre <- panel_df |>
+  group_by(unit) |>
+  mutate(x1_unit_mean = mean(x1), x2_unit_mean = mean(x2)) |>
+  ungroup() |>
+  group_by(year) |>
+  mutate(x1_time_mean = mean(x1), x2_time_mean = mean(x2)) |>
+  ungroup()
+
+twcre_model <- lm(
+  y ~ x1 + x2 + x1_unit_mean + x2_unit_mean + x1_time_mean + x2_time_mean +
+      factor(year),       # include time dummies for lambda_t
+  data = panel_twcre
+)
+
+cat("Two-Way CRE Estimates:\n")
+cat("  beta_x1:", round(coef(twcre_model)["x1"], 4), " (true: 1.0)\n")
+cat("  beta_x2:", round(coef(twcre_model)["x2"], 4), " (true: 0.5)\n")
+```
+
+### 8.3 CRE with Unbalanced Panels
+
+```{r cre-unbalanced}
+# Create an unbalanced version
+set.seed(77)
+drop_idx     <- sample(nrow(panel_df), 150)
+panel_unbal  <- panel_df[-drop_idx, ]
+
+cat("Unbalanced panel: ", nrow(panel_unbal), "rows (dropped", length(drop_idx), ")\n")
+
+# CRE works naturally with unbalanced panels
+panel_unbal_cre <- panel_unbal |>
+  group_by(unit) |>
+  mutate(x1_bar = mean(x1), x2_bar = mean(x2)) |>
+  ungroup()
+
+cre_unbal <- lm(y ~ x1 + x2 + x1_bar + x2_bar + factor(year),
+                data = panel_unbal_cre)
+
+cat("CRE (unbalanced) x1:", round(coef(cre_unbal)["x1"], 4), "\n")
+cat("CRE (unbalanced) x2:", round(coef(cre_unbal)["x2"], 4), "\n")
+```
+
+---
+
+## 9. Panel Unit Root Tests
+
+### 9.1 Why Unit Roots Matter in Panels
+
+If variables are integrated of order 1, I(1), then level regressions produce spurious results — high $R^2$ and significant $t$-statistics even when no true relationship exists. Panel unit root tests have much higher power than univariate (single-series) tests because they exploit information across $N$ units.
+
+### 9.2 ADF Test Per Unit
+
+```{r adf-per-unit, eval = requireNamespace("tseries", quietly = TRUE)}
+library(tseries)
+
+# Run ADF on each unit's y series
+adf_results <- panel_df |>
+  group_by(unit) |>
+  summarise(
+    adf_stat = tryCatch(
+      adf.test(y, alternative = "stationary")$statistic,
+      error = function(e) NA_real_
+    ),
+    adf_pval = tryCatch(
+      adf.test(y, alternative = "stationary")$p.value,
+      error = function(e) NA_real_
+    ),
+    .groups = "drop"
+  )
+
+cat("ADF test summary across", N, "units:\n")
+cat("  Median ADF stat:", round(median(adf_results$adf_stat, na.rm = TRUE), 3), "\n")
+cat("  % units rejecting unit root at 5%:",
+    round(100 * mean(adf_results$adf_pval < 0.05, na.rm = TRUE), 1), "%\n")
+```
+
+```{r adf-histogram, eval = requireNamespace("tseries", quietly = TRUE), fig.width=6, fig.height=4}
+ggplot(adf_results, aes(x = adf_stat)) +
+  geom_histogram(bins = 20, fill = "#2166ac", color = "white", alpha = 0.8) +
+  geom_vline(xintercept = -3.5, linetype = "dashed", color = "red",
+             linewidth = 0.8) +
+  annotate("text", x = -3.5, y = Inf, label = " 5% critical\n value (≈−3.5)",
+           hjust = 0, vjust = 1.5, size = 3.5, color = "red") +
+  labs(title    = "Distribution of Unit-Level ADF Statistics",
+       subtitle = paste0("N = ", N, " units; dashed = approximate 5% critical value"),
+       x        = "ADF Statistic",
+       y        = "Count") +
+  ama_theme()
+```
+
+### 9.3 KPSS Test (Stationarity Null)
+
+While ADF tests $H_0$: unit root, KPSS tests $H_0$: stationarity. Together they provide complementary evidence.
+
+```{r kpss-test, eval = requireNamespace("tseries", quietly = TRUE)}
+# KPSS on a single unit as demonstration
+unit1_y <- panel_df |> filter(unit == 1) |> pull(y)
+
+kpss_result <- kpss.test(unit1_y, null = "Trend")
+cat("KPSS test for Unit 1:\n")
+print(kpss_result)
+```
+
+### 9.4 Im-Pesaran-Shin (IPS) Panel Unit Root Test
+
+The IPS test (Im, Pesaran, Shin 2003) averages the ADF statistics across units and standardizes:
+
+$$Z_{IPS} = \frac{\sqrt{N} \left(\bar{t} - E[\bar{t}]\right)}{\sqrt{\text{Var}(\bar{t})}} \xrightarrow{d} N(0,1)$$
+
+where $\bar{t} = N^{-1} \sum_i t_i$ and the mean and variance are tabulated by IPS.
+
+$H_0$: All units have a unit root.
+$H_1$: At least some units are stationary (fraction $\delta > 0$).
+
+```{r ips-test, eval = requireNamespace("tseries", quietly = TRUE)}
+# IPS test using tabulated moments (T=10 case, no trend)
+# Approximate tabulated values for T=10, no lag augmentation
+ips_mean_tab <- -1.504
+ips_var_tab  <- 1.0
+
+ips_stat <- (sqrt(N) * (mean(adf_results$adf_stat, na.rm = TRUE) - ips_mean_tab)) /
+             sqrt(ips_var_tab)
+
+ips_pval <- pnorm(ips_stat)  # lower-tail p-value
+
+cat("Im-Pesaran-Shin Panel Unit Root Test\n")
+cat("  Average ADF statistic: ", round(mean(adf_results$adf_stat, na.rm = TRUE), 4), "\n")
+cat("  IPS Z-statistic:       ", round(ips_stat, 4), "\n")
+cat("  p-value (one-sided):   ", round(ips_pval, 4), "\n")
+if (ips_pval < 0.05) {
+  cat("  -> Reject H0: evidence of stationarity in at least some units\n")
+} else {
+  cat("  -> Fail to reject H0: cannot rule out unit roots in all units\n")
+}
+```
+
+### 9.5 Levin-Lin-Chu (LLC) Test
+
+LLC (2002) assumes a common AR(1) coefficient across units ($H_0: \rho_i = 1 \;\forall i$ vs $H_1: \rho_i = \rho < 1 \;\forall i$). It is more powerful than IPS under the common AR assumption but restrictive.
+
+The LLC test proceeds in three steps:
+1. Run ADF on each unit, obtain standardized residuals
+2. Regress forward residuals on backward residuals
+3. Compute pooled t-statistic, apply LLC bias adjustment
+
+```{r llc-concept}
+# Illustrative LLC computation (simplified, T must be moderate)
+# Step 1: Regress y_it on its lags within each unit
+llc_prep <- panel_df |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(
+    dy    = y - lag(y),
+    y_lag = lag(y)
+  ) |>
+  filter(!is.na(dy), !is.na(y_lag)) |>
+  ungroup()
+
+# Step 2: Partial out individual means (within transformation on residuals)
+llc_prep2 <- llc_prep |>
+  group_by(unit) |>
+  mutate(
+    dy_dm    = dy    - mean(dy),
+    y_lag_dm = y_lag - mean(y_lag)
+  ) |>
+  ungroup()
+
+# Step 3: Pooled regression of demeaned dy on demeaned y_lag
+llc_reg <- lm(dy_dm ~ 0 + y_lag_dm, data = llc_prep2)
+llc_t   <- summary(llc_reg)$coefficients["y_lag_dm", "t value"]
+
+cat("LLC simplified t-statistic:", round(llc_t, 4), "\n")
+cat("(Strongly negative -> reject H0 of unit root)\n")
+```
+
+### 9.6 Decision Tree for I(0) vs I(1)
+
+```{r unit-root-decision}
+cat("
+Panel Unit Root Decision Framework
+====================================
+1. Run ADF/KPSS on each unit
+   |
+   +-- Majority stationary (I(0))
+   |    -> Use level regressions (FE, RE, GMM)
+   |
+   +-- Majority unit root (I(1))
+        |
+        +-- Cointegrated? (Westerlund test)
+        |    YES -> ECM / levels with long-run interpretation
+        |    NO  -> First differences to avoid spurious regression
+        |
+        +-- Mixed integration (some I(0), some I(1))
+             -> ARDL approach, or panel VECM
+
+Key Rule: Never regress I(1) on I(1) without testing for cointegration.
+")
+```
+
+---
+
+## 10. Serial Correlation Tests
+
+### 10.1 Why Serial Correlation Matters
+
+In panel FE models, the idiosyncratic error $\varepsilon_{it}$ is often serially correlated. This does not bias the FE estimator but makes the standard OLS SEs invalid (too small). The solutions are:
+1. Cluster-robust SEs (most common, nonparametric)
+2. Prais-Winsten / Cochrane-Orcutt (parametric AR correction)
+3. FGLS (efficient but more assumptions)
+
+### 10.2 Wooldridge (2002) Test
+
+Wooldridge's test is simple: after FE estimation, regress the FE residuals (first-differenced to remove the unit effect) on their lags. Under $H_0$: no serial correlation in levels, the coefficient on lagged differenced residuals should equal $-0.5$.
+
+```{r wooldridge-test, eval = requireNamespace("plm", quietly = TRUE)}
+library(plm)
+
+# Wooldridge test for serial correlation
+w_test <- pbgtest(fe_plm, order = 1)
+print(w_test)
+
+cat("\nInterpretation:\n")
+if (w_test$p.value < 0.05) {
+  cat("Reject H0: significant serial correlation detected\n")
+  cat("Action: use cluster-robust SEs or AR-corrected estimator\n")
+} else {
+  cat("Fail to reject H0: no strong evidence of serial correlation\n")
+}
+```
+
+### 10.3 Breusch-Godfrey / Durbin-Watson for Panels
+
+```{r bg-test, eval = requireNamespace("plm", quietly = TRUE)}
+# Durbin-Watson test for panel
+dw_test <- pdwtest(fe_plm)
+cat("Panel Durbin-Watson test:\n")
+print(dw_test)
+```
+
+### 10.4 Correcting Serial Correlation
+
+```{r ar1-correction, eval = requireNamespace("plm", quietly = TRUE)}
+# FGLS with AR(1) correction (Baltagi-Wu)
+fe_ar1 <- plm(y ~ x1 + x2,
+              data        = panel_pdata,
+              model       = "within",
+              effect      = "individual",
+              correlation = "AR1")
+
+cat("FE with AR(1) FGLS:\n")
+summary(fe_ar1)$coefficients
+```
+
+---
+
+## 11. Cross-Sectional Dependence
+
+### 11.1 What Is Cross-Sectional Dependence?
+
+Cross-sectional dependence (CSD) occurs when errors $\varepsilon_{it}$ and $\varepsilon_{jt}$ are correlated across units $i \neq j$ at the same time $t$. Common causes:
+- **Spatial spillovers**: neighboring regions share economic shocks
+- **Common factors**: global recessions, oil price shocks affect all units
+- **Network effects**: firms connected through supply chains
+
+CSD causes FE standard errors to be underestimated (even with unit clustering), making inference anticonservative.
+
+### 11.2 Pesaran (2004) CD Test
+
+Pesaran's CD statistic:
+
+$$CD = \sqrt{\frac{2T}{N(N-1)}} \sum_{i=1}^{N-1} \sum_{j=i+1}^{N} \hat{\rho}_{ij} \sim N(0,1)$$
+
+where $\hat{\rho}_{ij}$ is the estimated correlation between unit $i$ and unit $j$ residuals.
+
+```{r pesaran-cd, eval = requireNamespace("plm", quietly = TRUE)}
+cd_test <- pcdtest(fe_plm, test = "cd")
+print(cd_test)
+
+cat("\nInterpretation:\n")
+if (cd_test$p.value < 0.05) {
+  cat("Reject H0: cross-sectional dependence detected\n")
+  cat("Action: use two-way cluster SEs, CCE, or factor model\n")
+} else {
+  cat("Fail to reject H0: no strong CSD\n")
+}
+```
+
+### 11.3 Frees (1995) Test
+
+Frees' test uses squared rank correlations and is robust to non-normal errors:
+
+```{r frees-test, eval = requireNamespace("plm", quietly = TRUE)}
+frees_test <- pcdtest(fe_plm, test = "rho")
+print(frees_test)
+```
+
+### 11.4 Pesaran CCEMG Estimator (Concept)
+
+The Common Correlated Effects Mean Group (CCEMG, Pesaran 2006) estimator augments the regression with cross-sectional averages $\bar{y}_t$ and $\bar{\mathbf{x}}_t$ to soak up common factors:
+
+$$y_{it} = \alpha_i + \mathbf{x}_{it}'\boldsymbol{\beta}_i + c_{1i}\bar{y}_t + \mathbf{c}_{2i}'\bar{\mathbf{x}}_t + u_{it}$$
+
+Estimate per unit, then average coefficients across $i$.
+
+```{r ccemg-concept}
+# CCEMG: add cross-sectional means to each unit's regression
+panel_ccemg <- panel_df |>
+  group_by(year) |>
+  mutate(y_cs_mean  = mean(y),
+         x1_cs_mean = mean(x1),
+         x2_cs_mean = mean(x2)) |>
+  ungroup()
+
+# Estimate per unit, collect beta_i for x1
+unit_ccemg_coefs <- panel_ccemg |>
+  group_by(unit) |>
+  summarise(
+    beta_x1 = tryCatch({
+      m <- lm(y ~ x1 + x2 + y_cs_mean + x1_cs_mean + x2_cs_mean)
+      coef(m)["x1"]
+    }, error = function(e) NA_real_),
+    .groups = "drop"
+  )
+
+cat("CCEMG estimate of beta_x1:",
+    round(mean(unit_ccemg_coefs$beta_x1, na.rm = TRUE), 4),
+    " (true: 1.0)\n")
+```
+
+---
+
+## 12. Heteroskedasticity in Panels
+
+### 12.1 Testing for Panel Heteroskedasticity
+
+Heteroskedasticity in panels means $\text{Var}(\varepsilon_{it}) = \sigma_i^2$ — the error variance differs across units. This is extremely common in empirical work (larger units tend to have larger residuals).
+
+```{r hetero-test, eval = requireNamespace("plm", quietly = TRUE)}
+# Breusch-Pagan test for panel heteroskedasticity
+bp_test <- bptest(fe_plm, studentize = FALSE)
+print(bp_test)
+```
+
+### 12.2 Modified Wald Test for Group-Wise Heteroskedasticity
+
+```{r modified-wald, eval = requireNamespace("fixest", quietly = TRUE)}
+# Compare residual variance across groups
+fe_resid <- residuals(fe_twoway)
+panel_with_resid <- panel_df |>
+  mutate(fe_resid = fe_resid)
+
+unit_resid_var <- panel_with_resid |>
+  group_by(unit) |>
+  summarise(resid_var = var(fe_resid), .groups = "drop")
+
+cat("Residual variance by unit - summary:\n")
+print(summary(unit_resid_var$resid_var))
+
+# F-test-like comparison: ratio of max to min variance
+var_ratio <- max(unit_resid_var$resid_var) / min(unit_resid_var$resid_var)
+cat("\nMax/Min residual variance ratio:", round(var_ratio, 2), "\n")
+cat("(Ratio >> 1 indicates heteroskedasticity)\n")
+```
+
+### 12.3 Solutions
+
+The most practical solution to heteroskedasticity in panels is **cluster-robust SEs** (already presented in Section 4). Alternatively, FGLS with estimated unit-specific variances:
+
+```{r fgls-hetero, eval = requireNamespace("plm", quietly = TRUE)}
+# FGLS: weight observations by inverse estimated variance
+unit_vars <- panel_with_resid |>
+  group_by(unit) |>
+  summarise(sigma2_i = var(fe_resid), .groups = "drop")
+
+panel_fgls <- panel_df |>
+  left_join(unit_vars, by = "unit") |>
+  mutate(weight = 1 / sqrt(sigma2_i))
+
+# Weighted FE via WLS
+fgls_model <- lm(y ~ x1 + x2 + factor(unit) + factor(year),
+                 data    = panel_fgls,
+                 weights = weight)
+
+cat("FGLS (WLS) x1:", round(coef(fgls_model)["x1"], 4), "\n")
+cat("FGLS (WLS) x2:", round(coef(fgls_model)["x2"], 4), "\n")
+```
+
+---
+
+## 13. Dynamic Panel Models (GMM)
+
+### 13.1 The Nickell Bias
+
+Including a lagged dependent variable in FE causes the Nickell (1981) bias. The within transformation subtracts unit means from $y_{i,t-1}$, but the demeaned lag $\tilde{y}_{i,t-1} = y_{i,t-1} - \bar{y}_i$ is correlated with the demeaned error because $\bar{y}_i$ depends on $y_{i,t-1}$. The bias is of order $O(1/T)$, so it is negligible only when $T$ is large.
+
+```{r nickell-bias-demo, eval = requireNamespace("fixest", quietly = TRUE)}
+set.seed(1234)
+N_dyn <- 200
+T_dyn <- 6
+
+# True DGP: rho = 0.5
+rho_true <- 0.5
+
+dyn_panel <- expand.grid(unit = 1:N_dyn, year = 1:T_dyn) |>
+  arrange(unit, year) |>
+  mutate(
+    alpha_i = rep(rnorm(N_dyn, 0, 1), each = T_dyn),
+    x1      = rnorm(N_dyn * T_dyn, 0, 1)
+  )
+
+# Simulate AR(1) + x1
+y_dyn <- numeric(nrow(dyn_panel))
+for (i in 1:N_dyn) {
+  idx <- which(dyn_panel$unit == i)
+  y_dyn[idx[1]] <- dyn_panel$alpha_i[idx[1]] + rnorm(1)
+  for (t in 2:T_dyn) {
+    y_dyn[idx[t]] <- dyn_panel$alpha_i[idx[t]] +
+                     rho_true * y_dyn[idx[t-1]] +
+                     0.5 * dyn_panel$x1[idx[t]] + rnorm(1, 0, 0.5)
+  }
+}
+dyn_panel$y <- y_dyn
+dyn_panel <- dyn_panel |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(y_lag = lag(y)) |>
+  ungroup() |>
+  filter(!is.na(y_lag))
+
+# Naive FE with lagged DV
+fe_dyn <- feols(y ~ y_lag + x1 | unit, data = dyn_panel, cluster = ~unit)
+cat("FE estimate of rho (true =", rho_true, "):",
+    round(coef(fe_dyn)["y_lag"], 4), "\n")
+cat("Nickell bias:", round(coef(fe_dyn)["y_lag"] - rho_true, 4), "\n")
+```
+
+### 13.2 Arellano-Bond GMM (AB)
+
+AB (1991) takes first differences to remove $\alpha_i$, then uses lags of levels as instruments for the differenced lagged dependent variable:
+
+$$\Delta y_{it} = \rho \Delta y_{i,t-1} + \Delta \mathbf{x}_{it}' \boldsymbol{\beta} + \Delta \varepsilon_{it}$$
+
+Instruments: $\{y_{i,t-2}, y_{i,t-3}, \ldots\}$ (and lags of $\mathbf{x}$)
+
+```{r arellano-bond, eval = requireNamespace("plm", quietly = TRUE)}
+library(plm)
+
+dyn_pdata <- pdata.frame(dyn_panel, index = c("unit", "year"))
+
+# Arellano-Bond GMM (difference GMM)
+ab_model <- pgmm(
+  y ~ lag(y, 1) + x1 | lag(y, 2:4),
+  data        = dyn_pdata,
+  effect      = "individual",
+  model       = "twosteps",
+  transformation = "d"    # first differences
+)
+
+summary(ab_model, robust = TRUE)
+```
+
+### 13.3 System GMM (Blundell-Bond)
+
+Blundell-Bond (1998) augments AB with an additional set of equations in levels, using lagged differences as instruments. System GMM is more efficient than difference GMM when the autoregressive parameter is close to 1 or the variance of unit effects is large relative to $\sigma^2_\varepsilon$.
+
+```{r system-gmm, eval = requireNamespace("plm", quietly = TRUE)}
+# System GMM
+bb_model <- pgmm(
+  y ~ lag(y, 1) + x1 | lag(y, 2:3),
+  data           = dyn_pdata,
+  effect         = "twoways",
+  model          = "twosteps",
+  transformation = "ld"   # levels and differences (system GMM)
+)
+
+summary(bb_model, robust = TRUE)
+```
+
+### 13.4 Sargan-Hansen Instrument Validity Test
+
+The overidentification test checks whether the moment conditions are valid — i.e., whether the instruments are exogenous.
+
+```{r sargan-test, eval = requireNamespace("plm", quietly = TRUE)}
+# Sargan test for over-identifying restrictions
+sargan_stat <- sargan(ab_model)
+print(sargan_stat)
+
+cat("\nInterpretation: Under H0 instruments are valid.\n")
+cat("Reject H0 (p < 0.05) -> suspect instrument endogeneity.\n")
+```
+
+### 13.5 Arellano-Bond AR(1) and AR(2) Tests
+
+The AR(2) test is crucial: first-differences will have AR(1) serial correlation by construction, but AR(2) in differences implies AR(1) in levels (instrument invalidity).
+
+```{r ab-ar-tests, eval = requireNamespace("plm", quietly = TRUE)}
+cat("Arellano-Bond Autocorrelation Tests:\n")
+cat("(These test for autocorrelation in the first-differenced residuals)\n\n")
+
+# mtest in plm
+m1 <- mtest(ab_model, order = 1, vcov = vcovHC)
+m2 <- mtest(ab_model, order = 2, vcov = vcovHC)
+
+cat("AR(1) test: statistic =", round(m1$statistic, 4),
+    ", p =", round(m1$p.value, 4), "\n")
+cat("AR(2) test: statistic =", round(m2$statistic, 4),
+    ", p =", round(m2$p.value, 4), "\n\n")
+
+cat("Desired result:\n")
+cat("  AR(1): reject H0 (expected -- Δε_it is always AR(1))\n")
+cat("  AR(2): FAIL to reject H0 (crucial -- confirms moment conditions)\n")
+```
+
+### 13.6 Instrument Proliferation Warning
+
+```{r instrument-count}
+cat("
+GMM Instrument Count Rules of Thumb
+=====================================
+Number of instruments should be < number of groups (N).
+
+With T periods and lag depth 2 to k, the instrument count grows as:
+  Diff GMM:   (T-2)(T-1)/2 per regressor
+  System GMM: (T-2)(T-1)/2 + (T-2) per regressor
+
+Too many instruments:
+  - Overfits the moment conditions
+  - Sargan/Hansen test has low power (always fails to reject)
+  - Biased coefficient estimates
+
+Remedies:
+  1. Limit lag depth (e.g., lag 2 only: pgmm(...|lag(y,2)))
+  2. Collapse instruments (collapse = TRUE in pgmm)
+  3. Use fewer lags of x
+")
+```
+
+---
+
+## 14. Panel Cointegration
+
+### 14.1 Spurious Regressions in Panels
+
+When both $y_{it}$ and $x_{it}$ are I(1) and **not** cointegrated, level regressions are spurious. The $t$-statistics diverge with $T$ even under no relationship. Panel spurious regression is more severe than time-series because $N$ adds power to detect false significance.
+
+```{r spurious-demo}
+set.seed(555)
+N_coint <- 20
+T_coint <- 50
+
+# Two independent random walks
+spurious <- expand.grid(unit = 1:N_coint, t = 1:T_coint) |>
+  arrange(unit, t) |>
+  group_by(unit) |>
+  mutate(
+    y_rw = cumsum(rnorm(T_coint)),
+    x_rw = cumsum(rnorm(T_coint))
+  ) |>
+  ungroup()
+
+# Regress two independent random walks with unit FE
+spur_fe <- lm(y_rw ~ x_rw + factor(unit), data = spurious)
+cat("Spurious regression t-stat for x_rw:",
+    round(summary(spur_fe)$coefficients["x_rw", "t value"], 3), "\n")
+cat("(Should be near 0 but will appear 'significant' -- spurious!)\n")
+```
+
+### 14.2 Engle-Granger Panel Cointegration
+
+For each unit $i$, run the cointegrating regression:
+$$y_{it} = \alpha_i + \beta_i x_{it} + u_{it}$$
+Then test whether $\hat{u}_{it}$ is stationary using ADF. If all/most units have stationary residuals, the panel is cointegrated.
+
+```{r engle-granger-panel, eval = requireNamespace("tseries", quietly = TRUE)}
+library(tseries)
+
+# Generate truly cointegrated panel: y = x + stationary u
+set.seed(888)
+N_ci <- 30
+T_ci <- 40
+
+coint_panel <- expand.grid(unit = 1:N_ci, t = 1:T_ci) |>
+  arrange(unit, t) |>
+  group_by(unit) |>
+  mutate(
+    x_ci = cumsum(rnorm(T_ci)),
+    u_ci = arima.sim(list(ar = 0.4), n = T_ci),
+    y_ci = x_ci + u_ci           # cointegrated with beta=1
+  ) |>
+  ungroup()
+
+# Per-unit Engle-Granger residual ADF
+eg_results <- coint_panel |>
+  group_by(unit) |>
+  summarise(
+    eg_pval = tryCatch({
+      mod <- lm(y_ci ~ x_ci)
+      adf.test(residuals(mod))$p.value
+    }, error = function(e) NA_real_),
+    .groups = "drop"
+  )
+
+cat("Engle-Granger cointegration test:\n")
+cat("  % units with stationary residuals (p < 0.05):",
+    round(100 * mean(eg_results$eg_pval < 0.05, na.rm = TRUE), 1), "%\n")
+cat("  Median p-value:", round(median(eg_results$eg_pval, na.rm = TRUE), 4), "\n")
+```
+
+### 14.3 Error Correction Model (ECM)
+
+When variables are cointegrated, the Error Correction Model (Engle-Granger 1987) combines long-run equilibrium with short-run dynamics:
+
+$$\Delta y_{it} = \alpha_i + \phi \hat{u}_{i,t-1} + \sum_{k=0}^{p} \gamma_k \Delta x_{i,t-k} + \varepsilon_{it}$$
+
+where $\hat{u}_{i,t-1} = y_{i,t-1} - \hat{\beta} x_{i,t-1}$ is the lagged equilibrium error. The coefficient $\phi < 0$ measures the speed of adjustment — how fast the system corrects deviations from the long-run equilibrium.
+
+```{r ecm-panel}
+# Estimate ECM panel model
+# Step 1: Long-run cointegrating regression per unit
+coint_panel2 <- coint_panel |>
+  group_by(unit) |>
+  mutate(
+    # Long-run fitted values (per unit)
+    y_lr_resid = lm(y_ci ~ x_ci)$residuals
+  ) |>
+  ungroup() |>
+  arrange(unit, t) |>
+  group_by(unit) |>
+  mutate(
+    dy       = y_ci - lag(y_ci),
+    dx       = x_ci - lag(x_ci),
+    ecm_term = lag(y_lr_resid)   # error correction term
+  ) |>
+  ungroup() |>
+  filter(!is.na(dy))
+
+# Step 2: ECM in first differences with error correction term
+ecm_model <- lm(dy ~ dx + ecm_term + factor(unit), data = coint_panel2)
+
+cat("ECM Estimates:\n")
+cat("  Short-run effect of Δx:", round(coef(ecm_model)["dx"], 4), "\n")
+cat("  Error correction speed (phi):",
+    round(coef(ecm_model)["ecm_term"], 4),
+    " (should be negative)\n")
+```
+
+---
+
+## 15. Interactive Fixed Effects & Factor Models
+
+### 15.1 Bai (2009) Interactive FE Model
+
+Bai's (2009) model generalizes unit and time FE by allowing factor loadings to vary across units:
+
+$$y_{it} = \alpha_i + \lambda_t + \mathbf{x}_{it}'\boldsymbol{\beta} + \boldsymbol{\gamma}_i' \mathbf{F}_t + \varepsilon_{it}$$
+
+where $\mathbf{F}_t$ is an $r \times 1$ vector of latent common factors and $\boldsymbol{\gamma}_i$ is the unit-specific factor loading. This model:
+- Generalizes two-way FE (which assumes $\boldsymbol{\gamma}_i = \mathbf{1}$, i.e., uniform response to factors)
+- Allows heterogeneous responses to macroeconomic shocks
+- Solves cross-sectional dependence driven by common factors
+
+### 15.2 Principal Component Estimation
+
+An iterative approach: alternate between estimating $\boldsymbol{\beta}$ (given factors) and estimating factors (given $\boldsymbol{\beta}$) until convergence.
+
+```{r bai-factor, eval = requireNamespace("fixest", quietly = TRUE)}
+set.seed(321)
+N_f <- 50
+T_f <- 15
+
+# DGP with 2 latent factors
+F_true    <- matrix(rnorm(T_f * 2), T_f, 2)      # T x 2 factor matrix
+Lambda_true <- matrix(rnorm(N_f * 2), N_f, 2)    # N x 2 loadings
+
+factor_panel <- expand.grid(unit = 1:N_f, year = 1:T_f) |>
+  arrange(unit, year) |>
+  mutate(
+    f_effect = as.vector(t(sapply(1:N_f, function(i)
+                  Lambda_true[i, ] %*% t(F_true)))),
+    x1       = rnorm(N_f * T_f),
+    y_fac    = 1.5 * x1 + f_effect + rnorm(N_f * T_f, 0, 0.5)
+  )
+
+# Bai (2009) iterative algorithm (simplified, 1 factor)
+bai_iter <- function(df, r = 1, max_iter = 50, tol = 1e-6) {
+  Y  <- matrix(df$y_fac, nrow = N_f, ncol = T_f, byrow = TRUE)
+  X  <- matrix(df$x1,    nrow = N_f, ncol = T_f, byrow = TRUE)
+
+  beta <- 0.5  # initial
+
+  for (iter in 1:max_iter) {
+    # Step 1: compute residuals
+    R <- Y - beta * X
+
+    # Step 2: extract r factors via SVD
+    svd_R  <- svd(R)
+    Lambda <- svd_R$u[, 1:r, drop = FALSE] * sqrt(N_f)
+    F_hat  <- svd_R$v[, 1:r, drop = FALSE] * svd_R$d[1:r] / sqrt(N_f)
+
+    # Step 3: partial out factors, estimate beta
+    R2      <- Y - Lambda %*% t(F_hat)
+    x_stack <- as.vector(t(X))
+    r2_stack <- as.vector(t(R2))
+    beta_new <- coef(lm(r2_stack ~ 0 + x_stack))
+
+    if (abs(beta_new - beta) < tol) break
+    beta <- beta_new
+  }
+  list(beta = beta_new, iterations = iter)
+}
+
+bai_result <- bai_iter(factor_panel, r = 2)
+cat("Bai (2009) Interactive FE estimate:\n")
+cat("  beta_x1:", round(bai_result$beta, 4), " (true: 1.5)\n")
+cat("  Converged in", bai_result$iterations, "iterations\n")
+```
+
+### 15.3 Comparison: TWFE vs Interactive FE
+
+```{r twfe-vs-ife, eval = requireNamespace("fixest", quietly = TRUE)}
+twfe_fac <- feols(y_fac ~ x1 | unit + year, data = factor_panel, cluster = ~unit)
+cat("Two-Way FE estimate:", round(coef(twfe_fac)["x1"], 4), "\n")
+cat("Interactive FE:     ", round(bai_result$beta, 4), "\n")
+cat("True value:          1.5\n\n")
+cat("TWFE is biased when factor loadings are heterogeneous.\n")
+cat("Interactive FE (Bai 2009) recovers the true parameter.\n")
+```
+
+---
+
+## 16. Nonlinear Panel Models
+
+### 16.1 The Incidental Parameter Problem
+
+In nonlinear models (probit, logit), including $N$ unit dummies creates $N$ incidental parameters that grow with the sample. For fixed $T$, the MLE of the structural parameter $\boldsymbol{\beta}$ is **inconsistent** — the Neyman-Scott (1948) problem. The magnitude of the bias depends on $T$:
+
+| Model | T=2 | T=5 | T=10 | T→∞ |
+|-------|-----|-----|------|-----|
+| Probit | ~100% | ~40% | ~20% | 0% |
+| Logit (cond.) | 0% | 0% | 0% | 0% |
+
+Conditional logit (Chamberlain 1980) eliminates unit effects **exactly** by conditioning on the sufficient statistic $\sum_t y_{it}$. Poisson FE also has no incidental parameter problem (Santos Silva & Tenreyro 2006).
+
+### 16.2 Fixed Effects Logit
+
+```{r fe-logit, eval = requireNamespace("fixest", quietly = TRUE)}
+set.seed(444)
+logit_panel <- panel_df |>
+  mutate(y_bin = as.integer(y > median(y)))
+
+# Conditional (fixed effects) logit
+fe_logit <- feglm(y_bin ~ x1 + x2 | unit,
+                  family = binomial("logit"),
+                  data   = logit_panel,
+                  cluster = ~unit)
+
+cat("Fixed Effects Logit:\n")
+summary(fe_logit)
+```
+
+### 16.3 Fixed Effects Poisson
+
+The PPML estimator (Santos Silva & Tenreyro 2006) is ideal for count data or non-negative outcomes. It is consistent even when the outcome is not Poisson-distributed, because the estimating equations only require $E[y_{it}|\mathbf{x}_{it}, \alpha_i] = \exp(\alpha_i + \mathbf{x}_{it}'\boldsymbol{\beta})$.
+
+```{r fe-poisson, eval = requireNamespace("fixest", quietly = TRUE)}
+set.seed(555)
+count_panel <- panel_df |>
+  mutate(y_count = rpois(n(), lambda = exp(0.3 * x1 + 0.15 * x2 + alpha_i * 0.2)))
+
+fe_poisson <- feglm(y_count ~ x1 + x2 | unit,
+                    family  = poisson("log"),
+                    data    = count_panel,
+                    cluster = ~unit)
+
+cat("\nFixed Effects Poisson (PPML):\n")
+summary(fe_poisson)
+```
+
+### 16.4 Comparing Poisson vs OLS for Count Outcomes
+
+```{r count-comparison, eval = requireNamespace("fixest", quietly = TRUE)}
+ols_count     <- feols(y_count ~ x1 + x2 | unit, data = count_panel, cluster = ~unit)
+fe_pois_short <- feglm(y_count ~ x1 + x2 | unit,
+                       family  = poisson(),
+                       data    = count_panel,
+                       cluster = ~unit)
+
+etable(ols_count, fe_pois_short,
+       headers = c("Linear FE", "Poisson FE"),
+       keep    = c("x1", "x2"))
+```
+
+---
+
+## 17. Unbalanced Panels and Attrition
+
+### 17.1 Types of Missingness
+
+Three missingness mechanisms have different implications for panel estimators:
+
+| Mechanism | Definition | Implication |
+|-----------|------------|-------------|
+| MCAR | Missing Completely At Random | No bias; efficiency loss only |
+| MAR  | Missing At Random (conditional on observables) | IPW corrects bias |
+| MNAR | Missing Not At Random | Selection model needed; hardest case |
+
+**Panel attrition** (units dropping out) is the most common form. It is MAR if dropout depends on observed characteristics, MNAR if it depends on unobserved future outcomes.
+
+### 17.2 Attrition Bias Illustration
+
+```{r attrition-bias}
+set.seed(999)
+# DGP: units with high y tend to drop out (MNAR-like)
+att_panel <- panel_df |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(
+    # Dropout probability increases with unit effect
+    drop_prob  = plogis(alpha_i - 1.5),
+    # Drop out permanently after year 5 with this probability
+    dropout_yr = if_else(runif(1) < drop_prob, sample(4:8, 1), 11L),
+    observed   = year <= dropout_yr
+  ) |>
+  ungroup()
+
+att_balanced   <- att_panel                          # full panel
+att_unbalanced <- att_panel |> filter(observed)      # with attrition
+
+cat("Balanced panel:   N =", n_distinct(att_balanced$unit),
+    ", T obs =", nrow(att_balanced), "\n")
+cat("With attrition:   N =", n_distinct(att_unbalanced$unit),
+    ", T obs =", nrow(att_unbalanced), "\n")
+
+# Compare FE estimates
+fe_balanced <- lm(y ~ x1 + x2 + factor(unit) + factor(year),
+                  data = att_balanced)
+fe_attrit   <- lm(y ~ x1 + x2 + factor(unit) + factor(year),
+                  data = att_unbalanced)
+
+cat("\nFE x1 (full):", round(coef(fe_balanced)["x1"], 4), "\n")
+cat("FE x1 (attrit):", round(coef(fe_attrit)["x1"], 4), "\n")
+cat("True value: 1.0\n")
+```
+
+### 17.3 Inverse Probability Weighting (IPW) for Attrition
+
+```{r ipw-attrition}
+# Step 1: Estimate dropout probability model
+att_for_ipw <- att_panel |>
+  group_by(unit) |>
+  mutate(
+    prev_y  = lag(y),
+    dropped = as.integer(!observed & lag(observed, default = TRUE))
+  ) |>
+  ungroup() |>
+  filter(!is.na(prev_y))
+
+dropout_model <- glm(
+  dropped ~ prev_y + x1 + factor(year),
+  data   = att_for_ipw,
+  family = binomial()
+)
+
+# Step 2: Compute stabilized IPW weights (inverse of survival probability)
+att_for_ipw <- att_for_ipw |>
+  mutate(p_dropout = predict(dropout_model, type = "response"),
+         p_stay    = 1 - p_dropout)
+
+# Step 3: IPW-adjusted FE
+att_ipw <- att_for_ipw |>
+  filter(observed) |>
+  group_by(unit) |>
+  mutate(cum_p_stay = cumprod(p_stay),
+         ipw        = 1 / pmax(cum_p_stay, 0.05)) |>  # trim extreme weights
+  ungroup()
+
+fe_ipw <- lm(y ~ x1 + x2 + factor(unit) + factor(year),
+             data    = att_ipw,
+             weights = ipw)
+
+cat("IPW-adjusted FE x1:", round(coef(fe_ipw)["x1"], 4), "\n")
+cat("(Closer to true 1.0 than naive attrit estimate)\n")
+```
+
+---
+
+## 18. Long-Run Effects in Panels
+
+### 18.1 Distributed Lag Models
+
+A distributed lag model allows $x$ to affect $y$ with multiple lags:
+
+$$y_{it} = \alpha_i + \sum_{k=0}^{p} \beta_k x_{i,t-k} + \varepsilon_{it}$$
+
+The short-run effect is $\beta_0$ and the long-run effect is $\sum_{k=0}^{p} \beta_k$.
+
+```{r distributed-lag, eval = requireNamespace("fixest", quietly = TRUE)}
+# Create lags
+panel_lags <- panel_df |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(
+    x1_l1 = lag(x1, 1),
+    x1_l2 = lag(x1, 2),
+    x1_l3 = lag(x1, 3)
+  ) |>
+  ungroup() |>
+  filter(!is.na(x1_l3))
+
+dl_model <- feols(y ~ x1 + x1_l1 + x1_l2 + x1_l3 | unit + year,
+                  data    = panel_lags,
+                  cluster = ~unit)
+
+coefs <- coef(dl_model)[c("x1", "x1_l1", "x1_l2", "x1_l3")]
+cat("Distributed Lag Coefficients:\n")
+cat("  Lag 0 (x1):   ", round(coefs["x1"],    4), "\n")
+cat("  Lag 1 (x1_l1):", round(coefs["x1_l1"], 4), "\n")
+cat("  Lag 2 (x1_l2):", round(coefs["x1_l2"], 4), "\n")
+cat("  Lag 3 (x1_l3):", round(coefs["x1_l3"], 4), "\n")
+cat("  Long-run sum: ", round(sum(coefs), 4), "\n")
+```
+
+### 18.2 Local Projections (Jordà 2005)
+
+Local projections (LP) estimate impulse responses directly: for each horizon $h = 0, 1, \ldots, H$, estimate:
+
+$$y_{i,t+h} = \alpha_i^h + \lambda_t^h + \beta^h x_{it} + \text{controls} + \varepsilon_{it+h}$$
+
+The sequence $\{\hat{\beta}^h\}_{h=0}^{H}$ traces the impulse response function. LP is more robust to misspecification of the lag structure than VAR and handles non-linear responses naturally.
+
+```{r local-projections, eval = requireNamespace("fixest", quietly = TRUE)}
+panel_lp <- panel_df |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(
+    x1_lag1 = lag(x1, 1),
+    # Create leads of y for different horizons
+    y_h0 = y,
+    y_h1 = lead(y, 1),
+    y_h2 = lead(y, 2),
+    y_h3 = lead(y, 3)
+  ) |>
+  ungroup()
+
+# LP at each horizon
+horizons <- 0:3
+lp_coefs <- sapply(horizons, function(h) {
+  y_col <- paste0("y_h", h)
+  df_h  <- panel_lp |> filter(!is.na(.data[[y_col]]), !is.na(x1_lag1))
+
+  fit <- feols(
+    as.formula(paste(y_col, "~ x1 + x1_lag1 | unit + year")),
+    data    = df_h,
+    cluster = ~unit
+  )
+  se_h <- sqrt(diag(vcov(fit, type = "cluster"))["x1"])
+  c(est = unname(coef(fit)["x1"]), se = se_h)
+})
+
+lp_df <- data.frame(
+  horizon  = horizons,
+  estimate = lp_coefs["est", ],
+  se       = lp_coefs["se", ]
+) |>
+  mutate(
+    ci_lo = estimate - 1.96 * se,
+    ci_hi = estimate + 1.96 * se
+  )
+
+print(lp_df)
+```
+
+```{r lp-plot, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+ggplot(lp_df, aes(x = horizon, y = estimate)) +
+  geom_ribbon(aes(ymin = ci_lo, ymax = ci_hi), fill = "#2166ac", alpha = 0.25) +
+  geom_line(color = "#2166ac", linewidth = 1) +
+  geom_point(color = "#2166ac", size = 2.5) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_hline(yintercept = 1, linetype = "dotted", color = "red",
+             linewidth = 0.8) +
+  annotate("text", x = 3, y = 1.05, label = "True effect = 1",
+           color = "red", size = 3.5, hjust = 1) +
+  scale_x_continuous(breaks = 0:3) +
+  labs(title    = "Local Projections: Impulse Response of y to x1",
+       subtitle = "Shaded band = 95% CI; dashed = 0; dotted = true effect",
+       x        = "Horizon (periods ahead)",
+       y        = expression(hat(beta)^{(h)})) +
+  ama_theme()
+```
+
+---
+
+## 19. Panel Data Visualization Suite
+
+### 19.1 Spaghetti Plot with Mean Trend
+
+```{r spaghetti-plot, fig.width=7, fig.height=5}
+# Sample 20 units for readability
+set.seed(10)
+sample_units <- sample(1:N, 20)
+spaghetti_df <- panel_df |>
+  filter(unit %in% sample_units)
+
+# Compute mean trend across all units
+mean_trend <- panel_df |>
+  group_by(year) |>
+  summarise(y_mean = mean(y), .groups = "drop")
+
+ggplot() +
+  geom_line(data = spaghetti_df,
+            aes(x = year, y = y, group = unit),
+            color = "#2166ac", alpha = 0.35, linewidth = 0.4) +
+  geom_line(data = mean_trend,
+            aes(x = year, y = y_mean),
+            color = "#d73027", linewidth = 1.5) +
+  geom_point(data = mean_trend,
+             aes(x = year, y = y_mean),
+             color = "#d73027", size = 2) +
+  annotate("text", x = 9.5, y = max(mean_trend$y_mean) + 0.3,
+           label = "Cross-unit mean", color = "#d73027", size = 3.5, hjust = 1) +
+  labs(title    = "Spaghetti Plot: Unit Trajectories Over Time",
+       subtitle = "20 randomly sampled units (blue); cross-unit mean (red)",
+       x        = "Year",
+       y        = "Outcome y") +
+  ama_theme()
+```
+
+### 19.2 Panel Heatmap
+
+```{r panel-heatmap, fig.width=8, fig.height=5}
+heat_df <- panel_df |>
+  filter(unit <= 40)
+
+ggplot(heat_df, aes(x = factor(year), y = factor(unit), fill = y)) +
+  geom_tile(color = "white", linewidth = 0.2) +
+  scale_fill_gradient2(
+    low      = "#d73027",
+    mid      = "white",
+    high     = "#2166ac",
+    midpoint = median(heat_df$y)
+  ) +
+  labs(title    = "Panel Heatmap: Outcome y by Unit and Year",
+       subtitle = "First 40 units; color = value of y",
+       x        = "Year",
+       y        = "Unit",
+       fill     = "y") +
+  ama_theme() +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+```
+
+### 19.3 Variance Decomposition Plot
+
+```{r variance-decomp-plot, fig.width=6, fig.height=4}
+vd_vars <- c("y", "x1", "x2")
+vd_results <- bind_rows(lapply(vd_vars, function(v)
+  decompose_variance(panel_df, v, "unit")))
+
+vd_long <- vd_results |>
+  select(variable, pct_between, pct_within) |>
+  pivot_longer(cols = c(pct_between, pct_within),
+               names_to  = "component",
+               values_to = "pct") |>
+  mutate(component = recode(component,
+                            pct_between = "Between-Unit",
+                            pct_within  = "Within-Unit"))
+
+ggplot(vd_long, aes(x = variable, y = pct, fill = component)) +
+  geom_col(position = "stack") +
+  scale_fill_manual(values = c("Between-Unit" = "#2166ac",
+                               "Within-Unit"  = "#d73027")) +
+  labs(title    = "Variance Decomposition: Within vs Between",
+       subtitle = "Share of total variance attributable to each component",
+       x        = "Variable",
+       y        = "Percentage (%)",
+       fill     = "Component") +
+  ama_theme()
+```
+
+### 19.4 ACF of Panel Residuals by Unit
+
+```{r acf-panel-resid, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=5}
+# Extract residuals from two-way FE
+resid_df <- panel_df |>
+  mutate(fe_resid = residuals(fe_twoway))
+
+# Sample 9 units for display
+sample_9 <- sample(1:N, 9)
+
+acf_data <- resid_df |>
+  filter(unit %in% sample_9) |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  summarise(
+    acf_vals = list(as.vector(acf(fe_resid, plot = FALSE, lag.max = 5)$acf[-1])),
+    .groups  = "drop"
+  ) |>
+  mutate(lag_df = lapply(acf_vals, function(a)
+    data.frame(lag = 1:5, acf = a))) |>
+  select(unit, lag_df) |>
+  tidyr::unnest(lag_df)
+
+conf_bound <- 1.96 / sqrt(T)
+
+ggplot(acf_data, aes(x = lag, y = acf)) +
+  geom_col(fill = "#2166ac", alpha = 0.7, width = 0.5) +
+  geom_hline(yintercept =  conf_bound, linetype = "dashed", color = "red") +
+  geom_hline(yintercept = -conf_bound, linetype = "dashed", color = "red") +
+  geom_hline(yintercept = 0, color = "grey50") +
+  facet_wrap(~unit, ncol = 3, labeller = label_both) +
+  scale_x_continuous(breaks = 1:5) +
+  labs(title    = "ACF of TWFE Residuals: Sample of 9 Units",
+       subtitle = "Dashed lines = 95% CI; bars outside indicate serial correlation",
+       x        = "Lag",
+       y        = "Autocorrelation") +
+  ama_theme()
+```
+
+### 19.5 Within vs Between Scatter
+
+```{r within-between-scatter, eval = requireNamespace("gridExtra", quietly = TRUE), fig.width=7, fig.height=4}
+# Compute demeaned (within) and unit means (between)
+wb_df <- panel_df |>
+  group_by(unit) |>
+  mutate(
+    x1_dm = x1 - mean(x1),
+    y_dm  = y  - mean(y),
+    x1_mean = mean(x1),
+    y_mean  = mean(y)
+  ) |>
+  ungroup()
+
+# Sample for display
+set.seed(7)
+wb_sample <- wb_df |> filter(unit %in% sample(1:N, 30))
+
+p_within <- ggplot(wb_sample, aes(x = x1_dm, y = y_dm)) +
+  geom_point(alpha = 0.3, color = "#2166ac", size = 1) +
+  geom_smooth(method = "lm", color = "#d73027", se = FALSE) +
+  labs(title = "Within Variation",
+       x = "Demeaned x1", y = "Demeaned y") +
+  ama_theme()
+
+p_between <- wb_df |>
+  group_by(unit) |>
+  summarise(x1_mean = mean(x1), y_mean = mean(y), .groups = "drop") |>
+  ggplot(aes(x = x1_mean, y = y_mean)) +
+  geom_point(alpha = 0.5, color = "#4dac26", size = 1.5) +
+  geom_smooth(method = "lm", color = "#d73027", se = FALSE) +
+  labs(title = "Between Variation",
+       x = "Unit Mean x1", y = "Unit Mean y") +
+  ama_theme()
+
+gridExtra::grid.arrange(p_within, p_between, ncol = 2)
+```
+
+---
+
+## 20. Publication Pipeline
+
+### 20.1 Assumption Checklist
+
+Before reporting panel results, work through the following checklist:
+
+```{r checklist}
+cat("
+Panel Data Estimation Checklist
+=================================
+
+STEP 1: DEFINE PANEL STRUCTURE
+  [ ] Identify unit and time variables
+  [ ] Check balance (is panel balanced or unbalanced?)
+  [ ] Check panel dimensions (N, T)
+  [ ] Explore within vs between variation (ICC, var decomposition)
+
+STEP 2: VARIABLE STATIONARITY
+  [ ] Run unit-level ADF / KPSS tests
+  [ ] Compute IPS / LLC panel unit root test
+  [ ] Decision: levels (I(0)) vs differences (I(1)) vs ECM (cointegrated)
+
+STEP 3: CHOOSE ESTIMATOR
+  [ ] Run Hausman test: FE vs RE
+  [ ] If RE rejected -> use FE (or CRE if time-invariant regressors needed)
+  [ ] If lagged DV needed -> use GMM (Arellano-Bond or Blundell-Bond)
+  [ ] If nonlinear outcome -> use feglm (logit/Poisson) to avoid IPP
+  [ ] If strong CSD -> use CCEMG or interactive FE
+
+STEP 4: STANDARD ERRORS
+  [ ] Always cluster at least at unit level
+  [ ] If CSD detected: two-way cluster (unit + time) or Driscoll-Kraay
+  [ ] If heteroskedasticity detected: confirm clustering still sufficient
+
+STEP 5: DIAGNOSTICS
+  [ ] Serial correlation test (Wooldridge / pbgtest)
+  [ ] Cross-sectional dependence test (Pesaran CD)
+  [ ] Heteroskedasticity test
+  [ ] If dynamic panel: AR(1) test (should reject), AR(2) (should not reject)
+  [ ] If GMM: Sargan/Hansen test (should not reject with p > 0.1)
+
+STEP 6: ROBUSTNESS
+  [ ] Alternative clustering levels
+  [ ] Subsample analyses (different time periods, unit subsets)
+  [ ] Alternative lag structures
+  [ ] Placebo / falsification tests
+")
+```
+
+### 20.2 Four-Column Comparison Table
+
+```{r four-column-table, eval = requireNamespace("fixest", quietly = TRUE)}
+# Model 1: Pooled OLS with cluster SEs
+m1 <- feols(y ~ x1 + x2,          data = panel_df, cluster = ~unit)
+# Model 2: Unit FE
+m2 <- feols(y ~ x1 + x2 | unit,   data = panel_df, cluster = ~unit)
+# Model 3: Two-Way FE
+m3 <- feols(y ~ x1 + x2 | unit + year, data = panel_df, cluster = ~unit)
+# Model 4: Two-Way FE with lagged DV (dynamic)
+panel_lag1 <- panel_df |>
+  arrange(unit, year) |>
+  group_by(unit) |>
+  mutate(y_lag1 = lag(y)) |>
+  ungroup() |>
+  filter(!is.na(y_lag1))
+
+m4 <- feols(y ~ y_lag1 + x1 + x2 | unit + year,
+            data    = panel_lag1,
+            cluster = ~unit)
+
+etable(
+  m1, m2, m3, m4,
+  headers  = c("(1) Pooled OLS", "(2) Unit FE", "(3) Two-Way FE", "(4) Dynamic FE"),
+  keep     = c("x1", "x2", "y_lag1"),
+  dict     = c(x1 = "Predictor x1", x2 = "Predictor x2",
+               y_lag1 = "Lagged y"),
+  fitstat  = c("n", "r2", "ar2"),
+  notes    = "Cluster-robust SEs (unit) in parentheses. * p<0.1; ** p<0.05; *** p<0.01."
+)
+```
+
+### 20.3 Using `causal_table()` for Journal Output
+
+```{r causal-table, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("modelsummary", quietly = TRUE)}
+causal_table(
+  models      = list(
+    "(1) Pooled OLS" = m1,
+    "(2) Unit FE"    = m2,
+    "(3) Two-Way FE" = m3,
+    "(4) Dynamic"    = m4
+  ),
+  coef_map    = c(
+    x1     = "Predictor x1",
+    x2     = "Predictor x2",
+    y_lag1 = "Lagged Outcome"
+  ),
+  title       = "Table 1: Panel Estimates of the Effect of x1 and x2 on y",
+  notes       = "Cluster-robust SEs in parentheses (clustered by unit). Two-way FE includes unit and year fixed effects.",
+  gof_rows    = c("nobs", "r.squared"),
+  output_format = "html"
+)
+```
+
+### 20.4 Using `tidy_causal()` for Programmatic Extraction
+
+```{r tidy-pipeline, eval = requireNamespace("fixest", quietly = TRUE)}
+# Extract and combine results from all four models
+models_list <- list(
+  "Pooled OLS"  = m1,
+  "Unit FE"     = m2,
+  "Two-Way FE"  = m3,
+  "Dynamic FE"  = m4
+)
+
+all_results <- bind_rows(
+  lapply(names(models_list), function(nm) {
+    tidy_causal(models_list[[nm]], term = "x1") |>
+      mutate(model = nm)
+  })
+) |>
+  select(model, term, estimate, std_error, p_value, ci_lower, ci_upper)
+
+print(all_results, digits = 4)
+```
+
+### 20.5 Coefficient Plot Across Estimators
+
+```{r coef-plot-estimators, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=4}
+all_results_plot <- all_results |>
+  mutate(model = factor(model,
+                        levels = c("Pooled OLS", "Unit FE",
+                                   "Two-Way FE", "Dynamic FE")))
+
+ggplot(all_results_plot,
+       aes(x = estimate, y = model, color = model)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(xmin = ci_lo, xmax = ci_hi), orientation = "y",
+                 width = 0.2, linewidth = 0.8) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey40") +
+  scale_color_manual(
+    values = c("Pooled OLS" = "#e41a1c", "Unit FE"    = "#377eb8",
+               "Two-Way FE" = "#4daf4a", "Dynamic FE" = "#ff7f00")
+  ) +
+  labs(title    = "x1 Coefficient Across Panel Estimators",
+       subtitle = "Point estimates with 95% CIs; dashed = true value (1.0)",
+       x        = expression(hat(beta)[x1]),
+       y        = NULL,
+       color    = "Estimator") +
+  ama_theme() +
+  theme(legend.position = "none")
+```
+
+### 20.6 Reporting Guidance
+
+```{r reporting-guidance}
+cat("
+Publication Reporting Standards for Panel Data
+================================================
+
+1. IDENTIFY ESTIMATOR CLEARLY
+   'We estimate a two-way fixed effects model absorbing unit and year
+   fixed effects to control for time-invariant unit heterogeneity and
+   common time shocks, respectively.'
+
+2. JUSTIFY SE CLUSTERING
+   'Standard errors are clustered at the unit (firm/country) level to
+   account for serial correlation in idiosyncratic shocks within units
+   (Arellano 1987; Stock and Watson 2008).'
+
+3. REPORT KEY DIAGNOSTICS
+   - N, T, NT (balanced? unbalanced?)
+   - Hausman test result (FE preferred over RE?)
+   - Wooldridge serial correlation test result
+   - Pesaran CD test if CSD suspected
+   - For GMM: AR(1), AR(2), and Sargan/Hansen results
+
+4. DYNAMIC PANEL SPECIFIC
+   'We address Nickell (1981) bias by using the Arellano-Bond (1991)
+   difference GMM estimator. Instrument validity is confirmed by the
+   Sargan test (p = X) and absence of second-order autocorrelation in
+   differenced residuals (AR(2) test p = X).'
+
+5. ROBUSTNESS TABLE
+   Always present multiple specifications:
+   (1) Pooled OLS (benchmark)
+   (2) Unit FE (remove time-invariant confounders)
+   (3) Two-Way FE (add time FE)
+   (4) Dynamic / GMM (if lagged DV needed)
+   Stable coefficients across columns build credibility.
+")
+```
+
+---
+
+## 21. Driscoll-Kraay Standard Errors
+
+### 21.1 Motivation
+
+Driscoll and Kraay (1998) derive standard errors that are robust to **both** cross-sectional dependence and serial correlation. They are appropriate when $T$ is moderate-to-large and spatial or network spillovers generate contemporaneous correlation across units.
+
+The Driscoll-Kraay estimator uses a Newey-West-type lag truncation across the time dimension, and averages cross-sectional moment conditions so that the long-run variance accounts for cross-unit covariance. The resulting variance estimator is:
+
+$$\hat{V}_{DK} = \frac{n}{n-k} (X'X)^{-1} \hat{S}_{DK} (X'X)^{-1}$$
+
+where $\hat{S}_{DK}$ is a Newey-West estimator applied to the cross-sectional average of the score vectors.
+
+### 21.2 Implementation
+
+```{r driscoll-kraay, eval = requireNamespace("fixest", quietly = TRUE)}
+library(fixest)
+
+# Driscoll-Kraay SEs are available in fixest via vcov = "DK"
+fe_dk <- feols(y ~ x1 + x2 | unit + year,
+               data  = panel_df,
+               vcov  = "DK")   # Driscoll-Kraay
+
+# Compare with unit-clustered SEs
+fe_cl <- feols(y ~ x1 + x2 | unit + year,
+               data    = panel_df,
+               cluster = ~unit)
+
+etable(fe_cl, fe_dk,
+       headers  = c("Cluster (unit)", "Driscoll-Kraay"),
+       keep     = c("x1", "x2"))
+```
+
+### 21.3 When to Use Driscoll-Kraay
+
+| Condition | Recommended SE |
+|-----------|---------------|
+| Serial corr. only | Cluster by unit |
+| CSD only | Cluster by time, or two-way cluster |
+| Both serial corr. and CSD | Driscoll-Kraay |
+| Spatial spillovers (known weights) | Conley SEs |
+
+Driscoll-Kraay SEs require $T \to \infty$ for consistency, so they work best when $T$ is at least 10–15. For small $T$, two-way clustering is preferable.
+
+---
+
+## 22. Heterogeneous Treatment Effects in Panels
+
+### 22.1 Problem with Pooled FE under Heterogeneity
+
+Standard TWFE assumes a **homogeneous** treatment effect $\tau$. When treatment effects vary across units or over time, the TWFE estimator returns a weighted average where some weights can be negative — leading to sign reversals or severe attenuation (Goodman-Bacon 2021, de Chaisemartin & D'Haultfoeuille 2020).
+
+### 22.2 Detecting Heterogeneity
+
+```{r het-te-detect, eval = requireNamespace("fixest", quietly = TRUE)}
+set.seed(2025)
+
+# DGP: heterogeneous treatment effect — effect varies by unit's alpha_i
+panel_het <- panel_df |>
+  mutate(
+    # Treatment turns on at year 6
+    treat    = as.integer(year >= 6),
+    # True TE is larger for high-alpha units
+    tau_true = 1 + 0.5 * alpha_i,
+    y_het    = y + treat * tau_true
+  )
+
+# Naive TWFE
+fe_het <- feols(y_het ~ treat | unit + year, data = panel_het, cluster = ~unit)
+cat("Naive TWFE (homogeneous tau assumed):",
+    round(coef(fe_het)["treat"], 4), "\n")
+
+# Saturated model: unit x post interactions
+fe_sat <- feols(y_het ~ treat:factor(unit) | unit + year,
+                data    = panel_het,
+                cluster = ~unit)
+
+# Recover unit-level TEs
+unit_tes <- coef(fe_sat)[grep("treat:factor", names(coef(fe_sat)))]
+cat("\nUnit-level TE distribution:\n")
+print(summary(unit_tes))
+```
+
+### 22.3 Binscatter by Heterogeneity Dimension
+
+```{r binscatter-het, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+unit_tes_df <- data.frame(
+  unit_idx = 1:length(unit_tes),
+  te       = unit_tes
+) |>
+  arrange(te)
+
+ggplot(unit_tes_df, aes(x = seq_along(te), y = te)) +
+  geom_point(alpha = 0.4, color = "#2166ac", size = 1.2) +
+  geom_hline(yintercept = mean(unit_tes), color = "#d73027",
+             linetype = "dashed", linewidth = 1) +
+  annotate("text", x = length(unit_tes) * 0.85,
+           y = mean(unit_tes) + 0.15,
+           label = paste0("Mean TE = ", round(mean(unit_tes), 2)),
+           color = "#d73027", size = 3.5) +
+  labs(title    = "Distribution of Unit-Level Treatment Effects",
+       subtitle = "Each point = one unit's estimated TE; dashed = pooled TWFE estimate",
+       x        = "Unit (sorted by TE)",
+       y        = "Estimated Treatment Effect") +
+  ama_theme()
+```
+
+### 22.4 Mean Group Estimator (Pesaran & Smith 1995)
+
+The Mean Group (MG) estimator runs separate regressions per unit and averages the coefficients — consistent under both homogeneous and heterogeneous slopes:
+
+```{r mean-group}
+# Mean group: estimate beta per unit, take mean
+mg_coefs <- panel_df |>
+  group_by(unit) |>
+  summarise(
+    beta_x1 = tryCatch(coef(lm(y ~ x1 + x2 + factor(year)))["x1"],
+                       error = function(e) NA_real_),
+    beta_x2 = tryCatch(coef(lm(y ~ x1 + x2 + factor(year)))["x2"],
+                       error = function(e) NA_real_),
+    .groups = "drop"
+  )
+
+mg_beta_x1 <- mean(mg_coefs$beta_x1, na.rm = TRUE)
+mg_se_x1   <- sd(mg_coefs$beta_x1, na.rm = TRUE) / sqrt(N)
+
+cat("Mean Group Estimator:\n")
+cat("  beta_x1:", round(mg_beta_x1, 4),
+    " (SE:", round(mg_se_x1, 4), ")\n")
+cat("  beta_x2:", round(mean(mg_coefs$beta_x2, na.rm = TRUE), 4), "\n")
+cat("  (True values: 1.0, 0.5)\n")
+```
+
+---
+
+## 23. Specification Curves for Panel Models
+
+### 23.1 Researcher Degrees of Freedom
+
+Panel estimates can vary substantially based on specification choices: which fixed effects to include, how to cluster SEs, which control variables to add, and over what sample. A **specification curve** (Simonsohn, Simmons & Nelson 2020) plots the estimate across all defensible specifications to assess robustness.
+
+```{r spec-curve-panel, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=5}
+# Generate a grid of specifications
+spec_results <- list()
+
+for (fe_spec in c("none", "unit", "unit+year")) {
+  for (controls in c("none", "x2")) {
+    for (sample_sub in c("full", "treated_only")) {
+
+      df_use <- if (sample_sub == "full") panel_df else
+                  panel_df |> filter(treated == 1)
+
+      formula_str <- switch(fe_spec,
+        none      = if (controls == "none") "y ~ x1"
+                    else "y ~ x1 + x2",
+        unit      = if (controls == "none") "y ~ x1 | unit"
+                    else "y ~ x1 + x2 | unit",
+        `unit+year` = if (controls == "none") "y ~ x1 | unit + year"
+                      else "y ~ x1 + x2 | unit + year"
+      )
+
+      fit <- tryCatch(
+        feols(as.formula(formula_str), data = df_use, cluster = ~unit),
+        error = function(e) NULL
+      )
+
+      if (!is.null(fit)) {
+        spec_results[[length(spec_results) + 1]] <- data.frame(
+          fe        = fe_spec,
+          controls  = controls,
+          sample    = sample_sub,
+          estimate  = coef(fit)["x1"],
+          se        = sqrt(vcov(fit, type = "cluster")["x1", "x1"]),
+          stringsAsFactors = FALSE
+        )
+      }
+    }
+  }
+}
+
+spec_df <- bind_rows(spec_results) |>
+  mutate(
+    ci_lo   = estimate - 1.96 * se,
+    ci_hi   = estimate + 1.96 * se,
+    spec_id = row_number(),
+    sig     = factor(ci_lo > 0 | ci_hi < 0,
+                     levels = c(TRUE, FALSE),
+                     labels = c("Significant", "Not significant"))
+  ) |>
+  arrange(estimate)
+
+ggplot(spec_df, aes(x = seq_along(estimate), y = estimate, color = sig)) +
+  geom_point(size = 2.5) +
+  geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi), width = 0, alpha = 0.6) +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "grey40") +
+  geom_hline(yintercept = 0, color = "grey70") +
+  scale_color_manual(values = c("Significant" = "#2166ac",
+                                "Not significant" = "#d73027")) +
+  labs(title    = "Specification Curve: Effect of x1 on y",
+       subtitle = "Each point = one specification; dashed = true value (1.0)",
+       x        = "Specification (sorted by estimate)",
+       y        = expression(hat(beta)[x1]),
+       color    = NULL) +
+  ama_theme()
+```
+
+---
+
+## 24. Panel Power Analysis
+
+### 24.1 Power in Panel Designs
+
+Panel data offer higher power than cross-sectional designs because the within-unit variation reduces the effective noise. The power for detecting an effect $\tau$ in a two-way FE design depends on:
+
+1. **Within-unit variance** of the treatment variable ($\sigma^2_{within}$)
+2. **Residual variance** after removing FE ($\sigma^2_\varepsilon$)
+3. **N** (number of units) and **T** (number of periods)
+
+The effective standard error of $\hat{\tau}$ under TWFE is approximately:
+
+$$SE(\hat{\tau}) \approx \frac{\sigma_\varepsilon}{\sqrt{N \cdot \text{Var}_{within}(x)}}$$
+
+### 24.2 Simulation-Based Power Curve
+
+```{r panel-power, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+set.seed(3333)
+
+power_sim <- function(tau, N_pow, T_pow, n_sim = 200) {
+  rejections <- numeric(n_sim)
+  for (s in 1:n_sim) {
+    df_sim <- expand.grid(unit = 1:N_pow, year = 1:T_pow) |>
+      arrange(unit, year) |>
+      mutate(
+        alpha_i = rep(rnorm(N_pow, 0, 1), each = T_pow),
+        x1      = rnorm(N_pow * T_pow),
+        y       = alpha_i + tau * x1 + rnorm(N_pow * T_pow)
+      )
+    fit  <- feols(y ~ x1 | unit + year, data = df_sim, cluster = ~unit)
+    pval <- pvalue(fit)["x1"]
+    rejections[s] <- pval < 0.05
+  }
+  mean(rejections)
+}
+
+tau_grid <- seq(0, 0.5, by = 0.1)
+power_N50  <- sapply(tau_grid, power_sim, N_pow = 50,  T_pow = 5)
+power_N100 <- sapply(tau_grid, power_sim, N_pow = 100, T_pow = 5)
+
+power_df <- data.frame(
+  tau    = rep(tau_grid, 2),
+  power  = c(power_N50, power_N100),
+  N_size = rep(c("N = 50", "N = 100"), each = length(tau_grid))
+)
+
+ggplot(power_df, aes(x = tau, y = power, color = N_size)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 2.5) +
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "grey50") +
+  geom_hline(yintercept = 0.05, linetype = "dotted", color = "grey50") +
+  scale_y_continuous(limits = c(0, 1),
+                     labels = function(x) paste0(round(x * 100), "%")) +
+  scale_color_manual(values = c("N = 50" = "#d73027", "N = 100" = "#2166ac")) +
+  annotate("text", x = 0.48, y = 0.82, label = "80% power", size = 3.5, color = "grey40") +
+  labs(title    = "Statistical Power: Two-Way FE (T = 5 periods)",
+       subtitle = "Simulated power at different true effect sizes and N",
+       x        = expression(paste("True Effect Size ", tau)),
+       y        = "Power",
+       color    = NULL) +
+  ama_theme()
+```
+
+### 24.3 Minimum Detectable Effect (MDE) in Panels
+
+The MDE is the smallest true effect detectable at the desired power level (typically 80%) and significance level (5%):
+
+```{r mde-panel}
+# MDE formula for panel FE (simplified, assuming balanced design)
+mde_panel <- function(N, T, sigma_eps = 1, sigma_x_within = 0.8,
+                      alpha = 0.05, power = 0.80) {
+  # Critical values
+  z_alpha <- qnorm(1 - alpha / 2)
+  z_power <- qnorm(power)
+
+  # SE of FE estimator (simplified)
+  se_fe <- sigma_eps / sqrt(N * T * sigma_x_within^2)
+
+  # MDE
+  mde <- (z_alpha + z_power) * se_fe
+  mde
+}
+
+cat("Minimum Detectable Effect (Two-Way FE, T=5):\n")
+for (n_val in c(50, 100, 200, 500)) {
+  mde <- mde_panel(N = n_val, T = 5)
+  cat("  N =", sprintf("%4d", n_val), ": MDE =", round(mde, 4), "\n")
+}
+
+cat("\nMinimum Detectable Effect (N=100, varying T):\n")
+for (t_val in c(3, 5, 10, 20)) {
+  mde <- mde_panel(N = 100, T = t_val)
+  cat("  T =", sprintf("%3d", t_val), ": MDE =", round(mde, 4), "\n")
+}
+```
+
+---
+
+## 25. Advanced Topics: Synthetic Control as Panel Method
+
+### 25.1 Connection to Panel Data
+
+The Synthetic Control method (Abadie, Diamond & Hainmueller 2010) can be viewed as a panel data estimator for a special case: $N = 1$ treated unit, and the goal is to construct a counterfactual from the $N_0$ donor units. It solves:
+
+$$\min_{\mathbf{w}} \| \mathbf{Y}_1^{pre} - \mathbf{Y}_0^{pre} \mathbf{w} \|^2 \quad \text{s.t.} \quad w_j \geq 0, \sum_j w_j = 1$$
+
+where $\mathbf{Y}_1^{pre}$ is the treated unit's pre-treatment outcomes and $\mathbf{Y}_0^{pre}$ is the matrix of donor pre-treatment outcomes. The synthetic control estimator bridges the gap between panel data FE (parallel trends) and matching (unit-level balance).
+
+### 25.2 Matrix Completion Perspective
+
+Athey et al. (2021) unify SC, DID, and FE under the matrix completion framework. The observed outcome matrix $\mathbf{Y}$ (units × time) is treated as a partially observed low-rank matrix. The estimator completes the missing (counterfactual) entries subject to nuclear norm regularization:
+
+$$\min_{\mathbf{L}} \| \mathbf{Y}^{obs} - \mathbf{L}^{obs} \|_F^2 + \lambda \| \mathbf{L} \|_* \quad \text{s.t. rank}(\mathbf{L}) \leq r$$
+
+This nests:
+- $r = 0$: DID (parallel trends across all units)
+- $r = 1$ with time FE: unit FE
+- $r = 1$ with both unit and time FE: two-way FE
+- $r = k$: factor model / synthetic control
+
+```{r mc-connection}
+cat("
+Matrix Completion Unified Framework
+=====================================
+Model          | Implied Constraint            | Estimator
+---------------|-------------------------------|------------
+DID            | Parallel trends all units     | Two-Way FE
+Synthetic Ctrl | Pre-period balance            | SC weights
+Factor Model   | Low-rank latent factors       | Bai (2009)
+Matrix Compl.  | Nuclear norm (low rank)       | Athey et al. (2021)
+
+Key insight: all panel estimators restrict how missing (counterfactual)
+entries of the outcome matrix can be filled in. The assumptions differ
+in their generality and the amount of pre-treatment data required.
+")
+```
+
+---
+
+## 26. Practical Workflow Example: Firm-Level Panel
+
+### 26.1 End-to-End Application
+
+This section ties together all the preceding methods in a realistic empirical workflow using a simulated firm-level panel dataset.
+
+```{r firm-panel-setup}
+set.seed(2024)
+
+N_firm  <- 150
+T_firm  <- 8
+NT_firm <- N_firm * T_firm
+
+# Simulate firm-level panel: effect of R&D spending on revenue growth
+firm_fe <- rnorm(N_firm, 0, 1.5)        # firm fixed effects (profitability)
+industry <- rep(sample(1:5, N_firm, replace = TRUE), each = T_firm)
+
+firm_panel <- expand.grid(firm = 1:N_firm, year = 2015:2022) |>
+  arrange(firm, year) |>
+  mutate(
+    year_idx   = year - 2014,
+    # Firm characteristics
+    alpha_i    = rep(firm_fe, each = T_firm),
+    industry   = rep(sample(1:5, N_firm, replace = TRUE), each = T_firm),
+    size       = rep(exp(rnorm(N_firm, 5, 0.5)), each = T_firm),
+    # R&D intensity: correlated with firm FE (better firms invest more)
+    rd_intensity = pmax(0, 0.3 * alpha_i + rnorm(NT_firm, 0.15, 0.05)),
+    # Revenue growth (outcome): true effect of R&D = 0.4
+    revenue_growth = alpha_i + 0.02 * year_idx + 0.4 * rd_intensity +
+                     rnorm(NT_firm, 0, 0.3)
+  )
+
+cat("Firm panel structure:\n")
+cat("  N =", N_firm, "firms | T =", T_firm,
+    "years | NT =", NT_firm, "\n")
+cat("  Industries:", sort(unique(firm_panel$industry)), "\n")
+```
+
+### 26.2 Step 1 — Descriptives and Balance
+
+```{r firm-descriptives}
+# Within-between decomposition for R&D
+firm_vd <- decompose_variance(firm_panel, "rd_intensity", "firm")
+cat("R&D intensity variance decomposition:\n")
+cat("  Within-firm:", firm_vd$pct_within, "%\n")
+cat("  Between-firm:", firm_vd$pct_between, "%\n\n")
+
+# ICC for revenue growth
+icc_rv <- compute_icc(firm_panel, "revenue_growth", "firm")
+cat("Revenue growth ICC:", icc_rv$icc, "\n")
+```
+
+### 26.3 Step 2 — Unit Root Screening
+
+```{r firm-unit-root, eval = requireNamespace("tseries", quietly = TRUE)}
+library(tseries)
+
+firm_adf <- firm_panel |>
+  group_by(firm) |>
+  summarise(
+    adf_p = tryCatch(
+      adf.test(revenue_growth)$p.value,
+      error = function(e) NA_real_
+    ),
+    .groups = "drop"
+  )
+
+pct_stationary <- mean(firm_adf$adf_p < 0.05, na.rm = TRUE)
+cat("% firms with stationary revenue growth:", round(100 * pct_stationary, 1), "%\n")
+cat("Conclusion: proceed with level regression\n")
+```
+
+### 26.4 Step 3 — Model Estimation
+
+```{r firm-models, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("plm", quietly = TRUE)}
+library(fixest)
+library(plm)
+
+firm_pdata <- pdata.frame(firm_panel, index = c("firm", "year"))
+
+# Model 1: Pooled OLS
+m_pool <- feols(revenue_growth ~ rd_intensity + log(size),
+                data    = firm_panel,
+                cluster = ~firm)
+
+# Model 2: Industry FE
+m_ind <- feols(revenue_growth ~ rd_intensity + log(size) | industry,
+               data    = firm_panel,
+               cluster = ~firm)
+
+# Model 3: Firm FE
+m_firm <- feols(revenue_growth ~ rd_intensity + log(size) | firm,
+                data    = firm_panel,
+                cluster = ~firm)
+
+# Model 4: Two-Way FE
+m_twoway <- feols(revenue_growth ~ rd_intensity + log(size) | firm + year,
+                  data    = firm_panel,
+                  cluster = ~firm)
+
+etable(m_pool, m_ind, m_firm, m_twoway,
+       headers = c("(1) Pooled", "(2) Industry FE",
+                   "(3) Firm FE", "(4) Two-Way FE"),
+       keep    = c("rd_intensity", "log"),
+       fitstat = c("n", "r2"))
+```
+
+### 26.5 Step 4 — Diagnostics
+
+```{r firm-diagnostics, eval = requireNamespace("plm", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+# Hausman test
+fe_firm_plm <- plm(revenue_growth ~ rd_intensity + log(size),
+                   data   = firm_pdata, model = "within")
+re_firm_plm <- plm(revenue_growth ~ rd_intensity + log(size),
+                   data   = firm_pdata, model = "random")
+
+haus_firm <- phtest(fe_firm_plm, re_firm_plm)
+cat("Hausman test p-value:", round(haus_firm$p.value, 4),
+    "->", ifelse(haus_firm$p.value < 0.05, "Use FE", "RE viable"), "\n\n")
+
+# Wooldridge serial correlation test
+wtest_firm <- pbgtest(fe_firm_plm, order = 1)
+cat("Wooldridge serial corr test p-value:", round(wtest_firm$p.value, 4), "\n")
+
+# Pesaran CD test
+cd_firm <- pcdtest(fe_firm_plm, test = "cd")
+cat("Pesaran CD test p-value:", round(cd_firm$p.value, 4), "\n")
+```
+
+### 26.6 Step 5 — Final Preferred Model
+
+```{r firm-final, eval = requireNamespace("fixest", quietly = TRUE)}
+# Based on diagnostics: two-way FE with cluster-robust SEs is preferred
+cat("\nFinal Model: Two-Way Fixed Effects\n")
+cat("True effect of R&D on revenue growth: 0.4\n\n")
+
+tidy_causal(m_twoway, term = "rd_intensity")
+```
+
+### 26.7 Visualization of Final Results
+
+```{r firm-plot, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+firm_plot_df <- data.frame(
+  spec     = c("Pooled OLS", "Industry FE", "Firm FE", "Two-Way FE"),
+  estimate = c(
+    coef(m_pool)["rd_intensity"],
+    coef(m_ind)["rd_intensity"],
+    coef(m_firm)["rd_intensity"],
+    coef(m_twoway)["rd_intensity"]
+  ),
+  se = c(
+    sqrt(vcov(m_pool, type = "cluster")["rd_intensity", "rd_intensity"]),
+    sqrt(vcov(m_ind,  type = "cluster")["rd_intensity", "rd_intensity"]),
+    sqrt(vcov(m_firm, type = "cluster")["rd_intensity", "rd_intensity"]),
+    sqrt(vcov(m_twoway, type = "cluster")["rd_intensity", "rd_intensity"])
+  )
+) |>
+  mutate(
+    ci_lo = estimate - 1.96 * se,
+    ci_hi = estimate + 1.96 * se,
+    spec  = factor(spec, levels = rev(c("Pooled OLS", "Industry FE",
+                                        "Firm FE", "Two-Way FE")))
+  )
+
+ggplot(firm_plot_df, aes(x = estimate, y = spec)) +
+  geom_point(size = 4, color = "#2166ac") +
+  geom_errorbar(aes(xmin = ci_lo, xmax = ci_hi), orientation = "y",
+                 height = 0.2, linewidth = 0.8, color = "#2166ac") +
+  geom_vline(xintercept = 0.4, linetype = "dashed", color = "#d73027") +
+  annotate("text", x = 0.42, y = 0.5, label = "True effect",
+           color = "#d73027", size = 3.5, hjust = 0) +
+  labs(title    = "Effect of R&D Intensity on Revenue Growth",
+       subtitle = "Point estimates + 95% CI; dashed = true value (0.4)",
+       x        = "Estimated Coefficient",
+       y        = NULL) +
+  ama_theme()
+```
+
+---
+
+## Summary
+
+This vignette provides a comprehensive toolkit for panel data analysis with `causalverse`. The key practical recommendations are:
+
+**Estimator choice:**
+- Default to **two-way FE** (`feols(y ~ x | unit + year)`) as the benchmark
+- Use **RE/CRE** only when time-invariant regressors are needed and Hausman test fails to reject
+- Use **GMM** (Arellano-Bond or Blundell-Bond) when $T$ is short and a lagged DV is required
+- Use **CCEMG or interactive FE** when cross-sectional dependence is strong
+
+**Standard errors:**
+- Always cluster at the unit level at minimum
+- Use two-way clustering when cross-sectional dependence is detected
+- Driscoll-Kraay SEs are appropriate when both cross-sectional and temporal dependence are present
+
+**Pre-estimation diagnostics:**
+- Panel unit root tests before any level regression
+- Hausman test before choosing FE vs RE
+- Wooldridge or pbgtest for serial correlation
+- Pesaran CD for cross-sectional dependence
+
+**Dynamic panels:**
+- Report AR(1) (should reject), AR(2) (should not reject), and Sargan/Hansen test
+- Keep instrument count below number of groups
+
+---
+
+## References
+
+- Arellano, M., & Bond, S. (1991). Some tests of specification for panel data. *Review of Economic Studies*, 58(2), 277–297.
+- Arellano, M., & Bover, O. (1995). Another look at the instrumental variable estimation of error-components models. *Journal of Econometrics*, 68(1), 29–51.
+- Bai, J. (2009). Panel data models with interactive fixed effects. *Econometrica*, 77(4), 1229–1279.
+- Blundell, R., & Bond, S. (1998). Initial conditions and moment restrictions in dynamic panel data models. *Journal of Econometrics*, 87(1), 115–143.
+- Chamberlain, G. (1980). Analysis of covariance with qualitative data. *Review of Economic Studies*, 47(1), 225–238.
+- Hausman, J. A. (1978). Specification tests in econometrics. *Econometrica*, 46(6), 1251–1271.
+- Im, K. S., Pesaran, M. H., & Shin, Y. (2003). Testing for unit roots in heterogeneous panels. *Journal of Econometrics*, 115(1), 53–74.
+- Jordà, Ò. (2005). Estimation and inference of impulse responses by local projections. *American Economic Review*, 95(1), 161–182.
+- Levin, A., Lin, C. F., & Chu, C. S. J. (2002). Unit root tests in panel data: asymptotic and finite-sample properties. *Journal of Econometrics*, 108(1), 1–24.
+- Liang, K. Y., & Zeger, S. L. (1986). Longitudinal data analysis using generalized linear models. *Biometrika*, 73(1), 13–22.
+- Mundlak, Y. (1978). On the pooling of time series and cross section data. *Econometrica*, 46(1), 69–85.
+- Neyman, J., & Scott, E. L. (1948). Consistent estimates based on partially consistent observations. *Econometrica*, 16(1), 1–32.
+- Nickell, S. (1981). Biases in dynamic models with fixed effects. *Econometrica*, 49(6), 1417–1426.
+- Pesaran, M. H. (2004). General diagnostic tests for cross section dependence in panels. *CESifo Working Paper*, 1229.
+- Pesaran, M. H. (2006). Estimation and inference in large heterogeneous panels with a multifactor error structure. *Econometrica*, 74(4), 967–1012.
+- Santos Silva, J. M. C., & Tenreyro, S. (2006). The log of gravity. *Review of Economics and Statistics*, 88(4), 641–658.
+- Thompson, S. B. (2011). Simple formulas for standard errors that cluster by both firm and time. *Journal of Financial Economics*, 99(1), 1–10.
+- Wooldridge, J. M. (2002). *Econometric Analysis of Cross Section and Panel Data*. MIT Press.
+- Wooldridge, J. M. (2021). Two-way fixed effects, the two-way Mundlak regression, and difference-in-differences estimators. *SSRN Working Paper*.

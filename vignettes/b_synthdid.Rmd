@@ -12,6 +12,8 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
   collapse = TRUE,
   comment = "#>",
   cache = TRUE
@@ -20,8 +22,95 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,cache = TRUE)
 ```
+
+# Theory and Background
+
+## Overview
+
+Synthetic Difference-in-Differences (SynthDID) is a causal inference method introduced by @arkhangelsky2021synthetic that combines the strengths of two well-established approaches: Synthetic Control (SC) and Difference-in-Differences (DID). The key insight is that by combining unit weights (from SC) with time weights (a new addition), SynthDID achieves double robustness properties and improved efficiency over either method alone.
+
+## Mathematical Formulation
+
+Consider a balanced panel with $N$ units observed over $T$ time periods. Among these, $N_{\text{co}}$ units are controls (never treated) and $N_{\text{tr}}$ units receive treatment starting at period $T_0 + 1$. Let $Y_{it}$ denote the observed outcome for unit $i$ at time $t$.
+
+The SynthDID estimator solves the following optimization problem:
+
+$$
+\hat{\tau}^{\text{sdid}} = \arg\min_{\mu, \alpha, \beta, \tau} \sum_{i=1}^{N} \sum_{t=1}^{T} \left( Y_{it} - \mu - \alpha_i - \beta_t - W_{it} \tau \right)^2 \hat{\omega}_i \hat{\lambda}_t
+$$
+
+where:
+
+- $W_{it}$ is the treatment indicator (equals 1 if unit $i$ is treated at time $t$, 0 otherwise),
+- $\hat{\omega}_i$ are **unit weights** that make the weighted average of control units approximate the treated units in the pre-treatment period,
+- $\hat{\lambda}_t$ are **time weights** that make the weighted average of pre-treatment periods approximate the post-treatment periods for control units,
+- $\alpha_i$ and $\beta_t$ are unit and time fixed effects.
+
+In practice, the estimator can be written in a more compact "double-differencing" form:
+
+$$
+\hat{\tau}^{\text{sdid}} = \left( \bar{Y}_{\text{tr}}^{\text{post}} - \bar{Y}_{\text{tr}}^{\text{pre},\hat{\lambda}} \right) - \sum_{i \in \text{co}} \hat{\omega}_i \left( Y_i^{\text{post}} - Y_i^{\text{pre},\hat{\lambda}} \right)
+$$
+
+where $\bar{Y}_{\text{tr}}^{\text{post}}$ is the average outcome of treated units in the post-treatment period, and the $\hat{\lambda}$-superscript denotes a time-weighted average over pre-treatment periods.
+
+## Unit Weights ($\hat{\omega}$)
+
+The unit weights $\hat{\omega}$ are chosen to minimize the discrepancy between the weighted combination of control units and the treated units in the pre-treatment period. Specifically, they solve:
+
+$$
+\hat{\omega}^{\text{sdid}} = \arg\min_{\omega \in \Delta^{N_0}} \sum_{t=1}^{T_0} \left( \omega_0 + \sum_{i=1}^{N_0} \omega_i Y_{it} - \frac{1}{N_{\text{tr}}} \sum_{i=N_0+1}^{N} Y_{it} \right)^2 + \zeta^2 T_0 \|\omega\|_2^2
+$$
+
+where $\Delta^{N_0}$ is the simplex (non-negative weights that sum to one), and $\zeta$ is a regularization parameter. The intercept $\omega_0$ is a key difference from standard SC---it allows for a level shift, which connects SynthDID to DID.
+
+## Time Weights ($\hat{\lambda}$)
+
+Time weights are unique to SynthDID and not present in standard SC or DID. They solve:
+
+$$
+\hat{\lambda}^{\text{sdid}} = \arg\min_{\lambda \in \Delta^{T_0}} \sum_{i=1}^{N_0} \left( \lambda_0 + \sum_{t=1}^{T_0} \lambda_t Y_{it} - \frac{1}{T_{\text{post}}} \sum_{t=T_0+1}^{T} Y_{it} \right)^2 + \xi^2 N_0 \|\lambda\|_2^2
+$$
+
+These time weights focus the comparison on pre-treatment periods that are most informative for predicting post-treatment outcomes among control units. Periods that are more similar to post-treatment periods receive higher weight.
+
+## Comparison with SC and DID
+
+The SynthDID framework nests both SC and DID as special cases:
+
+| Method | Unit Weights ($\omega$) | Time Weights ($\lambda$) | Intercept |
+|--------|------------------------|-------------------------|-----------|
+| **DID** | Uniform ($1/N_0$) | Uniform ($1/T_0$) | Yes (implicit) |
+| **SC** | Optimized (no intercept) | Zero (only uses levels) | No |
+| **SynthDID** | Optimized (with intercept) | Optimized | Yes |
+
+- **DID** assumes parallel trends and weights all control units and pre-treatment periods equally. It is valid when the parallel trends assumption holds but can be biased otherwise.
+- **SC** constructs a synthetic control by weighting donor units to match the treated unit's pre-treatment trajectory in levels. It does not difference, so it relies on a good level match.
+- **SynthDID** combines both approaches. By using optimized unit weights (like SC) and optimized time weights plus an intercept (like DID), it achieves a form of "double robustness": it remains consistent if either the SC-style level match or the DID-style parallel trends assumption approximately holds.
+
+## Assumptions
+
+The formal assumptions underlying SynthDID include:
+
+1. **No anticipation**: Treatment has no effect before the treatment period. Units do not change behavior in anticipation of treatment.
+
+2. **SUTVA (Stable Unit Treatment Value Assumption)**: The potential outcomes for any unit are unaffected by the treatment assignment of other units (no spillovers), and there is only one version of treatment.
+
+3. **Approximate factor model**: Outcomes follow an approximate factor model structure:
+$$
+Y_{it}(0) = \delta_t + \phi_i' \mu_t + \varepsilon_{it}
+$$
+where $\delta_t$ are time fixed effects, $\phi_i$ are unit-specific factor loadings, $\mu_t$ are common factors, and $\varepsilon_{it}$ are idiosyncratic errors.
+
+4. **Regularity conditions**: The number of pre-treatment periods and control units must grow, and the error terms must satisfy certain mixing and moment conditions for asymptotic inference.
+
+5. **Overlap in pre-treatment outcomes**: The pre-treatment trajectory of treated units must lie approximately within the convex hull of control units' trajectories (similar to SC).
+
+A key advantage of SynthDID over pure DID is that it relaxes the strict parallel trends assumption. Instead, it requires only that the weighted combination of control units (after double-differencing) approximates the treated units' counterfactual trajectory.
 
 # Synthetic DID
 
@@ -48,33 +137,34 @@ print(summary(tau.hat))
 
 # sprintf('point estimate: %1.2f', tau.hat)
 # sprintf('95%% CI (%1.2f, %1.2f)', tau.hat - 1.96 * se, tau.hat + 1.96 * se)
-plot(tau.hat) + ama_theme()
+synthdid::synthdid_plot(tau.hat) + ama_theme()
 ```
 
 Using `fixest` dataset
 
 ```{r}
 library(fixest)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 ```
 
 If you want to use the `base_stagg` dataset, you have to choose just 1 period, because function `synthdid_estimate` cannot handle staggered adoption.
 
-```{r, eval = FALSE}
-df <- base_stagg |>
-  
-  filter(year_treated %in% c(10000, 8)) |>
-  transmute(
+```{r, eval = TRUE}
+df_stagg <- fixest::base_stagg |>
+
+  dplyr::filter(year_treated %in% c(10000, 8)) |>
+  dplyr::transmute(
     id = as.factor(id),
     year = as.integer(year),
     y = as.double(y),
     treated = as.integer(if_else(time_to_treatment >= 0, 1, 0))
   )
-head(df)
+head(df_stagg)
 
-setup = df |>
+setup_stagg = df_stagg |>
   # specify column names
-  panel.matrices(
+  synthdid::panel.matrices(
     unit = "id",
     time = "year",
     outcome = "y",
@@ -127,6 +217,20 @@ synthdid::synthdid_units_plot(tau.hat) + ama_theme(base_size = 8)
 # synthdid::synthdid_rmse_plot(tau.hat)
 ```
 
+## Incorporating Covariates (Residualization)
+
+The standard SynthDID estimator operates on a single outcome variable and does not directly accept covariates. However, time-varying covariates can be incorporated through a **residualization** approach: first regress the outcome on covariates, then apply SynthDID to the residuals.
+
+### Why Use Covariates?
+
+Covariates can improve SynthDID estimation in several ways:
+
+1. **Improved pre-treatment fit**: By removing variation explained by observables, the residualized outcome may be easier to match across treated and control units.
+2. **Reduced bias**: If covariates are correlated with both treatment assignment and outcomes, including them reduces omitted variable bias.
+3. **Increased precision**: Removing covariate-driven variation reduces noise, leading to tighter standard errors.
+
+### The Residualization Approach
+
 To incorporate time-varying elements into the unit and time weights of the `synthdid`, consider using residuals obtained from regressing observed outcomes against time-varying variables. This can be expressed as:
 
 $$
@@ -134,6 +238,14 @@ Y_{it}^{res} = Y_{it} - X_{it} \hat{\beta}
 $$
 
 where $\hat{\beta}$ is derived from the regression equation $Y = \beta X_{it}$.
+
+The steps are:
+
+1. Regress the outcome on covariates (pooling all units and time periods).
+2. Extract the residuals.
+3. Apply SynthDID to the residuals as the new outcome.
+
+### Single Covariate Example
 
 ```{r}
 setup2 <- df |>
@@ -149,6 +261,46 @@ setup2 <- df |>
 tau.hat2 = synthdid::synthdid_estimate(setup2$Y, setup2$N0, setup2$T0)
 tau.hat2
 ```
+
+### Multiple Covariates
+
+When multiple covariates are available, simply include them in the regression:
+
+```{r, eval = TRUE}
+# Example with multiple covariates
+# base_did only has x1, so we demonstrate with x1 (extend similarly for x2, x3, etc.)
+df_multi <- df |>
+  dplyr::mutate(y_res = residuals(lm(y ~ x1)))
+
+setup_multi <- df_multi |>
+  synthdid::panel.matrices(
+    unit = "id",
+    time = "period",
+    outcome = "y_res",
+    treatment = "treatment"
+  )
+tau_multi = synthdid::synthdid_estimate(setup_multi$Y, setup_multi$N0, setup_multi$T0)
+tau_multi
+```
+
+### Important Considerations for Residualization
+
+When using the residualization approach, keep the following in mind:
+
+1. **Use pre-treatment data only for the regression** (ideally). Running the regression on all data including post-treatment periods may introduce post-treatment bias if the treatment affects the covariates. A conservative approach is:
+
+```{r, eval = TRUE}
+# Conservative approach: estimate beta from pre-treatment data only
+beta_pre <- lm(y ~ x1, data = df |> dplyr::filter(post == 0))
+df$y_res_conservative <- df$y - predict(beta_pre, newdata = df)
+head(df[, c("id", "period", "y", "y_res_conservative")])
+```
+
+2. **Do not include treatment-affected covariates**: If a covariate is itself affected by the treatment (a "bad control" or mediator), including it will bias the treatment effect estimate.
+
+3. **Unit and time fixed effects**: If the covariates include unit-specific or time-specific means, consider whether these overlap with the fixed effects already implicit in SynthDID.
+
+4. **Comparing with and without covariates**: It is good practice to report results both with and without covariate adjustment. If results are similar, this provides additional confidence in robustness.
 
 ```{r}
 tau.sc   = synthdid::sc_estimate(setup$Y, setup$N0, setup$T0)
@@ -166,7 +318,7 @@ Spaghetti plots
 
 ```{r}
 top.controls = synthdid::synthdid_controls(tau.hat)[1:10, , drop=FALSE]
-plot(tau.hat, spaghetti.units=rownames(top.controls)) + ama_theme()
+synthdid::synthdid_plot(tau.hat, spaghetti.units=rownames(top.controls)) + ama_theme()
 ```
 
 ```{r}
@@ -178,13 +330,205 @@ synthdid::synthdid_units_plot(estimates) +
 synthdid::synthdid_units_plot(tau.hat, units = rownames(top.controls)) + ama_theme()
 ```
 
-Compare to other estimators
+## Diagnostics
+
+Good practice requires inspecting the quality of the synthetic control fit before interpreting treatment effect estimates. This section demonstrates several diagnostic tools available in the `synthdid` package.
+
+### Inspecting Unit Weights
+
+The `synthdid_controls()` function returns the unit weights assigned to each control unit. Examining these weights helps understand which control units contribute most to the synthetic control.
+
+```{r}
+# Get all unit weights
+unit_weights <- synthdid::synthdid_controls(tau.hat)
+
+# Display top contributing control units
+head(unit_weights, 10)
+
+# How many controls have non-negligible weight?
+cat("Number of controls with weight > 0.01:",
+    sum(unit_weights > 0.01), "\n")
+cat("Total weight on top 5 controls:",
+    sum(sort(unit_weights, decreasing = TRUE)[1:5]), "\n")
+```
+
+A well-behaved SynthDID estimate typically places non-trivial weight on a relatively small number of control units, producing a sparse and interpretable synthetic control.
+
+### Pre-Treatment Fit Assessment
+
+Evaluating how well the synthetic control matches the treated unit(s) in the pre-treatment period is essential. A poor pre-treatment fit suggests the synthetic control may not provide a reliable counterfactual.
+
+```{r}
+# Overlay plot: shows treated vs synthetic in pre-treatment
+# overlay = 1 means full overlap in display
+synthdid::synthdid_plot(tau.hat, overlay = 1) +
+  ama_theme() +
+  ggplot2::ggtitle("Pre-treatment Fit: Treated vs. Synthetic Control")
+```
+
+The overlay parameter controls the degree of visual overlap between treated and synthetic trajectories. A value of 1 maximizes overlap, making it easier to assess pre-treatment fit. Values between 0 and 1 provide partial overlay.
+
+```{r}
+# Partial overlay for alternative visualization
+synthdid::synthdid_plot(tau.hat, overlay = 0.8) +
+  ama_theme() +
+  ggplot2::ggtitle("Partial Overlay (0.8)")
+```
+
+### Placebo and RMSE Diagnostics
+
+The `synthdid_placebo_plot()` function performs placebo tests by iteratively treating each control unit as if it were treated. If the method is working well, the placebo effects should be centered around zero, and the true treatment effect should stand out.
+
+```{r}
+synthdid::synthdid_placebo_plot(tau.hat) +
+  ama_theme() +
+  ggplot2::ggtitle("Placebo Test: Distribution of Placebo Effects")
+```
+
+The `synthdid_rmse_plot()` function displays the root mean squared error of the pre-treatment fit for the treated unit relative to placebo fits for control units.
+
+```{r}
+synthdid::synthdid_rmse_plot(tau.hat) +
+  ama_theme() +
+  ggplot2::ggtitle("RMSE Diagnostic Plot")
+```
+
+If the treated unit's pre-treatment RMSE is substantially larger than the placebo units' RMSE values, this indicates a poor pre-treatment fit and the results should be interpreted with caution.
+
+### Comparing Diagnostics Across Estimators
+
+It can also be informative to compare diagnostic plots across DID, SC, and SynthDID to understand how each method constructs its counterfactual.
+
+```{r}
+# Recall: estimates list was created earlier
+# estimates = list(tau.did, tau.sc, tau.hat)
+synthdid::synthdid_plot(estimates, overlay = 1) +
+  ama_theme() +
+  ggplot2::ggtitle("Pre-treatment Fit Across Estimators")
+```
+
+## Standard Errors and Inference
+
+Inference for SynthDID requires special methods because the weights are estimated from the data. The `synthdid` package provides three approaches for computing standard errors, each with different properties and applicability.
+
+### Placebo Method
+
+The placebo method computes standard errors by iteratively reassigning treatment to control units. For each placebo iteration, a control unit is treated as if it received the treatment, and the SynthDID estimator is recomputed on the remaining controls. The standard deviation of these placebo estimates provides the standard error.
+
+**When to use**: The placebo method is preferred when there is only one treated unit (as in the California Proposition 99 example). It requires that the number of control units exceeds the number of treated units ($N_0 > N_1$).
+
+```{r}
+setup_ca = synthdid::panel.matrices(synthdid::california_prop99)
+tau_ca = synthdid::synthdid_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+
+# Placebo SE (works with single treated unit)
+se_placebo = sqrt(vcov(tau_ca, method = 'placebo'))
+cat("Placebo SE:", round(se_placebo, 3), "\n")
+cat("95% CI: (", round(tau_ca - 1.96 * se_placebo, 2), ",",
+    round(tau_ca + 1.96 * se_placebo, 2), ")\n")
+```
+
+The `causalverse` package provides `synthdid_se_placebo()`, which extends the placebo method to compute per-period standard errors, useful for examining how uncertainty varies across post-treatment periods.
+
+```{r, eval = TRUE}
+# Per-period placebo SE using causalverse
+se_per_placebo <- causalverse::synthdid_se_placebo(tau_ca, replications = 500)
+print(se_per_placebo)
+```
+
+### Jackknife Method
+
+The jackknife method estimates variance by systematically leaving out one unit at a time and recomputing the estimate. This is the leave-one-out approach commonly used in statistics.
+
+**When to use**: The jackknife method requires more than one treated unit. When there is only one treated unit, `causalverse::synthdid_se_jacknife()` automatically falls back to the placebo method.
+
+```{r}
+# Jackknife SE (requires multiple treated units)
+# Using base_did which has multiple treated units
+se_jack = sqrt(vcov(tau.hat, method = 'jackknife'))
+cat("Jackknife SE:", round(se_jack, 3), "\n")
+```
+
+The `causalverse` package provides `synthdid_se_jacknife()`, which extends the standard jackknife to produce per-period standard errors:
+
+```{r, eval = TRUE}
+# Per-period jackknife SE using causalverse
+se_per_jack <- causalverse::synthdid_se_jacknife(tau.hat)
+print(se_per_jack)
+```
+
+### Bootstrap Method
+
+The bootstrap method resamples control units with replacement and recomputes the estimate for each bootstrap sample.
+
+**When to use**: Bootstrap can be used as an alternative to the jackknife when there are multiple treated units. It is generally more computationally intensive but can be more robust in finite samples.
+
+```{r}
+# Bootstrap SE (requires multiple treated units)
+se_boot = sqrt(vcov(tau.hat, method = 'bootstrap'))
+cat("Bootstrap SE:", round(se_boot, 3), "\n")
+```
+
+### Comparison of SE Methods
+
+The table below summarizes the properties of each inference method:
+
+| Method | Min. Treated Units | Requirement | Computational Cost | Per-Period |
+|--------|-------------------|-------------|-------------------|------------|
+| Placebo | 1 | $N_0 > N_1$ | Moderate | Yes (via `causalverse`) |
+| Jackknife | 2+ (fallback to placebo if 1) | None | Low | Yes (via `causalverse`) |
+| Bootstrap | 2+ | None | High | No (standard) |
+
+### Constructing Confidence Intervals
+
+Once standard errors are obtained, confidence intervals can be constructed in the usual way:
+
+$$
+\text{CI}_{1-\alpha} = \hat{\tau} \pm z_{\alpha/2} \times \text{SE}(\hat{\tau})
+$$
+
+For a 95% confidence interval, $z_{0.025} = 1.96$.
+
+```{r}
+cat("=== Comparison of SE Methods (base_did data) ===\n")
+cat("Point estimate:", round(as.numeric(tau.hat), 3), "\n\n")
+
+cat("Jackknife SE:", round(se_jack, 3), "\n")
+cat("  95% CI: (", round(as.numeric(tau.hat) - 1.96 * se_jack, 2), ",",
+    round(as.numeric(tau.hat) + 1.96 * se_jack, 2), ")\n\n")
+
+cat("Bootstrap SE:", round(se_boot, 3), "\n")
+cat("  95% CI: (", round(as.numeric(tau.hat) - 1.96 * se_boot, 2), ",",
+    round(as.numeric(tau.hat) + 1.96 * se_boot, 2), ")\n")
+```
+
+## Multiple Estimators with `panel_estimate()`
+
+The `causalverse::panel_estimate()` function provides a unified interface for computing treatment effect estimates using multiple methods simultaneously. This is valuable for assessing the robustness of findings across different identifying assumptions.
+
+### Available Estimators
+
+The package supports the following estimators:
+
+| Estimator | Function | Description |
+|-----------|----------|-------------|
+| `synthdid` | `synthdid::synthdid_estimate()` | Synthetic Difference-in-Differences: combines unit weights, time weights, and an intercept. |
+| `did` | `synthdid::did_estimate()` | Standard Difference-in-Differences: uniform weights on all control units and all pre-treatment periods. |
+| `sc` | `synthdid::sc_estimate()` | Synthetic Control: optimized unit weights with no intercept and no time weights. |
+| `sc_ridge` | Custom wrapper | SC with ridge-regularized unit weights. Regularization parameter scales as $(N_1 \times T_1)^{1/4}$. |
+| `difp` | Custom wrapper | De-meaned SynthDID: uses uniform time weights ($1/T_0$) with SynthDID-style unit weights. |
+| `difp_ridge` | Custom wrapper | DIFP with ridge regularization on unit weights. |
+
+### Running All Estimators
 
 ```{r}
 setup = synthdid::panel.matrices(synthdid::california_prop99)
 
 # Run for specific estimators
-results_selected = causalverse::panel_estimate(setup, selected_estimators = c("synthdid", "did", "sc"))
+results_selected = causalverse::panel_estimate(
+  setup,
+  selected_estimators = c("synthdid", "did", "sc")
+)
 
 results_selected
 # to access more details in the estimate object
@@ -193,12 +537,130 @@ summary(results_selected$did$estimate)
 process_panel_estimate(results_selected)
 ```
 
+Now run all six estimators (excluding `mc` which requires the `MCPanel` package):
+
+```{r}
+# Run all available estimators
+results_all = causalverse::panel_estimate(
+  setup,
+  selected_estimators = c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
+)
+
+# Format results into a clean table
+results_table <- causalverse::process_panel_estimate(results_all)
+results_table
+```
+
+### Interpreting the Results
+
+When comparing across estimators:
+
+- If **all methods agree**, this provides strong evidence for the treatment effect, as it is robust to different identifying assumptions.
+- If **DID and SynthDID agree but SC differs**, this suggests that level matching (SC) is difficult but the parallel trends assumption may hold.
+- If **SC and SynthDID agree but DID differs**, this suggests that parallel trends may be violated, but there is a good level match among weighted control units.
+- If **methods disagree substantially**, investigate the assumptions of each method carefully and rely on the one whose assumptions are most plausible in your context.
+
+### Visualizing Estimator Comparison
+
+```{r}
+# Create estimates for plotting
+tau.sc_ca   = synthdid::sc_estimate(setup$Y, setup$N0, setup$T0)
+tau.did_ca  = synthdid::did_estimate(setup$Y, setup$N0, setup$T0)
+tau.sdid_ca = synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
+
+estimates_ca = list(tau.did_ca, tau.sc_ca, tau.sdid_ca)
+names(estimates_ca) = c('DID', 'SC', 'SynthDID')
+
+synthdid::synthdid_plot(estimates_ca) +
+  ama_theme() +
+  ggplot2::ggtitle("California Prop 99: Comparing Estimators")
+```
+
+## Per-Period Treatment Effects
+
+While the overall ATT provides a single summary of the treatment effect, researchers are often interested in how the effect evolves over time. The `causalverse::synthdid_est_per()` function decomposes the SynthDID estimate into per-period treatment effects.
+
+### Decomposing Effects by Period
+
+The per-period estimator computes, for each post-treatment period $t > T_0$:
+
+$$
+\hat{\tau}_t = \left( \bar{Y}_{\text{tr},t} - \hat{Y}_{\text{synth},t} \right) - \text{intercept adjustment}
+$$
+
+where $\hat{Y}_{\text{synth},t}$ is the synthetic control prediction for period $t$ using the estimated unit and time weights.
+
+```{r}
+# Using the base_did setup from earlier
+sdid_est <- synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
+
+# Compute per-period effects
+per_period <- causalverse::synthdid_est_per(
+  Y       = setup$Y,
+  N0      = setup$N0,
+  T0      = setup$T0,
+  weights = attr(sdid_est, 'weights')
+)
+
+# View the structure
+cat("Treatment effects by period:\n")
+print(round(per_period$est, 3))
+
+cat("\nNumber of treated units:", per_period$Ntr, "\n")
+cat("Number of control units:", per_period$Nco, "\n")
+```
+
+The output includes:
+
+- `est`: A vector of treatment effects for each period (pre-treatment periods should be near zero), followed by cumulative ATEs for post-treatment periods.
+- `y_obs`: Observed (weighted) outcomes for treated units.
+- `y_pred`: Predicted counterfactual outcomes for treated units.
+- `lambda.synth`: The time weights used.
+- `Ntr` and `Nco`: Counts of treated and control units.
+
+### Visualizing Per-Period Effects
+
+```{r}
+# Extract post-treatment effects
+T0_ca <- setup$T0
+T_total <- ncol(setup$Y)
+T1_ca <- T_total - T0_ca
+
+# The first T_total elements are per-period, remaining are cumulative ATEs
+per_period_effects <- per_period$est[1:T_total]
+post_effects <- per_period_effects[(T0_ca + 1):T_total]
+
+# Create a plot of per-period effects
+effect_df <- data.frame(
+  Period = (T0_ca + 1):T_total,
+  Effect = post_effects
+)
+
+ggplot2::ggplot(effect_df, ggplot2::aes(x = Period, y = Effect)) +
+  ggplot2::geom_point(size = 3) +
+  ggplot2::geom_line() +
+  ggplot2::geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  ggplot2::geom_hline(
+    yintercept = as.numeric(sdid_est),
+    linetype = "dotted",
+    color = "blue"
+  ) +
+  ggplot2::labs(
+    x = "Time Period",
+    y = "Treatment Effect",
+    title = "Per-Period Treatment Effects (SynthDID)",
+    subtitle = "Blue dotted line = overall ATT"
+  ) +
+  ama_theme()
+```
+
 ## Staggered Adoptions
 
 This vignette adapts the block assignment method from @arkhangelsky2021synthetic for staggered adoption scenarios. Following the approach suggested by @ben2022synthetic, separate assignment matrices are created for each treatment period to fit the block assignment context. The `synthdid` estimator is then applied to each sub-sample. Finally, the Average Treatment Effect on the Treated (ATT) is calculated as a weighted average of all ATTs for all treated periods, with weights based on the proportion of treated units in each time period for each sub-sample.
 
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(fixest)
 df <- fixest::base_stagg |>
    dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
@@ -228,11 +690,11 @@ causalverse::synthdid_plot_ate(est)
 
 Compare to different estimators (e.g., DID and SC)
 
-```{r, message=FALSE, eval = FALSE}
+```{r, message=FALSE, eval = requireNamespace("gridExtra", quietly = TRUE)}
 methods <- c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
 
-estimates <- lapply(methods, function(method) {
-  synthdid_est_ate(
+estimates_methods <- lapply(methods, function(method) {
+  causalverse::synthdid_est_ate(
     data               = df,
     adoption_cohorts   = 5:7,
     lags               = 2,
@@ -246,8 +708,8 @@ estimates <- lapply(methods, function(method) {
   )
 })
 
-plots <- lapply(seq_along(estimates), function(i) {
-  causalverse::synthdid_plot_ate(estimates[[i]],
+plots <- lapply(seq_along(estimates_methods), function(i) {
+  causalverse::synthdid_plot_ate(estimates_methods[[i]],
                                  title = methods[i],
                                  theme = causalverse::ama_theme(base_size = 6))
 })
@@ -258,7 +720,8 @@ gridExtra::grid.arrange(grobs = plots, ncol = 2)
 Subgroup Analysis (i.e., exploring treatment effects heterogeneity)
 
 ```{r}
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 
 est_sub <- causalverse::synthdid_est_ate(
   data               = df,
@@ -319,3 +782,1251 @@ data.frame(
 
 causalverse::synthdid_plot_ate(est_x)
 ```
+
+# Best Practices and Practical Guidance
+
+## When to Use SynthDID vs. SC vs. DID
+
+Choosing the right estimator depends on the features of your data and the plausibility of the identifying assumptions:
+
+**Use DID when:**
+
+- You have many treated and control units.
+- The parallel trends assumption is credible (e.g., pre-treatment trends are visually parallel).
+- Treatment is not concentrated in a single unit or a very small number of units.
+- You want a simple, well-understood baseline estimate.
+
+**Use SC when:**
+
+- You have one or very few treated units (e.g., a single country, state, or firm).
+- The treated unit's pre-treatment outcome trajectory can be closely matched by a weighted combination of control units in levels.
+- The number of pre-treatment periods is large relative to the number of control units.
+- Parallel trends is implausible, but level matching is achievable.
+
+**Use SynthDID when:**
+
+- You want the benefits of both SC and DID without committing to one set of assumptions.
+- You have a moderate number of treated units (one or more).
+- You want double robustness: the estimator is consistent if either the SC-type or DID-type assumption holds.
+- You want data-driven time weights that focus on the most informative pre-treatment periods.
+
+## Pre-Treatment Fit Assessment
+
+Before reporting SynthDID results, always assess the quality of the pre-treatment fit:
+
+1. **Visual inspection**: Use `synthdid_plot()` with `overlay = 1` to compare treated and synthetic trajectories in the pre-treatment period. They should track each other closely.
+
+2. **RMSE check**: Use `synthdid_rmse_plot()` to compare the treated unit's pre-treatment RMSE against placebo units. The treated unit's RMSE should not be an outlier.
+
+3. **Weight sparsity**: Use `synthdid_controls()` to inspect unit weights. A very diffuse weight distribution (many controls with small weights) may indicate a poor match.
+
+4. **Placebo tests**: Use `synthdid_placebo_plot()` to check that the estimated effect is unusual compared to placebo effects. If many placebo effects are as large as the true effect, the result is not statistically compelling.
+
+## Reporting Guidelines
+
+When reporting SynthDID results in academic papers or policy reports, include the following:
+
+1. **Point estimate and standard error**: Report the ATT with at least one SE method. State which SE method was used and why.
+
+2. **Confidence interval**: Report the 95% confidence interval.
+
+3. **Pre-treatment fit plot**: Show the treated vs. synthetic control trajectory, including the pre-treatment period.
+
+4. **Unit weights**: Report or visualize the control unit weights. Identify the top contributing control units.
+
+5. **Robustness across estimators**: Report results from DID, SC, and SynthDID side by side. Discuss any discrepancies.
+
+6. **Sensitivity to specification**: Consider varying the number of pre-treatment periods, the set of control units, or the covariate specification.
+
+7. **Placebo tests**: Report the results of placebo tests (in-time or in-space placebos).
+
+8. **Staggered adoption**: If treatment is staggered, clearly describe the cohort-by-cohort estimation strategy and how the overall ATT is aggregated.
+
+## Common Pitfalls
+
+Avoid these common mistakes when applying SynthDID:
+
+- **Too few pre-treatment periods**: SynthDID requires sufficient pre-treatment data to estimate both unit and time weights reliably. As a rule of thumb, at least 10 pre-treatment periods are desirable.
+
+- **Too few control units**: With very few controls, the unit weights cannot achieve a good match and the placebo SE method will have low power.
+
+- **Post-treatment covariates**: Never residualize on variables that are themselves affected by the treatment.
+
+- **Ignoring weight quality**: Always inspect the unit and time weights. Extreme weights (e.g., all weight on a single control) suggest fragility.
+
+- **Staggered adoption without adjustment**: The base `synthdid_estimate()` function assumes block adoption. For staggered designs, use `causalverse::synthdid_est_ate()` which handles cohort-by-cohort estimation.
+
+- **Over-interpreting per-period effects**: Per-period effects are noisier than the overall ATT. Focus on the overall pattern rather than individual period estimates unless you have theoretical reasons to expect time-varying effects.
+
+# Comprehensive Visualization Suite for Synthetic DID
+
+## Treated vs. Synthetic Control Trajectory
+
+The most important figure in any synthetic control paper is the **trajectory plot** showing how the treated unit and its synthetic counterpart evolved over time.
+
+```{r sdid-trajectory, eval=TRUE, message=FALSE, fig.width=8, fig.height=5}
+library(synthdid)
+library(ggplot2)
+
+# Use the California Prop 99 data (canonical SC example)
+data("california_prop99")
+setup_ca <- synthdid::panel.matrices(california_prop99)
+
+# Estimate SynthDID
+est_sdid <- synthdid::synthdid_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+cat("SDID Estimate:", round(as.numeric(est_sdid), 3), "\n")
+
+# Built-in trajectory plot
+plot(est_sdid, overlay = 1,
+     main = "California Prop 99: Synthetic DID Trajectory")
+```
+
+## Unit and Time Weights
+
+Understanding which donors and pre-treatment periods receive the most weight is critical for assessing credibility.
+
+```{r sdid-weights, eval=TRUE, message=FALSE, fig.width=9, fig.height=4}
+sdid_weights <- attr(est_sdid, "weights")
+
+# Unit weights
+omega_df <- data.frame(
+    unit   = rownames(setup_ca$Y)[seq_len(setup_ca$N0)],
+    weight = sdid_weights$omega
+)
+omega_df <- omega_df[omega_df$weight > 0.005, ]
+omega_df <- omega_df[order(omega_df$weight, decreasing = TRUE), ]
+omega_df$unit <- factor(omega_df$unit, levels = rev(omega_df$unit))
+
+p_omega <- ggplot(omega_df, aes(x = unit, y = weight)) +
+    geom_col(fill = "#2166AC", alpha = 0.8) +
+    coord_flip() +
+    labs(title = "Donor Unit Weights", x = NULL, y = "Weight") +
+    causalverse::ama_theme()
+
+# Time weights
+lambda_df <- data.frame(
+    time   = seq_len(setup_ca$T0),
+    weight = sdid_weights$lambda
+)
+
+p_lambda <- ggplot(lambda_df, aes(x = time, y = weight)) +
+    geom_col(fill = "#D73027", alpha = 0.8) +
+    labs(title = "Pre-Treatment Time Weights", x = "Pre-Treatment Period",
+         y = "Weight") +
+    causalverse::ama_theme()
+
+gridExtra::grid.arrange(p_omega, p_lambda, ncol = 2)
+```
+
+## Estimator Comparison
+
+Compare SC, DID, and SDID side-by-side:
+
+```{r sdid-comparison, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+results_compare <- causalverse::panel_estimate(
+    setup_ca,
+    selected_estimators = c("sc", "did", "sdid")
+)
+cat("=== Estimator Comparison ===\n")
+print(causalverse::process_panel_estimate(results_compare))
+
+# Visual comparison
+comp_df <- data.frame(
+    method   = toupper(names(results_compare)),
+    estimate = sapply(results_compare, function(x) as.numeric(x$estimate)),
+    se       = sapply(results_compare, function(x) as.numeric(x$std.error))
+)
+comp_df$ci_lo <- comp_df$estimate - 1.96 * comp_df$se
+comp_df$ci_hi <- comp_df$estimate + 1.96 * comp_df$se
+
+ggplot(comp_df, aes(x = method, y = estimate)) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+    geom_point(size = 4, color = "#2166AC") +
+    geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
+                  width = 0.2, color = "#2166AC") +
+    labs(
+        title    = "Effect of Proposition 99: SC vs. DID vs. SDID",
+        subtitle = "All estimates with 95% placebo CI",
+        x        = "Estimator",
+        y        = "ATT (cigarette packs per capita)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## RMSPE Ratio: Placebo Inference
+
+The RMSPE (Root Mean Squared Prediction Error) ratio compares post-treatment fit to pre-treatment fit, providing a non-parametric p-value.
+
+```{r sdid-rmspe, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# Extract gaps
+synth_wts   <- sdid_weights$omega
+synth_Y     <- as.vector(t(synth_wts) %*% setup_ca$Y[seq_len(setup_ca$N0), ])
+treated_Y   <- setup_ca$Y[nrow(setup_ca$Y), ]
+time_labels <- as.numeric(colnames(setup_ca$Y))
+treat_yr    <- time_labels[setup_ca$T0 + 1]
+
+treated_gap  <- treated_Y - synth_Y
+pre_mask     <- time_labels < treat_yr
+post_mask    <- time_labels >= treat_yr
+
+rmspe_pre    <- sqrt(mean(treated_gap[pre_mask]^2))
+rmspe_post   <- sqrt(mean(treated_gap[post_mask]^2))
+ratio_treat  <- rmspe_post / rmspe_pre
+
+# Placebo units (subsample for speed)
+n_placebo <- min(20, setup_ca$N0)
+placebo_ratios <- vapply(seq_len(n_placebo), function(j) {
+    g_pre  <- setup_ca$Y[j, pre_mask] -
+              colMeans(setup_ca$Y[setdiff(seq_len(setup_ca$N0), j), pre_mask])
+    g_post <- setup_ca$Y[j, post_mask] -
+              colMeans(setup_ca$Y[setdiff(seq_len(setup_ca$N0), j), post_mask])
+    pre_r  <- sqrt(mean(g_pre^2))
+    if (pre_r < 1e-10) return(NA_real_)
+    sqrt(mean(g_post^2)) / pre_r
+}, numeric(1))
+placebo_ratios <- na.omit(placebo_ratios)
+
+p_val_rmspe <- mean(placebo_ratios >= ratio_treat)
+cat("RMSPE ratio (treated):  ", round(ratio_treat, 3), "\n")
+cat("Placebo p-value:        ", round(p_val_rmspe, 3), "\n")
+
+ratio_df <- data.frame(
+    ratio = c(as.numeric(placebo_ratios), ratio_treat),
+    type  = c(rep("Placebo", length(placebo_ratios)), "Treated")
+)
+ggplot(ratio_df, aes(x = ratio, fill = type)) +
+    geom_histogram(bins = 15, alpha = 0.7) +
+    scale_fill_manual(values = c("Placebo" = "steelblue",
+                                  "Treated" = "#D73027")) +
+    geom_vline(xintercept = ratio_treat, color = "#D73027",
+               linewidth = 1.5, linetype = "dashed") +
+    labs(
+        title    = "RMSPE Ratio: Treated vs. Placebo Units",
+        subtitle = paste0("Permutation p-value = ", round(p_val_rmspe, 3)),
+        x        = "Post/Pre RMSPE Ratio",
+        y        = "Count",
+        fill     = NULL
+    ) +
+    causalverse::ama_theme()
+```
+
+## Staggered Adoption: ATE Across Cohorts
+
+```{r sdid-staggered, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+ate_results <- causalverse::synthdid_est_ate(
+    data   = fixest::base_stagg,
+    method = "sdid"
+)
+causalverse::synthdid_plot_ate(ate_results)
+```
+
+# Extended Visualization Suite
+
+This section demonstrates the full visualization toolkit available in `causalverse` for synthetic DID analyses.
+
+## Gap Plot with In-Space Placebos
+
+The `causalverse::sc_gap_plot()` function plots the treatment-synthetic gap over time and overlays donor unit gaps as in-space placebos, providing visual inference about whether the treated unit's gap is unusual.
+
+```{r gap-plot-main, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+library(synthdid)
+library(ggplot2)
+
+# California Prop 99 setup
+data("california_prop99")
+setup_ca <- synthdid::panel.matrices(california_prop99)
+est_sdid  <- synthdid::synthdid_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+wts       <- attr(est_sdid, "weights")
+
+# Treated unit trajectory and synthetic
+Y        <- setup_ca$Y
+N0       <- setup_ca$N0
+T0       <- setup_ca$T0
+N        <- nrow(Y)
+T_total  <- ncol(Y)
+time_lbl <- as.numeric(colnames(Y))
+treat_yr <- time_lbl[T0 + 1]
+
+synth_Y   <- as.vector(t(wts$omega) %*% Y[seq_len(N0), ])
+treated_Y <- Y[N, ]
+
+# Compute donor gaps (each control treated as if it were treated, with equal weights)
+donor_gaps_list <- lapply(seq_len(N0), function(j) {
+  other_ctrl <- setdiff(seq_len(N0), j)
+  synth_j <- colMeans(Y[other_ctrl, , drop = FALSE])
+  as.numeric(Y[j, ] - synth_j)
+})
+
+causalverse::sc_gap_plot(
+  treated_outcome   = as.numeric(treated_Y),
+  synthetic_outcome = synth_Y,
+  time_periods      = time_lbl,
+  treatment_period  = treat_yr,
+  donor_gaps        = donor_gaps_list,
+  placebo_alpha     = 0.20,
+  placebo_rmspe_filter = 2,
+  ci_level          = 0.90,
+  title             = "California Prop 99: Gap Plot with In-Space Placebos",
+  unit_label        = "California"
+) + causalverse::ama_theme()
+```
+
+The red line shows California's gap (treated minus synthetic). Gray lines show donor state gaps estimated with equal-weight synthetic controls. Units with pre-treatment RMSPE more than twice California's are excluded following Abadie, Diamond and Hainmueller (2010).
+
+## Treatment Calendar: Staggered Adoption Timing
+
+```{r treatment-calendar, eval=TRUE, message=FALSE, fig.width=9, fig.height=5}
+library(fixest)
+library(dplyr)
+
+# Prepare base_stagg: add a proper binary treatment column
+df_stagg_cal <- fixest::base_stagg |>
+  dplyr::mutate(treatment = as.integer(time_to_treatment >= 0 &
+                                         year_treated <= (5 + 2)))
+
+# Treatment calendar heatmap
+causalverse::treatment_calendar(
+  data      = df_stagg_cal,
+  unit_var  = "id",
+  time_var  = "year",
+  treat_var = "treatment",
+  max_units = 40,
+  title     = "Staggered Adoption Calendar: base_stagg"
+) + causalverse::ama_theme(base_size = 10)
+```
+
+The calendar heatmap communicates treatment timing heterogeneity at a glance. Units are sorted by first treatment date (earliest adopters at top). Dark cells indicate treated periods.
+
+## Staggered Adoption Summary Table
+
+`causalverse::staggered_summary()` returns a comprehensive summary of the staggered design, including cohort sizes and the calendar plot.
+
+```{r staggered-summary, eval=TRUE, message=FALSE, fig.width=8, fig.height=4}
+summ <- causalverse::staggered_summary(
+  data      = df_stagg_cal,
+  unit_var  = "id",
+  time_var  = "year",
+  treat_var = "treatment",
+  plot      = TRUE
+)
+
+# Print cohort sizes table
+cat("=== Cohort Sizes ===\n")
+print(summ$cohort_sizes)
+cat("\nTotal units:", summ$n_units, "\n")
+cat("Periods:", summ$n_periods, "\n")
+cat("Never-treated units:", summ$never_treated_n, "\n")
+
+# Cohort bar chart
+summ$cohort_plot + causalverse::ama_theme()
+```
+
+## Trajectory Plot: Observed vs. Synthetic with Shaded Treatment Window
+
+The trajectory plot is the central figure in any synthetic control paper. Here we build a fully customized version using `ggplot2` and the estimated weights from SynthDID.
+
+```{r trajectory-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
+library(ggplot2)
+
+# California Prop 99 — full trajectory
+Y_mat    <- setup_ca$Y
+time_lbl <- as.numeric(colnames(Y_mat))
+treat_yr <- time_lbl[setup_ca$T0 + 1]
+
+synth_Y   <- as.vector(t(wts$omega) %*% Y_mat[seq_len(setup_ca$N0), ])
+treated_Y <- as.numeric(Y_mat[nrow(Y_mat), ])
+
+traj_df <- data.frame(
+  year      = rep(time_lbl, 2),
+  value     = c(treated_Y, synth_Y),
+  series    = rep(c("California (Treated)", "Synthetic California"), each = length(time_lbl))
+)
+
+ggplot(traj_df, aes(x = year, y = value, color = series, linetype = series)) +
+  annotate("rect",
+    xmin = treat_yr, xmax = max(time_lbl) + 0.5,
+    ymin = -Inf, ymax = Inf,
+    fill = "#FEE0D2", alpha = 0.4
+  ) +
+  geom_vline(xintercept = treat_yr, linetype = "dashed", color = "gray40") +
+  geom_line(linewidth = 1.1) +
+  annotate("text",
+    x = treat_yr + 0.3, y = max(treated_Y) * 0.97,
+    label = "Treatment\nstarts", hjust = 0, size = 3.2, color = "gray30"
+  ) +
+  scale_color_manual(
+    values = c("California (Treated)" = "#D73027",
+               "Synthetic California" = "#2166AC")
+  ) +
+  scale_linetype_manual(
+    values = c("California (Treated)" = "solid",
+               "Synthetic California" = "dashed")
+  ) +
+  labs(
+    title    = "California Prop 99: Observed vs. Synthetic Trajectory",
+    subtitle = paste0("SDID estimate = ",
+                      round(as.numeric(est_sdid), 1),
+                      " cigarette packs per capita"),
+    x        = "Year",
+    y        = "Cigarette Packs Sold per Capita",
+    color    = NULL,
+    linetype = NULL
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+## Unit Weight Bar Chart (Top Donors)
+
+```{r unit-weights-bar, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+omega_df <- data.frame(
+  unit   = rownames(setup_ca$Y)[seq_len(setup_ca$N0)],
+  weight = as.numeric(wts$omega)
+)
+# Keep all with positive weight
+omega_df <- omega_df[omega_df$weight > 1e-4, ]
+omega_df <- omega_df[order(omega_df$weight, decreasing = TRUE), ]
+# Top 15
+omega_top <- head(omega_df, 15)
+omega_top$unit <- factor(omega_top$unit, levels = rev(omega_top$unit))
+
+ggplot(omega_top, aes(x = unit, y = weight)) +
+  geom_col(fill = "#2166AC", alpha = 0.85) +
+  geom_text(aes(label = sprintf("%.3f", weight)), hjust = -0.1, size = 3) +
+  coord_flip(clip = "off") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  labs(
+    title    = "SynthDID Donor Unit Weights (Top 15)",
+    subtitle = "Prop 99 California analysis — states with weight > 0",
+    x        = NULL,
+    y        = "Weight"
+  ) +
+  causalverse::ama_theme()
+```
+
+## Time Weight Bar Chart
+
+```{r time-weights-bar, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+lambda_df <- data.frame(
+  period = seq_len(setup_ca$T0),
+  year   = time_lbl[seq_len(setup_ca$T0)],
+  weight = as.numeric(wts$lambda)
+)
+
+ggplot(lambda_df, aes(x = year, y = weight)) +
+  geom_col(fill = "#D73027", alpha = 0.80) +
+  geom_hline(
+    yintercept = 1 / setup_ca$T0,
+    linetype = "dashed", color = "gray40"
+  ) +
+  annotate("text",
+    x = min(lambda_df$year), y = 1 / setup_ca$T0 + 0.005,
+    label = "Uniform weight (DID)",
+    hjust = 0, size = 3, color = "gray40"
+  ) +
+  labs(
+    title    = "SynthDID Pre-Treatment Time Weights",
+    subtitle = "Higher weight on periods more similar to post-treatment period",
+    x        = "Year (Pre-Treatment)",
+    y        = "Weight"
+  ) +
+  causalverse::ama_theme()
+```
+
+The dashed line shows the uniform weight that DID would assign (1/T0). SynthDID concentrates weight on periods that are more predictive of the post-treatment period.
+
+## Estimator Comparison with Confidence Intervals
+
+```{r estimator-comparison-ci, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=7, fig.height=4}
+set.seed(42)
+
+# Compute estimates and SEs for all three methods
+tau_sc_ca   <- synthdid::sc_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+tau_did_ca  <- synthdid::did_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+tau_sdid_ca <- synthdid::synthdid_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
+
+# Use placebo SE (valid here: single treated unit, many donors)
+get_placebo_se <- function(tau_obj) {
+  tryCatch(
+    sqrt(vcov(tau_obj, method = "placebo")),
+    error = function(e) NA_real_
+  )
+}
+
+est_vals <- c(
+  as.numeric(tau_sc_ca),
+  as.numeric(tau_did_ca),
+  as.numeric(tau_sdid_ca)
+)
+se_vals  <- vapply(
+  list(tau_sc_ca, tau_did_ca, tau_sdid_ca),
+  get_placebo_se,
+  numeric(1)
+)
+
+comp_df <- data.frame(
+  method   = c("Synthetic\nControl", "Difference-in-\nDifferences",
+                "Synthetic\nDiff-in-Diff"),
+  estimate = est_vals,
+  se       = se_vals
+)
+comp_df$ci_lo <- comp_df$estimate - 1.96 * comp_df$se
+comp_df$ci_hi <- comp_df$estimate + 1.96 * comp_df$se
+comp_df$method <- factor(comp_df$method,
+                         levels = comp_df$method)
+
+ggplot(comp_df, aes(x = method, y = estimate)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_errorbar(aes(ymin = ci_lo, ymax = ci_hi),
+                width = 0.18, color = "#444444", linewidth = 0.8) +
+  geom_point(size = 4, color = "#2166AC") +
+  geom_text(aes(label = sprintf("%.1f", estimate)),
+            vjust = -1.1, size = 3.3, color = "#2166AC") +
+  labs(
+    title    = "Proposition 99: SC vs. DID vs. SynthDID",
+    subtitle = "Point estimates with 95% placebo confidence intervals",
+    x        = NULL,
+    y        = "ATT (packs per capita per year)"
+  ) +
+  causalverse::ama_theme()
+```
+
+# Inference Methods Deep Dive
+
+## Overview of Inference Approaches
+
+SynthDID standard errors cannot be computed from standard OLS formulas because the unit and time weights are estimated from the data. The `synthdid` package provides three resampling-based methods, each appropriate in different settings.
+
+```{r se-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Base DID data: multiple treated units — allows all three SE methods
+library(fixest)
+library(dplyr)
+
+df_did <- fixest::base_did |>
+  dplyr::mutate(
+    id        = as.factor(id),
+    period    = as.integer(period),
+    y         = as.double(y),
+    treatment = as.integer(if_else(treat == 0, 0, post))
+  )
+
+setup_did <- df_did |>
+  synthdid::panel.matrices(
+    unit      = "id",
+    time      = "period",
+    outcome   = "y",
+    treatment = "treatment"
+  )
+
+tau_did_base <- synthdid::synthdid_estimate(setup_did$Y, setup_did$N0, setup_did$T0)
+cat("Point estimate:", round(as.numeric(tau_did_base), 4), "\n")
+cat("N treated:", nrow(setup_did$Y) - setup_did$N0, "\n")
+cat("N control:", setup_did$N0, "\n")
+```
+
+## Placebo (In-Space) Standard Errors
+
+The placebo method iterates through control units, treating each one as if it were treated, and computes the SDID estimator on the remaining controls. The standard deviation of these placebo estimates provides the SE.
+
+```{r se-placebo, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Standard placebo SE requires N_controls > N_treated
+# base_did: 40 control, 10 treated → eligible
+se_placebo_base <- sqrt(vcov(tau_did_base, method = "placebo"))
+cat("Placebo SE:", round(se_placebo_base, 4), "\n")
+
+# Per-period placebo SE from causalverse
+set.seed(2024)
+se_per_period <- causalverse::synthdid_se_placebo(tau_did_base, replications = 200)
+print(se_per_period)
+```
+
+## Jackknife Standard Errors
+
+The jackknife leaves one unit out at a time (treated or control, depending on implementation) and recomputes the estimate. The causalverse wrapper `synthdid_se_jacknife()` provides per-period jackknife SEs.
+
+```{r se-jackknife, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+se_jack_base <- sqrt(vcov(tau_did_base, method = "jackknife"))
+cat("Jackknife SE:", round(se_jack_base, 4), "\n")
+
+# Per-period jackknife SE
+se_jack_per <- causalverse::synthdid_se_jacknife(tau_did_base)
+print(se_jack_per)
+```
+
+## Bootstrap Standard Errors
+
+Bootstrap resamples control units with replacement and recomputes estimates across `B` bootstrap draws. It is the most computationally intensive method but can be more robust in finite samples.
+
+```{r se-bootstrap, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+set.seed(123)
+se_boot_base <- sqrt(vcov(tau_did_base, method = "bootstrap"))
+cat("Bootstrap SE:", round(se_boot_base, 4), "\n")
+```
+
+## Comparing All Three SE Methods
+
+```{r se-comparison-table, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+est_val <- as.numeric(tau_did_base)
+
+se_table <- data.frame(
+  Method        = c("Placebo", "Jackknife", "Bootstrap"),
+  SE            = round(c(se_placebo_base, se_jack_base, se_boot_base), 4),
+  CI_lower_95   = round(est_val - 1.96 *
+                          c(se_placebo_base, se_jack_base, se_boot_base), 3),
+  CI_upper_95   = round(est_val + 1.96 *
+                          c(se_placebo_base, se_jack_base, se_boot_base), 3),
+  Requirements  = c("N_ctrl > N_treated", "N_treated >= 2 (or fallback)",
+                    "N_treated >= 2")
+)
+
+cat("=== SE Method Comparison ===\n")
+cat("Point estimate:", round(est_val, 4), "\n\n")
+print(se_table)
+```
+
+## RMSPE Ratio Test: Permutation Inference
+
+The RMSPE ratio test is a classic non-parametric inference approach from Abadie, Diamond, and Hainmueller (2010). It computes the ratio of post-treatment to pre-treatment prediction error (RMSPE) for both the treated unit and each control unit (treated as a placebo). A large ratio for the treated unit relative to the placebo distribution indicates a genuine treatment effect.
+
+```{r rmspe-ratio-full, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+# Detailed RMSPE computation for California Prop 99
+Y_ca    <- setup_ca$Y
+T0_ca   <- setup_ca$T0
+N0_ca   <- setup_ca$N0
+times_ca <- as.numeric(colnames(Y_ca))
+treat_yr_ca <- times_ca[T0_ca + 1]
+pre_idx_ca  <- which(times_ca < treat_yr_ca)
+post_idx_ca <- which(times_ca >= treat_yr_ca)
+
+# Treated unit gap
+synth_ca  <- as.vector(t(wts$omega) %*% Y_ca[seq_len(N0_ca), ])
+gap_treat <- as.numeric(Y_ca[nrow(Y_ca), ]) - synth_ca
+
+rmspe_pre_treat  <- sqrt(mean(gap_treat[pre_idx_ca]^2))
+rmspe_post_treat <- sqrt(mean(gap_treat[post_idx_ca]^2))
+ratio_treat      <- rmspe_post_treat / rmspe_pre_treat
+
+cat("=== RMSPE Ratio Test ===\n")
+cat("Treated unit pre-treatment RMSPE:  ", round(rmspe_pre_treat, 4), "\n")
+cat("Treated unit post-treatment RMSPE: ", round(rmspe_post_treat, 4), "\n")
+cat("RMSPE ratio (treated):             ", round(ratio_treat, 4), "\n\n")
+
+# Placebo RMSPE ratios for all control units
+placebo_ratios_all <- vapply(seq_len(N0_ca), function(j) {
+  other <- setdiff(seq_len(N0_ca), j)
+  synth_j <- colMeans(Y_ca[other, , drop = FALSE])
+  gap_j   <- as.numeric(Y_ca[j, ]) - synth_j
+  pre_r   <- sqrt(mean(gap_j[pre_idx_ca]^2))
+  if (pre_r < 1e-10) return(NA_real_)
+  post_r  <- sqrt(mean(gap_j[post_idx_ca]^2))
+  post_r / pre_r
+}, numeric(1))
+placebo_ratios_all <- na.omit(placebo_ratios_all)
+
+# Permutation p-value
+p_val <- mean(placebo_ratios_all >= ratio_treat)
+cat("Number of placebo units:           ", length(placebo_ratios_all), "\n")
+cat("Units with ratio >= treated unit:  ",
+    sum(placebo_ratios_all >= ratio_treat), "\n")
+cat("Permutation p-value:               ", round(p_val, 4), "\n")
+
+# Histogram
+ratio_df_all <- data.frame(
+  ratio = c(as.numeric(placebo_ratios_all), ratio_treat),
+  type  = c(rep("Placebo states", length(placebo_ratios_all)), "California")
+)
+
+ggplot(ratio_df_all, aes(x = ratio, fill = type)) +
+  geom_histogram(bins = 20, alpha = 0.75, position = "identity") +
+  geom_vline(xintercept = ratio_treat, color = "#D73027",
+             linewidth = 1.5, linetype = "dashed") +
+  scale_fill_manual(values = c("Placebo states" = "#4393C3",
+                                "California"    = "#D73027")) +
+  annotate("text",
+    x = ratio_treat * 1.05, y = Inf, vjust = 2,
+    label = paste0("California\nratio = ", round(ratio_treat, 1),
+                   "\np = ", round(p_val, 3)),
+    hjust = 0, size = 3.5, color = "#D73027"
+  ) +
+  labs(
+    title    = "RMSPE Ratio: Permutation Inference for Prop 99",
+    subtitle = paste0("California's post/pre RMSPE ratio vs. all donor states\n",
+                      "Permutation p-value = ", round(p_val, 3)),
+    x        = "Post/Pre RMSPE Ratio",
+    y        = "Count",
+    fill     = NULL
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "top")
+```
+
+A permutation p-value below 0.05 indicates that the treated unit's RMSPE ratio is unusual compared to what we would expect under the null hypothesis of no treatment effect.
+
+# Staggered Adoption: A Complete Workflow
+
+This section provides a complete, step-by-step workflow for staggered adoption using `causalverse::synthdid_est_ate()`.
+
+## Setting Up the Staggered Data
+
+```{r staggered-setup, eval=TRUE, message=FALSE}
+library(fixest)
+library(dplyr)
+
+# base_stagg: staggered DiD dataset with units treated at years 5, 6, or 7
+# Never-treated units have year_treated = 10000 (a large placeholder)
+df_full <- fixest::base_stagg |>
+  dplyr::mutate(
+    treatvar = as.integer(
+      time_to_treatment >= 0 & year_treated <= (5 + 2)
+    )
+  )
+
+cat("Treatment cohort distribution:\n")
+print(table(df_full$year_treated[!duplicated(df_full$id)]))
+
+cat("\nPanel dimensions:\n")
+cat("Units:", length(unique(df_full$id)), "\n")
+cat("Periods:", length(unique(df_full$year)), "\n")
+```
+
+## Cohort Structure Visualization
+
+```{r staggered-cohort-viz, eval=TRUE, message=FALSE, fig.width=9, fig.height=4}
+# Staggered summary for the treated cohorts only
+summ_full <- causalverse::staggered_summary(
+  data      = df_full,
+  unit_var  = "id",
+  time_var  = "year",
+  treat_var = "treatvar",
+  plot      = TRUE
+)
+
+# Show calendar plot
+summ_full$calendar_plot + causalverse::ama_theme(base_size = 9)
+```
+
+```{r staggered-cohort-bar, eval=TRUE, message=FALSE, fig.width=7, fig.height=3}
+summ_full$cohort_plot + causalverse::ama_theme()
+```
+
+## Per-Cohort SDID Estimates
+
+The `synthdid_est_ate()` function estimates a separate SynthDID model for each adoption cohort, then aggregates to an overall ATE.
+
+```{r staggered-ate, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+set.seed(42)
+est_staggered <- causalverse::synthdid_est_ate(
+  data               = df_full,
+  adoption_cohorts   = 5:7,
+  lags               = 3,
+  leads              = 3,
+  time_var           = "year",
+  unit_id_var        = "id",
+  treated_period_var = "year_treated",
+  treat_stat_var     = "treatvar",
+  outcome_var        = "y"
+)
+
+# Per-period ATE table
+ate_df <- data.frame(
+  Period = names(est_staggered$TE_mean_w),
+  ATE    = round(est_staggered$TE_mean_w, 4),
+  SE     = round(est_staggered$SE_mean_w, 4)
+)
+ate_df$CI_lo <- round(ate_df$ATE - 1.96 * ate_df$SE, 3)
+ate_df$CI_hi <- round(ate_df$ATE + 1.96 * ate_df$SE, 3)
+print(ate_df)
+
+# Plot
+causalverse::synthdid_plot_ate(est_staggered) + causalverse::ama_theme()
+```
+
+## Comparing Staggered SDID vs. DID vs. SC
+
+```{r staggered-comparison, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+methods_compare <- c("synthdid", "did", "sc")
+
+results_staggered <- lapply(methods_compare, function(m) {
+  causalverse::synthdid_est_ate(
+    data               = df_full,
+    adoption_cohorts   = 5:7,
+    lags               = 3,
+    leads              = 3,
+    time_var           = "year",
+    unit_id_var        = "id",
+    treated_period_var = "year_treated",
+    treat_stat_var     = "treatvar",
+    outcome_var        = "y",
+    method             = m
+  )
+})
+names(results_staggered) <- methods_compare
+
+# Aggregate overall ATEs for comparison
+overall_ates <- lapply(names(results_staggered), function(nm) {
+  res <- results_staggered[[nm]]
+  te  <- res$TE_mean_w
+  se  <- res$SE_mean_w
+  # Weighted average across periods (equal weighting for display)
+  data.frame(
+    Method   = nm,
+    Mean_ATE = round(mean(te, na.rm = TRUE), 4),
+    Mean_SE  = round(mean(se, na.rm = TRUE), 4)
+  )
+})
+
+cat("=== Staggered ATE Comparison Across Estimators ===\n")
+print(do.call(rbind, overall_ates))
+```
+
+# Covariates in SynthDID: Residualization and Balance
+
+## Why Residualize?
+
+The standard SynthDID estimator uses only the outcome variable to compute weights. When time-varying covariates are available, residualizing the outcome on those covariates can improve pre-treatment fit by removing variation that the covariates explain, leaving the weights to focus on unexplained dynamics.
+
+## Step-by-Step Residualization
+
+```{r covariates-resid, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+library(fixest)
+library(dplyr)
+
+df_cov <- fixest::base_did |>
+  dplyr::mutate(
+    id        = as.factor(id),
+    period    = as.integer(period),
+    y         = as.double(y),
+    treatment = as.integer(if_else(treat == 0, 0, post))
+  )
+
+# Step 1: Conservative residualization using pre-treatment data only
+beta_pre <- lm(y ~ x1, data = df_cov |> dplyr::filter(post == 0))
+df_cov$y_res <- df_cov$y - predict(beta_pre, newdata = df_cov)
+
+# Step 2: Build panel matrices for raw outcome and residualized outcome
+setup_raw <- df_cov |>
+  synthdid::panel.matrices(
+    unit = "id", time = "period",
+    outcome = "y", treatment = "treatment"
+  )
+
+setup_res <- df_cov |>
+  synthdid::panel.matrices(
+    unit = "id", time = "period",
+    outcome = "y_res", treatment = "treatment"
+  )
+
+# Step 3: Estimate both
+tau_raw <- synthdid::synthdid_estimate(setup_raw$Y, setup_raw$N0, setup_raw$T0)
+tau_res <- synthdid::synthdid_estimate(setup_res$Y, setup_res$N0, setup_res$T0)
+
+cat("=== Covariate Adjustment Comparison ===\n")
+cat("SynthDID (raw outcome):        ", round(as.numeric(tau_raw), 4), "\n")
+cat("SynthDID (residualized on x1): ", round(as.numeric(tau_res), 4), "\n")
+```
+
+## Pre-Treatment Fit Assessment
+
+A key diagnostic is whether the residualized outcome achieves better pre-treatment fit:
+
+```{r covariates-prefit, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+compute_prefit_rmspe <- function(setup) {
+  tau_obj  <- synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
+  wts_obj  <- attr(tau_obj, "weights")
+  synth_oc <- as.vector(t(wts_obj$omega) %*% setup$Y[seq_len(setup$N0), ])
+  treat_oc <- as.numeric(setup$Y[nrow(setup$Y), ])
+  gap_oc   <- treat_oc - synth_oc
+  sqrt(mean(gap_oc[seq_len(setup$T0)]^2))
+}
+
+rmspe_raw <- compute_prefit_rmspe(setup_raw)
+rmspe_res <- compute_prefit_rmspe(setup_res)
+
+cat("Pre-treatment RMSPE (raw):          ", round(rmspe_raw, 5), "\n")
+cat("Pre-treatment RMSPE (residualized): ", round(rmspe_res, 5), "\n")
+cat("Improvement:                        ",
+    round(100 * (rmspe_raw - rmspe_res) / rmspe_raw, 1), "%\n")
+```
+
+## Covariate Balance Before and After Weighting
+
+After computing SynthDID weights, we can assess whether the weighted control group achieves better covariate balance relative to the treated group.
+
+```{r covariates-balance, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Extract unit weights
+omega_raw <- attr(tau_raw, "weights")$omega
+
+# Unit IDs for control vs. treated
+unit_ids  <- rownames(setup_raw$Y)
+ctrl_ids  <- unit_ids[seq_len(setup_raw$N0)]
+treat_ids <- unit_ids[(setup_raw$N0 + 1):nrow(setup_raw$Y)]
+
+# Pre-treatment x1 means for each unit
+df_pre <- df_cov |> dplyr::filter(post == 0)
+ctrl_means <- tapply(
+  df_pre$x1[df_pre$id %in% ctrl_ids],
+  df_pre$id[df_pre$id %in% ctrl_ids],
+  mean, na.rm = TRUE
+)
+treat_mean_x1 <- mean(df_pre$x1[df_pre$id %in% treat_ids], na.rm = TRUE)
+
+# Unweighted control mean
+unweighted_ctrl_mean <- mean(ctrl_means, na.rm = TRUE)
+
+# Weighted control mean using SynthDID omega
+ctrl_means_aligned <- ctrl_means[names(omega_raw)]
+ctrl_means_aligned[is.na(ctrl_means_aligned)] <- 0
+weighted_ctrl_mean <- sum(omega_raw * ctrl_means_aligned)
+
+cat("=== Covariate Balance (x1) ===\n")
+cat("Treated mean:               ", round(treat_mean_x1, 4), "\n")
+cat("Unweighted control mean:    ", round(unweighted_ctrl_mean, 4), "\n")
+cat("SynthDID-weighted ctrl mean:", round(weighted_ctrl_mean, 4), "\n")
+cat("\nBias (unweighted): ",
+    round(abs(treat_mean_x1 - unweighted_ctrl_mean), 4), "\n")
+cat("Bias (weighted):   ",
+    round(abs(treat_mean_x1 - weighted_ctrl_mean), 4), "\n")
+```
+
+# Multiple Treated Units
+
+When multiple units are treated, SynthDID aggregates the per-unit estimates into an overall ATT. This section demonstrates setup and estimation with more than one treated unit.
+
+## Setup with Multiple Treated Units
+
+```{r multi-treated-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# base_did has multiple treated and control units
+# Let's also examine the structure
+df_multi_t <- fixest::base_did |>
+  dplyr::mutate(
+    id        = as.factor(id),
+    period    = as.integer(period),
+    y         = as.double(y),
+    treatment = as.integer(if_else(treat == 0, 0, post))
+  )
+
+# Panel structure
+cat("Units:", length(unique(df_multi_t$id)), "\n")
+cat("Periods:", length(unique(df_multi_t$period)), "\n")
+cat("Treated units:", sum(unique(df_multi_t[, c("id", "treat")])$treat), "\n")
+cat("Control units:",
+    sum(unique(df_multi_t[, c("id", "treat")])$treat == 0), "\n")
+
+setup_multi <- df_multi_t |>
+  synthdid::panel.matrices(
+    unit = "id", time = "period",
+    outcome = "y", treatment = "treatment"
+  )
+
+cat("\nPanel matrix dimensions:", nrow(setup_multi$Y), "units x",
+    ncol(setup_multi$Y), "periods\n")
+cat("N0 (control):", setup_multi$N0, "\n")
+cat("N_treated:", nrow(setup_multi$Y) - setup_multi$N0, "\n")
+```
+
+## Aggregate and Per-Unit Estimates
+
+```{r multi-treated-est, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+tau_multi_t <- synthdid::synthdid_estimate(
+  setup_multi$Y, setup_multi$N0, setup_multi$T0
+)
+cat("Aggregate ATT (SynthDID):", round(as.numeric(tau_multi_t), 4), "\n")
+
+# With multiple treated units, all three SE methods are available
+se_jack_multi <- sqrt(vcov(tau_multi_t, method = "jackknife"))
+se_boot_multi <- sqrt(vcov(tau_multi_t, method = "bootstrap"))
+se_plac_multi <- sqrt(vcov(tau_multi_t, method = "placebo"))
+
+cat("\n=== Standard Errors (multiple treated units) ===\n")
+cat("Jackknife SE: ", round(se_jack_multi, 4), "\n")
+cat("Bootstrap SE: ", round(se_boot_multi, 4), "\n")
+cat("Placebo SE:   ", round(se_plac_multi, 4), "\n")
+
+# Jackknife CI
+est_m <- as.numeric(tau_multi_t)
+cat("\n95% CI (Jackknife): (",
+    round(est_m - 1.96 * se_jack_multi, 3), ",",
+    round(est_m + 1.96 * se_jack_multi, 3), ")\n")
+```
+
+## Using `panel_estimate()` for Multiple Estimators
+
+```{r multi-treated-panel, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+results_multi <- causalverse::panel_estimate(
+  setup_multi,
+  selected_estimators = c("synthdid", "did", "sc", "sc_ridge", "difp")
+)
+cat("=== Multi-Unit Estimator Comparison ===\n")
+print(causalverse::process_panel_estimate(results_multi))
+```
+
+## Per-Unit Standard Errors
+
+With multiple treated units, per-unit treatment effects and placebo SEs can help identify heterogeneous effects:
+
+```{r multi-treated-per-period, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Per-period effects using causalverse
+per_period_multi <- causalverse::synthdid_est_per(
+  Y       = setup_multi$Y,
+  N0      = setup_multi$N0,
+  T0      = setup_multi$T0,
+  weights = attr(tau_multi_t, "weights")
+)
+cat("Per-period estimates (post-treatment):\n")
+T0_m <- setup_multi$T0
+T_m  <- ncol(setup_multi$Y)
+print(round(per_period_multi$est[(T0_m + 1):T_m], 4))
+```
+
+# Sensitivity Analysis: Leave-One-Out Donors
+
+Sensitivity analysis for synthetic control methods typically involves dropping one donor unit at a time and examining whether estimates remain stable.
+
+## Leave-One-Out Estimation
+
+```{r loo-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
+set.seed(99)
+
+Y_loo    <- setup_ca$Y
+N0_loo   <- setup_ca$N0
+T0_loo   <- setup_ca$T0
+
+# Donors with non-negligible weight (focus LOO on important donors)
+omega_full <- attr(est_sdid, "weights")$omega
+important_donors <- which(omega_full > 0.01)
+cat("Donors with weight > 0.01:", length(important_donors), "\n")
+cat("Donor names:", rownames(Y_loo)[important_donors], "\n\n")
+
+# Run LOO: exclude one important donor at a time
+loo_results <- lapply(important_donors, function(j) {
+  keep_ctrl <- setdiff(seq_len(N0_loo), j)
+  Y_loo_j   <- Y_loo[c(keep_ctrl, nrow(Y_loo)), ]
+  tryCatch({
+    tau_j <- synthdid::synthdid_estimate(
+      Y_loo_j,
+      N0 = length(keep_ctrl),
+      T0 = T0_loo
+    )
+    list(
+      dropped = rownames(Y_loo)[j],
+      est     = as.numeric(tau_j),
+      ok      = TRUE
+    )
+  }, error = function(e) {
+    list(dropped = rownames(Y_loo)[j], est = NA_real_, ok = FALSE)
+  })
+})
+
+loo_df <- data.frame(
+  Dropped  = sapply(loo_results, `[[`, "dropped"),
+  Estimate = round(sapply(loo_results, `[[`, "est"), 3),
+  stringsAsFactors = FALSE
+)
+loo_df$Dropped <- factor(loo_df$Dropped,
+                         levels = loo_df$Dropped[order(loo_df$Estimate)])
+full_est_val <- round(as.numeric(est_sdid), 3)
+loo_df$Delta <- loo_df$Estimate - full_est_val
+
+cat("=== Leave-One-Out Sensitivity ===\n")
+cat("Full estimate:", full_est_val, "\n\n")
+print(loo_df)
+```
+
+## Visualizing LOO Sensitivity
+
+```{r loo-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+ggplot(loo_df, aes(x = Dropped, y = Estimate)) +
+  geom_hline(
+    yintercept = full_est_val,
+    linetype = "dashed", color = "gray40", linewidth = 0.8
+  ) +
+  geom_hline(yintercept = 0, color = "gray70") +
+  geom_point(aes(color = Delta > 0), size = 4) +
+  geom_text(
+    aes(label = sprintf("%.1f", Estimate)),
+    vjust = -1.0, size = 3.2
+  ) +
+  scale_color_manual(
+    values = c("TRUE" = "#D73027", "FALSE" = "#4393C3"),
+    guide  = "none"
+  ) +
+  labs(
+    title    = "Leave-One-Out Sensitivity Analysis",
+    subtitle = paste0("Dashed line = full estimate (", full_est_val,
+                      "). Each point drops one key donor."),
+    x        = "Dropped Donor State",
+    y        = "SynthDID Estimate"
+  ) +
+  causalverse::ama_theme()
+```
+
+A robust result shows that removing any single donor does not substantially change the estimate. Large swings indicate that the estimate is heavily reliant on a specific donor unit.
+
+## LOO Gap Plot for Key Donors
+
+```{r loo-gap-comparison, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+# Compare gap plots: full model vs. dropping top donor
+top_donor_idx <- which.max(omega_full)
+top_donor_name <- rownames(Y_loo)[top_donor_idx]
+cat("Top donor by weight:", top_donor_name,
+    "(weight =", round(omega_full[top_donor_idx], 3), ")\n")
+
+# Full-model gap
+synth_full <- as.vector(t(omega_full) %*% Y_loo[seq_len(N0_loo), ])
+gap_full   <- as.numeric(Y_loo[nrow(Y_loo), ]) - synth_full
+
+# LOO gap (dropping top donor)
+keep_idx     <- setdiff(seq_len(N0_loo), top_donor_idx)
+Y_loo_top    <- Y_loo[c(keep_idx, nrow(Y_loo)), ]
+tau_loo_top  <- synthdid::synthdid_estimate(Y_loo_top, length(keep_idx), T0_loo)
+wts_loo_top  <- attr(tau_loo_top, "weights")$omega
+synth_loo    <- as.vector(t(wts_loo_top) %*% Y_loo_top[seq_len(length(keep_idx)), ])
+gap_loo      <- as.numeric(Y_loo_top[nrow(Y_loo_top), ]) - synth_loo
+
+time_ca_lbl <- as.numeric(colnames(Y_loo))
+treat_yr_ca <- time_ca_lbl[T0_loo + 1]
+
+gap_comp_df <- data.frame(
+  year = rep(time_ca_lbl, 2),
+  gap  = c(gap_full, gap_loo),
+  spec = rep(c(paste0("Full model\n(est=", round(full_est_val, 1), ")"),
+               paste0("Drop ", top_donor_name,
+                      "\n(est=", round(as.numeric(tau_loo_top), 1), ")")),
+             each = length(time_ca_lbl))
+)
+
+ggplot(gap_comp_df, aes(x = year, y = gap, color = spec, linetype = spec)) +
+  geom_hline(yintercept = 0, color = "gray60") +
+  geom_vline(xintercept = treat_yr_ca, linetype = "dashed", color = "gray30") +
+  geom_line(linewidth = 1.0) +
+  scale_color_manual(
+    values = c(
+      setNames("#2166AC", paste0("Full model\n(est=", round(full_est_val, 1), ")")),
+      setNames("#D73027", paste0("Drop ", top_donor_name,
+                                 "\n(est=", round(as.numeric(tau_loo_top), 1), ")"))
+    )
+  ) +
+  labs(
+    title    = "Sensitivity to Top Donor: Gap Plot Comparison",
+    x        = "Year",
+    y        = "Gap (Treated - Synthetic)",
+    color    = NULL,
+    linetype = NULL
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+# Publication Pipeline: End-to-End Example
+
+This section demonstrates a complete publication-ready workflow using the California Proposition 99 data.
+
+## Step 1: Data Description and Balance
+
+```{r pub-balance, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Summarize treated vs. control units (using pre-treatment cigarette sales)
+Y_pub    <- setup_ca$Y
+N0_pub   <- setup_ca$N0
+N_pub    <- nrow(Y_pub)
+
+# Pre-treatment average (outcome proxy as "baseline")
+pre_avg <- rowMeans(Y_pub[, seq_len(T0_loo)])
+unit_df <- data.frame(
+  state       = rownames(Y_pub),
+  group       = c(rep("Control", N0_pub),
+                  rep("Treated", N_pub - N0_pub)),
+  pre_avg_cig = pre_avg
+)
+
+cat("=== Pre-Treatment Outcome Balance ===\n")
+cat("Control states (N =", N0_pub, "):\n")
+cat("  Mean cigarette sales:", round(mean(unit_df$pre_avg_cig[unit_df$group == "Control"]), 1), "\n")
+cat("  SD:", round(sd(unit_df$pre_avg_cig[unit_df$group == "Control"]), 1), "\n\n")
+cat("Treated state (California):\n")
+cat("  Mean cigarette sales:", round(mean(unit_df$pre_avg_cig[unit_df$group == "Treated"]), 1), "\n")
+```
+
+## Step 2: Run All Estimators
+
+```{r pub-estimators, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+results_pub <- causalverse::panel_estimate(
+  setup_ca,
+  selected_estimators = c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
+)
+
+cat("=== All Estimator Results ===\n")
+tbl_pub <- causalverse::process_panel_estimate(results_pub)
+print(tbl_pub)
+```
+
+## Step 3: Extract and Tidy the SynthDID Estimate
+
+```{r pub-tidy, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Tidy the main SDID estimate using causalverse::tidy_causal()
+tidy_sdid <- causalverse::tidy_causal(
+  model      = est_sdid,
+  conf_level = 0.95
+)
+print(tidy_sdid)
+```
+
+## Step 4: Publication Table via `causal_table()`
+
+```{r pub-table, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Build three OLS models for comparison as a publication table example
+# (In practice, replace these with your causal estimates)
+# Use the raw california_prop99 data for an OLS comparison
+ca_df <- synthdid::california_prop99
+ca_df$post <- as.integer(ca_df$Year >= 1989)
+ca_df$calif <- as.integer(ca_df$state == "California")
+ca_df$did_term <- ca_df$post * ca_df$calif
+
+m1 <- lm(PacksPerCapita ~ calif + post, data = ca_df)
+m2 <- lm(PacksPerCapita ~ calif + post + did_term, data = ca_df)
+m3 <- lm(PacksPerCapita ~ calif * post + RetailPrice, data = ca_df)
+
+causal_tbl <- causalverse::causal_table(
+  models    = list(
+    "(1) Groups"  = m1,
+    "(2) DID"     = m2,
+    "(3) Controls"= m3
+  ),
+  coef_map  = c(
+    calif     = "California",
+    post      = "Post-1989",
+    did_term  = "California × Post (DID)",
+    "calif:post" = "California × Post (DID)",
+    RetailPrice  = "Retail Price"
+  ),
+  title     = "Effect of Proposition 99 on Cigarette Sales",
+  notes     = "OLS regressions. Robust SEs. * p<0.1, ** p<0.05, *** p<0.01.",
+  output_format = "dataframe"
+)
+print(causal_tbl)
+```
+
+## Step 5: Final Reporting Summary
+
+```{r pub-summary, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# Final reporting summary
+est_final  <- as.numeric(est_sdid)
+se_final   <- se_placebo_base  # placebo SE for single treated unit
+ci_lo      <- est_final - 1.96 * se_final
+ci_hi      <- est_final + 1.96 * se_final
+p_value    <- 2 * pnorm(-abs(est_final / se_final))
+
+cat("=== Publication Summary: California Prop 99 SynthDID ===\n\n")
+cat("Estimator:            Synthetic Difference-in-Differences\n")
+cat("Data:                 california_prop99 (39 states, 31 years)\n")
+cat("Treatment:            California Proposition 99 (1989)\n")
+cat("Outcome:              Cigarette packs sold per capita per year\n\n")
+cat("Point estimate:      ", round(est_final, 2), "\n")
+cat("Standard error:      ", round(se_final, 2), "(placebo method)\n")
+cat("95% CI:              (", round(ci_lo, 2), ",", round(ci_hi, 2), ")\n")
+cat("p-value:             ", format.pval(p_value, digits = 3), "\n\n")
+cat("Interpretation: Proposition 99 reduced cigarette sales by approximately\n")
+cat(abs(round(est_final, 1)), "packs per capita per year in California\n")
+cat("relative to the synthetic counterfactual.\n")
+```
+
+# References

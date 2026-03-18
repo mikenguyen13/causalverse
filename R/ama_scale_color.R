@@ -21,7 +21,7 @@ ama_scale_color <- function(use_color = FALSE, palette_name = "OkabeIto", graysc
   if (is.factor(data[[aes_mapping]]) || is.character(data[[aes_mapping]])) {
     if (use_color) {
       colors <- grDevices::palette.colors(palette = palette_name)
-      return(scale_color_manual(values = colors))
+      return(ggplot2::scale_color_manual(values = colors))
     } else {
       return(ggplot2::scale_color_grey(start = grayscale_limits[1], end = grayscale_limits[2]))
     }

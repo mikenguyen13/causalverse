@@ -11,6 +11,8 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
   collapse = TRUE,
   comment = "#>",
   cache = TRUE
@@ -20,7 +22,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(causalverse)
 library(ggplot2)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
 ```
 
 ## **Introduction to the `causalverse` Package**
@@ -33,19 +36,23 @@ To enable a comprehensive understanding of each causal inference method, **`caus
 
 Here's a snapshot of our method-specific vignettes:
 
-1.  **Randomized Control Trials (RCT)**: Although **`causalverse`** primarily focuses on quasi-experimental methods using observational data, we recognize the importance of experimental methods in causal research. The **`rct`** vignette presents a detailed overview of Randomized Control Trials, the gold standard of experimental research.
+1.  **[Randomized Control Trials (RCT)](d_rct.html)**: The gold standard of experimental research. Covers balance checking, treatment effect estimation, heterogeneous effects, and power analysis.
 
-2.  **Regression Discontinuity (RD)**
+2.  **[Regression Discontinuity (RD)](e_rd.html)**: Sharp and fuzzy RD designs, manipulation testing, and bounds analysis with `rdbounds`.
 
-3.  **Synthetic Difference-in-differences (SynthDID)**
+3.  **[Synthetic Difference-in-Differences (SynthDID)](b_synthdid.html)**: The method by Arkhangelsky et al. (2021) combining synthetic controls with DID, including staggered adoption and multiple estimators.
 
-4.  **Difference in Differences (DID)**
+4.  **[Difference in Differences (DID)](c_did.html)**: Traditional and modern DID approaches including PanelMatch, Callaway & Sant'Anna, and stacked DID.
 
-5.  **Synthetic Controls (SC)**
+5.  **[Synthetic Controls (SC)](f_sc.html)**: The Abadie et al. (2010) method for comparative case studies, with ridge-regularized and de-meaned variants.
 
-6.  **Instrumental Variables (IV)**
+6.  **[Instrumental Variables (IV)](g_iv.html)**: Two-stage least squares estimation, weak instrument diagnostics, and IV with fixed effects.
 
-7.  **Event Studies (EV)**
+7.  **[Event Studies - Finance (EV)](h_event_study.html)**: Finance event studies measuring abnormal stock returns around corporate events (M&A, earnings announcements, etc.), including CAR, BHAR, and factor models. Note: econometric event studies (dynamic treatment effects, pre-trends) are covered in the DID vignette.
+
+8.  **[Matching Methods](i_matching.html)**: Propensity score matching, coarsened exact matching, entropy balancing, and comprehensive balance diagnostics.
+
+9.  **[Sensitivity Analysis and Robustness](j_sensitivity.html)**: Omitted variable bias sensitivity, Rosenbaum bounds, specification curves, placebo tests, and multiple testing corrections.
 
 **A Note on Methodologies**
 
@@ -55,7 +62,7 @@ The majority of methods covered in **`causalverse`** pertain to quasi-experiment
 
 As you embark on your journey with **`causalverse`**, we recommend starting with this introductory vignette to familiarize yourself with the package's architecture and offerings. Then, delve into the method-specific vignettes that align with your research objectives or peruse them all for a holistic understanding.
 
-I hope this provides a clearer and professional introduction for your vignette. If you have any additional inputs or refinements, please let me know!
+Happy causal inferencing!
 
 ### Reporting
 
@@ -333,6 +340,42 @@ plot <- plot_trends_across_group(
 print(plot)
 ```
 
+## New Utility Functions
+
+In addition to the method-specific vignettes, **`causalverse`** provides a growing set of utility functions that automate common research workflows:
+
+### Robustness & Diagnostics
+
+- `spec_curve()`: Specification curve analysis - runs multiple model specifications and produces a sorted coefficient plot with a panel showing which analytical choices were active.
+- `bacon_decomp_plot()`: Publication-ready scatter plot of the Goodman-Bacon (2021) TWFE decomposition.
+- `sensitivity_plot()`: Plots how treatment effects change under varying degrees of unobserved confounding.
+- `test_pretrends()`: Unified pre-trends testing with joint F-test and optional HonestDiD sensitivity analysis.
+
+### Regression Discontinuity
+
+- `rd_bandwidth_sensitivity()`: Automated bandwidth sensitivity analysis for RD designs using `rdrobust`.
+- `rd_covariate_balance()`: Tests covariate balance at the RD cutoff across multiple covariates.
+- `rd_placebo_cutoffs()`: Falsification test running RD estimation at placebo cutoff values.
+
+### Instrumental Variables
+
+- `iv_diagnostic_summary()`: One-stop summary table of IV diagnostics (first-stage F, Wu-Hausman, Sargan J-test).
+
+### Matching & Propensity Scores
+
+- `plot_pscore_overlap()`: Propensity score overlap diagnostic plot with optional trimming thresholds.
+
+### Visualization
+
+- `plot_event_coefs()`: General-purpose ggplot2 event study coefficient plot accepting output from multiple estimators.
+- `plot_coef_comparison()`: Forest plot comparing treatment effects across models or subgroups.
+- `compare_estimators()`: Formatted comparison table of estimates from diverse causal estimators.
+
+### Package Management
+
+- `install_backends()`: Install all suggested backend packages at once, or by method category (e.g., `install_backends("did")`).
+- `check_backends()`: Check which backend packages are installed and which are missing.
+
 ## Other Functions
 
 Mediation Analysis
@@ -341,3 +384,571 @@ Mediation Analysis
 result <- med_ind(a = 0.5, b = 0.7, var_a = 0.04, var_b = 0.05, cov_ab = 0.01)
 result$plot
 ```
+
+## Package Overview: Functions by Method Category
+
+The table below organizes all major `causalverse` functions by the causal inference method they support.
+
+| Category | Function | Purpose |
+|---|---|---|
+| **Visualization / Reporting** | `ama_theme()` | AMA-style ggplot2 theme |
+| | `ama_labs()` | AMA-compliant plot labels |
+| | `ama_scale_fill()` | AMA fill palette |
+| | `ama_scale_color()` | AMA color palette |
+| | `ama_export_fig()` | Export figures at print resolution |
+| | `ama_export_tab()` | Export tables to Word/LaTeX |
+| | `nice_tab()` | Quick formatted table |
+| | `plot_trends_across_group()` | Model-free evidence panel |
+| | `plot_event_coefs()` | Event study coefficient plot |
+| | `plot_coef_comparison()` | Forest plot across models |
+| **DID / TWFE** | `bacon_decomp_plot()` | Goodman-Bacon decomposition |
+| | `did_event_study()` | Dynamic treatment effects |
+| | `test_pretrends()` | Joint pre-trend test + HonestDiD |
+| | `stack_data()` | Stack data for stacked DiD |
+| | `compare_estimators()` | Compare DiD estimators |
+| **Synthetic DID** | `panel_estimate()` | Multi-estimator SDID wrapper |
+| | `process_panel_estimate()` | Format SDID results |
+| | `synthdid_est_ate()` | Staggered SDID ATE |
+| | `synthdid_est_per()` | Per-period SDID effects |
+| | `synthdid_plot_ate()` | Plot staggered ATE |
+| | `synthdid_se_placebo()` | Per-period placebo SE |
+| | `synthdid_se_jacknife()` | Per-period jackknife SE |
+| | `sc_gap_plot()` | Gap plot with placebos |
+| | `treatment_calendar()` | Treatment timing heatmap |
+| | `staggered_summary()` | Cohort structure summary |
+| **Regression Discontinuity** | `rd_bandwidth_sensitivity()` | Bandwidth sensitivity |
+| | `rd_covariate_balance()` | Balance at cutoff |
+| | `rd_placebo_cutoffs()` | Placebo cutoff test |
+| | `rd_assumption_tests()` | Density and covariate tests |
+| **Instrumental Variables** | `iv_diagnostic_summary()` | First-stage, Wu-Hausman, Sargan |
+| | `iv_sensitivity()` | Sensitivity to instrument strength |
+| **Matching** | `plot_pscore_overlap()` | Overlap diagnostic |
+| | `love_plot()` | Love plot for covariate balance |
+| | `balance_table()` | Formatted balance table |
+| | `overlap_weights()` | Overlap weighting estimator |
+| **Sensitivity** | `sensitivity_plot()` | Sensitivity to unmeasured confounding |
+| | `spec_curve()` | Specification curve analysis |
+| | `placebo_test()` | Generic placebo test |
+| **Effect Sizes & Power** | `effect_size_convert()` | Convert between effect size metrics |
+| | `mde_calc()` | Minimum detectable effect |
+| | `did_power_analysis()` | DiD-specific power analysis |
+| **Reporting** | `tidy_causal()` | Tidy estimates from any model |
+| | `causal_table()` | Publication regression table |
+| | `covariate_summary()` | Table 1 with SMD |
+| **Utilities** | `install_backends()` | Install suggested packages |
+| | `check_backends()` | Check which backends are available |
+| | `get_balanced_panel()` | Enforce balanced panel structure |
+| | `med_ind()` | Mediation indirect effect |
+
+## Quick-Start: Three-Line Examples
+
+Below are minimal working examples for the most common causal inference tasks.
+
+```{r quick-start-did, eval=TRUE, message=FALSE}
+# --- DiD: Callaway & Sant'Anna via fixest ---
+library(fixest)
+library(dplyr)
+
+df_did_qs <- fixest::base_did |>
+  dplyr::mutate(
+    treatment = as.integer(if_else(treat == 0, 0, post))
+  )
+feols(y ~ i(period, treat, ref = 4) | id + period,
+      data = df_did_qs, cluster = ~id) |>
+  iplot(main = "Quick-start: DiD Event Study (fixest)")
+```
+
+```{r quick-start-mde, eval=TRUE, message=FALSE}
+# --- MDE for a DiD design ---
+mde_result <- causalverse::mde_calc(n = 500, design = "did", plot = FALSE)
+cat("MDE (DiD, n=500):", round(mde_result$mde, 4),
+    "| Cohen's d:", round(mde_result$mde_std, 4), "\n")
+```
+
+```{r quick-start-synthdid, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# --- SynthDID: three lines ---
+library(synthdid)
+setup_qs <- synthdid::panel.matrices(synthdid::california_prop99)
+cat("SynthDID ATT:",
+    round(as.numeric(synthdid::synthdid_estimate(
+      setup_qs$Y, setup_qs$N0, setup_qs$T0)), 2), "\n")
+```
+
+## Decision Guide: Which Method to Use?
+
+The choice of causal inference method depends primarily on the structure of treatment assignment:
+
+| Treatment Assignment | Best Method(s) |
+|---|---|
+| Randomized (RCT) | OLS with randomization inference; `feols()` with robust SE |
+| Running variable / cutoff | RD: `rdrobust::rdrobust()` + `rd_bandwidth_sensitivity()` |
+| Instrument available | 2SLS: `ivreg::ivreg()` or `fixest::feols(y ~ 1 | x ~ z)` |
+| Panel, parallel trends | DID: `fixest::feols()` + `test_pretrends()` |
+| Panel, staggered adoption | Stacked DiD or CS DiD + `compare_estimators()` |
+| Panel, few treated units | Synthetic Control or SynthDID: `panel_estimate()` |
+| Panel, want robustness | SynthDID: `panel_estimate()` with all three estimators |
+| Cross-section, selection on observables | Matching: `MatchIt` + `love_plot()` + `balance_table()` |
+
+---
+
+## New Utility Functions Showcase
+
+### `tidy_causal()`: Unified Model Output
+
+`tidy_causal()` extracts estimates, standard errors, CIs, and p-values from a wide range of model classes into a consistent data frame. This is particularly useful when comparing models estimated with different packages.
+
+```{r tidy-causal-lm, eval=TRUE, message=FALSE}
+# OLS
+mod_lm <- lm(mpg ~ am + wt + hp, data = mtcars)
+tidy_lm <- causalverse::tidy_causal(mod_lm, term = "am")
+print(tidy_lm)
+```
+
+```{r tidy-causal-fixest, eval=TRUE, message=FALSE}
+# fixest with fixed effects
+library(fixest)
+mod_fe <- feols(mpg ~ am + wt | cyl, data = mtcars)
+tidy_fe <- causalverse::tidy_causal(mod_fe, term = "am")
+print(tidy_fe)
+```
+
+```{r tidy-causal-synthdid, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+# synthdid_estimate object
+library(synthdid)
+setup_tc <- synthdid::panel.matrices(synthdid::california_prop99)
+tau_tc   <- synthdid::synthdid_estimate(setup_tc$Y, setup_tc$N0, setup_tc$T0)
+tidy_sdid_tc <- causalverse::tidy_causal(tau_tc)
+print(tidy_sdid_tc)
+```
+
+The uniform output format makes it easy to combine results from different methods into a single comparison.
+
+### `causal_table()`: Publication-Ready Comparison Table
+
+`causal_table()` wraps `modelsummary::modelsummary()` with sensible defaults for causal inference papers.
+
+```{r causal-table-example, eval=TRUE, message=FALSE}
+# Three specifications for the effect of transmission type on fuel efficiency
+m_bivariate <- lm(mpg ~ am, data = mtcars)
+m_controls  <- lm(mpg ~ am + wt, data = mtcars)
+m_full      <- lm(mpg ~ am + wt + hp + as.factor(cyl), data = mtcars)
+
+tbl_out <- causalverse::causal_table(
+  models    = list(
+    "(1) Bivariate"      = m_bivariate,
+    "(2) + Weight"       = m_controls,
+    "(3) + Engine"       = m_full
+  ),
+  coef_map  = c(
+    am    = "Manual Transmission",
+    wt    = "Weight (1000 lbs)",
+    hp    = "Horsepower"
+  ),
+  title     = "Effect of Transmission Type on MPG",
+  notes     = "OLS. * p<0.1, ** p<0.05, *** p<0.01.",
+  output_format = "dataframe"
+)
+print(tbl_out)
+```
+
+### `effect_size_convert()`: Translating Effect Sizes
+
+Research consumers often need effect sizes expressed in multiple metrics (Cohen's d, NNT, odds ratio). `effect_size_convert()` handles all common conversions.
+
+```{r effect-size-convert, eval=TRUE, message=FALSE}
+# Convert Cohen's d = 0.3 to all available metrics
+result_esc <- causalverse::effect_size_convert(
+  value         = 0.3,
+  from          = "cohens_d",
+  to            = c("nnt", "rd", "or", "pct_change", "eta2"),
+  baseline_risk = 0.15,
+  verbose       = TRUE
+)
+```
+
+```{r effect-size-unstd, eval=TRUE, message=FALSE}
+# Convert an unstandardized coefficient to Cohen's d
+# (e.g., a wage effect of $5.20 with SD = $15.30)
+result_unstd <- causalverse::effect_size_convert(
+  value      = 5.20,
+  from       = "unstd",
+  to         = c("cohens_d", "nnt", "pct_change"),
+  sd_outcome = 15.30,
+  verbose    = TRUE
+)
+```
+
+### `compare_estimators()`: Head-to-Head Method Comparison
+
+```{r compare-estimators, eval=TRUE, message=FALSE}
+# Build several models and compare their treatment effect estimates
+mod1 <- lm(mpg ~ am, data = mtcars)
+mod2 <- lm(mpg ~ am + wt + hp, data = mtcars)
+mod3 <- feols(mpg ~ am + wt | cyl, data = mtcars)
+
+est_list <- list(
+  "OLS (bivariate)"   = causalverse::tidy_causal(mod1, term = "am"),
+  "OLS (controls)"    = causalverse::tidy_causal(mod2, term = "am"),
+  "TWFE (cyl FE)"     = causalverse::tidy_causal(mod3, term = "am")
+)
+
+# Bind together for display
+comp_tbl <- do.call(rbind, lapply(names(est_list), function(nm) {
+  df <- est_list[[nm]]
+  df$model <- nm
+  df[, c("model", "term", "estimate", "std_error", "p_value", "ci_lower", "ci_upper")]
+}))
+print(comp_tbl)
+```
+
+### `balance_table()`: Covariate Balance Assessment
+
+```{r balance-table-example, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE}
+library(MatchIt)
+data("lalonde")
+
+# Unmatched balance
+bal_unmatched <- causalverse::balance_table(
+  data          = lalonde,
+  treat_var     = "treat",
+  cov_vars      = c("age", "educ", "re74", "re75", "married", "nodegree"),
+  label_map     = c(
+    age      = "Age",
+    educ     = "Years of Education",
+    re74     = "Earnings 1974 ($)",
+    re75     = "Earnings 1975 ($)",
+    married  = "Married",
+    nodegree = "No High School Degree"
+  )
+)
+print(bal_unmatched)
+```
+
+---
+
+## Covariate Summary: Publication-Ready Table 1
+
+`covariate_summary()` produces a "Table 1" with means, standard deviations, group differences, p-values, and standardized mean differences (SMD) — all in a single call.
+
+```{r covariate-summary-lalonde, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE}
+library(MatchIt)
+data("lalonde")
+
+tbl1 <- causalverse::covariate_summary(
+  data      = lalonde,
+  treatment = "treat",
+  vars      = c("age", "educ", "re74", "re75", "married", "nodegree"),
+  var_labels = c(
+    age      = "Age (years)",
+    educ     = "Education (years)",
+    re74     = "Earnings 1974 ($)",
+    re75     = "Earnings 1975 ($)",
+    married  = "Married (%)",
+    nodegree = "No HS Degree (%)"
+  ),
+  caption   = "Table 1. Baseline Characteristics by Treatment Status (LaLonde Data)"
+)
+
+print(tbl1)
+```
+
+The `smd` column shows the standardized mean difference between treatment and control groups. Values below 0.1 in absolute terms are generally considered well-balanced.
+
+```{r covariate-summary-mtcars, eval=TRUE, message=FALSE}
+# Works with any dataset — here using mtcars with am as treatment
+tbl1_cars <- causalverse::covariate_summary(
+  data      = mtcars,
+  treatment = "am",
+  vars      = c("mpg", "wt", "hp", "disp", "qsec"),
+  var_labels = c(
+    mpg  = "Miles per Gallon",
+    wt   = "Weight (1000 lbs)",
+    hp   = "Horsepower",
+    disp = "Displacement (cu.in.)",
+    qsec = "Quarter-Mile Time (sec)"
+  ),
+  caption   = "Table 1. Vehicle Characteristics by Transmission Type (mtcars)"
+)
+print(tbl1_cars)
+```
+
+---
+
+## Power Analysis
+
+### Minimum Detectable Effect with `mde_calc()`
+
+`mde_calc()` computes the smallest effect detectable at a given power level and generates a power curve showing how the MDE shrinks with increasing sample size.
+
+```{r mde-basic, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# Standard t-test MDE
+mde_ttest <- causalverse::mde_calc(
+  n      = 200,
+  design = "ttest",
+  sd     = 1,
+  alpha  = 0.05,
+  power  = 0.80,
+  plot   = TRUE
+)
+cat("MDE (t-test, n=200):    ", round(mde_ttest$mde, 4), "\n")
+cat("Cohen's d equivalent:   ", round(mde_ttest$mde_std, 4), "\n")
+mde_ttest$plot + causalverse::ama_theme()
+```
+
+```{r mde-did, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# DiD design MDE — note DiD requires ~2x the sample for the same precision
+mde_did <- causalverse::mde_calc(
+  n      = 500,
+  design = "did",
+  sd     = 1,
+  alpha  = 0.05,
+  power  = 0.80,
+  r2     = 0.3,   # 30% variance explained by pre-treatment covariates
+  plot   = TRUE
+)
+cat("MDE (DiD, n=500, R2=0.3):", round(mde_did$mde, 4), "\n")
+cat("Effective N after DEFF:  ", round(mde_did$effective_n, 1), "\n")
+mde_did$plot + causalverse::ama_theme()
+```
+
+```{r mde-cluster, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# Clustered trial: ICC inflates required sample
+mde_cluster <- causalverse::mde_calc(
+  n            = 500,
+  design       = "cluster",
+  icc          = 0.05,
+  cluster_size = 25,
+  plot         = TRUE
+)
+cat("MDE (clustered, ICC=0.05, m=25):", round(mde_cluster$mde, 4), "\n")
+cat("Design effect (DEFF):           ", round(mde_cluster$design_effect, 3), "\n")
+mde_cluster$plot + causalverse::ama_theme()
+```
+
+### DiD Power Analysis with `did_power_analysis()`
+
+`did_power_analysis()` extends `mde_calc()` for DiD-specific designs, incorporating serial autocorrelation and multi-period panels.
+
+```{r did-power-basic, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# Two-period DiD: solve for power given a small treatment effect
+pwr_did <- causalverse::did_power_analysis(
+  n_treated   = 100,
+  n_control   = 200,
+  effect_size = 0.3,
+  sd_outcome  = 1,
+  n_periods   = 2,
+  pre_periods = 1,
+  alpha       = 0.05,
+  plot        = TRUE
+)
+cat("=== DiD Power Analysis ===\n")
+cat("N treated:", pwr_did$n_treated, "| N control:", pwr_did$n_control, "\n")
+cat("Effect size:", pwr_did$effect_size, "| SE:", round(pwr_did$se_did, 4), "\n")
+cat("Power:", round(pwr_did$power, 3), "\n")
+pwr_did$plot + causalverse::ama_theme()
+```
+
+```{r did-power-autocorr, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+# Multi-period panel with serial autocorrelation (reduces effective N)
+pwr_did_ar <- causalverse::did_power_analysis(
+  n_treated   = 50,
+  n_control   = 100,
+  effect_size = 0.4,
+  sd_outcome  = 1,
+  n_periods   = 8,
+  pre_periods = 4,
+  rho         = 0.4,   # moderate autocorrelation
+  alpha       = 0.05,
+  plot        = TRUE
+)
+cat("Power (with autocorrelation rho=0.4):", round(pwr_did_ar$power, 3), "\n")
+cat("Design effect:", round(pwr_did_ar$design_effect, 3), "\n")
+pwr_did_ar$plot + causalverse::ama_theme()
+```
+
+```{r did-power-mde, eval=TRUE, message=FALSE}
+# Solve for MDE given a fixed sample
+mde_did_pa <- causalverse::did_power_analysis(
+  n_treated   = 100,
+  n_control   = 100,
+  n_periods   = 4,
+  pre_periods = 2,
+  solve_for   = "mde",
+  plot        = FALSE
+)
+cat("MDE (DiD, N=100+100, T=4):", round(mde_did_pa$mde, 4), "\n")
+```
+
+### Power Curves: Comparing Designs
+
+```{r power-curves-compare, eval=TRUE, message=FALSE, fig.width=8, fig.height=5}
+set.seed(42)
+
+# Grid of sample sizes
+n_grid <- seq(20, 600, by = 20)
+effect <- 0.25  # target effect size (Cohen's d)
+
+# Compute power for t-test and DiD across sample sizes
+power_ttest <- vapply(n_grid, function(n) {
+  res <- causalverse::did_power_analysis(
+    n_treated = floor(n / 2), n_control = n - floor(n / 2),
+    effect_size = effect, sd_outcome = 1,
+    n_periods = 2, pre_periods = 1,
+    plot = FALSE, solve_for = "power"
+  )
+  res$power
+}, numeric(1))
+
+power_did <- vapply(n_grid, function(n) {
+  res <- causalverse::did_power_analysis(
+    n_treated = floor(n / 2), n_control = n - floor(n / 2),
+    effect_size = effect, sd_outcome = 1,
+    n_periods   = 6, pre_periods = 3,
+    rho         = 0.3,
+    plot = FALSE, solve_for = "power"
+  )
+  res$power
+}, numeric(1))
+
+power_df <- data.frame(
+  n     = rep(n_grid, 2),
+  power = c(power_ttest, power_did),
+  design = rep(c("2-period DiD (rho=0)", "6-period DiD (rho=0.3)"), each = length(n_grid))
+)
+
+ggplot(power_df, aes(x = n, y = power, color = design, linetype = design)) +
+  geom_line(linewidth = 1.1) +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "gray40") +
+  annotate("text",
+    x = max(n_grid) * 0.95, y = 0.82,
+    label = "80% power", hjust = 1, size = 3.2, color = "gray40"
+  ) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent_format()) +
+  scale_color_manual(values = c("#2166AC", "#D73027")) +
+  labs(
+    title    = "Power Curves: DiD Designs Compared",
+    subtitle = paste0("True effect size = ", effect, " SD units"),
+    x        = "Total Sample Size",
+    y        = "Statistical Power",
+    color    = "Design",
+    linetype = "Design"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+---
+
+## Treatment Calendar and Staggered Adoption Summary
+
+These two functions are essential for communicating the structure of staggered adoption designs to readers and reviewers.
+
+### Treatment Calendar
+
+```{r treatment-calendar-intro, eval=TRUE, message=FALSE, fig.width=9, fig.height=5}
+library(fixest)
+library(dplyr)
+
+# Prepare base_stagg with a proper binary treatment indicator
+df_stagg_intro <- fixest::base_stagg |>
+  dplyr::mutate(
+    treatment = as.integer(time_to_treatment >= 0 & year_treated <= 7)
+  )
+
+causalverse::treatment_calendar(
+  data      = df_stagg_intro,
+  unit_var  = "id",
+  time_var  = "year",
+  treat_var = "treatment",
+  max_units = 50,
+  title     = "Staggered Adoption: Treatment Timing Calendar"
+) + causalverse::ama_theme(base_size = 10)
+```
+
+### Staggered Summary
+
+```{r staggered-summary-intro, eval=TRUE, message=FALSE, fig.width=7, fig.height=3}
+summ_intro <- causalverse::staggered_summary(
+  data      = df_stagg_intro,
+  unit_var  = "id",
+  time_var  = "year",
+  treat_var = "treatment",
+  plot      = TRUE
+)
+
+cat("=== Staggered Design Summary ===\n")
+cat(summ_intro$message, "\n\n")
+cat("Cohort sizes:\n")
+print(summ_intro$cohort_sizes)
+
+summ_intro$cohort_plot + causalverse::ama_theme()
+```
+
+---
+
+## Effect Size Reporting for Publications
+
+### Converting a Regression Coefficient
+
+A common reporting challenge is translating regression coefficients into effect sizes that non-specialist readers can interpret.
+
+```{r effect-size-full, eval=TRUE, message=FALSE}
+# Suppose a DiD estimate shows wages increase by $2,800 (SD = $12,000)
+causalverse::effect_size_convert(
+  value         = 2800,
+  from          = "unstd",
+  sd_outcome    = 12000,
+  to            = c("cohens_d", "pct_change", "nnt"),
+  baseline_risk = 0.30,
+  verbose       = TRUE
+)
+```
+
+### Publication Table Workflow
+
+```{r publication-table-full, eval=TRUE, message=FALSE}
+# Typical research table comparing multiple specifications
+data(mtcars)
+set.seed(123)
+
+spec1 <- lm(mpg ~ am, data = mtcars)
+spec2 <- lm(mpg ~ am + wt, data = mtcars)
+spec3 <- lm(mpg ~ am + wt + hp, data = mtcars)
+
+pub_tbl <- causalverse::causal_table(
+  models = list(
+    "(1) Baseline"   = spec1,
+    "(2) + Weight"   = spec2,
+    "(3) + Power"    = spec3
+  ),
+  coef_map = c(
+    am = "Automatic to Manual",
+    wt = "Weight (1000 lbs)",
+    hp = "Horsepower"
+  ),
+  title  = "Treatment Effect of Manual Transmission on Fuel Efficiency",
+  notes  = "Dependent variable: miles per gallon. OLS estimates. * p<0.1, ** p<0.05, *** p<0.01.",
+  output_format = "dataframe"
+)
+print(pub_tbl)
+```
+
+The coefficient on `am` shrinks substantially once we control for weight, illustrating the importance of covariate adjustment in observational settings.
+
+---
+
+## Putting It All Together: A Complete Workflow
+
+The following sketch outlines a typical end-to-end causal inference workflow using `causalverse`:
+
+1. **Visualize raw data** with `plot_trends_across_group()` or `treatment_calendar()`.
+2. **Describe the sample** with `covariate_summary()` (Table 1).
+3. **Assess balance** with `balance_table()` or `love_plot()`.
+4. **Estimate the treatment effect** using the appropriate method (DiD, RD, IV, SynthDID, Matching).
+5. **Inspect diagnostics** with `test_pretrends()`, `rd_bandwidth_sensitivity()`, or `iv_diagnostic_summary()`.
+6. **Quantify uncertainty** with appropriate SE methods and `tidy_causal()`.
+7. **Check robustness** with `spec_curve()`, `sensitivity_plot()`, or `placebo_test()`.
+8. **Compute power** retrospectively with `mde_calc()` or `did_power_analysis()`.
+9. **Report** with `causal_table()` and `effect_size_convert()`.
+
+Each step has dedicated `causalverse` functions, and the method-specific vignettes walk through complete examples for each design type.

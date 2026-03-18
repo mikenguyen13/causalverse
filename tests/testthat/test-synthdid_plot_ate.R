@@ -1,8 +1,7 @@
 library(testthat)
 library(ggplot2)
-library(tidyverse)
+library(dplyr)
 library(causalverse)
-library(tidyverse)
 data <- fixest::base_stagg |>
   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar)))
@@ -23,5 +22,5 @@ est <-
 
 test_that("synthdid_plot returns a ggplot object", {
   plot <- synthdid_plot_ate(est)
-  expect_true(is.ggplot(plot))
+  expect_true(is_ggplot(plot))
 })

@@ -1,0 +1,2258 @@
+---
+title: "7. Event Studies (Finance)"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{7. Event Studies (Finance)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+library(causalverse)
+library(fixest)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+# 1. Introduction
+
+## 1.1 What Is a Finance Event Study?
+
+The **finance event study** is one of the most widely used empirical methods in financial economics. Its purpose is to measure the impact of a specific economic event on the value of a firm by examining abnormal stock returns around the time of that event. The logic is rooted in the efficient markets hypothesis: if markets are informationally efficient, the effect of a new piece of information (an "event") should be reflected quickly in security prices. By comparing observed returns to a benchmark of "normal" returns, the researcher isolates the **abnormal return** attributable to the event.
+
+Finance event studies have been applied to an enormous range of corporate and economic events, including:
+
+- **Earnings announcements** -- measuring how the market responds to unexpected earnings surprises.
+- **Mergers and acquisitions** -- assessing wealth effects for acquiring and target firm shareholders.
+- **Dividend announcements** -- testing dividend signaling hypotheses.
+- **Stock splits** -- evaluating the information content of split decisions.
+- **Regulatory and policy changes** -- quantifying how new regulations affect firm value.
+- **CEO turnover** -- measuring the market's assessment of leadership changes.
+- **Credit rating changes** -- assessing the informational value of ratings.
+- **Natural disasters and geopolitical shocks** -- evaluating exposure and market resilience.
+
+The core output of a finance event study is the **abnormal return (AR)** for individual event dates and the **cumulative abnormal return (CAR)** aggregated over a short window surrounding the event. These quantities, combined with appropriate statistical tests, allow researchers to draw inferences about whether an event conveyed economically significant new information to the market.
+
+## 1.2 A Brief History
+
+The finance event study has a long and distinguished lineage:
+
+- **Ball and Brown (1968)** pioneered the methodology by studying the information content of annual earnings announcements, showing that stock prices adjust to earnings information in advance of the formal announcement date.
+- **Fama, Fisher, Jensen, and Roll (1969)** provided the first rigorous event study of stock splits, establishing many of the methodological conventions still used today. Their paper demonstrated that the event study could isolate the effect of a single event from other concurrent market movements.
+- **Brown and Warner (1980, 1985)** conducted extensive simulation studies evaluating the statistical properties of event study methods, both for monthly and daily data. Their work established the conditions under which standard tests are well-specified and powerful.
+- **MacKinlay (1997)** authored the definitive survey of finance event study methodology, covering estimation procedures, statistical tests, and practical considerations. This paper remains the standard reference.
+- **Campbell, Lo, and MacKinlay (1997)** provided textbook treatment of the methodology in Chapter 4 of *The Econometrics of Financial Markets*.
+- **Kothari and Warner (2007)** surveyed the evolution of event study methods with particular emphasis on long-horizon studies and their statistical challenges.
+
+## 1.3 Finance Event Studies vs. Econometric Event Studies
+
+It is essential to distinguish **finance event studies** from **econometric event studies** (also called dynamic DID or event-study designs in the causal inference literature). These are fundamentally different methodologies despite sharing the name "event study":
+
+| Feature | Finance Event Study | Econometric Event Study |
+|---|---|---|
+| **Outcome** | Stock returns (or other asset prices) | Any panel outcome (wages, crime, health, etc.) |
+| **Benchmark** | Market model, factor model | Parallel trends (control group) |
+| **Window** | Typically short (days) | Often long (months/years) |
+| **Unit** | Individual security | Treated vs. control units |
+| **Goal** | Measure abnormal return | Estimate dynamic treatment effects |
+| **Key assumption** | Efficient markets | Parallel trends |
+| **Key references** | MacKinlay (1997), Fama et al. (1969) | Sun & Abraham (2021), Callaway & Sant'Anna (2021) |
+
+The econometric event study is covered in other vignettes in this package (see the DID and staggered treatment vignettes). This vignette focuses exclusively on the finance tradition.
+
+
+# 2. The Event Study Framework
+
+## 2.1 Timeline and Windows
+
+A finance event study divides time into three distinct windows relative to the event date $\tau = 0$:
+
+1. **Estimation window** $[T_0, T_1]$: A period before the event used to estimate the parameters of the normal return model. A common choice is $T_0 = -270$ to $T_1 = -21$ (i.e., roughly one trading year ending 21 days before the event). The estimation window should be long enough to obtain precise parameter estimates but should not overlap with the event window, so that the event itself does not contaminate the normal return model.
+
+2. **Event window** $[T_1 + 1, T_2]$: The period surrounding the event date over which abnormal returns are computed. Common choices include:
+   - $(-1, +1)$: a three-day window capturing the announcement day and one day on either side (to account for after-hours announcements and information leakage).
+   - $(-5, +5)$: an eleven-day window for events where information may leak or the market may take longer to fully process the news.
+   - $(-10, +10)$: a twenty-one-day window used for events with greater uncertainty about the precise information release date.
+   - $(0, 0)$: a single-day window when the event date is known precisely.
+
+3. **Post-event window** $[T_2 + 1, T_3]$: An optional window used in long-run event studies to assess whether the market's initial reaction is permanent or transient.
+
+The timeline can be visualized as follows:
+
+```
+|<--- Estimation Window --->|  Gap  |<-- Event Window -->|<-- Post-Event -->|
+T0                          T1      T1+1    tau=0     T2  T2+1            T3
+```
+
+The **gap** between the estimation window and the event window (often 10-20 trading days) is a buffer to prevent contamination from pre-event information leakage.
+
+## 2.2 Normal Return Models
+
+The normal return model specifies the expected return for security $i$ at time $t$ in the absence of the event. The abnormal return is then the difference between the actual return and this expected return. Several models are commonly used:
+
+### 2.2.1 Constant Mean Return Model
+
+The simplest model assumes that the expected return for security $i$ is constant over time:
+
+$$E[R_{it}] = \mu_i$$
+
+The abnormal return is:
+
+$$AR_{it} = R_{it} - \hat{\mu}_i$$
+
+where $\hat{\mu}_i$ is the sample mean return of security $i$ over the estimation window. This model is surprisingly effective in short-window studies because the variance of abnormal returns is dominated by the firm-specific component, not the expected return component (Brown and Warner, 1985).
+
+### 2.2.2 Market Model
+
+The **market model** is the workhorse of finance event studies. It assumes a linear relationship between the return on security $i$ and the return on the market portfolio:
+
+$$R_{it} = \alpha_i + \beta_i R_{mt} + \varepsilon_{it}$$
+
+where $R_{mt}$ is the market return (typically the CRSP value-weighted index or S&P 500), $\alpha_i$ and $\beta_i$ are firm-specific parameters estimated by OLS over the estimation window, and $\varepsilon_{it}$ is the zero-mean disturbance term. The abnormal return is:
+
+$$AR_{it} = R_{it} - \hat{\alpha}_i - \hat{\beta}_i R_{mt}$$
+
+The market model generally reduces the variance of abnormal returns relative to the constant mean return model (because it removes the portion of return variation attributable to market-wide movements), thereby increasing the power of statistical tests.
+
+### 2.2.3 Market-Adjusted Return Model
+
+The market-adjusted return model is a restricted version of the market model with $\alpha_i = 0$ and $\beta_i = 1$:
+
+$$AR_{it} = R_{it} - R_{mt}$$
+
+This model requires no estimation window and is useful when the estimation window is contaminated or unavailable. It implicitly assumes that all firms have the same systematic risk exposure.
+
+### 2.2.4 Fama-French Three-Factor Model
+
+The Fama and French (1993) three-factor model extends the market model to include size and value factors:
+
+$$R_{it} - R_{ft} = \alpha_i + \beta_{i,MKT}(R_{mt} - R_{ft}) + \beta_{i,SMB} \cdot SMB_t + \beta_{i,HML} \cdot HML_t + \varepsilon_{it}$$
+
+where $R_{ft}$ is the risk-free rate, $SMB_t$ is the small-minus-big size factor, and $HML_t$ is the high-minus-low value factor.
+
+### 2.2.5 Carhart Four-Factor Model
+
+Carhart (1997) adds a momentum factor to the Fama-French model:
+
+$$R_{it} - R_{ft} = \alpha_i + \beta_{i,MKT}(R_{mt} - R_{ft}) + \beta_{i,SMB} \cdot SMB_t + \beta_{i,HML} \cdot HML_t + \beta_{i,UMD} \cdot UMD_t + \varepsilon_{it}$$
+
+where $UMD_t$ is the up-minus-down momentum factor.
+
+## 2.3 Abnormal Returns
+
+Given a normal return model with estimated parameters, the **abnormal return** for security $i$ on event day $t$ is:
+
+$$AR_{it} = R_{it} - E[R_{it} \mid X_t]$$
+
+For the market model, this becomes:
+
+$$AR_{it} = R_{it} - \hat{\alpha}_i - \hat{\beta}_i R_{mt}$$
+
+## 2.4 Cumulative Abnormal Returns (CAR)
+
+To aggregate abnormal returns over the event window $[\tau_1, \tau_2]$, we compute the **cumulative abnormal return**:
+
+$$CAR_i(\tau_1, \tau_2) = \sum_{t=\tau_1}^{\tau_2} AR_{it}$$
+
+The CAR captures the total abnormal price movement over the event window. In cross-sectional analysis, we compute the average CAR across all $N$ event firms:
+
+$$\overline{CAR}(\tau_1, \tau_2) = \frac{1}{N} \sum_{i=1}^{N} CAR_i(\tau_1, \tau_2)$$
+
+## 2.5 Buy-and-Hold Abnormal Returns (BHAR)
+
+For long-horizon event studies, the **buy-and-hold abnormal return** is preferred over CAR because it better reflects the actual investment experience:
+
+$$BHAR_i(\tau_1, \tau_2) = \prod_{t=\tau_1}^{\tau_2}(1 + R_{it}) - \prod_{t=\tau_1}^{\tau_2}(1 + E[R_{it}])$$
+
+BHAR compounds actual returns and benchmark returns separately, then takes the difference. This avoids the rebalancing bias inherent in CARs over long horizons.
+
+
+# 3. Simulated Data
+
+We create a simulated dataset of stock returns for multiple firms, each experiencing an event at a known date. This allows us to demonstrate the methodology with fully reproducible code.
+
+```{r simulate-data, eval=TRUE}
+set.seed(42)
+
+# Parameters
+n_firms      <- 50       # Number of firms experiencing events
+n_days       <- 300      # Total trading days per firm
+event_day    <- 200      # Event occurs on day 200 for all firms
+est_start    <- 1        # Estimation window start
+est_end      <- 170      # Estimation window end
+gap          <- 10       # Gap between estimation and event windows
+event_start  <- est_end + gap + 1   # Event window start
+event_end    <- n_days   # End of sample
+
+# True parameters for the market model
+true_alpha <- rnorm(n_firms, mean = 0.0002, sd = 0.0005)
+true_beta  <- rnorm(n_firms, mean = 1.0, sd = 0.3)
+
+# Simulate market returns (daily)
+market_ret <- rnorm(n_days, mean = 0.0004, sd = 0.012)
+
+# Abnormal return injection: 2% positive abnormal return on event day,
+# with small leakage on day -1 and persistence on day +1
+true_event_effect <- rep(0, n_days)
+true_event_effect[event_day - 1] <- 0.005   # Pre-event leakage
+true_event_effect[event_day]     <- 0.020   # Main event effect
+true_event_effect[event_day + 1] <- 0.003   # Post-event drift
+
+# Simulate firm returns
+sim_data <- do.call(rbind, lapply(1:n_firms, function(i) {
+    eps <- rnorm(n_days, mean = 0, sd = 0.02)
+    ret <- true_alpha[i] + true_beta[i] * market_ret + eps + true_event_effect
+    data.frame(
+        firm_id    = i,
+        day        = 1:n_days,
+        event_time = (1:n_days) - event_day,
+        ret        = ret,
+        market_ret = market_ret,
+        stringsAsFactors = FALSE
+    )
+}))
+
+# Add firm characteristics for cross-sectional analysis
+firm_chars <- data.frame(
+    firm_id   = 1:n_firms,
+    log_mcap  = rnorm(n_firms, mean = 8, sd = 1.5),     # Log market cap
+    leverage  = runif(n_firms, min = 0.1, max = 0.8),    # Debt/assets
+    roa       = rnorm(n_firms, mean = 0.05, sd = 0.03),  # Return on assets
+    stringsAsFactors = FALSE
+)
+
+sim_data <- merge(sim_data, firm_chars, by = "firm_id")
+
+head(sim_data)
+```
+
+Let us verify the structure of the simulated data:
+
+```{r data-structure, eval=TRUE}
+cat("Number of firms:", length(unique(sim_data$firm_id)), "\n")
+cat("Days per firm:", n_days, "\n")
+cat("Event day:", event_day, "\n")
+cat("Estimation window:", est_start, "to", est_end, "\n")
+cat("Event window start:", event_start, "\n")
+cat("Total observations:", nrow(sim_data), "\n")
+```
+
+
+# 4. Market Model Estimation
+
+## 4.1 OLS Estimation in the Estimation Window
+
+The first step is to estimate the market model parameters $(\hat{\alpha}_i, \hat{\beta}_i)$ for each firm using data from the estimation window only.
+
+```{r market-model-estimation, eval=TRUE}
+# Define estimation window
+est_window <- sim_data %>%
+    filter(day >= est_start & day <= est_end)
+
+# Estimate market model for each firm using lm()
+market_models <- lapply(1:n_firms, function(i) {
+    firm_est <- est_window %>% filter(firm_id == i)
+    lm(ret ~ market_ret, data = firm_est)
+})
+
+# Extract parameters
+model_params <- data.frame(
+    firm_id = 1:n_firms,
+    alpha   = sapply(market_models, function(m) coef(m)[1]),
+    beta    = sapply(market_models, function(m) coef(m)[2]),
+    sigma   = sapply(market_models, function(m) summary(m)$sigma),
+    r_sq    = sapply(market_models, function(m) summary(m)$r.squared)
+)
+
+# Summary of estimated parameters
+summary(model_params[, c("alpha", "beta", "sigma", "r_sq")])
+```
+
+## 4.2 Estimation Using `fixest::feols()`
+
+For larger datasets or panel estimation, `fixest::feols()` provides a fast alternative. Here we estimate the market model with firm fixed effects to demonstrate the syntax:
+
+```{r market-model-fixest, eval=TRUE}
+# Estimate the market model for each firm using fixest
+# Split estimation by firm using the split argument
+fixest_models <- feols(
+    ret ~ market_ret,
+    data  = est_window,
+    split = ~firm_id
+)
+
+# Show results for first firm
+summary(fixest_models[[1]])
+```
+
+## 4.3 Computing Abnormal Returns
+
+With the estimated parameters in hand, we compute abnormal returns for each firm across the full sample, focusing on the event window.
+
+```{r compute-ar, eval=TRUE}
+# Compute abnormal returns for all firms
+sim_data <- sim_data %>%
+    left_join(model_params %>% select(firm_id, alpha, beta), by = "firm_id") %>%
+    mutate(
+        expected_ret = alpha + beta * market_ret,
+        ar           = ret - expected_ret
+    )
+
+# Focus on the event window: event_time in [-20, +20]
+event_window_data <- sim_data %>%
+    filter(event_time >= -20 & event_time <= 20)
+
+# Average abnormal returns across firms for each event day
+avg_ar <- event_window_data %>%
+    group_by(event_time) %>%
+    summarise(
+        mean_ar = mean(ar),
+        se_ar   = sd(ar) / sqrt(n()),
+        n_firms = n(),
+        .groups = "drop"
+    )
+
+head(avg_ar, 10)
+```
+
+## 4.4 Visualizing Average Abnormal Returns
+
+```{r plot-ar, eval=TRUE, fig.width=7, fig.height=5}
+ggplot(avg_ar, aes(x = event_time, y = mean_ar)) +
+    geom_col(fill = "steelblue", alpha = 0.7) +
+    geom_errorbar(aes(ymin = mean_ar - 1.96 * se_ar,
+                      ymax = mean_ar + 1.96 * se_ar),
+                  width = 0.3, color = "grey30") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    geom_vline(xintercept = 0, linetype = "dotted", color = "red", linewidth = 0.8) +
+    labs(
+        title    = "Average Abnormal Returns Around the Event",
+        subtitle = "Market model benchmark, 95% confidence intervals",
+        x        = "Event Time (Trading Days)",
+        y        = "Average Abnormal Return"
+    ) +
+    causalverse::ama_theme()
+```
+
+The plot should show a clear spike at $\tau = 0$ (the event day), with smaller effects at $\tau = -1$ (information leakage) and $\tau = +1$ (post-announcement drift), consistent with our data generating process.
+
+
+# 5. Cumulative Abnormal Returns (CAR)
+
+## 5.1 Computing CAR for Individual Firms
+
+The CAR for firm $i$ over window $[\tau_1, \tau_2]$ is the sum of abnormal returns across event days within that window.
+
+```{r compute-car, eval=TRUE}
+# Compute CAR for each firm over several windows
+compute_car <- function(data, tau1, tau2) {
+    data %>%
+        filter(event_time >= tau1 & event_time <= tau2) %>%
+        group_by(firm_id) %>%
+        summarise(
+            car        = sum(ar),
+            window     = paste0("(", tau1, ",", tau2, ")"),
+            .groups    = "drop"
+        )
+}
+
+# Compute CARs for standard windows
+car_1_1   <- compute_car(sim_data, -1, 1)
+car_5_5   <- compute_car(sim_data, -5, 5)
+car_10_10 <- compute_car(sim_data, -10, 10)
+car_0_0   <- compute_car(sim_data, 0, 0)
+
+# Combine all windows
+all_cars <- bind_rows(car_1_1, car_5_5, car_10_10, car_0_0)
+
+# Summary statistics by window
+car_summary <- all_cars %>%
+    group_by(window) %>%
+    summarise(
+        mean_car   = mean(car),
+        median_car = median(car),
+        sd_car     = sd(car),
+        n          = n(),
+        t_stat     = mean(car) / (sd(car) / sqrt(n())),
+        p_value    = 2 * (1 - pt(abs(t_stat), df = n() - 1)),
+        .groups    = "drop"
+    )
+
+car_summary
+```
+
+## 5.2 Cumulative Average Abnormal Return Over Time
+
+We can also track how the cumulative abnormal return builds up over the event window by computing a running sum of the average AR.
+
+```{r caar-over-time, eval=TRUE}
+# Compute cumulative average abnormal return (CAAR)
+caar <- avg_ar %>%
+    arrange(event_time) %>%
+    mutate(
+        caar    = cumsum(mean_ar),
+        caar_se = sqrt(cumsum(se_ar^2))
+    )
+
+head(caar, 10)
+```
+
+## 5.3 Visualizing CAAR
+
+```{r plot-caar, eval=TRUE, fig.width=7, fig.height=5}
+ggplot(caar, aes(x = event_time, y = caar)) +
+    geom_ribbon(aes(ymin = caar - 1.96 * caar_se,
+                    ymax = caar + 1.96 * caar_se),
+                fill = "steelblue", alpha = 0.2) +
+    geom_line(color = "steelblue", linewidth = 1) +
+    geom_point(color = "steelblue", size = 1.5) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    geom_vline(xintercept = 0, linetype = "dotted", color = "red", linewidth = 0.8) +
+    labs(
+        title    = "Cumulative Average Abnormal Return (CAAR)",
+        subtitle = "Market model benchmark, 95% confidence band",
+        x        = "Event Time (Trading Days)",
+        y        = "CAAR"
+    ) +
+    causalverse::ama_theme()
+```
+
+The CAAR plot is the classic output of a finance event study. We expect to see a relatively flat line before the event, a sharp jump at the event date, and a plateau afterward (if the market is efficient and there is no post-event drift).
+
+## 5.4 CAR Distribution Across Firms
+
+```{r plot-car-distribution, eval=TRUE, fig.width=7, fig.height=5}
+ggplot(car_1_1, aes(x = car)) +
+    geom_histogram(bins = 20, fill = "steelblue", color = "white", alpha = 0.8) +
+    geom_vline(xintercept = mean(car_1_1$car),
+               linetype = "dashed", color = "red", linewidth = 0.8) +
+    labs(
+        title    = "Distribution of CAR(-1, +1) Across Firms",
+        subtitle = paste("Mean CAR =", round(mean(car_1_1$car), 4)),
+        x        = "CAR(-1, +1)",
+        y        = "Count"
+    ) +
+    causalverse::ama_theme()
+```
+
+
+# 6. Statistical Tests
+
+A central concern in event studies is whether the observed abnormal returns are statistically different from zero. Several parametric and non-parametric tests have been developed for this purpose.
+
+## 6.1 Parametric Tests
+
+### 6.1.1 Cross-Sectional t-Test
+
+The simplest test computes the t-statistic from the cross-section of CARs:
+
+$$t_{CS} = \frac{\overline{CAR}(\tau_1, \tau_2)}{S_{CAR} / \sqrt{N}}$$
+
+where $S_{CAR}$ is the cross-sectional standard deviation of CARs and $N$ is the number of events.
+
+```{r t-test, eval=TRUE}
+# Cross-sectional t-test on CAR(-1,+1)
+car_values <- car_1_1$car
+n          <- length(car_values)
+mean_car   <- mean(car_values)
+sd_car     <- sd(car_values)
+t_stat_cs  <- mean_car / (sd_car / sqrt(n))
+p_value_cs <- 2 * (1 - pt(abs(t_stat_cs), df = n - 1))
+
+cat("Cross-Sectional t-Test for CAR(-1,+1)\n")
+cat("--------------------------------------\n")
+cat("Mean CAR:   ", round(mean_car, 6), "\n")
+cat("Std Dev:    ", round(sd_car, 6), "\n")
+cat("N:          ", n, "\n")
+cat("t-statistic:", round(t_stat_cs, 4), "\n")
+cat("p-value:    ", format.pval(p_value_cs, digits = 4), "\n")
+```
+
+### 6.1.2 Standardized Cross-Sectional Test (Patell Test)
+
+The **Patell (1976) test** standardizes each firm's abnormal return by its own estimation-period standard deviation before averaging. This accounts for differences in return volatility across firms:
+
+$$SAR_{it} = \frac{AR_{it}}{\hat{\sigma}_i \sqrt{1 + \frac{1}{L_i} + \frac{(R_{mt} - \bar{R}_m)^2}{\sum_{s \in \text{est}}(R_{ms} - \bar{R}_m)^2}}}$$
+
+where $L_i$ is the length of the estimation window and the adjustment factor corrects for forecast error.
+
+```{r patell-test, eval=TRUE}
+# Compute standardized abnormal returns (simplified Patell approach)
+est_sigmas <- model_params$sigma  # estimation-window residual std dev
+
+# For each firm, compute standardized CAR
+standardized_cars <- sapply(1:n_firms, function(i) {
+    firm_ar <- sim_data %>%
+        filter(firm_id == i, event_time >= -1 & event_time <= 1) %>%
+        pull(ar)
+
+    # Sum of ARs over the window
+    car_i <- sum(firm_ar)
+
+    # Standard deviation under Patell (simplified: sigma * sqrt(L_event))
+    L_event <- length(firm_ar)
+    sd_car_i <- est_sigmas[i] * sqrt(L_event)
+
+    # Standardized CAR
+    car_i / sd_car_i
+})
+
+# Patell test statistic
+t_patell  <- mean(standardized_cars) * sqrt(n_firms)
+p_patell  <- 2 * (1 - pnorm(abs(t_patell)))
+
+cat("Patell (1976) Standardized Test\n")
+cat("-------------------------------\n")
+cat("Average SCAR:", round(mean(standardized_cars), 4), "\n")
+cat("Z-statistic: ", round(t_patell, 4), "\n")
+cat("p-value:     ", format.pval(p_patell, digits = 4), "\n")
+```
+
+### 6.1.3 BMP Test (Boehmer, Musumeci, and Poulsen, 1991)
+
+The **BMP test** combines the Patell standardization with a cross-sectional variance estimate. This makes it robust to event-induced increases in variance, which is a common problem when events themselves affect stock return volatility:
+
+$$t_{BMP} = \frac{\frac{1}{N}\sum_{i=1}^{N} SCAR_i}{\frac{1}{N}\sqrt{\frac{1}{N-1}\sum_{i=1}^{N}(SCAR_i - \overline{SCAR})^2}}$$
+
+```{r bmp-test, eval=TRUE}
+# BMP test
+mean_scar  <- mean(standardized_cars)
+sd_scar    <- sd(standardized_cars)
+t_bmp      <- (mean_scar / sd_scar) * sqrt(n_firms)
+p_bmp      <- 2 * (1 - pnorm(abs(t_bmp)))
+
+cat("BMP (1991) Test\n")
+cat("---------------\n")
+cat("Mean SCAR:   ", round(mean_scar, 4), "\n")
+cat("SD of SCARs: ", round(sd_scar, 4), "\n")
+cat("t-statistic: ", round(t_bmp, 4), "\n")
+cat("p-value:     ", format.pval(p_bmp, digits = 4), "\n")
+```
+
+## 6.2 Non-Parametric Tests
+
+Non-parametric tests are valuable because they do not rely on the assumption that abnormal returns are normally distributed, which is often violated with daily stock return data.
+
+### 6.2.1 Sign Test
+
+The **sign test** examines whether the fraction of positive CARs exceeds 50%. Under the null hypothesis of no abnormal performance, the number of positive CARs follows a binomial distribution:
+
+```{r sign-test, eval=TRUE}
+# Sign test
+n_positive <- sum(car_values > 0)
+n_total    <- length(car_values)
+
+# Under H0, p = 0.5
+# Use exact binomial test
+sign_test <- binom.test(n_positive, n_total, p = 0.5)
+
+cat("Sign Test for CAR(-1,+1)\n")
+cat("------------------------\n")
+cat("Positive CARs:", n_positive, "out of", n_total, "\n")
+cat("Proportion:   ", round(n_positive / n_total, 4), "\n")
+cat("p-value:      ", format.pval(sign_test$p.value, digits = 4), "\n")
+```
+
+### 6.2.2 Generalized Sign Test
+
+The **generalized sign test** adjusts the expected proportion of positive abnormal returns using the estimation window, rather than assuming 50%. The expected proportion $\hat{p}$ is computed as the average fraction of positive abnormal returns across firms during the estimation window:
+
+```{r generalized-sign-test, eval=TRUE}
+# Compute the expected proportion of positive ARs from the estimation window
+est_positive_fractions <- sapply(1:n_firms, function(i) {
+    firm_est <- sim_data %>%
+        filter(firm_id == i, day >= est_start & day <= est_end)
+    mean(firm_est$ar > 0)
+})
+
+p_hat <- mean(est_positive_fractions)
+
+# Generalized sign test statistic
+z_gsign <- (n_positive - n_total * p_hat) / sqrt(n_total * p_hat * (1 - p_hat))
+p_gsign <- 2 * (1 - pnorm(abs(z_gsign)))
+
+cat("Generalized Sign Test\n")
+cat("---------------------\n")
+cat("Expected p(AR > 0) from est. window:", round(p_hat, 4), "\n")
+cat("Observed positive CARs:", n_positive, "\n")
+cat("Z-statistic:", round(z_gsign, 4), "\n")
+cat("p-value:    ", format.pval(p_gsign, digits = 4), "\n")
+```
+
+### 6.2.3 Rank Test (Corrado, 1989)
+
+The **Corrado rank test** transforms abnormal returns into ranks within each firm's full time series. The test statistic is based on the deviation of the average rank on the event day from its expected value under the null:
+
+```{r rank-test, eval=TRUE}
+# Corrado rank test
+# For each firm, rank the abnormal returns across all days
+rank_data <- sim_data %>%
+    group_by(firm_id) %>%
+    mutate(
+        ar_rank     = rank(ar),
+        n_days_firm = n(),
+        centered_rank = (ar_rank - (n_days_firm + 1) / 2)
+    ) %>%
+    ungroup()
+
+# Compute the average centered rank on the event day (event_time == 0)
+event_day_ranks <- rank_data %>%
+    filter(event_time == 0)
+
+avg_rank <- mean(event_day_ranks$centered_rank)
+
+# Standard deviation of average ranks (computed from all days in the sample)
+rank_sd <- rank_data %>%
+    group_by(day) %>%
+    summarise(daily_avg_rank = mean(centered_rank), .groups = "drop") %>%
+    pull(daily_avg_rank) %>%
+    sd()
+
+t_corrado <- avg_rank / rank_sd
+p_corrado <- 2 * (1 - pnorm(abs(t_corrado)))
+
+cat("Corrado (1989) Rank Test\n")
+cat("------------------------\n")
+cat("Average centered rank on event day:", round(avg_rank, 4), "\n")
+cat("Rank std deviation:", round(rank_sd, 4), "\n")
+cat("t-statistic:", round(t_corrado, 4), "\n")
+cat("p-value:    ", format.pval(p_corrado, digits = 4), "\n")
+```
+
+## 6.3 Summary of Test Results
+
+```{r test-summary, eval=TRUE}
+test_results <- data.frame(
+    Test = c("Cross-sectional t-test",
+             "Patell (1976)",
+             "BMP (1991)",
+             "Sign test",
+             "Generalized sign test",
+             "Corrado rank test"),
+    Statistic = c(round(t_stat_cs, 4),
+                  round(t_patell, 4),
+                  round(t_bmp, 4),
+                  paste0(n_positive, "/", n_total),
+                  round(z_gsign, 4),
+                  round(t_corrado, 4)),
+    P_value = c(format.pval(p_value_cs, digits = 4),
+                format.pval(p_patell, digits = 4),
+                format.pval(p_bmp, digits = 4),
+                format.pval(sign_test$p.value, digits = 4),
+                format.pval(p_gsign, digits = 4),
+                format.pval(p_corrado, digits = 4)),
+    stringsAsFactors = FALSE
+)
+
+test_results
+```
+
+
+# 7. Buy-and-Hold Abnormal Returns (BHAR)
+
+## 7.1 Why BHAR?
+
+For long-horizon event studies (e.g., measuring performance over 1-3 years following an IPO, SEO, or merger), cumulative abnormal returns can be misleading because they implicitly assume daily portfolio rebalancing. The **buy-and-hold abnormal return** compounds returns as an investor who buys on the event date and holds through the measurement horizon would actually experience.
+
+## 7.2 BHAR Calculation
+
+```{r bhar-calculation, eval=TRUE}
+# Compute BHAR for each firm over the post-event period [0, +30]
+bhar_data <- sim_data %>%
+    filter(event_time >= 0 & event_time <= 30) %>%
+    group_by(firm_id) %>%
+    arrange(event_time) %>%
+    mutate(
+        cum_ret     = cumprod(1 + ret) - 1,
+        cum_mkt_ret = cumprod(1 + market_ret) - 1
+    ) %>%
+    ungroup()
+
+# BHAR for each firm at the end of the window
+bhar_final <- bhar_data %>%
+    filter(event_time == 30) %>%
+    mutate(bhar = cum_ret - cum_mkt_ret)
+
+cat("BHAR(0, +30) Summary\n")
+cat("--------------------\n")
+cat("Mean BHAR:  ", round(mean(bhar_final$bhar), 6), "\n")
+cat("Median BHAR:", round(median(bhar_final$bhar), 6), "\n")
+cat("Std Dev:    ", round(sd(bhar_final$bhar), 6), "\n")
+
+# t-test on BHAR
+t_bhar <- t.test(bhar_final$bhar, mu = 0)
+cat("t-statistic:", round(t_bhar$statistic, 4), "\n")
+cat("p-value:    ", format.pval(t_bhar$p.value, digits = 4), "\n")
+```
+
+## 7.3 BHAR Accumulation Over Time
+
+```{r bhar-over-time, eval=TRUE, fig.width=7, fig.height=5}
+# Average BHAR over time
+avg_bhar <- bhar_data %>%
+    group_by(event_time) %>%
+    summarise(
+        mean_bhar = mean(cum_ret - cum_mkt_ret),
+        se_bhar   = sd(cum_ret - cum_mkt_ret) / sqrt(n()),
+        .groups   = "drop"
+    )
+
+ggplot(avg_bhar, aes(x = event_time, y = mean_bhar)) +
+    geom_ribbon(aes(ymin = mean_bhar - 1.96 * se_bhar,
+                    ymax = mean_bhar + 1.96 * se_bhar),
+                fill = "darkorange", alpha = 0.2) +
+    geom_line(color = "darkorange", linewidth = 1) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    labs(
+        title    = "Average BHAR Over Post-Event Window",
+        subtitle = "Market-adjusted, 95% confidence band",
+        x        = "Event Time (Trading Days)",
+        y        = "Average BHAR"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 7.4 Calendar-Time Portfolio Approach (CTAR)
+
+An alternative to BHAR for long-horizon studies is the **calendar-time portfolio approach** (also called the calendar-time abnormal return, CTAR). Rather than aligning returns in event time, this method forms a portfolio each calendar month that includes all firms that have experienced an event within the prior $K$ months. The portfolio return is then regressed on factor models:
+
+$$R_{pt} - R_{ft} = \alpha + \beta_{MKT}(R_{mt} - R_{ft}) + \beta_{SMB} \cdot SMB_t + \beta_{HML} \cdot HML_t + \varepsilon_t$$
+
+The intercept $\alpha$ (Jensen's alpha) measures average monthly abnormal performance. The advantage of CTAR is that it accounts for cross-sectional dependence among event firms (because overlapping event windows are aggregated into a single portfolio return), whereas BHAR tests can overstate statistical significance when events cluster in calendar time.
+
+We illustrate the concept with our simulated data by forming daily portfolios:
+
+```{r ctar-illustration, eval=TRUE}
+# Calendar-time portfolio: for each calendar day, compute the
+# equal-weighted return of all firms in their post-event window [0, +20]
+ctar_data <- sim_data %>%
+    filter(event_time >= 0 & event_time <= 20)
+
+# Equal-weighted portfolio return each day
+ctar_portfolio <- ctar_data %>%
+    group_by(day) %>%
+    summarise(
+        port_ret   = mean(ret),
+        port_mkt   = mean(market_ret),
+        n_firms    = n(),
+        .groups    = "drop"
+    )
+
+# Regress portfolio excess returns on market returns
+ctar_model <- lm(port_ret ~ port_mkt, data = ctar_portfolio)
+
+cat("Calendar-Time Portfolio Regression\n")
+cat("-----------------------------------\n")
+cat("Alpha (intercept):", round(coef(ctar_model)[1], 6), "\n")
+cat("t-stat on alpha:  ", round(summary(ctar_model)$coefficients[1, 3], 4), "\n")
+cat("Beta:             ", round(coef(ctar_model)[2], 4), "\n")
+cat("R-squared:        ", round(summary(ctar_model)$r.squared, 4), "\n")
+```
+
+
+# 8. Fama-French Factor Models
+
+In practice, researchers use the Fama-French factor data available from Kenneth French's data library. The three-factor and four-factor models provide more precise benchmarks for expected returns than the simple market model.
+
+## 8.1 Three-Factor Model
+
+The Fama-French (1993) three-factor model accounts for the well-documented size and value premiums:
+
+```{r ff3-example, eval=requireNamespace("frenchdata", quietly = TRUE)}
+# Download Fama-French 3-factor data using the frenchdata package
+library(frenchdata)
+ff3_raw <- download_french_data("Fama/French 3 Factors (Daily)")
+ff3 <- ff3_raw$subsets$data[[1]]
+
+# Clean up: convert date, scale factors from percent to decimal
+ff3 <- ff3 %>%
+    mutate(
+        date   = as.Date(as.character(date), format = "%Y%m%d"),
+        mkt_rf = `Mkt-RF` / 100,
+        smb    = SMB / 100,
+        hml    = HML / 100,
+        rf     = RF / 100
+    ) %>%
+    select(date, mkt_rf, smb, hml, rf) %>%
+    filter(!is.na(date))
+
+# --- Simulate stock return data to merge with the factor data ---
+set.seed(123)
+n_days_ff   <- min(500, nrow(ff3))
+ff3_subset  <- tail(ff3, n_days_ff)
+event_day_ff <- round(n_days_ff * 0.7)
+
+stock_data <- data.frame(
+    date       = ff3_subset$date,
+    ret        = 0.0003 + 1.1 * ff3_subset$mkt_rf +
+                 0.3 * ff3_subset$smb - 0.2 * ff3_subset$hml +
+                 rnorm(n_days_ff, 0, 0.01),
+    event_time = seq_len(n_days_ff) - event_day_ff,
+    stringsAsFactors = FALSE
+)
+
+# Inject an event effect
+stock_data$ret[stock_data$event_time == 0] <-
+    stock_data$ret[stock_data$event_time == 0] + 0.02
+
+# Merge factor data with stock returns
+merged_data <- merge(stock_data, ff3_subset, by = "date")
+merged_data$excess_ret <- merged_data$ret - merged_data$rf
+
+# Estimation window regression (event_time < -20)
+ff3_model <- lm(
+    excess_ret ~ mkt_rf + smb + hml,
+    data = merged_data[merged_data$event_time < -20, ]
+)
+
+# Abnormal return in event window
+merged_data$ar_ff3 <- merged_data$excess_ret -
+    predict(ff3_model, newdata = merged_data)
+
+# Show event-window abnormal returns
+merged_data %>%
+    filter(event_time >= -5 & event_time <= 5) %>%
+    select(date, event_time, ret, excess_ret, ar_ff3) %>%
+    print()
+
+summary(ff3_model)
+```
+
+## 8.2 Carhart Four-Factor Model
+
+The Carhart (1997) model adds a momentum factor, which captures the tendency of past winners to continue outperforming and past losers to continue underperforming:
+
+```{r carhart-example, eval=requireNamespace("frenchdata", quietly = TRUE)}
+# Download Carhart / momentum factor data
+library(frenchdata)
+mom_raw <- download_french_data("F-F Momentum Factor (daily)")
+mom     <- mom_raw$subsets$data[[1]]
+
+mom <- mom %>%
+    mutate(
+        date = as.Date(as.character(date), format = "%Y%m%d"),
+        umd  = Mom / 100
+    ) %>%
+    select(date, umd) %>%
+    filter(!is.na(date))
+
+# Merge momentum factor into merged_data created in the FF3 chunk
+merged_data <- merge(merged_data, mom, by = "date", all.x = TRUE)
+merged_data <- merged_data[!is.na(merged_data$umd), ]
+
+# Carhart 4-factor estimation window regression
+ff4_model <- lm(
+    excess_ret ~ mkt_rf + smb + hml + umd,
+    data = merged_data[merged_data$event_time < -20, ]
+)
+
+# Abnormal return
+merged_data$ar_ff4 <- merged_data$excess_ret -
+    predict(ff4_model, newdata = merged_data)
+
+# The four-factor model is especially important for long-horizon studies
+# where momentum effects can confound abnormal return estimates.
+
+# Show event-window abnormal returns
+merged_data %>%
+    filter(event_time >= -5 & event_time <= 5) %>%
+    select(date, event_time, ar_ff3, ar_ff4) %>%
+    print()
+
+summary(ff4_model)
+```
+
+## 8.3 Which Model to Use?
+
+The choice of normal return model depends on the research context:
+
+- **Short-window studies** (3-5 days): The market model is generally sufficient. Brown and Warner (1985) showed that more complex models add little power for short windows because the variance of abnormal returns is dominated by the firm-specific component.
+- **Long-window studies** (months to years): Factor models are recommended because size, value, and momentum characteristics can systematically bias abnormal returns over longer horizons (Fama, 1998; Mitchell and Stafford, 2000).
+- **Cross-sectional variation**: When event firms have systematically different risk characteristics from the market (e.g., small firms, high book-to-market firms), factor models provide a better benchmark.
+
+
+# 9. The `EventStudy` Package
+
+The `EventStudy` R package provides a comprehensive implementation of event study methodology, including multiple return models and statistical tests.
+
+## 9.1 Basic Usage
+
+```{r eventstudy-example, eval=requireNamespace("EventStudy", quietly = TRUE)}
+library(EventStudy)
+
+# The EventStudy package requires three input files:
+# 1. Request file: specifying parameters
+# 2. Firm data: stock returns indexed by date
+# 3. Market data: market/factor returns indexed by date
+
+# Example setup:
+# est_setup <- EventStudyAPI$new()
+# est_setup$authentication(apiKey = "your_api_key")
+
+# --- Prepare simulated data in the format EventStudy expects ---
+# Create date sequence for our simulated data
+sim_dates <- seq.Date(as.Date("2022-01-03"), by = "day", length.out = n_days)
+sim_dates <- sim_dates[!weekdays(sim_dates) %in% c("Saturday", "Sunday")]
+sim_dates <- sim_dates[seq_len(n_days)]
+
+# Firm returns: columns = date + one column per firm
+firm_returns_wide <- sim_data %>%
+    filter(firm_id <= 5) %>%
+    mutate(date = sim_dates[day]) %>%
+    select(date, firm_id, ret) %>%
+    tidyr::pivot_wider(names_from = firm_id, values_from = ret,
+                       names_prefix = "firm_")
+
+# Market returns
+market_returns_df <- data.frame(
+    date       = sim_dates,
+    market_ret = market_ret
+)
+
+# Event list: firm name, event date, group
+event_list_df <- data.frame(
+    firm  = paste0("firm_", 1:5),
+    date  = sim_dates[event_day],
+    group = "group1",
+    stringsAsFactors = FALSE
+)
+
+cat("Firm returns (first 5 rows):\n")
+print(head(firm_returns_wide, 5))
+cat("\nEvent list:\n")
+print(event_list_df)
+
+# Note: Full EventStudy::EventStudy() usage depends on API key or
+# specific local computation functions available in the package version.
+# Consult the EventStudy package documentation for the exact syntax.
+```
+
+## 9.2 Available Models in `EventStudy`
+
+The package supports several return models:
+
+- **Market model**: `model = "market_model"`
+- **Market-adjusted model**: `model = "market_adjusted"`
+- **Mean-adjusted model**: `model = "mean_adjusted"`
+- **Fama-French three-factor**: `model = "ff3"`
+- **Carhart four-factor**: `model = "ff4"`
+
+## 9.3 Available Tests in `EventStudy`
+
+The package implements a comprehensive set of parametric and non-parametric tests:
+
+- Parametric: t-test, Patell test, BMP test, standardized residual test
+- Non-parametric: Sign test, generalized sign test, Corrado rank test, Wilcoxon signed-rank test
+
+```{r eventstudy-tests, eval=requireNamespace("EventStudy", quietly = TRUE)}
+# Demonstrate the types of results the EventStudy package provides.
+# Since the API-based workflow requires authentication, we illustrate
+# using our previously computed results from the simulated data.
+
+# Access test results (from our manual pipeline above)
+cat("=== Test Results (from manual pipeline) ===\n")
+print(test_results)
+
+cat("\n=== CAR Summary by Window ===\n")
+print(car_summary)
+
+# Cross-sectional regression on CARs
+# (Using our simulated firm characteristics as stand-in for analyst coverage, etc.)
+cross_section <- lm(
+    car ~ log_mcap + leverage + roa,
+    data = car_cross
+)
+summary(cross_section)
+```
+
+
+# 10. Cross-Sectional Analysis of CARs
+
+## 10.1 Motivation
+
+A natural follow-up question in event studies is: **why do some firms experience larger abnormal returns than others?** Cross-sectional analysis regresses individual firm CARs on firm characteristics to identify determinants of the market's reaction.
+
+Common explanatory variables include:
+
+- **Firm size** (log market capitalization): smaller firms may have larger price reactions due to lower information environments.
+- **Leverage**: highly leveraged firms may have amplified equity reactions to news.
+- **Profitability** (ROA, ROE): profitable firms may receive different market reactions.
+- **Analyst coverage**: firms followed by fewer analysts may have larger abnormal returns due to greater information asymmetry.
+- **Event-specific variables**: deal premium in M&A, earnings surprise magnitude, regulatory severity.
+
+## 10.2 OLS Cross-Sectional Regression
+
+```{r cross-section-ols, eval=TRUE}
+# Merge CARs with firm characteristics
+car_cross <- car_1_1 %>%
+    left_join(firm_chars, by = "firm_id")
+
+# OLS regression of CAR on firm characteristics
+cs_model_ols <- lm(car ~ log_mcap + leverage + roa, data = car_cross)
+
+summary(cs_model_ols)
+```
+
+## 10.3 Using `fixest::feols()`
+
+For robust standard errors and more flexible specifications, `fixest::feols()` is preferred:
+
+```{r cross-section-fixest, eval=TRUE}
+# Cross-sectional regression with heteroskedasticity-robust SEs
+cs_model_fixest <- feols(
+    car ~ log_mcap + leverage + roa,
+    data = car_cross,
+    vcov = "hetero"
+)
+
+summary(cs_model_fixest)
+```
+
+## 10.4 Interpreting Cross-Sectional Results
+
+```{r cross-section-viz, eval=TRUE, fig.width=7, fig.height=5}
+# Visualize the relationship between firm size and CAR
+ggplot(car_cross, aes(x = log_mcap, y = car)) +
+    geom_point(alpha = 0.6, color = "steelblue", size = 2) +
+    geom_smooth(method = "lm", se = TRUE, color = "red",
+                fill = "red", alpha = 0.15) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    labs(
+        title = "CAR(-1,+1) vs. Firm Size",
+        x     = "Log Market Capitalization",
+        y     = "CAR(-1, +1)"
+    ) +
+    causalverse::ama_theme()
+```
+
+```{r cross-section-leverage, eval=TRUE, fig.width=7, fig.height=5}
+# Visualize the relationship between leverage and CAR
+ggplot(car_cross, aes(x = leverage, y = car)) +
+    geom_point(alpha = 0.6, color = "darkorange", size = 2) +
+    geom_smooth(method = "lm", se = TRUE, color = "red",
+                fill = "red", alpha = 0.15) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    labs(
+        title = "CAR(-1,+1) vs. Leverage",
+        x     = "Leverage (Debt/Assets)",
+        y     = "CAR(-1, +1)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 10.5 Multiple Window Analysis
+
+Researchers sometimes run cross-sectional regressions for multiple event windows to check robustness:
+
+```{r multi-window-cross-section, eval=TRUE}
+# Run cross-sectional regression for each window
+windows <- list(
+    list(tau1 = 0,   tau2 = 0,   label = "(0,0)"),
+    list(tau1 = -1,  tau2 = 1,   label = "(-1,+1)"),
+    list(tau1 = -5,  tau2 = 5,   label = "(-5,+5)"),
+    list(tau1 = -10, tau2 = 10,  label = "(-10,+10)")
+)
+
+multi_window_results <- lapply(windows, function(w) {
+    cars <- compute_car(sim_data, w$tau1, w$tau2)
+    cars <- merge(cars, firm_chars, by = "firm_id")
+    model <- feols(car ~ log_mcap + leverage + roa, data = cars, vcov = "hetero")
+    data.frame(
+        window     = w$label,
+        intercept  = round(coef(model)[1], 6),
+        log_mcap   = round(coef(model)[2], 6),
+        leverage   = round(coef(model)[3], 6),
+        roa        = round(coef(model)[4], 6),
+        n          = nobs(model),
+        r_sq       = round(r2(model)["r2"], 4),
+        stringsAsFactors = FALSE
+    )
+})
+
+do.call(rbind, multi_window_results)
+```
+
+
+# 11. The `estudy2` Package: C++ Optimized Event Study Tests
+
+The [`estudy2`](https://CRAN.R-project.org/package=estudy2) package provides a high-performance, C++-optimized implementation of both **parametric** and **nonparametric** event study tests. It is particularly useful when you need to apply a comprehensive battery of statistical tests to your event study results, as it bundles 12 well-known test statistics into a single function call.
+
+## 11.1 Overview of Available Tests
+
+**Parametric tests** (6 total):
+
+1. **Brown and Warner (1980)** -- the classic cross-sectional test using the mean and variance of abnormal returns across firms.
+2. **Brown and Warner (1985)** -- extends the 1980 test to daily data with adjustments for estimation-period variance.
+3. **Patell (1976)** -- standardizes each firm's abnormal return by its own estimation-period standard deviation.
+4. **Kolari and Pynnonen (2010)** -- adjusts the Patell test for cross-sectional correlation of abnormal returns.
+5. **Boehmer, Musumeci, and Poulsen (1991)** (BMP) -- a standardized cross-sectional test robust to event-induced variance.
+6. **Adjusted BMP (Kolari and Pynnonen, 2010)** -- further adjusts BMP for cross-correlation.
+
+**Nonparametric tests** (6 total):
+
+1. **Corrado (1989) rank test** -- ranks abnormal returns across the combined estimation and event windows.
+2. **Corrado and Zivney (1992)** -- a sign test variant that accounts for the skewness of abnormal returns.
+3. **Adjusted Corrado rank test (Kolari and Pynnonen, 2011)** -- corrects for cross-sectional dependence.
+4. **Adjusted Corrado and Zivney sign test** -- the sign test analog adjusted for dependence.
+5. **Generalized rank test (Kolari and Pynnonen, 2011)** -- a GRANK test that combines rank and t-test properties.
+6. **Generalized sign test** -- tests whether the proportion of positive abnormal returns exceeds that expected under the null.
+
+## 11.2 Basic Usage with `estudy()`
+
+```{r estudy2-basic, eval = requireNamespace("estudy2", quietly = TRUE), message=FALSE, warning=FALSE}
+library(estudy2)
+set.seed(42)
+
+# Simulate returns for 30 firms over 300 trading days
+n_firms <- 30
+n_days  <- 300
+dates   <- seq.Date(as.Date("2023-01-02"), by = "day", length.out = n_days)
+
+# Market returns
+market_ret <- rnorm(n_days, mean = 0.0004, sd = 0.012)
+
+# Individual firm returns: market model + firm-specific noise
+firm_returns <- lapply(1:n_firms, function(i) {
+    beta_i  <- runif(1, 0.7, 1.4)
+    alpha_i <- rnorm(1, 0, 0.0002)
+    eps_i   <- rnorm(n_days, 0, 0.015)
+    ret     <- alpha_i + beta_i * market_ret + eps_i
+    # Inject an event effect on day 250 for all firms
+    ret[250] <- ret[250] + rnorm(1, 0.02, 0.005)
+    zoo::zoo(ret, order.by = dates)
+})
+market_zoo <- zoo::zoo(market_ret, order.by = dates)
+
+# Run the full battery of event study tests
+#   event_start / event_end define the event window (relative to the list index)
+result <- estudy2::estudy(
+    list_of_returns = firm_returns,
+    market_return   = market_zoo,
+    event_start     = -2,
+    event_end       = 2
+)
+
+# Display parametric test results
+cat("=== Parametric Test Results ===\n")
+print(head(result$parametric))
+```
+
+## 11.3 Interpreting Nonparametric Results
+
+```{r estudy2-nonpar, eval = requireNamespace("estudy2", quietly = TRUE)}
+cat("=== Nonparametric Test Results ===\n")
+print(head(result$nonparametric))
+```
+
+Nonparametric tests are especially valuable when abnormal returns are non-normal (e.g., skewed or heavy-tailed), which is common in daily stock return data. The **Corrado rank test** and the **generalized rank (GRANK) test** are often recommended as robust alternatives to parametric tests in applied work.
+
+
+# 12. Long-Horizon Event Studies
+
+Short-window event studies (1--5 days) are the gold standard for measuring the market's immediate reaction to an event. However, many research questions require examining **long-horizon** abnormal performance over months or years -- for example, post-merger integration effects, post-IPO performance, or the long-run consequences of regulatory changes.
+
+## 12.1 Calendar-Time Portfolio Approach (CTPR)
+
+The **calendar-time portfolio regression (CTPR)** method (Jaffe, 1974; Mitchell and Stafford, 2000) forms a portfolio each calendar month consisting of all firms that experienced the event within a specified prior window (e.g., the past 12 months). The portfolio's excess returns are then regressed on factor models (CAPM, Fama-French three-factor, etc.), and the intercept (alpha) measures the average monthly abnormal return.
+
+```{r ctpr-example, message=FALSE, warning=FALSE}
+set.seed(42)
+
+# Simulate monthly returns for 50 firms over 60 months
+n_firms  <- 50
+n_months <- 60
+months   <- seq.Date(as.Date("2019-01-01"), by = "month", length.out = n_months)
+
+# Factor returns
+mkt_rf <- rnorm(n_months, 0.006, 0.045)
+smb    <- rnorm(n_months, 0.002, 0.030)
+hml    <- rnorm(n_months, 0.003, 0.028)
+rf     <- rep(0.002 / 12, n_months)
+
+# Each firm has a random event month between months 13 and 36
+event_months <- sample(13:36, n_firms, replace = TRUE)
+
+# Simulate firm returns: 3-factor model + post-event alpha
+firm_data <- do.call(rbind, lapply(1:n_firms, function(i) {
+    beta_m <- runif(1, 0.8, 1.3)
+    beta_s <- runif(1, -0.3, 0.5)
+    beta_h <- runif(1, -0.4, 0.4)
+    eps    <- rnorm(n_months, 0, 0.04)
+    ret    <- rf + beta_m * mkt_rf + beta_s * smb + beta_h * hml + eps
+    # Add negative post-event drift of -0.5% per month
+    post_event <- (1:n_months) > event_months[i] &
+                  (1:n_months) <= (event_months[i] + 12)
+    ret[post_event] <- ret[post_event] - 0.005
+    data.frame(
+        firm  = i,
+        month = months,
+        ret   = ret,
+        in_portfolio = as.integer(
+            (1:n_months) > event_months[i] &
+            (1:n_months) <= (event_months[i] + 12)
+        )
+    )
+}))
+
+# Form calendar-time portfolio: equal-weighted average of event firms each month
+ctpr_data <- firm_data |>
+    dplyr::filter(in_portfolio == 1) |>
+    dplyr::group_by(month) |>
+    dplyr::summarise(port_ret = mean(ret), n_firms = dplyr::n(), .groups = "drop")
+
+# Merge with factor data
+ctpr_data$mkt_rf <- mkt_rf[match(ctpr_data$month, months)]
+ctpr_data$smb    <- smb[match(ctpr_data$month, months)]
+ctpr_data$hml    <- hml[match(ctpr_data$month, months)]
+ctpr_data$rf     <- rf[match(ctpr_data$month, months)]
+ctpr_data$excess <- ctpr_data$port_ret - ctpr_data$rf
+
+# Regress on Fama-French three factors
+ctpr_model <- lm(excess ~ mkt_rf + smb + hml, data = ctpr_data)
+summary(ctpr_model)
+```
+
+The intercept (alpha) from this regression captures the average monthly abnormal return for event firms. A negative and significant alpha suggests post-event underperformance.
+
+## 12.2 Buy-and-Hold Abnormal Returns (Long-Horizon)
+
+For horizons of 12--36 months, the **buy-and-hold abnormal return (BHAR)** compounds returns and compares them against a benchmark:
+
+$$\text{BHAR}_i(\tau_1, \tau_2) = \prod_{t=\tau_1}^{\tau_2}(1 + R_{it}) - \prod_{t=\tau_1}^{\tau_2}(1 + R_{bt})$$
+
+```{r bhar-long-horizon, message=FALSE}
+set.seed(42)
+
+# Simulate 36-month post-event returns for 40 firms
+n_firms   <- 40
+horizon   <- 36
+benchmark <- rnorm(horizon, 0.008, 0.04)  # monthly benchmark returns
+
+bhars <- sapply(1:n_firms, function(i) {
+    firm_ret <- benchmark + rnorm(horizon, -0.003, 0.03)  # slight underperformance
+    prod(1 + firm_ret) - prod(1 + benchmark)
+})
+
+bhar_df <- data.frame(firm = 1:n_firms, BHAR = bhars)
+
+ggplot(bhar_df, aes(x = BHAR)) +
+    geom_histogram(bins = 15, fill = "steelblue", color = "white", alpha = 0.8) +
+    geom_vline(xintercept = mean(bhars), color = "red", linewidth = 1, linetype = "dashed") +
+    labs(
+        title    = "Distribution of 36-Month Buy-and-Hold Abnormal Returns",
+        subtitle = paste0("Mean BHAR = ", round(mean(bhars), 4),
+                          " | t = ", round(mean(bhars) / (sd(bhars) / sqrt(n_firms)), 2)),
+        x = "BHAR", y = "Count"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 12.3 Robust Inference with `crseEventStudy`
+
+The [`crseEventStudy`](https://CRAN.R-project.org/package=crseEventStudy) package implements the **crude dependence adjustment** of Kolari, Pynnonen, and others for event studies where event dates cluster in calendar time.
+
+```{r crse-example, eval = requireNamespace("crseEventStudy", quietly = TRUE), message=FALSE, warning=FALSE}
+library(crseEventStudy)
+set.seed(42)
+
+# The package provides functions for adjusted t-statistics
+# when events cluster on the same or nearby calendar dates.
+# Simulate abnormal returns with clustering
+n_events <- 60
+ar       <- rnorm(n_events, mean = 0.01, sd = 0.03)
+# Estimation-period variance for each event
+var_est  <- runif(n_events, 0.0005, 0.003)
+
+# Standardized abnormal returns
+sar <- ar / sqrt(var_est)
+
+cat("Mean AR:  ", round(mean(ar), 4), "\n")
+cat("Mean SAR: ", round(mean(sar), 2), "\n")
+cat("Crude t (unadjusted): ", round(mean(ar) / (sd(ar) / sqrt(n_events)), 3), "\n")
+```
+
+Long-horizon event studies require careful attention to the **bad model problem** (Fama, 1998): small misspecifications in expected returns compound over long horizons and can produce spurious abnormal returns. The calendar-time approach is generally preferred because its test statistics are better specified in random samples.
+
+
+# 13. Event-Induced Variance and Cross-Sectional Dependence
+
+A fundamental challenge in event studies is that the event itself may alter the variance of returns. Standard tests assume that the variance of abnormal returns during the event window equals the estimation-window variance, but events like earnings announcements or M&A deals often cause **volatility spikes**. Additionally, when multiple firms share the same event date (e.g., regulatory changes), their abnormal returns are **cross-sectionally correlated**, violating the independence assumption.
+
+## 13.1 The Kolari-Pynnonen (2010) Adjusted BMP Test
+
+Boehmer et al. (1991) proposed the **BMP test** using standardized cross-sectional abnormal returns to account for event-induced variance. Kolari and Pynnonen (2010) extended this by adjusting for the average cross-sectional correlation ($\bar{r}$) of abnormal returns:
+
+$$t_{adj} = t_{BMP} \sqrt{\frac{1}{1 + (N-1)\bar{r}}}$$
+
+where $N$ is the number of event firms and $\bar{r}$ is the average pairwise correlation of estimation-window residuals.
+
+```{r adj-bmp, message=FALSE}
+set.seed(42)
+
+# Simulate event study with event-induced variance and clustering
+n_firms     <- 40
+n_est_days  <- 200
+n_event_days <- 5  # event window [-2, +2]
+
+# Estimation-period residuals (used to estimate cross-correlation)
+est_residuals <- matrix(rnorm(n_firms * n_est_days, 0, 0.015),
+                        nrow = n_est_days, ncol = n_firms)
+
+# Add some cross-sectional correlation (common factor)
+common_factor <- rnorm(n_est_days, 0, 0.005)
+est_residuals <- est_residuals + common_factor
+
+# Event-window abnormal returns with HIGHER variance (event-induced variance)
+event_ar <- matrix(rnorm(n_firms * n_event_days, 0.005, 0.03),
+                   nrow = n_event_days, ncol = n_firms)
+
+# Compute estimation-period standard deviations
+sigma_est <- apply(est_residuals, 2, sd)
+
+# Standardized abnormal returns (SAR)
+sar_event <- sweep(event_ar, 2, sigma_est, "/")
+
+# BMP test statistic (for event day 0, which is row 3)
+sar_day0     <- sar_event[3, ]
+t_bmp        <- mean(sar_day0) / (sd(sar_day0) / sqrt(n_firms))
+
+# Average cross-sectional correlation of estimation-period residuals
+cor_matrix   <- cor(est_residuals)
+r_bar        <- (sum(cor_matrix) - n_firms) / (n_firms * (n_firms - 1))
+
+# Kolari-Pynnonen adjustment
+t_adj        <- t_bmp * sqrt(1 / (1 + (n_firms - 1) * r_bar))
+
+cat("BMP t-statistic:              ", round(t_bmp, 3), "\n")
+cat("Average cross-correlation:    ", round(r_bar, 4), "\n")
+cat("Kolari-Pynnonen adjusted t:   ", round(t_adj, 3), "\n")
+cat("Adjustment factor:            ", round(sqrt(1 / (1 + (n_firms - 1) * r_bar)), 3), "\n")
+```
+
+## 13.2 Handling Event Date Clustering
+
+When events cluster on the same calendar date (e.g., an industry-wide regulation), simple cross-sectional averaging **overstates** precision because the abnormal returns are not independent draws. Two practical approaches:
+
+1. **Portfolio approach**: aggregate all same-date firms into a single portfolio and treat it as one observation.
+2. **Crude dependence adjustment (CDA)**: inflate the variance of the test statistic by a factor that depends on the average cross-correlation, as in Kolari-Pynnonen above.
+
+```{r clustering-demo, message=FALSE}
+set.seed(42)
+
+# Simulate: 50 events, 30 of which share the same date (clustered)
+n_events    <- 50
+n_clustered <- 30
+ar_all      <- rnorm(n_events, mean = 0.008, sd = 0.025)
+
+# Naive t-test (ignores clustering)
+t_naive <- mean(ar_all) / (sd(ar_all) / sqrt(n_events))
+
+# Portfolio approach: average the 30 clustered events into one observation
+ar_portfolio    <- c(mean(ar_all[1:n_clustered]), ar_all[(n_clustered + 1):n_events])
+n_effective     <- length(ar_portfolio)
+t_portfolio     <- mean(ar_portfolio) / (sd(ar_portfolio) / sqrt(n_effective))
+
+results_cluster <- data.frame(
+    Method          = c("Naive (N=50)", "Portfolio-adjusted (N_eff=21)"),
+    Mean_AR         = round(c(mean(ar_all), mean(ar_portfolio)), 4),
+    t_stat          = round(c(t_naive, t_portfolio), 3),
+    stringsAsFactors = FALSE
+)
+
+knitr::kable(results_cluster, caption = "Impact of Clustering Adjustment on Test Statistics")
+```
+
+The portfolio approach reduces the effective sample size from 50 to 21 (30 clustered events become 1 portfolio + 20 independent events), producing a more conservative and correctly sized test.
+
+
+# 14. Wealth Effects and Dollar Abnormal Returns
+
+While CARs measure percentage abnormal returns, practitioners and policymakers often want to know the **dollar value** of wealth created or destroyed by an event. Converting CARs to dollar abnormal returns requires weighting by firm market capitalization.
+
+## 14.1 Converting CARs to Dollar Returns
+
+The **dollar abnormal return** for firm $i$ over the event window $[\tau_1, \tau_2]$ is:
+
+$$\text{DAR}_i = \text{CAR}_i(\tau_1, \tau_2) \times \text{MarketCap}_{i, \tau_1 - 1}$$
+
+where $\text{MarketCap}_{i, \tau_1 - 1}$ is the market capitalization on the day before the event window begins.
+
+```{r dollar-returns, message=FALSE}
+set.seed(42)
+
+# Simulate 25 firms with CARs and market capitalizations
+n_firms <- 25
+firms   <- data.frame(
+    firm      = paste0("Firm_", sprintf("%02d", 1:n_firms)),
+    CAR       = rnorm(n_firms, mean = 0.015, sd = 0.03),
+    mcap_mm   = exp(rnorm(n_firms, log(5000), 1.2))  # market cap in $millions
+)
+
+# Dollar abnormal returns
+firms$DAR_mm <- firms$CAR * firms$mcap_mm
+
+# Market-cap weighted CAR
+firms$weight     <- firms$mcap_mm / sum(firms$mcap_mm)
+wt_car           <- sum(firms$weight * firms$CAR)
+
+cat("Equal-weighted mean CAR:    ", round(mean(firms$CAR) * 100, 2), "%\n")
+cat("Market-cap weighted CAR:    ", round(wt_car * 100, 2), "%\n")
+cat("Total wealth effect:        $", round(sum(firms$DAR_mm), 1), "M\n")
+cat("Median dollar abn. return:  $", round(median(firms$DAR_mm), 1), "M\n")
+```
+
+## 14.2 Portfolio-Level Wealth Analysis
+
+```{r wealth-plot, message=FALSE, fig.width=7, fig.height=5}
+# Visualize dollar abnormal returns by firm size
+firms <- firms[order(firms$mcap_mm), ]
+firms$firm <- factor(firms$firm, levels = firms$firm)
+
+ggplot(firms, aes(x = log10(mcap_mm), y = DAR_mm)) +
+    geom_point(aes(size = mcap_mm), alpha = 0.6, color = "steelblue") +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey40") +
+    geom_smooth(method = "lm", se = TRUE, color = "firebrick", linewidth = 0.8) +
+    scale_size_continuous(name = "Market Cap ($M)", labels = scales::comma) +
+    labs(
+        title    = "Dollar Abnormal Returns vs. Firm Size",
+        subtitle = paste0("Total wealth effect: $",
+                          round(sum(firms$DAR_mm), 0), "M across ",
+                          n_firms, " firms"),
+        x = "Log10 Market Cap ($M)",
+        y = "Dollar Abnormal Return ($M)"
+    ) +
+    causalverse::ama_theme()
+```
+
+Dollar abnormal returns highlight an important asymmetry: a small percentage CAR for a mega-cap firm may represent a far larger absolute wealth effect than a large CAR for a small firm. Reporting both equal-weighted and market-cap-weighted CARs alongside total dollar wealth effects provides a more complete picture of the economic significance of an event.
+
+
+# 15. Best Practices and Common Pitfalls
+
+## 15.1 Event Date Accuracy
+
+The single most important practical issue in finance event studies is correctly identifying the event date. If the event date is off by even one day, the abnormal return may be attributed to the wrong date, leading to a failure to detect the true effect. Best practices include:
+
+- Use the **first public disclosure date**, not the effective date or filing date (unless the filing date is the first disclosure).
+- Cross-reference dates across multiple sources (e.g., press releases, SEC filings, newswire timestamps).
+- For earnings announcements, use the date of the announcement (typically after market close the prior day or before market open), and define the event window to include both day 0 and day +1.
+
+## 15.2 Overlapping Events
+
+If multiple events affect the same firm within the event window, the abnormal return reflects the combined effect of all events. Strategies for dealing with overlapping events include:
+
+- **Exclude** observations with confounding events within the event window (common but may introduce selection bias).
+- **Widen the event window** to encompass both events and test the joint effect.
+- **Use multivariate regression** to disentangle the effects if events are of different types.
+
+## 15.3 Thin Trading
+
+Stocks that trade infrequently pose problems because observed returns on non-trading days are zero, biasing the market model parameters downward. Solutions include:
+
+- **Scholes-Williams (1977) estimator**: Uses lead and lag market returns to correct for non-synchronous trading.
+- **Dimson (1979) aggregated coefficients**: Includes multiple lags and leads of the market return in the estimation regression.
+- **Exclude** thinly traded securities from the sample (common in practice).
+
+## 15.4 Event-Induced Variance
+
+Events may increase return volatility, violating the assumption that the variance of abnormal returns is the same in the estimation and event windows. The BMP test (Boehmer, Musumeci, and Poulsen, 1991) addresses this by using cross-sectional variance rather than time-series variance. Alternatively:
+
+- Use **bootstrap procedures** to generate the empirical distribution of test statistics.
+- Apply **GARCH models** to account for time-varying volatility in the estimation window.
+
+## 15.5 Clustering of Event Dates
+
+When many events occur on the same calendar date (e.g., regulatory changes affecting an entire industry), the cross-sectional independence assumption underlying most test statistics is violated. Remedies include:
+
+- **Portfolio approach**: Form a single portfolio of all event firms and compute a single portfolio abnormal return for each event day (as in the CTAR method).
+- **Clustering corrections**: Adjust standard errors for clustering by event date.
+- **Kolari and Pynnonen (2010)** test: A modified BMP test that accounts for cross-sectional correlation.
+
+## 15.6 Estimation Window Length
+
+The estimation window should be long enough to estimate the market model precisely but not so long that structural breaks in the firm's risk parameters contaminate the estimates:
+
+- **Standard choice**: 200-250 trading days (approximately one calendar year).
+- **Minimum**: Brown and Warner (1985) suggest at least 100 trading days for reasonable precision.
+- **Rolling estimation**: For studies with many events per firm, consider re-estimating the model for each event to capture time-varying risk.
+
+## 15.7 Short-Selling Constraints and Market Microstructure
+
+For very short windows (intraday or single-day), market microstructure effects can matter:
+
+- **Bid-ask bounce**: Using transaction prices can introduce noise; midpoint returns are preferable when available.
+- **Price discreteness**: Particularly relevant for low-priced stocks.
+- **Short-selling constraints**: May delay the incorporation of negative information into prices, potentially extending the event window for negative-news events.
+
+
+# 16. Comparison: Finance vs. Econometric Event Studies
+
+As noted in the introduction, the term "event study" is used in two distinct research traditions. This section provides a detailed comparison.
+
+## 16.1 Finance Event Studies
+
+Finance event studies, the subject of this vignette, have the following characteristics:
+
+- **Outcome variable**: Security returns (stock returns, bond yields, CDS spreads).
+- **Benchmark model**: Market model, Fama-French factors, or similar asset pricing models.
+- **Identification**: Based on the efficient markets hypothesis---prices should fully and quickly reflect new information.
+- **Event window**: Typically short (1-5 days) because the market should incorporate information rapidly.
+- **Aggregation**: Abnormal returns are averaged across firms (cross-sectional aggregation).
+- **Tests**: Specialized parametric (Patell, BMP) and non-parametric (Corrado rank) tests.
+- **Long-horizon variant**: BHAR, calendar-time portfolios (but these are known to have serious statistical problems; see Fama, 1998; Mitchell and Stafford, 2000).
+
+## 16.2 Econometric Event Studies (Dynamic DID)
+
+Econometric event studies, which are **not** covered in this vignette, have different characteristics:
+
+- **Outcome variable**: Any panel outcome (wages, employment, health, pollution, crime rates, etc.).
+- **Benchmark model**: Parallel trends assumption with a control group of untreated units.
+- **Identification**: Based on the assumption that treated and control units would have followed parallel paths absent treatment.
+- **Event window**: Often long (months to years), because treatments may take time to have their full effect.
+- **Aggregation**: Event-time coefficients are estimated via regression with relative-time indicators.
+- **Tests**: Standard regression diagnostics, pre-trend tests, and recently developed methods for heterogeneous treatment effects under staggered adoption.
+- **Key methods**: Sun and Abraham (2021), Callaway and Sant'Anna (2021), Borusyak, Jaravel, and Spiess (2024), de Chaisemartin and D'Haultfoeuille (2020).
+
+## 16.3 When to Use Which
+
+| Situation | Recommended Approach |
+|---|---|
+| M&A announcement effect on stock price | Finance event study |
+| Effect of minimum wage increase on employment | Econometric event study (DID) |
+| Market reaction to earnings surprise | Finance event study |
+| Effect of hospital closures on health outcomes | Econometric event study (DID) |
+| Regulatory change impact on bank stock prices | Finance event study |
+| Staggered policy rollout across states | Econometric event study (staggered DID) |
+| IPO long-run performance | Finance event study (BHAR/CTAR) |
+| Effect of school funding reform on test scores | Econometric event study (DID) |
+
+The key distinction is whether the researcher is studying **asset prices** (finance event study) or **real outcomes** (econometric event study). When the outcome is a security return and the question is "Did this event convey new information to the market?", the finance event study is the appropriate tool.
+
+
+# 17. Putting It All Together: A Complete Event Study Pipeline
+
+This section provides a self-contained workflow that ties together all the pieces.
+
+```{r pipeline, eval=TRUE, fig.width=7, fig.height=5}
+# =========================================================
+# Complete Finance Event Study Pipeline (Simulated Data)
+# =========================================================
+
+# Step 1: Define parameters
+est_win   <- c(1, 170)       # Estimation window
+evt_win   <- c(-10, 10)      # Event window for analysis
+gap_days  <- 10              # Gap
+
+# Step 2: Estimate market model for each firm
+est_subset <- sim_data %>%
+    filter(day >= est_win[1] & day <= est_win[2])
+
+params <- est_subset %>%
+    group_by(firm_id) %>%
+    summarise(
+        alpha_hat = coef(lm(ret ~ market_ret))[1],
+        beta_hat  = coef(lm(ret ~ market_ret))[2],
+        sigma_hat = summary(lm(ret ~ market_ret))$sigma,
+        .groups   = "drop"
+    )
+
+# Step 3: Compute abnormal returns in event window
+evt_subset <- sim_data %>%
+    filter(event_time >= evt_win[1] & event_time <= evt_win[2]) %>%
+    left_join(params, by = "firm_id") %>%
+    mutate(ar_pipeline = ret - alpha_hat - beta_hat * market_ret)
+
+# Step 4: Aggregate
+agg_ar <- evt_subset %>%
+    group_by(event_time) %>%
+    summarise(
+        aar    = mean(ar_pipeline),
+        se_aar = sd(ar_pipeline) / sqrt(n()),
+        .groups = "drop"
+    ) %>%
+    arrange(event_time) %>%
+    mutate(caar = cumsum(aar))
+
+# Step 5: Visualization
+ggplot(agg_ar, aes(x = event_time)) +
+    geom_col(aes(y = aar), fill = "steelblue", alpha = 0.5, width = 0.6) +
+    geom_line(aes(y = caar), color = "darkred", linewidth = 1.2) +
+    geom_point(aes(y = caar), color = "darkred", size = 2) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+    geom_vline(xintercept = 0, linetype = "dotted", color = "grey40") +
+    labs(
+        title    = "Event Study Results: AAR (Bars) and CAAR (Line)",
+        x        = "Event Time (Trading Days)",
+        y        = "Return"
+    ) +
+    causalverse::ama_theme()
+```
+
+```{r pipeline-tests, eval=TRUE}
+# Step 6: Statistical tests on CAR(-1, +1)
+pipeline_car <- evt_subset %>%
+    filter(event_time >= -1 & event_time <= 1) %>%
+    group_by(firm_id) %>%
+    summarise(car = sum(ar_pipeline), .groups = "drop")
+
+cat("======================================\n")
+cat("EVENT STUDY RESULTS: CAR(-1, +1)\n")
+cat("======================================\n\n")
+
+n_obs     <- nrow(pipeline_car)
+mean_val  <- mean(pipeline_car$car)
+sd_val    <- sd(pipeline_car$car)
+t_val     <- mean_val / (sd_val / sqrt(n_obs))
+p_val     <- 2 * (1 - pt(abs(t_val), df = n_obs - 1))
+
+cat("N events:       ", n_obs, "\n")
+cat("Mean CAR:       ", round(mean_val, 6), "\n")
+cat("Median CAR:     ", round(median(pipeline_car$car), 6), "\n")
+cat("Std. Dev:       ", round(sd_val, 6), "\n")
+cat("t-statistic:    ", round(t_val, 4), "\n")
+cat("p-value:        ", format.pval(p_val, digits = 4), "\n\n")
+
+# Sign test
+n_pos <- sum(pipeline_car$car > 0)
+cat("Positive CARs:  ", n_pos, "/", n_obs, "\n")
+cat("Sign test p:    ",
+    format.pval(binom.test(n_pos, n_obs, 0.5)$p.value, digits = 4), "\n")
+```
+
+
+# 18. Total Event Valuation and Aggregate Wealth Effects
+
+A key contribution of finance event studies for top journals is quantifying the **total economic value** created or destroyed by an event---not just the percentage abnormal return. This section covers the full pipeline from individual CARs to aggregate industry wealth effects.
+
+## 18.1 From CAR to Dollar Wealth Effect
+
+The **dollar abnormal return** (DAR) converts a percentage CAR into an absolute dollar amount, allowing comparisons across firms and events of different sizes:
+
+$$\text{DAR}_i = \text{CAR}_i(\tau_1, \tau_2) \times \text{MarketCap}_{i, \tau_1 - 1}$$
+
+where $\text{MarketCap}_{i, \tau_1 - 1}$ is the market capitalization on the **last trading day before the event window** opens. This timing is critical: using the market cap on the event date confounds the wealth effect with itself.
+
+```{r total-valuation-setup, message=FALSE}
+library(dplyr)
+library(ggplot2)
+
+set.seed(2024)
+
+# Simulate a sample of 50 firms in 3 industries affected by a policy announcement
+n_firms  <- 50
+industries <- c("Banking", "Insurance", "FinTech")
+
+firms_df <- data.frame(
+    firm_id   = paste0("F", sprintf("%03d", 1:n_firms)),
+    industry  = sample(industries, n_firms, replace = TRUE,
+                       prob = c(0.4, 0.35, 0.25)),
+    mcap_pre  = exp(rnorm(n_firms, log(10000), 1.5)),   # Market cap in $M
+    stringsAsFactors = FALSE
+)
+
+# Simulate CARs: positively affected on average, with industry heterogeneity
+firms_df$true_car <- ifelse(
+    firms_df$industry == "Banking", rnorm(n_firms, 0.025, 0.04),
+    ifelse(firms_df$industry == "Insurance", rnorm(n_firms, 0.015, 0.035),
+           rnorm(n_firms, 0.045, 0.055))
+)
+firms_df$CAR <- firms_df$true_car + rnorm(n_firms, 0, 0.015)  # add noise
+firms_df$DAR <- firms_df$CAR * firms_df$mcap_pre
+
+# Summary
+cat("=== Total Wealth Effects by Industry ===\n")
+industry_summary <- firms_df %>%
+    group_by(industry) %>%
+    summarise(
+        n         = n(),
+        mean_CAR  = mean(CAR),
+        total_DAR = sum(DAR),
+        agg_mcap  = sum(mcap_pre),
+        wt_CAR    = sum(CAR * mcap_pre) / sum(mcap_pre),
+        .groups   = "drop"
+    )
+print(industry_summary)
+cat("\nAggregate total wealth effect: $",
+    round(sum(firms_df$DAR) / 1e3, 2), "B\n")
+```
+
+```{r total-val-plot, fig.width=8, fig.height=5, message=FALSE}
+# Waterfall chart of wealth effects by industry
+industry_summary$industry_f <- factor(
+    industry_summary$industry,
+    levels = industry_summary$industry[order(industry_summary$total_DAR)]
+)
+
+ggplot(industry_summary, aes(x = industry_f, y = total_DAR / 1000,
+                              fill = ifelse(total_DAR > 0, "Positive", "Negative"))) +
+    geom_col(width = 0.5, alpha = 0.85) +
+    geom_text(aes(
+        label = paste0("$", round(total_DAR / 1000, 1), "B\n(",
+                       round(wt_CAR * 100, 2), "% wtd CAR)"),
+        vjust = ifelse(total_DAR > 0, -0.3, 1.3)
+    ), size = 3.5) +
+    scale_fill_manual(values = c("Positive" = "#2166AC", "Negative" = "#D73027"),
+                      guide  = "none") +
+    labs(
+        title    = "Total Wealth Effect by Industry",
+        subtitle = paste0("Total: $",
+                          round(sum(firms_df$DAR) / 1e3, 2),
+                          "B across ", n_firms, " firms"),
+        x        = "Industry",
+        y        = "Total Dollar Abnormal Return ($B)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 18.2 Market-Cap Weighted vs. Equal-Weighted CARs
+
+Top journals increasingly require reporting **both** equal-weighted (EW) and value-weighted (VW) CARs because they answer different questions:
+
+- **EW-CAR**: Average economic significance per firm (every firm counts equally)
+- **VW-CAR**: Aggregate economic impact (reflects total dollar wealth creation)
+
+A divergence between EW and VW CARs signals that the event disproportionately affects large or small firms.
+
+```{r ew-vw, message=FALSE}
+ew_car <- mean(firms_df$CAR)
+vw_car <- sum(firms_df$CAR * firms_df$mcap_pre) / sum(firms_df$mcap_pre)
+
+# Median
+median_car <- median(firms_df$CAR)
+
+# Winsorized mean (remove top/bottom 1%)
+q01 <- quantile(firms_df$CAR, 0.01)
+q99 <- quantile(firms_df$CAR, 0.99)
+wins_car <- mean(pmin(pmax(firms_df$CAR, q01), q99))
+
+cat("Equal-weighted mean CAR:        ", round(ew_car  * 100, 3), "%\n")
+cat("Value-weighted (mktcap) CAR:    ", round(vw_car  * 100, 3), "%\n")
+cat("Median CAR:                     ", round(median_car * 100, 3), "%\n")
+cat("Winsorized mean CAR (1%/99%):   ", round(wins_car * 100, 3), "%\n")
+cat("Total dollar wealth effect:     $", round(sum(firms_df$DAR) / 1e3, 2), "B\n")
+cat("Total market cap in sample:     $", round(sum(firms_df$mcap_pre) / 1e3, 1), "B\n")
+```
+
+## 18.3 Industry Spillover and Rival Wealth Effects
+
+A complete economic analysis of a major event must assess not only the **direct** wealth effect on the event firm but also the **spillover** effects on industry rivals, customers, and suppliers. Three mechanisms drive rival returns:
+
+1. **Competitive effect (substitution)**: If the event benefits the announcing firm (e.g., a merger improving its market position), rivals may suffer.
+2. **Information effect (contagion)**: The event reveals information about industry conditions that benefits (positive contagion) or hurts (negative contagion) all firms.
+3. **Wealth transfer**: In bidder-target M&A, value may transfer from one party to the other.
+
+```{r rival-effects, message=FALSE}
+# Simulate: focal firm announcements and their rivals
+n_focal    <- 15
+n_rivals   <- 35
+
+rivals_df  <- firms_df[firms_df$firm_id %in%
+                       sample(firms_df$firm_id, n_rivals), ]
+
+# Rivals experience a mix: some positive contagion, some negative competition
+rivals_df$rival_CAR <- rnorm(n_rivals, mean = -0.008, sd = 0.03)
+
+cat("=== Rival / Industry Spillover Effects ===\n")
+cat("Mean rival CAR:         ", round(mean(rivals_df$rival_CAR) * 100, 3), "%\n")
+cat("Median rival CAR:       ", round(median(rivals_df$rival_CAR) * 100, 3), "%\n")
+
+# t-test: is rival CAR different from zero?
+tt <- t.test(rivals_df$rival_CAR)
+cat("Rival t-stat:           ", round(tt$statistic, 3), "\n")
+cat("Rival p-value:          ", round(tt$p.value, 4), "\n")
+cat("Interpretation: ", ifelse(tt$p.value < 0.05,
+    "Significant spillover (information or competitive effect)",
+    "No significant spillover to rivals"), "\n")
+
+# Compare direct vs rival effects
+cat("\n--- Combined Industry Wealth Effect ---\n")
+total_direct <- sum(firms_df$DAR)
+total_rival  <- sum(rivals_df$rival_CAR * rivals_df$mcap_pre)
+cat("Direct wealth effect:   $", round(total_direct / 1e3, 2), "B\n")
+cat("Rival wealth effect:    $", round(total_rival  / 1e3, 2), "B\n")
+cat("Net industry effect:    $", round((total_direct + total_rival) / 1e3, 2), "B\n")
+```
+
+## 18.4 Cross-Sectional Regression: Determinants of CARs
+
+After computing firm-level CARs, researchers typically run a cross-sectional OLS regression to identify the characteristics that explain variation in wealth effects. This is the **second-stage** of a two-step event study approach common in top finance journals.
+
+```{r cross-section-reg, message=FALSE}
+# Add firm characteristics
+firms_df$log_mcap  <- log(firms_df$mcap_pre)
+firms_df$leverage  <- runif(n_firms, 0.1, 0.7)   # Simulated leverage
+firms_df$growth    <- rnorm(n_firms, 0.1, 0.15)   # Revenue growth rate
+firms_df$beta      <- rnorm(n_firms, 1, 0.4)       # Market beta
+firms_df$ind_bank  <- as.integer(firms_df$industry == "Banking")
+firms_df$ind_fintech <- as.integer(firms_df$industry == "FinTech")
+
+# OLS cross-sectional regression
+mod_cs <- lm(CAR ~ log_mcap + leverage + growth + beta +
+                 ind_bank + ind_fintech,
+             data = firms_df)
+summary(mod_cs)
+```
+
+```{r cross-section-plot, fig.width=7, fig.height=5, message=FALSE}
+# Visualize: CAR vs firm size (most common in the literature)
+ggplot(firms_df, aes(x = log(mcap_pre), y = CAR * 100)) +
+    geom_point(aes(color = industry, size = mcap_pre), alpha = 0.7) +
+    geom_smooth(method = "lm", se = TRUE, color = "black",
+                linewidth = 0.8, linetype = "dashed") +
+    scale_color_manual(values = c("Banking"   = "#2166AC",
+                                  "Insurance" = "#4DAF4A",
+                                  "FinTech"   = "#D73027")) +
+    scale_size_continuous(
+        name   = "Market Cap ($M)",
+        labels = scales::comma,
+        guide  = "none"
+    ) +
+    labs(
+        title    = "CAR vs. Firm Size: Cross-Sectional Analysis",
+        subtitle = "Larger firms tend to experience smaller percentage CARs",
+        x        = "Log Market Capitalization ($M)",
+        y        = "CAR (%)",
+        color    = "Industry"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 18.5 M&A Wealth Effects: Combined Firm Value (CFV)
+
+In mergers and acquisitions event studies, researchers must report the **combined firm value** (CFV) effect, which is the sum of acquirer and target dollar abnormal returns. This captures whether the deal **creates** or **destroys** value in total:
+
+$$\text{CFV} = \text{DAR}_{\text{acquirer}} + \text{DAR}_{\text{target}}$$
+
+Even if the target earns large positive CARs, the deal may destroy aggregate value if the acquirer suffers large losses (the "winner's curse").
+
+```{r mna-wealth, message=FALSE}
+set.seed(7)
+n_deals <- 30
+
+# Simulate M&A event study
+mna <- data.frame(
+    deal_id   = 1:n_deals,
+    # Targets: almost always positive (acquisition premium)
+    target_CAR   = rnorm(n_deals, 0.25, 0.12),
+    target_mcap  = exp(rnorm(n_deals, log(500), 0.8)),
+    # Acquirers: often near zero or slightly negative
+    acquirer_CAR = rnorm(n_deals, -0.01, 0.04),
+    acquirer_mcap = exp(rnorm(n_deals, log(15000), 1.2)),
+    deal_type    = sample(c("Cash", "Stock", "Mixed"), n_deals,
+                          replace = TRUE)
+)
+mna$target_DAR   <- mna$target_CAR  * mna$target_mcap
+mna$acquirer_DAR <- mna$acquirer_CAR * mna$acquirer_mcap
+mna$CFV          <- mna$target_DAR + mna$acquirer_DAR  # Combined Firm Value
+mna$relative_size <- mna$target_mcap / mna$acquirer_mcap
+
+cat("=== M&A Wealth Effects ===\n\n")
+cat("Target CARs:       Mean =", round(mean(mna$target_CAR)*100, 2),
+    "%, Median =", round(median(mna$target_CAR)*100, 2), "%\n")
+cat("Acquirer CARs:     Mean =", round(mean(mna$acquirer_CAR)*100, 2),
+    "%, Median =", round(median(mna$acquirer_CAR)*100, 2), "%\n")
+cat("Combined Firm Value (total): $", round(sum(mna$CFV)/1e3, 2), "B\n")
+cat("% Deals with positive CFV:  ", round(mean(mna$CFV > 0)*100, 1), "%\n\n")
+
+# By deal type
+by_type <- aggregate(
+    cbind(target_CAR, acquirer_CAR, CFV) ~ deal_type, data = mna, FUN = mean
+)
+print(by_type)
+```
+
+```{r mna-plot, fig.width=8, fig.height=5, message=FALSE}
+# Scatter: acquirer vs target CAR with CFV color
+ggplot(mna, aes(x = target_CAR * 100, y = acquirer_CAR * 100)) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+    geom_point(aes(color = CFV > 0, size = acquirer_mcap), alpha = 0.7) +
+    scale_color_manual(
+        values = c("TRUE" = "#2166AC", "FALSE" = "#D73027"),
+        labels = c("TRUE" = "Value Creating", "FALSE" = "Value Destroying"),
+        name   = "Combined Firm Value"
+    ) +
+    scale_size_continuous(name = "Acquirer Mkt Cap ($M)", guide = "none") +
+    geom_abline(slope = -mna$target_mcap / mna$acquirer_mcap,
+                intercept = 0, alpha = 0) +  # placeholder for iso-CFV lines
+    labs(
+        title    = "M&A Wealth Effects: Target vs. Acquirer CARs",
+        subtitle = paste0("Combined firm value: $", round(sum(mna$CFV)/1e3, 2),
+                          "B total | ", round(mean(mna$CFV>0)*100, 1),
+                          "% of deals create value"),
+        x        = "Target CAR (%)",
+        y        = "Acquirer CAR (%)"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 18.6 Bootstrap Confidence Intervals for CARs
+
+Standard t-tests assume normality. For robustness, especially with small samples or skewed returns, bootstrapped confidence intervals are preferred by many top journals.
+
+```{r boot-car, message=FALSE}
+set.seed(999)
+
+# CAR data
+car_vec <- firms_df$CAR
+
+# Parametric (standard) 95% CI
+n_f      <- length(car_vec)
+mean_car <- mean(car_vec)
+se_car   <- sd(car_vec) / sqrt(n_f)
+z        <- qnorm(0.975)
+
+cat("=== Confidence Intervals for Mean CAR ===\n\n")
+cat("Parametric 95% CI:  [", round((mean_car - z * se_car) * 100, 3), "%,",
+                             round((mean_car + z * se_car) * 100, 3), "%]\n")
+
+# Bootstrap CI (percentile method)
+B <- 5000
+boot_means <- replicate(B, mean(sample(car_vec, n_f, replace = TRUE)))
+boot_ci    <- quantile(boot_means, c(0.025, 0.975))
+cat("Bootstrap 95% CI:   [", round(boot_ci[1] * 100, 3), "%,",
+                             round(boot_ci[2] * 100, 3), "%]\n")
+
+# BCa (bias-corrected and accelerated) - more accurate
+bias_correct <- qnorm(mean(boot_means < mean_car))
+cat("Bootstrap mean:     ", round(mean(boot_means) * 100, 4), "%\n")
+cat("Bootstrap bias:     ", round((mean(boot_means) - mean_car) * 100, 5), "%\n")
+```
+
+## 18.7 Multiple Testing Corrections (FDR/Bonferroni)
+
+When testing CARs for multiple event windows (e.g., [-1,+1], [-2,+2], [-5,+5], [-10,+10] simultaneously), Type I error inflates. Top journals require correction for multiple comparisons.
+
+```{r multiple-testing, message=FALSE}
+# Test multiple event windows simultaneously
+windows <- list(
+    c(-1,  1),
+    c(-2,  2),
+    c(-3,  3),
+    c(-5,  5),
+    c(-10, 10)
+)
+
+window_results <- lapply(windows, function(w) {
+    # Simulate CARs for this window (in practice, compute from your AR series)
+    car_w <- rnorm(n_firms, mean = 0.02 * diff(w), sd = 0.04 * sqrt(diff(w)))
+    tt    <- t.test(car_w)
+    data.frame(
+        window    = paste0("[", w[1], ",", w[2], "]"),
+        mean_CAR  = mean(car_w),
+        se        = sd(car_w) / sqrt(n_firms),
+        t_stat    = tt$statistic,
+        p_raw     = tt$p.value
+    )
+})
+mult_df <- do.call(rbind, window_results)
+
+# Corrections
+mult_df$p_bonferroni <- p.adjust(mult_df$p_raw, method = "bonferroni")
+mult_df$p_holm       <- p.adjust(mult_df$p_raw, method = "holm")
+mult_df$p_bh         <- p.adjust(mult_df$p_raw, method = "BH")    # Benjamini-Hochberg
+
+print(mult_df[, c("window", "mean_CAR", "t_stat", "p_raw",
+                  "p_bonferroni", "p_bh")], digits = 4)
+```
+
+## 18.8 Power Analysis for Event Studies
+
+Before collecting data, researchers should compute the minimum number of events needed to detect a given CAR with adequate power.
+
+```{r event-study-power, message=FALSE, fig.width=7, fig.height=5}
+# Power for one-sample t-test (most common setup in event studies)
+# H0: mean CAR = 0; H1: mean CAR = delta
+
+power_event_study <- function(n, delta, sigma = 0.05, alpha = 0.05) {
+    # sigma = cross-sectional SD of individual firm CARs
+    se  <- sigma / sqrt(n)
+    z_a <- qnorm(1 - alpha / 2)
+    z_b <- abs(delta) / se - z_a
+    pnorm(z_b)
+}
+
+mde_event_study <- function(n, sigma = 0.05, alpha = 0.05, power = 0.80) {
+    z_a <- qnorm(1 - alpha / 2)
+    z_b <- qnorm(power)
+    (z_a + z_b) * sigma / sqrt(n)
+}
+
+# MDE curve
+ns_evt <- seq(10, 500, by = 5)
+mdes   <- vapply(ns_evt, mde_event_study, numeric(1), sigma = 0.04)
+
+df_pwr <- data.frame(n = ns_evt, mde = mdes * 100)
+
+ggplot(df_pwr, aes(x = n, y = mde)) +
+    geom_line(color = "#2166AC", linewidth = 1.2) +
+    geom_hline(yintercept = 1, linetype = "dashed", color = "red",
+               alpha = 0.7) +
+    geom_hline(yintercept = 2, linetype = "dashed", color = "orange",
+               alpha = 0.7) +
+    annotate("text", x = 450, y = 1.2, label = "1% CAR threshold",
+             color = "red", size = 3) +
+    annotate("text", x = 450, y = 2.2, label = "2% CAR threshold",
+             color = "orange", size = 3) +
+    labs(
+        title    = "Minimum Detectable CAR vs. Number of Events",
+        subtitle = expression(paste("Cross-sectional SD = 4%, ", alpha,
+                                   " = 0.05, power = 80%")),
+        x        = "Number of Events (N firms)",
+        y        = "Minimum Detectable CAR (%)"
+    ) +
+    scale_y_continuous(limits = c(0, NA)) +
+    causalverse::ama_theme()
+```
+
+## 18.9 Full Publication-Quality Event Study Table
+
+The following template produces a publication-ready table suitable for top finance journals (Journal of Finance, Journal of Financial Economics, Review of Financial Studies).
+
+```{r publication-table, message=FALSE}
+# Create a comprehensive CAR summary table
+# (mirrors standard reporting in top journals)
+
+compute_event_table <- function(car_vec, window_label) {
+    n_obs   <- length(car_vec)
+    mean_v  <- mean(car_vec)
+    sd_v    <- sd(car_vec)
+    se_v    <- sd_v / sqrt(n_obs)
+    t_val   <- mean_v / se_v
+    p_val   <- 2 * pt(-abs(t_val), df = n_obs - 1)
+    n_pos   <- sum(car_vec > 0)
+    sgn_p   <- binom.test(n_pos, n_obs, 0.5)$p.value
+
+    data.frame(
+        Window     = window_label,
+        N          = n_obs,
+        Mean_CAR   = round(mean_v * 100, 3),
+        Median_CAR = round(median(car_vec) * 100, 3),
+        SD         = round(sd_v * 100, 3),
+        t_stat     = round(t_val, 3),
+        p_value    = round(p_val, 4),
+        Pct_Pos    = round(n_pos / n_obs * 100, 1),
+        Sign_p     = round(sgn_p, 4),
+        Stars      = ifelse(p_val < 0.01, "***",
+                    ifelse(p_val < 0.05, "**",
+                    ifelse(p_val < 0.10, "*", "")))
+    )
+}
+
+# Compute for multiple windows
+car_1  <- firms_df$CAR                                          # [-1,+1] proxy
+car_3  <- firms_df$CAR + rnorm(n_firms, 0, 0.01)               # [-3,+3]
+car_5  <- firms_df$CAR + rnorm(n_firms, 0, 0.015)              # [-5,+5]
+car_10 <- firms_df$CAR + rnorm(n_firms, 0, 0.02)               # [-10,+10]
+
+pub_table <- do.call(rbind, list(
+    compute_event_table(car_1,  "CAR[-1,+1]"),
+    compute_event_table(car_3,  "CAR[-3,+3]"),
+    compute_event_table(car_5,  "CAR[-5,+5]"),
+    compute_event_table(car_10, "CAR[-10,+10]")
+))
+
+# Display
+print(pub_table, row.names = FALSE)
+cat("\n*** p<0.01, ** p<0.05, * p<0.10\n")
+cat("Mean_CAR, Median_CAR, and SD are in percent (%)\n")
+cat("Pct_Pos = percentage of positive CARs; Sign_p = sign test p-value\n")
+```
+
+This table format directly replicates what readers see in top finance journals. For the final paper, format with `knitr::kable()` or `modelsummary::modelsummary()`.
+
+# 19. Advanced Topics: Intraday Event Studies and High-Frequency Data
+
+## 19.1 Intraday vs. Daily Event Studies
+
+While most event studies use **daily** closing returns, intraday event studies use **tick-by-tick** or **minute-by-minute** data to capture the speed of price discovery. This is increasingly common for:
+
+- **Scheduled announcements** (earnings, FOMC decisions) where the exact announcement time is known
+- **Regulatory filings** (SEC EDGAR stamps to the minute)
+- **Social media disclosures** (Twitter/X announcements timestamped)
+
+Key advantages: (1) capture pre-announcement leakage, (2) distinguish opening-auction effects from intraday adjustment, (3) examine bid-ask spread changes alongside returns.
+
+Key challenges: (1) intraday seasonality (U-shaped volume patterns), (2) bid-ask bounce, (3) stale quotes for illiquid stocks.
+
+## 19.2 Volatility Around Events: Event-Induced Variance
+
+Events often increase return variance around the announcement window. Tests that ignore event-induced variance (like the simple t-test) are over-sized. The BMP test (Section 6.3) and the Kolari-Pynnonen adjusted test (Section 13.1) specifically address this.
+
+A diagnostic:
+
+```{r event-variance, message=FALSE, fig.width=7, fig.height=4}
+# Simulate: higher variance in event window vs. estimation window
+set.seed(123)
+n_days    <- 40
+n_firms_v <- 20
+
+# Estimation window returns
+pre_returns <- matrix(rnorm(n_firms_v * 170, 0, 0.015),
+                      nrow = n_firms_v, ncol = 170)
+
+# Event window returns (higher variance)
+evt_returns <- matrix(rnorm(n_firms_v * n_days, 0.001, 0.04),
+                      nrow = n_firms_v, ncol = n_days)
+
+# Compare variance
+var_pre <- mean(apply(pre_returns, 2, var))
+var_evt <- mean(apply(evt_returns, 2, var))
+
+cat("Average daily variance (estimation window): ", round(var_pre, 6), "\n")
+cat("Average daily variance (event window):      ", round(var_evt, 6), "\n")
+cat("Variance ratio (event/estimation):           ",
+    round(var_evt / var_pre, 2), "x\n")
+
+# Visualize variance by day
+df_var <- data.frame(
+    day      = c(seq(-170, -1), seq(1, n_days)),
+    variance = c(apply(pre_returns, 2, var),
+                 apply(evt_returns, 2, var)),
+    period   = c(rep("Estimation", 170), rep("Event", n_days))
+)
+
+ggplot(df_var, aes(x = day, y = variance * 10000, color = period)) +
+    geom_line(alpha = 0.6) +
+    geom_smooth(method = "loess", se = FALSE, linewidth = 1) +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "gray30") +
+    scale_color_manual(values = c("Estimation" = "#4393C3",
+                                  "Event"      = "#D73027")) +
+    labs(
+        title = "Event-Induced Variance: Estimation vs. Event Window",
+        x     = "Trading Day Relative to Event",
+        y     = "Cross-Sectional Return Variance (×10,000)",
+        color = "Period"
+    ) +
+    causalverse::ama_theme()
+```
+
+## 19.3 Announcement Returns vs. Pre-Announcement Drift
+
+Detecting **pre-announcement drift** (returns accumulating before the official event date) is important for assessing information leakage and insider trading. A simple cumulation of pre-event abnormal returns tests for this.
+
+```{r pre-drift, message=FALSE, fig.width=8, fig.height=5}
+set.seed(55)
+
+# Simulate: pre-announcement drift for ~30% of observations (information leakage)
+n_firms_d <- 40
+leakage   <- rbinom(n_firms_d, 1, 0.3)  # 30% have leakage
+
+# Full CAR time series: days -20 to +5
+days_range <- -20:5
+car_matrix <- matrix(0, nrow = n_firms_d, ncol = length(days_range))
+
+for (i in seq_len(n_firms_d)) {
+    true_drift <- if (leakage[i] == 1) {
+        # Drift: starts accumulating 10 days before event
+        c(rep(0, 10), cumsum(rnorm(10, 0.003, 0.005)),
+          rnorm(5, 0.002, 0.010), rnorm(6, -0.001, 0.010))
+    } else {
+        cumsum(rnorm(length(days_range), 0, 0.008))
+    }
+    car_matrix[i, ] <- true_drift
+}
+
+# Average across firms
+caar_drift <- data.frame(
+    day  = days_range,
+    caar = colMeans(car_matrix),
+    se   = apply(car_matrix, 2, sd) / sqrt(n_firms_d)
+)
+caar_drift$ci_lo <- caar_drift$caar - 1.96 * caar_drift$se
+caar_drift$ci_hi <- caar_drift$caar + 1.96 * caar_drift$se
+
+ggplot(caar_drift, aes(x = day, y = caar * 100)) +
+    geom_ribbon(aes(ymin = ci_lo * 100, ymax = ci_hi * 100),
+                fill = "#4393C3", alpha = 0.25) +
+    geom_line(color = "#2166AC", linewidth = 1.2) +
+    geom_vline(xintercept = 0, linetype = "dashed", color = "gray30") +
+    geom_hline(yintercept = 0, color = "gray60") +
+    annotate("text", x = -8, y = max(caar_drift$caar * 100) * 0.5,
+             label = "Pre-announcement\ndrift", color = "firebrick",
+             size = 3.5) +
+    labs(
+        title    = "CAAR with Pre-Announcement Drift Detection",
+        subtitle = "Upward drift before day 0 may indicate information leakage",
+        x        = "Trading Day Relative to Event",
+        y        = "CAAR (%)"
+    ) +
+    causalverse::ama_theme()
+```
+
+# 20. References
+
+- Ball, R., & Brown, P. (1968). An empirical evaluation of accounting income numbers. *Journal of Accounting Research*, 6(2), 159-178.
+
+- Boehmer, E., Musumeci, J., & Poulsen, A. B. (1991). Event-study methodology under conditions of event-induced variance. *Journal of Financial Economics*, 30(2), 253-272.
+
+- Brown, S. J., & Warner, J. B. (1980). Measuring security price performance. *Journal of Financial Economics*, 8(3), 205-258.
+
+- Brown, S. J., & Warner, J. B. (1985). Using daily stock returns: The case of event studies. *Journal of Financial Economics*, 14(1), 3-31.
+
+- Campbell, J. Y., Lo, A. W., & MacKinlay, A. C. (1997). *The Econometrics of Financial Markets*. Princeton University Press.
+
+- Carhart, M. M. (1997). On persistence in mutual fund performance. *Journal of Finance*, 52(1), 57-82.
+
+- Corrado, C. J. (1989). A nonparametric test for abnormal security-price performance in event studies. *Journal of Financial Economics*, 23(2), 385-395.
+
+- Dimson, E. (1979). Risk measurement when shares are subject to infrequent trading. *Journal of Financial Economics*, 7(2), 197-226.
+
+- Fama, E. F. (1998). Market efficiency, long-term returns, and behavioral finance. *Journal of Financial Economics*, 49(3), 283-306.
+
+- Fama, E. F., & French, K. R. (1993). Common risk factors in the returns on stocks and bonds. *Journal of Financial Economics*, 33(1), 3-56.
+
+- Fama, E. F., Fisher, L., Jensen, M. C., & Roll, R. (1969). The adjustment of stock prices to new information. *International Economic Review*, 10(1), 1-21.
+
+- Kolari, J. W., & Pynnonen, S. (2010). Event study testing with cross-sectional correlation of abnormal returns. *Review of Financial Studies*, 23(11), 3996-4025.
+
+- Kothari, S. P., & Warner, J. B. (2007). Econometrics of event studies. In B. E. Eckbo (Ed.), *Handbook of Empirical Corporate Finance* (Vol. 1, pp. 3-36). Elsevier.
+
+- MacKinlay, A. C. (1997). Event studies in economics and finance. *Journal of Economic Literature*, 35(1), 13-39.
+
+- Mitchell, M. L., & Stafford, E. (2000). Managerial decisions and long-term stock price performance. *Journal of Business*, 73(3), 287-329.
+
+- Patell, J. M. (1976). Corporate forecasts of earnings per share and stock price behavior: Empirical tests. *Journal of Accounting Research*, 14(2), 246-276.
+
+- Scholes, M., & Williams, J. (1977). Estimating betas from nonsynchronous data. *Journal of Financial Economics*, 5(3), 309-327.
+
+- Ball, R., & Brown, P. (1968). An empirical evaluation of accounting income numbers. *Journal of Accounting Research*, 6(2), 159-178.
+
+- Boehmer, E., Musumeci, J., & Poulsen, A. B. (1991). Event-study methodology under conditions of event-induced variance. *Journal of Financial Economics*, 30(2), 253-272.
+
+- Brown, S. J., & Warner, J. B. (1980). Measuring security price performance. *Journal of Financial Economics*, 8(3), 205-258.
+
+- Brown, S. J., & Warner, J. B. (1985). Using daily stock returns: The case of event studies. *Journal of Financial Economics*, 14(1), 3-31.
+
+- Campbell, J. Y., Lo, A. W., & MacKinlay, A. C. (1997). *The Econometrics of Financial Markets*. Princeton University Press.
+
+- Carhart, M. M. (1997). On persistence in mutual fund performance. *Journal of Finance*, 52(1), 57-82.
+
+- Corrado, C. J. (1989). A nonparametric test for abnormal security-price performance in event studies. *Journal of Financial Economics*, 23(2), 385-395.
+
+- Dimson, E. (1979). Risk measurement when shares are subject to infrequent trading. *Journal of Financial Economics*, 7(2), 197-226.
+
+- Fama, E. F. (1998). Market efficiency, long-term returns, and behavioral finance. *Journal of Financial Economics*, 49(3), 283-306.
+
+- Fama, E. F., & French, K. R. (1993). Common risk factors in the returns on stocks and bonds. *Journal of Financial Economics*, 33(1), 3-56.
+
+- Fama, E. F., Fisher, L., Jensen, M. C., & Roll, R. (1969). The adjustment of stock prices to new information. *International Economic Review*, 10(1), 1-21.
+
+- Kolari, J. W., & Pynnonen, S. (2010). Event study testing with cross-sectional correlation of abnormal returns. *Review of Financial Studies*, 23(11), 3996-4025.
+
+- Kothari, S. P., & Warner, J. B. (2007). Econometrics of event studies. In B. E. Eckbo (Ed.), *Handbook of Empirical Corporate Finance* (Vol. 1, pp. 3-36). Elsevier.
+
+- MacKinlay, A. C. (1997). Event studies in economics and finance. *Journal of Economic Literature*, 35(1), 13-39.
+
+- Mitchell, M. L., & Stafford, E. (2000). Managerial decisions and long-term stock price performance. *Journal of Business*, 73(3), 287-329.
+
+- Patell, J. M. (1976). Corporate forecasts of earnings per share and stock price behavior: Empirical tests. *Journal of Accounting Research*, 14(2), 246-276.
+
+- Scholes, M., & Williams, J. (1977). Estimating betas from nonsynchronous data. *Journal of Financial Economics*, 5(3), 309-327.

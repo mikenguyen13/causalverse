@@ -25,9 +25,7 @@
 #'
 #' @return A ggplot object.
 #' @import ggplot2
-#' @import formattable
 #' @import data.table
-#' @import rdbounds
 #' @examples
 #' \dontrun{
 #' set.seed(1)

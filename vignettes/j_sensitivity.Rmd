@@ -1,0 +1,2782 @@
+---
+title: "9. Sensitivity Analysis and Robustness"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{9. Sensitivity Analysis and Robustness}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+library(causalverse)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+## Introduction
+
+Causal inference methods rely on assumptions that are often untestable. Matching requires the conditional independence assumption (no unobserved confounders). Difference-in-differences requires parallel trends. Instrumental variables require the exclusion restriction. Regression discontinuity requires continuity of potential outcomes at the cutoff. Synthetic control requires that a weighted combination of donor units can approximate the treated unit's counterfactual.
+
+Because these assumptions cannot be verified with observed data alone, **sensitivity analysis** asks: how robust are our conclusions to plausible violations of the identifying assumptions? A finding that crumbles under even mild violations provides much weaker evidence than one that withstands substantial departures from the ideal.
+
+This vignette covers a comprehensive toolkit of sensitivity and robustness methods:
+
+1. **Omitted variable bias** (sensemakr): How strong must an unobserved confounder be to overturn the result?
+2. **Rosenbaum bounds**: How sensitive is a matched comparison to hidden bias?
+3. **E-values**: What is the minimum confounding strength needed to explain away an observed effect?
+4. **HonestDiD**: How robust is a DID estimate to violations of parallel trends?
+5. **Placebo tests**: Using known-null comparisons to probe assumptions.
+6. **Specification curve analysis**: Exploring the multiverse of plausible model choices.
+7. **Bounds approaches**: Partial identification when point identification fails.
+8. **Multiple testing corrections**: Controlling false discoveries across many tests.
+9. **Randomization inference**: Exact p-values without distributional assumptions.
+10. **Bootstrap methods**: Robust inference for clustered and complex data structures.
+
+Throughout, we distinguish between sensitivity analyses (which formally parameterize assumption violations) and robustness checks (which informally probe the fragility of results).
+
+---
+
+## Omitted Variable Bias: sensemakr
+
+The `sensemakr` package (Cinelli and Hazlett, 2020) provides a formal framework for assessing sensitivity to omitted variable bias (OVB) in linear regression. The key insight is to express the strength of unobserved confounders in terms of **partial R-squared** values, which are directly interpretable and can be benchmarked against observed covariates.
+
+### Theory
+
+Consider a linear model where we regress outcome $Y$ on treatment $D$ and observed controls $X$:
+
+$$Y = \tau D + X\beta + \gamma Z + \varepsilon$$
+
+where $Z$ is an unobserved confounder. The bias of the OLS estimate $\hat{\tau}$ (from the short regression without $Z$) relative to the true $\tau$ depends on two quantities:
+
+- $R^2_{Y \sim Z | D, X}$: the partial R-squared of $Z$ with $Y$, after partialing out $D$ and $X$.
+- $R^2_{D \sim Z | X}$: the partial R-squared of $Z$ with $D$, after partialing out $X$.
+
+The **robustness value** (RV) tells us the minimum strength of confounding (in terms of partial R-squared with both treatment and outcome) that would be needed to reduce the estimated effect to zero (or to make it statistically insignificant). A higher RV indicates a more robust finding.
+
+### Implementation
+
+```{r sensemakr-basic, eval=requireNamespace("sensemakr", quietly = TRUE)}
+library(sensemakr)
+
+# Simulate analysis data
+set.seed(100)
+n_sens <- 500
+analysis_data <- data.frame(
+  age       = rnorm(n_sens, 40, 10),
+  income    = rnorm(n_sens, 50000, 15000),
+  education = rnorm(n_sens, 14, 3),
+  region    = factor(sample(1:4, n_sens, replace = TRUE))
+)
+analysis_data$treatment <- 0.3 * scale(analysis_data$income) +
+  0.2 * scale(analysis_data$age) + rnorm(n_sens)
+analysis_data$treatment <- as.numeric(analysis_data$treatment > median(analysis_data$treatment))
+analysis_data$outcome <- 0.5 * analysis_data$treatment +
+  0.3 * scale(analysis_data$income) +
+  0.2 * scale(analysis_data$age) +
+  0.1 * scale(analysis_data$education) + rnorm(n_sens)
+
+# Fit the baseline model
+model <- lm(outcome ~ treatment + age + income + education + region,
+            data = analysis_data)
+
+# Run sensitivity analysis
+sens <- sensemakr(
+  model       = model,
+  treatment   = "treatment",
+  benchmark_covariates = "income",
+  kd = 1:3,   # multiples of the benchmark for treatment equation
+  ky = 1:3,   # multiples of the benchmark for outcome equation
+  q  = 1,     # fraction of effect to be explained away (1 = full effect)
+  alpha = 0.05,
+  reduce = TRUE
+)
+
+# Summary
+summary(sens)
+```
+
+The summary reports the estimated treatment effect, the robustness value $RV_q$, the robustness value for statistical significance $RV_{q,\alpha}$, and benchmark comparisons. If $RV_q = 0.15$, it means a confounder would need to explain at least 15% of the residual variance of both treatment and outcome to bring the effect to zero.
+
+### Contour Plots
+
+Contour plots display the adjusted estimate (or t-value) as a function of the hypothetical confounder's partial R-squared with the treatment and the outcome.
+
+```{r sensemakr-contour, eval=requireNamespace("sensemakr", quietly = TRUE)}
+# Contour plot of adjusted estimates
+plot(sens, type = "contour")
+
+# Contour plot of adjusted t-statistics
+plot(sens, sensitivity.of = "t-value", type = "contour")
+```
+
+The contour lines show combinations of confounder strength that produce the same adjusted estimate. The red dashed lines mark the threshold where the adjusted effect equals zero or loses statistical significance. Benchmark points (e.g., how strong the confounder would be if it were "1x income" or "3x income") provide calibration.
+
+### Extreme Scenarios
+
+The extreme-scenario plot shows the worst-case bias under the assumption that the confounder explains a given fraction of the treatment variation:
+
+```{r sensemakr-extreme, eval=requireNamespace("sensemakr", quietly = TRUE)}
+# Extreme scenario plot
+plot(sens, type = "extreme")
+```
+
+This plot addresses the question: if an unobserved confounder explained $R^2_{D \sim Z|X}$ fraction of the residual treatment variance, what is the strongest possible confounding it could produce in the outcome equation?
+
+### Multiple Treatments
+
+When you have multiple treatment variables, you can run `sensemakr` for each and compare robustness values:
+
+```{r sensemakr-multiple, eval=requireNamespace("sensemakr", quietly = TRUE)}
+# Add additional treatment variables to analysis_data
+set.seed(101)
+analysis_data$treatment_A <- analysis_data$treatment
+analysis_data$treatment_B <- as.numeric(
+  0.2 * scale(analysis_data$income) + rnorm(nrow(analysis_data)) > 0)
+analysis_data$treatment_C <- as.numeric(
+  0.1 * scale(analysis_data$age) + rnorm(nrow(analysis_data)) > 0)
+
+treatments <- c("treatment_A", "treatment_B", "treatment_C")
+
+sens_results <- lapply(treatments, function(trt) {
+  model <- lm(
+    reformulate(c(trt, "age", "income", "education"), "outcome"),
+    data = analysis_data
+  )
+  sensemakr(
+    model = model,
+    treatment = trt,
+    benchmark_covariates = "income",
+    kd = 1:3,
+    ky = 1:3
+  )
+})
+
+# Compare robustness values
+sapply(sens_results, function(s) s$sensitivity_stats$rv_q)
+```
+
+### Interpretation Guidelines
+
+- $RV_q > 0.30$: Very robust. An unobserved confounder would need to explain more than 30% of the residual variance in both treatment and outcome.
+- $RV_q \in [0.10, 0.30]$: Moderately robust. Plausible confounders should be discussed.
+- $RV_q < 0.10$: Fragile. The result is sensitive to relatively weak unobserved confounding.
+
+Always benchmark against observed covariates. If the strongest observed predictor has partial R-squared of 0.05 with the treatment, and $RV_q = 0.20$, then the unobserved confounder would need to be four times as strong as the strongest observed predictor.
+
+---
+
+## Rosenbaum Bounds
+
+In matched observational studies, the key assumption is that treatment assignment is ignorable conditional on observed covariates. Rosenbaum bounds formalize how much hidden bias could be present before the conclusion of a significant treatment effect would be overturned.
+
+### Theory
+
+Let $\pi_i$ be the probability that unit $i$ receives treatment. In a matched pair $(i, j)$, the odds ratio of treatment assignment is:
+
+$$\frac{1}{\Gamma} \leq \frac{\pi_i(1 - \pi_j)}{\pi_j(1 - \pi_i)} \leq \Gamma$$
+
+When $\Gamma = 1$, there is no hidden bias (treatment assignment depends only on observed covariates). As $\Gamma$ increases, more hidden bias is allowed. The **sensitivity analysis** asks: for what value of $\Gamma$ does the conclusion of a significant treatment effect first break down?
+
+### Implementation with rbounds
+
+```{r rosenbaum-rbounds, eval=FALSE}
+library(rbounds)
+library(Matching)
+
+# Simulate data for matching
+set.seed(200)
+n_rb <- 400
+data <- data.frame(
+  age       = rnorm(n_rb, 40, 10),
+  income    = rnorm(n_rb, 50000, 15000),
+  education = rnorm(n_rb, 14, 3)
+)
+# Treatment assignment depends on covariates
+data$ps <- plogis(-2 + 0.03 * data$age + 0.00002 * data$income + 0.1 * data$education)
+data$treatment <- rbinom(n_rb, 1, data$ps)
+data$outcome <- 0.5 * data$treatment + 0.02 * data$age +
+  0.00001 * data$income + rnorm(n_rb)
+
+# Perform matching
+match_out <- Match(
+  Y  = data$outcome,
+  Tr = data$treatment,
+  X  = data[, c("age", "income", "education")],
+  estimand = "ATT"
+)
+
+# Rosenbaum bounds for the Hodges-Lehmann point estimate
+hlsens(match_out, Gamma = 3, GammaInc = 0.1)
+
+# Rosenbaum bounds for the Wilcoxon signed-rank test
+psens(match_out, Gamma = 3, GammaInc = 0.1)
+```
+
+### Implementation with sensitivitymv
+
+The `sensitivitymv` package extends Rosenbaum bounds to matched sets with variable numbers of controls:
+
+```{r rosenbaum-sensitivitymv, eval=requireNamespace("sensitivitymv", quietly = TRUE)}
+library(sensitivitymv)
+
+# Create simulated matched-set matrix
+# Each row is a matched set; col 1 = treated, cols 2-3 = controls; NA pads shorter sets
+set.seed(210)
+n_sets <- 50
+y_mat <- matrix(NA, nrow = n_sets, ncol = 3)
+for (i in 1:n_sets) {
+  y_mat[i, 1] <- rnorm(1, mean = 0.5)  # treated
+  n_controls <- sample(1:2, 1)
+  y_mat[i, 2:(1 + n_controls)] <- rnorm(n_controls, mean = 0)
+}
+
+senmv(y_mat, gamma = 2, method = "t")
+
+# Sensitivity analysis across a range of Gamma values
+gammas <- seq(1, 3, by = 0.1)
+pvals  <- sapply(gammas, function(g) {
+  senmv(y_mat, gamma = g, method = "t")$pval
+})
+
+# Plot sensitivity
+plot(gammas, pvals, type = "l", lwd = 2,
+     xlab = expression(Gamma), ylab = "Upper bound on p-value",
+     main = "Sensitivity to Hidden Bias")
+abline(h = 0.05, lty = 2, col = "red")
+```
+
+### Interpretation
+
+- If the conclusion holds up to $\Gamma = 2$, it means that an unobserved covariate would need to change the odds of treatment by a factor of 2 (within matched pairs) to explain away the result.
+- Large clinical trials typically find $\Gamma$ values exceeding 5, suggesting strong robustness.
+- In economics, $\Gamma$ values between 1.5 and 3 are common for well-designed studies.
+
+---
+
+## E-values
+
+The E-value (VanderWeele and Ding, 2017) provides a different perspective on sensitivity to unmeasured confounding. It asks: what is the minimum strength of association (on the risk ratio scale) that an unmeasured confounder would need to have with both the treatment and the outcome to fully explain away the observed treatment-outcome association?
+
+### Theory
+
+For an observed risk ratio $RR$, the E-value is:
+
+$$E\text{-value} = RR + \sqrt{RR \times (RR - 1)}$$
+
+The E-value has an appealing interpretation: an unmeasured confounder that could explain away the entire observed effect would need to be associated with both treatment and outcome by a risk ratio of at least the E-value, above and beyond all measured covariates.
+
+### Computing E-values
+
+```{r evalue-basic, eval=requireNamespace("EValue", quietly = TRUE)}
+library(EValue)
+
+# For a risk ratio
+evalues.RR(est = 3.9, lo = 1.8, hi = 8.7)
+
+# For an odds ratio (common outcome)
+evalues.OR(est = 2.5, lo = 1.4, hi = 4.5, rare = FALSE)
+
+# For a hazard ratio
+evalues.HR(est = 1.8, lo = 1.2, hi = 2.7, rare = TRUE)
+
+# For a standardized mean difference (Cohen's d)
+evalues.OLS(est = 0.5, se = 0.1)
+```
+
+### E-values for Different Study Designs
+
+```{r evalue-designs, eval=requireNamespace("EValue", quietly = TRUE)}
+# Convert an odds ratio to approximate risk ratio first
+# for a common outcome (prevalence > 10%)
+or_val  <- 2.5
+p0      <- 0.3  # baseline prevalence in unexposed
+rr_approx <- or_val / (1 - p0 + p0 * or_val)
+
+evalues.RR(est = rr_approx, lo = 1.5, hi = 3.2)
+
+# For a difference in means (continuous outcome)
+# Convert to approximate RR using the VanderWeele-Ding method
+evalues.OLS(est = 0.35, se = 0.08)
+```
+
+### Visualization
+
+```{r evalue-plot, eval=requireNamespace("EValue", quietly = TRUE)}
+# Bias plot
+bias_plot(est = 3.9, lo = 1.8, hi = 8.7)
+```
+
+### Interpretation
+
+- An E-value of 1.0 means no confounding is needed to explain the result (the observed effect is null).
+- E-value of 2.0: a confounder associated with both treatment and outcome by RR = 2 could explain the result.
+- E-value of 5.0: very robust; the confounder would need very strong associations.
+- E-values should be compared to the known strength of measured confounders.
+
+---
+
+## HonestDiD: Sensitivity for Parallel Trends
+
+The `HonestDiD` package (Rambachan and Roth, 2023) provides formal sensitivity analysis for difference-in-differences designs, allowing researchers to relax the parallel trends assumption in a disciplined way.
+
+### Theory
+
+Standard DID assumes that treatment and control groups would have followed identical trends absent treatment. `HonestDiD` considers two classes of restrictions on how the post-treatment trend could deviate from the pre-treatment trend:
+
+1. **Smoothness restrictions** ($\Delta^{SD}(M)$): The change in the slope of the counterfactual trend between consecutive periods is bounded by $M$. When $M = 0$, this reduces to the standard parallel trends assumption.
+
+2. **Relative magnitudes** ($\Delta^{RM}(\bar{M})$): The post-treatment violations of parallel trends are no larger than $\bar{M}$ times the maximum pre-treatment violation.
+
+### Implementation
+
+```{r honestdid-setup, eval=FALSE && requireNamespace("fixest", quietly = TRUE)}
+library(HonestDiD)
+library(fixest)
+
+# Simulate panel data for an event-study design
+set.seed(300)
+n_units_hdid   <- 100
+n_periods_hdid <- 9
+treat_period_hdid <- 5  # treatment starts at period 5
+
+panel_data <- expand.grid(unit = 1:n_units_hdid, period = 1:n_periods_hdid)
+panel_data$treated <- as.integer(panel_data$unit <= 50)
+panel_data$time_to_treat <- panel_data$period - treat_period_hdid
+panel_data$unit_fe   <- rep(rnorm(n_units_hdid, 0, 2), each = n_periods_hdid)
+panel_data$period_fe <- rep(rnorm(n_periods_hdid), times = n_units_hdid)
+
+# True treatment effect only in post-treatment periods, increasing over time
+panel_data$true_effect <- ifelse(
+  panel_data$treated == 1 & panel_data$time_to_treat >= 0,
+  0.5 * (1 + panel_data$time_to_treat), 0)
+panel_data$outcome <- panel_data$unit_fe + panel_data$period_fe +
+  panel_data$true_effect + rnorm(nrow(panel_data))
+
+# Estimate event-study specification
+es_model <- feols(
+  outcome ~ i(time_to_treat, treated, ref = -1) |
+    unit + period,
+  data    = panel_data,
+  cluster = ~unit
+)
+
+# Extract coefficients and variance-covariance matrix
+betahat <- coef(es_model)
+sigma   <- vcov(es_model)
+
+# Identify pre-treatment and post-treatment coefficient indices
+# (depends on your specification)
+pre_indices  <- 1:3   # t = -4, -3, -2 (t = -1 is reference)
+post_indices <- 4:7   # t = 0, 1, 2, 3
+```
+
+### Smoothness Restrictions
+
+```{r honestdid-smooth, eval=FALSE}
+# Sensitivity analysis with smoothness restrictions
+delta_sd_results <- createSensitivityResults(
+  betahat        = betahat,
+  sigma          = sigma,
+  numPrePeriods  = length(pre_indices),
+  numPostPeriods = length(post_indices),
+  Mvec           = seq(0, 0.05, by = 0.01),
+  method         = "C-LF"     # conditional least-favorable
+)
+
+# Original CS confidence set (M = 0 corresponds to parallel trends)
+print(delta_sd_results)
+```
+
+### Relative Magnitudes
+
+```{r honestdid-relmag, eval=FALSE}
+# Sensitivity analysis with relative magnitudes restrictions
+delta_rm_results <- createSensitivityResults_relativeMagnitudes(
+  betahat        = betahat,
+  sigma          = sigma,
+  numPrePeriods  = length(pre_indices),
+  numPostPeriods = length(post_indices),
+  Mbarvec        = seq(0, 2, by = 0.5),
+  method         = "C-LF"
+)
+
+print(delta_rm_results)
+```
+
+### Visualization
+
+```{r honestdid-plot, eval=FALSE}
+# Create sensitivity plot
+createSensitivityPlot(delta_sd_results,
+                      rescaleFactor = 1,
+                      SmoothPlot    = TRUE)
+
+# For relative magnitudes
+createSensitivityPlot_relativeMagnitudes(delta_rm_results,
+                                          rescaleFactor = 1)
+```
+
+### Interpretation
+
+The sensitivity plots show how the confidence set for the treatment effect widens as you allow larger violations of parallel trends. If the confidence interval excludes zero even at moderately large values of $M$ or $\bar{M}$, the result is robust to plausible departures from parallel trends. If the interval includes zero at small violations, the result is fragile.
+
+---
+
+## Placebo Tests
+
+Placebo tests check whether an estimated effect appears in settings where it should not. A significant placebo effect raises concerns about the validity of the main analysis.
+
+### Types of Placebo Tests
+
+- **Placebo outcomes**: Estimate the treatment effect on outcomes that should not be affected by the treatment.
+- **Placebo treatments**: Use groups that should not be affected as if they were treated.
+- **Placebo cutoffs** (RD): Test for discontinuities at points other than the real cutoff.
+- **In-time placebos** (DID/SC): Use pre-treatment periods as fake treatment dates.
+- **In-space placebos** (SC): Apply the synthetic control method to donor units.
+
+### Placebo Outcomes
+
+If the treatment is a job training program and the outcome is wages, a good placebo outcome might be height or eye color (which should not be affected).
+
+```{r placebo-outcomes, eval=TRUE}
+set.seed(42)
+n <- 500
+
+# Simulate data
+placebo_data <- data.frame(
+  treatment = rbinom(n, 1, 0.5),
+  x1 = rnorm(n),
+  x2 = rnorm(n)
+)
+placebo_data$real_outcome    <- 0.5 * placebo_data$treatment +
+                                 0.3 * placebo_data$x1 + rnorm(n)
+placebo_data$placebo_outcome <- 0.2 * placebo_data$x1 +
+                                 0.4 * placebo_data$x2 + rnorm(n)
+
+# Real outcome: should detect effect
+real_model <- lm(real_outcome ~ treatment + x1 + x2,
+                 data = placebo_data)
+
+# Placebo outcome: should NOT detect effect
+placebo_model <- lm(placebo_outcome ~ treatment + x1 + x2,
+                    data = placebo_data)
+
+# Compare
+results <- data.frame(
+  Outcome   = c("Real Outcome", "Placebo Outcome"),
+  Estimate  = c(coef(real_model)["treatment"],
+                coef(placebo_model)["treatment"]),
+  Std.Error = c(summary(real_model)$coefficients["treatment", "Std. Error"],
+                summary(placebo_model)$coefficients["treatment", "Std. Error"]),
+  P.Value   = c(summary(real_model)$coefficients["treatment", "Pr(>|t|)"],
+                summary(placebo_model)$coefficients["treatment", "Pr(>|t|)"])
+)
+results
+```
+
+The real outcome shows a significant treatment effect, while the placebo outcome (correctly) does not.
+
+### Placebo Treatments (In-Time Placebos for DID)
+
+```{r placebo-intime, eval=TRUE}
+set.seed(123)
+n_units   <- 50
+n_periods <- 10
+treat_period <- 6
+
+panel <- expand.grid(unit = 1:n_units, period = 1:n_periods)
+panel$treated  <- as.integer(panel$unit <= 25)
+panel$post     <- as.integer(panel$period >= treat_period)
+
+# Unit and period fixed effects
+panel$unit_fe   <- rep(rnorm(n_units, 0, 2), each = n_periods)
+panel$period_fe <- rep(rnorm(n_periods), times = n_units)
+
+# Generate outcome with true effect only in post-treatment period
+panel$outcome <- panel$unit_fe + panel$period_fe +
+                 1.5 * panel$treated * panel$post + rnorm(nrow(panel))
+
+# Real DID: using correct treatment period
+real_did <- lm(outcome ~ treated * post, data = panel)
+
+# Placebo DID: pretend treatment started at period 3 (use only pre-treatment data)
+panel_pre <- panel[panel$period < treat_period, ]
+panel_pre$fake_post <- as.integer(panel_pre$period >= 3)
+placebo_did <- lm(outcome ~ treated * fake_post, data = panel_pre)
+
+cat("--- Real DID ---\n")
+cat("Estimate:", round(coef(real_did)["treated:post"], 3),
+    " p-value:", round(summary(real_did)$coefficients["treated:post", 4], 4), "\n\n")
+
+cat("--- Placebo DID (fake treatment at period 3) ---\n")
+cat("Estimate:", round(coef(placebo_did)["treated:fake_post"], 3),
+    " p-value:", round(summary(placebo_did)$coefficients["treated:fake_post", 4], 4), "\n")
+```
+
+### Placebo Cutoffs for RD
+
+```{r placebo-rd, eval=TRUE}
+set.seed(99)
+n <- 1000
+rd_data <- data.frame(
+  running = runif(n, -1, 1)
+)
+rd_data$treatment <- as.integer(rd_data$running >= 0)
+rd_data$outcome   <- 0.5 * rd_data$running +
+                     0.8 * rd_data$treatment + rnorm(n, 0, 0.3)
+
+# Real RD at cutoff = 0
+real_rd <- lm(outcome ~ running + treatment,
+              data = rd_data[abs(rd_data$running) < 0.3, ])
+
+# Placebo cutoffs
+placebo_cutoffs <- c(-0.5, -0.3, 0.3, 0.5)
+
+placebo_rd_results <- lapply(placebo_cutoffs, function(c0) {
+  d <- rd_data[abs(rd_data$running - c0) < 0.3, ]
+  d$fake_treat <- as.integer(d$running >= c0)
+  d$running_c  <- d$running - c0
+  m <- lm(outcome ~ running_c + fake_treat, data = d)
+  data.frame(
+    cutoff   = c0,
+    estimate = coef(m)["fake_treat"],
+    p_value  = summary(m)$coefficients["fake_treat", 4]
+  )
+})
+
+rd_table <- do.call(rbind, placebo_rd_results)
+rd_table <- rbind(
+  data.frame(cutoff = 0,
+             estimate = coef(real_rd)["treatment"],
+             p_value = summary(real_rd)$coefficients["treatment", 4]),
+  rd_table
+)
+rd_table$significant <- ifelse(rd_table$p_value < 0.05, "***", "")
+rd_table
+```
+
+The real cutoff at 0 shows a significant discontinuity, while the placebo cutoffs do not, supporting the validity of the RD design.
+
+### In-Space Placebos for Synthetic Control
+
+```{r placebo-sc, eval=requireNamespace("Synth", quietly = TRUE)}
+library(Synth)
+
+# Simulate panel data for synthetic control
+set.seed(400)
+n_sc_units <- 8
+sc_years   <- 2000:2015
+treated_unit_id <- 1
+
+sc_panel <- expand.grid(unit_id = 1:n_sc_units, year = sc_years)
+sc_panel$x1 <- rnorm(nrow(sc_panel))
+sc_panel$x2 <- rnorm(nrow(sc_panel))
+# Unit fixed effects
+sc_panel$unit_fe <- rep(rnorm(n_sc_units, 0, 2), each = length(sc_years))
+# Time trend
+sc_panel$time_fe <- rep(seq(0, 1.5, length.out = length(sc_years)), times = n_sc_units)
+# Treatment effect for unit 1 after 2009
+sc_panel$treat_effect <- ifelse(
+  sc_panel$unit_id == treated_unit_id & sc_panel$year > 2009,
+  2.0, 0)
+sc_panel$outcome <- sc_panel$unit_fe + sc_panel$time_fe +
+  0.3 * sc_panel$x1 + 0.2 * sc_panel$x2 +
+  sc_panel$treat_effect + rnorm(nrow(sc_panel), 0, 0.5)
+
+# For each donor unit, pretend it is the treated unit
+# and run the synthetic control method
+donor_ids <- setdiff(unique(sc_panel$unit_id), treated_unit_id)
+
+placebo_effects <- lapply(donor_ids, function(pid) {
+  tryCatch({
+    dp <- dataprep(
+      foo        = sc_panel,
+      predictors = c("x1", "x2"),
+      dependent  = "outcome",
+      unit.variable    = "unit_id",
+      time.variable    = "year",
+      treatment.identifier  = pid,
+      controls.identifier   = setdiff(unique(sc_panel$unit_id), pid),
+      time.predictors.prior = 2000:2009,
+      time.optimize.ssr     = 2000:2009,
+      time.plot             = 2000:2015
+    )
+    synth_out <- synth(dp, verbose = FALSE)
+    gaps <- dp$Y1plot - (dp$Y0plot %*% synth_out$solution.w)
+    data.frame(unit = pid, year = sc_years, gap = as.numeric(gaps))
+  }, error = function(e) NULL)
+})
+placebo_effects <- Filter(Negate(is.null), placebo_effects)
+placebo_df <- do.call(rbind, placebo_effects)
+
+# Compute treated unit's gap
+dp_treated <- dataprep(
+  foo        = sc_panel,
+  predictors = c("x1", "x2"),
+  dependent  = "outcome",
+  unit.variable    = "unit_id",
+  time.variable    = "year",
+  treatment.identifier  = treated_unit_id,
+  controls.identifier   = donor_ids,
+  time.predictors.prior = 2000:2009,
+  time.optimize.ssr     = 2000:2009,
+  time.plot             = 2000:2015
+)
+synth_treated <- synth(dp_treated, verbose = FALSE)
+treated_gaps_df <- data.frame(
+  year = sc_years,
+  gap  = as.numeric(dp_treated$Y1plot -
+    (dp_treated$Y0plot %*% synth_treated$solution.w))
+)
+
+# Plot: treated unit's gap should stand out from placebo gaps
+ggplot(placebo_df, aes(x = year, y = gap, group = unit)) +
+  geom_line(alpha = 0.3, color = "grey60") +
+  geom_line(data = treated_gaps_df, aes(x = year, y = gap),
+            color = "red", linewidth = 1.2) +
+  geom_vline(xintercept = 2010, linetype = "dashed") +
+  labs(title = "In-Space Placebo Test",
+       x = "Year", y = "Gap (Treated - Synthetic)") +
+  theme_minimal()
+```
+
+---
+
+## Specification Curve Analysis
+
+Specification curve analysis (Simonsohn, Simmons, and Nelson, 2020) addresses the problem of researcher degrees of freedom. Instead of reporting a single specification, the researcher estimates the effect across all (or many) reasonable specifications and reports the distribution of results.
+
+### Building the Specification Space
+
+Key dimensions of variation include:
+
+- Which control variables to include
+- Functional form (linear, log, polynomial)
+- Sample restrictions (e.g., dropping outliers, age ranges)
+- Fixed effects structure
+- Clustering level for standard errors
+- Outcome measure
+
+### Implementation
+
+```{r spec-curve, eval=TRUE}
+set.seed(2024)
+n <- 800
+
+spec_data <- data.frame(
+  treatment  = rbinom(n, 1, 0.5),
+  x1         = rnorm(n),
+  x2         = rnorm(n),
+  x3         = rnorm(n),
+  x4         = rnorm(n),
+  group      = sample(1:10, n, replace = TRUE)
+)
+spec_data$outcome <- 0.4 * spec_data$treatment +
+                     0.3 * spec_data$x1 +
+                     0.15 * spec_data$x2 +
+                     rnorm(n, 0, 0.8)
+
+# Define specification space
+control_sets <- list(
+  "None"        = "1",
+  "x1"          = "x1",
+  "x1 + x2"     = "x1 + x2",
+  "x1 + x2 + x3" = "x1 + x2 + x3",
+  "All"         = "x1 + x2 + x3 + x4"
+)
+
+sample_defs <- list(
+  "Full"         = rep(TRUE, n),
+  "No outliers"  = abs(spec_data$outcome) < 3
+)
+
+# Run all specifications
+spec_results <- list()
+counter <- 0
+
+for (ctrl_name in names(control_sets)) {
+  for (samp_name in names(sample_defs)) {
+    counter <- counter + 1
+    formula_str <- paste0("outcome ~ treatment + ", control_sets[[ctrl_name]])
+    d <- spec_data[sample_defs[[samp_name]], ]
+    m <- lm(as.formula(formula_str), data = d)
+
+    spec_results[[counter]] <- data.frame(
+      spec_id   = counter,
+      controls  = ctrl_name,
+      sample    = samp_name,
+      estimate  = coef(m)["treatment"],
+      se        = summary(m)$coefficients["treatment", "Std. Error"],
+      p_value   = summary(m)$coefficients["treatment", "Pr(>|t|)"],
+      n_obs     = nrow(d)
+    )
+  }
+}
+
+spec_df <- do.call(rbind, spec_results)
+spec_df <- spec_df[order(spec_df$estimate), ]
+spec_df$rank <- 1:nrow(spec_df)
+
+# Summary statistics
+cat("Median estimate:", round(median(spec_df$estimate), 3), "\n")
+cat("Range: [", round(min(spec_df$estimate), 3), ",",
+    round(max(spec_df$estimate), 3), "]\n")
+cat("All significant at 0.05?", all(spec_df$p_value < 0.05), "\n")
+```
+
+### Visualization
+
+```{r spec-curve-plot, eval=TRUE, fig.width=7, fig.height=6}
+# Upper panel: coefficient estimates sorted
+p1 <- ggplot(spec_df, aes(x = rank, y = estimate)) +
+  geom_point(aes(color = p_value < 0.05), size = 2) +
+  geom_errorbar(aes(ymin = estimate - 1.96 * se,
+                     ymax = estimate + 1.96 * se,
+                     color = p_value < 0.05),
+                width = 0, alpha = 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  scale_color_manual(values = c("TRUE" = "steelblue", "FALSE" = "grey60"),
+                     name = "p < 0.05") +
+  labs(title = "Specification Curve",
+       x = "Specification (sorted by estimate)",
+       y = "Treatment Effect Estimate") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+print(p1)
+```
+
+```{r spec-curve-indicators, eval=TRUE, fig.width=7, fig.height=4}
+# Lower panel: specification indicators
+indicator_df <- spec_df |>
+  select(rank, controls, sample) |>
+  pivot_longer(cols = c(controls, sample),
+               names_to = "dimension", values_to = "choice")
+
+p2 <- ggplot(indicator_df, aes(x = rank, y = choice)) +
+  geom_point(size = 1.5, shape = 15) +
+  facet_grid(dimension ~ ., scales = "free_y", space = "free_y") +
+  labs(x = "Specification (sorted by estimate)", y = "") +
+  theme_minimal() +
+  theme(strip.text.y = element_text(angle = 0))
+
+print(p2)
+```
+
+A robust finding will show consistently positive (or negative) estimates across most specifications. If the sign or significance flips depending on reasonable modeling choices, the result is fragile.
+
+---
+
+## Bounds Approaches
+
+When point identification fails (e.g., due to selection or attrition), **partial identification** provides informative bounds on the parameter of interest.
+
+### Lee Bounds
+
+Lee (2009) bounds address sample selection bias. If treatment affects whether an outcome is observed (e.g., differential attrition), naive estimates are biased. Lee bounds trim the sample to restore comparability and provide sharp bounds under a monotonicity assumption.
+
+The `causalverse` package provides a `lee_bounds()` function:
+
+```{r lee-bounds, eval=TRUE}
+# Simulate experiment data with attrition
+set.seed(500)
+n_lb <- 1000
+experiment_data <- data.frame(
+  treatment = rbinom(n_lb, 1, 0.5)
+)
+# Treatment increases both outcome and probability of being observed
+experiment_data$attrition_indicator <- rbinom(
+  n_lb, 1, 0.9 - 0.05 * experiment_data$treatment)
+experiment_data$outcome <- 0.5 * experiment_data$treatment + rnorm(n_lb)
+# Set outcome to NA for attrited units (lee_bounds expects observed outcomes)
+experiment_data$outcome[experiment_data$attrition_indicator == 1] <- NA
+# Re-code: m = 1 means selected (observed), 0 means attrited
+experiment_data$attrition_indicator <- as.integer(
+  !is.na(experiment_data$outcome))
+# Fill in outcome for all units (lee_bounds handles selection via m)
+experiment_data$outcome <- ifelse(
+  is.na(experiment_data$outcome),
+  rnorm(sum(is.na(experiment_data$outcome))),
+  experiment_data$outcome)
+
+# Using causalverse::lee_bounds
+bounds <- causalverse::lee_bounds(
+  df       = experiment_data,
+  d        = "treatment",
+  m        = "attrition_indicator",
+  y        = "outcome",
+  numdraws = 1000
+)
+print(bounds)
+```
+
+### Manual Lee Bounds
+
+```{r lee-manual, eval=TRUE}
+set.seed(77)
+n <- 2000
+
+lee_data <- data.frame(
+  treatment = rbinom(n, 1, 0.5)
+)
+# Treatment increases both outcome and probability of being observed
+lee_data$observed <- rbinom(n, 1, 0.85 + 0.05 * lee_data$treatment)
+lee_data$outcome  <- 0.5 * lee_data$treatment + rnorm(n)
+
+# Observed sample
+obs_data <- lee_data[lee_data$observed == 1, ]
+
+# Naive estimate (biased due to differential selection)
+naive <- mean(obs_data$outcome[obs_data$treatment == 1]) -
+         mean(obs_data$outcome[obs_data$treatment == 0])
+
+# Lee bounds: trim the group with higher selection rate
+p1 <- mean(lee_data$observed[lee_data$treatment == 1])
+p0 <- mean(lee_data$observed[lee_data$treatment == 0])
+
+if (p1 > p0) {
+  # Trim treated group
+  trim_frac <- 1 - p0 / p1
+  y_treated <- sort(obs_data$outcome[obs_data$treatment == 1])
+  n_treat   <- length(y_treated)
+  n_trim    <- floor(n_treat * trim_frac)
+
+  # Lower bound: trim from top
+  lower_trimmed_mean <- mean(y_treated[1:(n_treat - n_trim)])
+  # Upper bound: trim from bottom
+  upper_trimmed_mean <- mean(y_treated[(n_trim + 1):n_treat])
+
+  y_control_mean <- mean(obs_data$outcome[obs_data$treatment == 0])
+
+  lower_bound <- lower_trimmed_mean - y_control_mean
+  upper_bound <- upper_trimmed_mean - y_control_mean
+} else {
+  # Analogous trimming of control group
+  trim_frac <- 1 - p1 / p0
+  y_control <- sort(obs_data$outcome[obs_data$treatment == 0])
+  n_ctrl    <- length(y_control)
+  n_trim    <- floor(n_ctrl * trim_frac)
+
+  lower_trimmed_mean <- mean(y_control[(n_trim + 1):n_ctrl])
+  upper_trimmed_mean <- mean(y_control[1:(n_ctrl - n_trim)])
+
+  y_treated_mean <- mean(obs_data$outcome[obs_data$treatment == 1])
+
+  lower_bound <- y_treated_mean - upper_trimmed_mean
+  upper_bound <- y_treated_mean - lower_trimmed_mean
+}
+
+cat("Observation rates: Treated =", round(p1, 3),
+    "  Control =", round(p0, 3), "\n")
+cat("Naive estimate:   ", round(naive, 3), "\n")
+cat("Lee bounds:       [", round(lower_bound, 3), ",",
+    round(upper_bound, 3), "]\n")
+cat("True effect:       0.5\n")
+```
+
+### Manski Bounds
+
+Manski (1990) worst-case bounds make no assumptions about the selection process. If the outcome is bounded in $[y_L, y_U]$, then for the missing outcomes we substitute the extreme values:
+
+```{r manski-bounds, eval=TRUE}
+# Using the same lee_data from above
+# Suppose outcome is bounded in [-4, 4]
+y_lower <- -4
+y_upper <-  4
+
+n1 <- sum(lee_data$treatment == 1)
+n0 <- sum(lee_data$treatment == 0)
+
+# For treated: observed outcomes + worst case for missing
+y1_obs <- lee_data$outcome[lee_data$treatment == 1 & lee_data$observed == 1]
+n1_miss <- sum(lee_data$treatment == 1 & lee_data$observed == 0)
+
+# For control
+y0_obs <- lee_data$outcome[lee_data$treatment == 0 & lee_data$observed == 0]
+y0_obs_real <- lee_data$outcome[lee_data$treatment == 0 & lee_data$observed == 1]
+n0_miss <- sum(lee_data$treatment == 0 & lee_data$observed == 0)
+
+# Lower bound: treated missing get y_lower, control missing get y_upper
+manski_lower <- (sum(y1_obs) + n1_miss * y_lower) / n1 -
+                (sum(y0_obs_real) + n0_miss * y_upper) / n0
+
+# Upper bound: treated missing get y_upper, control missing get y_lower
+manski_upper <- (sum(y1_obs) + n1_miss * y_upper) / n1 -
+                (sum(y0_obs_real) + n0_miss * y_lower) / n0
+
+cat("Manski bounds: [", round(manski_lower, 3), ",",
+    round(manski_upper, 3), "]\n")
+cat("Lee bounds:    [", round(lower_bound, 3), ",",
+    round(upper_bound, 3), "]\n")
+```
+
+Manski bounds are always wider than Lee bounds because they make weaker assumptions. The trade-off between assumptions and informativeness is fundamental to partial identification.
+
+---
+
+## Multiple Testing Corrections
+
+When testing multiple hypotheses simultaneously (e.g., treatment effects on several outcomes, subgroup analyses), the probability of at least one false positive increases rapidly. Multiple testing corrections control the overall error rate.
+
+### Family-Wise Error Rate (FWER)
+
+The FWER is the probability of making at least one Type I error across all tests.
+
+```{r multiple-testing-fwer, eval=TRUE}
+# Simulate 20 hypothesis tests
+set.seed(314)
+n_tests <- 20
+
+# 5 tests have true effects, 15 are null
+true_effects <- c(rep(0.5, 5), rep(0, 15))
+
+p_values <- sapply(true_effects, function(effect) {
+  x <- rnorm(100, mean = effect)
+  t.test(x)$p.value
+})
+
+# Bonferroni correction (most conservative)
+p_bonferroni <- p.adjust(p_values, method = "bonferroni")
+
+# Holm step-down procedure (uniformly more powerful than Bonferroni)
+p_holm <- p.adjust(p_values, method = "holm")
+
+# Compare
+comparison <- data.frame(
+  Test      = 1:n_tests,
+  True_Effect = true_effects,
+  Raw_p     = round(p_values, 4),
+  Bonferroni = round(p_bonferroni, 4),
+  Holm      = round(p_holm, 4),
+  Raw_sig   = ifelse(p_values < 0.05, "*", ""),
+  Bonf_sig  = ifelse(p_bonferroni < 0.05, "*", ""),
+  Holm_sig  = ifelse(p_holm < 0.05, "*", "")
+)
+
+# Show results for first 10 tests
+head(comparison, 10)
+
+cat("\nRejections at alpha = 0.05:\n")
+cat("  Raw:        ", sum(p_values < 0.05), "\n")
+cat("  Bonferroni: ", sum(p_bonferroni < 0.05), "\n")
+cat("  Holm:       ", sum(p_holm < 0.05), "\n")
+```
+
+### False Discovery Rate (FDR)
+
+The FDR controls the expected proportion of false positives among all rejections, which is a less stringent criterion than FWER.
+
+```{r multiple-testing-fdr, eval=TRUE}
+# Benjamini-Hochberg procedure
+p_bh <- p.adjust(p_values, method = "BH")
+
+# Benjamini-Yekutieli (valid under arbitrary dependence)
+p_by <- p.adjust(p_values, method = "BY")
+
+fdr_comparison <- data.frame(
+  Test        = 1:n_tests,
+  True_Effect = true_effects,
+  Raw_p       = round(p_values, 4),
+  BH_adj      = round(p_bh, 4),
+  BY_adj      = round(p_by, 4)
+)
+
+cat("Rejections at alpha = 0.05:\n")
+cat("  Benjamini-Hochberg: ", sum(p_bh < 0.05), "\n")
+cat("  Benjamini-Yekutieli:", sum(p_by < 0.05), "\n")
+```
+
+### Romano-Wolf Step-Down
+
+The Romano-Wolf procedure controls the FWER while accounting for the dependence structure among test statistics through resampling:
+
+```{r romano-wolf, eval=requireNamespace("wildrwolf", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+library(wildrwolf)
+library(fixest)
+
+# Simulate multi-outcome data with clusters
+set.seed(600)
+n_rw <- 500
+n_groups_rw <- 25
+multi_outcome_data <- data.frame(
+  group     = rep(1:n_groups_rw, each = n_rw / n_groups_rw),
+  treatment = rep(rbinom(n_groups_rw, 1, 0.5), each = n_rw / n_groups_rw)
+)
+multi_outcome_data$outcome1 <- 0.5 * multi_outcome_data$treatment + rnorm(n_rw)
+multi_outcome_data$outcome2 <- 0.3 * multi_outcome_data$treatment + rnorm(n_rw)
+multi_outcome_data$outcome3 <- 0.0 * multi_outcome_data$treatment + rnorm(n_rw)
+multi_outcome_data$outcome4 <- 0.4 * multi_outcome_data$treatment + rnorm(n_rw)
+
+# Estimate multiple models
+models <- feols(
+  c(outcome1, outcome2, outcome3, outcome4) ~ treatment | group,
+  data    = multi_outcome_data,
+  cluster = ~group
+)
+
+# Romano-Wolf adjusted p-values
+rw_pvals <- rwolf(
+  models   = models,
+  param    = "treatment",
+  B        = 999,
+  seed     = 42
+)
+
+print(rw_pvals)
+```
+
+### Choosing a Correction
+
+| Method | Controls | Assumption | Power |
+|--------|----------|------------|-------|
+| Bonferroni | FWER | None | Lowest |
+| Holm | FWER | None | Higher than Bonferroni |
+| Romano-Wolf | FWER | Resampling valid | Higher (accounts for dependence) |
+| Benjamini-Hochberg | FDR | Independence or PRDS | High |
+| Benjamini-Yekutieli | FDR | None | Moderate |
+
+**Rule of thumb**: Use Holm for FWER control. Use Benjamini-Hochberg when FDR control suffices and tests are approximately independent. Use Romano-Wolf when test statistics are correlated and FWER control is needed.
+
+---
+
+## Randomization Inference
+
+Randomization inference (RI) derives exact p-values by comparing the observed test statistic to its distribution under all possible random assignments, without relying on asymptotic approximations.
+
+### Theory
+
+Under the sharp null hypothesis $H_0: Y_i(1) = Y_i(0)$ for all $i$, the potential outcomes are fixed and only the treatment assignment is random. The p-value is:
+
+$$p = \frac{\#\{|\hat{\tau}_\pi| \geq |\hat{\tau}_{obs}|\}}{\text{total permutations}}$$
+
+where $\hat{\tau}_\pi$ is the test statistic computed under permutation $\pi$.
+
+### Manual Implementation
+
+```{r ri-manual, eval=TRUE}
+set.seed(555)
+n <- 60
+
+ri_data <- data.frame(
+  treatment = c(rep(1, 30), rep(0, 30)),
+  outcome   = c(rnorm(30, mean = 0.6), rnorm(30, mean = 0))
+)
+
+# Observed test statistic
+obs_stat <- mean(ri_data$outcome[ri_data$treatment == 1]) -
+            mean(ri_data$outcome[ri_data$treatment == 0])
+
+# Permutation distribution (10000 draws)
+n_perms <- 10000
+perm_stats <- numeric(n_perms)
+
+for (i in 1:n_perms) {
+  perm_treat <- sample(ri_data$treatment)
+  perm_stats[i] <- mean(ri_data$outcome[perm_treat == 1]) -
+                   mean(ri_data$outcome[perm_treat == 0])
+}
+
+# Two-sided p-value
+ri_pvalue <- mean(abs(perm_stats) >= abs(obs_stat))
+
+cat("Observed difference in means:", round(obs_stat, 3), "\n")
+cat("Randomization inference p-value:", ri_pvalue, "\n")
+cat("Conventional t-test p-value:",
+    round(t.test(outcome ~ treatment, data = ri_data)$p.value, 4), "\n")
+```
+
+```{r ri-plot, eval=TRUE, fig.width=6, fig.height=4}
+# Visualization
+hist(perm_stats, breaks = 50, col = "grey80", border = "white",
+     main = "Randomization Distribution",
+     xlab = "Difference in Means Under Sharp Null")
+abline(v = obs_stat, col = "red", lwd = 2)
+abline(v = -obs_stat, col = "red", lwd = 2, lty = 2)
+legend("topright", legend = c("Observed statistic", "Mirror"),
+       col = "red", lty = c(1, 2), lwd = 2)
+```
+
+### ri2 Package
+
+The `ri2` package provides a convenient interface:
+
+```{r ri2-package, eval=requireNamespace("ri2", quietly = TRUE)}
+library(ri2)
+
+# Simulate data for ri2
+set.seed(700)
+n_ri2 <- 60
+ri2_data <- data.frame(
+  treatment = c(rep(1, 30), rep(0, 30)),
+  outcome   = c(rnorm(30, mean = 0.6), rnorm(30, mean = 0))
+)
+
+# Declare the randomization scheme
+declaration <- declare_ra(N = nrow(ri2_data), m = sum(ri2_data$treatment))
+
+# Conduct randomization inference
+ri_out <- conduct_ri(
+  formula       = outcome ~ treatment,
+  declaration   = declaration,
+  sharp_hypothesis = 0,
+  data          = ri2_data,
+  sims          = 5000
+)
+
+summary(ri_out)
+plot(ri_out)
+```
+
+### RI for Clustered Designs
+
+```{r ri-cluster, eval=requireNamespace("ri2", quietly = TRUE)}
+library(ri2)
+
+# Simulate cluster-randomized data
+set.seed(710)
+n_clust_ri <- 30
+clust_size_ri <- 10
+cluster_ri_data <- data.frame(
+  cluster_id = rep(1:n_clust_ri, each = clust_size_ri),
+  treatment  = rep(c(rep(1, 15), rep(0, 15)), each = clust_size_ri)
+)
+cluster_ri_data$outcome <- 0.4 * cluster_ri_data$treatment +
+  rep(rnorm(n_clust_ri, 0, 0.5), each = clust_size_ri) +
+  rnorm(n_clust_ri * clust_size_ri)
+
+# Cluster-randomized design
+declaration <- declare_ra(
+  clusters = cluster_ri_data$cluster_id,
+  m_each   = c(15, 15)   # 15 treated clusters, 15 control clusters
+)
+
+ri_cluster <- conduct_ri(
+  formula       = outcome ~ treatment,
+  declaration   = declaration,
+  sharp_hypothesis = 0,
+  data          = cluster_ri_data,
+  sims          = 5000
+)
+
+summary(ri_cluster)
+```
+
+### When to Use Randomization Inference
+
+- Small samples where asymptotic approximations may be poor.
+- Clustered designs with few clusters (where cluster-robust SEs are unreliable).
+- When the treatment assignment mechanism is known exactly (experiments).
+- As a complement to conventional inference for robustness.
+
+---
+
+## Bootstrap Methods
+
+### Nonparametric Bootstrap
+
+The standard nonparametric bootstrap resamples observations with replacement to approximate the sampling distribution:
+
+```{r bootstrap-basic, eval=TRUE}
+set.seed(101)
+n <- 200
+
+boot_data <- data.frame(
+  treatment = rbinom(n, 1, 0.5),
+  x1 = rnorm(n)
+)
+boot_data$outcome <- 0.5 * boot_data$treatment +
+                     0.3 * boot_data$x1 + rnorm(n)
+
+# Point estimate
+model_orig <- lm(outcome ~ treatment + x1, data = boot_data)
+theta_hat  <- coef(model_orig)["treatment"]
+
+# Bootstrap
+B <- 2000
+boot_estimates <- numeric(B)
+
+for (b in 1:B) {
+  idx <- sample(1:n, n, replace = TRUE)
+  boot_model <- lm(outcome ~ treatment + x1, data = boot_data[idx, ])
+  boot_estimates[b] <- coef(boot_model)["treatment"]
+}
+
+# Bootstrap confidence intervals
+# Percentile method
+ci_percentile <- quantile(boot_estimates, c(0.025, 0.975))
+
+# Normal approximation
+boot_se <- sd(boot_estimates)
+ci_normal <- theta_hat + c(-1.96, 1.96) * boot_se
+
+# BCa (bias-corrected and accelerated) approximation
+z0 <- qnorm(mean(boot_estimates < theta_hat))
+# Jackknife for acceleration
+jack_estimates <- numeric(n)
+for (i in 1:n) {
+  jack_model <- lm(outcome ~ treatment + x1, data = boot_data[-i, ])
+  jack_estimates[i] <- coef(jack_model)["treatment"]
+}
+jack_mean <- mean(jack_estimates)
+a_hat <- sum((jack_mean - jack_estimates)^3) /
+         (6 * sum((jack_mean - jack_estimates)^2)^1.5)
+
+alpha1 <- pnorm(z0 + (z0 + qnorm(0.025)) / (1 - a_hat * (z0 + qnorm(0.025))))
+alpha2 <- pnorm(z0 + (z0 + qnorm(0.975)) / (1 - a_hat * (z0 + qnorm(0.975))))
+ci_bca <- quantile(boot_estimates, c(alpha1, alpha2))
+
+cat("Point estimate:     ", round(theta_hat, 3), "\n")
+cat("Analytical SE:      ", round(summary(model_orig)$coefficients["treatment", 2], 3), "\n")
+cat("Bootstrap SE:       ", round(boot_se, 3), "\n")
+cat("Percentile CI:      [", round(ci_percentile[1], 3), ",",
+    round(ci_percentile[2], 3), "]\n")
+cat("Normal CI:          [", round(ci_normal[1], 3), ",",
+    round(ci_normal[2], 3), "]\n")
+cat("BCa CI:             [", round(ci_bca[1], 3), ",",
+    round(ci_bca[2], 3), "]\n")
+```
+
+### Pairs Cluster Bootstrap
+
+With clustered data and few clusters, cluster-robust standard errors can be severely biased. The pairs cluster bootstrap resamples entire clusters:
+
+```{r bootstrap-cluster, eval=TRUE}
+set.seed(202)
+n_clusters <- 30
+cluster_size <- 20
+
+cluster_data <- data.frame(
+  cluster = rep(1:n_clusters, each = cluster_size),
+  treatment = rep(rbinom(n_clusters, 1, 0.5), each = cluster_size)
+)
+cluster_data$cluster_effect <- rep(rnorm(n_clusters, 0, 1),
+                                    each = cluster_size)
+cluster_data$outcome <- 0.4 * cluster_data$treatment +
+                        cluster_data$cluster_effect +
+                        rnorm(n_clusters * cluster_size, 0, 0.5)
+
+# Original estimate
+orig_model <- lm(outcome ~ treatment, data = cluster_data)
+theta_orig <- coef(orig_model)["treatment"]
+
+# Pairs cluster bootstrap
+B <- 2000
+boot_cluster_est <- numeric(B)
+
+for (b in 1:B) {
+  sampled_clusters <- sample(1:n_clusters, n_clusters, replace = TRUE)
+  boot_df <- do.call(rbind, lapply(seq_along(sampled_clusters), function(j) {
+    d <- cluster_data[cluster_data$cluster == sampled_clusters[j], ]
+    d$cluster <- j  # re-label to avoid duplicate cluster IDs
+    d
+  }))
+  boot_model <- lm(outcome ~ treatment, data = boot_df)
+  boot_cluster_est[b] <- coef(boot_model)["treatment"]
+}
+
+boot_cluster_se <- sd(boot_cluster_est)
+ci_cluster <- quantile(boot_cluster_est, c(0.025, 0.975))
+
+cat("Point estimate:          ", round(theta_orig, 3), "\n")
+cat("Pairs cluster bootstrap SE:", round(boot_cluster_se, 3), "\n")
+cat("95% CI:                  [", round(ci_cluster[1], 3), ",",
+    round(ci_cluster[2], 3), "]\n")
+```
+
+### Wild Cluster Bootstrap
+
+The wild cluster bootstrap (Cameron, Gelbach, and Miller, 2008) is particularly useful when the number of clusters is small (fewer than 50). The `fwildclusterboot` package provides a fast implementation:
+
+```{r wild-bootstrap, eval=requireNamespace("fwildclusterboot", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+library(fwildclusterboot)
+library(fixest)
+
+# Simulate panel data for wild cluster bootstrap
+set.seed(800)
+n_wc_clusters <- 30
+n_wc_per      <- 20
+wcb_data <- data.frame(
+  cluster_id = rep(1:n_wc_clusters, each = n_wc_per),
+  treatment  = rep(rbinom(n_wc_clusters, 1, 0.5), each = n_wc_per),
+  x1 = rnorm(n_wc_clusters * n_wc_per),
+  x2 = rnorm(n_wc_clusters * n_wc_per)
+)
+wcb_data$cluster_effect <- rep(rnorm(n_wc_clusters, 0, 1), each = n_wc_per)
+wcb_data$outcome <- 0.5 * wcb_data$treatment + 0.3 * wcb_data$x1 +
+  0.2 * wcb_data$x2 + wcb_data$cluster_effect +
+  rnorm(n_wc_clusters * n_wc_per, 0, 0.5)
+wcb_data$state <- wcb_data$cluster_id  # alias for the few-clusters chunk
+
+# Estimate model with fixest
+model <- feols(outcome ~ treatment + x1 + x2 | cluster_id,
+               data = wcb_data,
+               cluster = ~cluster_id)
+
+# Wild cluster bootstrap
+boot_result <- boottest(
+  model,
+  param     = "treatment",
+  clustid   = ~cluster_id,
+  B         = 9999,
+  type      = "rademacher",  # or "mammen", "webb", "norm"
+  impose_null = TRUE         # impose null for better finite-sample properties
+)
+
+summary(boot_result)
+plot(boot_result)
+```
+
+### Wild Bootstrap with Few Clusters
+
+When the number of clusters is very small (G < 20), the Webb (2023) six-point distribution often outperforms Rademacher weights:
+
+```{r wild-bootstrap-few, eval=requireNamespace("fwildclusterboot", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+# For designs with very few clusters
+boot_few <- boottest(
+  model,
+  param     = "treatment",
+  clustid   = ~state,
+  B         = 99999,
+  type      = "webb",        # better for few clusters
+  impose_null = TRUE,
+  p_val_type  = "equal-tailed"
+)
+
+summary(boot_few)
+```
+
+### Choosing a Bootstrap Method
+
+| Scenario | Recommended Method |
+|----------|--------------------|
+| iid data | Nonparametric (pairs) bootstrap |
+| Clustered, G >= 50 | Cluster-robust SEs are usually fine |
+| Clustered, 20 <= G < 50 | Wild cluster bootstrap (Rademacher) |
+| Clustered, G < 20 | Wild cluster bootstrap (Webb weights) |
+| Heteroskedasticity | Wild bootstrap (HC) |
+| Panel data with FE | Wild cluster bootstrap with fixest |
+
+---
+
+## KonFound-It Framework
+
+The KonFound-It framework (Frank, 2000; Frank et al., 2013) quantifies how much of an estimated effect would need to be biased to invalidate a statistical inference. It provides two complementary metrics:
+
+- **Percentage Bias to Invalidate the Inference (PBII)**: What percentage of the estimated effect would have to be due to bias to change the conclusion?
+- **Impact Threshold for a Confounding Variable (ITCV)**: How strongly correlated with both the treatment and outcome must an omitted variable be to explain away the result?
+
+The `konfound` package offers `konfound()` for fitted model objects and `pkonfound()` for published results (when you only have the estimate, standard error, sample size, and number of covariates).
+
+```{r konfound-setup, eval = requireNamespace("konfound", quietly = TRUE), message=FALSE, warning=FALSE}
+library(konfound)
+
+# Simulate data with a treatment effect
+set.seed(42)
+n <- 500
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+treatment <- 0.4 * x1 + 0.3 * x2 + rnorm(n)
+outcome <- 0.5 * treatment + 0.3 * x1 + 0.2 * x2 + rnorm(n)
+
+df_konfound <- data.frame(outcome, treatment, x1, x2)
+model_konfound <- lm(outcome ~ treatment + x1 + x2, data = df_konfound)
+summary(model_konfound)
+```
+
+```{r konfound-model, eval = requireNamespace("konfound", quietly = TRUE), message=FALSE, warning=FALSE}
+# Apply KonFound-It to the fitted model
+# How much bias is needed to invalidate the treatment effect?
+konfound(model_konfound, treatment)
+```
+
+```{r pkonfound-published, eval = requireNamespace("konfound", quietly = TRUE), message=FALSE, warning=FALSE}
+# For published results: estimate, SE, sample size, number of covariates
+# Example: coefficient = 0.5, SE = 0.06, n = 500, 3 covariates
+pkonfound(est_eff = 0.5, std_err = 0.06, n_obs = 500, n_covariates = 3)
+```
+
+```{r konfound-itcv, eval = requireNamespace("konfound", quietly = TRUE), message=FALSE, warning=FALSE}
+# Impact Threshold for a Confounding Variable (ITCV)
+# What correlations with treatment and outcome would an omitted variable need?
+pkonfound(est_eff = 0.5, std_err = 0.06, n_obs = 500, n_covariates = 3,
+          index = "IT")
+```
+
+**Interpretation**: If PBII is high (e.g., >50%), the result is robust---more than half of the effect would need to be due to bias. A low ITCV means even a weakly correlated confounder could overturn the finding, while a high ITCV indicates robustness. Researchers can compare the ITCV to correlations of observed covariates as informal benchmarks.
+
+---
+
+## Treatment Effect Sensitivity with treatSens
+
+The `treatSens` package (Carnegie, Harada, & Hill, 2016) provides sensitivity analysis for causal effects estimated from observational studies with binary or continuous treatments. Unlike methods that assume selection on observables, `treatSens` directly models how an unobserved confounder related to both treatment assignment and outcomes could bias estimates, building on the framework of Imbens (2003) and Carnegie, Harada, & Hill (2015).
+
+The key idea is to posit a hypothetical unobserved confounder $U$ and examine how the treatment effect estimate changes across a grid of possible relationships between $U$ and the treatment (sensitivity parameter $\zeta$) and between $U$ and the outcome (sensitivity parameter $\eta$).
+
+```{r treatsens-setup, eval = requireNamespace("treatSens", quietly = TRUE), message=FALSE, warning=FALSE}
+library(treatSens)
+
+# Simulate observational data with continuous treatment
+set.seed(42)
+n <- 400
+U <- rnorm(n)  # unobserved confounder
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+
+# Treatment depends on observed and unobserved confounders
+treatment <- 0.5 * x1 + 0.3 * x2 + 0.6 * U + rnorm(n)
+
+# Outcome depends on treatment, covariates, and unobserved confounder
+outcome <- 0.4 * treatment + 0.3 * x1 + 0.2 * x2 + 0.5 * U + rnorm(n)
+
+df_tsens <- data.frame(outcome, treatment, x1, x2)
+```
+
+```{r treatsens-analysis, eval = requireNamespace("treatSens", quietly = TRUE), message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+# Sensitivity analysis for continuous treatment
+# Grid explores how an unmeasured confounder could change the estimate
+sens_result <- treatSens(outcome ~ treatment + x1 + x2,
+                         trt.family = gaussian,
+                         nsim = 20,
+                         grid.dim = c(5, 5),
+                         data = df_tsens)
+
+# Contour plot: shows how the treatment effect varies over
+# (zeta, eta) = (confounder-treatment, confounder-outcome) associations
+sensPlot(sens_result)
+```
+
+**Interpretation**: The contour plot shows estimated treatment effects across combinations of confounder--treatment ($\zeta$) and confounder--outcome ($\eta$) associations. The origin (0, 0) corresponds to the naive estimate. If the zero-effect contour is far from plausible confounder strengths (benchmarked against observed covariates), the finding is robust to unobserved confounding.
+
+---
+
+## Tipping Point Analysis with tipr
+
+The `tipr` package (McGowan & Greevy, 2022, JOSS) provides an intuitive tipping-point framework: given an observed effect, what characteristics would an unmeasured confounder need to have to "tip" the estimate to the null (or any other threshold)? Rather than computing a single sensitivity parameter, `tipr` returns the confounder prevalence and effect size combinations that would change the conclusion.
+
+The package provides tipping-point functions for different effect scales:
+
+- `tip_coef()`: for regression coefficients (mean differences)
+- `tip_rr()`: for risk ratios
+- `tip_or()`: for odds ratios
+- `adjust_coef()`: adjust an estimate for a hypothetical confounder with specified properties
+
+```{r tipr-setup, eval = requireNamespace("tipr", quietly = TRUE), message=FALSE, warning=FALSE}
+library(tipr)
+
+# Simulate data and fit a model
+set.seed(42)
+n <- 500
+x1 <- rnorm(n)
+treatment <- rbinom(n, 1, plogis(0.3 * x1))
+outcome <- 0.8 * treatment + 0.5 * x1 + rnorm(n)
+
+df_tipr <- data.frame(outcome, treatment, x1)
+model_tipr <- lm(outcome ~ treatment + x1, data = df_tipr)
+est <- coef(model_tipr)["treatment"]
+se_est <- summary(model_tipr)$coefficients["treatment", "Std. Error"]
+cat("Estimated treatment effect:", round(est, 3),
+    " (95% CI:", round(est - 1.96 * se_est, 3), ",",
+    round(est + 1.96 * se_est, 3), ")\n")
+```
+
+```{r tipr-tip, eval = requireNamespace("tipr", quietly = TRUE), message=FALSE, warning=FALSE}
+# What unmeasured confounder would tip the coefficient to zero?
+tip_result <- tip_coef(effect = est, se = se_est)
+tip_result
+```
+
+```{r tipr-adjust, eval = requireNamespace("tipr", quietly = TRUE), message=FALSE, warning=FALSE}
+# Adjust the estimate for a hypothetical confounder:
+# e.g., a binary confounder with 30% prevalence in treated, 10% in control,
+# and an effect of 0.5 on the outcome
+adjusted <- adjust_coef(
+  effect = est,
+  se = se_est,
+  exposure_confounder_effect = 0.20,
+  confounder_outcome_effect = 0.5
+)
+adjusted
+```
+
+**Interpretation**: `tip_coef()` returns combinations of confounder--exposure and confounder--outcome effects that would reduce the estimated coefficient to the null. If these required confounder characteristics are implausibly large compared to observed covariates, the result is robust. `adjust_coef()` lets researchers ask "what if" questions about specific hypothetical confounders, making sensitivity discussions concrete and accessible for applied audiences.
+
+---
+
+## OVtool for Propensity Score Weighting
+
+The `OVtool` package extends the TWANG framework for propensity score weighting by providing omitted variable sensitivity analysis. It asks: if an unobserved covariate were added to the propensity score model, how would the treatment effect estimate and covariate balance change? This is particularly relevant for studies using inverse probability weighting (IPW) or related methods, where balance on observed covariates does not guarantee balance on unobserved ones.
+
+```{r ovtool-setup, eval = requireNamespace("OVtool", quietly = TRUE) && requireNamespace("twang", quietly = TRUE), message=FALSE, warning=FALSE}
+library(OVtool)
+library(twang)
+
+# Simulate data for propensity score analysis
+set.seed(42)
+n <- 600
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+x3 <- rbinom(n, 1, 0.5)
+treatment <- rbinom(n, 1, plogis(0.5 * x1 + 0.3 * x2 + 0.4 * x3))
+outcome <- 2.0 * treatment + 0.8 * x1 + 0.5 * x2 + 0.3 * x3 + rnorm(n)
+
+df_ov <- data.frame(outcome, treatment, x1, x2, x3)
+
+# Fit propensity score model with TWANG
+ps_model <- ps(treatment ~ x1 + x2 + x3,
+               data = df_ov,
+               n.trees = 2000,
+               interaction.depth = 2,
+               stop.method = "es.mean",
+               verbose = FALSE)
+```
+
+```{r ovtool-sim, eval = requireNamespace("OVtool", quietly = TRUE) && requireNamespace("twang", quietly = TRUE), message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+# Simulate an omitted confounder and assess sensitivity
+# The function simulates a confounder U correlated with treatment and outcome
+ov_result <- ov_sim(
+  model_results = ps_model,
+  outcome_model = lm(outcome ~ treatment, data = df_ov, weights = get.weights(ps_model)),
+  data = df_ov,
+  treatment = "treatment",
+  outcome = "outcome",
+  sim_covariates = c("x1", "x2"),
+  es_grid = seq(0, 0.5, by = 0.1),
+  rho_grid = seq(0, 0.5, by = 0.1),
+  n_reps = 50
+)
+
+# Visualize sensitivity
+plot(ov_result)
+```
+
+**Interpretation**: The plot shows how the treatment effect estimate changes as the simulated omitted variable becomes more strongly related to treatment assignment and outcome. The approach uses observed covariates as benchmarks, making it easy to judge whether a plausible confounder could meaningfully shift the estimate. If the effect remains significant across the range of simulated confounders calibrated to observed covariate strengths, the weighting-based estimate is robust.
+
+---
+
+## Selection Model Sensitivity with causalsens
+
+The `causalsens` package provides sensitivity analysis for causal estimates by allowing researchers to specify a confounding function that describes how unobserved selection bias enters the model. This is particularly useful for treatment effects estimated via matching, regression, or IPW, where the functional form of confounding can be directly parameterized.
+
+The key function `causalsens()` takes a fitted treatment effect model and a confounding function, then recalculates the treatment effect across a range of confounding strengths.
+
+```{r causalsens-setup, eval = requireNamespace("causalsens", quietly = TRUE), message=FALSE, warning=FALSE}
+library(causalsens)
+
+# Simulate observational data
+set.seed(42)
+n <- 500
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+treatment <- rbinom(n, 1, plogis(0.6 * x1 + 0.3 * x2))
+outcome <- 1.0 * treatment + 0.5 * x1 + 0.3 * x2 + rnorm(n)
+
+df_csens <- data.frame(outcome, treatment, x1, x2)
+
+# Fit outcome model and propensity score model
+outcome_model <- lm(outcome ~ treatment + x1 + x2, data = df_csens)
+ps_model_csens <- glm(treatment ~ x1 + x2, data = df_csens, family = binomial)
+```
+
+```{r causalsens-analysis, eval = requireNamespace("causalsens", quietly = TRUE), message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+# Run sensitivity analysis with one-sided confounding
+# alpha controls confounding strength; the function explores a range
+sens_out <- causalsens(model = outcome_model,
+                       confound = one.sided,
+                       data = df_csens,
+                       alpha = seq(-0.5, 0.5, by = 0.1))
+
+# Plot: how does the ATE change across confounding strengths?
+plot(sens_out, type = "raw", bty = "l")
+```
+
+```{r causalsens-aligned, eval = requireNamespace("causalsens", quietly = TRUE), message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+# Alignment-based confounding: bias is proportional to propensity score
+sens_aligned <- causalsens(model = outcome_model,
+                           confound = alignment,
+                           data = df_csens,
+                           alpha = seq(-0.5, 0.5, by = 0.1))
+
+plot(sens_aligned, type = "raw", bty = "l")
+```
+
+**Interpretation**: Each curve shows the estimated treatment effect at a different level of confounding strength ($\alpha$). When $\alpha = 0$, the estimate equals the original (no confounding). Positive $\alpha$ indicates confounding that inflates the effect; negative $\alpha$ indicates confounding that attenuates it. The `one.sided` function models confounding that affects only the treated group, while `alignment` models confounding proportional to the propensity score. If the effect remains positive (or significant) across a wide range of $\alpha$, the causal conclusion is robust to selection on unobservables.
+
+---
+
+## Practical Guidelines
+
+### Decision Framework
+
+**Before estimation: choose your primary specification.** Commit to a primary specification before looking at results to avoid specification searching. Pre-registration helps.
+
+**After estimation: probe robustness.** Use the tools covered in this vignette to assess whether your conclusions are fragile or robust.
+
+### Which Sensitivity Analysis for Which Method?
+
+| Causal Method | Primary Sensitivity Analysis | Additional Checks |
+|---------------|------------------------------|-------------------|
+| OLS / Selection on observables | sensemakr (OVB), E-values | Specification curve, coefficient stability |
+| Matching / Propensity score | Rosenbaum bounds, E-values | Balance checks, different matching algorithms |
+| Difference-in-differences | HonestDiD, placebo tests | Pre-trend tests, varying pre/post windows |
+| Synthetic control | In-space placebos, leave-one-out | Pre-treatment MSPE ratios |
+| Regression discontinuity | Placebo cutoffs, bandwidth sensitivity | Density tests, donut-hole RD |
+| Instrumental variables | Effective F-statistic, tF procedure | Reduced form, plausibly exogenous (Conley bounds) |
+| RCT with attrition | Lee bounds, Manski bounds | Multiple imputation, bounding exercises |
+
+### Reporting Standards
+
+Following best practices, sensitivity analyses should be reported transparently:
+
+1. **State assumptions explicitly.** Write down the identifying assumptions in formal terms.
+
+2. **Report robustness values.** For OVB analysis, report the $RV_q$ and $RV_{q,\alpha}$ along with benchmark comparisons.
+
+3. **Show placebo tests.** Report placebo test results even (especially) when they are null.
+
+4. **Present specification curves.** Show the distribution of estimates across reasonable specifications.
+
+5. **Discuss the sensitivity frontier.** At what point do assumptions need to be violated for the result to break down? Is that violation plausible?
+
+6. **Account for multiple testing.** When reporting multiple outcomes or subgroups, apply appropriate corrections and report both adjusted and unadjusted p-values.
+
+7. **Use confidence intervals, not just p-values.** Sensitivity analyses that report how bounds or intervals change under assumption violations are more informative than binary significance results.
+
+### A Minimal Sensitivity Checklist
+
+For any empirical causal study, consider including at minimum:
+
+- [ ] At least one formal sensitivity analysis appropriate to the identification strategy.
+- [ ] At least one placebo test (outcome or treatment).
+- [ ] At least two alternative specifications.
+- [ ] Appropriate multiple testing adjustment if reporting more than three outcomes.
+- [ ] Bootstrap or randomization-based inference as a supplement to asymptotic inference when sample size or cluster count is small.
+
+---
+
+## Comprehensive Visualization Suite for Sensitivity Analysis
+
+Sensitivity analyses are most compelling when reported alongside diagnostic visualizations. This section develops a full visualization suite: OVB contour plots, E-value distributions across specifications, specification curves, breakdown point analysis, and calibration plots.
+
+### A. Sensitivity Contour Plot for OVB (Omitted Variable Bias)
+
+The `sensemakr` contour plot maps the space of unmeasured confounder strengths $(R^2_{Y \sim Z|X,D},\, R^2_{D \sim Z|X})$ and marks contours of the adjusted treatment effect. Benchmark comparisons anchor the contours to the observed covariates.
+
+```{r sens-contour-setup, eval=TRUE, message=FALSE, warning=FALSE}
+library(ggplot2)
+set.seed(42)
+n_s <- 800
+x1  <- rnorm(n_s)
+x2  <- rnorm(n_s)
+x3  <- rnorm(n_s)
+# Unmeasured confounder
+u   <- 0.4 * x1 + rnorm(n_s, sd = 0.8)
+treat_s <- rbinom(n_s, 1, plogis(0.5 * x1 + 0.3 * x2 + 0.35 * u))
+y_s  <- 2.0 * treat_s + 0.8 * x1 + 0.5 * x2 + 0.4 * x3 + 0.6 * u + rnorm(n_s)
+df_s <- data.frame(y = y_s, treat = treat_s, x1, x2, x3)
+```
+
+```{r sens-contour-plot, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+# Manual OVB contour using sensemakr-style math (pure ggplot2)
+# Adjusted effect = naive_est - bias
+# bias = sqrt(RY * RD) * se_beta (first-order approximation)
+naive_model <- lm(y ~ treat + x1 + x2 + x3, data = df_s)
+beta_hat    <- coef(naive_model)["treat"]
+se_hat      <- summary(naive_model)$coefficients["treat", "Std. Error"]
+df_res      <- naive_model$df.residual
+
+# Partial R2 benchmark: x1 as reference covariate
+model_no_x1 <- lm(y ~ treat + x2 + x3, data = df_s)
+beta_no_x1  <- coef(model_no_x1)["treat"]
+ry_x1 <- 1 - (sum(residuals(naive_model)^2) / sum(residuals(model_no_x1)^2))
+# Partial R2 of x1 on treatment
+ps_model    <- lm(treat ~ x1 + x2 + x3, data = df_s)
+ps_no_x1    <- lm(treat ~ x2 + x3, data = df_s)
+rd_x1 <- 1 - (sum(residuals(ps_model)^2) / sum(residuals(ps_no_x1)^2))
+
+# Grid over (RD, RY)
+grid_r <- seq(0, 0.4, length.out = 60)
+contour_grid <- expand.grid(RD = grid_r, RY = grid_r)
+contour_grid$adj_est <- beta_hat -
+  sign(beta_hat) * sqrt(contour_grid$RY * contour_grid$RD) *
+  sqrt(var(y_s)) / sqrt(var(treat_s))
+
+ggplot(contour_grid, aes(x = RD, y = RY, z = adj_est)) +
+  geom_contour_filled(breaks = c(-Inf, 0, 0.5, 1.0, 1.5, 2.0, Inf),
+                      alpha = 0.85) +
+  geom_contour(breaks = 0, color = "black", linewidth = 1.2, linetype = "dashed") +
+  geom_point(aes(x = rd_x1, y = ry_x1), size = 4, shape = 18,
+             color = "white") +
+  annotate("text", x = rd_x1 + 0.01, y = ry_x1 + 0.015,
+           label = "x1 (benchmark)", color = "white", size = 3.5, hjust = 0) +
+  scale_fill_viridis_d(name = "Adjusted\nEffect", direction = -1) +
+  labs(
+    title    = "OVB Sensitivity Contour Plot",
+    subtitle = sprintf(
+      "Naive estimate = %.2f; dashed line = estimate reduced to zero",
+      beta_hat),
+    x        = expression("Partial " * R^2 * " of confounder with treatment"),
+    y        = expression("Partial " * R^2 * " of confounder with outcome")
+  ) +
+  causalverse::ama_theme()
+```
+
+### B. E-Value Distribution Across Multiple Outcomes and Specifications
+
+Reporting E-values across all outcomes and specifications guards against selective reporting. An E-value represents the minimum risk ratio a confounder would need to have (with both treatment and outcome) to fully explain away the observed effect.
+
+```{r evalue-multi, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+# E-value formula (VanderWeele & Ding 2017) for a risk ratio RR:
+# E-value = RR + sqrt(RR * (RR - 1))
+# For an OLS coefficient, approximate RR via exp(beta)
+evalue_fn <- function(beta, se, ci_level = 0.95) {
+  z   <- qnorm((1 + ci_level) / 2)
+  rr  <- exp(beta)
+  rr_lo <- exp(beta - z * se)
+  ev     <- rr  + sqrt(rr  * (rr  - 1))
+  ev_lo  <- rr_lo + sqrt(rr_lo * (rr_lo - 1))
+  c(estimate = round(ev, 3), ci_bound = round(ev_lo, 3))
+}
+
+# Simulate 8 outcome models
+outcome_names <- paste0("Outcome_", LETTERS[1:8])
+set.seed(10)
+betas_multi <- c(2.0, 1.4, 0.8, 1.9, 0.5, 2.5, 1.1, 0.3) + rnorm(8, sd = 0.2)
+ses_multi   <- runif(8, 0.15, 0.45)
+
+evalue_df <- do.call(rbind, lapply(seq_along(outcome_names), function(i) {
+  ev <- evalue_fn(betas_multi[i], ses_multi[i])
+  data.frame(
+    outcome  = outcome_names[i],
+    beta     = betas_multi[i],
+    se       = ses_multi[i],
+    evalue   = ev["estimate"],
+    evalue_lo = ev["ci_bound"],
+    sig      = abs(betas_multi[i]) / ses_multi[i] > 1.96
+  )
+}))
+evalue_df$outcome <- factor(evalue_df$outcome,
+                             levels = evalue_df$outcome[order(evalue_df$evalue)])
+
+ggplot(evalue_df, aes(x = evalue, y = outcome, color = sig)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "grey50") +
+  geom_segment(aes(x = evalue_lo, xend = evalue, yend = outcome),
+               linewidth = 0.9) +
+  geom_point(aes(x = evalue), size = 4) +
+  geom_point(aes(x = evalue_lo), size = 2.5, shape = 124) +
+  scale_color_manual(
+    values = c("FALSE" = "grey55", "TRUE" = "#2166ac"),
+    labels = c("Not significant", "Significant (p < 0.05)"),
+    name   = NULL
+  ) +
+  labs(
+    title    = "E-Values Across Outcomes",
+    subtitle = "Dot = point estimate E-value; tick = lower CI bound E-value",
+    x        = "E-Value",
+    y        = "Outcome"
+  ) +
+  causalverse::ama_theme()
+```
+
+**Interpretation**: Outcomes with E-values below 2 are fragile; a confounder with a risk ratio of only 2 (both with treatment and outcome) could explain away the effect. Outcomes with E-values above 4–5 are considered robust.
+
+### C. Specification Curve with Color-Coded Decisions
+
+The specification curve plots the distribution of treatment effect estimates across all reasonable model specifications, color-coded by whether the estimate is statistically significant, positive, or negative.
+
+```{r spec-curve-vis, eval=TRUE, message=FALSE, warning=FALSE, fig.width=10, fig.height=7}
+# Enumerate specifications: covariates, sample, estimator
+set.seed(2024)
+include_x2 <- c(TRUE, FALSE)
+include_x3 <- c(TRUE, FALSE)
+log_y      <- c(FALSE, TRUE)
+trim_sample <- c(FALSE, TRUE)
+
+specs <- expand.grid(
+  inc_x2 = include_x2,
+  inc_x3 = include_x3,
+  log_y  = log_y,
+  trim   = trim_sample
+)
+
+results_sc <- lapply(seq_len(nrow(specs)), function(i) {
+  spec <- specs[i, ]
+  d    <- df_s
+  if (spec$trim) d <- d[abs(d$x1) < 1.5, ]
+  dep  <- if (spec$log_y) log(abs(d$y) + 3) else d$y
+  covs <- "x1"
+  if (spec$inc_x2) covs <- paste(covs, "+ x2")
+  if (spec$inc_x3) covs <- paste(covs, "+ x3")
+  fm   <- as.formula(paste("dep ~ treat +", covs))
+  fit  <- lm(fm, data = d)
+  b    <- coef(fit)["treat"]
+  se   <- summary(fit)$coefficients["treat", "Std. Error"]
+  data.frame(
+    spec_id  = i,
+    est      = b,
+    lo       = b - 1.96 * se,
+    hi       = b + 1.96 * se,
+    sig      = abs(b) / se > 1.96,
+    positive = b > 0,
+    inc_x2   = spec$inc_x2,
+    inc_x3   = spec$inc_x3,
+    log_y    = spec$log_y,
+    trim     = spec$trim
+  )
+})
+sc_df2 <- do.call(rbind, results_sc)
+sc_df2 <- sc_df2[order(sc_df2$est), ]
+sc_df2$rank <- seq_len(nrow(sc_df2))
+
+sc_df2$decision <- with(sc_df2,
+  ifelse(!sig, "Insignificant",
+  ifelse(positive, "Sig. & Positive", "Sig. & Negative")))
+
+p_curve <- ggplot(sc_df2, aes(x = rank, y = est, color = decision)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50", linewidth = 0.6) +
+  geom_errorbar(aes(ymin = lo, ymax = hi), width = 0, alpha = 0.4, linewidth = 0.5) +
+  geom_point(size = 2.5) +
+  scale_color_manual(
+    values = c("Insignificant"  = "grey60",
+               "Sig. & Positive" = "#2166ac",
+               "Sig. & Negative" = "#c0392b"),
+    name = "Decision"
+  ) +
+  labs(
+    title    = "Specification Curve Analysis",
+    subtitle = sprintf("%d specifications; %.0f%% positive and significant",
+                       nrow(sc_df2),
+                       100 * mean(sc_df2$sig & sc_df2$positive)),
+    x        = "Specification rank (sorted by estimate)",
+    y        = "Treatment effect estimate"
+  ) +
+  causalverse::ama_theme()
+
+# Annotation panel showing which choices drive variation
+p_choices <- ggplot(
+  tidyr::pivot_longer(sc_df2,
+    cols = c("inc_x2", "inc_x3", "log_y", "trim"),
+    names_to = "choice", values_to = "active"),
+  aes(x = rank, y = choice, fill = active)
+) +
+  geom_tile(color = "white", linewidth = 0.3) +
+  scale_fill_manual(values = c("FALSE" = "grey88", "TRUE" = "#2166ac"),
+                    guide = "none") +
+  scale_y_discrete(labels = c(inc_x2 = "Include X2",
+                               inc_x3 = "Include X3",
+                               log_y  = "Log outcome",
+                               trim   = "Trim sample")) +
+  labs(x = NULL, y = NULL) +
+  causalverse::ama_theme() +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+
+gridExtra::grid.arrange(p_curve, p_choices, nrow = 2, heights = c(3, 1.2))
+```
+
+### D. Breakdown Point Analysis Plot
+
+The breakdown point is the minimum fraction of the data that would need to be adversarially corrupted to overturn the sign of the treatment effect (Cinelli & Hazlett 2020; Huang et al. 2023).
+
+```{r breakdown-plot, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+# Compute breakdown point approximation across specifications
+sc_df2$breakdown <- with(sc_df2, abs(est) / (abs(est) + 2 * (hi - est) / 1.96))
+sc_df2$breakdown <- pmin(pmax(sc_df2$breakdown, 0), 1)
+
+ggplot(sc_df2[order(sc_df2$breakdown), ],
+       aes(x = seq_len(nrow(sc_df2)), y = breakdown, color = decision)) +
+  geom_hline(yintercept = 0.1, linetype = "dashed", color = "#c0392b",
+             linewidth = 0.8) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  geom_segment(aes(xend = seq_len(nrow(sc_df2)), yend = 0),
+               alpha = 0.3, linewidth = 0.4) +
+  scale_color_manual(
+    values = c("Insignificant"   = "grey60",
+               "Sig. & Positive" = "#2166ac",
+               "Sig. & Negative" = "#c0392b"),
+    name = "Decision"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1),
+                     limits = c(0, 0.8)) +
+  annotate("text", x = 2, y = 0.12,
+           label = "10% threshold (fragile)", color = "#c0392b",
+           size = 3.3, hjust = 0) +
+  labs(
+    title    = "Breakdown Point Analysis Across Specifications",
+    subtitle = "Breakdown point = fraction of corrupted data needed to flip the sign",
+    x        = "Specification rank (sorted by breakdown point)",
+    y        = "Breakdown Point"
+  ) +
+  causalverse::ama_theme()
+```
+
+### E. Calibration Plot: Sensitivity Relative to Known Confounders
+
+A calibration plot benchmarks the required confounder strength against the partial $R^2$ of observed covariates. If the sensitivity threshold is below the explanatory power of any observed covariate, the result is fragile.
+
+```{r sens-calibration, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+# Partial R2 of each covariate with treatment and outcome
+covariates <- c("x1", "x2", "x3")
+partial_r2_treat <- sapply(covariates, function(cv) {
+  full_m <- lm(treat ~ x1 + x2 + x3, data = df_s)
+  red_m  <- lm(as.formula(paste("treat ~", paste(
+    setdiff(covariates, cv), collapse = " + "))), data = df_s)
+  1 - (sum(residuals(full_m)^2) / sum(residuals(red_m)^2))
+})
+partial_r2_outcome <- sapply(covariates, function(cv) {
+  full_m <- lm(y ~ treat + x1 + x2 + x3, data = df_s)
+  red_m  <- lm(as.formula(paste("y ~ treat +", paste(
+    setdiff(covariates, cv), collapse = " + "))), data = df_s)
+  1 - (sum(residuals(full_m)^2) / sum(residuals(red_m)^2))
+})
+
+calib_df <- data.frame(
+  covariate    = covariates,
+  r2_treat     = partial_r2_treat,
+  r2_outcome   = partial_r2_outcome
+)
+
+# Threshold: what partial R2 combination would bring estimate to 0?
+# Using beta_hat and se_hat from earlier
+threshold_rd <- seq(0.01, 0.40, length.out = 200)
+threshold_ry <- (beta_hat / sqrt(var(y_s) / var(treat_s)))^2 / threshold_rd
+thresh_df <- data.frame(rd = threshold_rd,
+                         ry = threshold_ry)[threshold_ry <= 1, ]
+
+ggplot() +
+  geom_line(data = thresh_df, aes(x = rd, y = ry),
+            color = "#c0392b", linewidth = 1.2, linetype = "solid") +
+  geom_point(data = calib_df, aes(x = r2_treat, y = r2_outcome),
+             size = 5, shape = 18, color = "#2166ac") +
+  geom_text(data = calib_df,
+            aes(x = r2_treat + 0.005, y = r2_outcome + 0.005,
+                label = covariate),
+            hjust = 0, size = 3.8, color = "#2166ac") +
+  annotate("text", x = 0.32, y = 0.08,
+           label = "Fragile region\n(confounder > estimate)", size = 3.2,
+           color = "#c0392b", hjust = 0.5) +
+  annotate("text", x = 0.05, y = 0.35,
+           label = "Robust region", size = 3.2, color = "grey40") +
+  scale_x_continuous(limits = c(0, 0.42)) +
+  scale_y_continuous(limits = c(0, 0.45)) +
+  labs(
+    title    = "Sensitivity Calibration Plot",
+    subtitle = "Red curve = confounder threshold (effect = 0); blue diamonds = observed covariates",
+    x        = expression("Partial " * R^2 * " with treatment"),
+    y        = expression("Partial " * R^2 * " with outcome")
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+## Partial Identification Bounds
+
+When the unconfoundedness assumption cannot be defended and instrumental variables are unavailable, partial identification provides honest bounds on the average treatment effect. This section covers the Manski (1990) sharp bounds framework, monotone treatment response, and monotone treatment selection bounds.
+
+### A. Manski (1990) Sharp Bounds for ATE Under No Assumptions
+
+The sharp (Manski) bounds assume only that potential outcomes are bounded in $[Y_{min}, Y_{max}]$. The ATE lies in:
+
+$$[E[Y|D=1] P(D=1) + Y_{min} P(D=0)] - [E[Y|D=0] P(D=0) + Y_{max} P(D=1)],$$
+$$[E[Y|D=1] P(D=1) + Y_{max} P(D=0)] - [E[Y|D=0] P(D=0) + Y_{min} P(D=1)].$$
+
+```{r manski-bounds, eval=TRUE, message=FALSE, warning=FALSE}
+# Simulate selection data
+set.seed(42)
+n_b  <- 1000
+x_b  <- rnorm(n_b)
+u_b  <- rnorm(n_b)
+d_b  <- rbinom(n_b, 1, plogis(0.8 * x_b + 0.6 * u_b))
+# Potential outcomes
+y0_b <- 1.0 + 0.5 * x_b + rnorm(n_b, sd = 0.8)
+y1_b <- 1.0 + 2.0 + 0.5 * x_b + 0.4 * u_b + rnorm(n_b, sd = 0.8)
+y_obs_b <- ifelse(d_b == 1, y1_b, y0_b)
+
+# True ATE
+true_ate_b <- mean(y1_b - y0_b)
+
+# Outcome bounds (use empirical min/max)
+y_min <- min(y_obs_b)
+y_max <- max(y_obs_b)
+
+p1 <- mean(d_b)
+p0 <- 1 - p1
+ey1_d1 <- mean(y_obs_b[d_b == 1])
+ey0_d0 <- mean(y_obs_b[d_b == 0])
+
+# Manski sharp bounds (no assumptions)
+manski_lo <- (ey1_d1 * p1 + y_min * p0) - (ey0_d0 * p0 + y_max * p1)
+manski_hi <- (ey1_d1 * p1 + y_max * p0) - (ey0_d0 * p0 + y_min * p1)
+
+cat("--- Manski Sharp Bounds (No Assumptions) ---\n")
+cat(sprintf("  Outcome support: [%.2f, %.2f]\n", y_min, y_max))
+cat(sprintf("  P(D=1) = %.3f\n", p1))
+cat(sprintf("  E[Y|D=1] = %.3f;  E[Y|D=0] = %.3f\n", ey1_d1, ey0_d0))
+cat(sprintf("  ATE lower bound: %.4f\n", manski_lo))
+cat(sprintf("  ATE upper bound: %.4f\n", manski_hi))
+cat(sprintf("  True ATE       : %.4f\n", true_ate_b))
+cat(sprintf("  Naïve OLS est  : %.4f\n",
+            coef(lm(y_obs_b ~ d_b))["d_b"]))
+```
+
+### B. Monotone Treatment Response (MTR) Bounds
+
+MTR assumes $Y_i(1) \geq Y_i(0)$ for all units (treatment cannot hurt anyone). This assumption tightens the lower bound substantially.
+
+```{r mtr-bounds, eval=TRUE, message=FALSE, warning=FALSE}
+# Under MTR (Y(1) >= Y(0)):
+# Lower bound of ATE: E[Y|D=1]*P(D=1) + Y_min*P(D=0) - E[Y|D=0]*P(D=0) - E[Y|D=0]*P(D=1)
+#                   = (E[Y|D=1] - E[Y|D=0]) * P(D=1) + (Y_min - E[Y|D=0]) * P(D=0)
+# Upper bound: Y(0) <= Y(1), so UB on ATE uses E[Y|D=0] for untreated's Y(1) = E[Y|D=1]
+mtr_lo <- ey1_d1 * p1 + y_min * p0 - ey0_d0
+mtr_hi <- manski_hi  # MTR only tightens lower bound
+
+cat("--- Monotone Treatment Response (MTR) Bounds ---\n")
+cat(sprintf("  ATE lower bound (MTR): %.4f\n", mtr_lo))
+cat(sprintf("  ATE upper bound (MTR): %.4f\n", mtr_hi))
+cat(sprintf("  Width of MTR interval: %.4f\n", mtr_hi - mtr_lo))
+cat(sprintf("  Width of Manski interval: %.4f\n", manski_hi - manski_lo))
+```
+
+### C. Monotone Treatment Selection (MTS) Bounds
+
+MTS assumes that treated units have weakly better potential outcomes on average than control units ($E[Y_i(d)|D=1] \geq E[Y_i(d)|D=0]$ for $d \in \{0,1\}$). This tightens the upper bound.
+
+```{r mts-bounds, eval=TRUE, message=FALSE, warning=FALSE}
+# Under MTS: E[Y(d)|D=1] >= E[Y(d)|D=0] for d in {0,1}
+# This implies: E[Y(1)] <= E[Y|D=1], E[Y(0)] >= E[Y|D=0]
+# Upper bound: E[Y(1)] - E[Y(0)] <= E[Y|D=1] - E[Y|D=0] (the naive OLS estimate)
+naive_est_b <- ey1_d1 - ey0_d0
+mts_hi <- naive_est_b
+# Lower bound: same as Manski
+mts_lo <- manski_lo
+
+cat("--- Monotone Treatment Selection (MTS) Bounds ---\n")
+cat(sprintf("  ATE lower bound (MTS): %.4f\n", mts_lo))
+cat(sprintf("  ATE upper bound (MTS): %.4f\n", mts_hi))
+cat(sprintf("  Width of MTS interval: %.4f\n", mts_hi - mts_lo))
+
+# MTR + MTS combined
+mtrmts_lo <- mtr_lo
+mtrmts_hi <- mts_hi
+cat("\n--- MTR + MTS Combined Bounds ---\n")
+cat(sprintf("  ATE lower bound (MTR+MTS): %.4f\n", mtrmts_lo))
+cat(sprintf("  ATE upper bound (MTR+MTS): %.4f\n", mtrmts_hi))
+cat(sprintf("  True ATE                 : %.4f\n", true_ate_b))
+```
+
+### D. Bounds Comparison Visualization
+
+```{r bounds-comparison-plot, eval=TRUE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
+bounds_df <- data.frame(
+  assumption = c("No assumptions\n(Manski)", "MTR only",
+                 "MTS only", "MTR + MTS", "Unconfounded\n(OLS)"),
+  lo = c(manski_lo, mtr_lo, mts_lo, mtrmts_lo,
+         coef(lm(y_obs_b ~ d_b + x_b))["d_b"] -
+           1.96 * summary(lm(y_obs_b ~ d_b + x_b))$coefficients["d_b", "Std. Error"]),
+  hi = c(manski_hi, mtr_hi, mts_hi, mtrmts_hi,
+         coef(lm(y_obs_b ~ d_b + x_b))["d_b"] +
+           1.96 * summary(lm(y_obs_b ~ d_b + x_b))$coefficients["d_b", "Std. Error"])
+)
+bounds_df$assumption <- factor(bounds_df$assumption,
+                                levels = rev(bounds_df$assumption))
+bounds_df$width <- bounds_df$hi - bounds_df$lo
+
+ggplot(bounds_df, aes(y = assumption)) +
+  geom_vline(xintercept = true_ate_b, linetype = "dashed",
+             color = "#c0392b", linewidth = 1.0) +
+  geom_vline(xintercept = 0, linetype = "dotted", color = "grey50",
+             linewidth = 0.6) +
+  geom_segment(aes(x = lo, xend = hi, yend = assumption),
+               color = "#2166ac", linewidth = 2.5, alpha = 0.7) +
+  geom_point(aes(x = lo), color = "#2166ac", size = 3.5, shape = 124) +
+  geom_point(aes(x = hi), color = "#2166ac", size = 3.5, shape = 124) +
+  annotate("text",
+           x = true_ate_b + 0.05,
+           y = nrow(bounds_df) + 0.3,
+           label = sprintf("True ATE = %.2f", true_ate_b),
+           color = "#c0392b", size = 3.5, hjust = 0) +
+  labs(
+    title    = "Partial Identification Bounds Under Varying Assumptions",
+    subtitle = "Horizontal bars = identified set; dashed red = true ATE",
+    x        = "Average Treatment Effect",
+    y        = "Identification Assumption"
+  ) +
+  causalverse::ama_theme()
+```
+
+**Interpretation**: The identified set shrinks as additional assumptions are imposed. Under no assumptions (Manski bounds), the ATE is compatible with a wide range of values. Adding MTR (treatment cannot hurt) tightens the lower bound; adding MTS (positively selected sample) tightens the upper bound. The MTR+MTS combined set is narrowest among the nonparametric approaches and typically contains the true ATE.
+
+---
+
+## Quantile Treatment Effects and Distributional Analysis
+
+Average treatment effects summarize the central tendency of the treatment effect distribution. When treatment effects are heterogeneous—affecting different parts of the outcome distribution differently—quantile treatment effects (QTEs) provide a richer picture.
+
+### A. QTE Estimation (Difference in Quantile Functions)
+
+Under the rank-invariance (or rank-similarity) assumption, QTEs are identified as the difference in the conditional quantile functions of the outcome between treated and control groups.
+
+```{r qte-setup, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+# Simulate data with heterogeneous treatment effects
+set.seed(42)
+n_q   <- 1500
+x_q   <- rnorm(n_q)
+# Treatment assigned (partially) randomly
+d_q   <- rbinom(n_q, 1, plogis(0.3 * x_q))
+# Potential outcomes: treatment compresses right tail
+y0_q  <- exp(0.5 * x_q + rnorm(n_q, sd = 0.8))
+# Treatment effect: large at low quantiles, small at high quantiles
+te_q  <- 3.0 - 0.8 * qnorm(rank(y0_q) / (n_q + 1))
+y1_q  <- y0_q + te_q
+y_obs_q <- ifelse(d_q == 1, y1_q, y0_q)
+
+df_q  <- data.frame(y = y_obs_q, d = d_q, x = x_q)
+
+# Quantile regression at each quantile
+tau_seq <- seq(0.10, 0.90, by = 0.05)
+
+qte_df <- do.call(rbind, lapply(tau_seq, function(tau) {
+  fit1 <- quantreg::rq(y ~ x, tau = tau, data = df_q[df_q$d == 1, ])
+  fit0 <- quantreg::rq(y ~ x, tau = tau, data = df_q[df_q$d == 0, ])
+  # QTE at the median x value
+  xmed <- median(x_q)
+  pred1 <- predict(fit1, newdata = data.frame(x = xmed))
+  pred0 <- predict(fit0, newdata = data.frame(x = xmed))
+  data.frame(
+    tau   = tau,
+    qte   = pred1 - pred0,
+    q1    = pred1,
+    q0    = pred0,
+    true_qte = 3.0 - 0.8 * qnorm(tau)
+  )
+}))
+
+ggplot(qte_df, aes(x = tau)) +
+  geom_hline(yintercept = 0, linetype = "dotted", color = "grey50") +
+  geom_ribbon(aes(ymin = qte * 0.88, ymax = qte * 1.12),
+              fill = "steelblue", alpha = 0.2) +
+  geom_line(aes(y = qte), color = "#2166ac", linewidth = 1.2) +
+  geom_line(aes(y = true_qte), color = "#c0392b",
+            linetype = "dashed", linewidth = 1.0) +
+  annotate("text", x = 0.15, y = max(qte_df$qte) * 0.92,
+           label = "Estimated QTE", color = "#2166ac",
+           hjust = 0, size = 3.5) +
+  annotate("text", x = 0.15, y = max(qte_df$qte) * 0.78,
+           label = "True QTE", color = "#c0392b",
+           hjust = 0, size = 3.5) +
+  scale_x_continuous(breaks = seq(0.1, 0.9, by = 0.1),
+                     labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title    = "Quantile Treatment Effects (QTE)",
+    subtitle = "Treatment compresses the right tail; effects larger at low quantiles",
+    x        = "Quantile (τ)",
+    y        = "QTE: Q₁(τ|x̄) − Q₀(τ|x̄)"
+  ) +
+  causalverse::ama_theme()
+```
+
+### B. Stochastic Dominance Tests
+
+First-order stochastic dominance (FSD) of $Y(1)$ over $Y(0)$ requires that the CDF of $Y(1)$ lies entirely below the CDF of $Y(0)$. A simple Kolmogorov-Smirnov test detects whether the CDFs differ; a refined one-sided test (Linton et al. 2005) tests for dominance.
+
+```{r stochastic-dominance, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+y_treated <- y_obs_q[d_q == 1]
+y_control <- y_obs_q[d_q == 0]
+
+# Two-sample K-S test
+ks_result <- ks.test(y_treated, y_control, alternative = "greater")
+
+cat("Kolmogorov-Smirnov Test (H1: F_control > F_treated, i.e., Y(1) FSD Y(0)):\n")
+cat(sprintf("  K-S statistic: %.4f\n", ks_result$statistic))
+cat(sprintf("  p-value      : %.4f\n", ks_result$p.value))
+cat(sprintf("  Interpretation: %s\n",
+            ifelse(ks_result$p.value < 0.05,
+                   "Reject H0; evidence for stochastic dominance",
+                   "Cannot reject H0")))
+
+# CDF overlay plot
+grid_y <- seq(min(c(y_treated, y_control)), max(c(y_treated, y_control)), length.out = 300)
+cdf_t  <- ecdf(y_treated)(grid_y)
+cdf_c  <- ecdf(y_control)(grid_y)
+dom_df <- data.frame(
+  y   = rep(grid_y, 2),
+  cdf = c(cdf_t, cdf_c),
+  grp = rep(c("Treated (D=1)", "Control (D=0)"), each = length(grid_y))
+)
+
+ggplot(dom_df, aes(x = y, y = cdf, color = grp)) +
+  geom_line(linewidth = 1.1) +
+  geom_ribbon(
+    data = data.frame(y = grid_y, lo = cdf_t, hi = cdf_c)[cdf_t <= cdf_c, ],
+    aes(x = y, ymin = lo, ymax = hi),
+    inherit.aes = FALSE,
+    fill = "#2166ac", alpha = 0.15
+  ) +
+  scale_color_manual(
+    values = c("Treated (D=1)" = "#2166ac", "Control (D=0)" = "#c0392b"),
+    name   = NULL
+  ) +
+  labs(
+    title    = "Empirical CDFs: Stochastic Dominance Test",
+    subtitle = sprintf("K-S test p-value = %.4f (shaded area = CDF gap where treated dominates)",
+                       ks_result$p.value),
+    x        = "Outcome (Y)",
+    y        = "Cumulative Probability"
+  ) +
+  causalverse::ama_theme()
+```
+
+### C. Distribution of Treatment Effects Visualization
+
+When we observe multiple replications or subgroups, we can estimate the distribution of individual treatment effects. This plot contrasts the marginal distributions $F_{Y(1)}$ and $F_{Y(0)}$ with the implied distribution of $\tau_i = Y_i(1) - Y_i(0)$.
+
+```{r te-distribution, eval=TRUE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
+# Under rank-invariance, te_i ~ Q_1(F_0(Y_0_i)) - Y_0_i
+te_rankid <- quantile(y1_q, probs = rank(y0_q) / (n_q + 1)) - y0_q
+
+# Density plots: Y(0), Y(1), and te_i
+dens_df <- data.frame(
+  value = c(y0_q, y1_q, te_rankid),
+  group = rep(c("Y(0) — Control potential outcome",
+                "Y(1) — Treated potential outcome",
+                "τᵢ = Y(1)−Y(0) — Individual TE"),
+              each = n_q)
+)
+
+ggplot(dens_df, aes(x = value, fill = group, color = group)) +
+  geom_density(alpha = 0.35, linewidth = 0.8) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "grey40",
+             linewidth = 0.7) +
+  geom_vline(xintercept = mean(te_rankid), linetype = "dotted",
+             color = "#2166ac", linewidth = 1.0) +
+  annotate("text",
+           x    = mean(te_rankid) + 0.15,
+           y    = 0.09,
+           label = sprintf("ATE = %.2f", mean(te_rankid)),
+           color = "#2166ac", size = 3.5, hjust = 0) +
+  scale_fill_manual(
+    values = c(
+      "Y(0) — Control potential outcome"   = "#c0392b",
+      "Y(1) — Treated potential outcome"   = "#27ae60",
+      "τᵢ = Y(1)−Y(0) — Individual TE"    = "#2166ac"
+    ), name = NULL
+  ) +
+  scale_color_manual(
+    values = c(
+      "Y(0) — Control potential outcome"   = "#c0392b",
+      "Y(1) — Treated potential outcome"   = "#27ae60",
+      "τᵢ = Y(1)−Y(0) — Individual TE"    = "#2166ac"
+    ), guide = "none"
+  ) +
+  labs(
+    title    = "Distribution of Treatment Effects",
+    subtitle = "Estimated under rank-invariance; individual TEs are heterogeneous",
+    x        = "Value",
+    y        = "Density"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+**Interpretation**: The distribution of individual treatment effects ($\tau_i$) reveals heterogeneity that the ATE masks. Here treatment compresses the upper tail: high-outcome units receive smaller treatment benefits, while lower-outcome units benefit more. A negative variance of $\tau_i$ relative to the variance in $Y(0)$ signals variance-reducing treatment. Reporting the full distribution—not just the ATE—provides substantially more information for policy targeting.
+
+---
+
+## References
+
+- Cameron, A. C., Gelbach, J. B., and Miller, D. L. (2008). Bootstrap-based improvements for inference with clustered errors. *Review of Economics and Statistics*, 90(3), 414-427.
+
+- Cinelli, C., and Hazlett, C. (2020). Making sense of sensitivity: Extending omitted variable bias. *Journal of the Royal Statistical Society: Series B*, 82(1), 39-67.
+
+- Conley, T. G., Hansen, C. B., and Rossi, P. E. (2012). Plausibly exogenous. *Review of Economics and Statistics*, 94(1), 260-272.
+
+- Imbens, G. W., and Manski, C. F. (2004). Confidence intervals for partially identified parameters. *Econometrica*, 72(6), 1845-1857.
+
+- Lee, D. S. (2009). Training, wages, and sample selection: Estimating sharp bounds on treatment effects. *Review of Economic Studies*, 76(3), 1071-1102.
+
+- Manski, C. F. (1990). Nonparametric bounds on treatment effects. *American Economic Review*, 80(2), 319-323.
+
+- Rambachan, A., and Roth, J. (2023). A more credible approach to parallel trends. *Review of Economic Studies*, 90(5), 2555-2591.
+
+- Romano, J. P., and Wolf, M. (2005). Stepwise multiple testing as formalized data snooping. *Econometrica*, 73(4), 1237-1282.
+
+- Rosenbaum, P. R. (2002). *Observational Studies* (2nd ed.). Springer.
+
+- Simonsohn, U., Simmons, J. P., and Nelson, L. D. (2020). Specification curve analysis. *Nature Human Behaviour*, 4(11), 1208-1214.
+
+- VanderWeele, T. J., and Ding, P. (2017). Sensitivity analysis in observational research: Introducing the E-value. *Annals of Internal Medicine*, 167(4), 268-274.
+
+- Webb, M. D. (2023). Reworking wild bootstrap-based inference for clustered errors. *Canadian Journal of Economics*, 56(3), 839-858.
+
+---
+
+## Manski (1990) Partial Identification Bounds
+
+### Why Partial Identification?
+
+Point-identified causal effects rest on assumptions (unconfoundedness, exclusion restrictions, parallel trends) that are by definition untestable. When those assumptions are too strong to defend, **partial identification** asks: what range of ATEs is consistent with the observed data, without imposing the strong identifying assumption? The resulting *identified set* may be wide, but it is honest -- it represents what the data alone can tell us.
+
+### No-Assumptions Bounds (Manski 1990)
+
+For binary outcomes $Y \in \{0, 1\}$ and binary treatment $W \in \{0, 1\}$, the sharpest bounds on the ATE that use only the law of total probability are:
+
+$$E[Y(1)] \in \left[E[Y \mid W=1]\Pr(W=1),\quad E[Y \mid W=1]\Pr(W=1) + \Pr(W=0)\right]$$
+
+$$E[Y(0)] \in \left[E[Y \mid W=0]\Pr(W=0),\quad E[Y \mid W=0]\Pr(W=0) + \Pr(W=1)\right]$$
+
+The ATE bounds follow by subtraction:
+
+$$\text{ATE} \in \left[E[Y \mid W=1]\Pr(W=1) + 0 \cdot \Pr(W=0) - E[Y \mid W=0]\Pr(W=0) - 1 \cdot \Pr(W=1),\right.$$
+$$\left.E[Y \mid W=1]\Pr(W=1) + 1 \cdot \Pr(W=0) - E[Y \mid W=0]\Pr(W=0) - 0 \cdot \Pr(W=1)\right].$$
+
+The width of these bounds is always 1 for binary $Y$. They are the most conservative possible -- they assume nothing about the selection mechanism.
+
+```{r manski-bounds-basic, message=FALSE, warning=FALSE}
+set.seed(42)
+n  <- 1000
+U  <- rnorm(n)
+W  <- as.integer(U + rnorm(n) > 0)          # endogenous treatment
+Y  <- as.integer(0.3 * W + 0.5 * U + rnorm(n) > 0)  # binary outcome
+
+p1   <- mean(Y[W == 1])   # E[Y | W=1]
+p0   <- mean(Y[W == 0])   # E[Y | W=0]
+pw1  <- mean(W)            # Pr(W=1)
+pw0  <- 1 - pw1            # Pr(W=0)
+
+# No-assumptions Manski bounds
+ate_lb <- p1 * pw1 + 0 * pw0 - (p0 * pw0 + 1 * pw1)
+ate_ub <- p1 * pw1 + 1 * pw0 - (p0 * pw0 + 0 * pw1)
+
+cat("=== Manski No-Assumptions ATE Bounds ===\n")
+cat(sprintf("E[Y|W=1] = %.3f,  E[Y|W=0] = %.3f\n", p1, p0))
+cat(sprintf("Pr(W=1)  = %.3f,  Pr(W=0)  = %.3f\n", pw1, pw0))
+cat(sprintf("ATE bounds: [%.3f,  %.3f]\n", ate_lb, ate_ub))
+cat(sprintf("Width of bounds: %.3f\n", ate_ub - ate_lb))
+cat(sprintf("Naive DiM (biased): %.3f\n", p1 - p0))
+```
+
+### Monotone Treatment Response (MTR) Bounds
+
+The **Monotone Treatment Response** assumption (Manski 1997) postulates that for every unit $i$: $Y_i(1) \geq Y_i(0)$. This is defensible when treatment is inherently beneficial (e.g., a drug that cannot harm). Under MTR, the potential outcome $Y_i(1)$ for control units is bounded below by their observed $Y_i(0)$, substantially narrowing the upper bound on $E[Y(1)]$.
+
+```{r manski-mtr, message=FALSE, warning=FALSE}
+# Under MTR: Y(1) >= Y(0) for all i
+# => E[Y(1)] >= E[Y(0)]  => ATE >= 0
+
+# MTR lower bound: same as no-assumptions
+# MTR upper bound: tighter because Y(1) for controls is at most 1
+# and Y(0) for treated is at least 0
+
+# Manski-style bounds under MTR
+# E[Y(1)] in [E[Y|W=1]*Pr(W=1) + 0*Pr(W=0),  E[Y|W=1]*Pr(W=1) + 1*Pr(W=0)]
+#   -- same as no-assumptions because we only know Y_i(1) in {Y_i(0), ..., 1}
+# E[Y(0)] in [E[Y|W=0]*Pr(W=0) + 0*Pr(W=1),  E[Y|W=0]*Pr(W=0) + Y_i(1)*Pr(W=1)]
+# Under MTR: Y_i(0) <= Y_i(1) = Y_i for treated, so UB on E[Y(0)] uses observed Y for treated
+
+ey1_lb <- p1 * pw1 + 0 * pw0
+ey1_ub <- p1 * pw1 + 1 * pw0
+
+# Under MTR, Y(0) <= Y(1), so for treated units Y(0) <= Y (observed)
+ey0_lb_mtr <- p0 * pw0 + 0 * pw1
+ey0_ub_mtr <- p0 * pw0 + p1 * pw1   # Y(0) <= Y(1) = Y for treated
+
+ate_lb_mtr <- ey1_lb - ey0_ub_mtr
+ate_ub_mtr <- ey1_ub - ey0_lb_mtr
+
+cat("=== MTR Bounds ===\n")
+cat(sprintf("ATE bounds under MTR: [%.3f,  %.3f]\n", ate_lb_mtr, ate_ub_mtr))
+cat(sprintf("Width: %.3f  (vs %.3f no-assumptions)\n",
+            ate_ub_mtr - ate_lb_mtr, ate_ub - ate_lb))
+```
+
+### Monotone Treatment Selection (MTS) Bounds
+
+The **Monotone Treatment Selection** assumption postulates that treated units have (weakly) better potential outcomes than control units: $E[Y(w) \mid W=1] \geq E[Y(w) \mid W=0]$ for $w \in \{0,1\}$. This is a version of positive selection -- units who choose treatment would do better even without it.
+
+```{r manski-mts, message=FALSE, warning=FALSE}
+# Under MTS: E[Y(1)|W=1] >= E[Y(1)|W=0]  and  E[Y(0)|W=1] >= E[Y(0)|W=0]
+# This bounds E[Y(1)] from above using E[Y|W=1] and from below using E[Y|W=0]
+# and similarly for E[Y(0)]
+
+# MTS bounds (simplified for binary Y)
+# E[Y(1)] in [E[Y|W=0]*Pr(W=0) + E[Y|W=1]*Pr(W=1),
+#              E[Y|W=1]*Pr(W=1) + 1*Pr(W=0)]
+# E[Y(0)] in [E[Y|W=0]*Pr(W=0) + 0*Pr(W=1),
+#              E[Y|W=0]*Pr(W=0) + E[Y|W=1]*Pr(W=1)]  -- wait, MTS says
+# E[Y(0)|W=0] = E[Y|W=0], E[Y(0)|W=1] >= E[Y(0)|W=0]
+# so E[Y(0)] in [E[Y|W=0], ???]  -- LB uses minimum which is E[Y|W=0] for controls
+
+ey1_lb_mts <- p0 * pw0 + p1 * pw1   # E[Y(1)|W=0] >= p0 under MTS => use p0 as LB
+ey1_ub_mts <- p1 * pw1 + 1 * pw0    # worst case upper
+
+ey0_lb_mts <- p0 * pw0 + 0 * pw1    # minimum for treated Y(0)
+ey0_ub_mts <- p1 * pw1 + p0 * pw0   # E[Y(0)|W=1] <= E[Y(0)|W=0] under MTS? No -- MTS says treated >= control
+
+# Under MTS: E[Y(0)|W=1] >= E[Y(0)|W=0] = p0
+# So E[Y(0)] in [p0*pw0 + p0*pw1, p0*pw0 + 1*pw1] = [p0, p0*pw0 + pw1]
+ey0_lb_mts2 <- p0 * pw0 + p0 * pw1   # = p0
+ey0_ub_mts2 <- p0 * pw0 + 1 * pw1
+
+ate_lb_mts <- ey1_lb_mts - ey0_ub_mts2
+ate_ub_mts <- ey1_ub_mts - ey0_lb_mts2
+
+cat("=== MTS Bounds ===\n")
+cat(sprintf("ATE bounds under MTS: [%.3f,  %.3f]\n", ate_lb_mts, ate_ub_mts))
+cat(sprintf("Width: %.3f\n", ate_ub_mts - ate_lb_mts))
+```
+
+### MTR + MTS Combined Bounds
+
+Combining both assumptions simultaneously yields the narrowest Manski-type bounds without an exclusion restriction:
+
+```{r manski-mtr-mts, message=FALSE, warning=FALSE}
+# MTR+MTS combined
+# Under MTR: Y(1) >= Y(0)
+# Under MTS: E[Y(w)|W=1] >= E[Y(w)|W=0]
+
+# E[Y(1)]: LB from MTS (treated better than control, so LB is p0 for untreated)
+#           UB is trivially 1
+# E[Y(0)]: UB from MTS (treated potential outcome >= control, but Y(0) <= Y(1))
+#           = min of MTS UB and MTR UB
+
+ate_lb_combined <- max(ate_lb_mtr, ate_lb_mts)
+ate_ub_combined <- min(ate_ub_mtr, ate_ub_mts)
+
+cat("=== MTR + MTS Combined Bounds ===\n")
+cat(sprintf("No assumptions:    [%.3f, %.3f]  width = %.3f\n",
+            ate_lb, ate_ub, ate_ub - ate_lb))
+cat(sprintf("MTR only:          [%.3f, %.3f]  width = %.3f\n",
+            ate_lb_mtr, ate_ub_mtr, ate_ub_mtr - ate_lb_mtr))
+cat(sprintf("MTS only:          [%.3f, %.3f]  width = %.3f\n",
+            ate_lb_mts, ate_ub_mts, ate_ub_mts - ate_lb_mts))
+cat(sprintf("MTR + MTS:         [%.3f, %.3f]  width = %.3f\n",
+            ate_lb_combined, ate_ub_combined,
+            max(0, ate_ub_combined - ate_lb_combined)))
+```
+
+```{r manski-bounds-plot, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+bounds_df <- data.frame(
+  Assumption = factor(
+    c("No assumptions", "MTR", "MTS", "MTR + MTS"),
+    levels = c("No assumptions", "MTR", "MTS", "MTR + MTS")
+  ),
+  LB = c(ate_lb, ate_lb_mtr, ate_lb_mts, ate_lb_combined),
+  UB = c(ate_ub, ate_ub_mtr, ate_ub_mts,
+         max(ate_lb_combined, ate_ub_combined))
+)
+
+ggplot(bounds_df, aes(y = Assumption)) +
+  geom_segment(aes(x = LB, xend = UB,
+                   yend = Assumption, colour = Assumption),
+               linewidth = 3, lineend = "round") +
+  geom_point(aes(x = LB, colour = Assumption), size = 3) +
+  geom_point(aes(x = UB, colour = Assumption), size = 3) +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "black") +
+  causalverse::ama_theme() +
+  labs(
+    title    = "Manski Partial Identification Bounds on ATE",
+    subtitle = "Each additional assumption narrows the identified set",
+    x        = "ATE",
+    y        = NULL
+  ) +
+  theme(legend.position = "none")
+```
+
+---
+
+## Rosenbaum Sensitivity Analysis (Gamma Analysis)
+
+### The Framework
+
+After propensity-score matching, the Rosenbaum sensitivity framework asks: how large must the odds of unmeasured confounding be to explain away the estimated treatment effect? Define $\Gamma \geq 1$ as the maximum ratio of selection odds between two matched units with the same observed covariates:
+
+$$\frac{1}{\Gamma} \leq \frac{\Pr(W_i = 1 \mid \mathbf{X}_i, u_i) / \Pr(W_i = 0 \mid \mathbf{X}_i, u_i)}{\Pr(W_j = 1 \mid \mathbf{X}_j, u_j) / \Pr(W_j = 0 \mid \mathbf{X}_j, u_j)} \leq \Gamma,$$
+
+where $u_i$ is an unobserved covariate. At $\Gamma = 1$ there is no unmeasured confounding. As $\Gamma$ increases, the test $p$-value worsens (the sensitivity test returns the *worst-case* $p$-value over all confounding patterns consistent with that $\Gamma$). The **sensitivity threshold** is the smallest $\Gamma$ at which the confidence interval for the treatment effect includes zero.
+
+A finding is described as "robust to a $\Gamma = 2$ hidden bias" if the treatment effect estimate remains significant even if matched units differed by a factor of 2 in their odds of receiving treatment due to an unobserved confounder.
+
+```{r rosenbaum-setup, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(MatchIt)
+data("lalonde", package = "MatchIt")
+
+# 1:1 nearest-neighbour matching
+m_out <- matchit(
+  treat ~ age + educ + re74 + re75,
+  data     = lalonde,
+  method   = "nearest",
+  distance = "logit",
+  ratio    = 1,
+  estimand = "ATT"
+)
+mdat_r <- match.data(m_out)
+
+# Point estimate and naive SE
+mod_r <- lm(re78 ~ treat, data = mdat_r, weights = weights)
+cat(sprintf("ATT estimate: %.2f  (SE = %.2f)\n",
+            coef(mod_r)["treat"],
+            sqrt(vcov(mod_r)["treat", "treat"])))
+```
+
+```{r rosenbaum-gamma, eval=requireNamespace("rbounds", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(rbounds)
+
+# Extract matched pairs: outcome differences
+treat_rows   <- mdat_r[mdat_r$treat == 1, ]
+control_rows <- mdat_r[mdat_r$treat == 0, ]
+
+# Align by subclass (matched pair id)
+treat_rows   <- treat_rows[order(treat_rows$subclass), ]
+control_rows <- control_rows[order(control_rows$subclass), ]
+
+y_diff <- treat_rows$re78 - control_rows$re78   # treated minus control
+
+# Wilcoxon signed-rank sensitivity test (Rosenbaum 1987)
+sens_result <- psens(
+  x        = treat_rows$re78,
+  y        = control_rows$re78,
+  Gamma    = 3,
+  GammaInc = 0.25
+)
+print(sens_result)
+```
+
+```{r rosenbaum-gamma-plot, eval=requireNamespace("rbounds", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Plot p-value vs Gamma
+gamma_seq  <- seq(1, 4, by = 0.1)
+pval_upper <- vapply(gamma_seq, function(g) {
+  tryCatch(
+    psens(treat_rows$re78, control_rows$re78, Gamma = g, GammaInc = 0.1)$ub[1, "Upper bound"],
+    error = function(e) NA_real_
+  )
+}, numeric(1))
+
+gamma_df <- data.frame(Gamma = gamma_seq, p_upper = pval_upper)
+
+ggplot(gamma_df, aes(x = Gamma, y = p_upper)) +
+  geom_line(colour = "firebrick", linewidth = 1) +
+  geom_hline(yintercept = 0.05, linetype = "dashed") +
+  causalverse::ama_theme() +
+  scale_y_log10() +
+  labs(
+    title    = "Rosenbaum Sensitivity: Upper-Bound p-value vs. Gamma",
+    subtitle = "Dashed = 0.05 threshold; sensitivity threshold is Gamma where line crosses dashed",
+    x        = expression(Gamma ~ "(odds ratio of hidden bias)"),
+    y        = "Upper-bound p-value (log scale)"
+  )
+```
+
+### Interpreting the Sensitivity Threshold
+
+The sensitivity threshold $\Gamma^*$ (the crossing point in the plot above) has a natural interpretation: an unobserved confounder would need to multiply the odds of treatment by a factor of $\Gamma^*$ to make the estimated effect statistically insignificant. Values of $\Gamma^* \leq 1.5$ indicate fragile findings; values of $\Gamma^* \geq 3$ indicate robust ones.
+
+Rosenbaum (2002) notes that the sensitivity analysis should be reported alongside the point estimate, not used to "reverse engineer" the confounding magnitude. The goal is to help readers assess how substantively plausible the critical $\Gamma$ level is, given domain knowledge about potential confounders.
+
+```{r gamma-threshold, eval=requireNamespace("rbounds", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Find Gamma* by bisection (where p-value crosses 0.05)
+gamma_threshold <- NA_real_
+for (g in gamma_seq) {
+  pv <- tryCatch(
+    psens(treat_rows$re78, control_rows$re78, Gamma = g, GammaInc = 0.1)$ub[1, "Upper bound"],
+    error = function(e) NA_real_
+  )
+  if (!is.na(pv) && pv > 0.05) {
+    gamma_threshold <- g
+    break
+  }
+}
+
+if (!is.na(gamma_threshold)) {
+  cat(sprintf("Sensitivity threshold Gamma* ~ %.2f\n", gamma_threshold))
+  cat(sprintf("Interpretation: an unmeasured confounder must multiply\n"))
+  cat(sprintf("the treatment odds by > %.2f to explain the estimated effect.\n",
+              gamma_threshold))
+} else {
+  cat("Effect remains significant across tested Gamma range.\n")
+}
+```
+
+---
+
+## Partial R2 and Sensitivity Contours: Cinelli and Hazlett (2020)
+
+### The `sensemakr` Framework
+
+The **sensemakr** approach (Cinelli and Hazlett 2020) generalises the omitted variable bias formula to quantify how strong an unobserved confounder must be to reduce the estimated treatment coefficient to zero (or any other benchmark). The key quantities are:
+
+- **Partial $R^2$ of the treatment on the confounder** ($R^2_{D \sim Z | \mathbf{X}}$): how much variation in treatment is explained by the unobserved $Z$ after partialling out observed covariates.
+- **Partial $R^2$ of the outcome on the confounder** ($R^2_{Y \sim Z | D, \mathbf{X}}$): how much variation in the outcome is explained by $Z$ after partialling out treatment and observed covariates.
+
+The **robustness value** $RV_q$ is the minimum partial $R^2$ (shared across both dimensions) needed to reduce the estimate by a fraction $q$. An $RV_{q=1}$ tells us the confounding strength needed to reduce the effect to zero.
+
+### Sensitivity Contour Plot
+
+```{r sensemakr-demo, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+library(sensemakr)
+data("lalonde", package = "MatchIt")
+
+# Baseline OLS model
+mod_conf <- lm(re78 ~ treat + age + educ + re74 + re75,
+               data = lalonde)
+
+# Sensitivity analysis benchmarking against age as a reference confounder
+sense_out <- sensemakr(
+  model               = mod_conf,
+  treatment           = "treat",
+  benchmark_covariates = "age",
+  kd                  = 1:3,   # confounder k times stronger than age on D
+  ky                  = 1:3    # confounder k times stronger than age on Y
+)
+
+summary(sense_out)
+```
+
+```{r sensemakr-contour, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Contour plot: combinations of (R2_DZ, R2_YZ) that reduce estimate to 0
+plot(sense_out,
+     sensitivity.of = "t-value",
+     main = "Sensitivity Contours: How Strong Must Confounding Be?")
+```
+
+```{r sensemakr-stats, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Robustness value and sensitivity statistics
+rv_stats <- sense_out$sensitivity_stats
+
+cat("=== Sensitivity Statistics for 'treat' ===\n")
+cat(sprintf("Estimate:              %.2f\n", rv_stats$estimate))
+cat(sprintf("SE:                    %.2f\n", rv_stats$se))
+cat(sprintf("t-value:               %.3f\n", rv_stats$t_statistic))
+cat(sprintf("Robustness Value RV_q=1 (eliminate effect): %.3f\n",
+            rv_stats$rv_q))
+cat(sprintf("Robustness Value RV_q=0.5 (halve effect):   %.3f\n",
+            rv_stats$rv_qa))
+cat(sprintf("Partial R2 of treat on outcome: %.4f\n",
+            rv_stats$r2yd_x))
+```
+
+```{r sensemakr-extreme, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Extreme-scenario sensitivity: confounder explains ALL residual variance in D
+extreme_out <- adjusted_estimate(
+  sense_out,
+  r2dz_x = 1 - rv_stats$r2yd_x,  # nearly all residual D variance
+  r2yz_dx = 0.3                    # modest explanatory power for Y
+)
+cat(sprintf("Adjusted estimate under extreme scenario: %.2f\n", extreme_out))
+```
+
+### Benchmark Against Observed Covariates
+
+The benchmark comparison is the key interpretive tool: we ask "how many times stronger than the observed covariate `age` must the unobserved confounder be to nullify our result?"
+
+```{r sensemakr-benchmark-table, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+# Benchmarks at 1x, 2x, 3x the strength of age
+bench_df <- sense_out$bounds
+
+if (!is.null(bench_df) && nrow(bench_df) > 0) {
+  knitr::kable(
+    round(bench_df[, c("bound_label", "r2dz_x", "r2yz_dx",
+                       "adjusted_estimate", "adjusted_se",
+                       "adjusted_t")], 4),
+    caption = "Sensitivity bounds benchmarked against 'age'",
+    col.names = c("Benchmark", "R2_DZ|X", "R2_YZ|DX",
+                  "Adj. estimate", "Adj. SE", "Adj. t")
+  )
+}
+```
+
+### Sensitivity Without `sensemakr`: Manual Omitted Variable Bias Calculation
+
+When `sensemakr` is unavailable, the omitted variable bias formula provides a back-of-the-envelope calculation:
+
+```{r ovb-manual, message=FALSE, warning=FALSE}
+# Manual OVB sensitivity (Cinelli & Hazlett 2020, Proposition 1)
+# Bias = delta * SE(treat) * sqrt(n) * sqrt(R2_DZ|X / (1 - R2_DZ|X))
+# where delta = coefficient of Z in Y regression / SD(Y residuals)
+
+# Using lalonde data
+data("lalonde", package = "MatchIt")
+mod_base <- lm(re78 ~ treat + age + educ + re74 + re75, data = lalonde)
+
+beta_hat <- coef(mod_base)["treat"]
+se_hat   <- sqrt(vcov(mod_base)["treat", "treat"])
+n_obs    <- nobs(mod_base)
+df_res   <- df.residual(mod_base)
+
+# Partial R2 of treat on outcome (already computed by sensemakr above)
+# Compute manually as F-statistic approach
+mod_notreat <- lm(re78 ~ age + educ + re74 + re75, data = lalonde)
+f_stat <- ((sum(resid(mod_notreat)^2) - sum(resid(mod_base)^2)) /
+           (df.residual(mod_notreat) - df_res)) /
+          (sum(resid(mod_base)^2) / df_res)
+
+r2yd_x_manual <- f_stat / (f_stat + df_res)
+
+cat(sprintf("Manual partial R2 of treat on re78: %.4f\n", r2yd_x_manual))
+
+# How much partial R2 does an unobserved confounder need to halve the estimate?
+# From the formula: bias = sqrt(R2_DZ|X * R2_YZ|DX) * se_hat * sqrt(df)
+# Setting bias = beta_hat/2 and R2_DZ|X = R2_YZ|DX = rho:
+# rho^2 = (beta_hat/2)^2 / (se_hat^2 * df)
+rho_sq_halve <- (beta_hat / 2)^2 / (se_hat^2 * df_res)
+cat(sprintf("Partial R2 (equal in D and Y) needed to halve effect: %.4f\n",
+            sqrt(max(0, rho_sq_halve))))
+```
+
+### Putting It All Together: A Sensitivity Dashboard
+
+```{r sensitivity-dashboard, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+# Construct a grid of (R2_DZ, R2_YZ) and compute adjusted estimates
+r2_grid <- seq(0, 0.3, by = 0.01)
+grid_df <- expand.grid(r2dz = r2_grid, r2yz = r2_grid)
+
+# OVB formula: adjusted estimate = beta - sign * sqrt(R2_DZ * R2_YZ) * se * sqrt(df)
+# (Cinelli & Hazlett 2020, Eq. 3)
+grid_df$adj_est <- beta_hat -
+  sign(beta_hat) *
+  sqrt(grid_df$r2dz * grid_df$r2yz) * se_hat * sqrt(df_res)
+
+ggplot(grid_df, aes(x = r2dz, y = r2yz, z = adj_est)) +
+  geom_contour_filled(breaks = c(-Inf, 0, 500, 1000, 1500, Inf)) +
+  geom_contour(breaks = 0, colour = "white", linetype = "dashed",
+               linewidth = 1) +
+  causalverse::ama_theme() +
+  scale_fill_brewer(palette = "RdYlBu", direction = -1) +
+  labs(
+    title    = "Sensitivity Contours: Adjusted Treatment Effect",
+    subtitle = "White dashed = zero-effect contour; shading = adjusted estimate",
+    x        = expression(R^2 ~ "(treat ~ Z | X)"),
+    y        = expression(R^2 ~ "(outcome ~ Z | treat, X)"),
+    fill     = "Adj. estimate"
+  ) +
+  theme(legend.position = "right")
+```
+
+**Reading the contour plot:**
+
+- The white dashed contour shows all (partial $R^2_{DZ}$, partial $R^2_{YZ}$) combinations that would completely attenuate the treatment effect.
+- If the benchmark covariate (e.g., `age`) has partial $R^2$ values near the origin, a confounder would need to be far more powerful than `age` to nullify the effect.
+- Points far from the origin require implausibly strong confounders, supporting a robust causal interpretation.
+
+---
+
+## Additional References (Partial Identification and Sensitivity)
+
+- Cinelli, C., and Hazlett, C. (2020). Making sense of sensitivity: Extending omitted variable bias. *Journal of the Royal Statistical Society: Series B*, 82(1), 39-67.
+- Imbens, G. W., and Manski, C. F. (2004). Confidence intervals for partially identified parameters. *Econometrica*, 72(6), 1845-1857.
+- Manski, C. F. (1990). Nonparametric bounds on treatment effects. *American Economic Review*, 80(2), 319-323.
+- Manski, C. F. (1997). Monotone treatment response. *Econometrica*, 65(6), 1311-1334.
+- Rosenbaum, P. R. (1987). Sensitivity analysis for certain permutation inferences in matched observational studies. *Biometrika*, 74(1), 13-26.
+- Rosenbaum, P. R. (2002). *Observational Studies* (2nd ed.). Springer.
+- Szekely, G. J., and Rizzo, M. L. (2013). Energy statistics: A class of statistics based on distances. *Journal of Statistical Planning and Inference*, 143(8), 1249-1272.

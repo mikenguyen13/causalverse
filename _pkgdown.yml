@@ -12,3 +12,194 @@ template:
 
         gtag('config', 'G-GLJZT4LT1W');
       </script>
+
+navbar:
+  structure:
+    left: [reference, articles]
+    right: [search, github]
+  components:
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+        - text: "Getting Started"
+        - text: "0. Introduction"
+          href: articles/a_introduction.html
+        - text: "-------"
+        - text: "Causal Inference Methods"
+        - text: "1. Randomized Control Trials"
+          href: articles/d_rct.html
+        - text: "2. Regression Discontinuity"
+          href: articles/e_rd.html
+        - text: "3. Synthetic Difference-in-Differences"
+          href: articles/b_synthdid.html
+        - text: "4. Difference-in-Differences"
+          href: articles/c_did.html
+        - text: "5. Synthetic Controls"
+          href: articles/f_sc.html
+        - text: "6. Instrumental Variables"
+          href: articles/g_iv.html
+        - text: "7. Event Studies (Finance)"
+          href: articles/h_event_study.html
+        - text: "8. Matching Methods"
+          href: articles/i_matching.html
+        - text: "9. Sensitivity Analysis"
+          href: articles/j_sensitivity.html
+
+articles:
+  - title: "Getting Started"
+    contents:
+      - a_introduction
+  - title: "Experimental & Quasi-Experimental Designs"
+    contents:
+      - d_rct
+      - e_rd
+      - b_synthdid
+      - c_did
+      - f_sc
+      - g_iv
+  - title: "Advanced Methods"
+    contents:
+      - h_event_study
+      - i_matching
+      - j_sensitivity
+      - k_hte
+      - l_mediation
+      - m_panel
+
+reference:
+  - title: "Reporting & Themes"
+    desc: "Publication-ready AMA-style themes, labels, and export utilities."
+    contents:
+      - ama_theme
+      - ama_labs
+      - ama_scale_color
+      - ama_scale_fill
+      - ama_export_fig
+      - ama_export_tab
+      - nice_tab
+      - causal_table
+  - title: "Unified Tidy Output"
+    desc: "Standardized extraction of estimates from any causal model."
+    contents:
+      - tidy_causal
+      - compare_estimators
+      - effect_size_convert
+      - causal_summary
+  - title: "Synthetic DID & Synthetic Controls"
+    desc: "Estimation, inference, and visualization for synthetic control methods."
+    contents:
+      - synthdid_est
+      - synthdid_est_ate
+      - synthdid_est_per
+      - synthdid_plot_ate
+      - synthdid_se_jacknife
+      - synthdid_se_placebo
+      - panel_estimate
+      - process_panel_estimate
+      - sc_gap_plot
+      - sc_inference_plot
+  - title: "Difference-in-Differences"
+    desc: "Visualization, testing, power analysis, and sensitivity for DiD designs."
+    contents:
+      - plot_par_trends
+      - plot_coef_par_trends
+      - plot_treat_time
+      - plot_trends_across_group
+      - plot_covariate_balance_pretrend
+      - stack_data
+      - get_balanced_panel
+      - plot_panel_estimate
+      - test_pretrends
+      - did_event_study
+      - did_power_analysis
+      - staggered_summary
+      - treatment_calendar
+      - bacon_decomp_plot
+      - pretrend_sensitivity
+      - parallel_trends_plot
+      - stacked_did
+  - title: "Randomized Experiments"
+    desc: "Power analysis, balance checking, doubly-robust estimation, and attrition."
+    contents:
+      - mde_calc
+      - dr_ate
+      - placebo_test
+      - dose_response
+      - dose_response_curve
+      - attrition_analysis
+      - power_sim
+  - title: "Heterogeneous Treatment Effects"
+    desc: "CATE estimation, BLP, GATES, Qini curves, forest summaries, and subgroup plots."
+    contents:
+      - blp_analysis
+      - qini_curve
+      - causal_forest_summary
+      - heterogeneity_plot
+      - heterogeneity_forest_plot
+  - title: "Balance & Matching"
+    desc: "Covariate balance tables, Love plots, overlap diagnostics, and balance plots."
+    contents:
+      - balance_assessment
+      - balance_scatter_custom
+      - balance_table
+      - balance_plot
+      - covariate_summary
+      - love_plot
+      - plot_density_by_treatment
+      - plot_pscore_overlap
+      - overlap_weights
+      - propensity_diagnostics
+  - title: "Mediation Analysis"
+    desc: "Causal mediation decomposition (ACME, ADE)."
+    contents:
+      - mediation_analysis
+      - lee_bounds
+      - med_ind
+  - title: "Robustness & Sensitivity"
+    desc: "Specification curves, multiverse analysis, sensitivity plots, exclusion restriction tests."
+    contents:
+      - spec_curve
+      - sensitivity_plot
+      - iv_sensitivity
+      - multiverse_analysis
+      - confounding_strength
+  - title: "Visualization (General)"
+    desc: "Coefficient plots, event study plots, and HTE visualization."
+    contents:
+      - plot_event_coefs
+      - plot_coef_comparison
+      - coef_plot
+      - event_study_finance
+  - title: "Regression Discontinuity"
+    desc: "RD estimation, bandwidth sensitivity, placebo tests, and assumption checks."
+    contents:
+      - plot_rd_aa_share
+      - rd_plot
+      - rd_bandwidth_sensitivity
+      - rd_covariate_balance
+      - rd_placebo_cutoffs
+      - rd_assumption_tests
+      - rd_binscatter
+  - title: "Instrumental Variables"
+    desc: "First-stage diagnostics, sensitivity, and weak-IV robust inference."
+    contents:
+      - iv_diagnostic_summary
+      - iv_diagnostics
+  - title: "Panel Data Diagnostics"
+    desc: "Unit root, serial correlation, cross-sectional dependence, and heteroskedasticity tests."
+    contents:
+      - panel_diagnostics
+  - title: "Causal DAG Utilities"
+    desc: "DAG visualization, adjustment set identification, and d-separation implication testing."
+    contents:
+      - dag_plot
+      - dag_adjustment_sets
+      - dag_test_implications
+  - title: "Package Management"
+    desc: "Install and check optional backend packages."
+    contents:
+      - install_backends
+      - check_backends

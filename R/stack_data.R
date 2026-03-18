@@ -33,6 +33,7 @@
 #'   )), data = stacked_data)
 #'   print(feols_result)
 #' }
+#' @importFrom purrr map_df
 #' @export
 
 stack_data <-

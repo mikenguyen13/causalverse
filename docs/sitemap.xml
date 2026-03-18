@@ -1,168 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/articles/0-introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/00-introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/00_introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/02-did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/02_did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/0introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/1-model_free.html</loc>
-  </url>
-  <url>
-    <loc>/articles/2did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/3-did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/3synthdid.html</loc>
-  </url>
-  <url>
-    <loc>/articles/4-synthdid.html</loc>
-  </url>
-  <url>
-    <loc>/articles/4did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/a_introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/b_synthdid.html</loc>
-  </url>
-  <url>
-    <loc>/articles/c_did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/did.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/introduction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/model_free.html</loc>
-  </url>
-  <url>
-    <loc>/articles/synthdid.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/reference/amatheme.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_export_fig.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_export_tab.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_labs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_scale_color.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_scale_fill.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ama_theme.html</loc>
-  </url>
-  <url>
-    <loc>/reference/balance_assessment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/balance_scatter_custom.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_balanced_panel.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lee_bounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/med_ind.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nice_tab.html</loc>
-  </url>
-  <url>
-    <loc>/reference/panel_estimate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_coef_par_trends.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_covariate_balance_pretrend.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_density_by_treatment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_PanelEstimate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_par_trends.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_rd_aa_share.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_treat_time.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_trends_across_group.html</loc>
-  </url>
-  <url>
-    <loc>/reference/process_panel_estimate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/stack_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_est.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_est_ate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_est_per.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_plot_ate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_se_jacknife.html</loc>
-  </url>
-  <url>
-    <loc>/reference/synthdid_se_placebo.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/articles/0-introduction.html</loc></url>
+<url><loc>/articles/00-introduction.html</loc></url>
+<url><loc>/articles/00_introduction.html</loc></url>
+<url><loc>/articles/02-did.html</loc></url>
+<url><loc>/articles/02_did.html</loc></url>
+<url><loc>/articles/0introduction.html</loc></url>
+<url><loc>/articles/1-model_free.html</loc></url>
+<url><loc>/articles/2did.html</loc></url>
+<url><loc>/articles/3-did.html</loc></url>
+<url><loc>/articles/3synthdid.html</loc></url>
+<url><loc>/articles/4-synthdid.html</loc></url>
+<url><loc>/articles/4did.html</loc></url>
+<url><loc>/articles/a_introduction.html</loc></url>
+<url><loc>/articles/b_synthdid.html</loc></url>
+<url><loc>/articles/c_did.html</loc></url>
+<url><loc>/articles/d_rct.html</loc></url>
+<url><loc>/articles/did.html</loc></url>
+<url><loc>/articles/e_rd.html</loc></url>
+<url><loc>/articles/f_sc.html</loc></url>
+<url><loc>/articles/g_iv.html</loc></url>
+<url><loc>/articles/h_event_study.html</loc></url>
+<url><loc>/articles/i_matching.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/introduction.html</loc></url>
+<url><loc>/articles/j_sensitivity.html</loc></url>
+<url><loc>/articles/model_free.html</loc></url>
+<url><loc>/articles/synthdid.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/ama_export_fig.html</loc></url>
+<url><loc>/reference/ama_export_tab.html</loc></url>
+<url><loc>/reference/ama_labs.html</loc></url>
+<url><loc>/reference/ama_scale_color.html</loc></url>
+<url><loc>/reference/ama_scale_fill.html</loc></url>
+<url><loc>/reference/ama_theme.html</loc></url>
+<url><loc>/reference/amatheme.html</loc></url>
+<url><loc>/reference/bacon_decomp_plot.html</loc></url>
+<url><loc>/reference/balance_assessment.html</loc></url>
+<url><loc>/reference/balance_scatter_custom.html</loc></url>
+<url><loc>/reference/check_backends.html</loc></url>
+<url><loc>/reference/compare_estimators.html</loc></url>
+<url><loc>/reference/get_balanced_panel.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/install_backends.html</loc></url>
+<url><loc>/reference/iv_diagnostic_summary.html</loc></url>
+<url><loc>/reference/lee_bounds.html</loc></url>
+<url><loc>/reference/med_ind.html</loc></url>
+<url><loc>/reference/nice_tab.html</loc></url>
+<url><loc>/reference/panel_estimate.html</loc></url>
+<url><loc>/reference/plot_coef_comparison.html</loc></url>
+<url><loc>/reference/plot_coef_par_trends.html</loc></url>
+<url><loc>/reference/plot_covariate_balance_pretrend.html</loc></url>
+<url><loc>/reference/plot_density_by_treatment.html</loc></url>
+<url><loc>/reference/plot_event_coefs.html</loc></url>
+<url><loc>/reference/plot_panel_estimate.html</loc></url>
+<url><loc>/reference/plot_par_trends.html</loc></url>
+<url><loc>/reference/plot_pscore_overlap.html</loc></url>
+<url><loc>/reference/plot_rd_aa_share.html</loc></url>
+<url><loc>/reference/plot_treat_time.html</loc></url>
+<url><loc>/reference/plot_trends_across_group.html</loc></url>
+<url><loc>/reference/process_panel_estimate.html</loc></url>
+<url><loc>/reference/rd_bandwidth_sensitivity.html</loc></url>
+<url><loc>/reference/rd_covariate_balance.html</loc></url>
+<url><loc>/reference/rd_placebo_cutoffs.html</loc></url>
+<url><loc>/reference/sensitivity_plot.html</loc></url>
+<url><loc>/reference/spec_curve.html</loc></url>
+<url><loc>/reference/stack_data.html</loc></url>
+<url><loc>/reference/synthdid_est.html</loc></url>
+<url><loc>/reference/synthdid_est_ate.html</loc></url>
+<url><loc>/reference/synthdid_est_per.html</loc></url>
+<url><loc>/reference/synthdid_plot_ate.html</loc></url>
+<url><loc>/reference/synthdid_se_jacknife.html</loc></url>
+<url><loc>/reference/synthdid_se_placebo.html</loc></url>
+<url><loc>/reference/test_pretrends.html</loc></url>
 </urlset>
+

@@ -1,5 +1,5 @@
 library(testthat)
-library(ggplot2) # for is.ggplot()
+library(ggplot2) # for is_ggplot()
 
 
 test_that("Function returns ggplot object with correct data", {
@@ -11,6 +11,6 @@ test_that("Function returns ggplot object with correct data", {
   p <- plot_covariate_balance_pretrend(balance_data_sample)
   
   # Check that the output is a ggplot object
-  expect_true(is.ggplot(p))
+  expect_true(is_ggplot(p))
 })
 

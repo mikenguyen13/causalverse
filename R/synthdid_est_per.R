@@ -10,13 +10,13 @@
 #' @param T0 Number of pre-treatment periods.
 #' @param weights Output from `synthdid`, containing lambda and omega weights.
 #' @return A list containing:
-#' \itemize{
-#'   \item{est}{: TEs for each post-treatment period and cumulative ATEs.}
-#'   \item{y_obs}{: Observed outcomes for treated units.}
-#'   \item{y_pred}{: Predicted outcomes for treated units.}
-#'   \item{lambda.synth}{: Synthetic control lambda weights.}
-#'   \item{Ntr}{: Number of treated units.}
-#'   \item{Nco}{: Number of control units.}
+#' \describe{
+#'   \item{est}{TEs for each post-treatment period and cumulative ATEs.}
+#'   \item{y_obs}{Observed outcomes for treated units.}
+#'   \item{y_pred}{Predicted outcomes for treated units.}
+#'   \item{lambda.synth}{Synthetic control lambda weights.}
+#'   \item{Ntr}{Number of treated units.}
+#'   \item{Nco}{Number of control units.}
 #' }
 #' @export
 #' @examples
