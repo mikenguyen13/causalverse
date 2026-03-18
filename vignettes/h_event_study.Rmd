@@ -2234,7 +2234,7 @@ $$\widehat{\text{Total Industry Cost}} = \hat{\mu}_{VW} \times \sum_{j \in \text
 
 **Important caveats:**
 - This extrapolation assumes the sample is representative (no selection bias toward affected or large firms).
-- It applies only to publicly listed companies — private firm effects are excluded.
+- It applies only to publicly listed companies  -  private firm effects are excluded.
 - For concentrated industries (e.g., banking), this extrapolation is more reliable.
 
 ```{r population-extrapolation, message=FALSE}

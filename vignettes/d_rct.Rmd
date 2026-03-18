@@ -2263,7 +2263,7 @@ for (ypos in c(0.85, 0.69, 0.51, 0.345, 0.18)) {
 
 ### 23.2 Treatment Effect by Subgroup Forest Plot
 
-Using `causalverse::heterogeneity_plot()`, we visualize subgroup-specific treatment effects with confidence intervals — a standard deliverable for any RCT publication.
+Using `causalverse::heterogeneity_plot()`, we visualize subgroup-specific treatment effects with confidence intervals  -  a standard deliverable for any RCT publication.
 
 ```{r subgroup-forest, eval = TRUE, fig.width = 9, fig.height = 6}
 set.seed(42)
@@ -2633,7 +2633,7 @@ knitr::kable(df_eff,
 
 ## 25. Intention-to-Treat, Per-Protocol, and LATE
 
-Non-compliance — participants assigned to treatment who do not take it, or control participants who obtain the treatment outside the trial — is endemic in field experiments. Three estimands address non-compliance differently.
+Non-compliance  -  participants assigned to treatment who do not take it, or control participants who obtain the treatment outside the trial  -  is endemic in field experiments. Three estimands address non-compliance differently.
 
 | Estimand | Population | Identifies | Uses |
 |----------|-----------|------------|------|
@@ -2802,7 +2802,7 @@ The IV approach requires four key assumptions:
 1. **Relevance:** $\text{Cov}(Z, D) \neq 0$ (instrument is correlated with treatment)
 2. **Exclusion restriction:** $Z$ affects $Y$ only through $D$ (no direct effect)
 3. **Independence:** $Z \perp (Y(0), Y(1), D(0), D(1))$ (satisfied by randomization)
-4. **Monotonicity:** No defiers — $D_i(1) \geq D_i(0)$ for all $i$
+4. **Monotonicity:** No defiers  -  $D_i(1) \geq D_i(0)$ for all $i$
 
 ---
 

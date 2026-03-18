@@ -1731,7 +1731,7 @@ ggplot2::ggplot(grid_df, ggplot2::aes(x = lon_mid, y = lat_mid,
 ### Panel 3: Density of Units Near the Boundary
 
 ```{r rd2d-map3, fig.width = 8, fig.height = 5}
-# Units within 5 degrees of the boundary — the "bandwidth window"
+# Units within 5 degrees of the boundary  -  the "bandwidth window"
 bw <- 5
 near_df <- geo_df[abs(geo_df$lon - boundary_lon) <= bw, ]
 
@@ -1766,7 +1766,7 @@ ggplot2::ggplot(near_df, ggplot2::aes(x = lon, y = lat, colour = treated)) +
 ### Panel 4: The Jump at the Boundary (RD Plot)
 
 ```{r rd2d-map4, fig.width = 8, fig.height = 5}
-# Bin by distance to boundary and plot mean income — the canonical RD plot
+# Bin by distance to boundary and plot mean income  -  the canonical RD plot
 geo_df$dist_to_bound <- geo_df$lon - boundary_lon
 
 geo_df$dist_bin <- cut(geo_df$dist_to_bound,
@@ -1826,7 +1826,7 @@ ggplot2::ggplot(rd_plot_df,
   )
 ```
 
-Geographic RD designs arise naturally in studies of redistricting, cross-border policy differences, environmental regulations, and school attendance zones. The four visualizations above — boundary map, outcome choropleth, bandwidth zoom, and RD jump plot — are the standard diagnostic figures for a geographic RD paper.
+Geographic RD designs arise naturally in studies of redistricting, cross-border policy differences, environmental regulations, and school attendance zones. The four visualizations above  -  boundary map, outcome choropleth, bandwidth zoom, and RD jump plot  -  are the standard diagnostic figures for a geographic RD paper.
 
 ---
 

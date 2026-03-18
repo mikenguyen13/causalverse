@@ -25,7 +25,7 @@ library(dplyr)
 
 ### 1.1 Why Heterogeneous Treatment Effects Matter
 
-Most causal inference methods report a single summary statistic — the Average Treatment Effect (ATE) — which tells us the average impact of an intervention across the study population. While the ATE is a valuable and interpretable quantity, it can obscure substantial variation in how individuals respond to treatment. When treatment effects differ across units, reporting only the ATE may lead to:
+Most causal inference methods report a single summary statistic  -  the Average Treatment Effect (ATE)  -  which tells us the average impact of an intervention across the study population. While the ATE is a valuable and interpretable quantity, it can obscure substantial variation in how individuals respond to treatment. When treatment effects differ across units, reporting only the ATE may lead to:
 
 - **Misallocation of resources**: Treating individuals who do not benefit or even experience harm.
 - **Missed targeting opportunities**: Failing to identify sub-populations where treatment is highly effective.
@@ -34,7 +34,7 @@ Most causal inference methods report a single summary statistic — the Average 
 
 Heterogeneous Treatment Effect (HTE) analysis asks: **for whom does the treatment work, and by how much?** This is the central question in precision medicine, personalized policy, targeted marketing, and individualized education.
 
-Modern causal machine learning methods — including causal forests, meta-learners, and double/debiased machine learning — make it possible to estimate HTE at the individual level, validate those estimates, and translate them into actionable targeting rules, all while maintaining rigorous causal guarantees.
+Modern causal machine learning methods  -  including causal forests, meta-learners, and double/debiased machine learning  -  make it possible to estimate HTE at the individual level, validate those estimates, and translate them into actionable targeting rules, all while maintaining rigorous causal guarantees.
 
 ### 1.2 Key Estimands: CATE, ATE, ATT
 
@@ -66,7 +66,7 @@ To identify the CATE from observational data, we require:
 2. **Overlap (Positivity)**: $0 < \mathbb{P}(W = 1 \mid X = x) < 1$ for all $x$
    Every covariate profile has a positive probability of both treatment and control.
 
-3. **SUTVA**: Stable Unit Treatment Value Assumption — no interference and no hidden treatment versions.
+3. **SUTVA**: Stable Unit Treatment Value Assumption  -  no interference and no hidden treatment versions.
 
 Under these assumptions, the CATE is identified:
 $$\tau(x) = \mathbb{E}[Y \mid W = 1, X = x] - \mathbb{E}[Y \mid W = 0, X = x]$$
@@ -177,7 +177,7 @@ ggplot(balance_df, aes(x = Std_Diff, y = reorder(Variable, Std_Diff))) +
   theme_minimal(base_size = 12)
 ```
 
-In the randomized simulation, all standardized differences are close to zero — expected under random assignment.
+In the randomized simulation, all standardized differences are close to zero  -  expected under random assignment.
 
 ### 2.4 True CATE Distribution
 
@@ -1676,7 +1676,7 @@ cat("  True ATE:", round(mean(tau_true), 4), "\n")
 
 ### 13.3 Selective Inference Issues
 
-When subgroups are selected based on estimated CATE and then tested, naive p-values are invalid — this is the **winner's curse** or **data snooping** problem.
+When subgroups are selected based on estimated CATE and then tested, naive p-values are invalid  -  this is the **winner's curse** or **data snooping** problem.
 
 **Solutions**:
 1. **Sample splitting**: Use one half for subgroup discovery, the other for inference.
@@ -2080,11 +2080,11 @@ When writing up HTE results:
 
 ### 17.4 Cross-References to Other `causalverse` Vignettes
 
-- **[Vignette 1: RCT]** — foundational estimands and experimental design
-- **[Vignette 3: DiD]** — panel data HTE and group-time ATTs
-- **[Vignette 9: Matching]** — matching-based CATE estimation, balance diagnostics
-- **[Vignette 7: IV]** — LATE and complier-specific heterogeneity
-- **[Vignette 10: Sensitivity]** — sensitivity analysis for unmeasured confounding
+- **[Vignette 1: RCT]**  -  foundational estimands and experimental design
+- **[Vignette 3: DiD]**  -  panel data HTE and group-time ATTs
+- **[Vignette 9: Matching]**  -  matching-based CATE estimation, balance diagnostics
+- **[Vignette 7: IV]**  -  LATE and complier-specific heterogeneity
+- **[Vignette 10: Sensitivity]**  -  sensitivity analysis for unmeasured confounding
 
 ---
 
@@ -2124,7 +2124,7 @@ cat("  Estimate:", round(ate_cont["estimate"], 4),
 
 ### 18.2 Instrumental Variables with Heterogeneity
 
-When treatment is endogenous, IV methods identify the **Local Average Treatment Effect (LATE)** — the CATE for *compliers*. With multiple instruments and covariates, an IV causal forest can estimate heterogeneous LATEs:
+When treatment is endogenous, IV methods identify the **Local Average Treatment Effect (LATE)**  -  the CATE for *compliers*. With multiple instruments and covariates, an IV causal forest can estimate heterogeneous LATEs:
 
 ```{r iv-forest, eval=requireNamespace("grf", quietly=TRUE)}
 # IV simulation: instrument Z induces compliance

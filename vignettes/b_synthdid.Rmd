@@ -1134,7 +1134,7 @@ The trajectory plot is the central figure in any synthetic control paper. Here w
 ```{r trajectory-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
 library(ggplot2)
 
-# California Prop 99 — full trajectory
+# California Prop 99  -  full trajectory
 Y_mat    <- setup_ca$Y
 time_lbl <- as.numeric(colnames(Y_mat))
 treat_yr <- time_lbl[setup_ca$T0 + 1]
@@ -1203,7 +1203,7 @@ ggplot(omega_top, aes(x = unit, y = weight)) +
   scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
   labs(
     title    = "SynthDID Donor Unit Weights (Top 15)",
-    subtitle = "Prop 99 California analysis — states with weight > 0",
+    subtitle = "Prop 99 California analysis  -  states with weight > 0",
     x        = NULL,
     y        = "Weight"
   ) +
@@ -1304,7 +1304,7 @@ ggplot(comp_df, aes(x = method, y = estimate)) +
 SynthDID standard errors cannot be computed from standard OLS formulas because the unit and time weights are estimated from the data. The `synthdid` package provides three resampling-based methods, each appropriate in different settings.
 
 ```{r se-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
-# Base DID data: multiple treated units — allows all three SE methods
+# Base DID data: multiple treated units  -  allows all three SE methods
 library(fixest)
 library(dplyr)
 

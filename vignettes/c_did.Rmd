@@ -2467,7 +2467,7 @@ Cohort-specific event studies are the gold standard for diagnosing whether TWFE 
 
 ### Parallel Trends Visualization with Multiple Control Units
 
-A credible parallel-trends check compares the treated group's pre-period trajectory against several plausible control groups—never-treated units and not-yet-treated units—overlaid on the same figure.
+A credible parallel-trends check compares the treated group's pre-period trajectory against several plausible control groups - never-treated units and not-yet-treated units - overlaid on the same figure.
 
 ```{r vis-parallel-trends, eval=TRUE, fig.width=9, fig.height=5.5}
 # Focus on cohort 2007 for clarity
@@ -2652,7 +2652,7 @@ The counterfactual trajectory plot is arguably the most persuasive figure in any
 
 ## Two-Way Mundlak (Correlated Random Effects) as DiD Alternative
 
-The correlated random effects (CRE) model—the **Mundlak device**—provides a within-between decomposition that is asymptotically equivalent to TWFE under balanced panels but generalizes more flexibly to unbalanced panels. It allows researchers to estimate both within- and between-unit effects in a single model, making the source of identification explicit rather than implicit.
+The correlated random effects (CRE) model - the **Mundlak device** - provides a within-between decomposition that is asymptotically equivalent to TWFE under balanced panels but generalizes more flexibly to unbalanced panels. It allows researchers to estimate both within- and between-unit effects in a single model, making the source of identification explicit rather than implicit.
 
 ### The Mundlak Device
 
@@ -2804,7 +2804,7 @@ ggplot(est_compare, aes(x = Estimator, y = Estimate, colour = type)) +
   causalverse::ama_theme()
 ```
 
-**Key interpretive point:** If the TWFE (within) estimate diverges substantially from the between estimate, unit selection into treatment is correlated with potential outcomes—exactly the endogeneity that DiD is designed to address. The Mundlak CRE model makes this decomposition explicit and transparent.
+**Key interpretive point:** If the TWFE (within) estimate diverges substantially from the between estimate, unit selection into treatment is correlated with potential outcomes - exactly the endogeneity that DiD is designed to address. The Mundlak CRE model makes this decomposition explicit and transparent.
 
 ---
 
@@ -2812,8 +2812,8 @@ ggplot(est_compare, aes(x = Estimator, y = Estimate, colour = type)) +
 
 A critically important but often-overlooked robustness check is demonstrating that DiD estimates are insensitive to the choice of comparison group. The two principal options are:
 
-1. **Never-treated units** — comparison group consists only of units that never receive treatment throughout the panel.
-2. **Not-yet-treated units** — comparison group expands to include units that will eventually be treated but have not yet been treated at time $t$.
+1. **Never-treated units**  -  comparison group consists only of units that never receive treatment throughout the panel.
+2. **Not-yet-treated units**  -  comparison group expands to include units that will eventually be treated but have not yet been treated at time $t$.
 
 Each choice has different implications for statistical power and for the maintained assumptions. Using not-yet-treated controls increases the effective control group size but requires the no-anticipation assumption to hold for future adopters.
 
@@ -3088,7 +3088,7 @@ if (length(pre_coef) > 0 && all(is.finite(pre_coef))) {
 Run all major heterogeneity-robust estimators and report side-by-side for transparency.
 
 ```{r pipeline-main-estimates, eval=TRUE}
-# (a) TWFE — baseline, potentially biased under effect heterogeneity
+# (a) TWFE  -  baseline, potentially biased under effect heterogeneity
 twfe_main <- fixest::feols(
   y ~ treat | id + year,
   data    = panel_sim |>
@@ -3096,7 +3096,7 @@ twfe_main <- fixest::feols(
   cluster = ~id
 )
 
-# (b) Sun-Abraham — heterogeneity-robust via interaction-weighted estimator
+# (b) Sun-Abraham  -  heterogeneity-robust via interaction-weighted estimator
 sa_main <- fixest::feols(
   y ~ sunab(cohort, year) | id + year,
   data    = panel_sim |>
@@ -3105,7 +3105,7 @@ sa_main <- fixest::feols(
 )
 sa_agg <- fixest::aggregate(sa_main, "cohort")
 
-# (c) Callaway-Sant'Anna — semi-parametric, no negative weights
+# (c) Callaway-Sant'Anna  -  semi-parametric, no negative weights
 cs_main_pipe <- did::att_gt(
   yname         = "y",
   tname         = "year",
@@ -3224,7 +3224,7 @@ cat("Note: log coefficient approximates the proportional treatment effect.\n")
 
 ### Step 6: Publication-Ready Coefficient Plot (All Specifications)
 
-The final summary figure collects all estimates—main and robustness—into a single coefficient plot, the standard format for applied econometrics papers at top journals.
+The final summary figure collects all estimates - main and robustness - into a single coefficient plot, the standard format for applied econometrics papers at top journals.
 
 ```{r pipeline-coef-plot, eval=TRUE, fig.width=9, fig.height=6.5}
 # Compile all estimates into one data frame
@@ -3343,7 +3343,7 @@ knitr::kable(
 )
 ```
 
-This pipeline—from raw data through balance checks, event studies with simultaneous confidence bands, cohort-specific heterogeneity, control-group sensitivity, placebo tests, and a unified coefficient plot—represents the minimum standard expected by referees at journals such as the *American Economic Review*, *Review of Economic Studies*, *Journal of Political Economy*, and *Econometrica*. The `causalverse` package provides helper functions that streamline each step of this workflow.
+This pipeline - from raw data through balance checks, event studies with simultaneous confidence bands, cohort-specific heterogeneity, control-group sensitivity, placebo tests, and a unified coefficient plot - represents the minimum standard expected by referees at journals such as the *American Economic Review*, *Review of Economic Studies*, *Journal of Political Economy*, and *Econometrica*. The `causalverse` package provides helper functions that streamline each step of this workflow.
 
 ---
 
@@ -3363,9 +3363,9 @@ This pipeline—from raw data through balance checks, event studies with simulta
 
 ---
 
-# HonestDiD — Sensitivity to Parallel Trends Violations (Rambachan & Roth 2023)
+# HonestDiD  -  Sensitivity to Parallel Trends Violations (Rambachan & Roth 2023)
 
-The parallel trends assumption underpins virtually every DiD analysis, yet it is inherently untestable using post-treatment data. The dominant practice—running a pre-trend test and proceeding if the F-statistic is insignificant—is deeply problematic. Roth (2022) shows that pre-trend tests have low power when the underlying violations are small, so "passing" the test provides little assurance that parallel trends hold in the post-treatment period. Rambachan and Roth (2023) provide a rigorous alternative: instead of testing a binary null, they construct confidence intervals that remain valid under *partial* relaxations of parallel trends.
+The parallel trends assumption underpins virtually every DiD analysis, yet it is inherently untestable using post-treatment data. The dominant practice - running a pre-trend test and proceeding if the F-statistic is insignificant - is deeply problematic. Roth (2022) shows that pre-trend tests have low power when the underlying violations are small, so "passing" the test provides little assurance that parallel trends hold in the post-treatment period. Rambachan and Roth (2023) provide a rigorous alternative: instead of testing a binary null, they construct confidence intervals that remain valid under *partial* relaxations of parallel trends.
 
 ## The HonestDiD Framework
 
@@ -3387,7 +3387,7 @@ A value of $M = 0$ implies that post-treatment violations follow the same linear
 
 $$\Delta^{RM}(\bar{M}) = \left\{ \delta : |\delta_t| \leq \bar{M} \cdot \max_{s < 0} |\delta_s| \text{ for all } t > 0 \right\}$$
 
-When $\bar{M} = 1$, post-treatment violations cannot exceed the largest observed pre-trend deviation—a minimal and often quite credible assumption.
+When $\bar{M} = 1$, post-treatment violations cannot exceed the largest observed pre-trend deviation - a minimal and often quite credible assumption.
 
 ### Why Pre-Trend Tests Are Misleading
 
@@ -3563,7 +3563,7 @@ HonestDiD::createSensitivityPlot_relativeMagnitudes(delta_rm_results) +
 **Practical guidance:**
 
 - If $\bar{M} = 1$ already yields a CI that excludes zero, the result is robust even when post-treatment violations are as large as any observed pre-treatment violation.
-- If the CI only excludes zero for $\bar{M} < 0.5$, post-treatment violations would need to be substantially *smaller* than pre-treatment deviations for the result to hold—a stringent and often untenable requirement.
+- If the CI only excludes zero for $\bar{M} < 0.5$, post-treatment violations would need to be substantially *smaller* than pre-treatment deviations for the result to hold - a stringent and often untenable requirement.
 - The relative magnitudes approach is especially useful when the researcher has domain knowledge about whether post-treatment confounding is likely to be larger or smaller than pre-treatment confounding.
 
 ## Callaway-Sant'Anna with Pre-Trend Test Integration
@@ -3809,7 +3809,7 @@ cat("See HonestDiD section above for robust inference.\n")
 
 ## Step 4: Granger-Type Test (Does Past Treatment Predict Current Outcome?)
 
-A Granger-type test checks whether *future* treatment status predicts *current* outcomes. If significant, this indicates the treated and control groups were already diverging before treatment was assigned—a direct violation of parallel trends.
+A Granger-type test checks whether *future* treatment status predicts *current* outcomes. If significant, this indicates the treated and control groups were already diverging before treatment was assigned - a direct violation of parallel trends.
 
 ```{r granger_test, eval=requireNamespace("fixest", quietly=TRUE)}
 # Add leads of treatment indicator to panel
@@ -3898,9 +3898,9 @@ cat(sprintf("Permutation p-value: %.4f\n", placebo_pval))
 cat("(Proportion of placebo estimates >= |main ATT| in absolute value)\n")
 ```
 
-## Step 6: Density Test — Pre-Treatment Slope Balance
+## Step 6: Density Test  -  Pre-Treatment Slope Balance
 
-In DiD contexts, a McCrary (2008)-inspired check asks whether units are "sorting" into treatment based on pre-treatment outcome trajectories—i.e., whether treatment assignment appears correlated with past outcome growth rates.
+In DiD contexts, a McCrary (2008)-inspired check asks whether units are "sorting" into treatment based on pre-treatment outcome trajectories - i.e., whether treatment assignment appears correlated with past outcome growth rates.
 
 ```{r density_test_did, eval=requireNamespace("fixest", quietly=TRUE)}
 # Compute pre-treatment outcome growth rate (OLS slope) for each unit

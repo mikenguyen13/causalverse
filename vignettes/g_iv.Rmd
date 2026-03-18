@@ -1184,7 +1184,7 @@ iv_fit <- ivmodel(
     intercept = TRUE
 )
 
-# K-class estimators via KClass() — 2SLS uses k=1, LIML uses k=liml_k
+# K-class estimators via KClass()  -  2SLS uses k=1, LIML uses k=liml_k
 tsls_est   <- KClass(iv_fit, k = 1)         # 2SLS
 liml_k     <- iv_fit$LIML$k                  # LIML characteristic root
 liml_est   <- KClass(iv_fit, k = liml_k)    # LIML
@@ -2138,7 +2138,7 @@ cat("Note: Low concentration index suggests many effective instruments.\n")
 
 ## 22.7 LATE Heterogeneity: Who are the Compliers?
 
-Understanding the LATE requires characterizing compliers — the subpopulation for whom the instrument changes treatment status. Imbens-Rubin (1997) complier characteristics:
+Understanding the LATE requires characterizing compliers  -  the subpopulation for whom the instrument changes treatment status. Imbens-Rubin (1997) complier characteristics:
 
 ```{r complier-chars, message=FALSE}
 # Complier characteristics analysis
@@ -2285,15 +2285,15 @@ cat("=== PIPELINE COMPLETE ===\n")
 
 # Mendelian Randomization (Genomic IVs)
 
-Mendelian Randomization (MR) applies the logic of instrumental variables to genetic epidemiology. Genetic variants—single nucleotide polymorphisms (SNPs)—are assigned at conception through Mendelian inheritance, making them effectively randomly allocated across individuals in a population. This random allocation provides a natural instrument for the causal effect of a biological trait (the "exposure") on a health outcome. Since genetic variants are determined before birth, they cannot be caused by adult lifestyle choices or disease status, satisfying the exclusion restriction under the assumption that the variant only affects the outcome through the exposure of interest (no pleiotropy).
+Mendelian Randomization (MR) applies the logic of instrumental variables to genetic epidemiology. Genetic variants - single nucleotide polymorphisms (SNPs) - are assigned at conception through Mendelian inheritance, making them effectively randomly allocated across individuals in a population. This random allocation provides a natural instrument for the causal effect of a biological trait (the "exposure") on a health outcome. Since genetic variants are determined before birth, they cannot be caused by adult lifestyle choices or disease status, satisfying the exclusion restriction under the assumption that the variant only affects the outcome through the exposure of interest (no pleiotropy).
 
 ## The Three MR Assumptions
 
 For SNP $G_j$ to be a valid instrument for exposure $X$ affecting outcome $Y$:
 
-1. **Relevance:** $G_j$ must be associated with the exposure — $\text{Cov}(G_j, X) \neq 0$.
-2. **Independence:** $G_j$ must be independent of all confounders $U$ — $G_j \perp U$.
-3. **Exclusion restriction:** $G_j$ must affect $Y$ only through $X$ — no direct effect of $G_j$ on $Y$ except via $X$.
+1. **Relevance:** $G_j$ must be associated with the exposure  -  $\text{Cov}(G_j, X) \neq 0$.
+2. **Independence:** $G_j$ must be independent of all confounders $U$  -  $G_j \perp U$.
+3. **Exclusion restriction:** $G_j$ must affect $Y$ only through $X$  -  no direct effect of $G_j$ on $Y$ except via $X$.
 
 The critical threat in MR is **horizontal pleiotropy**: a genetic variant affects multiple traits, some of which are independent pathways to the outcome. When pleiotropy is present, the exclusion restriction fails and MR estimates are biased.
 
@@ -2441,7 +2441,7 @@ MendelianRandomization::mr_forest(
 **Interpreting the diagnostics:**
 
 - **Funnel plot asymmetry:** If individual Wald ratios cluster symmetrically around the causal estimate, this supports instrument validity. Asymmetry suggests directional pleiotropy (MR-Egger intercept $\neq 0$).
-- **Egger intercept:** A significant intercept indicates that the InSIDE assumption (Instrument Strength Independent of Direct Effect) fails—some SNPs have direct effects on the outcome independent of the exposure.
+- **Egger intercept:** A significant intercept indicates that the InSIDE assumption (Instrument Strength Independent of Direct Effect) fails - some SNPs have direct effects on the outcome independent of the exposure.
 - **Heterogeneity:** Large $Q$-statistic heterogeneity across Wald ratios suggests some instruments may be invalid (pleiotropic).
 
 ## Egger Intercept as a Pleiotropy Test
@@ -2467,7 +2467,7 @@ if (mr_egger@Pvalue.Int < 0.05) {
 
 # Local Average Structural Function (LASF) and Heterogeneous LATE
 
-The standard IV estimator identifies the **Local Average Treatment Effect (LATE)**: the average treatment effect for compliers—units whose treatment status is changed by the instrument. However, in settings with heterogeneous treatment effects, the LATE may differ substantially from the average treatment effect (ATE) for the full population.
+The standard IV estimator identifies the **Local Average Treatment Effect (LATE)**: the average treatment effect for compliers - units whose treatment status is changed by the instrument. However, in settings with heterogeneous treatment effects, the LATE may differ substantially from the average treatment effect (ATE) for the full population.
 
 ## The Complier Population
 
@@ -2622,7 +2622,7 @@ ggplot(larf_df, aes(x = Z_mid, y = wald_ratio)) +
 
 # Bartik Instruments in Depth (Shift-Share IV)
 
-The Bartik (1991) instrument—also known as the shift-share instrument—is ubiquitous in regional economics, labor economics, and public finance. The instrument combines national industry growth rates ("shifts") with local industry shares ("shares") to construct a local labor demand shock:
+The Bartik (1991) instrument - also known as the shift-share instrument - is ubiquitous in regional economics, labor economics, and public finance. The instrument combines national industry growth rates ("shifts") with local industry shares ("shares") to construct a local labor demand shock:
 
 $$Z_\ell = \sum_k s_{\ell k} g_k$$
 
@@ -2630,11 +2630,11 @@ where $s_{\ell k}$ is the initial share of industry $k$ in location $\ell$, and 
 
 ## Identification Conditions: Two Views
 
-Goldsmith-Pinkham, Sorkin, and Swift (2020) show that the Bartik IV estimator can be written as a weighted average of industry-specific just-identified IV estimates, where the weights—**Rotemberg weights**—sum to one and can be negative:
+Goldsmith-Pinkham, Sorkin, and Swift (2020) show that the Bartik IV estimator can be written as a weighted average of industry-specific just-identified IV estimates, where the weights - **Rotemberg weights** - sum to one and can be negative:
 
 $$\hat{\beta}^{Bartik} = \sum_k \hat{\alpha}_k \hat{\beta}^{IV}_k$$
 
-Here $\hat{\alpha}_k$ is the Rotemberg weight for industry $k$, and $\hat{\beta}^{IV}_k$ is the just-identified IV estimate using only industry $k$'s share as the instrument. Identification rests on the *shares* being exogenous—a stronger requirement than commonly acknowledged.
+Here $\hat{\alpha}_k$ is the Rotemberg weight for industry $k$, and $\hat{\beta}^{IV}_k$ is the just-identified IV estimate using only industry $k$'s share as the instrument. Identification rests on the *shares* being exogenous - a stronger requirement than commonly acknowledged.
 
 Borusyak, Hull, and Jaravel (2022) provide an alternative: identification from the *shifts* being as-good-as-randomly assigned across industries, conditional on share-level controls. This requires many industries and a research design argument that industry-level shocks are plausibly exogenous.
 
@@ -2815,7 +2815,7 @@ cat(sprintf("Change:                      %.4f (%.1f%%)\n",
 
 # Many-Weak Instruments and LIML
 
-When the researcher has access to many instruments—each individually weak—the standard two-stage least squares (2SLS) estimator performs poorly. In the many-instruments asymptotic sequence (where $K/n \to c > 0$ as $n \to \infty$), 2SLS is biased toward OLS. The bias is proportional to the concentration parameter $\mu^2 / K$, and can be severe when instruments are weak.
+When the researcher has access to many instruments - each individually weak - the standard two-stage least squares (2SLS) estimator performs poorly. In the many-instruments asymptotic sequence (where $K/n \to c > 0$ as $n \to \infty$), 2SLS is biased toward OLS. The bias is proportional to the concentration parameter $\mu^2 / K$, and can be severe when instruments are weak.
 
 ## The Many-IV Problem
 
@@ -2954,7 +2954,7 @@ ggplot(mc_long |> filter(!is.na(Estimate), abs(Estimate) < 5),
 
 # IV with Heterogeneous Effects: Marginal Treatment Effects (Heckman-Vytlacil)
 
-When treatment effects are heterogeneous—different individuals benefit differently from treatment—the standard IV estimator identifies a weighted average that depends on the instrument used. The **Marginal Treatment Effect (MTE)** framework of Heckman and Vytlacil (2005) provides a unifying structure: all standard treatment effect parameters (ATE, ATT, ATU, LATE) are weighted averages of the MTE function.
+When treatment effects are heterogeneous - different individuals benefit differently from treatment - the standard IV estimator identifies a weighted average that depends on the instrument used. The **Marginal Treatment Effect (MTE)** framework of Heckman and Vytlacil (2005) provides a unifying structure: all standard treatment effect parameters (ATE, ATT, ATU, LATE) are weighted averages of the MTE function.
 
 ## The MTE Framework
 

@@ -628,7 +628,7 @@ print(bal_unmatched)
 
 ## Covariate Summary: Publication-Ready Table 1
 
-`covariate_summary()` produces a "Table 1" with means, standard deviations, group differences, p-values, and standardized mean differences (SMD) — all in a single call.
+`covariate_summary()` produces a "Table 1" with means, standard deviations, group differences, p-values, and standardized mean differences (SMD)  -  all in a single call.
 
 ```{r covariate-summary-lalonde, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE}
 library(MatchIt)
@@ -655,7 +655,7 @@ print(tbl1)
 The `smd` column shows the standardized mean difference between treatment and control groups. Values below 0.1 in absolute terms are generally considered well-balanced.
 
 ```{r covariate-summary-mtcars, eval=TRUE, message=FALSE}
-# Works with any dataset — here using mtcars with am as treatment
+# Works with any dataset  -  here using mtcars with am as treatment
 tbl1_cars <- causalverse::covariate_summary(
   data      = mtcars,
   treatment = "am",
@@ -696,7 +696,7 @@ mde_ttest$plot + causalverse::ama_theme()
 ```
 
 ```{r mde-did, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
-# DiD design MDE — note DiD requires ~2x the sample for the same precision
+# DiD design MDE  -  note DiD requires ~2x the sample for the same precision
 mde_did <- causalverse::mde_calc(
   n      = 500,
   design = "did",

@@ -2118,7 +2118,7 @@ ggplot(bounds_df, aes(y = assumption)) +
 
 ## Quantile Treatment Effects and Distributional Analysis
 
-Average treatment effects summarize the central tendency of the treatment effect distribution. When treatment effects are heterogeneous—affecting different parts of the outcome distribution differently—quantile treatment effects (QTEs) provide a richer picture.
+Average treatment effects summarize the central tendency of the treatment effect distribution. When treatment effects are heterogeneous - affecting different parts of the outcome distribution differently - quantile treatment effects (QTEs) provide a richer picture.
 
 ### A. QTE Estimation (Difference in Quantile Functions)
 
@@ -2245,9 +2245,9 @@ te_rankid <- quantile(y1_q, probs = rank(y0_q) / (n_q + 1)) - y0_q
 # Density plots: Y(0), Y(1), and te_i
 dens_df <- data.frame(
   value = c(y0_q, y1_q, te_rankid),
-  group = rep(c("Y(0) — Control potential outcome",
-                "Y(1) — Treated potential outcome",
-                "τᵢ = Y(1)−Y(0) — Individual TE"),
+  group = rep(c("Y(0)  -  Control potential outcome",
+                "Y(1)  -  Treated potential outcome",
+                "τᵢ = Y(1)−Y(0)  -  Individual TE"),
               each = n_q)
 )
 
@@ -2264,16 +2264,16 @@ ggplot(dens_df, aes(x = value, fill = group, color = group)) +
            color = "#2166ac", size = 3.5, hjust = 0) +
   scale_fill_manual(
     values = c(
-      "Y(0) — Control potential outcome"   = "#c0392b",
-      "Y(1) — Treated potential outcome"   = "#27ae60",
-      "τᵢ = Y(1)−Y(0) — Individual TE"    = "#2166ac"
+      "Y(0)  -  Control potential outcome"   = "#c0392b",
+      "Y(1)  -  Treated potential outcome"   = "#27ae60",
+      "τᵢ = Y(1)−Y(0)  -  Individual TE"    = "#2166ac"
     ), name = NULL
   ) +
   scale_color_manual(
     values = c(
-      "Y(0) — Control potential outcome"   = "#c0392b",
-      "Y(1) — Treated potential outcome"   = "#27ae60",
-      "τᵢ = Y(1)−Y(0) — Individual TE"    = "#2166ac"
+      "Y(0)  -  Control potential outcome"   = "#c0392b",
+      "Y(1)  -  Treated potential outcome"   = "#27ae60",
+      "τᵢ = Y(1)−Y(0)  -  Individual TE"    = "#2166ac"
     ), guide = "none"
   ) +
   labs(
@@ -2286,7 +2286,7 @@ ggplot(dens_df, aes(x = value, fill = group, color = group)) +
   theme(legend.position = "bottom")
 ```
 
-**Interpretation**: The distribution of individual treatment effects ($\tau_i$) reveals heterogeneity that the ATE masks. Here treatment compresses the upper tail: high-outcome units receive smaller treatment benefits, while lower-outcome units benefit more. A negative variance of $\tau_i$ relative to the variance in $Y(0)$ signals variance-reducing treatment. Reporting the full distribution—not just the ATE—provides substantially more information for policy targeting.
+**Interpretation**: The distribution of individual treatment effects ($\tau_i$) reveals heterogeneity that the ATE masks. Here treatment compresses the upper tail: high-outcome units receive smaller treatment benefits, while lower-outcome units benefit more. A negative variance of $\tau_i$ relative to the variance in $Y(0)$ signals variance-reducing treatment. Reporting the full distribution - not just the ATE - provides substantially more information for policy targeting.
 
 ---
 

@@ -12,4 +12,7 @@ articles:
   h_event_study: h_event_study.html
   i_matching: i_matching.html
   j_sensitivity: j_sensitivity.html
-last_built: 2026-03-18T01:09Z
+  k_hte: k_hte.html
+  l_mediation: l_mediation.html
+  m_panel: m_panel.html
+last_built: 2026-03-18T21:26Z

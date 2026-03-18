@@ -1868,7 +1868,7 @@ A recommended workflow for matching analysis:
 
 # 20. Comprehensive Visualization Suite for Matching
 
-Publication-quality figures are the cornerstone of a credible matching analysis. This section demonstrates a full diagnostic and reporting visualization pipeline using the LaLonde (1986) dataset — the canonical benchmark for matching methods — available via the `MatchIt` package.
+Publication-quality figures are the cornerstone of a credible matching analysis. This section demonstrates a full diagnostic and reporting visualization pipeline using the LaLonde (1986) dataset  -  the canonical benchmark for matching methods  -  available via the `MatchIt` package.
 
 ## 20.1 Data Setup with LaLonde
 
@@ -2504,7 +2504,7 @@ y_t_m <- md_nn$re78[md_nn$treat == 1] + 1  # add 1 to handle zeros
 y_c_m <- md_nn$re78[md_nn$treat == 0] + 1
 
 # Approximate E-value using ratio of means (not a true RR for continuous outcomes;
-# for illustration — use EValue package for proper computation)
+# for illustration  -  use EValue package for proper computation)
 ratio_means <- mean(y_t_m) / mean(y_c_m)
 evalue_point <- ratio_means + sqrt(ratio_means * (ratio_means - 1))
 
@@ -2536,7 +2536,7 @@ Placebo tests evaluate whether the matching procedure itself introduces spurious
 ```{r placebo-test, eval = TRUE, fig.width = 9, fig.height = 5}
 # Placebo test using LaLonde data:
 # True treatment effect is on re78 (1978 earnings)
-# Placebo: effect on re74 (1974 earnings) — should be zero if matching is valid
+# Placebo: effect on re74 (1974 earnings)  -  should be zero if matching is valid
 
 fit_placebo_pre  <- lm(re74 ~ treat, data = md_nn)
 fit_outcome_post <- lm(re78 ~ treat, data = md_nn)

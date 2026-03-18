@@ -64,7 +64,7 @@ Mediation analysis faces two fundamental challenges:
 
 2. **Mediator-outcome confounding**: Even if $T$ is randomized, there may be unmeasured variables that confound the $M \to Y$ relationship. Unlike treatment-outcome confounding (which an experiment solves), mediator-outcome confounding is never eliminated by randomizing $T$.
 
-These challenges mean that the classical Baron-Kenny (1986) approach — while useful for description — does not carry a causal interpretation without strong untestable assumptions.
+These challenges mean that the classical Baron-Kenny (1986) approach  -  while useful for description  -  does not carry a causal interpretation without strong untestable assumptions.
 
 ---
 
@@ -109,7 +109,7 @@ $$Y_i(t', m) \perp\!\!\!\perp M_i \mid T_i = t, X_i = x$$
 
 SI.1 holds when $T$ is randomly assigned (or when conditioning on $X$ achieves ignorability). SI.2 is the strong assumption: it requires that, after conditioning on $T$ and $X$, there are no unmeasured variables that simultaneously affect $M$ and $Y$.
 
-**SI.2 is never guaranteed by design** — not even by randomizing $T$. This is why sensitivity analysis (Section 5) is essential.
+**SI.2 is never guaranteed by design**  -  not even by randomizing $T$. This is why sensitivity analysis (Section 5) is essential.
 
 ### Identification Formula
 
@@ -157,7 +157,7 @@ cat("True TE:  ", 0.5 * 0.4 + 0.2, "\n")
 
 ## 2. Baron-Kenny Steps (Classical Approach)
 
-Baron and Kenny (1986) proposed a four-step procedure to establish mediation. Despite its widespread use, it has well-known limitations — particularly the absence of a formal causal interpretation.
+Baron and Kenny (1986) proposed a four-step procedure to establish mediation. Despite its widespread use, it has well-known limitations  -  particularly the absence of a formal causal interpretation.
 
 ### Step-by-Step Implementation
 
@@ -260,13 +260,13 @@ ggplot(data.frame(indirect = boot_indirect), aes(x = indirect)) +
 
 The Baron-Kenny approach has several critical limitations:
 
-1. **No causal identification**: The product $a \times b$ estimates the ACME only if sequential ignorability holds — an assumption that BK does not require researchers to state or test.
+1. **No causal identification**: The product $a \times b$ estimates the ACME only if sequential ignorability holds  -  an assumption that BK does not require researchers to state or test.
 
 2. **Sobel test is underpowered**: The distribution of $a \times b$ is generally non-normal, especially when $a$ or $b$ are small, making the Sobel z-test conservative.
 
 3. **No sensitivity analysis**: BK provides no tools to ask "how sensitive is this to unmeasured confounding?"
 
-4. **Step-4 criterion is misleading**: BK's requirement that $c' < c$ (partial mediation) or $c' \approx 0$ (full mediation) is not necessary for mediation — suppressor effects can produce $|c'| > |c|$.
+4. **Step-4 criterion is misleading**: BK's requirement that $c' < c$ (partial mediation) or $c' \approx 0$ (full mediation) is not necessary for mediation  -  suppressor effects can produce $|c'| > |c|$.
 
 5. **No nonparametric identification**: BK relies on linear models and does not extend to binary outcomes without modification.
 
@@ -478,7 +478,7 @@ cat("with both the mediator and outcome by a risk ratio of at least",
 
 ---
 
-## 5. `causalverse::med_ind()` — Monte Carlo Indirect Effects
+## 5. `causalverse::med_ind()`  -  Monte Carlo Indirect Effects
 
 The `med_ind()` function in `causalverse` implements the Monte Carlo method (Selig and Preacher 2008) for estimating indirect effects. Rather than relying on the Sobel normal approximation, it simulates the distribution of $a \times b$ directly from the joint sampling distribution of path coefficients.
 
@@ -1392,7 +1392,7 @@ In DiD mediation, the key identification assumption extends beyond parallel tren
 2. **Parallel trends for $M$**: $E[\Delta M(0) | D = 1] = E[\Delta M(0) | D = 0]$
 3. **No unobserved time-varying confounders of $M \to Y$**
 
-Assumption 3 is the mediator-version of sequential ignorability — it is typically not testable but can be probed by including additional controls or running pre-trend tests on the mediator.
+Assumption 3 is the mediator-version of sequential ignorability  -  it is typically not testable but can be probed by including additional controls or running pre-trend tests on the mediator.
 
 ---
 
@@ -1485,7 +1485,7 @@ cat("LATE for M:           ", round(lat_m, 4), "(true ~0.6)\n")
 
 ## 14. Lee Bounds for Mediation with Selection
 
-When the mediator induces sample selection — for example, employment mediates the wage effect of training, but wages are only observed for the employed — we face a truncation problem. The **Lee (2009) bounds** provide sharp bounds on the treatment effect for always-employed workers ("always-takers" in the mediator).
+When the mediator induces sample selection  -  for example, employment mediates the wage effect of training, but wages are only observed for the employed  -  we face a truncation problem. The **Lee (2009) bounds** provide sharp bounds on the treatment effect for always-employed workers ("always-takers" in the mediator).
 
 ### Setup with Selection into Mediator
 

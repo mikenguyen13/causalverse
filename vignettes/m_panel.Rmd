@@ -38,7 +38,7 @@ where $\alpha_i$ is a unit-specific intercept (absorbing all time-invariant unit
 
 ### 1.2 Balanced vs. Unbalanced Panels
 
-A **balanced panel** has the same set of time periods for every unit: the total observations equal $N \times T$. An **unbalanced panel** has gaps — some units are observed in some periods but not others. Unbalancedness can arise from:
+A **balanced panel** has the same set of time periods for every unit: the total observations equal $N \times T$. An **unbalanced panel** has gaps  -  some units are observed in some periods but not others. Unbalancedness can arise from:
 
 - Survey attrition (units drop out)
 - Firm entry and exit
@@ -207,7 +207,7 @@ The ICC measures what fraction of total variance is attributable to unit-level d
 
 $$\text{ICC} = \frac{\sigma^2_\alpha}{\sigma^2_\alpha + \sigma^2_\varepsilon}$$
 
-A high ICC (close to 1) means units are very different from each other but stable over time — FE is critical. A low ICC means most variation is within-unit over time.
+A high ICC (close to 1) means units are very different from each other but stable over time  -  FE is critical. A low ICC means most variation is within-unit over time.
 
 ```{r icc}
 compute_icc <- function(df, outcome = "y", unit_var = "unit") {
@@ -278,7 +278,7 @@ Pooled OLS stacks all observations and runs a single regression ignoring the pan
 
 $$y_{it} = \mathbf{x}_{it}'\boldsymbol{\beta} + u_{it}, \quad u_{it} = \alpha_i + \varepsilon_{it}$$
 
-Pooled OLS is **consistent** only if $E[\alpha_i | \mathbf{x}_{it}] = 0$ — i.e., there is no correlation between the unit effect and the regressors. When this fails (the typical case), pooled OLS is biased. Even when consistent, standard errors must be clustered at the unit level to account for serial correlation in $u_{it}$.
+Pooled OLS is **consistent** only if $E[\alpha_i | \mathbf{x}_{it}] = 0$  -  i.e., there is no correlation between the unit effect and the regressors. When this fails (the typical case), pooled OLS is biased. Even when consistent, standard errors must be clustered at the unit level to account for serial correlation in $u_{it}$.
 
 ### 3.2 Estimation
 
@@ -308,7 +308,7 @@ etable(ols_hc, ols_cl,
        keep    = c("x1", "x2"))
 ```
 
-The cluster-robust SEs are typically larger than HC-robust SEs because they account for within-unit temporal correlation — a form of serial correlation that HC-robust SEs ignore.
+The cluster-robust SEs are typically larger than HC-robust SEs because they account for within-unit temporal correlation  -  a form of serial correlation that HC-robust SEs ignore.
 
 ---
 
@@ -552,7 +552,7 @@ The between estimator regresses the unit-mean of $y$ on the unit-mean of $\mathb
 
 $$\bar{y}_i = \bar{\mathbf{x}}_i' \boldsymbol{\beta} + \bar{\varepsilon}_i$$
 
-This uses **only between-unit variation** — it is a simple cross-sectional OLS on unit averages.
+This uses **only between-unit variation**  -  it is a simple cross-sectional OLS on unit averages.
 
 ```{r between-est, eval = requireNamespace("plm", quietly = TRUE)}
 between_model <- plm(y ~ x1 + x2,
@@ -597,7 +597,7 @@ Notice that pooled OLS and between estimates are biased for $\beta_{x1}$ because
 
 ### 8.1 The Mundlak Device
 
-Mundlak (1978) showed that including unit means of time-varying regressors in a RE model produces the same slope estimates as FE — while retaining the ability to estimate time-invariant regressors.
+Mundlak (1978) showed that including unit means of time-varying regressors in a RE model produces the same slope estimates as FE  -  while retaining the ability to estimate time-invariant regressors.
 
 The key insight: assume $\alpha_i = \bar{\mathbf{x}}_i' \boldsymbol{\gamma} + \zeta_i$ where $E[\zeta_i | \mathbf{x}_{it}] = 0$.
 
@@ -662,7 +662,7 @@ cat("CRE (unbalanced) x2:", round(coef(cre_unbal)["x2"], 4), "\n")
 
 ### 9.1 Why Unit Roots Matter in Panels
 
-If variables are integrated of order 1, I(1), then level regressions produce spurious results — high $R^2$ and significant $t$-statistics even when no true relationship exists. Panel unit root tests have much higher power than univariate (single-series) tests because they exploit information across $N$ units.
+If variables are integrated of order 1, I(1), then level regressions produce spurious results  -  high $R^2$ and significant $t$-statistics even when no true relationship exists. Panel unit root tests have much higher power than univariate (single-series) tests because they exploit information across $N$ units.
 
 ### 9.2 ADF Test Per Unit
 
@@ -949,7 +949,7 @@ cat("CCEMG estimate of beta_x1:",
 
 ### 12.1 Testing for Panel Heteroskedasticity
 
-Heteroskedasticity in panels means $\text{Var}(\varepsilon_{it}) = \sigma_i^2$ — the error variance differs across units. This is extremely common in empirical work (larger units tend to have larger residuals).
+Heteroskedasticity in panels means $\text{Var}(\varepsilon_{it}) = \sigma_i^2$  -  the error variance differs across units. This is extremely common in empirical work (larger units tend to have larger residuals).
 
 ```{r hetero-test, eval = requireNamespace("plm", quietly = TRUE)}
 # Breusch-Pagan test for panel heteroskedasticity
@@ -1094,7 +1094,7 @@ summary(bb_model, robust = TRUE)
 
 ### 13.4 Sargan-Hansen Instrument Validity Test
 
-The overidentification test checks whether the moment conditions are valid — i.e., whether the instruments are exogenous.
+The overidentification test checks whether the moment conditions are valid  -  i.e., whether the instruments are exogenous.
 
 ```{r sargan-test, eval = requireNamespace("plm", quietly = TRUE)}
 # Sargan test for over-identifying restrictions
@@ -1228,7 +1228,7 @@ When variables are cointegrated, the Error Correction Model (Engle-Granger 1987)
 
 $$\Delta y_{it} = \alpha_i + \phi \hat{u}_{i,t-1} + \sum_{k=0}^{p} \gamma_k \Delta x_{i,t-k} + \varepsilon_{it}$$
 
-where $\hat{u}_{i,t-1} = y_{i,t-1} - \hat{\beta} x_{i,t-1}$ is the lagged equilibrium error. The coefficient $\phi < 0$ measures the speed of adjustment — how fast the system corrects deviations from the long-run equilibrium.
+where $\hat{u}_{i,t-1} = y_{i,t-1} - \hat{\beta} x_{i,t-1}$ is the lagged equilibrium error. The coefficient $\phi < 0$ measures the speed of adjustment  -  how fast the system corrects deviations from the long-run equilibrium.
 
 ```{r ecm-panel}
 # Estimate ECM panel model
@@ -1348,7 +1348,7 @@ cat("Interactive FE (Bai 2009) recovers the true parameter.\n")
 
 ### 16.1 The Incidental Parameter Problem
 
-In nonlinear models (probit, logit), including $N$ unit dummies creates $N$ incidental parameters that grow with the sample. For fixed $T$, the MLE of the structural parameter $\boldsymbol{\beta}$ is **inconsistent** — the Neyman-Scott (1948) problem. The magnitude of the bias depends on $T$:
+In nonlinear models (probit, logit), including $N$ unit dummies creates $N$ incidental parameters that grow with the sample. For fixed $T$, the MLE of the structural parameter $\boldsymbol{\beta}$ is **inconsistent**  -  the Neyman-Scott (1948) problem. The magnitude of the bias depends on $T$:
 
 | Model | T=2 | T=5 | T=10 | T→∞ |
 |-------|-----|-----|------|-----|
@@ -2015,14 +2015,14 @@ Driscoll-Kraay SEs require $T \to \infty$ for consistency, so they work best whe
 
 ### 22.1 Problem with Pooled FE under Heterogeneity
 
-Standard TWFE assumes a **homogeneous** treatment effect $\tau$. When treatment effects vary across units or over time, the TWFE estimator returns a weighted average where some weights can be negative — leading to sign reversals or severe attenuation (Goodman-Bacon 2021, de Chaisemartin & D'Haultfoeuille 2020).
+Standard TWFE assumes a **homogeneous** treatment effect $\tau$. When treatment effects vary across units or over time, the TWFE estimator returns a weighted average where some weights can be negative  -  leading to sign reversals or severe attenuation (Goodman-Bacon 2021, de Chaisemartin & D'Haultfoeuille 2020).
 
 ### 22.2 Detecting Heterogeneity
 
 ```{r het-te-detect, eval = requireNamespace("fixest", quietly = TRUE)}
 set.seed(2025)
 
-# DGP: heterogeneous treatment effect — effect varies by unit's alpha_i
+# DGP: heterogeneous treatment effect  -  effect varies by unit's alpha_i
 panel_het <- panel_df |>
   mutate(
     # Treatment turns on at year 6
@@ -2074,7 +2074,7 @@ ggplot(unit_tes_df, aes(x = seq_along(te), y = te)) +
 
 ### 22.4 Mean Group Estimator (Pesaran & Smith 1995)
 
-The Mean Group (MG) estimator runs separate regressions per unit and averages the coefficients — consistent under both homogeneous and heterogeneous slopes:
+The Mean Group (MG) estimator runs separate regressions per unit and averages the coefficients  -  consistent under both homogeneous and heterogeneous slopes:
 
 ```{r mean-group}
 # Mean group: estimate beta per unit, take mean
@@ -2350,7 +2350,7 @@ cat("  N =", N_firm, "firms | T =", T_firm,
 cat("  Industries:", sort(unique(firm_panel$industry)), "\n")
 ```
 
-### 26.2 Step 1 — Descriptives and Balance
+### 26.2 Step 1  -  Descriptives and Balance
 
 ```{r firm-descriptives}
 # Within-between decomposition for R&D
@@ -2364,7 +2364,7 @@ icc_rv <- compute_icc(firm_panel, "revenue_growth", "firm")
 cat("Revenue growth ICC:", icc_rv$icc, "\n")
 ```
 
-### 26.3 Step 2 — Unit Root Screening
+### 26.3 Step 2  -  Unit Root Screening
 
 ```{r firm-unit-root, eval = requireNamespace("tseries", quietly = TRUE)}
 library(tseries)
@@ -2384,7 +2384,7 @@ cat("% firms with stationary revenue growth:", round(100 * pct_stationary, 1), "
 cat("Conclusion: proceed with level regression\n")
 ```
 
-### 26.4 Step 3 — Model Estimation
+### 26.4 Step 3  -  Model Estimation
 
 ```{r firm-models, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("plm", quietly = TRUE)}
 library(fixest)
@@ -2419,7 +2419,7 @@ etable(m_pool, m_ind, m_firm, m_twoway,
        fitstat = c("n", "r2"))
 ```
 
-### 26.5 Step 4 — Diagnostics
+### 26.5 Step 4  -  Diagnostics
 
 ```{r firm-diagnostics, eval = requireNamespace("plm", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
 # Hausman test
@@ -2441,7 +2441,7 @@ cd_firm <- pcdtest(fe_firm_plm, test = "cd")
 cat("Pesaran CD test p-value:", round(cd_firm$p.value, 4), "\n")
 ```
 
-### 26.6 Step 5 — Final Preferred Model
+### 26.6 Step 5  -  Final Preferred Model
 
 ```{r firm-final, eval = requireNamespace("fixest", quietly = TRUE)}
 # Based on diagnostics: two-way FE with cluster-robust SEs is preferred

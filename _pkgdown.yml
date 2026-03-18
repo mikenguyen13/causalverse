@@ -28,7 +28,7 @@ navbar:
         - text: "0. Introduction"
           href: articles/a_introduction.html
         - text: "-------"
-        - text: "Causal Inference Methods"
+        - text: "Experimental & Quasi-Experimental Designs"
         - text: "1. Randomized Control Trials"
           href: articles/d_rct.html
         - text: "2. Regression Discontinuity"
@@ -41,12 +41,20 @@ navbar:
           href: articles/f_sc.html
         - text: "6. Instrumental Variables"
           href: articles/g_iv.html
+        - text: "-------"
+        - text: "Advanced Methods"
         - text: "7. Event Studies (Finance)"
           href: articles/h_event_study.html
         - text: "8. Matching Methods"
           href: articles/i_matching.html
-        - text: "9. Sensitivity Analysis"
+        - text: "9. Sensitivity Analysis and Robustness"
           href: articles/j_sensitivity.html
+        - text: "10. Heterogeneous Treatment Effects & Causal ML"
+          href: articles/k_hte.html
+        - text: "11. Causal Mediation Analysis"
+          href: articles/l_mediation.html
+        - text: "12. Panel Data Methods"
+          href: articles/m_panel.html
 
 articles:
   - title: "Getting Started"
