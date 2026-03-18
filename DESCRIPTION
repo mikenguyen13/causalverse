@@ -34,7 +34,6 @@ Suggests:
     rdpower,
     rdlocrand,
     rdmulti,
-    rdbounds,
     ivreg,
     sensemakr,
     estimatr,
@@ -49,7 +48,6 @@ Suggests:
     WeightIt,
     EValue,
     rbounds,
-    fwildclusterboot,
     ri2,
     bacondecomp,
     staggered,
@@ -64,11 +62,9 @@ Suggests:
     grf,
     Matching,
     sensitivitymv,
-    wildrwolf,
     pak,
     remotes,
     frenchdata,
-    estudy2,
     policytree,
     DoubleML,
     bartCause,
@@ -104,7 +100,6 @@ Suggests:
     broom,
     mgcv,
     blavaan,
-    processR,
     MCPanel
 Config/testthat/edition: 3
 Imports:
@@ -128,5 +123,6 @@ Imports:
     plm (>= 2.6.3),
     MASS
 Remotes:
-    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a
+    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a,
+    susanathey/MCPanel
 VignetteBuilder: knitr
