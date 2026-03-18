@@ -1,5 +1,5 @@
 ---
-title: "Causal Mediation Analysis"
+title: "11. Causal Mediation Analysis"
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

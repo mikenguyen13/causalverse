@@ -1,5 +1,5 @@
 ---
-title: "Panel Data Methods"
+title: "12. Panel Data Methods"
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

@@ -1,5 +1,5 @@
 ---
-title: "Heterogeneous Treatment Effects & Causal ML"
+title: "10. Heterogeneous Treatment Effects & Causal ML"
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
