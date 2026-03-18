@@ -128,5 +128,5 @@ Imports:
     plm (>= 2.6.3),
     MASS
 Remotes:
-    synth-inference/synthdid
+    synth-inference/synthdid@70c1ce3eac5860f3efef593f3c0df98e28d09d38
 VignetteBuilder: knitr
