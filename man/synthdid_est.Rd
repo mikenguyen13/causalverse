@@ -64,7 +64,6 @@ for each period instead of a single TE for all treated periods.
 }
 \examples{
 \dontrun{
-  library(tidyverse)
   library(causalverse)
   library(synthdid)
 
@@ -77,8 +76,8 @@ for each period instead of a single TE for all treated periods.
     unit_id_var = "id",
     treated_period_var = "year_treated"
   ) |>
-    dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
-    dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar)))
+    dplyr::mutate(treatvar = dplyr::if_else(time_to_treatment >= 0, 1, 0)) |>
+    dplyr::mutate(treatvar = as.integer(dplyr::if_else(year_treated > (5 + 2), 0, treatvar)))
 
   synthdid_est(
     data,
@@ -98,7 +97,7 @@ Ferman, B., & Pinto, C. (2021). Synthetic controls with imperfect pretreatment f
 Quantitative Economics, 12(4), 1197-1221.
 
 Doudchenko, Nikolay, and Guido W. Imbens. 2016.
-“Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis.”
+"Balancing, Regression, Difference-in-Differences and Synthetic Control Methods: A Synthesis."
 NBER Working Paper 22791.
 
 Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021).

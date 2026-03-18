@@ -2551,7 +2551,7 @@ sens_result <- psens(
 print(sens_result)
 ```
 
-```{r rosenbaum-gamma-plot, eval=requireNamespace("rbounds", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+```{r rosenbaum-gamma-plot, eval=requireNamespace("rbounds", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # Plot p-value vs Gamma
 gamma_seq  <- seq(1, 4, by = 0.1)
 pval_upper <- vapply(gamma_seq, function(g) {

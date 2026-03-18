@@ -5,7 +5,8 @@
 \title{Custom function to visualize the balance between treatment and control groups}
 \usage{
 balance_scatter_custom(
-  matched_set_list,
+  pm_result_list,
+  panel.data,
   set.names = NULL,
   show.legend = TRUE,
   legend.title = "Type",
@@ -16,7 +17,6 @@ balance_scatter_custom(
   pchs = NULL,
   dot.size = NULL,
   covariates,
-  data,
   x.axis.label = "Before Refinement",
   y.axis.label = "After Refinement",
   theme_use = causalverse::ama_theme(),
@@ -24,7 +24,9 @@ balance_scatter_custom(
 )
 }
 \arguments{
-\item{matched_set_list}{List of matched sets}
+\item{pm_result_list}{List of PanelMatch result objects (output of PanelMatch::PanelMatch()).}
+
+\item{panel.data}{A PanelData object created by PanelMatch::PanelData().}
 
 \item{set.names}{Vector of names for matched sets. Defaults to NULL.}
 
@@ -46,8 +48,6 @@ balance_scatter_custom(
 
 \item{covariates}{Covariates for calculating balance.}
 
-\item{data}{Dataset for balance calculation.}
-
 \item{x.axis.label}{x-axis label. Defaults to "Before Refinement".}
 
 \item{y.axis.label}{y-axis label. Defaults to "After Refinement".}
@@ -65,37 +65,32 @@ Custom function to visualize the balance between treatment and control groups
 \examples{
 \dontrun{
 library(PanelMatch)
+pd <- PanelData(panel.data = dem, unit.id = "wbcode2",
+                time.id = "year", treatment = "dem", outcome = "y")
+
 # Maha 4-year lag, up to 5 matches
-PM.results.maha.4lag.5m <- PanelMatch::PanelMatch(
+PM.results.5m <- PanelMatch(
+   panel.data = pd,
    lag = 4,
-   time.id = "year",
-   unit.id = "wbcode2",
-   treatment = "dem",
    refinement.method = "mahalanobis",
-   data = PanelMatch::dem,
    match.missing = TRUE,
    covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
    size.match = 5,
    qoi = "att",
-   outcome.var = "y",
    lead = 0:4,
    forbid.treatment.reversal = FALSE,
    use.diagonal.variance.matrix = TRUE
 )
 
 # Maha 4-year lag, up to 10 matches
-PM.results.maha.4lag.10m <- PanelMatch::PanelMatch(
+PM.results.10m <- PanelMatch(
+   panel.data = pd,
    lag = 4,
-   time.id = "year",
-   unit.id = "wbcode2",
-   treatment = "dem",
    refinement.method = "mahalanobis",
-   data = PanelMatch::dem,
    match.missing = TRUE,
    covs.formula = ~ I(lag(tradewb, 1:4)) + I(lag(y, 1:4)),
    size.match = 10,
    qoi = "att",
-   outcome.var = "y",
    lead = 0:4,
    forbid.treatment.reversal = FALSE,
    use.diagonal.variance.matrix = TRUE
@@ -103,9 +98,9 @@ PM.results.maha.4lag.10m <- PanelMatch::PanelMatch(
 
 # Using the function
 balance_scatter_custom(
-   matched_set_list = list(PM.results.maha.4lag.5m$att, PM.results.maha.4lag.10m$att),
+   pm_result_list = list(PM.results.5m, PM.results.10m),
+   panel.data = pd,
    set.names = c("Maha 4 Lag 5 Matches", "Maha 4 Lag 10 Matches"),
-   data = dem,
    covariates = c("y", "tradewb")
 )
 }

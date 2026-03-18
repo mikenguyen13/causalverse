@@ -7,20 +7,33 @@
 synthdid_se_placebo(estimate, replications = 10000, seed = 1)
 }
 \arguments{
-\item{estimate}{An estimate object obtained from synthetic DID estimation.}
+\item{estimate}{An estimate object obtained from \code{synthdid::synthdid_estimate()} or
+\code{causalverse::panel_estimate()}.}
 
-\item{replications}{The number of bootstrap replications to perform. Defaults to 500.}
+\item{replications}{The number of bootstrap replications to perform. Defaults to 10000.}
 
 \item{seed}{A numeric value for setting the random seed. Default is 1.}
 }
 \value{
-A vector of standard errors corresponding to the input estimates.
+When there is a single treated unit (\code{N1 = 1}), a \strong{single numeric scalar} giving
+the placebo standard error. When there are multiple treated units (\code{N1 > 1}), a
+\strong{named numeric vector} of length \code{N1}, one standard error per treated unit.
+
+\emph{Note}: If you have a single treated unit and pass a single
+\code{synthdid_estimate} object, the return value is a scalar (not a vector).
+This resolves the apparent discrepancy between the help page description
+("vector of SEs") and a one-treated-unit setup.
 }
 \description{
-Computes placebo standard errors for synthetic difference-in-differences (DID) estimates. This
-function is based on the methodology described in Arkhangelsky et al. (2021). It is particularly
-useful when there is only one treated unit and performs a bootstrap procedure to estimate the
-standard errors.
+Computes placebo standard errors for synthetic difference-in-differences (DID) estimates.
+This function is based on the methodology described in Arkhangelsky et al. (2021). It is
+particularly useful when there is only one treated unit and performs a bootstrap procedure
+to estimate the standard errors.
+}
+\details{
+The function samples from the donor (control) units to construct placebo treatments
+and estimates the standard deviation of the resulting null distribution. The return
+value is automatically simplified to a scalar for single-treated-unit designs.
 }
 \examples{
 \dontrun{
@@ -33,9 +46,7 @@ setup <- get_balanced_panel(
   unit_id_var = "id",
   treated_period_var = "year_treated"
 ) |>
-  # get treatment status
   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
-  # correct those control units to have treatment status to be 0
   dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar))) |>
   synthdid::panel.matrices(
     unit = "id",
@@ -44,11 +55,13 @@ setup <- get_balanced_panel(
     treatment = "treatvar"
   )
 estimate <- synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
-se_results <- synthdid_se_placebo(estimate, replications = 1000)
+
+# Returns a SCALAR when N1 = 1
+se <- synthdid_se_placebo(estimate, replications = 200)
+cat("SE =", se, "\n")
 }
 }
 \references{
 Arkhangelsky, D., Athey, S., Hirshberg, D. A., Imbens, G. W., & Wager, S. (2021).
-Synthetic Difference-in-Differences. American Economic Review, 111(12), 4088-4118.
-American Economic Association 2014 Broadway, Suite 305, Nashville, TN 37203.
+Synthetic Difference-in-Differences. \emph{American Economic Review}, 111(12), 4088-4118.
 }

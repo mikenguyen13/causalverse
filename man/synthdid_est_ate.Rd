@@ -51,33 +51,32 @@ synthdid_est_ate(
 
 \item{seed}{A numeric value for setting the random seed (for placebo SE and placebo analysis). Default is 1.}
 
-\item{method}{The estimation method to be used. Methods include:
+\item{method}{The estimation method to be used. Defaults to 'synthdid'. Methods include:
 \itemize{
 \item 'did': Difference-in-Differences.
 \item 'sc': Synthetic Control Method.
-\item 'sc_ridge': Synthetic Control Method with Ridge Penalty. It adds a ridge regularization to the synthetic control method when estimating the synthetic control weights.
-\item 'difp': De-meaned Synthetic Control Method, as proposed by Doudchenko and Imbens (2016) and Ferman and Pinto (2021).
-\item 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty. It adds a ridge regularizationd when estimating the synthetic control weights.
-\item 'synthdid': Synthetic Difference-in-Differences, a method developed by Arkhangelsky et al. (2021)
-Defaults to 'synthdid'.
+\item 'sc_ridge': Synthetic Control Method with Ridge Penalty.
+\item 'difp': De-meaned Synthetic Control Method (Doudchenko and Imbens, 2016; Ferman and Pinto, 2021).
+\item 'difp_ridge': De-meaned Synthetic Control with Ridge Penalty.
+\item 'synthdid': Synthetic Difference-in-Differences (Arkhangelsky et al., 2021).
 }}
 }
 \value{
 A list containing the following elements:
-\itemize{
-\item{time}{: Vector of time periods used in estimation from -lags to leads (relative to the adoption period)}
-\item{TE_mean}{: Vector of ATT in each time period}
-\item{SE_mean}{: Vector of Standard error of ATT each time period}
-\item{TE_mean_lower}{: Vector of Lower C.I. for ATT per period}
-\item{TE_mean_upper}{: Vector of Upper C.I. for ATT per period}
-\item{TE_mean_w, SE_mean_w, TE_mean_w_lower, TE_mean_w_upper}{: Weighted versions of the above metrics by the number of treated units in each time period }
-\item{Ntr}{: Number of treated units}
-\item{Nco}{: Number of control units}
-\item{TE}{: Treatment effect for each cohort in each time period}
-\item{SE}{: Standard error of TE of each cohort in each time period}
-\item{y_obs}{: Observed outcomes of treated units}
-\item{y_pred}{: Predicted outcomes of treated units}
-\item{col_names}{: Column names for TE and SE matrices (times and ATTs)}
+\describe{
+\item{time}{Vector of time periods used in estimation from -lags to leads (relative to the adoption period).}
+\item{TE_mean}{Vector of ATT in each time period.}
+\item{SE_mean}{Vector of standard error of ATT each time period.}
+\item{TE_mean_lower}{Vector of lower C.I. for ATT per period.}
+\item{TE_mean_upper}{Vector of upper C.I. for ATT per period.}
+\item{TE_mean_w, SE_mean_w, TE_mean_w_lower, TE_mean_w_upper}{Weighted versions of the above metrics by the number of treated units in each time period.}
+\item{Ntr}{Number of treated units.}
+\item{Nco}{Number of control units.}
+\item{TE}{Treatment effect for each cohort in each time period.}
+\item{SE}{Standard error of TE of each cohort in each time period.}
+\item{y_obs}{Observed outcomes of treated units.}
+\item{y_pred}{Predicted outcomes of treated units.}
+\item{col_names}{Column names for TE and SE matrices (times and ATTs).}
 }
 }
 \description{

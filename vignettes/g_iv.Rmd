@@ -2568,7 +2568,7 @@ print(iv_diag)
 
 The LARF generalizes LATE to settings with continuous instruments, tracing out the treatment effect as a function of the instrument value (or resistance to treatment).
 
-```{r larf_viz, eval=requireNamespace("fixest", quietly=TRUE)}
+```{r larf_viz, eval=requireNamespace("fixest", quietly=TRUE), fig.width=9, fig.height=5}
 # Visualize heterogeneity in Wald ratios across instrument strength quantiles
 # (approximates the Local Average Response Function)
 set.seed(8)

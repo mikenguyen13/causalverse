@@ -2068,6 +2068,334 @@ cat("Pct_Pos = percentage of positive CARs; Sign_p = sign test p-value\n")
 
 This table format directly replicates what readers see in top finance journals. For the final paper, format with `knitr::kable()` or `modelsummary::modelsummary()`.
 
+
+## 18.10 NPV Interpretation: CAR as Capitalized Value Change
+
+Under the **efficient markets hypothesis**, the CAR over the event window is the market's best estimate of the **present value of all future incremental cash flows** caused by the event. This is one of the most powerful features of the event study methodology: a two-day window CAR captures the full long-run economic impact in a single number.
+
+$$\text{PV of future cash flow change}_i = \text{CAR}_i \times \text{MarketCap}_{i, \tau_1 - 1}$$
+
+This interpretation allows direct comparison with alternative policy cost estimates (regulatory compliance costs, litigation damages, contract values) without requiring long time-series of cash flow data.
+
+**Key implications:**
+
+- A 3% CAR on a \$10B firm implies the event is expected to generate (or destroy) **$300M in present-value terms** over the firm's entire future horizon.
+- This is a *capitalized* figure: it already discounts all future years at the market's cost of capital.
+- Unlike accounting-based measures (which measure one year's profit impact), the CAR-based NPV estimate reflects the market's forward-looking assessment of the permanent vs. transitory nature of the shock.
+
+```{r npv-interpretation, message=FALSE}
+set.seed(2024)
+
+n_f   <- 30
+df_npv <- data.frame(
+  firm     = paste0("F", 1:n_f),
+  CAR      = rnorm(n_f, 0.025, 0.04),        # 2.5% mean CAR
+  mcap_pre = exp(rnorm(n_f, log(8000), 1.3)), # market cap in $M
+  # Hypothetical annual EBITDA margin × revenue for comparison
+  ebitda   = exp(rnorm(n_f, log(400), 0.9))   # $M per year
+)
+
+# Dollar abnormal return = capitalized PV of cash flow change
+df_npv$DAR_mm <- df_npv$CAR * df_npv$mcap_pre
+
+# Implied "event payback" in years of EBITDA
+df_npv$ebitda_years <- df_npv$DAR_mm / df_npv$ebitda
+
+cat("=== NPV Interpretation of CARs ===\n\n")
+cat("Mean CAR:                      ", round(mean(df_npv$CAR)*100, 2), "%\n")
+cat("Total capitalized value change: $", round(sum(df_npv$DAR_mm)/1e3, 2), "B\n")
+cat("Implied EBITDA-years (median):  ",
+    round(median(df_npv$ebitda_years), 1), " years of EBITDA\n\n")
+
+cat("Interpretation: if median firm earns $",
+    round(median(df_npv$ebitda), 0), "M EBITDA/year,\n")
+cat("the event is worth ~", round(median(df_npv$ebitda_years), 1),
+    " years of operating profit in PV terms.\n")
+```
+
+```{r npv-plot, message=FALSE, fig.width=8, fig.height=5}
+# Scatter: market cap vs. dollar abnormal return (log scale)
+ggplot(df_npv, aes(x = mcap_pre / 1e3, y = DAR_mm,
+                   color = CAR > 0)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
+  geom_point(size = 3, alpha = 0.75) +
+  geom_smooth(aes(group = 1), method = "lm", se = TRUE,
+              color = "grey30", linewidth = 0.8, linetype = "dotted") +
+  scale_color_manual(
+    values = c("TRUE" = "#2166AC", "FALSE" = "#D73027"),
+    labels = c("TRUE" = "Value created", "FALSE" = "Value destroyed"),
+    name   = NULL
+  ) +
+  scale_x_log10(labels = scales::comma) +
+  labs(
+    title    = "Capitalized Value Change (NPV) vs. Firm Size",
+    subtitle = paste0("Total: $", round(sum(df_npv$DAR_mm)/1e3, 2),
+                      "B across ", n_f, " firms"),
+    x        = "Market Cap Pre-Event ($B, log scale)",
+    y        = "Dollar Abnormal Return ($M)"
+  ) +
+  causalverse::ama_theme()
+```
+
+---
+
+## 18.11 Normalized Event Cost Metrics
+
+Raw dollar abnormal returns are dominated by large firms. **Normalizing** by firm characteristics reveals the *per-unit* impact and enables cross-firm comparison without firm-size confounds. Common normalizations used in top journals include:
+
+| Metric | Formula | Interpretation |
+|---|---|---|
+| Per share | $\text{DAR} / \text{shares outstanding}$ | Dollar change per share held |
+| Per employee | $\text{DAR} / \text{employees}$ | Market's valuation of event per worker |
+| Per \$1 of assets | $\text{DAR} / \text{total assets}$ | Asset-normalized value creation |
+| Per \$1 of revenue | $\text{DAR} / \text{revenue}$ | Revenue-normalized impact |
+| Tobin's Q impact | $\Delta Q = \text{DAR} / \text{total assets}$ | Effect on Q ratio |
+
+```{r normalized-cost, message=FALSE}
+set.seed(42)
+
+n_f2 <- 25
+df_norm <- data.frame(
+  firm        = paste0("F", 1:n_f2),
+  CAR         = rnorm(n_f2, 0.02, 0.035),
+  mcap_pre    = exp(rnorm(n_f2, log(6000), 1.1)),  # $M
+  shares_out  = exp(rnorm(n_f2, log(500), 0.7)),   # millions of shares
+  employees   = round(exp(rnorm(n_f2, log(5000), 0.8))),
+  total_assets = exp(rnorm(n_f2, log(10000), 1.2)), # $M
+  revenue     = exp(rnorm(n_f2, log(4000), 1.0))   # $M
+)
+
+df_norm$DAR_mm <- df_norm$CAR * df_norm$mcap_pre
+
+# Normalized metrics
+df_norm$dar_per_share    <- df_norm$DAR_mm * 1e6 / (df_norm$shares_out * 1e6)
+  # DAR in $ / shares in units  = $/share
+df_norm$dar_per_employee <- df_norm$DAR_mm * 1e6 / df_norm$employees
+  # $/employee
+df_norm$dar_per_asset    <- df_norm$DAR_mm / df_norm$total_assets
+  # $M / $M = fraction
+df_norm$dar_per_revenue  <- df_norm$DAR_mm / df_norm$revenue
+  # fraction
+
+cat("=== Normalized Event Cost Metrics ===\n\n")
+cat(sprintf("Mean DAR per share:         $%.2f\n",
+            mean(df_norm$dar_per_share)))
+cat(sprintf("Mean DAR per employee:      $%.0f\n",
+            mean(df_norm$dar_per_employee)))
+cat(sprintf("Mean DAR / total assets:     %.4f  (= Tobin's Q impact)\n",
+            mean(df_norm$dar_per_asset)))
+cat(sprintf("Mean DAR / revenue:          %.4f\n",
+            mean(df_norm$dar_per_revenue)))
+cat("\nInterpretation:\n")
+cat(sprintf(
+  "  Each shareholder gained/lost ~$%.2f per share on average.\n",
+  mean(df_norm$dar_per_share)))
+cat(sprintf(
+  "  The market valued the event at ~$%.0f per employee.\n",
+  mean(df_norm$dar_per_employee)))
+```
+
+```{r normalized-plot, message=FALSE, fig.width=8, fig.height=5}
+# Bar chart: distribution of per-employee cost
+df_norm_sorted <- df_norm[order(df_norm$dar_per_employee), ]
+df_norm_sorted$firm_f <- factor(df_norm_sorted$firm,
+                                 levels = df_norm_sorted$firm)
+
+ggplot(df_norm_sorted,
+       aes(x = firm_f, y = dar_per_employee,
+           fill = dar_per_employee > 0)) +
+  geom_col(alpha = 0.85, width = 0.7) +
+  geom_hline(yintercept = 0, color = "grey40") +
+  scale_fill_manual(
+    values = c("TRUE" = "#2166AC", "FALSE" = "#D73027"),
+    guide  = "none"
+  ) +
+  labs(
+    title    = "Event Value per Employee",
+    subtitle = "Dollar abnormal return divided by firm headcount",
+    x        = NULL,
+    y        = "DAR per Employee ($)"
+  ) +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 7)) +
+  causalverse::ama_theme()
+```
+
+---
+
+## 18.12 Population Extrapolation: Scaling to the Full Industry
+
+Event study samples typically cover a subset of all affected firms (e.g., only publicly listed companies, or only firms with complete CRSP data). To estimate the **total social/industry cost** of an event, researchers extrapolate from the sample to the full population using the **sample value-weighted CAR** and publicly available industry market-cap data.
+
+**Step 1:** Compute the sample value-weighted (VW) CAR.
+**Step 2:** Obtain total market capitalization of **all** publicly listed firms in the affected industry from an external source (CRSP, Compustat, or industry reports).
+**Step 3:** Total industry wealth effect ≈ VW-CAR × Total industry market cap.
+
+$$\widehat{\text{Total Industry Cost}} = \hat{\mu}_{VW} \times \sum_{j \in \text{Industry}} \text{MarketCap}_{j, \tau_1-1}$$
+
+**Important caveats:**
+- This extrapolation assumes the sample is representative (no selection bias toward affected or large firms).
+- It applies only to publicly listed companies — private firm effects are excluded.
+- For concentrated industries (e.g., banking), this extrapolation is more reliable.
+
+```{r population-extrapolation, message=FALSE}
+# Sample statistics
+ew_car_sample <- mean(df_npv$CAR)
+vw_car_sample <- sum(df_npv$CAR * df_npv$mcap_pre) / sum(df_npv$mcap_pre)
+
+# Hypothetical: sample covers 30 of 120 public firms in the industry
+# Total sector market cap = $2 trillion
+total_sector_mcap <- 2e6   # $2,000,000 M = $2 trillion
+
+# Extrapolated industry wealth effect
+est_industry_cost <- vw_car_sample * total_sector_mcap
+
+# 95% CI using bootstrap
+set.seed(1234)
+B_rep <- 5000
+vw_boots <- replicate(B_rep, {
+  idx <- sample(nrow(df_npv), replace = TRUE)
+  b   <- df_npv[idx, ]
+  sum(b$CAR * b$mcap_pre) / sum(b$mcap_pre)
+})
+ci_lo_ext <- quantile(vw_boots, 0.025) * total_sector_mcap
+ci_hi_ext <- quantile(vw_boots, 0.975) * total_sector_mcap
+
+cat("=== Population-Level Industry Wealth Effect Estimate ===\n\n")
+cat("Sample size (N firms):           ", nrow(df_npv), "\n")
+cat("Equal-weighted CAR:             ", round(ew_car_sample*100, 3), "%\n")
+cat("Value-weighted CAR:             ", round(vw_car_sample*100, 3), "%\n")
+cat("Hypothetical total sector mcap:  $2.0T\n")
+cat(sprintf("\nEstimated total industry cost: $%.1f B\n",
+            est_industry_cost / 1e3))
+cat(sprintf("Bootstrap 95%% CI:             [$%.1f B, $%.1f B]\n",
+            ci_lo_ext / 1e3, ci_hi_ext / 1e3))
+cat("\nNote: applies only to publicly listed firms in the sector.\n")
+```
+
+---
+
+## 18.13 Regulatory Cost Assessment via Event Studies
+
+Event studies are a primary tool for **regulatory cost-benefit analysis** (CBA). The SEC, CFTC, and other agencies are required to quantify the economic impact of proposed rules, and event studies around rule announcements provide the most credible market-based cost estimates.
+
+### Method
+
+1. Identify the **rule announcement date** (e.g., proposal date in Federal Register, or legislative vote date).
+2. Compute 3-day CAR $[-1, +1]$ for all publicly listed firms in the regulated industry.
+3. Multiply by pre-event market cap → **Dollar Abnormal Return (DAR)** = market's estimate of the rule's capitalized cost.
+4. Sum DARs → **Total Regulatory Cost** to shareholders.
+5. Compare to projected regulatory benefits to assess net social welfare.
+
+### Caveat: The Endogeneity Problem
+
+If markets anticipate the rule in advance (e.g., due to lobbying transparency or legislative committee votes), the announcement-window CAR underestimates the total cost. Researchers often use a sequence of announcements (bill introduction, committee passage, floor vote, Presidential signature) and cumulate CARs across all events.
+
+```{r regulatory-cost, message=FALSE, fig.width=9, fig.height=5}
+set.seed(789)
+
+# Simulate: 3 regulatory announcement events for a financial regulation
+# Firms in affected sector (n = 40 public firms)
+n_reg <- 40
+reg_df <- data.frame(
+  firm_id  = paste0("Bank_", sprintf("%02d", 1:n_reg)),
+  mcap_pre = exp(rnorm(n_reg, log(15000), 1.4)),  # $M
+  type     = sample(c("Large", "Regional", "Community"),
+                    n_reg, replace = TRUE, prob = c(0.2, 0.4, 0.4))
+)
+
+# Three announcement events with decreasing CARs
+# (market absorbs more info each time)
+reg_df$CAR_event1 <- rnorm(n_reg, -0.018, 0.035)  # bill introduced
+reg_df$CAR_event2 <- rnorm(n_reg, -0.010, 0.025)  # committee passage
+reg_df$CAR_event3 <- rnorm(n_reg, -0.006, 0.020)  # final rule adopted
+
+# Cumulative CAR across all events
+reg_df$CAR_cum  <- reg_df$CAR_event1 +
+                   reg_df$CAR_event2 +
+                   reg_df$CAR_event3
+
+reg_df$DAR_cum  <- reg_df$CAR_cum * reg_df$mcap_pre
+reg_df$DAR_e1   <- reg_df$CAR_event1 * reg_df$mcap_pre
+
+# Summary by firm type
+library(dplyr)
+reg_summary <- reg_df %>%
+  group_by(type) %>%
+  summarise(
+    n          = n(),
+    mean_CAR   = mean(CAR_cum) * 100,
+    total_DAR  = sum(DAR_cum) / 1e3,   # $B
+    .groups    = "drop"
+  )
+
+cat("=== Regulatory Cost Assessment ===\n\n")
+cat("Rule: Hypothetical Bank Capital Requirements Regulation\n\n")
+cat(sprintf("Total regulatory cost (all 3 events): $%.2f B\n",
+            sum(reg_df$DAR_cum) / 1e3))
+cat(sprintf("  Event 1 (bill introduced):          $%.2f B\n",
+            sum(reg_df$DAR_e1) / 1e3))
+cat(sprintf("  Event 2+3 (passage & adoption):     $%.2f B\n",
+            sum(reg_df$DAR_cum - reg_df$DAR_e1) / 1e3))
+cat("\nBy firm type:\n")
+print(reg_summary, digits = 3)
+cat("\nNote: negative DAR = cost to shareholders; regulators compare\n")
+cat("this against projected benefits (reduced systemic risk, etc.).\n")
+```
+
+```{r regulatory-plot, message=FALSE, fig.width=9, fig.height=5}
+# Visualize: cumulative regulatory cost across events by firm type
+library(tidyr)
+
+plot_df <- reg_df %>%
+  mutate(
+    event1_DAR = DAR_e1 / 1e3,
+    event2_3_DAR = (DAR_cum - DAR_e1) / 1e3
+  ) %>%
+  pivot_longer(
+    cols = c(event1_DAR, event2_3_DAR),
+    names_to  = "event_phase",
+    values_to = "DAR_B"
+  ) %>%
+  mutate(event_phase = ifelse(
+    event_phase == "event1_DAR",
+    "Event 1: Bill Introduced",
+    "Events 2-3: Passage & Adoption"
+  ))
+
+ggplot(plot_df, aes(x = type, y = DAR_B, fill = event_phase)) +
+  geom_col(position = "stack", alpha = 0.85, width = 0.6) +
+  geom_hline(yintercept = 0, color = "grey40") +
+  scale_fill_manual(
+    values = c("Event 1: Bill Introduced"       = "#D73027",
+               "Events 2-3: Passage & Adoption" = "#FC8D59"),
+    name   = "Announcement Phase"
+  ) +
+  labs(
+    title    = "Regulatory Cost by Firm Type and Announcement Phase",
+    subtitle = paste0("Total shareholder cost: $",
+                      round(sum(reg_df$DAR_cum)/1e3, 2),
+                      "B across ", n_reg, " firms"),
+    x        = "Firm Type",
+    y        = "Total Dollar Abnormal Return ($B)"
+  ) +
+  causalverse::ama_theme() +
+  theme(legend.position = "bottom")
+```
+
+**Interpretation guide for regulatory cost analysis:**
+
+| Metric | Meaning |
+|---|---|
+| Total DAR | Market's estimate of NPV of compliance costs + lost profits |
+| EW-CAR | Average effect per regulated firm |
+| VW-CAR | Total economic significance (large banks dominate) |
+| CAR by firm type | Distributional incidence -- who bears the cost? |
+| Cumulative CAR across events | Total expected cost as information revealed gradually |
+
+This approach is used in academic work including Bhagat and Romano (2002), who used event studies to estimate the cost of securities litigation, and in SEC regulatory impact analyses. The key advantage over survey-based compliance cost estimates is that the market-based measure is **forward-looking** and **incentive-compatible** -- firms have no reason to over- or under-report their expected costs.
+
+---
+
 # 19. Advanced Topics: Intraday Event Studies and High-Frequency Data
 
 ## 19.1 Intraday vs. Daily Event Studies
@@ -2088,7 +2416,7 @@ Events often increase return variance around the announcement window. Tests that
 
 A diagnostic:
 
-```{r event-variance, message=FALSE, fig.width=7, fig.height=4}
+```{r event-variance, message=FALSE, fig.width=9, fig.height=5}
 # Simulate: higher variance in event window vs. estimation window
 set.seed(123)
 n_days    <- 40
@@ -2191,39 +2519,7 @@ ggplot(caar_drift, aes(x = day, y = caar * 100)) +
 
 - Ball, R., & Brown, P. (1968). An empirical evaluation of accounting income numbers. *Journal of Accounting Research*, 6(2), 159-178.
 
-- Boehmer, E., Musumeci, J., & Poulsen, A. B. (1991). Event-study methodology under conditions of event-induced variance. *Journal of Financial Economics*, 30(2), 253-272.
-
-- Brown, S. J., & Warner, J. B. (1980). Measuring security price performance. *Journal of Financial Economics*, 8(3), 205-258.
-
-- Brown, S. J., & Warner, J. B. (1985). Using daily stock returns: The case of event studies. *Journal of Financial Economics*, 14(1), 3-31.
-
-- Campbell, J. Y., Lo, A. W., & MacKinlay, A. C. (1997). *The Econometrics of Financial Markets*. Princeton University Press.
-
-- Carhart, M. M. (1997). On persistence in mutual fund performance. *Journal of Finance*, 52(1), 57-82.
-
-- Corrado, C. J. (1989). A nonparametric test for abnormal security-price performance in event studies. *Journal of Financial Economics*, 23(2), 385-395.
-
-- Dimson, E. (1979). Risk measurement when shares are subject to infrequent trading. *Journal of Financial Economics*, 7(2), 197-226.
-
-- Fama, E. F. (1998). Market efficiency, long-term returns, and behavioral finance. *Journal of Financial Economics*, 49(3), 283-306.
-
-- Fama, E. F., & French, K. R. (1993). Common risk factors in the returns on stocks and bonds. *Journal of Financial Economics*, 33(1), 3-56.
-
-- Fama, E. F., Fisher, L., Jensen, M. C., & Roll, R. (1969). The adjustment of stock prices to new information. *International Economic Review*, 10(1), 1-21.
-
-- Kolari, J. W., & Pynnonen, S. (2010). Event study testing with cross-sectional correlation of abnormal returns. *Review of Financial Studies*, 23(11), 3996-4025.
-
-- Kothari, S. P., & Warner, J. B. (2007). Econometrics of event studies. In B. E. Eckbo (Ed.), *Handbook of Empirical Corporate Finance* (Vol. 1, pp. 3-36). Elsevier.
-
-- MacKinlay, A. C. (1997). Event studies in economics and finance. *Journal of Economic Literature*, 35(1), 13-39.
-
-- Mitchell, M. L., & Stafford, E. (2000). Managerial decisions and long-term stock price performance. *Journal of Business*, 73(3), 287-329.
-
-- Patell, J. M. (1976). Corporate forecasts of earnings per share and stock price behavior: Empirical tests. *Journal of Accounting Research*, 14(2), 246-276.
-
-- Scholes, M., & Williams, J. (1977). Estimating betas from nonsynchronous data. *Journal of Financial Economics*, 5(3), 309-327.
-
-- Ball, R., & Brown, P. (1968). An empirical evaluation of accounting income numbers. *Journal of Accounting Research*, 6(2), 159-178.
+- Bhagat, S., & Romano, R. (2002). Event studies and the law: Part II: Empirical studies of corporate law. *American Law and Economics Review*, 4(2), 380-423.
 
 - Boehmer, E., Musumeci, J., & Poulsen, A. B. (1991). Event-study methodology under conditions of event-induced variance. *Journal of Financial Economics*, 30(2), 253-272.
 

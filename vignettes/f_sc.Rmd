@@ -741,7 +741,7 @@ The plot shows the weighted average ATT by relative time period. The confidence 
 
 A useful robustness check is to estimate the staggered SC using multiple methods and compare results. The following code runs all SC-related methods and plots them side by side.
 
-```{r, eval = requireNamespace("gridExtra", quietly = TRUE)}
+```{r, eval = requireNamespace("gridExtra", quietly = TRUE), fig.width=12, fig.height=10}
 methods <- c("sc", "sc_ridge", "difp", "difp_ridge", "synthdid")
 
 estimates_staggered <- lapply(methods, function(m) {
@@ -764,7 +764,7 @@ plots <- lapply(seq_along(estimates_staggered), function(i) {
     estimates_staggered[[i]],
     title = toupper(methods[i]),
     theme = causalverse::ama_theme(base_size = 6)
-  )
+  ) + theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
 })
 
 gridExtra::grid.arrange(grobs = plots, ncol = 2)
@@ -881,7 +881,7 @@ print(round(per_period$est[(T0 + 1):(T0 + T1)], 3))
 
 You can create a gap plot (the difference between treated and synthetic control over time) to visualize the per-period effects:
 
-```{r, fig.width = 7, fig.height = 4}
+```{r, fig.width=10, fig.height=5}
 T_total <- T0 + T1
 years <- as.numeric(colnames(setup$Y))
 
@@ -903,7 +903,8 @@ ggplot(gap_df, aes(x = Year, y = Effect, color = Period)) +
     y = "Gap (Treated - Synthetic)",
     color = NULL
   ) +
-  ama_theme()
+  ama_theme() +
+  ggplot2::theme(plot.margin = ggplot2::margin(0.5, 0.5, 0.5, 1.5, "cm"))
 ```
 
 ---
@@ -1285,6 +1286,8 @@ gsynth_panel$cigarette_sales[gsynth_panel$treated == 1] <-
 # Also create y and unit_id aliases for later chunks
 gsynth_panel$y <- gsynth_panel$cigarette_sales
 gsynth_panel$unit_id <- gsynth_panel$state_id
+
+options(doFuture.rng.onMisuse = "ignore")
 
 # Basic generalized synthetic control
 out <- gsynth(

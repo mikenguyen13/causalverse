@@ -3127,7 +3127,7 @@ knitr::kable(ed_df,
 
 ### Variance Ratio Plot
 
-```{r variance-ratio-plot, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+```{r variance-ratio-plot, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 vr_df <- data.frame(
   Covariate = rep(covs, 2),
   VR        = c(vr_before, vr_after),

@@ -17,13 +17,13 @@ synthdid_est_per(Y, N0, T0, weights)
 }
 \value{
 A list containing:
-\itemize{
-\item{est}{: TEs for each post-treatment period and cumulative ATEs.}
-\item{y_obs}{: Observed outcomes for treated units.}
-\item{y_pred}{: Predicted outcomes for treated units.}
-\item{lambda.synth}{: Synthetic control lambda weights.}
-\item{Ntr}{: Number of treated units.}
-\item{Nco}{: Number of control units.}
+\describe{
+\item{est}{TEs for each post-treatment period and cumulative ATEs.}
+\item{y_obs}{Observed outcomes for treated units.}
+\item{y_pred}{Predicted outcomes for treated units.}
+\item{lambda.synth}{Synthetic control lambda weights.}
+\item{Ntr}{Number of treated units.}
+\item{Nco}{Number of control units.}
 }
 }
 \description{

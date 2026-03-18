@@ -15,6 +15,7 @@ plot_rd_aa_share(
   tau_CI = FALSE,
   bounds_CI = TRUE,
   ref_line = 0,
+  show_naive = TRUE,
   ...
 )
 }
@@ -43,6 +44,8 @@ treatment effect estimate. Default is FALSE.}
 manipulation bounds. Default is TRUE.}
 
 \item{ref_line}{The y-intercept for a reference line. Default is 0.}
+
+\item{show_naive}{Logical, whether to show the naive estimate. Default is TRUE.}
 
 \item{...}{Additional arguments passed to \code{labs} in ggplot2.}
 }

@@ -1,3 +1,10 @@
 ^causalverse\.Rproj$
 ^\.Rproj\.user$
 ^\.github$
+^vignettes/.*_cache$
+^doc$
+^Meta$
+^causalverse\.Rcheck$
+^causalverse.*\.pdf$
+^\.claude$
+^pkgdown$

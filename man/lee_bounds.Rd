@@ -18,29 +18,52 @@ lee_bounds(
 \arguments{
 \item{df}{A data frame containing the data.}
 
-\item{d}{Name of the treatment variable in \code{df}.}
+\item{d}{Character. Name of the treatment variable in \code{df}.}
 
-\item{m}{Name of the mediator variable in \code{df}.}
+\item{m}{Character. Name of the mediator variable in \code{df}.}
 
-\item{y}{Name of the outcome variable in \code{df}.}
+\item{y}{Character. Name of the outcome variable in \code{df}.}
 
-\item{cluster}{(Optional) The name of the cluster variable for clustered bootstrapping.}
+\item{cluster}{Character or \code{NULL}. Name of the cluster variable
+for clustered bootstrapping. Default \code{NULL}.}
 
-\item{c_at_ratio}{(Optional) Specifies the ratio of E\link{Y(1,1) | C}/E\link{Y(1,1) | AT}. If this is specified, the direct effect for ATs is point-identified.}
+\item{c_at_ratio}{Numeric or \code{NULL}. Specifies the ratio
+\eqn{E[Y(1,1)|C] / E[Y(1,1)|AT]}. If specified, the direct effect for
+ATs is point-identified.}
 
-\item{units}{A string denoting the units of the outcome variable (for labeling purposes).}
+\item{units}{Character. Units of the outcome variable (for labeling).
+Default \code{""}.}
 
-\item{numdraws}{The number of bootstrap draws for estimating the standard deviation.}
+\item{numdraws}{Integer. Number of bootstrap draws. Default \code{1000}.}
 }
 \value{
-A data frame summarizing the computed bounds with terms, estimates, and standard errors.
+A data frame with columns \code{term}, \code{estimate},
+\code{std.error} summarizing the computed bounds.
 }
 \description{
-Computes and summarizes the Lee bounds on the average direct effect for always-takers (ATs) for whom there is a direct effect of treatment (D) on the outcome (Y). This function utilizes \code{\link[MedBounds]{compute_bounds_ats}} to calculate initial bounds and applies bootstrapping to estimate the standard deviation of these estimates, providing a summary in a data frame format.
+Computes and summarizes the Lee bounds on the average direct effect for
+always-takers (ATs). Requires the \pkg{MedBounds} package (archived) or
+its successor \pkg{TestMechs}. Applies bootstrapping to estimate standard
+errors of the bounds.
+}
+\note{
+This function requires the \pkg{MedBounds} package (by Jonathan Roth),
+which is not available on CRAN. The original package has been renamed to
+\pkg{TestMechs} on GitHub, but the API has changed significantly. You may
+need an archived version of \pkg{MedBounds}.
+See: \url{https://github.com/jonathandroth/TestMechs}
 }
 \examples{
 \dontrun{
 data(example_data)
-summarized_bounds <- lee_bounds(df = example_data, d = "treatment", m = "mediator", y = "outcome")
+summarized_bounds <- lee_bounds(
+  df = example_data, d = "treatment",
+  m = "mediator", y = "outcome"
+)
 }
+}
+\references{
+Roth, J., & Sant'Anna, P. H. C. (2023). Efficient estimation when a nuisance
+parameter is estimated on a validation sample. \emph{Journal of the American
+Statistical Association}, 118(544), 1665-1678.
 }

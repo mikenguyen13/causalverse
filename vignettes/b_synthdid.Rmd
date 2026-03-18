@@ -208,7 +208,9 @@ synthdid::synthdid_plot(tau.hat
                         ) + ama_theme()
 
 # Control unit contribution plot (black is the ATE, grey lines are CIs)
-synthdid::synthdid_units_plot(tau.hat) + ama_theme(base_size = 8)
+synthdid::synthdid_units_plot(tau.hat) +
+  ama_theme(base_size = 8) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, size = 7))
 
 # pre-treatment parallel trends
 # synthdid::synthdid_plot(tau.hat, overlay = 1)
@@ -321,13 +323,16 @@ top.controls = synthdid::synthdid_controls(tau.hat)[1:10, , drop=FALSE]
 synthdid::synthdid_plot(tau.hat, spaghetti.units=rownames(top.controls)) + ama_theme()
 ```
 
-```{r}
+```{r, fig.width=10, fig.height=5}
 synthdid::synthdid_units_plot(estimates) +
-  ama_theme()
+  ama_theme() +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, size = 7))
 ```
 
-```{r}
-synthdid::synthdid_units_plot(tau.hat, units = rownames(top.controls)) + ama_theme()
+```{r, fig.width=9, fig.height=5}
+synthdid::synthdid_units_plot(tau.hat, units = rownames(top.controls)) +
+  ama_theme() +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1, size = 8))
 ```
 
 ## Diagnostics
@@ -690,7 +695,7 @@ causalverse::synthdid_plot_ate(est)
 
 Compare to different estimators (e.g., DID and SC)
 
-```{r, message=FALSE, eval = requireNamespace("gridExtra", quietly = TRUE)}
+```{r, message=FALSE, eval = requireNamespace("gridExtra", quietly = TRUE), fig.width=12, fig.height=10}
 methods <- c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
 
 estimates_methods <- lapply(methods, function(method) {
@@ -711,7 +716,8 @@ estimates_methods <- lapply(methods, function(method) {
 plots <- lapply(seq_along(estimates_methods), function(i) {
   causalverse::synthdid_plot_ate(estimates_methods[[i]],
                                  title = methods[i],
-                                 theme = causalverse::ama_theme(base_size = 6))
+                                 theme = causalverse::ama_theme(base_size = 6)) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
 })
 
 gridExtra::grid.arrange(grobs = plots, ncol = 2)
