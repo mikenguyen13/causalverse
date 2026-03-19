@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![R-CMD-check](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![DOI](https://zenodo.org/badge/679072435.svg)](https://zenodo.org/badge/latestdoi/679072435)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![R-CMD-check](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.8254063-blue)](https://doi.org/10.5281/zenodo.8254063)
 
 <!-- badges: end -->
 
