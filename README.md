@@ -81,7 +81,6 @@ install_backends("rd")      # install just RD packages
 
 ``` r
 library(causalverse)
-library(synthdid)
 
 # Estimate treatment effect using multiple methods
 setup <- synthdid::panel.matrices(synthdid::california_prop99)
