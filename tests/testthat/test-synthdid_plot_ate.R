@@ -1,6 +1,4 @@
 library(testthat)
-library(ggplot2)
-library(dplyr)
 library(causalverse)
 data <- fixest::base_stagg |>
   dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>

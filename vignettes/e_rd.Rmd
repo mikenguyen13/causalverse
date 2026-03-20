@@ -22,9 +22,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
-library(dplyr)
-library(ggplot2)
-library(fixest)
 ```
 
 # 1. Introduction to Regression Discontinuity Designs
@@ -219,7 +216,7 @@ binned_data <- rd_data |>
     side = ifelse(x >= 0, "Treated", "Control")
   ) |>
   group_by(bin, side) |>
-  summarise(
+  dplyr::summarise(
     x_mean = mean(x),
     y_mean = mean(y),
     y_se   = sd(y) / sqrt(n()),
@@ -1344,7 +1341,7 @@ balance_robust
 ```{r balance-visual, fig.width=8, fig.height=8}
 # Plot each covariate against the running variable
 cov_plot_data <- rd_data |>
-  select(x, treated, age, female, education, income) |>
+  dplyr::select(x, treated, age, female, education, income) |>
   tidyr::pivot_longer(
     cols = c(age, female, education, income),
     names_to = "covariate",

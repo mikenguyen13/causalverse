@@ -143,9 +143,6 @@ synthdid::synthdid_plot(tau.hat) + ama_theme()
 Using `fixest` dataset
 
 ```{r}
-library(fixest)
-library(dplyr)
-library(ggplot2)
 ```
 
 If you want to use the `base_stagg` dataset, you have to choose just 1 period, because function `synthdid_estimate` cannot handle staggered adoption.
@@ -664,9 +661,6 @@ ggplot2::ggplot(effect_df, ggplot2::aes(x = Period, y = Effect)) +
 This vignette adapts the block assignment method from @arkhangelsky2021synthetic for staggered adoption scenarios. Following the approach suggested by @ben2022synthetic, separate assignment matrices are created for each treatment period to fit the block assignment context. The `synthdid` estimator is then applied to each sub-sample. Finally, the Average Treatment Effect on the Treated (ATT) is calculated as a weighted average of all ATTs for all treated periods, with weights based on the proportion of treated units in each time period for each sub-sample.
 
 ```{r}
-library(dplyr)
-library(ggplot2)
-library(fixest)
 df <- fixest::base_stagg |>
    dplyr::mutate(treatvar = if_else(time_to_treatment >= 0, 1, 0)) |>
    dplyr::mutate(treatvar = as.integer(if_else(year_treated > (5 + 2), 0, treatvar)))
@@ -726,8 +720,6 @@ gridExtra::grid.arrange(grobs = plots, ncol = 2)
 Subgroup Analysis (i.e., exploring treatment effects heterogeneity)
 
 ```{r}
-library(dplyr)
-library(ggplot2)
 
 est_sub <- causalverse::synthdid_est_ate(
   data               = df,
@@ -872,7 +864,6 @@ The most important figure in any synthetic control paper is the **trajectory plo
 
 ```{r sdid-trajectory, eval=TRUE, message=FALSE, fig.width=8, fig.height=5}
 library(synthdid)
-library(ggplot2)
 
 # Use the California Prop 99 data (canonical SC example)
 data("california_prop99")
@@ -883,8 +874,8 @@ est_sdid <- synthdid::synthdid_estimate(setup_ca$Y, setup_ca$N0, setup_ca$T0)
 cat("SDID Estimate:", round(as.numeric(est_sdid), 3), "\n")
 
 # Built-in trajectory plot
-plot(est_sdid, overlay = 1,
-     main = "California Prop 99: Synthetic DID Trajectory")
+plot(est_sdid, overlay = 1) +
+  ggplot2::ggtitle("California Prop 99: Synthetic DID Trajectory")
 ```
 
 ## Unit and Time Weights
@@ -931,7 +922,7 @@ Compare SC, DID, and SDID side-by-side:
 ```{r sdid-comparison, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
 results_compare <- causalverse::panel_estimate(
     setup_ca,
-    selected_estimators = c("sc", "did", "sdid")
+    selected_estimators = c("sc", "did", "synthdid")
 )
 cat("=== Estimator Comparison ===\n")
 print(causalverse::process_panel_estimate(results_compare))
@@ -1021,7 +1012,7 @@ ggplot(ratio_df, aes(x = ratio, fill = type)) +
 ```{r sdid-staggered, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
 ate_results <- causalverse::synthdid_est_ate(
     data   = fixest::base_stagg,
-    method = "sdid"
+    method = "synthdid"
 )
 causalverse::synthdid_plot_ate(ate_results)
 ```
@@ -1036,7 +1027,6 @@ The `causalverse::sc_gap_plot()` function plots the treatment-synthetic gap over
 
 ```{r gap-plot-main, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
 library(synthdid)
-library(ggplot2)
 
 # California Prop 99 setup
 data("california_prop99")
@@ -1082,8 +1072,6 @@ The red line shows California's gap (treated minus synthetic). Gray lines show d
 ## Treatment Calendar: Staggered Adoption Timing
 
 ```{r treatment-calendar, eval=TRUE, message=FALSE, fig.width=9, fig.height=5}
-library(fixest)
-library(dplyr)
 
 # Prepare base_stagg: add a proper binary treatment column
 df_stagg_cal <- fixest::base_stagg |>
@@ -1132,7 +1120,6 @@ summ$cohort_plot + causalverse::ama_theme()
 The trajectory plot is the central figure in any synthetic control paper. Here we build a fully customized version using `ggplot2` and the estimated weights from SynthDID.
 
 ```{r trajectory-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
-library(ggplot2)
 
 # California Prop 99  -  full trajectory
 Y_mat    <- setup_ca$Y
@@ -1305,8 +1292,6 @@ SynthDID standard errors cannot be computed from standard OLS formulas because t
 
 ```{r se-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
 # Base DID data: multiple treated units  -  allows all three SE methods
-library(fixest)
-library(dplyr)
 
 df_did <- fixest::base_did |>
   dplyr::mutate(
@@ -1475,8 +1460,6 @@ This section provides a complete, step-by-step workflow for staggered adoption u
 ## Setting Up the Staggered Data
 
 ```{r staggered-setup, eval=TRUE, message=FALSE}
-library(fixest)
-library(dplyr)
 
 # base_stagg: staggered DiD dataset with units treated at years 5, 6, or 7
 # Never-treated units have year_treated = 10000 (a large placeholder)
@@ -1594,8 +1577,6 @@ The standard SynthDID estimator uses only the outcome variable to compute weight
 ## Step-by-Step Residualization
 
 ```{r covariates-resid, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
-library(fixest)
-library(dplyr)
 
 df_cov <- fixest::base_did |>
   dplyr::mutate(

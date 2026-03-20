@@ -42,7 +42,6 @@ from a given estimation object.
 \examples{
 \dontrun{
   # Load required libraries
-  library(ggplot2)
   library(tidyverse)
   library(causalverse)
   

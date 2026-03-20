@@ -13,9 +13,6 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE,
                       warning = FALSE, message = FALSE)
 library(causalverse)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
 ```
 
 # Panel Data Methods
@@ -143,7 +140,6 @@ cat("Max observations per unit:", max(obs_per_unit$n_obs), "\n")
 The `get_balanced_panel()` function extracts a balanced panel for a specific adoption cohort in a staggered treatment design.
 
 ```{r balanced-panel-demo, eval = requireNamespace("fixest", quietly = TRUE)}
-library(fixest)
 
 # Demonstrate with fixest's built-in staggered data
 balanced_ex <- get_balanced_panel(
@@ -170,7 +166,7 @@ decompose_variance <- function(df, var, unit_var = "unit") {
 
   unit_means <- df |>
     group_by(across(all_of(unit_var))) |>
-    summarise(unit_mean = mean(.data[[var]], na.rm = TRUE), .groups = "drop")
+    dplyr::summarise(unit_mean = mean(.data[[var]], na.rm = TRUE), .groups = "drop")
 
   df2 <- df |> left_join(unit_means, by = unit_var)
 
@@ -215,7 +211,7 @@ compute_icc <- function(df, outcome = "y", unit_var = "unit") {
 
   unit_means <- df |>
     group_by(across(all_of(unit_var))) |>
-    summarise(u_mean = mean(.data[[outcome]]), n_t = n(), .groups = "drop")
+    dplyr::summarise(u_mean = mean(.data[[outcome]]), n_t = n(), .groups = "drop")
 
   n_i  <- mean(unit_means$n_t)
   N_u  <- nrow(unit_means)
@@ -250,7 +246,7 @@ panel_missing$y[miss_idx] <- NA
 # Build a missingness matrix
 miss_mat <- panel_missing |>
   mutate(missing = is.na(y)) |>
-  select(unit, year, missing) |>
+  dplyr::select(unit, year, missing) |>
   filter(unit <= 30) |>  # show first 30 units for readability
   mutate(missing = factor(missing, levels = c(FALSE, TRUE),
                           labels = c("Observed", "Missing")))
@@ -283,7 +279,6 @@ Pooled OLS is **consistent** only if $E[\alpha_i | \mathbf{x}_{it}] = 0$  -  i.e
 ### 3.2 Estimation
 
 ```{r pooled-ols, eval = requireNamespace("fixest", quietly = TRUE)}
-library(fixest)
 
 # Pooled OLS (no fixed effects)
 ols_pool <- feols(y ~ x1 + x2, data = panel_df, cluster = ~unit)
@@ -672,7 +667,7 @@ library(tseries)
 # Run ADF on each unit's y series
 adf_results <- panel_df |>
   group_by(unit) |>
-  summarise(
+  dplyr::summarise(
     adf_stat = tryCatch(
       adf.test(y, alternative = "stationary")$statistic,
       error = function(e) NA_real_
@@ -930,7 +925,7 @@ panel_ccemg <- panel_df |>
 # Estimate per unit, collect beta_i for x1
 unit_ccemg_coefs <- panel_ccemg |>
   group_by(unit) |>
-  summarise(
+  dplyr::summarise(
     beta_x1 = tryCatch({
       m <- lm(y ~ x1 + x2 + y_cs_mean + x1_cs_mean + x2_cs_mean)
       coef(m)["x1"]
@@ -967,7 +962,7 @@ panel_with_resid <- panel_df |>
 
 unit_resid_var <- panel_with_resid |>
   group_by(unit) |>
-  summarise(resid_var = var(fe_resid), .groups = "drop")
+  dplyr::summarise(resid_var = var(fe_resid), .groups = "drop")
 
 cat("Residual variance by unit - summary:\n")
 print(summary(unit_resid_var$resid_var))
@@ -986,7 +981,7 @@ The most practical solution to heteroskedasticity in panels is **cluster-robust 
 # FGLS: weight observations by inverse estimated variance
 unit_vars <- panel_with_resid |>
   group_by(unit) |>
-  summarise(sigma2_i = var(fe_resid), .groups = "drop")
+  dplyr::summarise(sigma2_i = var(fe_resid), .groups = "drop")
 
 panel_fgls <- panel_df |>
   left_join(unit_vars, by = "unit") |>
@@ -1208,7 +1203,7 @@ coint_panel <- expand.grid(unit = 1:N_ci, t = 1:T_ci) |>
 # Per-unit Engle-Granger residual ADF
 eg_results <- coint_panel |>
   group_by(unit) |>
-  summarise(
+  dplyr::summarise(
     eg_pval = tryCatch({
       mod <- lm(y_ci ~ x_ci)
       adf.test(residuals(mod))$p.value
@@ -1620,7 +1615,7 @@ spaghetti_df <- panel_df |>
 # Compute mean trend across all units
 mean_trend <- panel_df |>
   group_by(year) |>
-  summarise(y_mean = mean(y), .groups = "drop")
+  dplyr::summarise(y_mean = mean(y), .groups = "drop")
 
 ggplot() +
   geom_line(data = spaghetti_df,
@@ -1673,7 +1668,7 @@ vd_results <- bind_rows(lapply(vd_vars, function(v)
   decompose_variance(panel_df, v, "unit")))
 
 vd_long <- vd_results |>
-  select(variable, pct_between, pct_within) |>
+  dplyr::select(variable, pct_between, pct_within) |>
   pivot_longer(cols = c(pct_between, pct_within),
                names_to  = "component",
                values_to = "pct") |>
@@ -1707,13 +1702,13 @@ acf_data <- resid_df |>
   filter(unit %in% sample_9) |>
   arrange(unit, year) |>
   group_by(unit) |>
-  summarise(
+  dplyr::summarise(
     acf_vals = list(as.vector(acf(fe_resid, plot = FALSE, lag.max = 5)$acf[-1])),
     .groups  = "drop"
   ) |>
   mutate(lag_df = lapply(acf_vals, function(a)
     data.frame(lag = 1:5, acf = a))) |>
-  select(unit, lag_df) |>
+  dplyr::select(unit, lag_df) |>
   tidyr::unnest(lag_df)
 
 conf_bound <- 1.96 / sqrt(T)
@@ -1759,7 +1754,7 @@ p_within <- ggplot(wb_sample, aes(x = x1_dm, y = y_dm)) +
 
 p_between <- wb_df |>
   group_by(unit) |>
-  summarise(x1_mean = mean(x1), y_mean = mean(y), .groups = "drop") |>
+  dplyr::summarise(x1_mean = mean(x1), y_mean = mean(y), .groups = "drop") |>
   ggplot(aes(x = x1_mean, y = y_mean)) +
   geom_point(alpha = 0.5, color = "#4dac26", size = 1.5) +
   geom_smooth(method = "lm", color = "#d73027", se = FALSE) +
@@ -1892,7 +1887,7 @@ all_results <- bind_rows(
       mutate(model = nm)
   })
 ) |>
-  select(model, term, estimate, std_error, p_value, ci_lower, ci_upper)
+  dplyr::select(model, term, estimate, std_error, p_value, ci_lower, ci_upper)
 
 print(all_results, digits = 4)
 ```
@@ -1981,7 +1976,6 @@ where $\hat{S}_{DK}$ is a Newey-West estimator applied to the cross-sectional av
 ### 21.2 Implementation
 
 ```{r driscoll-kraay, eval = requireNamespace("fixest", quietly = TRUE)}
-library(fixest)
 
 # Driscoll-Kraay SEs are available in fixest via vcov = "DK"
 fe_dk <- feols(y ~ x1 + x2 | unit + year,
@@ -2080,7 +2074,7 @@ The Mean Group (MG) estimator runs separate regressions per unit and averages th
 # Mean group: estimate beta per unit, take mean
 mg_coefs <- panel_df |>
   group_by(unit) |>
-  summarise(
+  dplyr::summarise(
     beta_x1 = tryCatch(coef(lm(y ~ x1 + x2 + factor(year)))["x1"],
                        error = function(e) NA_real_),
     beta_x2 = tryCatch(coef(lm(y ~ x1 + x2 + factor(year)))["x2"],
@@ -2371,7 +2365,7 @@ library(tseries)
 
 firm_adf <- firm_panel |>
   group_by(firm) |>
-  summarise(
+  dplyr::summarise(
     adf_p = tryCatch(
       adf.test(revenue_growth)$p.value,
       error = function(e) NA_real_
@@ -2387,7 +2381,6 @@ cat("Conclusion: proceed with level regression\n")
 ### 26.4 Step 3  -  Model Estimation
 
 ```{r firm-models, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("plm", quietly = TRUE)}
-library(fixest)
 library(plm)
 
 firm_pdata <- pdata.frame(firm_panel, index = c("firm", "year"))

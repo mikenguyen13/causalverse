@@ -50,7 +50,6 @@ allowing the user to visualize interaction coefficients with ease.
 }
 \examples{
 \dontrun{
-library(fixest)
 data("base_did")
 
 # Sample call to the function:

@@ -1,5 +1,6 @@
 library(testthat)
 library(synthdid)
+library(causalverse)
 
 # Test with a known input
 test_that("process_panel_estimate returns correct format and values", {

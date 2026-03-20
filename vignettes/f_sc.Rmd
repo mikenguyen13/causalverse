@@ -20,9 +20,6 @@ knitr::opts_chunk$set(
 ```{r setup, message = FALSE, warning = FALSE}
 library(causalverse)
 library(synthdid)
-library(dplyr)
-library(ggplot2)
-library(fixest)
 ```
 
 ## 1. Introduction
@@ -2064,7 +2061,6 @@ knitr::kable(
 The donor weight plot reveals which control units the synthetic control draws upon. Sparse weights (many zeros) are a desirable feature, as they indicate the synthetic control is not interpolating across structurally dissimilar units.
 
 ```{r sc-weight-plot, eval=TRUE, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
-library(ggplot2)
 
 weight_df <- data.frame(
   donor  = paste0("Unit_", 2:n_vis),

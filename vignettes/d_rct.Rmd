@@ -19,9 +19,6 @@ knitr::opts_chunk$set(
 
 ```{r setup, message = FALSE, warning = FALSE}
 library(causalverse)
-library(ggplot2)
-library(dplyr)
-library(fixest)
 ```
 
 ## 1. Introduction
@@ -193,7 +190,7 @@ balance_vars <- c("age", "income", "educ", "female", "baseline")
 
 balance_table <- rct_data %>%
   group_by(treatment) %>%
-  summarise(
+  dplyr::summarise(
     n          = n(),
     age_mean   = mean(age),
     income_mean = mean(income),
@@ -540,7 +537,7 @@ RI is exact in finite samples and requires no distributional assumptions. It is 
 
 The `ri2` package (Coppock, 2020) provides a clean interface for randomization inference.
 
-```{r ri2-example, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE)}
+```{r ri2-example, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE), error = TRUE}
 library(ri2)
 library(randomizr)
 
@@ -1874,7 +1871,6 @@ print(round(post_means, 3))
 ```
 
 ```{r rar-plot, eval = TRUE, fig.width = 9, fig.height = 5}
-library(ggplot2)
 
 # Plot allocation history: rolling proportion assigned to each arm
 window <- 50
@@ -2433,7 +2429,7 @@ ggplot(df_comp_sum, aes(x = assignment, y = prop, fill = type)) +
 
 A power curve shows how statistical power changes with sample size for different effect sizes, guiding pre-study sample size determination.
 
-```{r power-curve, eval = TRUE, fig.width = 9, fig.height = 6}
+```{r power-curve-effect-sizes, eval = TRUE, fig.width = 9, fig.height = 6}
 # Power curves for two-sample t-test across effect sizes
 effect_sizes <- c(0.20, 0.35, 0.50, 0.65, 0.80)  # Cohen's d
 n_seq        <- seq(20, 500, by = 10)
@@ -2914,7 +2910,6 @@ cat("Estimated spillover (per unit fraction):",
 ```
 
 ```{r sutva-plot, message=FALSE, warning=FALSE}
-library(ggplot2)
 
 # Visualise how spillover exposure varies with own treatment
 df_net$W_fac <- factor(df_net$W, labels = c("Control", "Treated"))

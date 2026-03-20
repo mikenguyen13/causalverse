@@ -27,7 +27,6 @@
 #'   }
 #'
 #' @examples
-#' library(fixest)
 #' staggered_summary(
 #'   data      = base_stagg,
 #'   unit_var  = "id",

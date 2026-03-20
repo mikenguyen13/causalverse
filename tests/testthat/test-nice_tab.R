@@ -1,4 +1,5 @@
 library(testthat)
+library(causalverse)
 
 test_that("nice_tab correctly rounds numeric columns", {
   data <- data.frame(

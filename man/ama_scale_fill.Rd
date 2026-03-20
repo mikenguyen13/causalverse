@@ -25,7 +25,6 @@ This function provides a custom fill scale for ggplot2 plots based on the guidel
 }
 \examples{
 \dontrun{
-library(ggplot2)
 ggplot(mtcars, aes(mpg, wt, fill = gear)) + 
 geom_point(shape = 21, size = 4) + 
 ama_scale_fill()

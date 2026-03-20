@@ -1,5 +1,5 @@
-library(ggplot2)
 library(testthat)
+library(causalverse)
 
 test_that("ama_theme applies the correct theme settings with Arial", {
   p <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + ama_theme(base_family = "sans")

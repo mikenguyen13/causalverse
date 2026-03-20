@@ -1,5 +1,4 @@
 # Load necessary libraries
-library(fixest)
 library(causalverse)
 library(testthat)
 

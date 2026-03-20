@@ -23,7 +23,6 @@
 #' \dontrun{
 #' library(tidyverse)
 #' library(synthdid)
-#' library(fixest)
 #'
 #' setup <- base_did |>
 #'   mutate(

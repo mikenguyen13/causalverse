@@ -1,7 +1,5 @@
 library(testthat)
 library(causalverse)
-library(dplyr)
-library(ggplot2)
 
 # Sample data for the tests
 data <- expand.grid(entity = 1:100, time = 1:10) %>%

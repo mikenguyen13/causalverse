@@ -1,5 +1,5 @@
-library(ggplot2)
 library(testthat)
+library(causalverse)
 
 is.color <- function(color_string) {
   tryCatch({

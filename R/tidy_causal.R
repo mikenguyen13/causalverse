@@ -41,7 +41,6 @@
 #'
 #' # fixest
 #' \dontrun{
-#' library(fixest)
 #' mod2 <- feols(mpg ~ am + wt | cyl, data = mtcars)
 #' tidy_causal(mod2)
 #' }

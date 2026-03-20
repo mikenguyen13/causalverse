@@ -16,7 +16,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(ggplot2)
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point() + 
 #' ama_labs(title = "Sample Plot") +
 #' ama_theme()

@@ -48,7 +48,6 @@ including cohort sizes, treatment timing distribution, share never
 treated, and a cohort-by-period treatment matrix.
 }
 \examples{
-library(fixest)
 staggered_summary(
   data      = base_stagg,
   unit_var  = "id",

@@ -70,7 +70,6 @@ coefficients.
 }
 \examples{
 \dontrun{
-library(fixest)
 data(base_stagg)
 
 # Single estimator (TWFE)

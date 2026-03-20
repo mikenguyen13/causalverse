@@ -1,6 +1,6 @@
 library(testthat)
 library(PanelMatch)
-library(ggplot2)
+library(causalverse)
 
 # Use dem dataset from PanelMatch package
 data("dem", package = "PanelMatch")

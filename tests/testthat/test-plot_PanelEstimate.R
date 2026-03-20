@@ -1,6 +1,6 @@
 library(testthat)
 library(PanelMatch)
-library(ggplot2)
+library(causalverse)
 
 # Create PanelData object
 data("dem", package = "PanelMatch")

@@ -1,5 +1,5 @@
 library(testthat)
-library(ggplot2)
+library(causalverse)
 
 test_that("plot_rd_aa_share returns ggplot when given rdbounds output", {
   skip_if_not_installed("rdbounds")

@@ -1,5 +1,5 @@
 library(testthat)
-library(ggplot2) # for is_ggplot()
+library(causalverse) # loads ggplot2 (for is_ggplot()) and other core packages
 
 
 test_that("Function returns ggplot object with correct data", {

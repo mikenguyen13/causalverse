@@ -46,7 +46,6 @@ be augmented with relative period dummy variables for ease of subsequent analysi
 \dontrun{
   library(did)
   library(tidyverse)
-  library(fixest)
   data(base_stagg)
   stacked_data <- stack_data("year_treated", "year", 3, 3, base_stagg, control_type = "both")
   feols_result <- feols(as.formula(paste0(

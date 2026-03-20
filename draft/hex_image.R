@@ -47,7 +47,6 @@ dev.off()  # Close the graphics device
 
 # getwd()
 library(hexSticker)
-library(ggplot2)
 library(magick)
 library(tidyverse)
 # getwd()

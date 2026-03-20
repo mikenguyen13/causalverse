@@ -41,7 +41,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(fixest)
 #' data(base_stagg)
 #' mod <- feols(y ~ i(time_to_treatment, ref = -1) | id + year, base_stagg)
 #' res <- pretrend_sensitivity(mod, M_seq = seq(0, 0.5, by = 0.05))

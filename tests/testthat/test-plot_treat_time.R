@@ -1,4 +1,5 @@
 library(testthat)
+library(causalverse)
 
 # Test dataset
 test_data <- data.frame(

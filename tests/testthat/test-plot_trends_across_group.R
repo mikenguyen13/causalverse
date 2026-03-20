@@ -1,5 +1,5 @@
 library(testthat)
-library(ggplot2)
+library(causalverse)
 
 sample_data <- data.frame(
   year = rep(2001:2005, each = 4),

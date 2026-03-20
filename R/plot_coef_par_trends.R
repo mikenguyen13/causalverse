@@ -22,7 +22,6 @@
 #' @importFrom fixest feols coefplot iplot
 #' @examples
 #' \dontrun{
-#' library(fixest)
 #' data("base_did")
 #'
 #' # Sample call to the function:

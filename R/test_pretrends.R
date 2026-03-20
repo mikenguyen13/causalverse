@@ -37,7 +37,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(fixest)
 #' data(base_stagg, package = "fixest")
 #' mod <- feols(y ~ i(time_to_treatment, ref = -1) | id + year,
 #'              data = base_stagg)

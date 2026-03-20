@@ -1,6 +1,5 @@
 library(testthat)
 library(causalverse) 
-library(dplyr)
 library(synthdid)
 
 # Sample setup for testing

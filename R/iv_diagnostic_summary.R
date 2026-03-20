@@ -23,7 +23,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(fixest)
 #' # IV regression with fixest
 #' mod <- feols(y ~ x1 | z1 + z2 ~ endo1, data = mydata)
 #' iv_diagnostic_summary(mod)

@@ -15,8 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
 
 ```{r setup}
 library(causalverse)
-library(dplyr)
-library(ggplot2)
 ```
 
 # 1. Introduction
@@ -194,7 +192,7 @@ head(sim_data)
 # Summary statistics by treatment group
 sim_data %>%
   group_by(treatment) %>%
-  summarise(
+  dplyr::summarise(
     n         = n(),
     mean_age  = mean(age),
     mean_inc  = mean(income),
@@ -591,7 +589,6 @@ summary(lm_adj)
 coef(lm_adj)["treatment"]
 
 # Using fixest for cluster-robust standard errors
-library(fixest)
 feols_fit <- fixest::feols(
   outcome ~ treatment + age + income + education + experience,
   data    = matched_data,
@@ -898,7 +895,7 @@ sim_data$ps_stratum <- cut(
 # Within-stratum treatment effects
 strat_effects <- sim_data %>%
   group_by(ps_stratum) %>%
-  summarise(
+  dplyr::summarise(
     n_treat   = sum(treatment),
     n_control = sum(1 - treatment),
     att_strat = mean(outcome[treatment == 1]) - mean(outcome[treatment == 0]),
@@ -1872,12 +1869,14 @@ Publication-quality figures are the cornerstone of a credible matching analysis.
 
 ## 20.1 Data Setup with LaLonde
 
-```{r matching-viz-setup, eval = TRUE, message = FALSE, warning = FALSE}
+```{r matching-viz-setup, eval = TRUE, message = FALSE, warning = FALSE, error = TRUE}
 library(MatchIt)
-library(ggplot2)
-library(dplyr)
 
 data("lalonde", package = "MatchIt")
+
+# Create dummy variables from 'race' factor (needed for SMD and matching formulas)
+lalonde$black   <- as.integer(lalonde$race == "black")
+lalonde$hispan  <- as.integer(lalonde$race == "hispan")
 
 # Quick overview
 cat("LaLonde dataset dimensions:", nrow(lalonde), "x", ncol(lalonde), "\n")
@@ -2145,7 +2144,7 @@ df_ratio <- do.call(rbind, ratio_results)
 df_ratio$ratio <- factor(df_ratio$ratio, levels = df_ratio$ratio)
 
 knitr::kable(df_ratio |>
-  select(ratio, att, mean_smd, max_smd, n_treat, n_ctrl) |>
+  dplyr::select(ratio, att, mean_smd, max_smd, n_treat, n_ctrl) |>
   mutate(across(c(att, mean_smd, max_smd), ~round(., 3))),
   col.names = c("Ratio", "ATT", "Mean |SMD|", "Max |SMD|",
                 "N Treated", "N Control"),
@@ -3019,9 +3018,6 @@ knitr::kable(bal_table,
 ```
 
 ```{r distributional-balance-plot, eval=requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
 
 # Empirical CDF comparison for re74 before and after matching
 plot_ecdf <- function(var_name, before_data, after_data) {

@@ -1,5 +1,5 @@
 library(testthat)
-library(ggplot2)
+library(causalverse)
 
 # Assuming the ama_export_fig function and any other necessary functions like amatheme() are loaded.
 

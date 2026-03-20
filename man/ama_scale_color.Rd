@@ -25,7 +25,6 @@ This function provides a custom color scale for ggplot2 plots based on the guide
 }
 \examples{
 \dontrun{
-library(ggplot2)
 ggplot(mtcars, aes(mpg, wt, color = gear)) + geom_point(size = 4) + ama_scale_color()
 }
 }

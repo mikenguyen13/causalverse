@@ -1,6 +1,5 @@
 library(testthat)
-library(ggplot2)
-library(dplyr)
+library(causalverse)
 
 test_that("plot_density_by_treatment produces correct number of plots", {
   data(mtcars)

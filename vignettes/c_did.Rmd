@@ -21,8 +21,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
-library(dplyr)
-library(ggplot2)
 knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,cache = TRUE)
@@ -34,7 +32,6 @@ knitr::opts_chunk$set(
 
 ```{r, eval = FALSE}
 library(PanelMatch)
-library(fixest)
 
 pd_stagg <- PanelData(
     panel.data = fixest::base_stagg |>
@@ -75,8 +72,6 @@ For optimal use of `plot_par_trends`, ensure your data is structured in the foll
 For demonstration purposes, we can generate some illustrative data:
 
 ```{r}
-library(dplyr)
-library(ggplot2)
 data <- expand.grid(entity = 1:100, time = 1:10) %>%
   dplyr::arrange(entity, time) %>%
   dplyr::mutate(
@@ -140,7 +135,6 @@ Output
 The function returns a plot or a list of plots visualizing interaction coefficients based on user specifications.
 
 ```{r}
-library(fixest)
 data("base_did")
 
 # Combined Plot
@@ -207,9 +201,7 @@ To validate the DiD design, evidence should be provided for both random time and
 ## Random Time Assignment
 
 ```{r}
-library(ggplot2)
 library(gridExtra)
-library(dplyr)
 
 # Control number of units and time periods here
 num_units   <- 2000
@@ -330,7 +322,6 @@ summary(lm_result)
 -   It's important to note that you should consider the pre-treatment periods.
 
 ```{r}
-library(ggplot2)
 library(rlang) 
 library(gridExtra)
 
@@ -1185,7 +1176,6 @@ Now, let's see the function in action using the **`base_stagg`** dataset from th
 ```{r}
 # Assuming the function is loaded from your package:
 library(did)
-library(fixest)
 data(base_stagg)
 
 # The stack_data function now has a control_type argument. This allows users to specify
@@ -1299,7 +1289,6 @@ ggplot(avg_outcomes,
 But you can always go with a more complicated plot
 
 ```{r}
-library(fixest)
 data("base_did")
 est_did <- feols(y ~ x1 + i(period, treat, 5) |id + period, base_did)
 iplot(est_did)
@@ -1351,8 +1340,6 @@ did_multiplegt(df = stagg_data, Y = "y", G = "id", T = "year", D = "treatment",
 The concept behind the de Chaisemartin-D'Haultfoeuille estimator can be illustrated using `fixest` by constructing the "clean" comparison groups manually: each treated cohort is compared only to not-yet-treated units in the same period.
 
 ```{r dcdh-manual-demo, message=FALSE, warning=FALSE}
-library(fixest)
-library(dplyr)
 
 # Prepare staggered base_stagg data
 data(base_stagg, package = "fixest")
@@ -1413,7 +1400,6 @@ The `HonestDiD` package provides sensitivity analysis tools to assess the robust
 
 ```{r honestdid, eval=FALSE}
 library(HonestDiD)
-library(fixest)
 
 # Estimate event study with fixest using base_stagg
 data(base_stagg, package = "fixest")
@@ -1636,7 +1622,6 @@ summary(drdid_rc)
 The doubly robust DID (DR-DID) estimator can also be implemented manually. The key idea is that it combines inverse probability weighting (IPW) with outcome regression (OR): the estimate is consistent if *either* the propensity score model or the outcome regression model is correctly specified.
 
 ```{r drdid-manual, message=FALSE, warning=FALSE}
-library(fixest)
 
 # Simulate data: panel with 2 periods (pre/post), binary treatment
 set.seed(123)
@@ -1715,7 +1700,6 @@ Rambachan and Roth (2023) provide tools to assess the sensitivity of DID estimat
 
 ```{r honestdid-example, eval=FALSE}
 library(HonestDiD)
-library(fixest)
 
 # Estimate an event study with fixest using base_stagg
 data(base_stagg, package = "fixest")
@@ -1743,9 +1727,6 @@ createSensitivityPlot_relativeMagnitudes(delta_rm_results2)
 The core idea behind HonestDiD sensitivity analysis can be demonstrated manually. The "smoothness restriction" approach asks: what if the true trend violated parallel trends by at most $M$ units per period? We can construct adjusted confidence intervals by shifting the point estimates and widening the bounds.
 
 ```{r honest-did-manual, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
-library(fixest)
-library(dplyr)
-library(ggplot2)
 
 # Estimate a canonical event study using base_stagg
 data(base_stagg, package = "fixest")
@@ -1848,9 +1829,6 @@ cat("parallel trends), but this does NOT prove parallel trends hold.\n")
 The most concrete way to illustrate why modern estimators matter is to simulate a staggered adoption dataset where treatment effects vary across cohorts, then compare the biased TWFE estimate to the heterogeneity-robust Sun-Abraham estimator available in `fixest`.
 
 ```{r estimator-comparison-setup, message=FALSE, warning=FALSE}
-library(fixest)
-library(dplyr)
-library(ggplot2)
 
 # Simulate staggered DID with heterogeneous treatment effects
 # Cohort 1 gets treated in period 5 with effect = 1.0
@@ -1907,7 +1885,7 @@ sunab_mod <- feols(
 # Aggregate Sun-Abraham ATT
 sunab_att <- aggregate(sunab_mod, agg = "att")
 cat(sprintf("Sun-Abraham ATT:       %.4f  (true = %.2f)\n",
-            coef(sunab_att)["ATT"], true_att))
+            sunab_att, true_att))
 ```
 
 ```{r staggered-event-study-plot, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
@@ -1944,10 +1922,10 @@ comparison_tbl <- data.frame(
                    "Sun-Abraham (fixest::sunab)"),
   Estimate     = c(true_att,
                    round(twfe_est, 4),
-                   round(coef(sunab_att)["ATT"], 4)),
+                   round(sunab_att, 4)),
   Bias         = c(0,
                    round(twfe_est - true_att, 4),
-                   round(coef(sunab_att)["ATT"] - true_att, 4)),
+                   round(sunab_att - true_att, 4)),
   Notes = c(
     "Population truth",
     "Biased: negative weighting of late cohort",
@@ -1973,7 +1951,6 @@ Goodman-Bacon (2021) shows that the TWFE DID estimator is a weighted average of 
 
 ```{r bacon-decomp, eval=requireNamespace("bacondecomp", quietly = TRUE)}
 library(bacondecomp)
-library(fixest)
 
 # Prepare staggered data
 set.seed(42)
@@ -2018,9 +1995,8 @@ The decomposition reveals whether the TWFE estimate is driven by clean (treated 
 
 de Chaisemartin and D'Haultfoeuille (2020) show that TWFE regressions assign implicit weights to group-time ATTs, and some of these weights can be negative. Negative weights mean that even if all group-time treatment effects are positive, the TWFE estimate could be negative or zero.
 
-```{r twfe-weights, eval=requireNamespace("TwoWayFEWeights", quietly = TRUE)}
+```{r twfe-weights, eval=requireNamespace("TwoWayFEWeights", quietly = TRUE), error = TRUE}
 library(TwoWayFEWeights)
-library(fixest)
 
 # Prepare staggered data
 set.seed(42)
@@ -2259,9 +2235,6 @@ A credible DiD analysis for top journals requires not just point estimates but a
 We first create a realistic staggered-adoption dataset with unit-level heterogeneity in treatment effects and a genuine pre-treatment parallel-trends period.
 
 ```{r vis-sim-data, eval=TRUE}
-library(fixest)
-library(dplyr)
-library(ggplot2)
 library(causalverse)
 
 set.seed(2024)
@@ -3401,9 +3374,7 @@ Roth (2022) shows that in many empirical applications, the power to detect econo
 ## Implementation with fixest and HonestDiD
 
 ```{r honest_did_setup, eval=requireNamespace("HonestDiD", quietly=TRUE)}
-library(fixest)
 library(HonestDiD)
-library(dplyr)
 
 # Simulate a clean 8-period, 100-unit panel
 # Treatment begins at period 5 for units 1-50
@@ -3635,7 +3606,6 @@ Stacked DiD (Cengiz et al. 2019; Baker et al. 2022) constructs a clean compariso
 ## Running Stacked DiD with causalverse
 
 ```{r stacked_did_hdd, eval=requireNamespace("HonestDiD", quietly=TRUE) && requireNamespace("fixest", quietly=TRUE)}
-library(fixest)
 
 # Use fixest's base_stagg dataset as a staggered adoption example
 data("base_stagg", package = "fixest")
@@ -3714,7 +3684,6 @@ No single test can definitively validate the parallel trends assumption. Applied
 The joint F-test of all pre-treatment event study coefficients is the standard first pass. However, its limitations must be acknowledged: low power means that a non-rejection does not confirm parallel trends.
 
 ```{r pretrend_ftest, eval=requireNamespace("fixest", quietly=TRUE)}
-library(fixest)
 
 # Re-use the HonestDiD panel from above
 es_fit_diag <- feols(
@@ -3907,7 +3876,7 @@ In DiD contexts, a McCrary (2008)-inspired check asks whether units are "sorting
 pre_slopes <- panel_hdd |>
   filter(period < treat_period) |>
   group_by(unit, treat) |>
-  summarise(
+  dplyr::summarise(
     slope   = coef(lm(y ~ period))[["period"]],
     .groups = "drop"
   )

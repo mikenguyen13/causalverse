@@ -36,7 +36,6 @@ for treated units, synthetic control weights, and counts of treated and control 
 \dontrun{
 library(tidyverse)
 library(synthdid)
-library(fixest)
 
 setup <- base_did |>
   mutate(

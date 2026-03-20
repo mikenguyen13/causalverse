@@ -21,14 +21,26 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
 ```
 
 ## **Introduction to the `causalverse` Package**
 
 Welcome to the **`causalverse`** package - a dedicated toolkit tailored for researchers embarking on causal inference analyses. Our primary mission is to simplify and enhance the research process by offering robust tools specifically designed for various causal inference methodologies.
+
+### **Core Packages (Auto-Attached)**
+
+Just like `tidyverse`, loading `library(causalverse)` automatically attaches these core packages — no need to load them individually:
+
+- **ggplot2** — plotting
+- **dplyr** — data manipulation
+- **tidyr** — data tidying
+- **purrr** — functional programming
+- **magrittr** — pipe operator (`%>%`)
+- **data.table** — fast data operations
+- **fixest** — fast fixed-effects estimation
+- **rio** — universal data import/export
+
+For method-specific backend packages (e.g., `synthdid`, `MatchIt`, `rdrobust`), you still need to load them individually or install them via `install_backends()`.
 
 ### **Vignettes Overview**
 
@@ -446,8 +458,6 @@ Below are minimal working examples for the most common causal inference tasks.
 
 ```{r quick-start-did, eval=TRUE, message=FALSE}
 # --- DiD: Callaway & Sant'Anna via fixest ---
-library(fixest)
-library(dplyr)
 
 df_did_qs <- fixest::base_did |>
   dplyr::mutate(
@@ -506,7 +516,6 @@ print(tidy_lm)
 
 ```{r tidy-causal-fixest, eval=TRUE, message=FALSE}
 # fixest with fixed effects
-library(fixest)
 mod_fe <- feols(mpg ~ am + wt | cyl, data = mtcars)
 tidy_fe <- causalverse::tidy_causal(mod_fe, term = "am")
 print(tidy_fe)
@@ -610,16 +619,8 @@ data("lalonde")
 # Unmatched balance
 bal_unmatched <- causalverse::balance_table(
   data          = lalonde,
-  treat_var     = "treat",
-  cov_vars      = c("age", "educ", "re74", "re75", "married", "nodegree"),
-  label_map     = c(
-    age      = "Age",
-    educ     = "Years of Education",
-    re74     = "Earnings 1974 ($)",
-    re75     = "Earnings 1975 ($)",
-    married  = "Married",
-    nodegree = "No High School Degree"
-  )
+  treatment     = "treat",
+  covariates    = c("age", "educ", "re74", "re75", "married", "nodegree")
 )
 print(bal_unmatched)
 ```
@@ -846,8 +847,6 @@ These two functions are essential for communicating the structure of staggered a
 ### Treatment Calendar
 
 ```{r treatment-calendar-intro, eval=TRUE, message=FALSE, fig.width=9, fig.height=5}
-library(fixest)
-library(dplyr)
 
 # Prepare base_stagg with a proper binary treatment indicator
 df_stagg_intro <- fixest::base_stagg |>

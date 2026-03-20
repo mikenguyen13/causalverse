@@ -97,7 +97,6 @@ synthdid_plot_ate(ate)
 
 ``` r
 library(causalverse)
-library(fixest)
 
 # Sun & Abraham event study
 model <- feols(y ~ sunab(year_treated, year) | id + year, data = base_stagg)
@@ -140,7 +139,6 @@ results <- spec_curve(
 
 ``` r
 library(causalverse)
-library(ggplot2)
 
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +

@@ -46,7 +46,6 @@ treatment in a staggered adoption panel design. Useful for communicating
 treatment timing variation to readers and reviewers.
 }
 \examples{
-library(fixest)
 treatment_calendar(
   data      = base_stagg,
   unit_var  = "id",

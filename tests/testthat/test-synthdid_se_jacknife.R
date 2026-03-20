@@ -1,5 +1,6 @@
 library(testthat)
 library(synthdid)
+library(causalverse)
 
 setup <- get_balanced_panel(
   data = fixest::base_stagg,

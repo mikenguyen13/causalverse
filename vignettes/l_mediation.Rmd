@@ -15,8 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE, warning = FA
 
 ```{r setup}
 library(causalverse)
-library(dplyr)
-library(ggplot2)
 ```
 
 ## Introduction
@@ -675,16 +673,17 @@ model_par <- "
   prop_m2 := a2*b2 / (cp + a1*b1 + a2*b2)
 "
 
+set.seed(42)
 fit_par <- lavaan::sem(model_par, data = df_par, se = "bootstrap",
-                       bootstrap = 500, seed = 42)
+                       bootstrap = 500)
 
 # Extract parameter estimates with CIs
-lavaan::parameterEstimates(
+as.data.frame(lavaan::parameterEstimates(
   fit_par,
   boot.ci.type = "perc",
   level = 0.95,
   output = "text"
-)[c("indirect1", "indirect2", "total_indirect", "total", "prop_m1", "prop_m2"), ]
+))[c("indirect1", "indirect2", "total_indirect", "total", "prop_m1", "prop_m2"), ]
 ```
 
 ```{r lavaan-fit-indices, eval=requireNamespace("lavaan", quietly=TRUE)}
@@ -1798,8 +1797,9 @@ model_simple <- "
   prop_med := a*b / (cp + a*b)
 "
 
+set.seed(42)
 fit_simple <- lavaan::sem(model_simple, data = med_data,
-                          se = "bootstrap", bootstrap = 500, seed = 42)
+                          se = "bootstrap", bootstrap = 500)
 
 # Parameter estimates
 params <- lavaan::parameterEstimates(fit_simple, boot.ci.type = "perc")
@@ -1855,8 +1855,9 @@ model_multi <- "
   total_Y2    := cp2 + a*b2
 "
 
+set.seed(42)
 fit_multi <- lavaan::sem(model_multi, data = df_sem2,
-                         se = "bootstrap", bootstrap = 300, seed = 42)
+                         se = "bootstrap", bootstrap = 300)
 
 params_multi <- lavaan::parameterEstimates(fit_multi, boot.ci.type = "perc")
 params_multi[params_multi$label %in%

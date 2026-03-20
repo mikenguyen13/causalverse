@@ -15,10 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(causalverse)
-library(fixest)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
 ```
 
 # 1. Introduction
@@ -312,7 +308,7 @@ event_window_data <- sim_data %>%
 # Average abnormal returns across firms for each event day
 avg_ar <- event_window_data %>%
     group_by(event_time) %>%
-    summarise(
+    dplyr::summarise(
         mean_ar = mean(ar),
         se_ar   = sd(ar) / sqrt(n()),
         n_firms = n(),
@@ -356,7 +352,7 @@ compute_car <- function(data, tau1, tau2) {
     data %>%
         filter(event_time >= tau1 & event_time <= tau2) %>%
         group_by(firm_id) %>%
-        summarise(
+        dplyr::summarise(
             car        = sum(ar),
             window     = paste0("(", tau1, ",", tau2, ")"),
             .groups    = "drop"
@@ -375,7 +371,7 @@ all_cars <- bind_rows(car_1_1, car_5_5, car_10_10, car_0_0)
 # Summary statistics by window
 car_summary <- all_cars %>%
     group_by(window) %>%
-    summarise(
+    dplyr::summarise(
         mean_car   = mean(car),
         median_car = median(car),
         sd_car     = sd(car),
@@ -611,7 +607,7 @@ avg_rank <- mean(event_day_ranks$centered_rank)
 # Standard deviation of average ranks (computed from all days in the sample)
 rank_sd <- rank_data %>%
     group_by(day) %>%
-    summarise(daily_avg_rank = mean(centered_rank), .groups = "drop") %>%
+    dplyr::summarise(daily_avg_rank = mean(centered_rank), .groups = "drop") %>%
     pull(daily_avg_rank) %>%
     sd()
 
@@ -698,7 +694,7 @@ cat("p-value:    ", format.pval(t_bhar$p.value, digits = 4), "\n")
 # Average BHAR over time
 avg_bhar <- bhar_data %>%
     group_by(event_time) %>%
-    summarise(
+    dplyr::summarise(
         mean_bhar = mean(cum_ret - cum_mkt_ret),
         se_bhar   = sd(cum_ret - cum_mkt_ret) / sqrt(n()),
         .groups   = "drop"
@@ -738,7 +734,7 @@ ctar_data <- sim_data %>%
 # Equal-weighted portfolio return each day
 ctar_portfolio <- ctar_data %>%
     group_by(day) %>%
-    summarise(
+    dplyr::summarise(
         port_ret   = mean(ret),
         port_mkt   = mean(market_ret),
         n_firms    = n(),
@@ -780,7 +776,7 @@ ff3 <- ff3 %>%
         hml    = HML / 100,
         rf     = RF / 100
     ) %>%
-    select(date, mkt_rf, smb, hml, rf) %>%
+    dplyr::select(date, mkt_rf, smb, hml, rf) %>%
     filter(!is.na(date))
 
 # --- Simulate stock return data to merge with the factor data ---
@@ -819,7 +815,7 @@ merged_data$ar_ff3 <- merged_data$excess_ret -
 # Show event-window abnormal returns
 merged_data %>%
     filter(event_time >= -5 & event_time <= 5) %>%
-    select(date, event_time, ret, excess_ret, ar_ff3) %>%
+    dplyr::select(date, event_time, ret, excess_ret, ar_ff3) %>%
     print()
 
 summary(ff3_model)
@@ -840,7 +836,7 @@ mom <- mom %>%
         date = as.Date(as.character(date), format = "%Y%m%d"),
         umd  = Mom / 100
     ) %>%
-    select(date, umd) %>%
+    dplyr::select(date, umd) %>%
     filter(!is.na(date))
 
 # Merge momentum factor into merged_data created in the FF3 chunk
@@ -863,7 +859,7 @@ merged_data$ar_ff4 <- merged_data$excess_ret -
 # Show event-window abnormal returns
 merged_data %>%
     filter(event_time >= -5 & event_time <= 5) %>%
-    select(date, event_time, ar_ff3, ar_ff4) %>%
+    dplyr::select(date, event_time, ar_ff3, ar_ff4) %>%
     print()
 
 summary(ff4_model)
@@ -906,7 +902,7 @@ sim_dates <- sim_dates[seq_len(n_days)]
 firm_returns_wide <- sim_data %>%
     filter(firm_id <= 5) %>%
     mutate(date = sim_dates[day]) %>%
-    select(date, firm_id, ret) %>%
+    dplyr::select(date, firm_id, ret) %>%
     tidyr::pivot_wider(names_from = firm_id, values_from = ret,
                        names_prefix = "firm_")
 
@@ -1556,7 +1552,7 @@ est_subset <- sim_data %>%
 
 params <- est_subset %>%
     group_by(firm_id) %>%
-    summarise(
+    dplyr::summarise(
         alpha_hat = coef(lm(ret ~ market_ret))[1],
         beta_hat  = coef(lm(ret ~ market_ret))[2],
         sigma_hat = summary(lm(ret ~ market_ret))$sigma,
@@ -1572,7 +1568,7 @@ evt_subset <- sim_data %>%
 # Step 4: Aggregate
 agg_ar <- evt_subset %>%
     group_by(event_time) %>%
-    summarise(
+    dplyr::summarise(
         aar    = mean(ar_pipeline),
         se_aar = sd(ar_pipeline) / sqrt(n()),
         .groups = "drop"
@@ -1600,7 +1596,7 @@ ggplot(agg_ar, aes(x = event_time)) +
 pipeline_car <- evt_subset %>%
     filter(event_time >= -1 & event_time <= 1) %>%
     group_by(firm_id) %>%
-    summarise(car = sum(ar_pipeline), .groups = "drop")
+    dplyr::summarise(car = sum(ar_pipeline), .groups = "drop")
 
 cat("======================================\n")
 cat("EVENT STUDY RESULTS: CAR(-1, +1)\n")
@@ -1640,8 +1636,6 @@ $$\text{DAR}_i = \text{CAR}_i(\tau_1, \tau_2) \times \text{MarketCap}_{i, \tau_1
 where $\text{MarketCap}_{i, \tau_1 - 1}$ is the market capitalization on the **last trading day before the event window** opens. This timing is critical: using the market cap on the event date confounds the wealth effect with itself.
 
 ```{r total-valuation-setup, message=FALSE}
-library(dplyr)
-library(ggplot2)
 
 set.seed(2024)
 
@@ -1670,7 +1664,7 @@ firms_df$DAR <- firms_df$CAR * firms_df$mcap_pre
 cat("=== Total Wealth Effects by Industry ===\n")
 industry_summary <- firms_df %>%
     group_by(industry) %>%
-    summarise(
+    dplyr::summarise(
         n         = n(),
         mean_CAR  = mean(CAR),
         total_DAR = sum(DAR),
@@ -2318,10 +2312,9 @@ reg_df$DAR_cum  <- reg_df$CAR_cum * reg_df$mcap_pre
 reg_df$DAR_e1   <- reg_df$CAR_event1 * reg_df$mcap_pre
 
 # Summary by firm type
-library(dplyr)
 reg_summary <- reg_df %>%
   group_by(type) %>%
-  summarise(
+  dplyr::summarise(
     n          = n(),
     mean_CAR   = mean(CAR_cum) * 100,
     total_DAR  = sum(DAR_cum) / 1e3,   # $B
@@ -2344,7 +2337,6 @@ cat("this against projected benefits (reduced systemic risk, etc.).\n")
 
 ```{r regulatory-plot, message=FALSE, fig.width=9, fig.height=5}
 # Visualize: cumulative regulatory cost across events by firm type
-library(tidyr)
 
 plot_df <- reg_df %>%
   mutate(
@@ -2481,7 +2473,7 @@ for (i in seq_len(n_firms_d)) {
     true_drift <- if (leakage[i] == 1) {
         # Drift: starts accumulating 10 days before event
         c(rep(0, 10), cumsum(rnorm(10, 0.003, 0.005)),
-          rnorm(5, 0.002, 0.010), rnorm(6, -0.001, 0.010))
+          rnorm(6, 0.001, 0.010))
     } else {
         cumsum(rnorm(length(days_range), 0, 0.008))
     }

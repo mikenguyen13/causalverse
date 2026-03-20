@@ -15,8 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE, warning = FA
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(causalverse)
-library(ggplot2)
-library(dplyr)
 ```
 
 ---
@@ -978,7 +976,7 @@ calib_df$decile <- cut(tau_cf,
 
 calib_tab <- calib_df %>%
   group_by(decile) %>%
-  summarise(
+  dplyr::summarise(
     pred_cate    = mean(tau_cf),
     true_cate    = mean(tau_true),
     realized_eff = mean(Y[W == 1]) - mean(Y[W == 0]),
@@ -1093,7 +1091,7 @@ The coefficient $\theta_1$ estimates how the treatment effect changes per unit i
 
 ### 8.4 Using the DoubleML Package
 
-```{r doubleml, eval=requireNamespace("DoubleML", quietly=TRUE) && requireNamespace("mlr3", quietly=TRUE) && requireNamespace("mlr3learners", quietly=TRUE)}
+```{r doubleml, eval=requireNamespace("DoubleML", quietly=TRUE) && requireNamespace("mlr3", quietly=TRUE) && requireNamespace("mlr3learners", quietly=TRUE), error=TRUE}
 library(DoubleML)
 library(mlr3)
 library(mlr3learners)

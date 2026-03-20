@@ -1,5 +1,5 @@
 library(testthat)
-library(dplyr)
+library(causalverse)
 
 # Sample data for testing - mediator must be binary for lee bounds
 set.seed(42)

@@ -11,7 +11,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' library(ggplot2)
 #' ggplot(mtcars, aes(mpg, wt, color = gear)) + geom_point(size = 4) + ama_scale_color()
 #' }
 ama_scale_color <- function(use_color = FALSE, palette_name = "OkabeIto", grayscale_limits = c(0.2, 0.8)) {

@@ -21,7 +21,6 @@
 #' @return A ggplot2 heatmap object.
 #'
 #' @examples
-#' library(fixest)
 #' treatment_calendar(
 #'   data      = base_stagg,
 #'   unit_var  = "id",

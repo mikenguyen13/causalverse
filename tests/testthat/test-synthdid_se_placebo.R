@@ -1,7 +1,6 @@
 library(testthat)
 library(causalverse)  
 library(synthdid)
-library(dplyr)
 
 # Test 1: Function returns a list
 test_that("synthdid_se_placebo returns a vector of double", {

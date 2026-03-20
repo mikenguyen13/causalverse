@@ -15,9 +15,6 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(causalverse)
-library(ggplot2)
-library(dplyr)
-library(tidyr)
 ```
 
 ## Introduction
@@ -274,7 +271,7 @@ The E-value has an appealing interpretation: an unmeasured confounder that could
 
 ### Computing E-values
 
-```{r evalue-basic, eval=requireNamespace("EValue", quietly = TRUE)}
+```{r evalue-basic, eval=requireNamespace("EValue", quietly = TRUE), error=TRUE}
 library(EValue)
 
 # For a risk ratio
@@ -292,7 +289,7 @@ evalues.OLS(est = 0.5, se = 0.1)
 
 ### E-values for Different Study Designs
 
-```{r evalue-designs, eval=requireNamespace("EValue", quietly = TRUE)}
+```{r evalue-designs, eval=requireNamespace("EValue", quietly = TRUE), error=TRUE}
 # Convert an odds ratio to approximate risk ratio first
 # for a common outcome (prevalence > 10%)
 or_val  <- 2.5
@@ -308,7 +305,7 @@ evalues.OLS(est = 0.35, se = 0.08)
 
 ### Visualization
 
-```{r evalue-plot, eval=requireNamespace("EValue", quietly = TRUE)}
+```{r evalue-plot, eval=requireNamespace("EValue", quietly = TRUE), error=TRUE}
 # Bias plot
 bias_plot(est = 3.9, lo = 1.8, hi = 8.7)
 ```
@@ -338,7 +335,6 @@ Standard DID assumes that treatment and control groups would have followed ident
 
 ```{r honestdid-setup, eval=FALSE && requireNamespace("fixest", quietly = TRUE)}
 library(HonestDiD)
-library(fixest)
 
 # Simulate panel data for an event-study design
 set.seed(300)
@@ -756,7 +752,7 @@ print(p1)
 ```{r spec-curve-indicators, eval=TRUE, fig.width=7, fig.height=4}
 # Lower panel: specification indicators
 indicator_df <- spec_df |>
-  select(rank, controls, sample) |>
+  dplyr::select(rank, controls, sample) |>
   pivot_longer(cols = c(controls, sample),
                names_to = "dimension", values_to = "choice")
 
@@ -999,7 +995,6 @@ The Romano-Wolf procedure controls the FWER while accounting for the dependence 
 
 ```{r romano-wolf, eval=requireNamespace("wildrwolf", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
 library(wildrwolf)
-library(fixest)
 
 # Simulate multi-outcome data with clusters
 set.seed(600)
@@ -1296,7 +1291,6 @@ The wild cluster bootstrap (Cameron, Gelbach, and Miller, 2008) is particularly 
 
 ```{r wild-bootstrap, eval=requireNamespace("fwildclusterboot", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
 library(fwildclusterboot)
-library(fixest)
 
 # Simulate panel data for wild cluster bootstrap
 set.seed(800)
@@ -1669,7 +1663,6 @@ Sensitivity analyses are most compelling when reported alongside diagnostic visu
 The `sensemakr` contour plot maps the space of unmeasured confounder strengths $(R^2_{Y \sim Z|X,D},\, R^2_{D \sim Z|X})$ and marks contours of the adjusted treatment effect. Benchmark comparisons anchor the contours to the observed covariates.
 
 ```{r sens-contour-setup, eval=TRUE, message=FALSE, warning=FALSE}
-library(ggplot2)
 set.seed(42)
 n_s <- 800
 x1  <- rnorm(n_s)
@@ -1987,7 +1980,7 @@ The sharp (Manski) bounds assume only that potential outcomes are bounded in $[Y
 $$[E[Y|D=1] P(D=1) + Y_{min} P(D=0)] - [E[Y|D=0] P(D=0) + Y_{max} P(D=1)],$$
 $$[E[Y|D=1] P(D=1) + Y_{max} P(D=0)] - [E[Y|D=0] P(D=0) + Y_{min} P(D=1)].$$
 
-```{r manski-bounds, eval=TRUE, message=FALSE, warning=FALSE}
+```{r manski-bounds-comparison, eval=TRUE, message=FALSE, warning=FALSE}
 # Simulate selection data
 set.seed(42)
 n_b  <- 1000
@@ -2463,7 +2456,6 @@ cat(sprintf("MTR + MTS:         [%.3f, %.3f]  width = %.3f\n",
 ```
 
 ```{r manski-bounds-plot, message=FALSE, warning=FALSE}
-library(ggplot2)
 
 bounds_df <- data.frame(
   Assumption = factor(
@@ -2641,7 +2633,7 @@ sense_out <- sensemakr(
 summary(sense_out)
 ```
 
-```{r sensemakr-contour, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+```{r sensemakr-contour-matched, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
 # Contour plot: combinations of (R2_DZ, R2_YZ) that reduce estimate to 0
 plot(sense_out,
      sensitivity.of = "t-value",
@@ -2664,7 +2656,7 @@ cat(sprintf("Partial R2 of treat on outcome: %.4f\n",
             rv_stats$r2yd_x))
 ```
 
-```{r sensemakr-extreme, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
+```{r sensemakr-extreme-matched, eval=requireNamespace("sensemakr", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), message=FALSE, warning=FALSE}
 # Extreme-scenario sensitivity: confounder explains ALL residual variance in D
 extreme_out <- adjusted_estimate(
   sense_out,
@@ -2735,7 +2727,6 @@ cat(sprintf("Partial R2 (equal in D and Y) needed to halve effect: %.4f\n",
 ### Putting It All Together: A Sensitivity Dashboard
 
 ```{r sensitivity-dashboard, message=FALSE, warning=FALSE}
-library(ggplot2)
 
 # Construct a grid of (R2_DZ, R2_YZ) and compute adjusted estimates
 r2_grid <- seq(0, 0.3, by = 0.01)

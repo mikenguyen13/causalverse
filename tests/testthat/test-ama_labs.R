@@ -1,5 +1,5 @@
-library(ggplot2)
 library(testthat)
+library(causalverse)
 
 test_that("ama_labs applies correct label formatting", {
   p <- ggplot(mtcars, aes(mpg, wt)) + 

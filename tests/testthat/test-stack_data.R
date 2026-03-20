@@ -1,6 +1,5 @@
 library(testthat)
 library(causalverse)
-library(fixest)
 
 data(base_stagg)
 

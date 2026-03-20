@@ -1,6 +1,6 @@
 library(testthat)
 library(xtable)
-library(rio)
+library(causalverse)
 
 # Assuming ama_export_tab and any other necessary functions are loaded.
 

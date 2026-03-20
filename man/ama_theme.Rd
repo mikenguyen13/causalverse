@@ -40,7 +40,6 @@ This function provides a custom theme for ggplot2 following the guidelines set b
 }
 \examples{
 \dontrun{
-library(ggplot2)
 # Using Arial font
 ggplot(mtcars, aes(mpg, wt)) + geom_point() + ama_theme()
 # Using Times New Roman font

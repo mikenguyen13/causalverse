@@ -1,5 +1,6 @@
 library(testthat)
 library(synthdid)
+library(causalverse)
 
 test_that("panel_estimate works with default parameters", {
   data('california_prop99')

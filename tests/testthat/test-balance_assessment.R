@@ -1,4 +1,5 @@
 library(testthat)
+library(causalverse)
 
 test_that("balance_assessment returns expected SUR and Hotelling results", {
   set.seed(123)

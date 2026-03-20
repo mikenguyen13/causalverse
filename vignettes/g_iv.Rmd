@@ -19,9 +19,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(causalverse)
-library(fixest)
-library(dplyr)
-library(ggplot2)
 ```
 
 
@@ -1121,7 +1118,7 @@ For presentations and publications, a binned scatter plot can provide a cleaner 
 df$z_bin <- cut(df$z, breaks = 20, labels = FALSE)
 bin_means <- df %>%
     group_by(z_bin) %>%
-    summarise(
+    dplyr::summarise(
         z_mean = mean(z),
         d_mean = mean(d),
         d_se   = sd(d) / sqrt(n()),
@@ -1312,7 +1309,7 @@ Three variants are available:
 
 ## Implementation with `hdm`
 
-```{r lasso-iv, eval = requireNamespace("hdm", quietly = TRUE)}
+```{r lasso-iv, eval = requireNamespace("hdm", quietly = TRUE), error = TRUE}
 library(hdm)
 
 # Simulate data with many candidate instruments
@@ -2487,7 +2484,6 @@ The LATE identifies the causal effect only for compliers. Whether this is the po
 Understanding who the compliers are is crucial for external validity. The share of compliers can be computed from the first stage: $P(\text{complier}) = E[D|Z=1] - E[D|Z=0]$. Complier characteristics can be estimated by comparing the distribution of covariates across instrument values, weighted by compliance probability.
 
 ```{r late_complier_char, eval=requireNamespace("fixest", quietly=TRUE)}
-library(fixest)
 
 # Simulate a setting with heterogeneous treatment effects
 set.seed(7)
@@ -2596,7 +2592,7 @@ df_larf$Z_decile <- cut(df_larf$Z, breaks = quantile(df_larf$Z, seq(0, 1, 0.2)),
 
 larf_df <- df_larf |>
   group_by(Z_decile) |>
-  summarise(
+  dplyr::summarise(
     Z_mid       = mean(Z),
     compliance  = mean(D),
     rf          = cov(Y, Z) / var(Z),   # reduced form approximation
@@ -2641,8 +2637,6 @@ Borusyak, Hull, and Jaravel (2022) provide an alternative: identification from t
 ## Rotemberg Weights and Industry Concentration
 
 ```{r bartik_setup, eval=requireNamespace("fixest", quietly=TRUE)}
-library(fixest)
-library(dplyr)
 
 set.seed(314)
 
@@ -3033,7 +3027,6 @@ cat(sprintf("OLS estimate:        %.4f\n",
 
 # Estimate E[Y | Z] nonparametrically, then differentiate
 # LIV (Local Instrumental Variable) estimator
-library(dplyr)
 
 # Bin the propensity score into quantiles and estimate local IV
 df_mte$p_bin <- cut(df_mte$p_score,
@@ -3043,7 +3036,7 @@ df_mte$p_bin <- cut(df_mte$p_score,
 # Local Wald estimates in each p-score bin
 mte_estimates <- df_mte |>
   group_by(p_bin) |>
-  summarise(
+  dplyr::summarise(
     p_mid   = mean(p_score),
     ey      = mean(Y),
     ed      = mean(D),
