@@ -42,7 +42,7 @@
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -61,6 +61,8 @@
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -68,7 +70,16 @@
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -121,9 +132,8 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span>, fill <span class="op">=</span> <span class="va">gear</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span></span>
-<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span>, fill <span class="op">=</span> <span class="va">gear</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span></span>
+<span class="r-in"><span><span class="fu">geom_point</span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">21</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> </span></span>
 <span class="r-in"><span><span class="fu">ama_scale_fill</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>

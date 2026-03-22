@@ -1645,7 +1645,7 @@ ggplot(decomp_df, aes(x = effect, y = estimate, fill = effect)) +
 
 ### 3. Sensitivity Plot: ACME vs. Rho
 
-```{r sensitivity-viz, fig.width=7, fig.height=5, eval=requireNamespace("mediation", quietly=TRUE)}
+```{r sensitivity-viz, fig.width=7, fig.height=5, eval=FALSE}
 # Extract sensitivity data
 rho_seq  <- seq(-0.9, 0.9, by = 0.05)
 acme_rho <- sens_out$d0   # ACME estimates at each rho

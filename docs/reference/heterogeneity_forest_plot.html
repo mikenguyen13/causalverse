@@ -44,7 +44,7 @@ effect size. An optional overall estimate is shown as a diamond."><meta property
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -63,6 +63,8 @@ effect size. An optional overall estimate is shown as a diamond."><meta property
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -70,7 +72,16 @@ effect size. An optional overall estimate is shown as a diamond."><meta property
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -189,14 +200,7 @@ optional overall-effect diamond is drawn at the bottom.</p>
 <span class="r-in"><span>  title     <span class="op">=</span> <span class="st">"Subgroup Treatment Effects"</span>,</span></span>
 <span class="r-in"><span>  sort_by   <span class="op">=</span> <span class="st">"estimate"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The dot-dot notation (`..sig..`) was deprecated in ggplot2 3.4.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `after_stat(sig)` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">causalverse</span> package.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue to the authors.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ggplot2::geom_segment(ggplot2::aes(x = ci_lower, xend = ci_upper,     yend = label), linewidth = 0.9, alpha = 0.8):</span> Problem while mapping stat to aesthetics.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Error occurred in the 2nd layer.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'sig' not found</span>
+<span class="r-plt img"><img src="heterogeneity_forest_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -45,7 +45,7 @@ that remain valid under bounded violations of parallel trends."><meta property="
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -64,6 +64,8 @@ that remain valid under bounded violations of parallel trends."><meta property="
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -71,7 +73,16 @@ that remain valid under bounded violations of parallel trends."><meta property="
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -113,7 +124,7 @@ that remain valid under bounded violations of parallel trends.</p>
 <dl><dt id="arg-event-study">event_study<a class="anchor" aria-label="anchor" href="#arg-event-study"></a></dt>
 <dd><p>A data frame with columns <code>period</code>, <code>estimate</code>,
 <code>std_error</code> from an event study regression, or a <code>fixest</code> model
-estimated with <code><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i()</a></code> interactions.</p></dd>
+estimated with <code>i()</code> interactions.</p></dd>
 
 
 <dt id="arg-ref-period">ref_period<a class="anchor" aria-label="anchor" href="#arg-ref-period"></a></dt>
@@ -176,9 +187,8 @@ Trends." <em>Review of Economic Studies</em>, 90(5), 2555-2591.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">base_stagg</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/i.html" class="external-link">i</a></span><span class="op">(</span><span class="va">time_to_treatment</span>, ref <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">feols</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">i</span><span class="op">(</span><span class="va">time_to_treatment</span>, ref <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, <span class="va">base_stagg</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">pretrend_sensitivity</span><span class="op">(</span><span class="va">mod</span>, M_seq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, by <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">res</span><span class="op">$</span><span class="va">breakdown_M</span></span></span>
 <span class="r-in"><span><span class="va">res</span><span class="op">$</span><span class="va">plot</span></span></span>

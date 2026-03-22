@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE,
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval=FALSE,
                       warning = FALSE, message = FALSE)
 library(causalverse)
 ```
@@ -139,7 +139,7 @@ cat("Max observations per unit:", max(obs_per_unit$n_obs), "\n")
 
 The `get_balanced_panel()` function extracts a balanced panel for a specific adoption cohort in a staggered treatment design.
 
-```{r balanced-panel-demo, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r balanced-panel-demo, eval=FALSE}
 
 # Demonstrate with fixest's built-in staggered data
 balanced_ex <- get_balanced_panel(
@@ -278,7 +278,7 @@ Pooled OLS is **consistent** only if $E[\alpha_i | \mathbf{x}_{it}] = 0$  -  i.e
 
 ### 3.2 Estimation
 
-```{r pooled-ols, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r pooled-ols, eval=FALSE}
 
 # Pooled OLS (no fixed effects)
 ols_pool <- feols(y ~ x1 + x2, data = panel_df, cluster = ~unit)
@@ -293,7 +293,7 @@ $$\hat{V}_{LZ} = (X'X)^{-1} \left(\sum_{i=1}^{N} X_i' \hat{u}_i \hat{u}_i' X_i\r
 
 Clustering at the unit level accounts for serial correlation within units. This is the minimum adjustment any panel regression should make.
 
-```{r ols-se-comparison, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r ols-se-comparison, eval=FALSE}
 # Compare heteroskedasticity-robust vs cluster-robust SEs
 ols_hc  <- feols(y ~ x1 + x2, data = panel_df, se = "hetero")
 ols_cl  <- feols(y ~ x1 + x2, data = panel_df, cluster = ~unit)
@@ -328,7 +328,7 @@ Including both unit and time fixed effects absorbs:
 1. All unobserved time-invariant unit heterogeneity ($\alpha_i$)
 2. All unobserved unit-invariant time shocks ($\lambda_t$, e.g., recessions, policy changes)
 
-```{r twfe, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r twfe, eval=FALSE}
 # Unit FE only
 fe_unit <- feols(y ~ x1 + x2 | unit, data = panel_df, cluster = ~unit)
 
@@ -350,7 +350,7 @@ When the error may be correlated both within units (across time) and within time
 
 $$\hat{V}_{2W} = \hat{V}_{cluster_i} + \hat{V}_{cluster_t} - \hat{V}_{HC}$$
 
-```{r twoway-cluster, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r twoway-cluster, eval=FALSE}
 # Two-way clustered SEs: cluster by unit AND year
 fe_2wc <- feols(y ~ x1 + x2 | unit + year,
                 data    = panel_df,
@@ -365,7 +365,7 @@ Two-way clustering inflates SEs further when there is cross-sectional dependence
 
 ### 4.5 Extracting Fixed Effects
 
-```{r extract-fe, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r extract-fe, eval=FALSE}
 # Extract estimated unit fixed effects
 fe_vals <- fixef(fe_twoway)
 fe_unit_vals <- fe_vals$unit
@@ -380,7 +380,7 @@ cat("Correlation between estimated and true unit FEs:", round(cor_fe, 4), "\n")
 
 ### 4.6 Using `tidy_causal()` for FE Results
 
-```{r tidy-fe, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r tidy-fe, eval=FALSE}
 fe_tidy <- tidy_causal(fe_twoway)
 print(fe_tidy)
 ```
@@ -401,7 +401,7 @@ $$\tilde{y}_{it} = y_{it} - \hat{\theta} \bar{y}_i, \quad \hat{\theta} = 1 - \fr
 
 When $\hat{\theta} \to 1$ the RE estimator converges to FE; when $\hat{\theta} \to 0$ it converges to pooled OLS.
 
-```{r re-model, eval = requireNamespace("plm", quietly = TRUE)}
+```{r re-model, eval=FALSE}
 library(plm)
 
 panel_pdata <- pdata.frame(panel_df, index = c("unit", "year"))
@@ -425,7 +425,7 @@ The test statistic:
 
 $$H = (\hat{\beta}_{FE} - \hat{\beta}_{RE})' \left[\text{Var}(\hat{\beta}_{FE}) - \text{Var}(\hat{\beta}_{RE})\right]^{-1} (\hat{\beta}_{FE} - \hat{\beta}_{RE}) \sim \chi^2_k$$
 
-```{r hausman-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r hausman-test, eval=FALSE}
 fe_plm <- plm(y ~ x1 + x2,
               data   = panel_pdata,
               effect = "individual",
@@ -455,7 +455,7 @@ $$y_{it} = \mathbf{x}_{it}'\boldsymbol{\beta} + \bar{\mathbf{x}}_i'\boldsymbol{\
 
 If $\boldsymbol{\gamma} = 0$, RE is consistent. If $\boldsymbol{\gamma} \neq 0$, the unit effects are correlated with regressors and FE is required. The coefficient $\boldsymbol{\beta}$ in this CRE model equals the FE estimate.
 
-```{r mundlak-cre, eval = requireNamespace("plm", quietly = TRUE) && requireNamespace("car", quietly = TRUE)}
+```{r mundlak-cre, eval=FALSE}
 library(car)
 # Compute unit means
 panel_cre <- panel_df |>
@@ -501,7 +501,7 @@ FD eliminates $\alpha_i$ just like the within estimator. Key considerations:
 - **T > 2**: FD is less efficient than FE if $\varepsilon_{it}$ is serially uncorrelated (FE uses more information). However, FD may be **more efficient** if $\varepsilon_{it}$ follows a random walk ($\Delta \varepsilon_{it}$ is white noise)
 - FD is natural for cointegrated variables
 
-```{r fd-estimator, eval = requireNamespace("plm", quietly = TRUE)}
+```{r fd-estimator, eval=FALSE}
 fd_model <- plm(y ~ x1 + x2,
                 data  = panel_pdata,
                 model = "fd")
@@ -511,7 +511,7 @@ summary(fd_model)
 
 ### 6.2 FD vs FE Comparison
 
-```{r fd-vs-fe, eval = requireNamespace("plm", quietly = TRUE)}
+```{r fd-vs-fe, eval=FALSE}
 cat("First-difference estimates:\n")
 cat("  x1:", round(coef(fd_model)["x1"], 4), "\n")
 cat("  x2:", round(coef(fd_model)["x2"], 4), "\n\n")
@@ -527,7 +527,7 @@ Both should be close to the true values (1.0 for x1, 0.5 for x2). Differences re
 
 When $\Delta \mathbf{x}_{it}$ is endogenous, we can instrument with lagged levels $\mathbf{x}_{i,t-2}$ (Anderson-Hsiao 1981):
 
-```{r fd-iv, eval = requireNamespace("plm", quietly = TRUE)}
+```{r fd-iv, eval=FALSE}
 # Anderson-Hsiao IV: instrument Δx1 with x1 lagged two periods
 fd_iv <- plm(
   y ~ x1 + x2 | lag(x1, 2) + x2,
@@ -549,7 +549,7 @@ $$\bar{y}_i = \bar{\mathbf{x}}_i' \boldsymbol{\beta} + \bar{\varepsilon}_i$$
 
 This uses **only between-unit variation**  -  it is a simple cross-sectional OLS on unit averages.
 
-```{r between-est, eval = requireNamespace("plm", quietly = TRUE)}
+```{r between-est, eval=FALSE}
 between_model <- plm(y ~ x1 + x2,
                      data  = panel_pdata,
                      model = "between")
@@ -564,7 +564,7 @@ The between estimator is inconsistent when unit effects $\alpha_i$ are correlate
 - **Long-run effects**: unit means capture permanent variation, so the between estimator approximates long-run elasticities
 - **Diagnosis**: large differences between FE (within) and between estimates signal that unit effects are correlated with regressors
 
-```{r between-vs-within}
+```{r between-vs-within, eval=FALSE}
 # Compare all three estimators
 est_comparison <- data.frame(
   Estimator = c("Pooled OLS", "Between", "Within (FE)"),
@@ -661,7 +661,7 @@ If variables are integrated of order 1, I(1), then level regressions produce spu
 
 ### 9.2 ADF Test Per Unit
 
-```{r adf-per-unit, eval = requireNamespace("tseries", quietly = TRUE)}
+```{r adf-per-unit, eval=FALSE}
 library(tseries)
 
 # Run ADF on each unit's y series
@@ -685,7 +685,7 @@ cat("  % units rejecting unit root at 5%:",
     round(100 * mean(adf_results$adf_pval < 0.05, na.rm = TRUE), 1), "%\n")
 ```
 
-```{r adf-histogram, eval = requireNamespace("tseries", quietly = TRUE), fig.width=6, fig.height=4}
+```{r adf-histogram, eval=FALSE, fig.width=6, fig.height=4}
 ggplot(adf_results, aes(x = adf_stat)) +
   geom_histogram(bins = 20, fill = "#2166ac", color = "white", alpha = 0.8) +
   geom_vline(xintercept = -3.5, linetype = "dashed", color = "red",
@@ -703,7 +703,7 @@ ggplot(adf_results, aes(x = adf_stat)) +
 
 While ADF tests $H_0$: unit root, KPSS tests $H_0$: stationarity. Together they provide complementary evidence.
 
-```{r kpss-test, eval = requireNamespace("tseries", quietly = TRUE)}
+```{r kpss-test, eval=FALSE}
 # KPSS on a single unit as demonstration
 unit1_y <- panel_df |> filter(unit == 1) |> pull(y)
 
@@ -723,7 +723,7 @@ where $\bar{t} = N^{-1} \sum_i t_i$ and the mean and variance are tabulated by I
 $H_0$: All units have a unit root.
 $H_1$: At least some units are stationary (fraction $\delta > 0$).
 
-```{r ips-test, eval = requireNamespace("tseries", quietly = TRUE)}
+```{r ips-test, eval=FALSE}
 # IPS test using tabulated moments (T=10 case, no trend)
 # Approximate tabulated values for T=10, no lag augmentation
 ips_mean_tab <- -1.504
@@ -823,7 +823,7 @@ In panel FE models, the idiosyncratic error $\varepsilon_{it}$ is often serially
 
 Wooldridge's test is simple: after FE estimation, regress the FE residuals (first-differenced to remove the unit effect) on their lags. Under $H_0$: no serial correlation in levels, the coefficient on lagged differenced residuals should equal $-0.5$.
 
-```{r wooldridge-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r wooldridge-test, eval=FALSE}
 library(plm)
 
 # Wooldridge test for serial correlation
@@ -841,7 +841,7 @@ if (w_test$p.value < 0.05) {
 
 ### 10.3 Breusch-Godfrey / Durbin-Watson for Panels
 
-```{r bg-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r bg-test, eval=FALSE}
 # Durbin-Watson test for panel
 dw_test <- pdwtest(fe_plm)
 cat("Panel Durbin-Watson test:\n")
@@ -850,7 +850,7 @@ print(dw_test)
 
 ### 10.4 Correcting Serial Correlation
 
-```{r ar1-correction, eval = requireNamespace("plm", quietly = TRUE)}
+```{r ar1-correction, eval=FALSE}
 # FGLS with AR(1) correction (Baltagi-Wu)
 fe_ar1 <- plm(y ~ x1 + x2,
               data        = panel_pdata,
@@ -883,7 +883,7 @@ $$CD = \sqrt{\frac{2T}{N(N-1)}} \sum_{i=1}^{N-1} \sum_{j=i+1}^{N} \hat{\rho}_{ij
 
 where $\hat{\rho}_{ij}$ is the estimated correlation between unit $i$ and unit $j$ residuals.
 
-```{r pesaran-cd, eval = requireNamespace("plm", quietly = TRUE)}
+```{r pesaran-cd, eval=FALSE}
 cd_test <- pcdtest(fe_plm, test = "cd")
 print(cd_test)
 
@@ -900,7 +900,7 @@ if (cd_test$p.value < 0.05) {
 
 Frees' test uses squared rank correlations and is robust to non-normal errors:
 
-```{r frees-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r frees-test, eval=FALSE}
 frees_test <- pcdtest(fe_plm, test = "rho")
 print(frees_test)
 ```
@@ -946,7 +946,7 @@ cat("CCEMG estimate of beta_x1:",
 
 Heteroskedasticity in panels means $\text{Var}(\varepsilon_{it}) = \sigma_i^2$  -  the error variance differs across units. This is extremely common in empirical work (larger units tend to have larger residuals).
 
-```{r hetero-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r hetero-test, eval=FALSE}
 # Breusch-Pagan test for panel heteroskedasticity
 bp_test <- bptest(fe_plm, studentize = FALSE)
 print(bp_test)
@@ -954,7 +954,7 @@ print(bp_test)
 
 ### 12.2 Modified Wald Test for Group-Wise Heteroskedasticity
 
-```{r modified-wald, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r modified-wald, eval=FALSE}
 # Compare residual variance across groups
 fe_resid <- residuals(fe_twoway)
 panel_with_resid <- panel_df |>
@@ -977,7 +977,7 @@ cat("(Ratio >> 1 indicates heteroskedasticity)\n")
 
 The most practical solution to heteroskedasticity in panels is **cluster-robust SEs** (already presented in Section 4). Alternatively, FGLS with estimated unit-specific variances:
 
-```{r fgls-hetero, eval = requireNamespace("plm", quietly = TRUE)}
+```{r fgls-hetero, eval=FALSE}
 # FGLS: weight observations by inverse estimated variance
 unit_vars <- panel_with_resid |>
   group_by(unit) |>
@@ -1004,7 +1004,7 @@ cat("FGLS (WLS) x2:", round(coef(fgls_model)["x2"], 4), "\n")
 
 Including a lagged dependent variable in FE causes the Nickell (1981) bias. The within transformation subtracts unit means from $y_{i,t-1}$, but the demeaned lag $\tilde{y}_{i,t-1} = y_{i,t-1} - \bar{y}_i$ is correlated with the demeaned error because $\bar{y}_i$ depends on $y_{i,t-1}$. The bias is of order $O(1/T)$, so it is negligible only when $T$ is large.
 
-```{r nickell-bias-demo, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r nickell-bias-demo, eval=FALSE}
 set.seed(1234)
 N_dyn <- 200
 T_dyn <- 6
@@ -1053,7 +1053,7 @@ $$\Delta y_{it} = \rho \Delta y_{i,t-1} + \Delta \mathbf{x}_{it}' \boldsymbol{\b
 
 Instruments: $\{y_{i,t-2}, y_{i,t-3}, \ldots\}$ (and lags of $\mathbf{x}$)
 
-```{r arellano-bond, eval = requireNamespace("plm", quietly = TRUE)}
+```{r arellano-bond, eval=FALSE}
 library(plm)
 
 dyn_pdata <- pdata.frame(dyn_panel, index = c("unit", "year"))
@@ -1074,7 +1074,7 @@ summary(ab_model, robust = TRUE)
 
 Blundell-Bond (1998) augments AB with an additional set of equations in levels, using lagged differences as instruments. System GMM is more efficient than difference GMM when the autoregressive parameter is close to 1 or the variance of unit effects is large relative to $\sigma^2_\varepsilon$.
 
-```{r system-gmm, eval = requireNamespace("plm", quietly = TRUE)}
+```{r system-gmm, eval=FALSE}
 # System GMM
 bb_model <- pgmm(
   y ~ lag(y, 1) + x1 | lag(y, 2:3),
@@ -1091,7 +1091,7 @@ summary(bb_model, robust = TRUE)
 
 The overidentification test checks whether the moment conditions are valid  -  i.e., whether the instruments are exogenous.
 
-```{r sargan-test, eval = requireNamespace("plm", quietly = TRUE)}
+```{r sargan-test, eval=FALSE}
 # Sargan test for over-identifying restrictions
 sargan_stat <- sargan(ab_model)
 print(sargan_stat)
@@ -1104,7 +1104,7 @@ cat("Reject H0 (p < 0.05) -> suspect instrument endogeneity.\n")
 
 The AR(2) test is crucial: first-differences will have AR(1) serial correlation by construction, but AR(2) in differences implies AR(1) in levels (instrument invalidity).
 
-```{r ab-ar-tests, eval = requireNamespace("plm", quietly = TRUE)}
+```{r ab-ar-tests, eval=FALSE}
 cat("Arellano-Bond Autocorrelation Tests:\n")
 cat("(These test for autocorrelation in the first-differenced residuals)\n\n")
 
@@ -1182,7 +1182,7 @@ For each unit $i$, run the cointegrating regression:
 $$y_{it} = \alpha_i + \beta_i x_{it} + u_{it}$$
 Then test whether $\hat{u}_{it}$ is stationary using ADF. If all/most units have stationary residuals, the panel is cointegrated.
 
-```{r engle-granger-panel, eval = requireNamespace("tseries", quietly = TRUE)}
+```{r engle-granger-panel, eval=FALSE}
 library(tseries)
 
 # Generate truly cointegrated panel: y = x + stationary u
@@ -1274,7 +1274,7 @@ where $\mathbf{F}_t$ is an $r \times 1$ vector of latent common factors and $\bo
 
 An iterative approach: alternate between estimating $\boldsymbol{\beta}$ (given factors) and estimating factors (given $\boldsymbol{\beta}$) until convergence.
 
-```{r bai-factor, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r bai-factor, eval=FALSE}
 set.seed(321)
 N_f <- 50
 T_f <- 15
@@ -1328,7 +1328,7 @@ cat("  Converged in", bai_result$iterations, "iterations\n")
 
 ### 15.3 Comparison: TWFE vs Interactive FE
 
-```{r twfe-vs-ife, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r twfe-vs-ife, eval=FALSE}
 twfe_fac <- feols(y_fac ~ x1 | unit + year, data = factor_panel, cluster = ~unit)
 cat("Two-Way FE estimate:", round(coef(twfe_fac)["x1"], 4), "\n")
 cat("Interactive FE:     ", round(bai_result$beta, 4), "\n")
@@ -1354,7 +1354,7 @@ Conditional logit (Chamberlain 1980) eliminates unit effects **exactly** by cond
 
 ### 16.2 Fixed Effects Logit
 
-```{r fe-logit, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r fe-logit, eval=FALSE}
 set.seed(444)
 logit_panel <- panel_df |>
   mutate(y_bin = as.integer(y > median(y)))
@@ -1373,7 +1373,7 @@ summary(fe_logit)
 
 The PPML estimator (Santos Silva & Tenreyro 2006) is ideal for count data or non-negative outcomes. It is consistent even when the outcome is not Poisson-distributed, because the estimating equations only require $E[y_{it}|\mathbf{x}_{it}, \alpha_i] = \exp(\alpha_i + \mathbf{x}_{it}'\boldsymbol{\beta})$.
 
-```{r fe-poisson, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r fe-poisson, eval=FALSE}
 set.seed(555)
 count_panel <- panel_df |>
   mutate(y_count = rpois(n(), lambda = exp(0.3 * x1 + 0.15 * x2 + alpha_i * 0.2)))
@@ -1389,7 +1389,7 @@ summary(fe_poisson)
 
 ### 16.4 Comparing Poisson vs OLS for Count Outcomes
 
-```{r count-comparison, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r count-comparison, eval=FALSE}
 ols_count     <- feols(y_count ~ x1 + x2 | unit, data = count_panel, cluster = ~unit)
 fe_pois_short <- feglm(y_count ~ x1 + x2 | unit,
                        family  = poisson(),
@@ -1505,7 +1505,7 @@ $$y_{it} = \alpha_i + \sum_{k=0}^{p} \beta_k x_{i,t-k} + \varepsilon_{it}$$
 
 The short-run effect is $\beta_0$ and the long-run effect is $\sum_{k=0}^{p} \beta_k$.
 
-```{r distributed-lag, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r distributed-lag, eval=FALSE}
 # Create lags
 panel_lags <- panel_df |>
   arrange(unit, year) |>
@@ -1539,7 +1539,7 @@ $$y_{i,t+h} = \alpha_i^h + \lambda_t^h + \beta^h x_{it} + \text{controls} + \var
 
 The sequence $\{\hat{\beta}^h\}_{h=0}^{H}$ traces the impulse response function. LP is more robust to misspecification of the lag structure than VAR and handles non-linear responses naturally.
 
-```{r local-projections, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r local-projections, eval=FALSE}
 panel_lp <- panel_df |>
   arrange(unit, year) |>
   group_by(unit) |>
@@ -1581,7 +1581,7 @@ lp_df <- data.frame(
 print(lp_df)
 ```
 
-```{r lp-plot, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+```{r lp-plot, eval=FALSE, fig.width=6, fig.height=4}
 ggplot(lp_df, aes(x = horizon, y = estimate)) +
   geom_ribbon(aes(ymin = ci_lo, ymax = ci_hi), fill = "#2166ac", alpha = 0.25) +
   geom_line(color = "#2166ac", linewidth = 1) +
@@ -1690,7 +1690,7 @@ ggplot(vd_long, aes(x = variable, y = pct, fill = component)) +
 
 ### 19.4 ACF of Panel Residuals by Unit
 
-```{r acf-panel-resid, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=5}
+```{r acf-panel-resid, eval=FALSE, fig.width=7, fig.height=5}
 # Extract residuals from two-way FE
 resid_df <- panel_df |>
   mutate(fe_resid = residuals(fe_twoway))
@@ -1729,7 +1729,7 @@ ggplot(acf_data, aes(x = lag, y = acf)) +
 
 ### 19.5 Within vs Between Scatter
 
-```{r within-between-scatter, eval = requireNamespace("gridExtra", quietly = TRUE), fig.width=7, fig.height=4}
+```{r within-between-scatter, eval=FALSE, fig.width=7, fig.height=4}
 # Compute demeaned (within) and unit means (between)
 wb_df <- panel_df |>
   group_by(unit) |>
@@ -1818,7 +1818,7 @@ STEP 6: ROBUSTNESS
 
 ### 20.2 Four-Column Comparison Table
 
-```{r four-column-table, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r four-column-table, eval=FALSE}
 # Model 1: Pooled OLS with cluster SEs
 m1 <- feols(y ~ x1 + x2,          data = panel_df, cluster = ~unit)
 # Model 2: Unit FE
@@ -1850,7 +1850,7 @@ etable(
 
 ### 20.3 Using `causal_table()` for Journal Output
 
-```{r causal-table, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("modelsummary", quietly = TRUE)}
+```{r causal-table, eval=FALSE}
 causal_table(
   models      = list(
     "(1) Pooled OLS" = m1,
@@ -1872,7 +1872,7 @@ causal_table(
 
 ### 20.4 Using `tidy_causal()` for Programmatic Extraction
 
-```{r tidy-pipeline, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r tidy-pipeline, eval=FALSE}
 # Extract and combine results from all four models
 models_list <- list(
   "Pooled OLS"  = m1,
@@ -1894,7 +1894,7 @@ print(all_results, digits = 4)
 
 ### 20.5 Coefficient Plot Across Estimators
 
-```{r coef-plot-estimators, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=4}
+```{r coef-plot-estimators, eval=FALSE, fig.width=7, fig.height=4}
 all_results_plot <- all_results |>
   mutate(model = factor(model,
                         levels = c("Pooled OLS", "Unit FE",
@@ -1975,7 +1975,7 @@ where $\hat{S}_{DK}$ is a Newey-West estimator applied to the cross-sectional av
 
 ### 21.2 Implementation
 
-```{r driscoll-kraay, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r driscoll-kraay, eval=FALSE}
 
 # Driscoll-Kraay SEs are available in fixest via vcov = "DK"
 fe_dk <- feols(y ~ x1 + x2 | unit + year,
@@ -2013,7 +2013,7 @@ Standard TWFE assumes a **homogeneous** treatment effect $\tau$. When treatment 
 
 ### 22.2 Detecting Heterogeneity
 
-```{r het-te-detect, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r het-te-detect, eval=FALSE}
 set.seed(2025)
 
 # DGP: heterogeneous treatment effect  -  effect varies by unit's alpha_i
@@ -2044,7 +2044,7 @@ print(summary(unit_tes))
 
 ### 22.3 Binscatter by Heterogeneity Dimension
 
-```{r binscatter-het, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+```{r binscatter-het, eval=FALSE, fig.width=6, fig.height=4}
 unit_tes_df <- data.frame(
   unit_idx = 1:length(unit_tes),
   te       = unit_tes
@@ -2100,7 +2100,7 @@ cat("  (True values: 1.0, 0.5)\n")
 
 Panel estimates can vary substantially based on specification choices: which fixed effects to include, how to cluster SEs, which control variables to add, and over what sample. A **specification curve** (Simonsohn, Simmons & Nelson 2020) plots the estimate across all defensible specifications to assess robustness.
 
-```{r spec-curve-panel, eval = requireNamespace("fixest", quietly = TRUE), fig.width=7, fig.height=5}
+```{r spec-curve-panel, eval=FALSE, fig.width=7, fig.height=5}
 # Generate a grid of specifications
 spec_results <- list()
 
@@ -2183,7 +2183,7 @@ $$SE(\hat{\tau}) \approx \frac{\sigma_\varepsilon}{\sqrt{N \cdot \text{Var}_{wit
 
 ### 24.2 Simulation-Based Power Curve
 
-```{r panel-power, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+```{r panel-power, eval=FALSE, fig.width=6, fig.height=4}
 set.seed(3333)
 
 power_sim <- function(tau, N_pow, T_pow, n_sim = 200) {
@@ -2360,7 +2360,7 @@ cat("Revenue growth ICC:", icc_rv$icc, "\n")
 
 ### 26.3 Step 2  -  Unit Root Screening
 
-```{r firm-unit-root, eval = requireNamespace("tseries", quietly = TRUE)}
+```{r firm-unit-root, eval=FALSE}
 library(tseries)
 
 firm_adf <- firm_panel |>
@@ -2380,7 +2380,7 @@ cat("Conclusion: proceed with level regression\n")
 
 ### 26.4 Step 3  -  Model Estimation
 
-```{r firm-models, eval = requireNamespace("fixest", quietly = TRUE) && requireNamespace("plm", quietly = TRUE)}
+```{r firm-models, eval=FALSE}
 library(plm)
 
 firm_pdata <- pdata.frame(firm_panel, index = c("firm", "year"))
@@ -2414,7 +2414,7 @@ etable(m_pool, m_ind, m_firm, m_twoway,
 
 ### 26.5 Step 4  -  Diagnostics
 
-```{r firm-diagnostics, eval = requireNamespace("plm", quietly = TRUE) && requireNamespace("fixest", quietly = TRUE)}
+```{r firm-diagnostics, eval=FALSE}
 # Hausman test
 fe_firm_plm <- plm(revenue_growth ~ rd_intensity + log(size),
                    data   = firm_pdata, model = "within")
@@ -2436,7 +2436,7 @@ cat("Pesaran CD test p-value:", round(cd_firm$p.value, 4), "\n")
 
 ### 26.6 Step 5  -  Final Preferred Model
 
-```{r firm-final, eval = requireNamespace("fixest", quietly = TRUE)}
+```{r firm-final, eval=FALSE}
 # Based on diagnostics: two-way FE with cluster-robust SEs is preferred
 cat("\nFinal Model: Two-Way Fixed Effects\n")
 cat("True effect of R&D on revenue growth: 0.4\n\n")
@@ -2446,7 +2446,7 @@ tidy_causal(m_twoway, term = "rd_intensity")
 
 ### 26.7 Visualization of Final Results
 
-```{r firm-plot, eval = requireNamespace("fixest", quietly = TRUE), fig.width=6, fig.height=4}
+```{r firm-plot, eval=FALSE, fig.width=6, fig.height=4}
 firm_plot_df <- data.frame(
   spec     = c("Pooled OLS", "Industry FE", "Firm FE", "Two-Way FE"),
   estimate = c(

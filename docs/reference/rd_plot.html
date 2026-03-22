@@ -46,7 +46,7 @@ used instead."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -65,6 +65,8 @@ used instead."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -72,7 +74,16 @@ used instead."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -91,7 +102,7 @@ used instead."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
 
     <div class="ref-description">
     <p>Creates a publication-ready RD plot with optimal binning, local polynomial
-fit, confidence bands, and a cutoff line. Wraps <code>rdrobust::rdplot</code>
+fit, confidence bands, and a cutoff line. Wraps <code><a href="https://rdrr.io/pkg/rdrobust/man/rdplot.html" class="external-link">rdrobust::rdplot</a></code>
 from the <span class="pkg">rdrobust</span> package with enhanced <span class="pkg">ggplot2</span> aesthetics. When
 <span class="pkg">rdrobust</span> is not installed a simple local polynomial via <code>lm</code> is
 used instead.</p>
@@ -134,7 +145,7 @@ the cutoff is at zero.</p></dd>
 
 <dt id="arg-nbins">nbins<a class="anchor" aria-label="anchor" href="#arg-nbins"></a></dt>
 <dd><p>Integer or <code>NULL</code>. Number of bins per side. If <code>NULL</code>
-(default), MSE-optimal binning from <code>rdrobust::rdplot</code> is used.</p></dd>
+(default), MSE-optimal binning from <code><a href="https://rdrr.io/pkg/rdrobust/man/rdplot.html" class="external-link">rdrobust::rdplot</a></code> is used.</p></dd>
 
 
 <dt id="arg-poly-order">poly_order<a class="anchor" aria-label="anchor" href="#arg-poly-order"></a></dt>
@@ -171,7 +182,7 @@ treated (right) sides. Default <code>TRUE</code>.</p></dd>
 
 <dt id="arg-rdplot-args">rdplot_args<a class="anchor" aria-label="anchor" href="#arg-rdplot-args"></a></dt>
 <dd><p>List. Additional named arguments forwarded to
-<code>rdrobust::rdplot</code> (ignored when <span class="pkg">rdrobust</span> is not available).</p></dd>
+<code><a href="https://rdrr.io/pkg/rdrobust/man/rdplot.html" class="external-link">rdrobust::rdplot</a></code> (ignored when <span class="pkg">rdrobust</span> is not available).</p></dd>
 
 </dl></div>
     <div id="value">

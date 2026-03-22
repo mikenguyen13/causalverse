@@ -13,11 +13,12 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  cache = TRUE
+  cache = TRUE,
+  eval = FALSE
 )
 ```
 
-```{r setup, message = FALSE, warning = FALSE}
+```{r setup, message = FALSE, warning = FALSE, eval = FALSE}
 library(causalverse)
 ```
 
@@ -277,7 +278,7 @@ Individual variable-by-variable tests suffer from a multiple testing problem. Th
 
 - **Hotelling's T-squared test:** A multivariate generalization of the two-sample t-test that simultaneously tests equality of means across all covariates.
 
-```{r balance-assessment, eval = TRUE}
+```{r balance-assessment, eval=FALSE}
 bal_results <- causalverse::balance_assessment(
   data          = rct_data,
   treatment_col = "treatment",
@@ -332,7 +333,7 @@ t_result <- t.test(outcome ~ treatment, data = rct_data)
 t_result
 ```
 
-The estimated treatment effect from the t-test is approximately `r round(-diff(t_result$estimate), 3)`. Note that `t.test()` computes "group 0 mean minus group 1 mean," so we negate the difference to get the treatment effect in the conventional direction.
+The estimated treatment effect from the t-test is the difference in group means. Note that `t.test()` computes "group 0 mean minus group 1 mean," so we negate the difference to get the treatment effect in the conventional direction.
 
 ```{r manual-dim}
 # Manual difference in means
@@ -537,7 +538,7 @@ RI is exact in finite samples and requires no distributional assumptions. It is 
 
 The `ri2` package (Coppock, 2020) provides a clean interface for randomization inference.
 
-```{r ri2-example, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE), error = TRUE}
+```{r ri2-example, eval=FALSE, error = TRUE}
 library(ri2)
 library(randomizr)
 
@@ -565,7 +566,7 @@ The output includes:
 
 ### 6.3 Randomization Inference for Blocked Designs
 
-```{r ri2-blocked, eval = requireNamespace("ri2", quietly = TRUE) && requireNamespace("randomizr", quietly = TRUE)}
+```{r ri2-blocked, eval=FALSE}
 # Declare a blocked randomization procedure
 declaration_blocked <- declare_ra(
   blocks = rct_data$stratum,
@@ -778,7 +779,7 @@ summary(model_hte_educ)
 
 For exploratory heterogeneity analysis, the **Generalized Random Forest** (Athey, Tibshirani, and Wager, 2019) provides a non-parametric, machine-learning approach to estimating conditional average treatment effects (CATEs).
 
-```{r grf-example, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-example, eval=FALSE}
 library(grf)
 
 # Prepare data
@@ -918,7 +919,7 @@ power_result <- power.t.test(
 power_result
 ```
 
-This tells us we need approximately `r ceiling(power_result$n)` observations per group (i.e., `r 2 * ceiling(power_result$n)` total) to detect an effect of 2.5 with 80% power.
+This tells us the minimum number of observations per group needed to detect an effect of 2.5 with 80% power.
 
 ### 11.2 Power for Different Effect Sizes
 
@@ -1127,7 +1128,7 @@ While RCTs are not typically subject to classical OVB (because randomization ens
 
 ### 13.2 Sensitivity Analysis
 
-```{r sensemakr-example, eval = requireNamespace("sensemakr", quietly = TRUE)}
+```{r sensemakr-example, eval=FALSE}
 library(sensemakr)
 
 # Fit OLS model
@@ -1179,7 +1180,7 @@ Key features of causal forests:
 
 We simulate an RCT where the treatment effect varies with a continuous covariate $X_1$, creating genuine heterogeneity for the causal forest to detect.
 
-```{r grf-data, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-data, eval=FALSE}
 set.seed(42)
 n <- 2000
 p <- 6
@@ -1200,7 +1201,7 @@ Y <- 2 + X[, 1] + 0.5 * X[, 2] + tau_true * W + rnorm(n)
 
 ### 14.2 Fitting the Causal Forest
 
-```{r grf-fit, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-fit, eval=FALSE}
 library(grf)
 
 cf <- causal_forest(
@@ -1224,7 +1225,7 @@ cat(sprintf("95%% CI: [%.3f, %.3f]\n",
 
 Variable importance ranks covariates by how frequently they are used for splitting. Covariates that drive heterogeneity should rank highest.
 
-```{r grf-varimp, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-varimp, eval=FALSE}
 varimp <- variable_importance(cf)
 varimp_df <- data.frame(
   Variable   = colnames(X),
@@ -1246,7 +1247,7 @@ ggplot(varimp_df, aes(x = reorder(Variable, Importance), y = Importance)) +
 
 Individual-level CATE predictions enable targeting: identifying which units benefit most from treatment.
 
-```{r grf-cate, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-cate, eval=FALSE}
 tau_hat <- predict(cf)$predictions
 
 cate_df <- data.frame(
@@ -1270,7 +1271,7 @@ ggplot(cate_df, aes(x = X1)) +
 
 The best linear projection (BLP) tests whether treatment effect heterogeneity is systematically related to covariates. The calibration test checks whether the forest's CATE predictions are well-calibrated.
 
-```{r grf-blp-cal, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-blp-cal, eval=FALSE}
 # Best linear projection of CATEs on covariates
 blp <- best_linear_projection(cf, X[, 1:3])
 print(blp)
@@ -1286,7 +1287,7 @@ A well-calibrated forest should have a coefficient near 1 on the "mean.forest.pr
 
 We can rank units by their predicted CATEs and examine how treatment effects vary across quantiles of the CATE distribution.
 
-```{r grf-priority, eval = requireNamespace("grf", quietly = TRUE)}
+```{r grf-priority, eval=FALSE}
 priority_df <- data.frame(
   Y = Y, W = W, tau_hat = tau_hat
 ) |>
@@ -1337,7 +1338,7 @@ $$D = m_0(X) + V, \quad E[V | X] = 0$$
 
 where $\theta_0$ is the causal parameter of interest.
 
-```{r dml-plr, eval = requireNamespace("DoubleML", quietly = TRUE)}
+```{r dml-plr, eval=FALSE}
 library(DoubleML)
 library(mlr3)
 library(mlr3learners)
@@ -1382,7 +1383,7 @@ print(dml_plr$summary())
 For binary treatments, the IRM (also called the AIPW/doubly-robust estimand) estimates the ATE:
 $$Y = g_0(D, X) + U, \quad D = m_0(X) + V$$
 
-```{r dml-irm, eval = requireNamespace("DoubleML", quietly = TRUE)}
+```{r dml-irm, eval=FALSE}
 set.seed(42)
 n <- 1000
 
@@ -1442,7 +1443,7 @@ Key advantages of BART for causal inference:
 
 ### 16.1 Estimating ATE and ATT
 
-```{r bart-fit, eval = requireNamespace("bartCause", quietly = TRUE)}
+```{r bart-fit, eval=FALSE}
 library(bartCause)
 
 set.seed(42)
@@ -1475,7 +1476,7 @@ summary(fit_ate)
 
 ### 16.2 ATT Estimation
 
-```{r bart-att, eval = requireNamespace("bartCause", quietly = TRUE)}
+```{r bart-att, eval=FALSE}
 fit_att <- bartc(
   response  = y,
   treatment = treatment,
@@ -1490,7 +1491,7 @@ summary(fit_att)
 
 ### 16.3 Posterior Distribution of Treatment Effects
 
-```{r bart-posterior, eval = requireNamespace("bartCause", quietly = TRUE)}
+```{r bart-posterior, eval=FALSE}
 # Extract posterior samples
 posterior_ate <- extract(fit_ate, type = "icate")
 posterior_means <- colMeans(posterior_ate)
@@ -1518,7 +1519,7 @@ Given estimated heterogeneous treatment effects, a natural next question is: **w
 
 We first use a causal forest to obtain doubly robust scores (augmented inverse-propensity weighted estimates of individual treatment effects).
 
-```{r policytree-scores, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+```{r policytree-scores, eval=FALSE}
 library(policytree)
 library(grf)
 
@@ -1543,7 +1544,7 @@ head(dr_scores)
 
 ### 17.2 Learning an Optimal Policy Tree
 
-```{r policytree-fit, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+```{r policytree-fit, eval=FALSE}
 # Depth-2 policy tree for interpretability
 ptree <- policy_tree(X, dr_scores, depth = 2)
 print(ptree)
@@ -1552,7 +1553,7 @@ plot(ptree)
 
 ### 17.3 Evaluating the Policy
 
-```{r policytree-eval, eval = requireNamespace("policytree", quietly = TRUE) && requireNamespace("grf", quietly = TRUE)}
+```{r policytree-eval, eval=FALSE}
 # Predicted optimal treatment for each unit
 recommended <- predict(ptree, X)
 
@@ -1584,7 +1585,7 @@ However, adaptive assignment complicates inference because treatment probabiliti
 
 ### 18.1 Thompson Sampling with Valid Inference
 
-```{r bandits, eval = requireNamespace("banditsCI", quietly = TRUE)}
+```{r bandits, eval=FALSE}
 library(banditsCI)
 
 set.seed(42)
@@ -1822,7 +1823,7 @@ Adaptive experimental designs modify the trial in response to accumulating data 
 
 Response-adaptive randomization (RAR) adjusts allocation probabilities toward the superior arm as data accumulate. While ethically attractive, RAR complicates inference and can inflate Type I error if not properly accounted for.
 
-```{r rar-simulation, eval = TRUE}
+```{r rar-simulation, eval=FALSE}
 set.seed(2024)
 
 # Simulate response-adaptive randomization (RAR) via Thompson sampling
@@ -1870,7 +1871,7 @@ names(post_means) <- arm_names
 print(round(post_means, 3))
 ```
 
-```{r rar-plot, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r rar-plot, eval=FALSE, fig.width = 9, fig.height = 5}
 
 # Plot allocation history: rolling proportion assigned to each arm
 window <- 50
@@ -1917,7 +1918,7 @@ $$\alpha^*(t) = 2\left(1 - \Phi\left(\frac{z_{\alpha/2}}{\sqrt{t}}\right)\right)
 **Lan-DeMets spending function (approximating O'Brien-Fleming):**
 $$\alpha^*(t) = 4\left(1 - \Phi\left(\frac{z_{\alpha/2}}{\sqrt{t}}\right)\right)$$
 
-```{r obf-spending, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r obf-spending, eval=FALSE, fig.width = 9, fig.height = 5}
 # O'Brien-Fleming and Pocock alpha-spending function comparison
 # K interim analyses at equally spaced information fractions
 K_looks  <- 5
@@ -1993,7 +1994,7 @@ Bayesian adaptive trials update beliefs about treatment effects in real time and
 | Sample size | Fixed a priori | Adaptive based on accumulating evidence |
 | Inference | p-value, confidence interval | Posterior distribution, credible interval |
 
-```{r bayes-adaptive, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r bayes-adaptive, eval=FALSE, fig.width = 9, fig.height = 5}
 set.seed(42)
 
 # Bayesian adaptive trial: binary outcome, two arms
@@ -2094,7 +2095,7 @@ Publication-quality figures are essential for communicating RCT results. This se
 
 The CONSORT flow diagram tracks participant progression from eligibility through analysis. We construct it using base R graphics with `grid`.
 
-```{r consort-diagram, eval = TRUE, fig.width = 10, fig.height = 8}
+```{r consort-diagram, eval=FALSE, fig.width = 10, fig.height = 8}
 # CONSORT flow diagram using base R grid graphics
 # Simulated trial numbers
 assessed         <- 1200
@@ -2261,7 +2262,7 @@ for (ypos in c(0.85, 0.69, 0.51, 0.345, 0.18)) {
 
 Using `causalverse::heterogeneity_plot()`, we visualize subgroup-specific treatment effects with confidence intervals  -  a standard deliverable for any RCT publication.
 
-```{r subgroup-forest, eval = TRUE, fig.width = 9, fig.height = 6}
+```{r subgroup-forest, eval=FALSE, fig.width = 9, fig.height = 6}
 set.seed(42)
 n <- 800
 
@@ -2306,7 +2307,7 @@ causalverse::heterogeneity_plot(
 
 When treatment is continuous (e.g., drug dose, hours of training), the dose-response curve reveals the functional relationship between treatment intensity and the outcome.
 
-```{r dose-response, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r dose-response, eval=FALSE, fig.width = 9, fig.height = 5}
 set.seed(42)
 n <- 500
 
@@ -2359,7 +2360,7 @@ ggplot() +
 
 The compliance diagram plots treatment assignment against actual receipt, revealing the prevalence of non-compliance patterns (always-takers, never-takers, compliers, defiers).
 
-```{r compliance-plot, eval = TRUE, fig.width = 8, fig.height = 6}
+```{r compliance-plot, eval=FALSE, fig.width = 8, fig.height = 6}
 set.seed(42)
 n <- 600
 
@@ -2429,7 +2430,7 @@ ggplot(df_comp_sum, aes(x = assignment, y = prop, fill = type)) +
 
 A power curve shows how statistical power changes with sample size for different effect sizes, guiding pre-study sample size determination.
 
-```{r power-curve-effect-sizes, eval = TRUE, fig.width = 9, fig.height = 6}
+```{r power-curve-effect-sizes, eval=FALSE, fig.width = 9, fig.height = 6}
 # Power curves for two-sample t-test across effect sizes
 effect_sizes <- c(0.20, 0.35, 0.50, 0.65, 0.80)  # Cohen's d
 n_seq        <- seq(20, 500, by = 10)
@@ -2499,7 +2500,7 @@ The coefficient $\hat{\tau}$ estimates the ATE without requiring correct model s
 
 ### 24.3 Simulation: Naive vs. ANCOVA vs. Lin Estimator
 
-```{r ancova-sim, eval = TRUE}
+```{r ancova-sim, eval=FALSE}
 library(estimatr)
 
 set.seed(2024)
@@ -2548,7 +2549,7 @@ knitr::kable(results, digits = 4,
              ))
 ```
 
-```{r ancova-monte-carlo, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r ancova-monte-carlo, eval=FALSE, fig.width = 9, fig.height = 5}
 # Monte Carlo: compare SE across methods over many replications
 set.seed(42)
 B   <- 2000
@@ -2609,7 +2610,7 @@ The factor by which ANCOVA reduces the required sample size relative to a naive 
 
 $$\text{Relative efficiency} = \frac{1}{1 - \rho^2}$$
 
-```{r ancova-efficiency, eval = TRUE}
+```{r ancova-efficiency, eval=FALSE}
 rho_vals <- seq(0, 0.9, by = 0.1)
 rel_eff   <- 1 / (1 - rho_vals^2)
 pct_reduction <- (1 - 1/rel_eff) * 100
@@ -2639,7 +2640,7 @@ Non-compliance  -  participants assigned to treatment who do not take it, or con
 
 ### 25.1 Data Generating Process with Non-Compliance
 
-```{r itt-late-dgp, eval = TRUE}
+```{r itt-late-dgp, eval=FALSE}
 set.seed(42)
 n <- 1000
 
@@ -2684,7 +2685,7 @@ cat(sprintf("  P(D=1 | Z=0) = %.3f\n", mean(df_nc$D[df_nc$Z == 0])))
 
 The ITT estimates the **reduced-form** effect of assignment, regardless of actual compliance:
 
-```{r itt-estimate, eval = TRUE}
+```{r itt-estimate, eval=FALSE}
 # ITT: regress Y on Z (ignore D)
 fit_itt <- lm_robust(Y ~ Z, data = df_nc)
 cat(sprintf("ITT estimate: %.4f (SE: %.4f, 95%% CI: [%.4f, %.4f])\n",
@@ -2696,7 +2697,7 @@ cat(sprintf("ITT estimate: %.4f (SE: %.4f, 95%% CI: [%.4f, %.4f])\n",
 
 The PP restricts to participants who complied with their assignment. This introduces **selection bias** because compliance correlates with potential outcomes.
 
-```{r pp-estimate, eval = TRUE}
+```{r pp-estimate, eval=FALSE}
 # Per-protocol: keep only compliant participants
 df_pp <- df_nc |>
   dplyr::filter((Z == 1 & D == 1) | (Z == 0 & D == 0))
@@ -2717,7 +2718,7 @@ $$\widehat{LATE} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{D}_{Z=1} - \bar{D}_
 
 Under the LATE assumptions (SUTVA, exclusion restriction, monotonicity), this identifies the ATE for compliers.
 
-```{r late-estimate, eval = TRUE}
+```{r late-estimate, eval=FALSE}
 # Wald estimator
 reduced_form <- mean(df_nc$Y[df_nc$Z == 1]) - mean(df_nc$Y[df_nc$Z == 0])
 first_stage  <- mean(df_nc$D[df_nc$Z == 1]) - mean(df_nc$D[df_nc$Z == 0])
@@ -2741,7 +2742,7 @@ cat(sprintf("95%% CI: [%.4f, %.4f]\n",
             late_2sls - 1.96 * late_se, late_2sls + 1.96 * late_se))
 ```
 
-```{r late-comparison-plot, eval = TRUE, fig.width = 9, fig.height = 5}
+```{r late-comparison-plot, eval=FALSE, fig.width = 9, fig.height = 5}
 # Summary comparison plot of all three estimands
 est_comparison <- data.frame(
   Method   = c("ITT", "Per-Protocol", "LATE (Wald/2SLS)"),

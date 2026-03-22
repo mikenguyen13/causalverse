@@ -65,7 +65,7 @@
     </li>
     <li class="divider">
     </li>
-<li class="dropdown-header">Causal Inference Methods</li>
+<li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -84,6 +84,9 @@
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    </li>
+<li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -91,7 +94,16 @@
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul>
 </li>
@@ -112,7 +124,7 @@
       <h1 data-toc-skip>2. Regression Discontinuity</h1>
                         <h4 data-toc-skip class="author">Mike Nguyen</h4>
             
-            <h4 data-toc-skip class="date">2026-03-18</h4>
+            <h4 data-toc-skip class="date">2026-03-22</h4>
       
 
       <div class="hidden name"><code>e_rd.Rmd</code></div>
@@ -122,10 +134,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction-to-regression-discontinuity-designs">1. Introduction to Regression Discontinuity Designs<a class="anchor" aria-label="anchor" href="#introduction-to-regression-discontinuity-designs"></a>
 </h2>
@@ -303,7 +312,7 @@ D_i = \mathbf{1}(X_i \geq c)
 <span>    side <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="st">"Treated"</span>, <span class="st">"Control"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">bin</span>, <span class="va">side</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    x_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>    y_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>,</span>
 <span>    y_se   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -2504,18 +2513,18 @@ D_i = \mathbf{1}(X_i \geq c)
 <span>  num_bootstraps <span class="op">=</span> <span class="fl">5</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "The proportion of always-assigned units just to the right of the cutoff is estimated to be 0"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:21.828963 Estimating CDFs for point estimates"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:22.093601 .....Estimating CDFs for units just to the right of the cutoff"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:22.819908 Estimating CDFs with nudged tau (tau_star)"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:22.838586 .....Estimating CDFs for units just to the right of the cutoff"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:24.132994 Beginning parallelized output by bootstrap.."</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:26.241553 Estimating CDFs with fixed tau value of: 0.025"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:26.264065 Estimating CDFs with fixed tau value of: 0.05"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:26.286171 Estimating CDFs with fixed tau value of: 0.1"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:26.347066 Estimating CDFs with fixed tau value of: 0.2"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:26.91585 Beginning parallelized output by bootstrap x fixed tau.."</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:27.822183 Computing Confidence Intervals"</span></span>
-<span><span class="co">#&gt; [1] "2026-03-18 01:44:34.846088 Time taken:0.22 minutes"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:12.434436 Estimating CDFs for point estimates"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:12.771561 .....Estimating CDFs for units just to the right of the cutoff"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:15.910835 Estimating CDFs with nudged tau (tau_star)"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:15.966282 .....Estimating CDFs for units just to the right of the cutoff"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:19.602653 Beginning parallelized output by bootstrap.."</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:24.459971 Estimating CDFs with fixed tau value of: 0.025"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:24.528206 Estimating CDFs with fixed tau value of: 0.05"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:24.698436 Estimating CDFs with fixed tau value of: 0.1"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:24.720228 Estimating CDFs with fixed tau value of: 0.2"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:25.587484 Beginning parallelized output by bootstrap x fixed tau.."</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:26.892374 Computing Confidence Intervals"</span></span>
+<span><span class="co">#&gt; [1] "2026-03-22 00:21:37.337322 Time taken:0.42 minutes"</span></span>
 <span></span>
 <span><span class="co"># Step 3: Visualize bounds for SRD</span></span>
 <span><span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_rd_aa_share.html">plot_rd_aa_share</a></span><span class="op">(</span></span>
@@ -2875,7 +2884,7 @@ D_i = \mathbf{1}(X_i \geq c)
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot each covariate against the running variable</span></span>
 <span><span class="va">cov_plot_data</span> <span class="op">&lt;-</span> <span class="va">rd_data</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">treated</span>, <span class="va">age</span>, <span class="va">female</span>, <span class="va">education</span>, <span class="va">income</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">treated</span>, <span class="va">age</span>, <span class="va">female</span>, <span class="va">education</span>, <span class="va">income</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">female</span>, <span class="va">education</span>, <span class="va">income</span><span class="op">)</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="st">"covariate"</span>,</span>
@@ -3309,7 +3318,7 @@ D_i = \mathbf{1}(X_i \geq c)
 <h4 id="panel-3-density-of-units-near-the-boundary">Panel 3: Density of Units Near the Boundary<a class="anchor" aria-label="anchor" href="#panel-3-density-of-units-near-the-boundary"></a>
 </h4>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Units within 5 degrees of the boundary — the "bandwidth window"</span></span>
+<code class="sourceCode R"><span><span class="co"># Units within 5 degrees of the boundary  -  the "bandwidth window"</span></span>
 <span><span class="va">bw</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">near_df</span> <span class="op">&lt;-</span> <span class="va">geo_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">geo_df</span><span class="op">$</span><span class="va">lon</span> <span class="op">-</span> <span class="va">boundary_lon</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="va">bw</span>, <span class="op">]</span></span>
 <span></span>
@@ -3345,7 +3354,7 @@ D_i = \mathbf{1}(X_i \geq c)
 <h4 id="panel-4-the-jump-at-the-boundary-rd-plot">Panel 4: The Jump at the Boundary (RD Plot)<a class="anchor" aria-label="anchor" href="#panel-4-the-jump-at-the-boundary-rd-plot"></a>
 </h4>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Bin by distance to boundary and plot mean income — the canonical RD plot</span></span>
+<code class="sourceCode R"><span><span class="co"># Bin by distance to boundary and plot mean income  -  the canonical RD plot</span></span>
 <span><span class="va">geo_df</span><span class="op">$</span><span class="va">dist_to_bound</span> <span class="op">&lt;-</span> <span class="va">geo_df</span><span class="op">$</span><span class="va">lon</span> <span class="op">-</span> <span class="va">boundary_lon</span></span>
 <span></span>
 <span><span class="va">geo_df</span><span class="op">$</span><span class="va">dist_bin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">geo_df</span><span class="op">$</span><span class="va">dist_to_bound</span>,</span>
@@ -3404,7 +3413,7 @@ D_i = \mathbf{1}(X_i \geq c)
 <span>    plot.title       <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="e_rd_files/figure-html/rd2d-map4-1.png" alt="" width="768"></p>
-<p>Geographic RD designs arise naturally in studies of redistricting, cross-border policy differences, environmental regulations, and school attendance zones. The four visualizations above — boundary map, outcome choropleth, bandwidth zoom, and RD jump plot — are the standard diagnostic figures for a geographic RD paper.</p>
+<p>Geographic RD designs arise naturally in studies of redistricting, cross-border policy differences, environmental regulations, and school attendance zones. The four visualizations above - boundary map, outcome choropleth, bandwidth zoom, and RD jump plot - are the standard diagnostic figures for a geographic RD paper.</p>
 <hr>
 </div>
 </div>
@@ -4064,8 +4073,9 @@ D_i = \mathbf{1}(X_i \geq c)
 <span>        color <span class="op">=</span> <span class="st">"Covariate"</span></span>
 <span>    <span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="e_rd_files/figure-html/rd-local-rand-1.png" alt="" width="672"></p>
+<span>    <span class="fu">causalverse</span><span class="fu">::</span><span class="fu"><a href="../reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="e_rd_files/figure-html/rd-local-rand-1.png" alt="" width="864"></p>
 </div>
 <div class="section level3">
 <h3 id="fuzzy-rd-first-stage-and-reduced-form-visualization">19.9 Fuzzy RD: First Stage and Reduced Form Visualization<a class="anchor" aria-label="anchor" href="#fuzzy-rd-first-stage-and-reduced-form-visualization"></a>

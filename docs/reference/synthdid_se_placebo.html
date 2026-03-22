@@ -45,7 +45,7 @@ to estimate the standard errors."><meta property="og:image" content="/logo.png">
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -64,6 +64,8 @@ to estimate the standard errors."><meta property="og:image" content="/logo.png">
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -71,7 +73,16 @@ to estimate the standard errors."><meta property="og:image" content="/logo.png">
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -150,8 +161,8 @@ Synthetic Difference-in-Differences. <em>American Economic Review</em>, 111(12),
 <span class="r-in"><span>  unit_id_var <span class="op">=</span> <span class="st">"id"</span>,</span></span>
 <span class="r-in"><span>  treated_period_var <span class="op">=</span> <span class="st">"year_treated"</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu">if_else</span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">time_to_treatment</span> <span class="op">&gt;=</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>treatvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="va">year_treated</span> <span class="op">&gt;</span> <span class="op">(</span><span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>, <span class="fl">0</span>, <span class="va">treatvar</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    unit <span class="op">=</span> <span class="st">"id"</span>,</span></span>
 <span class="r-in"><span>    time <span class="op">=</span> <span class="st">"year"</span>,</span></span>

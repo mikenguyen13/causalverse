@@ -1,5 +1,9 @@
 causalverse
-fixest
-dplyr
 ggplot2
+dplyr
 tidyr
+purrr
+magrittr
+data.table
+fixest
+rio

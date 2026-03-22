@@ -2,3 +2,10 @@ causalverse
 ggplot2
 dplyr
 tidyr
+purrr
+magrittr
+data.table
+fixest
+rio
+synthdid
+MatchIt

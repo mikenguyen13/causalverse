@@ -67,7 +67,7 @@
     </li>
     <li class="divider">
     </li>
-<li class="dropdown-header">Causal Inference Methods</li>
+<li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -86,6 +86,9 @@
     <li>
       <a href="articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    </li>
+<li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -93,7 +96,16 @@
       <a href="articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul>
 </li>
@@ -285,7 +297,6 @@
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/synth-inference/synthdid" class="external-link">synthdid</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Estimate treatment effect using multiple methods</span></span>
 <span><span class="va">setup</span> <span class="op">&lt;-</span> <span class="fu">synthdid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/synthdid/man/panel.matrices.html" class="external-link">panel.matrices</a></span><span class="op">(</span><span class="fu">synthdid</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/synthdid/man/california_prop99.html" class="external-link">california_prop99</a></span><span class="op">)</span></span>
@@ -301,10 +312,9 @@
 </h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lrberge.github.io/fixest/" class="external-link">fixest</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Sun &amp; Abraham event study</span></span>
-<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://lrberge.github.io/fixest/reference/feols.html" class="external-link">feols</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">sunab</span><span class="op">(</span><span class="va">year_treated</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, data <span class="op">=</span> <span class="va">base_stagg</span><span class="op">)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">feols</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fu">sunab</span><span class="op">(</span><span class="va">year_treated</span>, <span class="va">year</span><span class="op">)</span> <span class="op">|</span> <span class="va">id</span> <span class="op">+</span> <span class="va">year</span>, data <span class="op">=</span> <span class="va">base_stagg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plot with causalverse theming</span></span>
 <span><span class="fu"><a href="reference/plot_event_coefs.html">plot_event_coefs</a></span><span class="op">(</span><span class="va">model</span>, ref_period <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -344,11 +354,10 @@
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/ama_theme.html">ama_theme</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/ama_labs.html">ama_labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Weight"</span>, y <span class="op">=</span> <span class="st">"MPG"</span><span class="op">)</span></span>
 <span></span>
@@ -395,7 +404,7 @@
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.repostatus.org/#active" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project is being actively developed."></a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/679072435" class="external-link"><img src="https://zenodo.org/badge/679072435.svg" alt="DOI"></a></li>
+<li><a href="https://doi.org/10.5281/zenodo.8254063" class="external-link"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.8254063-blue" alt="DOI"></a></li>
 </ul>
 </div>
 

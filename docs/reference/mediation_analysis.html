@@ -45,7 +45,7 @@ with enhanced output and visualization."><meta property="og:image" content="/log
       <a href="../articles/a_introduction.html">0. Introduction</a>
     </li>
     <li class="divider">
-    <li class="dropdown-header">Causal Inference Methods</li>
+    <li class="dropdown-header">Experimental &amp; Quasi-Experimental Designs</li>
     <li>
       <a href="../articles/d_rct.html">1. Randomized Control Trials</a>
     </li>
@@ -64,6 +64,8 @@ with enhanced output and visualization."><meta property="og:image" content="/log
     <li>
       <a href="../articles/g_iv.html">6. Instrumental Variables</a>
     </li>
+    <li class="divider">
+    <li class="dropdown-header">Advanced Methods</li>
     <li>
       <a href="../articles/h_event_study.html">7. Event Studies (Finance)</a>
     </li>
@@ -71,7 +73,16 @@ with enhanced output and visualization."><meta property="og:image" content="/log
       <a href="../articles/i_matching.html">8. Matching Methods</a>
     </li>
     <li>
-      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis</a>
+      <a href="../articles/j_sensitivity.html">9. Sensitivity Analysis and Robustness</a>
+    </li>
+    <li>
+      <a href="../articles/k_hte.html">10. Heterogeneous Treatment Effects &amp; Causal ML</a>
+    </li>
+    <li>
+      <a href="../articles/l_mediation.html">11. Causal Mediation Analysis</a>
+    </li>
+    <li>
+      <a href="../articles/m_panel.html">12. Panel Data Methods</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -231,6 +242,9 @@ and Social Psychology</em>, 51(6), 1173–1182.</p>
 <span class="r-in"><span>  treatment <span class="op">=</span> <span class="st">"treat"</span>,</span></span>
 <span class="r-in"><span>  mediator  <span class="op">=</span> <span class="st">"mediator"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'lme4':</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   method           from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   na.action.merMod car </span>
 <span class="r-in"><span><span class="va">result</span><span class="op">$</span><span class="va">summary_df</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            effect   estimate     ci_lower  ci_upper</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ACME (Indirect) 0.09632680  0.006451494 0.2015267</span>

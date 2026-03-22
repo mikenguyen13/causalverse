@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   collapse = TRUE,
   comment = "#>",
-  cache = TRUE
+  cache = TRUE,
+  eval = FALSE
 )
 ```
 
@@ -147,7 +148,7 @@ Using `fixest` dataset
 
 If you want to use the `base_stagg` dataset, you have to choose just 1 period, because function `synthdid_estimate` cannot handle staggered adoption.
 
-```{r, eval = TRUE}
+```{r, eval=FALSE}
 df_stagg <- fixest::base_stagg |>
 
   dplyr::filter(year_treated %in% c(10000, 8)) |>
@@ -265,7 +266,7 @@ tau.hat2
 
 When multiple covariates are available, simply include them in the regression:
 
-```{r, eval = TRUE}
+```{r, eval=FALSE}
 # Example with multiple covariates
 # base_did only has x1, so we demonstrate with x1 (extend similarly for x2, x3, etc.)
 df_multi <- df |>
@@ -288,7 +289,7 @@ When using the residualization approach, keep the following in mind:
 
 1. **Use pre-treatment data only for the regression** (ideally). Running the regression on all data including post-treatment periods may introduce post-treatment bias if the treatment affects the covariates. A conservative approach is:
 
-```{r, eval = TRUE}
+```{r, eval=FALSE}
 # Conservative approach: estimate beta from pre-treatment data only
 beta_pre <- lm(y ~ x1, data = df |> dplyr::filter(post == 0))
 df$y_res_conservative <- df$y - predict(beta_pre, newdata = df)
@@ -432,7 +433,7 @@ cat("95% CI: (", round(tau_ca - 1.96 * se_placebo, 2), ",",
 
 The `causalverse` package provides `synthdid_se_placebo()`, which extends the placebo method to compute per-period standard errors, useful for examining how uncertainty varies across post-treatment periods.
 
-```{r, eval = TRUE}
+```{r, eval=FALSE}
 # Per-period placebo SE using causalverse
 se_per_placebo <- causalverse::synthdid_se_placebo(tau_ca, replications = 500)
 print(se_per_placebo)
@@ -453,7 +454,7 @@ cat("Jackknife SE:", round(se_jack, 3), "\n")
 
 The `causalverse` package provides `synthdid_se_jacknife()`, which extends the standard jackknife to produce per-period standard errors:
 
-```{r, eval = TRUE}
+```{r, eval=FALSE}
 # Per-period jackknife SE using causalverse
 se_per_jack <- causalverse::synthdid_se_jacknife(tau.hat)
 print(se_per_jack)
@@ -689,7 +690,7 @@ causalverse::synthdid_plot_ate(est)
 
 Compare to different estimators (e.g., DID and SC)
 
-```{r, message=FALSE, eval = requireNamespace("gridExtra", quietly = TRUE), fig.width=12, fig.height=10}
+```{r, message=FALSE, eval=FALSE, fig.width=12, fig.height=10}
 methods <- c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
 
 estimates_methods <- lapply(methods, function(method) {
@@ -862,7 +863,7 @@ Avoid these common mistakes when applying SynthDID:
 
 The most important figure in any synthetic control paper is the **trajectory plot** showing how the treated unit and its synthetic counterpart evolved over time.
 
-```{r sdid-trajectory, eval=TRUE, message=FALSE, fig.width=8, fig.height=5}
+```{r sdid-trajectory, eval=FALSE, message=FALSE, fig.width=8, fig.height=5}
 library(synthdid)
 
 # Use the California Prop 99 data (canonical SC example)
@@ -882,7 +883,7 @@ plot(est_sdid, overlay = 1) +
 
 Understanding which donors and pre-treatment periods receive the most weight is critical for assessing credibility.
 
-```{r sdid-weights, eval=TRUE, message=FALSE, fig.width=9, fig.height=4}
+```{r sdid-weights, eval=FALSE, message=FALSE, fig.width=9, fig.height=4}
 sdid_weights <- attr(est_sdid, "weights")
 
 # Unit weights
@@ -919,7 +920,7 @@ gridExtra::grid.arrange(p_omega, p_lambda, ncol = 2)
 
 Compare SC, DID, and SDID side-by-side:
 
-```{r sdid-comparison, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+```{r sdid-comparison, eval=FALSE, message=FALSE, fig.width=7, fig.height=4}
 results_compare <- causalverse::panel_estimate(
     setup_ca,
     selected_estimators = c("sc", "did", "synthdid")
@@ -954,7 +955,7 @@ ggplot(comp_df, aes(x = method, y = estimate)) +
 
 The RMSPE (Root Mean Squared Prediction Error) ratio compares post-treatment fit to pre-treatment fit, providing a non-parametric p-value.
 
-```{r sdid-rmspe, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+```{r sdid-rmspe, eval=FALSE, message=FALSE, fig.width=7, fig.height=4}
 # Extract gaps
 synth_wts   <- sdid_weights$omega
 synth_Y     <- as.vector(t(synth_wts) %*% setup_ca$Y[seq_len(setup_ca$N0), ])
@@ -1009,10 +1010,11 @@ ggplot(ratio_df, aes(x = ratio, fill = type)) +
 
 ## Staggered Adoption: ATE Across Cohorts
 
-```{r sdid-staggered, eval=TRUE, message=FALSE, fig.width=7, fig.height=4}
+```{r sdid-staggered, eval=FALSE, message=FALSE, fig.width=7, fig.height=4}
 ate_results <- causalverse::synthdid_est_ate(
-    data   = fixest::base_stagg,
-    method = "synthdid"
+    data             = fixest::base_stagg,
+    adoption_cohorts = c(2, 3, 4, 5, 6, 7, 8, 9, 10),
+    method           = "synthdid"
 )
 causalverse::synthdid_plot_ate(ate_results)
 ```
@@ -1025,7 +1027,7 @@ This section demonstrates the full visualization toolkit available in `causalver
 
 The `causalverse::sc_gap_plot()` function plots the treatment-synthetic gap over time and overlays donor unit gaps as in-space placebos, providing visual inference about whether the treated unit's gap is unusual.
 
-```{r gap-plot-main, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+```{r gap-plot-main, eval=FALSE, message=FALSE, fig.width=8, fig.height=5}
 library(synthdid)
 
 # California Prop 99 setup
@@ -1071,7 +1073,7 @@ The red line shows California's gap (treated minus synthetic). Gray lines show d
 
 ## Treatment Calendar: Staggered Adoption Timing
 
-```{r treatment-calendar, eval=TRUE, message=FALSE, fig.width=9, fig.height=5}
+```{r treatment-calendar, eval=FALSE, message=FALSE, fig.width=9, fig.height=5}
 
 # Prepare base_stagg: add a proper binary treatment column
 df_stagg_cal <- fixest::base_stagg |>
@@ -1095,7 +1097,7 @@ The calendar heatmap communicates treatment timing heterogeneity at a glance. Un
 
 `causalverse::staggered_summary()` returns a comprehensive summary of the staggered design, including cohort sizes and the calendar plot.
 
-```{r staggered-summary, eval=TRUE, message=FALSE, fig.width=8, fig.height=4}
+```{r staggered-summary, eval=FALSE, message=FALSE, fig.width=8, fig.height=4}
 summ <- causalverse::staggered_summary(
   data      = df_stagg_cal,
   unit_var  = "id",
@@ -1119,7 +1121,7 @@ summ$cohort_plot + causalverse::ama_theme()
 
 The trajectory plot is the central figure in any synthetic control paper. Here we build a fully customized version using `ggplot2` and the estimated weights from SynthDID.
 
-```{r trajectory-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
+```{r trajectory-plot, eval=FALSE, message=FALSE, fig.width=9, fig.height=5}
 
 # California Prop 99  -  full trajectory
 Y_mat    <- setup_ca$Y
@@ -1171,7 +1173,7 @@ ggplot(traj_df, aes(x = year, y = value, color = series, linetype = series)) +
 
 ## Unit Weight Bar Chart (Top Donors)
 
-```{r unit-weights-bar, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+```{r unit-weights-bar, eval=FALSE, message=FALSE, fig.width=8, fig.height=5}
 omega_df <- data.frame(
   unit   = rownames(setup_ca$Y)[seq_len(setup_ca$N0)],
   weight = as.numeric(wts$omega)
@@ -1199,7 +1201,7 @@ ggplot(omega_top, aes(x = unit, y = weight)) +
 
 ## Time Weight Bar Chart
 
-```{r time-weights-bar, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+```{r time-weights-bar, eval=FALSE, message=FALSE, fig.width=8, fig.height=4}
 lambda_df <- data.frame(
   period = seq_len(setup_ca$T0),
   year   = time_lbl[seq_len(setup_ca$T0)],
@@ -1230,7 +1232,7 @@ The dashed line shows the uniform weight that DID would assign (1/T0). SynthDID 
 
 ## Estimator Comparison with Confidence Intervals
 
-```{r estimator-comparison-ci, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=7, fig.height=4}
+```{r estimator-comparison-ci, eval=FALSE, message=FALSE, fig.width=7, fig.height=4}
 set.seed(42)
 
 # Compute estimates and SEs for all three methods
@@ -1290,7 +1292,7 @@ ggplot(comp_df, aes(x = method, y = estimate)) +
 
 SynthDID standard errors cannot be computed from standard OLS formulas because the unit and time weights are estimated from the data. The `synthdid` package provides three resampling-based methods, each appropriate in different settings.
 
-```{r se-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r se-setup, eval=FALSE, message=FALSE}
 # Base DID data: multiple treated units  -  allows all three SE methods
 
 df_did <- fixest::base_did |>
@@ -1319,7 +1321,7 @@ cat("N control:", setup_did$N0, "\n")
 
 The placebo method iterates through control units, treating each one as if it were treated, and computes the SDID estimator on the remaining controls. The standard deviation of these placebo estimates provides the SE.
 
-```{r se-placebo, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r se-placebo, eval=FALSE, message=FALSE}
 # Standard placebo SE requires N_controls > N_treated
 # base_did: 40 control, 10 treated → eligible
 se_placebo_base <- sqrt(vcov(tau_did_base, method = "placebo"))
@@ -1335,7 +1337,7 @@ print(se_per_period)
 
 The jackknife leaves one unit out at a time (treated or control, depending on implementation) and recomputes the estimate. The causalverse wrapper `synthdid_se_jacknife()` provides per-period jackknife SEs.
 
-```{r se-jackknife, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r se-jackknife, eval=FALSE, message=FALSE}
 se_jack_base <- sqrt(vcov(tau_did_base, method = "jackknife"))
 cat("Jackknife SE:", round(se_jack_base, 4), "\n")
 
@@ -1348,7 +1350,7 @@ print(se_jack_per)
 
 Bootstrap resamples control units with replacement and recomputes estimates across `B` bootstrap draws. It is the most computationally intensive method but can be more robust in finite samples.
 
-```{r se-bootstrap, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r se-bootstrap, eval=FALSE, message=FALSE}
 set.seed(123)
 se_boot_base <- sqrt(vcov(tau_did_base, method = "bootstrap"))
 cat("Bootstrap SE:", round(se_boot_base, 4), "\n")
@@ -1356,7 +1358,7 @@ cat("Bootstrap SE:", round(se_boot_base, 4), "\n")
 
 ## Comparing All Three SE Methods
 
-```{r se-comparison-table, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r se-comparison-table, eval=FALSE, message=FALSE}
 est_val <- as.numeric(tau_did_base)
 
 se_table <- data.frame(
@@ -1379,7 +1381,7 @@ print(se_table)
 
 The RMSPE ratio test is a classic non-parametric inference approach from Abadie, Diamond, and Hainmueller (2010). It computes the ratio of post-treatment to pre-treatment prediction error (RMSPE) for both the treated unit and each control unit (treated as a placebo). A large ratio for the treated unit relative to the placebo distribution indicates a genuine treatment effect.
 
-```{r rmspe-ratio-full, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+```{r rmspe-ratio-full, eval=FALSE, message=FALSE, fig.width=8, fig.height=5}
 # Detailed RMSPE computation for California Prop 99
 Y_ca    <- setup_ca$Y
 T0_ca   <- setup_ca$T0
@@ -1459,7 +1461,7 @@ This section provides a complete, step-by-step workflow for staggered adoption u
 
 ## Setting Up the Staggered Data
 
-```{r staggered-setup, eval=TRUE, message=FALSE}
+```{r staggered-setup, eval=FALSE, message=FALSE}
 
 # base_stagg: staggered DiD dataset with units treated at years 5, 6, or 7
 # Never-treated units have year_treated = 10000 (a large placeholder)
@@ -1480,7 +1482,7 @@ cat("Periods:", length(unique(df_full$year)), "\n")
 
 ## Cohort Structure Visualization
 
-```{r staggered-cohort-viz, eval=TRUE, message=FALSE, fig.width=9, fig.height=4}
+```{r staggered-cohort-viz, eval=FALSE, message=FALSE, fig.width=9, fig.height=4}
 # Staggered summary for the treated cohorts only
 summ_full <- causalverse::staggered_summary(
   data      = df_full,
@@ -1494,7 +1496,7 @@ summ_full <- causalverse::staggered_summary(
 summ_full$calendar_plot + causalverse::ama_theme(base_size = 9)
 ```
 
-```{r staggered-cohort-bar, eval=TRUE, message=FALSE, fig.width=7, fig.height=3}
+```{r staggered-cohort-bar, eval=FALSE, message=FALSE, fig.width=7, fig.height=3}
 summ_full$cohort_plot + causalverse::ama_theme()
 ```
 
@@ -1502,7 +1504,7 @@ summ_full$cohort_plot + causalverse::ama_theme()
 
 The `synthdid_est_ate()` function estimates a separate SynthDID model for each adoption cohort, then aggregates to an overall ATE.
 
-```{r staggered-ate, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=5}
+```{r staggered-ate, eval=FALSE, message=FALSE, fig.width=8, fig.height=5}
 set.seed(42)
 est_staggered <- causalverse::synthdid_est_ate(
   data               = df_full,
@@ -1532,7 +1534,7 @@ causalverse::synthdid_plot_ate(est_staggered) + causalverse::ama_theme()
 
 ## Comparing Staggered SDID vs. DID vs. SC
 
-```{r staggered-comparison, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r staggered-comparison, eval=FALSE, message=FALSE}
 methods_compare <- c("synthdid", "did", "sc")
 
 results_staggered <- lapply(methods_compare, function(m) {
@@ -1576,7 +1578,7 @@ The standard SynthDID estimator uses only the outcome variable to compute weight
 
 ## Step-by-Step Residualization
 
-```{r covariates-resid, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r covariates-resid, eval=FALSE, message=FALSE}
 
 df_cov <- fixest::base_did |>
   dplyr::mutate(
@@ -1616,7 +1618,7 @@ cat("SynthDID (residualized on x1): ", round(as.numeric(tau_res), 4), "\n")
 
 A key diagnostic is whether the residualized outcome achieves better pre-treatment fit:
 
-```{r covariates-prefit, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r covariates-prefit, eval=FALSE, message=FALSE}
 compute_prefit_rmspe <- function(setup) {
   tau_obj  <- synthdid::synthdid_estimate(setup$Y, setup$N0, setup$T0)
   wts_obj  <- attr(tau_obj, "weights")
@@ -1639,7 +1641,7 @@ cat("Improvement:                        ",
 
 After computing SynthDID weights, we can assess whether the weighted control group achieves better covariate balance relative to the treated group.
 
-```{r covariates-balance, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r covariates-balance, eval=FALSE, message=FALSE}
 # Extract unit weights
 omega_raw <- attr(tau_raw, "weights")$omega
 
@@ -1681,7 +1683,7 @@ When multiple units are treated, SynthDID aggregates the per-unit estimates into
 
 ## Setup with Multiple Treated Units
 
-```{r multi-treated-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r multi-treated-setup, eval=FALSE, message=FALSE}
 # base_did has multiple treated and control units
 # Let's also examine the structure
 df_multi_t <- fixest::base_did |>
@@ -1713,7 +1715,7 @@ cat("N_treated:", nrow(setup_multi$Y) - setup_multi$N0, "\n")
 
 ## Aggregate and Per-Unit Estimates
 
-```{r multi-treated-est, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r multi-treated-est, eval=FALSE, message=FALSE}
 tau_multi_t <- synthdid::synthdid_estimate(
   setup_multi$Y, setup_multi$N0, setup_multi$T0
 )
@@ -1738,7 +1740,7 @@ cat("\n95% CI (Jackknife): (",
 
 ## Using `panel_estimate()` for Multiple Estimators
 
-```{r multi-treated-panel, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r multi-treated-panel, eval=FALSE, message=FALSE}
 results_multi <- causalverse::panel_estimate(
   setup_multi,
   selected_estimators = c("synthdid", "did", "sc", "sc_ridge", "difp")
@@ -1751,7 +1753,7 @@ print(causalverse::process_panel_estimate(results_multi))
 
 With multiple treated units, per-unit treatment effects and placebo SEs can help identify heterogeneous effects:
 
-```{r multi-treated-per-period, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r multi-treated-per-period, eval=FALSE, message=FALSE}
 # Per-period effects using causalverse
 per_period_multi <- causalverse::synthdid_est_per(
   Y       = setup_multi$Y,
@@ -1771,7 +1773,7 @@ Sensitivity analysis for synthetic control methods typically involves dropping o
 
 ## Leave-One-Out Estimation
 
-```{r loo-setup, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=9, fig.height=5}
+```{r loo-setup, eval=FALSE, message=FALSE, fig.width=9, fig.height=5}
 set.seed(99)
 
 Y_loo    <- setup_ca$Y
@@ -1821,7 +1823,7 @@ print(loo_df)
 
 ## Visualizing LOO Sensitivity
 
-```{r loo-plot, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+```{r loo-plot, eval=FALSE, message=FALSE, fig.width=8, fig.height=4}
 ggplot(loo_df, aes(x = Dropped, y = Estimate)) +
   geom_hline(
     yintercept = full_est_val,
@@ -1851,7 +1853,7 @@ A robust result shows that removing any single donor does not substantially chan
 
 ## LOO Gap Plot for Key Donors
 
-```{r loo-gap-comparison, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE, fig.width=8, fig.height=4}
+```{r loo-gap-comparison, eval=FALSE, message=FALSE, fig.width=8, fig.height=4}
 # Compare gap plots: full model vs. dropping top donor
 top_donor_idx <- which.max(omega_full)
 top_donor_name <- rownames(Y_loo)[top_donor_idx]
@@ -1910,7 +1912,7 @@ This section demonstrates a complete publication-ready workflow using the Califo
 
 ## Step 1: Data Description and Balance
 
-```{r pub-balance, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r pub-balance, eval=FALSE, message=FALSE}
 # Summarize treated vs. control units (using pre-treatment cigarette sales)
 Y_pub    <- setup_ca$Y
 N0_pub   <- setup_ca$N0
@@ -1935,7 +1937,7 @@ cat("  Mean cigarette sales:", round(mean(unit_df$pre_avg_cig[unit_df$group == "
 
 ## Step 2: Run All Estimators
 
-```{r pub-estimators, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r pub-estimators, eval=FALSE, message=FALSE}
 results_pub <- causalverse::panel_estimate(
   setup_ca,
   selected_estimators = c("synthdid", "did", "sc", "sc_ridge", "difp", "difp_ridge")
@@ -1948,7 +1950,7 @@ print(tbl_pub)
 
 ## Step 3: Extract and Tidy the SynthDID Estimate
 
-```{r pub-tidy, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r pub-tidy, eval=FALSE, message=FALSE}
 # Tidy the main SDID estimate using causalverse::tidy_causal()
 tidy_sdid <- causalverse::tidy_causal(
   model      = est_sdid,
@@ -1959,7 +1961,7 @@ print(tidy_sdid)
 
 ## Step 4: Publication Table via `causal_table()`
 
-```{r pub-table, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r pub-table, eval=FALSE, message=FALSE}
 # Build three OLS models for comparison as a publication table example
 # (In practice, replace these with your causal estimates)
 # Use the raw california_prop99 data for an OLS comparison
@@ -1994,7 +1996,7 @@ print(causal_tbl)
 
 ## Step 5: Final Reporting Summary
 
-```{r pub-summary, eval=requireNamespace("synthdid", quietly=TRUE), message=FALSE}
+```{r pub-summary, eval=FALSE, message=FALSE}
 # Final reporting summary
 est_final  <- as.numeric(est_sdid)
 se_final   <- se_placebo_base  # placebo SE for single treated unit
