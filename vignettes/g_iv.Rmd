@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   cache = TRUE,
-  eval = FALSE
+  error = TRUE
 )
 ```
 
-```{r setup, eval = FALSE}
+```{r setup}
 library(causalverse)
 ```
 
@@ -367,7 +367,7 @@ fixest::etable(m_step, fitstat = ~ r2 + n + ivf)
 
 The `ivreg` package (Fox, Kleiber, and Zeileis, 2023) provides a classical implementation of IV estimation with comprehensive built-in diagnostics. Its formula interface uses `|` to separate the structural equation from the list of instruments.
 
-```{r ivreg-example, eval=FALSE}
+```{r ivreg-example, eval=requireNamespace("ivreg", quietly = TRUE)}
 library(ivreg)
 
 # Basic 2SLS: y ~ endogenous + exogenous | instruments + exogenous
@@ -377,7 +377,7 @@ summary(iv_ivreg)
 
 The key feature of `ivreg` is its rich diagnostic output:
 
-```{r ivreg-diagnostics, eval=FALSE}
+```{r ivreg-diagnostics, eval=requireNamespace("ivreg", quietly = TRUE)}
 # Full diagnostics
 summary(iv_ivreg, diagnostics = TRUE)
 ```
@@ -388,7 +388,7 @@ This reports three important tests:
 2.  **Wu-Hausman test**: Tests the null hypothesis that OLS is consistent (i.e., the treatment is exogenous). Rejection motivates the use of IV.
 3.  **Sargan test**: In over-identified models, tests the null that all instruments are valid (satisfy the exclusion restriction). Rejection suggests at least one instrument may be invalid.
 
-```{r ivreg-overid, eval=FALSE}
+```{r ivreg-overid, eval=requireNamespace("ivreg", quietly = TRUE)}
 # Over-identified model with two instruments
 iv_overid_ivreg <- ivreg(y ~ d + x1 + x2 | z + z2 + x1 + x2, data = df)
 summary(iv_overid_ivreg, diagnostics = TRUE)
@@ -396,7 +396,7 @@ summary(iv_overid_ivreg, diagnostics = TRUE)
 
 You can also extract components for custom analysis:
 
-```{r ivreg-extract, eval=FALSE}
+```{r ivreg-extract, eval=requireNamespace("ivreg", quietly = TRUE)}
 # Coefficients and confidence intervals
 coef(iv_ivreg)
 confint(iv_ivreg)
@@ -778,7 +778,7 @@ cat("Degrees of freedom:", 1, "(2 instruments - 1 endogenous variable)\n")
 
 **Caveat:** The Sargan test has low power when instruments are weak and can also reject when all instruments are invalid in the same direction. It tests whether different instruments give the same estimate, not whether any individual instrument is valid in an absolute sense.
 
-```{r sargan-ivreg, eval=FALSE}
+```{r sargan-ivreg, eval=requireNamespace("ivreg", quietly = TRUE)}
 # Using ivreg for automatic Sargan test
 library(ivreg)
 iv_overid_ivreg2 <- ivreg(y ~ d + x1 + x2 | z + z2 + x1 + x2, data = df)
@@ -800,7 +800,7 @@ The `sensemakr` package (Cinelli and Hazlett, 2020) provides a formal framework 
 
 ## Basic Sensitivity Analysis
 
-```{r sensemakr-basic, eval=FALSE}
+```{r sensemakr-basic, eval=requireNamespace("sensemakr", quietly = TRUE)}
 library(sensemakr)
 
 # Fit OLS model (sensemakr works with lm objects)
@@ -823,7 +823,7 @@ The summary reports the **Robustness Value (RV)**, which indicates the minimum s
 
 ## Contour Plots
 
-```{r sensemakr-contour, eval=FALSE, fig.width=7, fig.height=5}
+```{r sensemakr-contour, eval=requireNamespace("sensemakr", quietly = TRUE), fig.width=7, fig.height=5}
 # Contour plot of the estimated effect as a function of
 # confounding strength with treatment (R2_DZ.X) and outcome (R2_YZ.X)
 plot(sens, sensitivity.of = "estimate")
@@ -838,7 +838,7 @@ The contour plot shows:
 
 ## Benchmarking
 
-```{r sensemakr-benchmark, eval=FALSE, fig.width=7, fig.height=5}
+```{r sensemakr-benchmark, eval=requireNamespace("sensemakr", quietly = TRUE), fig.width=7, fig.height=5}
 # The benchmark uses observed covariates as reference points
 # "How strong would the confounder need to be relative to x1?"
 plot(sens, sensitivity.of = "estimate", type = "extreme")
@@ -924,7 +924,7 @@ $$\Delta Y_{it} = \beta_1 \Delta D_{it} + \Delta \varepsilon_{it}$$
 
 First differencing removes time-invariant confounders, just like fixed effects. The instrument in this specification is $\Delta Z_{it}$.
 
-```{r fd-iv, eval=FALSE}
+```{r fd-iv, eval=TRUE}
 # First-differenced IV can be estimated by:
 # 1. Computing first differences manually
 # 2. Using feols with differenced variables
@@ -1164,7 +1164,7 @@ The Anderson-Rubin (AR) test and the Conditional Likelihood Ratio (CLR) test pro
 
 ## Implementation with `ivmodel`
 
-```{r liml-kclass, eval=FALSE}
+```{r liml-kclass, eval = requireNamespace("ivmodel", quietly = TRUE)}
 library(ivmodel)
 
 # Simulate IV data with a moderately weak instrument
@@ -1310,7 +1310,7 @@ Three variants are available:
 
 ## Implementation with `hdm`
 
-```{r lasso-iv, eval=FALSE, error = TRUE}
+```{r lasso-iv, eval = requireNamespace("hdm", quietly = TRUE), error = TRUE}
 library(hdm)
 
 # Simulate data with many candidate instruments
@@ -1370,7 +1370,7 @@ Angrist, Imbens, and Krueger (1999) showed that JIVE is approximately unbiased f
 
 ## Implementation with `SteinIV`
 
-```{r jive, eval=FALSE}
+```{r jive, eval = requireNamespace("SteinIV", quietly = TRUE)}
 library(SteinIV)
 
 # Simulate data with multiple instruments
@@ -1420,7 +1420,7 @@ This makes the MTE a fundamental building block for extrapolation beyond LATE.
 
 ## Implementation with `ivmte`
 
-```{r mte, eval=FALSE}
+```{r mte, eval = requireNamespace("ivmte", quietly = TRUE)}
 library(ivmte)
 
 # Simulate data for MTE estimation
@@ -1491,7 +1491,7 @@ In the linear model, this is numerically identical to 2SLS. However, the control
 
 ## Manual Implementation with `fixest`
 
-```{r control-function, eval=FALSE}
+```{r control-function, eval = TRUE}
 # Simulate data
 set.seed(42)
 n <- 1000
@@ -1669,7 +1669,7 @@ This is an **ill-posed inverse problem**: the conditional expectation restrictio
 
 ## Implementation with `npiv`
 
-```{r npiv-estimation, eval=FALSE}
+```{r npiv-estimation, eval = requireNamespace("npiv", quietly = TRUE)}
 library(npiv)
 
 # Simulate data with nonlinear structural function
@@ -1703,7 +1703,7 @@ The key idea: under the sharp null hypothesis $H_0: \beta = \beta_0$ for all uni
 
 ## Manual Implementation
 
-```{r randomization-inference-iv, eval=FALSE}
+```{r randomization-inference-iv, eval = TRUE}
 # Simulate IV data
 set.seed(42)
 n <- 200
@@ -1768,7 +1768,7 @@ This is estimated using local polynomial regression with `deriv = 1` in the `rdr
 
 ## Implementation with `rdrobust`
 
-```{r regression-kink, eval=FALSE}
+```{r regression-kink, eval = requireNamespace("rdrobust", quietly = TRUE)}
 library(rdrobust)
 
 # Simulate data with a kink in the treatment at x = 0
@@ -1813,7 +1813,7 @@ The standard MR assumptions mirror IV:
 
 When multiple SNPs are available, MR-Egger regression provides a test for and correction of horizontal pleiotropy.
 
-```{r mendelian-randomization, eval=FALSE}
+```{r mendelian-randomization, eval = requireNamespace("MendelianRandomization", quietly = TRUE)}
 library(MendelianRandomization)
 
 # Simulated summary-level MR data (as typically available from GWAS)
@@ -2309,7 +2309,7 @@ The three main summary-level estimators are:
 - **MR-Egger:** Allows for uncorrelated pleiotropy via an intercept term; consistent when pleiotropic effects are mean-zero (InSIDE assumption).
 - **Weighted Median:** Consistent if at least 50% of instruments are valid (no pleiotropy).
 
-```{r mr_setup, eval=FALSE}
+```{r mr_setup, eval=requireNamespace("MendelianRandomization", quietly=TRUE)}
 library(MendelianRandomization)
 
 # Simulate two-sample MR data
@@ -2565,7 +2565,7 @@ print(iv_diag)
 
 The LARF generalizes LATE to settings with continuous instruments, tracing out the treatment effect as a function of the instrument value (or resistance to treatment).
 
-```{r larf_viz, eval=FALSE, fig.width=9, fig.height=5}
+```{r larf_viz, eval=requireNamespace("fixest", quietly=TRUE), fig.width=9, fig.height=5}
 # Visualize heterogeneity in Wald ratios across instrument strength quantiles
 # (approximates the Local Average Response Function)
 set.seed(8)
@@ -2637,7 +2637,7 @@ Borusyak, Hull, and Jaravel (2022) provide an alternative: identification from t
 
 ## Rotemberg Weights and Industry Concentration
 
-```{r bartik_setup, eval=FALSE}
+```{r bartik_setup, eval=requireNamespace("fixest", quietly=TRUE)}
 
 set.seed(314)
 
@@ -2676,7 +2676,7 @@ bartik_2sls <- feols(outcome ~ 1 | treatment ~ bartik, data = df_bartik)
 summary(bartik_2sls)
 ```
 
-```{r rotemberg_weights, eval=FALSE}
+```{r rotemberg_weights, eval=requireNamespace("fixest", quietly=TRUE)}
 # Rotemberg (2019) weights: decompose the Bartik estimate
 # alpha_k = weight on industry k's just-identified IV estimate
 # = (share_k' * D / share_k' * Z_k) * (var(Z_k) / var(Z_bartik))
@@ -2718,7 +2718,7 @@ knitr::kable(
 )
 ```
 
-```{r rotemberg_concentration, eval=FALSE}
+```{r rotemberg_concentration, eval=requireNamespace("fixest", quietly=TRUE)}
 # Herfindahl index of Rotemberg weight concentration
 # High HHI means identification driven by few industries -- less credible
 hhi_rotemberg <- sum(alpha_k_norm^2)
@@ -2739,7 +2739,7 @@ print(iv_diag_bartik)
 
 A critical robustness check is to exclude the highest-Rotemberg-weight industry and re-estimate. If the estimate changes substantially, identification is driven by a single industry whose exogeneity must be defended.
 
-```{r bartik_leaveoneout, eval=FALSE}
+```{r bartik_leaveoneout, eval=requireNamespace("fixest", quietly=TRUE)}
 # Identify top industry by absolute Rotemberg weight
 top_ind <- which.max(abs(alpha_k_norm))
 cat(sprintf("Top industry by Rotemberg weight: Industry %d (weight = %.4f)\n",
@@ -2826,7 +2826,7 @@ Three remedies are widely used:
 - **Fuller(1) Estimator:** LIML minus $1/(n-K)$ times an adjustment; slightly biased but with much lower variance than LIML.
 - **JIVE (Jackknife IV Estimator):** Uses leave-one-out predicted values; consistent and avoids the LIML large-variance problem.
 
-```{r many_iv_setup, eval=FALSE}
+```{r many_iv_setup, eval=requireNamespace("ivmodel", quietly=TRUE)}
 library(ivmodel)
 
 # Simulate many-weak-IV setting
@@ -2859,13 +2859,13 @@ cat(sprintf("Cragg-Donald threshold at K=%d: ~2.0 (weak by Staiger-Stock)\n\n",
             K_miv))
 ```
 
-```{r many_iv_compare, eval=FALSE}
+```{r many_iv_compare, eval=requireNamespace("ivmodel", quietly=TRUE)}
 # Compare 2SLS, LIML, Fuller(1) using ivmodel package
 mod_ivmodel <- ivmodel(Y = Y_miv, D = X_miv, Z = Z_miv, intercept = TRUE)
 summary(mod_ivmodel)
 ```
 
-```{r many_iv_extract, eval=FALSE}
+```{r many_iv_extract, eval=requireNamespace("ivmodel", quietly=TRUE)}
 # Extract point estimates and SEs for each estimator
 est_tsls   <- mod_ivmodel$TSLS$point.est
 se_tsls    <- mod_ivmodel$TSLS$std.err
@@ -2898,7 +2898,7 @@ cat("LIML is consistent but may have heavy tails (large variance).\n")
 cat("Fuller(1) trades a small bias for substantially lower variance.\n")
 ```
 
-```{r many_iv_simulation, eval=FALSE}
+```{r many_iv_simulation, eval=requireNamespace("ivmodel", quietly=TRUE)}
 # Monte Carlo: compare bias of 2SLS vs. LIML vs. Fuller(1) across replications
 set.seed(99)
 n_mc <- 500
@@ -2977,7 +2977,7 @@ $$LATE(z, z') = \int_0^1 MTE(u) \cdot \mathbf{1}\{p(z') \leq u \leq p(z)\} \, du
 
 The weights $h_{ATE}(u) = 1$, $h_{ATT}(u)$, $h_{LATE}(u)$ determine which part of the MTE curve each estimator averages over.
 
-```{r mte_conceptual, eval=FALSE}
+```{r mte_conceptual, eval=requireNamespace("fixest", quietly=TRUE)}
 # Illustrate MTE concept with a simulated dataset
 set.seed(42)
 n_mte <- 3000
@@ -3022,7 +3022,7 @@ cat(sprintf("OLS estimate:        %.4f\n",
             coef(lm(Y_mte ~ D_mte))[["D_mte"]]))
 ```
 
-```{r mte_curve, eval=FALSE}
+```{r mte_curve, eval=requireNamespace("fixest", quietly=TRUE)}
 # Estimate and plot the MTE curve using local linear regression
 # on the derivative of the conditional mean with respect to propensity score
 

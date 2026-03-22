@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval=FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ```{r setup, message=FALSE, warning=FALSE}
@@ -227,7 +227,7 @@ cat("  SD CATE:  ", round(sd(tau_s), 4), "\n")
 cat("  RMSE vs truth:", round(sqrt(mean((tau_s - tau_true)^2)), 4), "\n")
 ```
 
-```{r s-learner-xgb, eval=FALSE}
+```{r s-learner-xgb, eval=requireNamespace("xgboost", quietly=TRUE)}
 library(xgboost)
 
 # S-Learner with XGBoost
@@ -289,7 +289,7 @@ cat("  SD CATE:  ", round(sd(tau_t), 4), "\n")
 cat("  RMSE vs truth:", round(sqrt(mean((tau_t - tau_true)^2)), 4), "\n")
 ```
 
-```{r t-learner-xgb, eval=FALSE}
+```{r t-learner-xgb, eval=requireNamespace("xgboost", quietly=TRUE)}
 # T-Learner with XGBoost
 set.seed(42)
 
@@ -373,7 +373,7 @@ $$\hat{\tau} = \arg\min_\tau \frac{1}{n} \sum_{i=1}^n \left[\tilde{Y}_i - \tau(X
 
 This is equivalent to regressing $\tilde{Y}_i / \tilde{W}_i$ on $X_i$ with weights $\tilde{W}_i^2$, or running a weighted regression of $\tilde{Y}_i$ on $\tau(X_i) \tilde{W}_i$.
 
-```{r r-learner, eval=FALSE}
+```{r r-learner, eval=requireNamespace("glmnet", quietly=TRUE)}
 library(glmnet)
 
 # Cross-fitting with K=5 folds
@@ -427,7 +427,7 @@ cat("  RMSE vs truth:", round(sqrt(mean((tau_r - tau_true)^2)), 4), "\n")
 
 ### 3.5 Meta-Learner Comparison
 
-```{r metalearner-compare, eval=FALSE, fig.width=8, fig.height=5}
+```{r metalearner-compare, eval=requireNamespace("xgboost", quietly=TRUE) && requireNamespace("glmnet", quietly=TRUE), fig.width=8, fig.height=5}
 # Compile RMSE comparison
 rmse_df <- data.frame(
   Method = c("S-Learner (OLS)", "S-Learner (XGB)",
@@ -490,7 +490,7 @@ where $\alpha_i(x)$ are forest weights (frequencies of appearing in the same lea
 
 ### 4.1 Fitting a Causal Forest
 
-```{r causal-forest, eval=FALSE}
+```{r causal-forest, eval=requireNamespace("grf", quietly=TRUE)}
 library(grf)
 
 set.seed(42)
@@ -509,7 +509,7 @@ cat("Tuned sample.fraction:", cf$tunable.params$sample.fraction, "\n")
 
 ### 4.2 ATE Estimation
 
-```{r grf-ate, eval=FALSE}
+```{r grf-ate, eval=requireNamespace("grf", quietly=TRUE)}
 ate_grf <- average_treatment_effect(cf, target.sample = "all")
 att_grf <- average_treatment_effect(cf, target.sample = "treated")
 
@@ -522,7 +522,7 @@ cat("True ATE:", round(mean(tau_true), 4), "\n")
 
 ### 4.3 CATE Predictions with Confidence Intervals
 
-```{r grf-cate, eval=FALSE}
+```{r grf-cate, eval=requireNamespace("grf", quietly=TRUE)}
 # Out-of-bag predictions (honest, avoids overfitting)
 preds <- predict(cf, estimate.variance = TRUE)
 tau_cf  <- preds$predictions
@@ -538,7 +538,7 @@ cat("Oracle RMSE (vs true tau):", round(sqrt(mean((tau_cf - tau_true)^2)), 4), "
 
 The calibration test (Chernozhukov et al. 2020) checks whether the CATE predictions are informative:
 
-```{r grf-calibration, eval=FALSE}
+```{r grf-calibration, eval=requireNamespace("grf", quietly=TRUE)}
 cal <- test_calibration(cf)
 print(cal)
 ```
@@ -547,7 +547,7 @@ A significant coefficient on `differential.forest.prediction` (the BLP coefficie
 
 ### 4.5 Variable Importance
 
-```{r grf-varimp, eval=FALSE, fig.width=7, fig.height=4}
+```{r grf-varimp, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 varimp <- variable_importance(cf)
 varimp_df <- data.frame(
   feature    = colnames(X),
@@ -569,7 +569,7 @@ ggplot(varimp_df, aes(x = reorder(feature, importance), y = importance)) +
 
 ### 4.6 CATE Distribution
 
-```{r grf-cate-dist, eval=FALSE, fig.width=7, fig.height=4}
+```{r grf-cate-dist, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 cate_df <- data.frame(
   tau_cf   = tau_cf,
   tau_true = tau_true,
@@ -594,7 +594,7 @@ ggplot(cate_df, aes(x = tau_cf)) +
 
 ### 4.7 CATE vs. True Treatment Effect
 
-```{r grf-scatter, eval=FALSE, fig.width=6, fig.height=5}
+```{r grf-scatter, eval=requireNamespace("grf", quietly=TRUE), fig.width=6, fig.height=5}
 ggplot(cate_df, aes(x = tau_true, y = tau_cf)) +
   geom_point(alpha = 0.15, size = 0.8, color = "#2166AC") +
   geom_smooth(method = "lm", color = "#D73027", se = FALSE) +
@@ -612,7 +612,7 @@ ggplot(cate_df, aes(x = tau_true, y = tau_cf)) +
 
 ### 4.8 Comprehensive Summary via `causal_forest_summary()`
 
-```{r grf-summary, eval=FALSE}
+```{r grf-summary, eval=requireNamespace("grf", quietly=TRUE)}
 cf_summary <- causal_forest_summary(
   cf            = cf,
   X             = X,
@@ -629,11 +629,11 @@ print(cf_summary$ate)
 print(round(cf_summary$cate_summary, 4))
 ```
 
-```{r grf-summary-plots, eval=FALSE, fig.width=7, fig.height=4}
+```{r grf-summary-plots, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 cf_summary$plot_cate_dist
 ```
 
-```{r grf-importance-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r grf-importance-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 cf_summary$plot_importance
 ```
 
@@ -655,7 +655,7 @@ $$Y_i - \hat{m}(X_i) = \beta_1 (W_i - \hat{e}(X_i)) + \beta_2 (\hat{\tau}(X_i) -
 
 ### 5.2 Running BLP Analysis
 
-```{r blp-analysis, eval=FALSE}
+```{r blp-analysis, eval=requireNamespace("grf", quietly=TRUE)}
 blp_res <- blp_analysis(
   cate_hat  = tau_cf,
   Y         = Y,
@@ -674,7 +674,7 @@ A significant $\beta_2$ confirms that the causal forest captures genuine heterog
 
 ### 5.3 BLP Plot
 
-```{r blp-plot, eval=FALSE, fig.width=6, fig.height=4}
+```{r blp-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=6, fig.height=4}
 blp_res$blp_plot
 ```
 
@@ -682,7 +682,7 @@ blp_res$blp_plot
 
 GATES summarizes heterogeneity by ranking units into quantile groups by estimated CATE and computing the average treatment effect within each group:
 
-```{r gates-table, eval=FALSE}
+```{r gates-table, eval=requireNamespace("grf", quietly=TRUE)}
 cat("GATES Results:\n")
 gates_df <- blp_res$gates
 # Only round numeric columns (group is character)
@@ -691,7 +691,7 @@ gates_df[num_cols] <- round(gates_df[num_cols], 4)
 print(gates_df)
 ```
 
-```{r gates-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r gates-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 blp_res$gates_plot
 ```
 
@@ -735,7 +735,7 @@ where $q_f$ is the $f$-th quantile of $\hat{\tau}(X)$.
 
 ### 6.2 Computing the Qini Curve
 
-```{r qini, eval=FALSE}
+```{r qini, eval=requireNamespace("grf", quietly=TRUE)}
 qini_res <- qini_curve(
   cate_hat       = tau_cf,
   Y              = Y,
@@ -751,14 +751,14 @@ cat("AUUC 95% CI: [", round(qini_res$auuc_ci[1], 4),
     ",", round(qini_res$auuc_ci[2], 4), "]\n")
 ```
 
-```{r qini-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r qini-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 qini_res$plot +
   labs(title = "Qini Curve: Causal Forest CATE Targeting")
 ```
 
 ### 6.3 Comparing Qini Curves Across Estimators
 
-```{r qini-compare, eval=FALSE, fig.width=8, fig.height=5}
+```{r qini-compare, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=5}
 # Compute Qini curves for each estimator
 compute_qini_simple <- function(tau_hat, Y, W, n_bins = 100) {
   n   <- length(Y)
@@ -829,7 +829,7 @@ ggplot(q_all, aes(x = fraction, y = uplift, color = Method, linetype = Method)) 
 If treatment has a per-unit cost $c$, the optimal targeting rule is:
 $$\text{Treat unit } i \iff \hat{\tau}(X_i) \geq c$$
 
-```{r targeting-rule, eval=FALSE}
+```{r targeting-rule, eval=requireNamespace("grf", quietly=TRUE)}
 # Policy evaluation at different cost thresholds
 cost_thresholds <- c(0, 0.25, 0.5, 0.75, 1.0)
 policy_values <- sapply(cost_thresholds, function(c_val) {
@@ -849,7 +849,7 @@ print(policy_df)
 
 ### 6.5 Policy Value via AIPW
 
-```{r policy-aipw, eval=FALSE}
+```{r policy-aipw, eval=requireNamespace("grf", quietly=TRUE)}
 # Estimate policy value using doubly-robust scores
 evaluate_policy <- function(policy, Y, W, Y_hat, W_hat) {
   # DR policy value: E[policy * (Y(1) - cost) + (1-policy) * Y(0)]
@@ -882,7 +882,7 @@ cat("Vs. ATE (treat all):", round(mean(tau_true), 4), "\n")
 
 ### 7.1 Forest Plot by Subgroups
 
-```{r forest-plot, eval=FALSE, fig.width=7, fig.height=5}
+```{r forest-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=5}
 # Create pre-specified subgroups based on X1 and X2
 df_plot <- data.frame(X,
   cate   = tau_cf,
@@ -906,7 +906,7 @@ p_forest
 
 ### 7.2 CATE vs. Continuous Moderator
 
-```{r scatter-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r scatter-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 p_scatter <- heterogeneity_plot(
   data          = df_plot,
   cate_var      = "cate",
@@ -921,7 +921,7 @@ The LOESS curve confirms the linear relationship between $X_1$ and the CATE, as 
 
 ### 7.3 Violin Plot by Treatment Group
 
-```{r violin-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r violin-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 df_plot$Treatment <- factor(W, levels = c(0, 1), labels = c("Control", "Treated"))
 p_violin <- heterogeneity_plot(
   data         = df_plot,
@@ -937,7 +937,7 @@ p_violin
 
 The partial dependence plot shows the marginal effect of $X_1$ on the CATE, averaging over the distribution of other covariates.
 
-```{r pdp-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r pdp-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 # Partial dependence of CATE on X1: vary X1, hold others at observed values
 x1_grid  <- seq(min(X[, 1]), max(X[, 1]), length.out = 50)
 pdp_vals <- sapply(x1_grid, function(x1_val) {
@@ -961,7 +961,7 @@ ggplot(pdp_df, aes(x = X1, y = CATE)) +
 
 ### 7.5 Calibration Plot: Predicted vs. Actual CATE by Decile
 
-```{r calibration-plot, eval=FALSE, fig.width=7, fig.height=4}
+```{r calibration-plot, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 # Bin by predicted CATE decile, compute realized treatment effect
 calib_df <- data.frame(
   tau_cf   = tau_cf,
@@ -1016,7 +1016,7 @@ Chernozhukov et al. (2018) showed that **cross-fitting** (using separate data fo
 
 ### 8.2 DML Implementation with Cross-Fitting
 
-```{r dml-manual, eval=FALSE}
+```{r dml-manual, eval=requireNamespace("glmnet", quietly=TRUE)}
 library(glmnet)
 
 # DML with K=5 cross-fitting
@@ -1066,7 +1066,7 @@ To allow $\theta$ to vary with a key moderator $V$ (e.g., $X_1$), interact the m
 
 $$\tilde{Y}_i = \theta_0 \tilde{W}_i + \theta_1 \tilde{W}_i \cdot V_i + \eta_i$$
 
-```{r dml-heterogeneous, eval=FALSE}
+```{r dml-heterogeneous, eval=requireNamespace("glmnet", quietly=TRUE)}
 # Moderator: X1 (centered)
 V       <- X[, 1]
 V_c     <- V - mean(V)
@@ -1091,7 +1091,7 @@ The coefficient $\theta_1$ estimates how the treatment effect changes per unit i
 
 ### 8.4 Using the DoubleML Package
 
-```{r doubleml, eval=FALSE && requireNamespace("mlr3learners", quietly=TRUE), error=TRUE}
+```{r doubleml, eval=requireNamespace("DoubleML", quietly=TRUE) && requireNamespace("mlr3", quietly=TRUE) && requireNamespace("mlr3learners", quietly=TRUE), error=TRUE}
 library(DoubleML)
 library(mlr3)
 library(mlr3learners)
@@ -1338,7 +1338,7 @@ ggplot(me_df, aes(x = X1, y = AME)) +
 
 ### 10.4 Marginal Effects with `marginaleffects`
 
-```{r marginaleffects, eval=FALSE}
+```{r marginaleffects, eval=requireNamespace("marginaleffects", quietly=TRUE)}
 library(marginaleffects)
 
 # Average marginal effect of W at different X1 levels
@@ -1416,7 +1416,7 @@ cat("  BH-FDR:      ", sum(mt_df$sig_bh), "subgroups\n")
 
 The causal tree (Athey & Imbens 2016) uses honest estimation: the partitioning data and estimation data are separate. This controls for the bias introduced by searching over splits.
 
-```{r causal-tree, eval=FALSE}
+```{r causal-tree, eval=requireNamespace("grf", quietly=TRUE)}
 # Use GRF's causal_forest as an approximation to causal trees
 # GRF uses honest sample splitting within each tree
 
@@ -1445,7 +1445,7 @@ cat("  True HTE: High =", round(mean(tau_true[group_hi]), 4),
 
 The virtual twins method (Foster et al. 2011) estimates individual treatment effects, then builds a decision tree on the CATE estimates to identify interpretable subgroups:
 
-```{r virtual-twins, eval=FALSE}
+```{r virtual-twins, eval=requireNamespace("grf", quietly=TRUE)}
 # Step 1: Estimate CATE (already have tau_cf from causal forest)
 # Step 2: Classify as "responders" vs "non-responders"
 threshold   <- 0.0   # treat CATE > 0 as responders
@@ -1473,7 +1473,7 @@ if (requireNamespace("rpart", quietly = TRUE)) {
 
 ### 11.5 Subgroup Forest Plot via `heterogeneity_plot()`
 
-```{r subgroup-forest, eval=FALSE, fig.width=8, fig.height=5}
+```{r subgroup-forest, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=5}
 # Define richer subgroups
 df_sg <- data.frame(X, cate = tau_cf, W = W, Y = Y)
 df_sg$Sex      <- ifelse(X[, 3] > 0, "Male", "Female")
@@ -1558,7 +1558,7 @@ print(rloss_df[order(rloss_df$R_Loss), ])
 
 ### 12.3 Cross-Validated AUUC
 
-```{r cv-auuc, eval=FALSE}
+```{r cv-auuc, eval=requireNamespace("grf", quietly=TRUE)}
 # 5-fold cross-validated AUUC for causal forest
 K_auuc  <- 5
 set.seed(42)
@@ -1586,7 +1586,7 @@ cat("  95% CI: [", round(mean(auuc_cv) - 2 * sd(auuc_cv) / sqrt(K_auuc), 4),
 
 ### 12.4 Bootstrap Confidence Intervals for AUUC
 
-```{r boot-auuc, eval=FALSE}
+```{r boot-auuc, eval=requireNamespace("grf", quietly=TRUE)}
 # Bootstrap CI for AUUC of causal forest
 B <- 300
 set.seed(42)
@@ -1613,7 +1613,7 @@ cat("  95% CI (percentile): [",
 
 ### 13.1 Pointwise Confidence Intervals from Causal Forest
 
-```{r cf-ci, eval=FALSE, fig.width=7, fig.height=4}
+```{r cf-ci, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 # GRF provides honest confidence intervals via IJ variance
 ci_df <- data.frame(
   i         = 1:n,
@@ -1650,7 +1650,7 @@ ggplot(sub, aes(x = seq_along(tau_hat), y = tau_hat)) +
 
 Bootstrapping the full pipeline (nuisance estimation + CATE estimation) provides valid uncertainty quantification without relying on asymptotic theory:
 
-```{r pipeline-bootstrap, eval=FALSE}
+```{r pipeline-bootstrap, eval=requireNamespace("grf", quietly=TRUE)}
 set.seed(42)
 B_pipe <- 100
 ate_boots <- numeric(B_pipe)
@@ -1737,7 +1737,7 @@ A complete HTE analysis for publication should include:
 
 ### 14.2 Subgroup ATE Table
 
-```{r subgroup-table, eval=FALSE}
+```{r subgroup-table, eval=requireNamespace("grf", quietly=TRUE)}
 # Publication-quality subgroup table
 subgroup_vars <- list(
   "X1 (High)"    = X[, 1] > 0,
@@ -1783,7 +1783,7 @@ print(sg_df)
 
 ### 14.3 Publication Forest Plot
 
-```{r pub-forest, eval=FALSE, fig.width=8, fig.height=6}
+```{r pub-forest, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=6}
 sg_plot_df <- sg_df[sg_df$Subgroup != "All", ]
 overall_ate <- sg_df$CATE_Est[sg_df$Subgroup == "All"]
 
@@ -1817,7 +1817,7 @@ ggplot(sg_plot_df, aes(x = CATE_Est, y = Subgroup)) +
 
 ### 14.4 Feature Importance for HTE
 
-```{r feature-importance-pub, eval=FALSE, fig.width=7, fig.height=4}
+```{r feature-importance-pub, eval=requireNamespace("grf", quietly=TRUE), fig.width=7, fig.height=4}
 # GRF variable importance
 vi_df <- data.frame(
   Feature    = colnames(X),
@@ -1842,7 +1842,7 @@ ggplot(vi_df, aes(x = Feature, y = Importance, fill = IsTrue)) +
 
 ### 14.5 CATE Distribution Summary Figure
 
-```{r cate-summary-fig, eval=FALSE, fig.width=8, fig.height=4}
+```{r cate-summary-fig, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=4}
 p1 <- ggplot(data.frame(tau = tau_cf), aes(x = tau)) +
   geom_histogram(bins = 50, fill = "#4393C3", alpha = 0.7, color = "white") +
   geom_vline(xintercept = mean(tau_cf), color = "#D73027",
@@ -1933,7 +1933,7 @@ ggplot(pv_df, aes(x = Cost)) +
 
 ### 15.3 Welfare Gain from Targeting
 
-```{r welfare-gain, eval=FALSE}
+```{r welfare-gain, eval=requireNamespace("grf", quietly=TRUE)}
 # Welfare gain of CATE-based targeting vs. uniform policies
 # No treatment baseline
 pv_no_treat <- mean(tau_true * 0 + tau_true * 0)  # E[Y(0)] proxy
@@ -1956,7 +1956,7 @@ cat("  Fraction treated under optimal rule:", round(mean(pi_opt), 3), "\n")
 
 A stochastic policy assigns treatment probabilistically: $\pi(x) = P(\text{treat} \mid X = x) \in [0, 1]$. This generalizes the binary rule and allows smooth interpolation:
 
-```{r stochastic-policy, eval=FALSE}
+```{r stochastic-policy, eval=requireNamespace("grf", quietly=TRUE)}
 # Stochastic policy: probability = sigmoid of CATE
 softmax_policy <- function(tau, temperature = 1) {
   1 / (1 + exp(-tau / temperature))
@@ -1982,7 +1982,7 @@ print(do.call(rbind, sp_df))
 
 ### 16.1 Sensitivity to Model Specification
 
-```{r sensitivity-spec, eval=FALSE}
+```{r sensitivity-spec, eval=requireNamespace("grf", quietly=TRUE)}
 # How do CATE estimates change with model specification?
 set.seed(42)
 specs <- list(
@@ -2096,7 +2096,7 @@ $$\theta(w) = \frac{\partial}{\partial w} \mathbb{E}[Y(w) \mid X = x]$$
 
 The `grf` package provides a `causal_forest` variant for continuous treatments by setting the treatment as a numeric variable.
 
-```{r continuous-treatment, eval=FALSE}
+```{r continuous-treatment, eval=requireNamespace("grf", quietly=TRUE)}
 # Continuous treatment simulation
 set.seed(42)
 n_cont <- 1500
@@ -2124,7 +2124,7 @@ cat("  Estimate:", round(ate_cont["estimate"], 4),
 
 When treatment is endogenous, IV methods identify the **Local Average Treatment Effect (LATE)**  -  the CATE for *compliers*. With multiple instruments and covariates, an IV causal forest can estimate heterogeneous LATEs:
 
-```{r iv-forest, eval=FALSE}
+```{r iv-forest, eval=requireNamespace("grf", quietly=TRUE)}
 # IV simulation: instrument Z induces compliance
 set.seed(42)
 n_iv <- 1500
@@ -2214,7 +2214,7 @@ print(do.call(rbind, did_results))
 
 The following shows the complete workflow using `causalverse` functions:
 
-```{r full-pipeline, eval=FALSE}
+```{r full-pipeline, eval=requireNamespace("grf", quietly=TRUE)}
 # Step 1: Data setup (already done: X, Y, W, tau_true)
 
 # Step 2: Fit causal forest
@@ -2242,16 +2242,16 @@ cat("\n--- BLP Test ---\n")
 print(pipeline_summary$blp$blp)
 ```
 
-```{r full-pipeline-plots, eval=FALSE, fig.width=8, fig.height=4}
+```{r full-pipeline-plots, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=4}
 # Step 5: Visualize
 pipeline_summary$plot_cate_dist
 ```
 
-```{r full-pipeline-gates, eval=FALSE, fig.width=8, fig.height=4}
+```{r full-pipeline-gates, eval=requireNamespace("grf", quietly=TRUE), fig.width=8, fig.height=4}
 pipeline_summary$plot_gates
 ```
 
-```{r full-pipeline-qini, eval=FALSE}
+```{r full-pipeline-qini, eval=requireNamespace("grf", quietly=TRUE)}
 # Step 6: Policy evaluation
 tau_final <- predict(cf_final)$predictions
 qini_final <- qini_curve(
@@ -2270,7 +2270,7 @@ cat("95% CI:", round(qini_final$auuc_ci[1], 4), "-",
 
 A common workflow combines GRF's cross-fitted nuisances with the AIPW estimator for the final ATE, and uses the causal forest CATE for targeting:
 
-```{r integrated-workflow, eval=FALSE}
+```{r integrated-workflow, eval=requireNamespace("grf", quietly=TRUE)}
 # Extract GRF's cross-fitted nuisances
 e_grf <- cf_final$W.hat   # propensity score
 m_grf <- cf_final$Y.hat   # E[Y|X]
@@ -2334,7 +2334,7 @@ if (requireNamespace("MatchIt", quietly = TRUE)) {
 
 ### 19.4 HTE on Real Data: Lalonde Job Training
 
-```{r lalonde-hte, eval=FALSE}
+```{r lalonde-hte, eval=requireNamespace("grf", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE)}
 data(lalonde, package = "MatchIt")
 
 # Prepare matrix
@@ -2359,7 +2359,7 @@ cat("  CATE range: [", round(min(tau_la), 0), ",",
 cat("  Fraction with CATE > 0:", round(mean(tau_la > 0), 3), "\n")
 ```
 
-```{r lalonde-forest-plot, eval=FALSE, fig.width=8, fig.height=5}
+```{r lalonde-forest-plot, eval=requireNamespace("grf", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), fig.width=8, fig.height=5}
 # Subgroup analysis for Lalonde
 la_df <- data.frame(X_la, cate = tau_la, W = W_la, Y = Y_la)
 la_df$educ_grp <- ifelse(lalonde$educ >= 12, "HS Graduate", "No HS Diploma")
@@ -2398,7 +2398,7 @@ if (requireNamespace("patchwork", quietly = TRUE)) {
 }
 ```
 
-```{r lalonde-qini, eval=FALSE, fig.width=7, fig.height=4}
+```{r lalonde-qini, eval=requireNamespace("grf", quietly=TRUE) && requireNamespace("MatchIt", quietly=TRUE), fig.width=7, fig.height=4}
 # Qini for Lalonde
 qini_la <- qini_curve(tau_la, Y_la, W_la, boot_reps = 200)
 cat("Lalonde AUUC:", round(qini_la$auuc, 4), "\n")
@@ -2452,7 +2452,7 @@ ML models can extrapolate poorly in regions with low support. Always check:
 2. CATE confidence interval width (wider in sparse regions).
 3. Never interpret CATE at covariate values outside the data range.
 
-```{r overlap-check, eval=FALSE}
+```{r overlap-check, eval=requireNamespace("grf", quietly=TRUE)}
 # Overlap plot: propensity score by treatment arm
 overlap_df <- data.frame(
   ps    = cf_final$W.hat,
@@ -2483,7 +2483,7 @@ The choice of nuisance model (for $\hat{m}$ and $\hat{e}$) affects CATE estimati
 
 **Best practice**: Use cross-fitting with a flexible but regularized learner (lasso, random forest, gradient boosting). Cross-validate the nuisance models separately.
 
-```{r nuisance-cv, eval=FALSE}
+```{r nuisance-cv, eval=requireNamespace("glmnet", quietly=TRUE)}
 # Cross-validate nuisance model performance
 set.seed(42)
 cv_m_final <- cv.glmnet(X, Y, alpha = 1, nfolds = 10)

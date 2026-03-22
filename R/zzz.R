@@ -12,6 +12,15 @@
   "rio"
 )
 
+# Attach a package from the same library location as causalverse
+# (mirrors tidyverse:::same_library)
+.same_library <- function(pkg) {
+  loc <- if (pkg %in% loadedNamespaces()) {
+    dirname(getNamespaceInfo(pkg, "path"))
+  }
+  library(pkg, lib.loc = loc, character.only = TRUE, warn.conflicts = FALSE)
+}
+
 .onAttach <- function(libname, pkgname) {
   # Attach each core package, collecting any that fail
   failed <- character()
@@ -20,9 +29,7 @@
   for (pkg in .core_packages) {
     success <- tryCatch(
       {
-        suppressPackageStartupMessages(
-          library(pkg, character.only = TRUE, warn.conflicts = FALSE)
-        )
+        suppressPackageStartupMessages(.same_library(pkg))
         TRUE
       },
       error = function(e) FALSE

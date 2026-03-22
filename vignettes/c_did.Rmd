@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   cache = TRUE,
-  eval = FALSE
+  error = TRUE
 )
 ```
 
@@ -1304,7 +1304,7 @@ Recent econometric research has highlighted potential pitfalls of traditional tw
 
 The `did` package estimates group-time average treatment effects on the treated (ATT), where a "group" is defined by the time period in which units first receive treatment. These group-time ATTs can then be aggregated into interpretable summary measures (e.g., event-study plots, overall ATT).
 
-```{r did-cs, eval=FALSE}
+```{r did-cs, eval=requireNamespace("did", quietly = TRUE)}
 library(did)
 
 # Using simulated data from fixest::base_stagg
@@ -1429,7 +1429,7 @@ createSensitivityPlot_relativeMagnitudes(delta_rm_results)
 
 The `did2s` package implements a two-stage estimator for DID designs. The first stage residualizes the outcome using unit and time fixed effects estimated from untreated observations, and the second stage estimates treatment effects from the residualized outcome.
 
-```{r did2s, eval=FALSE}
+```{r did2s, eval=requireNamespace("did2s", quietly = TRUE)}
 library(did2s)
 
 # Using fixest::base_stagg
@@ -1492,7 +1492,7 @@ summary(drdid_res)
 
 The `did` package implements the estimator from Callaway and Sant'Anna (2021), which provides group-time average treatment effects that are robust to heterogeneous treatment effects with staggered adoption.
 
-```{r cs-did, eval=FALSE}
+```{r cs-did, eval=requireNamespace("did", quietly = TRUE)}
 library(did)
 
 # Using fixest::base_stagg for demonstration
@@ -1554,7 +1554,7 @@ did_multiplegt(df = stagg_data2, Y = "y", G = "id", T = "year", D = "treatment",
 
 The two-stage approach first residualizes the outcome using untreated observations, then estimates the treatment effect.
 
-```{r did2s-approach, eval=FALSE}
+```{r did2s-approach, eval=requireNamespace("did2s", quietly = TRUE)}
 library(did2s)
 
 # Using fixest::base_stagg
@@ -1577,7 +1577,7 @@ fixest::iplot(es_did2s,
 
 ### Imputation Estimator (Borusyak, Jaravel, Spiess 2024)
 
-```{r didimputation, eval=FALSE}
+```{r didimputation, eval=requireNamespace("didimputation", quietly = TRUE)}
 library(didimputation)
 
 # Using fixest::base_stagg
@@ -1950,7 +1950,7 @@ cat("them with appropriate weights.\n")
 
 Goodman-Bacon (2021) shows that the TWFE DID estimator is a weighted average of all possible 2x2 DID estimates in the data. The `bacondecomp` package decomposes the TWFE estimate to reveal which comparisons drive the result and whether problematic comparisons (e.g., already-treated vs. later-treated) receive substantial weight.
 
-```{r bacon-decomp, eval=FALSE}
+```{r bacon-decomp, eval=requireNamespace("bacondecomp", quietly = TRUE)}
 library(bacondecomp)
 
 # Prepare staggered data
@@ -1996,7 +1996,7 @@ The decomposition reveals whether the TWFE estimate is driven by clean (treated 
 
 de Chaisemartin and D'Haultfoeuille (2020) show that TWFE regressions assign implicit weights to group-time ATTs, and some of these weights can be negative. Negative weights mean that even if all group-time treatment effects are positive, the TWFE estimate could be negative or zero.
 
-```{r twfe-weights, eval=FALSE, error = TRUE}
+```{r twfe-weights, eval=requireNamespace("TwoWayFEWeights", quietly = TRUE), error = TRUE}
 library(TwoWayFEWeights)
 
 # Prepare staggered data
@@ -2057,7 +2057,7 @@ print(fastdid_result)
 
 The `fect` package implements the fixed effects counterfactual estimator (Liu, Wang, and Xu, 2024), which subsumes and extends the generalized synthetic control method (`gsynth`). It supports interactive fixed effects (IFE), matrix completion (MC), and standard TWFE approaches to construct counterfactuals for treated units.
 
-```{r fect-example, eval=FALSE}
+```{r fect-example, eval=requireNamespace("fect", quietly = TRUE)}
 library(fect)
 
 # Simulate panel data with staggered treatment
@@ -2108,7 +2108,7 @@ Key advantages of `fect`:
 
 The `panelView` package provides diagnostic visualizations for panel data, helping researchers understand treatment assignment patterns, missing data, and outcome dynamics before running any DID analysis.
 
-```{r panelview-example, eval=FALSE}
+```{r panelview-example, eval=requireNamespace("panelView", quietly = TRUE)}
 library(panelView)
 
 # Prepare staggered treatment data
@@ -2176,7 +2176,7 @@ DIDHAD is particularly useful in settings where a never-treated control group do
 
 Roth and Sant'Anna (2023) propose an efficient estimator for staggered DID designs that achieves the semiparametric efficiency bound under a random treatment timing assumption. The `staggered` package also implements estimators from Callaway-Sant'Anna and Sun-Abraham within the same framework.
 
-```{r staggered-example, eval=FALSE}
+```{r staggered-example, eval=requireNamespace("staggered", quietly = TRUE)}
 library(staggered)
 
 # Prepare staggered adoption data
@@ -2235,7 +2235,7 @@ A credible DiD analysis for top journals requires not just point estimates but a
 
 We first create a realistic staggered-adoption dataset with unit-level heterogeneity in treatment effects and a genuine pre-treatment parallel-trends period.
 
-```{r vis-sim-data, eval=FALSE}
+```{r vis-sim-data, eval=TRUE}
 library(causalverse)
 
 set.seed(2024)
@@ -2280,7 +2280,7 @@ print(table(unit_df$cohort))
 
 One of the most informative figures for heterogeneous-treatment-effect contexts is the distribution of unit-level treatment effects. This directly shows the researcher-audience that heterogeneity is real and quantifies its dispersion.
 
-```{r vis-te-dist, eval=FALSE, fig.width=8, fig.height=5}
+```{r vis-te-dist, eval=TRUE, fig.width=8, fig.height=5}
 # Extract true unit-level ATTs for treated units (post-treatment observations)
 unit_att <- panel_sim |>
   dplyr::filter(treat == 1) |>
@@ -2443,7 +2443,7 @@ Cohort-specific event studies are the gold standard for diagnosing whether TWFE 
 
 A credible parallel-trends check compares the treated group's pre-period trajectory against several plausible control groups - never-treated units and not-yet-treated units - overlaid on the same figure.
 
-```{r vis-parallel-trends, eval=FALSE, fig.width=9, fig.height=5.5}
+```{r vis-parallel-trends, eval=TRUE, fig.width=9, fig.height=5.5}
 # Focus on cohort 2007 for clarity
 # Control groups: never-treated and not-yet-treated-by-2007 (cohort 2009)
 pt_df <- panel_sim |>
@@ -2531,7 +2531,7 @@ Using multiple control groups guards against the possibility that a single contr
 
 Perhaps the most intuitive DiD figure for a general audience: the actual post-treatment outcome trajectory of the treated group versus the estimated counterfactual (what would have happened absent treatment).
 
-```{r vis-counterfactual, eval=FALSE, fig.width=9, fig.height=5.5}
+```{r vis-counterfactual, eval=TRUE, fig.width=9, fig.height=5.5}
 # Counterfactual for cohort 2007 under parallel trends assumption
 cohort_2007_obs <- panel_sim |>
   dplyr::filter(cohort == 2007) |>
@@ -2636,7 +2636,7 @@ $$y_{it} = x_{it}'\beta + \bar{x}_i'\gamma + c_i^* + \varepsilon_{it}$$
 
 where $c_i^*$ is now uncorrelated with $x_{it}$ by construction. This yields identical within-unit estimates to TWFE while also returning interpretable between-unit coefficients.
 
-```{r mundlak-setup, eval=FALSE}
+```{r mundlak-setup, eval=TRUE}
 # Build Mundlak dataset: add time-varying covariates to simulated panel
 mundlak_df <- panel_sim |>
   dplyr::mutate(
@@ -2657,7 +2657,7 @@ cat("Mundlak data prepared:", nrow(mundlak_df), "observations\n")
 cat("Key variables: y, treat, x1, x2, x1_bar (unit mean of x1), x2_bar\n")
 ```
 
-```{r mundlak-estimates, eval=FALSE}
+```{r mundlak-estimates, eval=TRUE}
 # TWFE benchmark (unit + year fixed effects)
 twfe_mod <- fixest::feols(
   y ~ treat + x1 + x2 | id + year,
@@ -2717,7 +2717,7 @@ print(results_tbl)
 
 The TWFE and Mundlak CRE within-coefficients should be numerically identical (or very close) under a balanced panel, confirming the equivalence.
 
-```{r mundlak-hausman, eval=FALSE}
+```{r mundlak-hausman, eval=TRUE}
 # Hausman-type test: within vs. between
 # Large divergence signals unit-level selection into treatment
 delta    <- coef(twfe_mod)["treat"] - coef(between_mod)["treat_bar"]
@@ -2738,7 +2738,7 @@ if (abs(hausman_z) > 1.96) {
 }
 ```
 
-```{r mundlak-plot, eval=FALSE, fig.width=8, fig.height=5}
+```{r mundlak-plot, eval=TRUE, fig.width=8, fig.height=5}
 est_compare <- data.frame(
   Estimator = factor(
     c("TWFE\n(unit FE)", "CRE\n(Mundlak)", "Within\n(demeaned)", "Between\n(OLS)"),
@@ -2791,7 +2791,7 @@ A critically important but often-overlooked robustness check is demonstrating th
 
 Each choice has different implications for statistical power and for the maintained assumptions. Using not-yet-treated controls increases the effective control group size but requires the no-anticipation assumption to hold for future adopters.
 
-```{r control-group-setup, eval=FALSE}
+```{r control-group-setup, eval=TRUE}
 library(did)
 
 cs_df_sim <- panel_sim |>
@@ -2835,7 +2835,7 @@ cat("Overall ATT (not-yet-treated controls):",
     round(agg_notyet$overall.att, 4), "| SE:", round(agg_notyet$overall.se, 4), "\n")
 ```
 
-```{r control-group-dynamic, eval=FALSE}
+```{r control-group-dynamic, eval=TRUE}
 # Dynamic (event-study) aggregates for both control group specifications
 dyn_never  <- did::aggte(cs_never,  type = "dynamic", na.rm = TRUE)
 dyn_notyet <- did::aggte(cs_notyet, type = "dynamic", na.rm = TRUE)
@@ -2860,7 +2860,7 @@ cg_df <- dplyr::bind_rows(
   )
 ```
 
-```{r control-group-plot, eval=FALSE, fig.width=9, fig.height=5.5}
+```{r control-group-plot, eval=TRUE, fig.width=9, fig.height=5.5}
 ggplot(cg_df, aes(x = event_time, y = att,
                   colour = control, fill = control)) +
   geom_hline(yintercept = 0, linetype = "dashed", colour = "grey50") +
@@ -2886,7 +2886,7 @@ ggplot(cg_df, aes(x = event_time, y = att,
   theme(legend.position = "bottom")
 ```
 
-```{r control-group-scatter, eval=FALSE, fig.width=7, fig.height=6}
+```{r control-group-scatter, eval=TRUE, fig.width=7, fig.height=6}
 # Scatter: period-by-period concordance between the two control-group estimates
 cg_wide <- cg_df |>
   dplyr::select(control, event_time, att) |>
@@ -2926,7 +2926,7 @@ Top journals expect a systematic, fully documented pipeline that moves from raw 
 
 Before running any DiD estimator, verify that treated and control groups are comparable on observable pre-treatment characteristics.
 
-```{r pipeline-balance, eval=FALSE}
+```{r pipeline-balance, eval=TRUE}
 # Pre-treatment baseline (year 2001)
 balance_df <- panel_sim |>
   dplyr::mutate(
@@ -2974,7 +2974,7 @@ smd_tbl <- data.frame(
 print(smd_tbl)
 ```
 
-```{r pipeline-love-plot, eval=FALSE, fig.width=8, fig.height=4}
+```{r pipeline-love-plot, eval=TRUE, fig.width=8, fig.height=4}
 # Love plot: standardised mean differences
 smd_plot_df <- smd_tbl |>
   dplyr::mutate(
@@ -3012,7 +3012,7 @@ ggplot(smd_plot_df,
 
 A formal joint test of the null that all pre-treatment event-study coefficients are zero is more informative than visual inspection alone.
 
-```{r pipeline-pretrend-test, eval=FALSE}
+```{r pipeline-pretrend-test, eval=TRUE}
 # Sun-Abraham event study on simulated data
 es_sim_test <- fixest::feols(
   y ~ sunab(cohort, year) | id + year,
@@ -3061,7 +3061,7 @@ if (length(pre_coef) > 0 && all(is.finite(pre_coef))) {
 
 Run all major heterogeneity-robust estimators and report side-by-side for transparency.
 
-```{r pipeline-main-estimates, eval=FALSE}
+```{r pipeline-main-estimates, eval=TRUE}
 # (a) TWFE  -  baseline, potentially biased under effect heterogeneity
 twfe_main <- fixest::feols(
   y ~ treat | id + year,
@@ -3118,7 +3118,7 @@ print(main_results)
 
 Randomly reassign cohort membership and verify that estimates collapse to zero. This falsification test validates the identification strategy.
 
-```{r pipeline-placebo, eval=FALSE, fig.width=8, fig.height=5}
+```{r pipeline-placebo, eval=TRUE, fig.width=8, fig.height=5}
 set.seed(42)
 n_placebo <- 300
 
@@ -3177,7 +3177,7 @@ ggplot(data.frame(att = placebo_atts), aes(x = att)) +
 
 Verify estimates are robust to log transformation of the outcome, which can also reveal whether treatment effects are additive (level) or multiplicative (proportional).
 
-```{r pipeline-log-robust, eval=FALSE}
+```{r pipeline-log-robust, eval=TRUE}
 log_df_pipe <- panel_sim |>
   dplyr::mutate(
     y_pos  = y - min(y) + 1,
@@ -3200,7 +3200,7 @@ cat("Note: log coefficient approximates the proportional treatment effect.\n")
 
 The final summary figure collects all estimates - main and robustness - into a single coefficient plot, the standard format for applied econometrics papers at top journals.
 
-```{r pipeline-coef-plot, eval=FALSE, fig.width=9, fig.height=6.5}
+```{r pipeline-coef-plot, eval=TRUE, fig.width=9, fig.height=6.5}
 # Compile all estimates into one data frame
 all_estimates <- data.frame(
   Label = c(
@@ -3277,7 +3277,7 @@ ggplot(all_estimates,
 
 ### Minimum Requirements Checklist for Top-Journal Submission
 
-```{r pipeline-checklist, eval=FALSE}
+```{r pipeline-checklist, eval=TRUE}
 checklist <- data.frame(
   Step = 1:12,
   Requirement = c(
@@ -3374,7 +3374,7 @@ Roth (2022) shows that in many empirical applications, the power to detect econo
 
 ## Implementation with fixest and HonestDiD
 
-```{r honest_did_setup, eval=FALSE}
+```{r honest_did_setup, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 library(HonestDiD)
 
 # Simulate a clean 8-period, 100-unit panel
@@ -3400,7 +3400,7 @@ head(panel_hdd)
 
 We use `fixest::feols` with the `i()` syntax to construct relative-time indicators, setting the period immediately before treatment (period 4) as the reference.
 
-```{r honest_did_eventstudy, eval=FALSE}
+```{r honest_did_eventstudy, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Event study: period 4 is the reference (one period before treatment)
 es_fit <- feols(
   y ~ i(period, treat, ref = 4) | unit + period,
@@ -3419,7 +3419,7 @@ iplot(es_fit,
 
 HonestDiD requires the vector of event-study coefficients (`betahat`) and their variance-covariance matrix (`sigma`). We extract these directly from the `fixest` object.
 
-```{r honest_did_extract, eval=FALSE}
+```{r honest_did_extract, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Pull all period-interact-treat coefficients
 all_coefs <- coef(es_fit)
 es_names  <- grep("period::", names(all_coefs), value = TRUE)
@@ -3436,7 +3436,7 @@ cat("Names:", paste(es_names, collapse = ", "), "\n")
 
 ### Smoothness Restriction Sensitivity Analysis
 
-```{r honest_did_smooth, eval=FALSE}
+```{r honest_did_smooth, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Smoothness restriction: how large can M be before results break down?
 # numPrePeriods  = 3 (periods 1, 2, 3 relative to reference period 4)
 # numPostPeriods = 3 (periods 5, 6, 7)
@@ -3452,7 +3452,7 @@ delta_sd_results <- HonestDiD::createSensitivityResults(
 print(delta_sd_results)
 ```
 
-```{r honest_did_smooth_plot, eval=FALSE, fig.width=9, fig.height=5}
+```{r honest_did_smooth_plot, eval=requireNamespace("HonestDiD", quietly=TRUE), fig.width=9, fig.height=5}
 # Sensitivity plot: x-axis = M (violation magnitude), y-axis = robust CI
 HonestDiD::createSensitivityPlot(delta_sd_results) +
   causalverse::ama_theme() +
@@ -3470,7 +3470,7 @@ HonestDiD::createSensitivityPlot(delta_sd_results) +
 
 A powerful summary statistic is the **breakdown value** $M^*$: the smallest $M$ such that the robust confidence interval first includes zero. Researchers can report: "Our estimate remains statistically significant at the 5% level for all smoothness violations up to $M^* = \hat{M}$."
 
-```{r honest_did_breakdown, eval=FALSE}
+```{r honest_did_breakdown, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Extract the breakdown point: smallest M at which the lower CI crosses zero
 breakdown_idx <- which(delta_sd_results$lb <= 0)[1]
 breakdown_M   <- if (!is.na(breakdown_idx)) delta_sd_results$M[breakdown_idx] else NA
@@ -3506,7 +3506,7 @@ The `causalverse` package provides `pretrend_sensitivity()` which wraps this log
 
 The relative magnitudes approach is often more intuitive for applied researchers. Instead of bounding the curvature of violations, it bounds the *size* of post-treatment violations relative to the largest pre-treatment deviation. If your pre-period event study coefficients are close to zero, even a $\bar{M}$ substantially greater than 1 may yield robust inference.
 
-```{r honest_did_rm, eval=FALSE}
+```{r honest_did_rm, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Relative magnitudes sensitivity
 # Mbar = how much larger post-treatment violations can be vs. pre-treatment max
 delta_rm_results <- HonestDiD::createSensitivityResults_relativeMagnitudes(
@@ -3521,7 +3521,7 @@ delta_rm_results <- HonestDiD::createSensitivityResults_relativeMagnitudes(
 print(delta_rm_results)
 ```
 
-```{r honest_did_rm_plot, eval=FALSE, fig.width=9, fig.height=5}
+```{r honest_did_rm_plot, eval=requireNamespace("HonestDiD", quietly=TRUE), fig.width=9, fig.height=5}
 HonestDiD::createSensitivityPlot_relativeMagnitudes(delta_rm_results) +
   causalverse::ama_theme() +
   labs(
@@ -3542,7 +3542,7 @@ HonestDiD::createSensitivityPlot_relativeMagnitudes(delta_rm_results) +
 
 For staggered adoption designs, Callaway and Sant'Anna (2021) provide cohort-specific ATTs and a natural pre-trend testing framework. Combining their estimator with HonestDiD provides a complete robustness workflow.
 
-```{r cs_honest_integration, eval=FALSE}
+```{r cs_honest_integration, eval=requireNamespace("did", quietly=TRUE) && requireNamespace("HonestDiD", quietly=TRUE)}
 library(did)
 
 # Staggered adoption panel: some units treated in period 5, others never
@@ -3587,7 +3587,7 @@ pretrend_out <- causalverse::test_pretrends(
 print(pretrend_out)
 ```
 
-```{r cs_event_plot, eval=FALSE}
+```{r cs_event_plot, eval=requireNamespace("did", quietly=TRUE)}
 # Event-study plot from Callaway-Sant'Anna
 cs_es <- aggte(cs_stag, type = "dynamic")
 ggdid(cs_es) +
@@ -3606,7 +3606,7 @@ Stacked DiD (Cengiz et al. 2019; Baker et al. 2022) constructs a clean compariso
 
 ## Running Stacked DiD with causalverse
 
-```{r stacked_did_hdd, eval=FALSE}
+```{r stacked_did_hdd, eval=requireNamespace("HonestDiD", quietly=TRUE) && requireNamespace("fixest", quietly=TRUE)}
 
 # Use fixest's base_stagg dataset as a staggered adoption example
 data("base_stagg", package = "fixest")
@@ -3624,7 +3624,7 @@ stacked_df <- causalverse::stack_data(
 head(stacked_df)
 ```
 
-```{r stacked_did_eventstudy, eval=FALSE}
+```{r stacked_did_eventstudy, eval=requireNamespace("HonestDiD", quietly=TRUE) && requireNamespace("fixest", quietly=TRUE)}
 # Event study on stacked data with cohort-dataset fixed effects
 es_stacked <- feols(
   y ~ i(rel_time, ref = -1) | unit_cohort + year_cohort,
@@ -3640,7 +3640,7 @@ iplot(es_stacked,
 
 ## Applying HonestDiD to Stacked Estimates
 
-```{r stacked_did_hdd_robust, eval=FALSE}
+```{r stacked_did_hdd_robust, eval=requireNamespace("HonestDiD", quietly=TRUE) && requireNamespace("fixest", quietly=TRUE)}
 # Extract coefficients from stacked event study
 stk_all    <- coef(es_stacked)
 stk_names  <- grep("rel_time::", names(stk_all), value = TRUE)
@@ -3684,7 +3684,7 @@ No single test can definitively validate the parallel trends assumption. Applied
 
 The joint F-test of all pre-treatment event study coefficients is the standard first pass. However, its limitations must be acknowledged: low power means that a non-rejection does not confirm parallel trends.
 
-```{r pretrend_ftest, eval=FALSE}
+```{r pretrend_ftest, eval=requireNamespace("fixest", quietly=TRUE)}
 
 # Re-use the HonestDiD panel from above
 es_fit_diag <- feols(
@@ -3718,7 +3718,7 @@ print(pretrend_summary)
 
 A non-significant pre-trend test does NOT validate parallel trends if the test has low power to detect economically meaningful violations. The `causalverse::did_power_analysis()` function computes the minimum detectable effect (MDE) in the pre-treatment period.
 
-```{r pretrend_power, eval=FALSE}
+```{r pretrend_power, eval=requireNamespace("fixest", quietly=TRUE)}
 # Power analysis: what violations would be detectable in the pre-period?
 power_result <- causalverse::did_power_analysis(
   n_units      = n_units,
@@ -3745,7 +3745,7 @@ cat("Ratio MDE/ATT:", round(power_result$mde / 2, 3),
 
 Roth (2022) proposes evaluating whether the pre-period estimates are consistent with the distribution of violations that would be expected under alternative hypotheses calibrated to the post-period sensitivity analysis. The practical implementation computes the joint chi-squared statistic for pre-period coefficients and contextualizes it relative to the breakdown value from HonestDiD.
 
-```{r roth_pretest, eval=FALSE}
+```{r roth_pretest, eval=requireNamespace("HonestDiD", quietly=TRUE)}
 # Extract pre-period estimates (periods 1, 2, 3 before reference period 4)
 pre_idx     <- 1:3
 betahat_pre <- betahat[pre_idx]
@@ -3781,7 +3781,7 @@ cat("See HonestDiD section above for robust inference.\n")
 
 A Granger-type test checks whether *future* treatment status predicts *current* outcomes. If significant, this indicates the treated and control groups were already diverging before treatment was assigned - a direct violation of parallel trends.
 
-```{r granger_test, eval=FALSE}
+```{r granger_test, eval=requireNamespace("fixest", quietly=TRUE)}
 # Add leads of treatment indicator to panel
 panel_granger <- panel_hdd |>
   group_by(unit) |>
@@ -3813,7 +3813,7 @@ cat("Coefficients near zero and insignificant support parallel trends.\n")
 
 Randomly assign treatment status to control units and re-run the main analysis. Under the null of parallel trends, placebo ATT estimates should be centered at zero. A distribution concentrated away from zero suggests the main result may be spurious.
 
-```{r placebo_test_did, eval=FALSE}
+```{r placebo_test_did, eval=requireNamespace("fixest", quietly=TRUE)}
 set.seed(123)
 n_placebo    <- 200
 placebo_ests <- numeric(n_placebo)
@@ -3872,7 +3872,7 @@ cat("(Proportion of placebo estimates >= |main ATT| in absolute value)\n")
 
 In DiD contexts, a McCrary (2008)-inspired check asks whether units are "sorting" into treatment based on pre-treatment outcome trajectories - i.e., whether treatment assignment appears correlated with past outcome growth rates.
 
-```{r density_test_did, eval=FALSE}
+```{r density_test_did, eval=requireNamespace("fixest", quietly=TRUE)}
 # Compute pre-treatment outcome growth rate (OLS slope) for each unit
 pre_slopes <- panel_hdd |>
   filter(period < treat_period) |>
@@ -3912,7 +3912,7 @@ ggplot(pre_slopes, aes(x = slope, fill = factor(treat))) +
 
 ## Summary Diagnostics Dashboard
 
-```{r diag_dashboard, eval=FALSE}
+```{r diag_dashboard, eval=requireNamespace("HonestDiD", quietly=TRUE) && requireNamespace("fixest", quietly=TRUE)}
 # Retrieve key scalar results from above chunks
 granger_lead1 <- coef(granger_fit)[["treat_lead1"]]
 granger_lead2 <- coef(granger_fit)[["treat_lead2"]]

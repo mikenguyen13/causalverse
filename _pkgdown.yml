@@ -1,6 +1,9 @@
 template:
   package: pkgdown
   favicon: favicon.ico
+  bootstrap: 5
+  bslib:
+    pkgdown-nav-height: 100px
   includes:
     in_header: |
       <!-- Google tag (gtag.js) -->
