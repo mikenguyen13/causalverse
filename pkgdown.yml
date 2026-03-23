@@ -1,0 +1,18 @@
+pandoc: '2.12'
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  a_introduction: a_introduction.html
+  b_synthdid: b_synthdid.html
+  c_did: c_did.html
+  d_rct: d_rct.html
+  e_rd: e_rd.html
+  f_sc: f_sc.html
+  g_iv: g_iv.html
+  h_event_study: h_event_study.html
+  i_matching: i_matching.html
+  j_sensitivity: j_sensitivity.html
+  k_hte: k_hte.html
+  l_mediation: l_mediation.html
+  m_panel: m_panel.html
+last_built: 2026-03-22T22:41Z
