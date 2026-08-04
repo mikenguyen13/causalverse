@@ -1,3 +1,8 @@
+# Without url:, pkgdown writes relative <loc> values into sitemap.xml, which the
+# sitemap protocol rejects (it requires fully-qualified URLs) - so Google ignored
+# every entry. Setting it also makes pkgdown emit canonical link tags.
+url: https://mikenguyen13.github.io/causalverse
+
 template:
   package: pkgdown
   favicon: favicon.ico
