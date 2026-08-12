@@ -1,5 +1,7 @@
 ---
 title: "3. Synthetic Difference-in-Differences"
+description: >
+  Synthetic Difference-in-Differences in R with causalverse: combining synthetic control unit weights with DiD time weights to estimate policy effects.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

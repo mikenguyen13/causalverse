@@ -1,5 +1,7 @@
 ---
 title: "8. Matching Methods"
+description: >
+  Matching methods in R with causalverse: building comparable treated and untreated groups to address the fundamental problem of causal inference.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

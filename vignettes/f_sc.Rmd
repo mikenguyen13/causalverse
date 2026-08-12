@@ -1,5 +1,7 @@
 ---
 title: "5. Synthetic Controls"
+description: >
+  The Synthetic Control Method in R with causalverse: building a weighted counterfactual from untreated donor units for a single treated unit.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

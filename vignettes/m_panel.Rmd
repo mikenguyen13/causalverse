@@ -1,5 +1,7 @@
 ---
 title: "12. Panel Data Methods"
+description: >
+  Panel data methods in R with causalverse: estimation, diagnostics, and inference for units observed across multiple time periods.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

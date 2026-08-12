@@ -1,5 +1,7 @@
 ---
 title: "6. Instrumental Variables"
+description: >
+  Instrumental Variables estimation in R with causalverse: recovering consistent causal estimates when unobserved confounders bias OLS.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

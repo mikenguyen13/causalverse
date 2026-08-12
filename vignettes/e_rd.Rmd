@@ -1,5 +1,7 @@
 ---
 title: "2. Regression Discontinuity"
+description: >
+  Regression Discontinuity designs in R with causalverse: estimating causal effects at a known cutoff in a continuous running variable.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

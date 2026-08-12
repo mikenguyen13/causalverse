@@ -1,5 +1,7 @@
 ---
 title: "1. Randomized Control Trials"
+description: >
+  Randomized Control Trials in R with causalverse: random assignment, power analysis, and estimating treatment effects from experimental data.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

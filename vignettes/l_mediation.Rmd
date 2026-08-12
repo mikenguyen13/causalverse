@@ -1,5 +1,7 @@
 ---
 title: "11. Causal Mediation Analysis"
+description: >
+  Causal mediation analysis in R with causalverse: decomposing a total effect into direct and indirect paths to identify the mechanism.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

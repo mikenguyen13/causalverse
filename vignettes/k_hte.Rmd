@@ -1,5 +1,7 @@
 ---
 title: "10. Heterogeneous Treatment Effects & Causal ML"
+description: >
+  Heterogeneous treatment effects and causal machine learning in R with causalverse: looking past the average treatment effect to see who responds.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

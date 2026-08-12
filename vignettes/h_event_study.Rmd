@@ -1,5 +1,7 @@
 ---
 title: "7. Event Studies (Finance)"
+description: >
+  Finance event studies in R with causalverse: measuring abnormal stock returns around an event to estimate its impact on firm value.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

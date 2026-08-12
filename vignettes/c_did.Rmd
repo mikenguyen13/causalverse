@@ -1,5 +1,7 @@
 ---
 title: "4. Difference-in-Differences"
+description: >
+  Difference-in-Differences in R with causalverse: setting up panel data, estimating treatment effects, and checking the design assumptions.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

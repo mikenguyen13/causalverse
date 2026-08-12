@@ -1,5 +1,7 @@
 ---
 title: "9. Sensitivity Analysis and Robustness"
+description: >
+  Sensitivity analysis and robustness checks in R with causalverse: probing the untestable assumptions behind matching, DiD, IV, RD, and synthetic control.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette

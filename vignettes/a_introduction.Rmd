@@ -1,5 +1,7 @@
 ---
 title: "Introduction to CausalVerse"
+description: >
+  An introduction to causalverse, an R toolkit for causal inference: what the package covers and how to get started with its research workflow.
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
