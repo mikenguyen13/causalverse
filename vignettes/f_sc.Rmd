@@ -586,6 +586,191 @@ $$
 
 where $z_{\alpha/2}$ is the critical value from the standard normal distribution at the desired confidence level (default: 95%).
 
+### 4.5 Debiased Inference with `sc_debiased_ttest()`
+
+#### 4.5.1 Motivation
+
+The placebo and jackknife procedures in Sections 4.1--4.2 share two limitations that neither addresses directly.
+
+First, they take the **canonical SC point estimate as given**, and that estimate is biased whenever the pre-treatment fit is imperfect. The bias is not a small-sample nuisance that vanishes with more donors: it is a systematic consequence of fitting weights on the same pre-treatment window used to define the counterfactual. Abadie, Diamond, and Hainmueller (2010) recommend discarding an application when the pre-treatment fit is poor precisely because of this, but "poor" is a judgment call and most applied fits are imperfect to some degree.
+
+Second, the placebo approach is a **randomization device, not a sampling distribution**. Its $p$-values are permutation $p$-values whose resolution is bounded by the number of donors -- with 10 donors the smallest attainable two-sided $p$-value is roughly $1/11$ -- and its validity rests on donors being exchangeable with the treated unit, which is exactly what the SC weighting is designed to deny.
+
+Chernozhukov, Wuthrich, and Zhu (2026) address both at once. Cross-fitting removes the bias, and self-normalization delivers an asymptotically pivotal $t$-distribution without ever estimating the long-run variance of the (serially correlated) gap process.
+
+#### 4.5.2 Setup and notation
+
+Following the notation of Section 1.2, let unit $i = 0$ be the treated unit and $i = 1, \dots, N$ the donors. Periods $1, \dots, T_0$ are pre-treatment and $T_0 + 1, \dots, T$ post-treatment, with $T_1 = T - T_0$. With $\alpha_{0t} = Y_{0t}(1) - Y_{0t}(0)$, the target is
+
+$$
+\tau = \frac{1}{T_1} \sum_{t = T_0+1}^{T} \alpha_{0t}.
+$$
+
+#### 4.5.3 Assumptions
+
+**(A1) $\ell_2$-consistency of the weights.** $\max_{1 \le k \le K} \lVert \hat{w}^{(k)} - w_* \rVert_2 = o_P(1)$ for some pseudo-true $w_*$.
+
+*Reading:* the fold-specific weights settle down to a common target. Crucially $w_*$ need not be a "true" set of weights and the fit need not be exact -- this is why the procedure is robust to misspecification.
+
+**(A2) Weak dependence.** $\{Y_t(0)\}$ is $\beta$-mixing with bounded moments.
+
+*Reading:* serial correlation is allowed, but the process must forget its past. A unit root in the *idiosyncratic* component would violate this; a unit root shared by all units is handled by (A3).
+
+**(A3) Stationarity or common nonstationarity.** Either $\{Y_t(0)\}$ is covariance-stationary, or $Y_t(0) = V_t(0) + \theta_t$ with $\{V_t(0)\}$ stationary and $\theta_t$ an arbitrary component **common to all units**.
+
+*Reading:* a shared trend or shared random walk is fine and need not be modelled. What breaks the method is nonstationarity *specific to the treated unit* -- an idiosyncratic random walk that donors cannot track. Section 4.5.7 shows what that failure looks like.
+
+**(A4) Short post-treatment window.** $T_1 \ll T_0$ (formally $T_1 \lesssim T_0 / \log N$).
+
+*Reading:* there must be enough pre-treatment data to both fit weights and hold out blocks for bias estimation.
+
+#### 4.5.4 The estimator
+
+Set $r = \min(\lfloor T_0/K \rfloor,\, T_1)$ and split the pre-treatment period into $K$ consecutive blocks $H_k = \{(k-1)r + 1, \dots, kr\}$, with $H_{-k} = \{1, \dots, T_0\} \setminus H_k$. For each fold $k$, fit weights on $H_{-k}$ only,
+
+$$
+\hat{w}^{(k)} \in \arg\min_{w \in \mathcal{W}} \sum_{t \in H_{-k}} \Big( Y_{0t} - \sum_{i=1}^{N} w_i Y_{it} \Big)^2,
+\qquad \mathcal{W} = \Big\{ w : w_i \ge 0,\ \sum_i w_i = 1 \Big\},
+$$
+
+and form
+
+$$
+\hat{\tau}_k = \underbrace{\frac{1}{T_1}\sum_{t = T_0+1}^{T}\Big(Y_{0t} - \sum_i \hat{w}^{(k)}_i Y_{it}\Big)}_{\text{post-treatment gap}}
+\;-\;
+\underbrace{\frac{1}{|H_k|}\sum_{t \in H_k}\Big(Y_{0t} - \sum_i \hat{w}^{(k)}_i Y_{it}\Big)}_{\text{held-out pre-treatment gap}} .
+$$
+
+The point estimate is $\hat{\tau} = K^{-1}\sum_{k=1}^{K}\hat{\tau}_k$.
+
+#### 4.5.5 Why cross-fitting removes the bias
+
+Write the post-treatment gap for fold $k$ as $\tau + b_k + \varepsilon_k$, where $b_k$ is the bias induced by using $\hat{w}^{(k)}$ rather than $w_*$. If we estimated the pre-treatment gap on the *same* periods used to fit $\hat{w}^{(k)}$, the optimizer would have driven that gap toward zero by construction: the in-sample gap measures how hard the fit worked, not how wrong the weights are. Subtracting it would remove almost nothing.
+
+Because $H_k$ is held out, the gap computed on $H_k$ is an **out-of-sample** realization of the same misspecification that generates $b_k$. Under (A3) the pre- and post-treatment gap processes share the same mean, so the held-out gap has expectation $b_k$ and the difference is centred on $\tau$. This is the same logic that makes cross-fitting work in double machine learning (see `k_hte.Rmd`), transplanted from a cross-sectional split to a time-block split.
+
+#### 4.5.6 Why the $t$-test is pivotal
+
+Standard inference here would need the long-run variance of a serially correlated gap process estimated from $T_1$ post-treatment periods -- often fewer than ten. That is a hard problem, and getting it wrong is the main reason naive SC confidence intervals undercover.
+
+Self-normalization sidesteps it. The $K$ fold estimates are, asymptotically, $K$ draws sharing a common mean and scale, so **their own dispersion** estimates the scale. With
+
+$$
+\hat{\sigma}_{\hat\tau} = \sqrt{1 + \frac{Kr}{T_1}} \cdot \sqrt{\frac{1}{K-1}\sum_{k=1}^{K}(\hat{\tau}_k - \hat{\tau})^2},
+$$
+
+the statistic $\mathbb{T}_K = \sqrt{K}(\hat{\tau} - \tau)/\hat{\sigma}_{\hat\tau}$ converges to a $t_{K-1}$ distribution -- the scale cancels between numerator and denominator, leaving a pivot. The $\sqrt{1 + Kr/T_1}$ factor corrects for the correlation the shared post-treatment window induces across folds, since every $\hat{\tau}_k$ uses the same post-treatment periods.
+
+The cost is **few degrees of freedom**: $K - 1$. With $K = 4$ the critical value is $t_3(0.975) = 3.18$ rather than $1.96$, so intervals are wide. That width is the honest price of not knowing the long-run variance.
+
+#### 4.5.7 Simulation: benchmarking against placebo inference
+
+The simulation below compares the debiased $t$-test against the incumbent (canonical SC with in-space placebo inference) across three scenarios, all with a true ATT of $1.5$, $N = 10$ donors, $T_0 = 40$, $T_1 = 8$, and a common nonstationary factor:
+
+- **A -- good fit.** The treated unit's factor loading sits inside the donor hull.
+- **B -- imperfect fit.** The treated loading (1.9) sits *outside* the donor range (0.5--1.5), so canonical SC cannot match it. This is the case debiasing targets.
+- **C -- assumption failure.** The treated unit carries its **own** random walk on top of the common factor, violating (A3). No donor combination can track it.
+
+```{r sc-debiased-sim, eval = FALSE}
+# Run offline: ~22 minutes for 100 replications x 3 scenarios.
+# Seed 20260812. Results reproduced in the table below.
+set.seed(20260812)
+SOLVE <- causalverse:::sc_simplex_ls
+TOL <- 1e-7
+
+# Incumbent: canonical SC with in-space placebo inference
+sc_placebo_fit <- function(Y, N0, T0, alpha = 0.05) {
+  Tt <- ncol(Y); post <- (T0 + 1):Tt
+  Yc <- Y[1:N0, , drop = FALSE]; y1 <- as.numeric(Y[N0 + 1, ])
+  w <- SOLVE(t(Yc[, 1:T0, drop = FALSE]), y1[1:T0], tol = TOL)
+  att <- mean(y1[post] - as.numeric(crossprod(Yc[, post, drop = FALSE], w)))
+  pl <- numeric(N0)
+  for (j in seq_len(N0)) {
+    Yd <- Yc[-j, , drop = FALSE]; yj <- as.numeric(Yc[j, ])
+    wj <- SOLVE(t(Yd[, 1:T0, drop = FALSE]), yj[1:T0], tol = TOL)
+    pl[j] <- mean(yj[post] - as.numeric(crossprod(Yd[, post, drop = FALSE], wj)))
+  }
+  crit <- stats::quantile(abs(pl), 1 - alpha, names = FALSE)
+  list(att = att, ci = c(att - crit, att + crit))
+}
+
+gen <- function(scenario, tau = 1.5, N0 = 10, T0 = 40, T1 = 8) {
+  Tt <- T0 + T1
+  f <- cumsum(rnorm(Tt)); lc <- runif(N0, 0.5, 1.5)
+  Yc <- outer(lc, f) + matrix(rnorm(N0 * Tt, sd = 0.5), N0, Tt)
+  y1 <- switch(scenario,
+    "A" = mean(lc) * f + rnorm(Tt, sd = 0.5),                       # inside hull
+    "B" = 1.9 * f + rnorm(Tt, sd = 0.5),                            # outside hull
+    "C" = mean(lc) * f + cumsum(rnorm(Tt, sd = 0.6)) +              # (A3) violated
+          rnorm(Tt, sd = 0.5))
+  y1[(T0 + 1):Tt] <- y1[(T0 + 1):Tt] + tau
+  list(Y = rbind(Yc, y1), N0 = N0, T0 = T0, tau = tau)
+}
+
+run <- function(scenario, reps = 100) {
+  tau <- 1.5
+  de <- dc <- dl <- ne <- nc <- nl <- numeric(reps)
+  for (b in seq_len(reps)) {
+    p <- gen(scenario, tau = tau)
+    f <- suppressWarnings(sc_debiased_ttest(p$Y, p$N0, p$T0, K = 4, tol = TOL))
+    de[b] <- f$att; dc[b] <- (f$ci[1] <= tau) && (tau <= f$ci[2]); dl[b] <- diff(f$ci)
+    nf <- sc_placebo_fit(p$Y, p$N0, p$T0)
+    ne[b] <- nf$att; nc[b] <- (nf$ci[1] <= tau) && (tau <= nf$ci[2]); nl[b] <- diff(nf$ci)
+  }
+  rbind(
+    data.frame(scenario = scenario, estimator = "Debiased SC + t-test",
+               bias = mean(de) - tau, rmse = sqrt(mean((de - tau)^2)),
+               coverage = mean(dc), ci_length = mean(dl)),
+    data.frame(scenario = scenario, estimator = "Canonical SC + placebo",
+               bias = mean(ne) - tau, rmse = sqrt(mean((ne - tau)^2)),
+               coverage = mean(nc), ci_length = mean(nl)))
+}
+
+do.call(rbind, lapply(c("A", "B", "C"), run))
+```
+
+Results (100 replications per scenario, seed `20260812`, true ATT $= 1.5$, nominal coverage 95%):
+
+| Scenario | Estimator | Bias | RMSE | Coverage | Mean CI length |
+|---|---|---:|---:|---:|---:|
+| **A** good fit | Debiased SC + $t$-test | $-0.003$ | 0.270 | 0.90 | 1.440 |
+| **A** good fit | Canonical SC + placebo | 0.010 | 0.256 | **0.95** | 1.400 |
+| **B** imperfect fit | Debiased SC + $t$-test | $-0.004$ | **2.574** | **0.85** | 7.977 |
+| **B** imperfect fit | Canonical SC + placebo | 0.196 | 3.334 | **0.05** | 1.407 |
+| **C** (A3) violated | Debiased SC + $t$-test | $-0.168$ | 2.628 | 0.75 | 7.670 |
+| **C** (A3) violated | Canonical SC + placebo | $-0.393$ | 3.109 | 0.20 | 1.506 |
+
+With 100 replications the Monte Carlo standard error on a coverage estimate is roughly 2--4 percentage points, so small gaps should not be over-read; the large ones are decisive.
+
+**Scenario A -- the debiased test buys nothing when the fit is good.** Both estimators are essentially unbiased, and placebo inference attains its nominal 95% while the $t$-test comes in at 0.90 with a marginally wider interval. When the donor pool genuinely spans the treated unit, the incumbent is doing its job and there is no reason to switch.
+
+**Scenario B -- this is the case that matters.** Canonical SC carries a bias of 0.196, and its placebo interval covers the truth **5% of the time**. That is not a mild undercoverage problem: the interval has mean length 1.41 when the estimator's RMSE is 3.33, so it is confidently wrong. The debiased estimator removes essentially all the bias ($-0.004$), improves RMSE (2.57 vs 3.33), and reaches 0.85 coverage with an interval about 5.7x wider. The width is the point -- the placebo interval was narrow because permuting donors measures dispersion *among donors*, which says nothing about how badly the weights fit a treated unit lying outside their range.
+
+**Scenario C -- what breaks.** When the treated unit has its own random walk, (A3) fails and the pre-treatment gap no longer predicts the post-treatment gap. Bias returns for both methods, and the debiased test's coverage falls to 0.75 -- better than placebo's 0.20, but well short of nominal. Cross-fitting corrects bias arising from imperfect *fit*; it cannot repair a donor pool that is wrong in kind. If diagnostics suggest treated-specific nonstationarity, neither procedure here is trustworthy.
+
+**What the simulation demonstrates:** the debiased $t$-test is not a uniform improvement -- it is a targeted fix for imperfect pre-treatment fit, where it turns a 5%-coverage interval into an 85%-coverage one at the cost of width, while offering no advantage when the fit is already good and only partial protection when the common-nonstationarity assumption fails.
+
+#### 4.5.8 Practical guidance
+
+**Use it when** you have a single treated unit, a decent number of pre-treatment periods relative to post-treatment ($T_1 \ll T_0$), and you want inference that does not lean on donor exchangeability. It is the right default when the pre-treatment fit is visibly imperfect -- exactly the situation where the canonical estimate is least trustworthy.
+
+**Do not use it when** $T_0$ is short (you need $T_0 \ge K$, and realistically several times that), when there are multiple treated units (aggregate them or test one at a time), or when the treated unit's dynamics are idiosyncratically nonstationary -- Scenario C shows this is not a case where wide intervals save you.
+
+**Choosing $K$.** Larger $K$ buys degrees of freedom (shorter intervals) but shortens each block, making the held-out gap noisier. $K = 4$ is a reasonable default; the method is designed for small $K$.
+
+**Computational cost.** The SC weight problem is solved $K + 1$ times per call. Donor pools driven by a common factor are highly collinear, and the accelerated projected-gradient solver can take a few hundred milliseconds per fit on such data. A single call is fast; embedding it in a large simulation is not.
+
+#### 4.5.9 Pitfalls
+
+- **Reading a wide interval as a weak method.** The $t_{K-1}$ critical value is large by construction. A wide interval reflects genuine uncertainty about the long-run variance that placebo inference hides rather than resolves.
+- **Ignoring the degeneracy warning.** If the donor pool can reproduce the treated unit almost exactly, the fold estimates coincide, the self-normalized SE collapses, and `sc_debiased_ttest()` returns `NA` for `t_stat` and `p_value` with a warning. That is not a bug: with an exact fit there is no dispersion left to studentize with. Treat inference as unavailable, not as infinitely precise.
+- **Applying it with a long post-treatment window.** Assumption (A4) is easy to overlook. As $T_1$ approaches $T_0$, $r$ is capped by $\lfloor T_0/K \rfloor$ and the bias correction degrades.
+- **Assuming debiasing fixes a bad design.** Cross-fitting corrects bias from imperfect *fit*. It does nothing about a donor pool that is wrong in kind, as Scenario C shows.
+
+#### 4.5.10 Replication note
+
+The paper's headline application revisits the effect of carbon taxes on emissions. That dataset does not ship with `causalverse` and was not retrieved for this vignette, so no replication of the published table is attempted here; the simulation above is the sole numerical evidence.
+
 ---
 
 ## 5. Staggered Adoption Synthetic Controls
@@ -2619,6 +2804,8 @@ ggplot(comp_final_df, aes(x = method, y = est)) +
 - Firpo, S., and Possebom, V. (2018). "Synthetic Control Method: Inference, Sensitivity Analysis and Confidence Sets." *Journal of Causal Inference*, 6(2).
 
 - Chernozhukov, V., Wuthrich, K., and Zhu, Y. (2021). "An Exact and Robust Conformal Inference Method for Counterfactual and Synthetic Controls." *Journal of the American Statistical Association*, 116(536), 1849-1864.
+
+- Chernozhukov, V., Wuthrich, K., and Zhu, Y. (2026). "Debiasing and t-Tests for Synthetic Control Inference on Average Causal Effects." *Journal of Political Economy*. [doi:10.1086/742424](https://doi.org/10.1086/742424). *(Implemented in `sc_debiased_ttest()`; see Section 4.5.)*
 
 ### Matrix Completion
 
