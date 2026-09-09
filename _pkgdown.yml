@@ -20,6 +20,28 @@ template:
 
         gtag('config', 'G-GLJZT4LT1W');
       </script>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "causalverse",
+        "alternateName": "The All-in-One Causal Inference Toolkit",
+        "description": "An R package covering the full causal inference pipeline: randomized experiments, quasi-experimental designs (DiD, synthetic control, RD, IV), heterogeneous treatment effects, mediation, sensitivity analysis, and publication-ready reporting.",
+        "url": "https://mikenguyen13.github.io/causalverse/",
+        "codeRepository": "https://github.com/mikenguyen13/causalverse",
+        "programmingLanguage": {"@type": "ComputerLanguage", "name": "R"},
+        "runtimePlatform": "R",
+        "version": "1.1.0",
+        "license": "https://www.gnu.org/licenses/gpl-3.0",
+        "image": "https://mikenguyen13.github.io/causalverse/logo.png",
+        "author": {
+          "@type": "Person",
+          "name": "Mike Nguyen",
+          "identifier": "https://orcid.org/0000-0002-3432-8595",
+          "url": "https://mikenguyen.netlify.app/"
+        }
+      }
+      </script>
 
 navbar:
   structure:
