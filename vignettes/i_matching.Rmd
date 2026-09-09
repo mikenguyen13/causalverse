@@ -327,6 +327,273 @@ print(p)
 
 All lines should hover close to zero across the pre-treatment period. A sharp divergence near the treatment date suggests an anticipation effect or a violation of the parallel trends assumption.
 
+## 3.5 `balance_prognosis_test()`: Prognosis-Weighted Balance Testing
+
+### Motivation
+
+Every balance test in Section 3.1 treats the covariates as equally informative. Hotelling's $T^2$ asks whether the treated and control mean vectors differ *anywhere* in $\mathbf{X}$, and the SUR system asks the same question equation by equation. Neither knows which covariates matter.
+
+This is a problem in both directions. If a covariate is imbalanced but unrelated to the outcome, rejecting balance is a **false positive**: the design is not actually compromised, because a variable that does not move $Y_i(0)$ cannot bias the comparison no matter how badly it is distributed. Conversely, adding a long list of irrelevant covariates to a balance table dilutes the test's power against the imbalances that do matter, producing **false negatives**. The more covariates you report, the worse both problems get.
+
+`balance_prognosis_test()` implements the fix proposed by Bicalho, Bouyamourn, and Dunning (2026): weight each covariate by how strongly it predicts the outcome, and collapse the whole balance table into a single scalar with a single $p$-value. The weights come from Hansen's (2008) **prognostic score**, and the resulting statistic turns out to be a direct estimate of the selection bias itself.
+
+### Setup and Notation
+
+Keep the notation of Section 1. Unit $i = 1, \dots, n$ has binary treatment $D_i \in \{0,1\}$, pre-treatment covariates $\mathbf{X}_i \in \mathbb{R}^p$, potential outcomes $Y_i(0), Y_i(1)$, and observed outcome $Y_i = D_i Y_i(1) + (1 - D_i) Y_i(0)$. Write $n_1 = \sum_i D_i$ and $n_0 = n - n_1$, and let $\bar{\mathbf{X}}_1, \bar{\mathbf{X}}_0$ be the arm-specific covariate means.
+
+The identification condition we would like to check is **as-if random assignment**:
+
+$$
+D_i \perp\!\!\!\perp \{Y_i(0), Y_i(1)\}
+$$
+
+This cannot be checked directly, since only one potential outcome is observed per unit. Balance tests instead check the observable implication $D_i \perp\!\!\!\perp \mathbf{X}_i$. The gap between the two is exactly where prognosis weighting operates.
+
+### Assumptions
+
+1. **Pre-treatment covariates.** $\mathbf{X}_i$ is measured before treatment, so it is unaffected by $D_i$. Violated by any variable recorded after assignment — a post-treatment "control" makes the test meaningless rather than merely weak.
+
+2. **Prognostic score model.** The control conditional mean is (approximately) linear in the chosen basis,
+$$
+m(\mathbf{x}) \;=\; \mathbb{E}[Y_i(0) \mid \mathbf{X}_i = \mathbf{x}] \;=\; \alpha + \boldsymbol{\beta}^\top \mathbf{x} .
+$$
+Violated when the outcome depends on the covariates nonlinearly or through interactions; the `basis` argument exists to widen the model when that is a concern.
+
+3. **Estimability on the control arm.** $n_0$ exceeds the number of terms in the basis, and no term is collinear. Violated by wide covariate sets with small control groups, in which case the fitted weights are noise.
+
+4. **Exchangeability under the null.** For the permutation reference distribution, the assignment mechanism is exchangeable across units (or across clusters, when `cluster` is supplied). Violated by blocked or stratified designs unless the blocking is passed through `cluster`.
+
+Note what is *not* assumed: nothing about the treated potential outcome $Y_i(1)$, and no distributional assumption on $\mathbf{X}_i$.
+
+### The Test Statistic
+
+Fit the prognostic score on the **control units only**, where the observed outcome is $Y_i(0)$ by construction:
+
+$$
+(\hat{\alpha}, \hat{\boldsymbol{\beta}})
+\;=\; \arg\min_{a, \mathbf{b}} \sum_{i \,:\, D_i = 0} \bigl(Y_i - a - \mathbf{b}^\top \mathbf{X}_i\bigr)^2 .
+$$
+
+Let $s_k = \sqrt{(s_{1k}^2 + s_{0k}^2)/2}$ be the pooled standard deviation of covariate $k$ (the same denominator `balance_table()` uses), and let $s_{Y(0)}$ be the control-group outcome standard deviation. Define, for each covariate $k$,
+
+$$
+d_k \;=\; \frac{\bar{X}_{1k} - \bar{X}_{0k}}{s_k}
+\qquad \text{(standardised mean difference)},
+$$
+$$
+b_k \;=\; \frac{\hat{\beta}_k \, s_k}{s_{Y(0)}}
+\qquad \text{(standardised prognosis weight)} .
+$$
+
+The prognosis-weighted balance statistic is their inner product:
+
+$$
+\hat{\delta}_{PW} \;=\; \sum_{k=1}^{p} b_k \, d_k .
+$$
+
+For comparison the function also returns the unweighted statistic $\hat{\delta}_{UW} = \sum_k d_k$, which is what a balance table implicitly aggregates when every covariate is given equal standing.
+
+### Derivation
+
+**Why this statistic and not another.** Substitute the definitions of $b_k$ and $d_k$ and watch the covariate scales cancel:
+
+$$
+\hat{\delta}_{PW}
+= \sum_{k} \frac{\hat{\beta}_k s_k}{s_{Y(0)}} \cdot \frac{\bar{X}_{1k} - \bar{X}_{0k}}{s_k}
+= \frac{1}{s_{Y(0)}} \sum_{k} \hat{\beta}_k \bigl(\bar{X}_{1k} - \bar{X}_{0k}\bigr)
+= \frac{\hat{m}(\bar{\mathbf{X}}_1) - \hat{m}(\bar{\mathbf{X}}_0)}{s_{Y(0)}} .
+$$
+
+So $\hat{\delta}_{PW}$ is the **difference in average fitted control potential outcome between the two arms**, expressed in outcome standard deviations. The per-covariate standardisation is cosmetic — useful for reading the `coefficients` table — but the statistic itself is a single, scale-free quantity.
+
+**Why it is the bias.** Under Assumption 2, the bias of the naive difference in means as an estimator of the ATT is
+
+$$
+\mathbb{E}[Y_i(0) \mid D_i = 1] - \mathbb{E}[Y_i(0) \mid D_i = 0]
+= \boldsymbol{\beta}^\top \bigl( \mathbb{E}[\mathbf{X}_i \mid D_i = 1] - \mathbb{E}[\mathbf{X}_i \mid D_i = 0] \bigr),
+$$
+
+whose sample analogue is exactly $s_{Y(0)} \hat{\delta}_{PW}$. The test statistic *is* the estimated selection bias, rescaled. A covariate with $\beta_k = 0$ contributes nothing to the bias regardless of how imbalanced it is, which is precisely why it should contribute nothing to the test — and under prognosis weighting it does not, since $b_k \to 0$.
+
+Hotelling's $T^2$, by contrast, is a quadratic form in the whole vector $(\bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_0)$. It is large whenever *any* linear combination of covariates is imbalanced, including the $p - 1$ directions orthogonal to $\boldsymbol{\beta}$ that carry no bias at all.
+
+**Asymptotics.** $\hat{\delta}_{PW}$ is a smooth function of sample means and an OLS coefficient vector, each $\sqrt{n}$-consistent and asymptotically normal under standard moment conditions. The delta method gives
+
+$$
+\sqrt{n}\,\bigl(\hat{\delta}_{PW} - \delta_{PW}\bigr) \;\xrightarrow{d}\; \mathcal{N}(0, V),
+$$
+
+with $\delta_{PW} = 0$ under the null. A useful detail: the estimation error in $\hat{\boldsymbol{\beta}}$ enters $\hat{\delta}_{PW}$ multiplied by $(\bar{\mathbf{X}}_1 - \bar{\mathbf{X}}_0)$, which is itself $O_p(n^{-1/2})$ under the null. The two errors therefore compound only at second order, so the test remains correctly sized even though the weights are estimated rather than known. Because $\hat{\delta}_{PW}$ is Hadamard-differentiable in the underlying moments, the bootstrap is consistent for $V$; `causalverse` uses it rather than a plug-in variance formula.
+
+**Reference distributions.** `method = "permutation"` reassigns $D$ at random holding $n_1$ fixed (or holding the number of treated clusters fixed) and **refits the prognosis regression on each permuted control group**, giving an exact-in-principle test of the sharp null of random assignment. `method = "bootstrap"` (the default) resamples with replacement within arm, recentres the draws at $\hat{\delta}_{PW}$ to impose the null, and additionally returns a percentile confidence interval:
+
+$$
+p \;=\; \frac{1}{B}\sum_{b=1}^{B} \mathbb{1}\Bigl\{ \bigl|\hat{\delta}^{(b)}_{PW} - \hat{\delta}_{PW}\bigr| \;\ge\; \bigl|\hat{\delta}_{PW}\bigr| \Bigr\} .
+$$
+
+**Degrees of freedom.** This is the second source of the power gain. Hotelling's $T^2$ spends $p$ degrees of freedom; $\hat{\delta}_{PW}$ is a scalar and spends one. Adding irrelevant covariates costs the prognosis-weighted test essentially nothing, while it steadily degrades $T^2$.
+
+### Intuition
+
+A balance table asks "do the two groups look alike?" The prognosis-weighted test asks the sharper question, "do the two groups look alike *in the ways that move the outcome*?"
+
+Fitting the outcome model on controls produces a single-number summary of each unit — its predicted $Y_i(0)$ — that folds all $p$ covariates into the one dimension that matters for bias. Comparing that summary across arms collapses the entire balance table into one number that is interpretable on the outcome's own scale: a $\hat{\delta}_{PW}$ of $0.4$ means the treated group's expected baseline outcome sits four-tenths of a standard deviation above the control group's, before any treatment. A covariate that does not predict the outcome receives a near-zero weight and drops out of the comparison automatically, no judgment call required.
+
+The cost is that the test inherits the quality of the outcome model. If the measured covariates predict $Y_i(0)$ poorly, the weights are close to zero, the statistic is close to zero, and the test will fail to reject *whatever the truth is*. This is why the function reports `prognosis_r2` and warns when it falls below `r2_warn`: a small $p$-value from a model with $R^2 \approx 0$ is not evidence of a sound design, it is evidence that the covariates were uninformative.
+
+### Worked Example
+
+Assignment below depends on `x1`, which genuinely drives the outcome, so the design is broken and the test should say so.
+
+```{r prognosis-basic, eval=TRUE, warning=FALSE, message=FALSE}
+set.seed(20260909)
+n <- 600
+
+prog_data <- data.frame(
+  x1 = rnorm(n), x2 = rnorm(n),                # prognostic
+  z1 = rnorm(n), z2 = rnorm(n), z3 = rnorm(n)  # pure noise
+)
+# As-if random fails: assignment depends on the prognostic covariate x1.
+prog_data$treatment <- rbinom(n, 1, plogis(1.0 * prog_data$x1))
+prog_data$y <- 1.5 * prog_data$x1 - 1.0 * prog_data$x2 + rnorm(n)
+
+prog_res <- causalverse::balance_prognosis_test(
+  data       = prog_data,
+  treatment  = "treatment",
+  outcome    = "y",
+  covariates = c("x1", "x2", "z1", "z2", "z3"),
+  n_boot     = 999,
+  seed       = 42
+)
+
+cat("Prognosis R-squared :", round(prog_res$prognosis_r2, 3), "\n")
+cat("delta_PW            :", round(prog_res$delta_pw, 3),
+    " p =", format.pval(prog_res$p_value, eps = 1e-3), "\n")
+cat("95% CI              : [",
+    paste(round(prog_res$ci, 3), collapse = ", "), "]\n")
+```
+
+The `coefficients` element shows how the single statistic decomposes, and makes the weighting visible: the noise covariates are imbalanced by roughly as much as `x2`, but earn almost no weight.
+
+```{r prognosis-decomposition, eval=TRUE}
+knitr::kable(
+  prog_res$coefficients,
+  digits  = 3,
+  caption = "Decomposition of the prognosis-weighted statistic. `prognosis` is the standardised outcome weight, `smd` the standardised mean difference, and `contribution` their product."
+)
+```
+
+### Simulation: Prognosis Weighting vs. Hotelling's $T^2$
+
+The comparison that matters is against the incumbent from Section 3.1. Five scenarios, all with $n = 400$, five measured covariates (`x1`, `x2` prognostic; `z1`, `z2`, `z3` noise), and 200 replications at $\alpha = 0.05$:
+
+- **A. As-if random.** Assignment is a fair coin. All tests should reject at the nominal rate — this is a *size* check.
+- **B. Prognostic imbalance.** Assignment depends on `x1`, which drives the outcome. The design is genuinely broken; rejecting is correct. This is *power*.
+- **C. Benign imbalance.** Assignment depends on `z1`, which is pure noise. Because `z1` does not enter the outcome, $D_i$ is still independent of the potential outcomes — **the design is fine and rejecting is a false positive.**
+- **D. Unmeasured confounder.** Assignment depends on an unobserved prognostic variable $u$ not in the covariate set. The design is broken but no balance test on measured covariates can see it.
+- **E. Weak prognosis.** Assignment depends on `x1` as in B, but the measured covariates barely predict the outcome ($R^2 \approx 0.03$). This is the prognosis-weighted test's own failure mode.
+
+```{r prognosis-simulation, eval=requireNamespace("Hotelling", quietly = TRUE), warning=FALSE, message=FALSE, cache=TRUE}
+prog_sim_data <- function(n, scenario) {
+  X <- data.frame(x1 = rnorm(n), x2 = rnorm(n),
+                  z1 = rnorm(n), z2 = rnorm(n), z3 = rnorm(n))
+  u <- rnorm(n)                       # unmeasured, prognostic
+  eta <- switch(scenario,
+    "A. As-if random"          = rep(0, n),
+    "B. Prognostic imbalance"  = 1.0 * X$x1,
+    "C. Benign imbalance"      = 1.4 * X$z1,
+    "D. Unmeasured confounder" = 1.4 * u,
+    "E. Weak prognosis"        = 1.0 * X$x1
+  )
+  X$treat <- rbinom(n, 1, plogis(eta))
+  X$y <- if (scenario == "E. Weak prognosis") {
+    0.20 * X$x1 - 0.10 * X$x2 + 3 * u + rnorm(n)   # covariates ~ uninformative
+  } else {
+    1.5 * X$x1 - 1.0 * X$x2 + 1.5 * u + rnorm(n)
+  }
+  X
+}
+
+prog_covs <- c("x1", "x2", "z1", "z2", "z3")
+
+prog_run <- function(scenario, n = 400, reps = 200, n_boot = 199,
+                     alpha = 0.05) {
+  set.seed(20260909)
+  pw <- uw <- ht <- r2 <- numeric(reps)
+  for (r in seq_len(reps)) {
+    d <- prog_sim_data(n, scenario)
+    res <- suppressWarnings(causalverse::balance_prognosis_test(
+      d, "treat", "y", covariates = prog_covs, n_boot = n_boot))
+    pw[r] <- res$p_value
+    uw[r] <- res$p_value_uw
+    r2[r] <- res$prognosis_r2
+    # Incumbent: Hotelling's T^2, the joint test used by balance_assessment().
+    ht[r] <- tryCatch(
+      Hotelling::hotelling.test(
+        as.matrix(d[d$treat == 1, prog_covs]),
+        as.matrix(d[d$treat == 0, prog_covs]))$pval,
+      error = function(e) NA_real_)
+  }
+  data.frame(
+    Scenario               = scenario,
+    `Design sound?`        = c("A. As-if random"          = "yes",
+                               "B. Prognostic imbalance"  = "no",
+                               "C. Benign imbalance"      = "yes",
+                               "D. Unmeasured confounder" = "no",
+                               "E. Weak prognosis"        = "no")[[scenario]],
+    `Prognosis R2`         = round(mean(r2), 3),
+    `Hotelling T2`         = round(mean(ht < alpha, na.rm = TRUE), 3),
+    `Unweighted`           = round(mean(uw < alpha), 3),
+    `Prognosis-weighted`   = round(mean(pw < alpha), 3),
+    check.names = FALSE
+  )
+}
+
+prog_scenarios <- c("A. As-if random", "B. Prognostic imbalance",
+                    "C. Benign imbalance", "D. Unmeasured confounder",
+                    "E. Weak prognosis")
+prog_sim <- do.call(rbind, lapply(prog_scenarios, prog_run))
+
+knitr::kable(
+  prog_sim, row.names = FALSE,
+  caption = "Rejection rates at alpha = 0.05 over 200 replications, n = 400. In scenarios A and C the design is sound, so the entry is a false-positive rate and 0.05 is the target. In B, D and E the design is broken, so the entry is power and higher is better."
+)
+```
+
+Read the table row by row.
+
+**A** confirms all three tests are correctly sized when assignment really is random. **B** confirms all three have power against a genuine prognostic violation, with the prognosis-weighted test at the ceiling.
+
+**C is the row that motivates the method.** Assignment depends only on a noise covariate, so treatment remains independent of the potential outcomes and the design is sound — yet Hotelling's $T^2$ and the unweighted statistic reject essentially every time. That is a false-positive rate of ~100% against a design with nothing wrong with it. The prognosis-weighted test holds its nominal level, because `z1` earns a weight of approximately zero.
+
+**D** is the honest limit shared by every balance test: confounding by an unmeasured variable is invisible to all three, and none of them exceeds its nominal rate. Passing a balance test — any balance test — is not evidence that a design is sound.
+
+**E is the prognosis-weighted test's specific failure mode.** Assignment depends on the *measured* covariate `x1`, so this violation is in principle detectable, and the unweighted tests catch it. But because the measured covariates explain almost none of the outcome, the fitted weights are near zero and the prognosis-weighted test rejects only 7.5% of the time. Crucially, the mean $R^2$ of 0.029 in that row is the visible symptom, and it is exactly what the `r2_warn` warning is there to flag. **A high $p$-value from `balance_prognosis_test()` is only informative when `prognosis_r2` is substantial.**
+
+The simulation demonstrates that prognosis weighting eliminates the false positives that irrelevant covariates induce in conventional balance tests, at the price of a new failure mode — weak prognostic content — that is diagnosable from the reported $R^2$.
+
+### Replication
+
+Bicalho et al. (2026) apply the test to a corpus of published natural experiments in political science and report that the prognostic content of the covariate tables is frequently near zero. That corpus is not redistributed with the paper, so the empirical result is not reproduced here; the simulation above reproduces the paper's methodological claims rather than its applied findings.
+
+### Practical Guidance
+
+- **Report `prognosis_r2` alongside the $p$-value, always.** The two are only interpretable together, and the paper's central applied finding is that this quantity is usually not reported and is often near zero.
+- **Include a lagged outcome in the covariate set whenever one exists.** It is normally the single most prognostic variable available and does more for the test's power than any modelling choice.
+- **Use it as a complement to, not a replacement for, the covariate-by-covariate table.** `balance_table()` and `love_plot()` still tell you *where* the imbalance is; this test tells you whether it matters.
+- **`basis`**: start with `"linear"`. Move to `"poly"` or `"full"` when the outcome model is plausibly nonlinear and $n_0$ is comfortably larger than the expanded term count. Bicalho et al. (2026) find expanded linear bases outperform machine-learning fits in their simulations.
+- **`method`**: `"bootstrap"` (default) additionally returns a confidence interval; `"permutation"` is the better choice for small samples and gives an exact test of the sharp null.
+- **Clustered or blocked designs**: pass `cluster` so both resampling schemes respect the assignment mechanism. Ignoring clustering here understates the reference distribution's spread exactly as it does for standard errors.
+- **Cost**: $O(B)$ regressions on the control arm. The default `n_boot = 1000` on a few thousand rows takes a second or two.
+
+### Pitfalls
+
+1. **Reading a null result as a clean bill of health.** With low `prognosis_r2` — or with an unmeasured confounder, as in scenario D — the test has no power. Non-rejection is uninformative, not reassuring.
+2. **Fitting the prognosis model on all units.** The regression must use controls only. Fitting on the pooled sample lets the treatment effect leak into $\hat{\boldsymbol{\beta}}$, and the weights no longer estimate the $Y(0)$ projection.
+3. **Including post-treatment variables.** A post-treatment "covariate" can be highly prognostic and highly imbalanced *because of the treatment*, which produces a large $\hat{\delta}_{PW}$ that says nothing about assignment.
+4. **Using it to justify a covariate set after seeing the result.** The weights are estimated from the outcome, so iterating over covariate sets until the $p$-value is comfortable is a specification search on the outcome data. Fix the covariate set first.
+5. **Listwise deletion changing the answer.** The function warns when rows are dropped; Bicalho et al. (2026) note this can materially change conclusions. Impute or restrict the covariate set deliberately rather than by accident.
+
 ---
 
 # 4. The `MatchIt` Package
@@ -2619,6 +2886,8 @@ A complete sensitivity analysis report for a matched study should include:
 
 - Austin, P. C. (2011). An introduction to propensity score methods for reducing the effects of confounding in observational studies. *Multivariate Behavioral Research*, 46(3), 399-424.
 
+- Bicalho, C., Bouyamourn, A., & Dunning, T. (2026). The power of prognosis: Improving covariate balance tests with outcome information. *Political Analysis*, 1-26. doi:10.1017/pan.2026.10050
+
 - Caliendo, M., & Kopeinig, S. (2008). Some practical guidance for the implementation of propensity score matching. *Journal of Economic Surveys*, 22(1), 31-72.
 
 - Cinelli, C., & Hazlett, C. (2020). Making sense of sensitivity: Extending omitted variable bias. *Journal of the Royal Statistical Society: Series B*, 82(1), 39-67.
@@ -2630,6 +2899,8 @@ A complete sensitivity analysis report for a matched study should include:
 - Greifer, N. (2024). *WeightIt: Weighting for covariate balance in observational studies.* R package.
 
 - Hainmueller, J. (2012). Entropy balancing for causal effects: A multivariate reweighting method to produce balanced samples in observational studies. *Political Analysis*, 20(1), 25-46.
+
+- Hansen, B. B. (2008). The prognostic analogue of the propensity score. *Biometrika*, 95(2), 481-488. doi:10.1093/biomet/asn004
 
 - Ho, D. E., Imai, K., King, G., & Stuart, E. A. (2007). Matching as nonparametric preprocessing for reducing model dependence in parametric causal inference. *Political Analysis*, 15(3), 199-236.
 
@@ -2654,6 +2925,8 @@ A complete sensitivity analysis report for a matched study should include:
 - Sant'Anna, P. H. C., & Zhao, J. (2020). Doubly robust difference-in-differences estimators. *Journal of Econometrics*, 219(1), 101-122.
 
 - Stuart, E. A. (2010). Matching methods for causal inference: A review and a look forward. *Statistical Science*, 25(1), 1-21.
+
+- Stuart, E. A., Lee, B. K., & Leacy, F. P. (2013). Prognostic score-based balance measures can be a useful diagnostic for propensity score methods in comparative effectiveness research. *Journal of Clinical Epidemiology*, 66(8), S84-S90. doi:10.1016/j.jclinepi.2013.01.013
 
 - Crump, R. K., Hotz, V. J., Imbens, G. W., & Mitnik, O. A. (2009). Dealing with limited overlap in estimation of average treatment effects. *Biometrika*, 96(1), 187-199.
 

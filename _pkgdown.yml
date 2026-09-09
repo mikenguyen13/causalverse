@@ -159,6 +159,7 @@ reference:
     desc: "Covariate balance tables, Love plots, overlap diagnostics, and balance plots."
     contents:
       - balance_assessment
+      - balance_prognosis_test
       - balance_scatter_custom
       - balance_table
       - balance_plot
