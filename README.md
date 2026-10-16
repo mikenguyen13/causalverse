@@ -75,6 +75,19 @@ install_backends("did")     # install just DID packages
 install_backends("rd")      # install just RD packages
 ```
 
+## Use this package in your AI assistant
+
+The documentation of causalverse, including its vignettes and function reference, is indexed by the [Research Methods Library](https://research-methods-mcp.vercel.app/), a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package's documentation and of the author's other works on which each answer draws. Access is free and requires no account or API key.
+
+**Endpoint:** `https://research-methods-mcp.vercel.app/mcp`
+
+- **Claude** (web, desktop, and mobile): Settings → Connectors → **Add custom connector**; enter the endpoint.
+- **Claude Code:** `claude mcp add --transport http research-methods https://research-methods-mcp.vercel.app/mcp`
+- **ChatGPT:** Settings → enable developer mode → add a custom connector of type MCP server with the endpoint and no authentication.
+- **Cursor** and **Visual Studio Code:** [Add to Cursor](https://cursor.com/en/install-mcp?name=research-methods&config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwIn0%3D) or [Install in VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%22%7D).
+
+Configuration for other MCP clients is described on the [server's website](https://research-methods-mcp.vercel.app/).
+
 ## Quick Examples
 
 ### Synthetic Difference-in-Differences

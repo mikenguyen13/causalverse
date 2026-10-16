@@ -25,8 +25,7 @@
   gtag('js', new Date());
 
   gtag('config', 'G-GLJZT4LT1W');
-</script>
-<script type="application/ld+json">
+</script><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
@@ -108,7 +107,9 @@
 </h1>
 </div>
 <!-- badges: start -->
-<!-- badges: end --><p><strong>causalverse</strong> is the all-in-one R toolkit for causal inference — the <em>tidyverse</em> of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.</p>
+
+<!-- badges: end -->
+<p><strong>causalverse</strong> is the all-in-one R toolkit for causal inference — the <em>tidyverse</em> of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.</p>
 <p>The package covers <strong>13 major method families</strong>:</p>
 <table class="table">
 <colgroup>
@@ -116,95 +117,95 @@
 <col width="35%">
 <col width="45%">
 </colgroup>
-<thead><tr class="header">
+<thead><tr>
 <th>Method</th>
 <th>Key Functions</th>
 <th>Backend Packages</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>Synthetic DID</strong></td>
 <td>
 <code><a href="reference/synthdid_est.html">synthdid_est()</a></code>, <code><a href="reference/synthdid_est_ate.html">synthdid_est_ate()</a></code>, <code><a href="reference/sc_gap_plot.html">sc_gap_plot()</a></code>
 </td>
 <td>synthdid</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Difference-in-Differences</strong></td>
 <td>
 <code><a href="reference/did_event_study.html">did_event_study()</a></code>, <code><a href="reference/staggered_summary.html">staggered_summary()</a></code>, <code><a href="reference/bacon_decomp_plot.html">bacon_decomp_plot()</a></code>, <code><a href="reference/did_power_analysis.html">did_power_analysis()</a></code>
 </td>
 <td>fixest, did, did2s, bacondecomp, HonestDiD</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Randomized Experiments</strong></td>
 <td>
 <code><a href="reference/mde_calc.html">mde_calc()</a></code>, <code><a href="reference/dr_ate.html">dr_ate()</a></code>, <code><a href="reference/placebo_test.html">placebo_test()</a></code>, <code><a href="reference/attrition_analysis.html">attrition_analysis()</a></code>, <code><a href="reference/power_sim.html">power_sim()</a></code>
 </td>
 <td>estimatr, grf, DoubleML</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Regression Discontinuity</strong></td>
 <td>
 <code><a href="reference/rd_plot.html">rd_plot()</a></code>, <code><a href="reference/rd_assumption_tests.html">rd_assumption_tests()</a></code>, <code><a href="reference/rd_bandwidth_sensitivity.html">rd_bandwidth_sensitivity()</a></code>
 </td>
 <td>rdrobust, rddensity, rdpower</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Synthetic Controls</strong></td>
 <td>
 <code><a href="reference/panel_estimate.html">panel_estimate()</a></code>, <code><a href="reference/sc_gap_plot.html">sc_gap_plot()</a></code>
 </td>
 <td>Synth, augsynth, gsynth</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Instrumental Variables</strong></td>
 <td>
 <code><a href="reference/iv_diagnostic_summary.html">iv_diagnostic_summary()</a></code>, <code><a href="reference/iv_sensitivity.html">iv_sensitivity()</a></code>
 </td>
 <td>ivreg, ivmodel, hdm, MendelianRandomization</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Finance Event Studies</strong></td>
 <td>
 <code><a href="reference/event_study_finance.html">event_study_finance()</a></code>, <code><a href="reference/plot_event_coefs.html">plot_event_coefs()</a></code>
 </td>
 <td>fixest, estudy2</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Matching &amp; Weighting</strong></td>
 <td>
 <code><a href="reference/balance_plot.html">balance_plot()</a></code>, <code><a href="reference/love_plot.html">love_plot()</a></code>, <code><a href="reference/overlap_weights.html">overlap_weights()</a></code>, <code><a href="reference/covariate_summary.html">covariate_summary()</a></code>
 </td>
 <td>MatchIt, cobalt, WeightIt</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Heterogeneous Effects</strong></td>
 <td>
 <code><a href="reference/blp_analysis.html">blp_analysis()</a></code>, <code><a href="reference/qini_curve.html">qini_curve()</a></code>, <code><a href="reference/causal_forest_summary.html">causal_forest_summary()</a></code>, <code><a href="reference/heterogeneity_plot.html">heterogeneity_plot()</a></code>
 </td>
 <td>grf, policytree</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Mediation Analysis</strong></td>
 <td>
 <code><a href="reference/mediation_analysis.html">mediation_analysis()</a></code>, <code><a href="reference/lee_bounds.html">lee_bounds()</a></code>
 </td>
 <td>mediation, lavaan</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Panel Data</strong></td>
 <td><code><a href="reference/panel_diagnostics.html">panel_diagnostics()</a></code></td>
 <td>plm, tseries</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Causal DAGs</strong></td>
 <td>
 <code><a href="reference/dag_plot.html">dag_plot()</a></code>, <code><a href="reference/dag_adjustment_sets.html">dag_adjustment_sets()</a></code>, <code><a href="reference/dag_test_implications.html">dag_test_implications()</a></code>
 </td>
 <td>dagitty, ggdag</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Sensitivity &amp; Robustness</strong></td>
 <td>
 <code><a href="reference/multiverse_analysis.html">multiverse_analysis()</a></code>, <code><a href="reference/spec_curve.html">spec_curve()</a></code>, <code><a href="reference/sensitivity_plot.html">sensitivity_plot()</a></code>, <code><a href="reference/pretrend_sensitivity.html">pretrend_sensitivity()</a></code>
@@ -217,40 +218,42 @@
 <h2 id="how-to-cite-this-package">How to cite this package<a class="anchor" aria-label="anchor" href="#how-to-cite-this-package"></a>
 </h2>
 <p>You can cite this package as follows: “we utilized the causal inference methodologies from the <code>causalverse</code> R package (Nguyen 2026)”. Here is the full bibliographic reference to include in your reference list (don’t forget to update the ‘last accessed’ date):</p>
-<blockquote><p>Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.8254063" class="external-link uri">https://doi.org/10.5281/zenodo.8254063</a>. Retrieved from <a href="https://github.com/mikenguyen13/causalverse" class="external-link uri">https://github.com/mikenguyen13/causalverse</a>.</p></blockquote>
+<blockquote>
+<p>Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.8254063" class="external-link uri">https://doi.org/10.5281/zenodo.8254063</a>. Retrieved from <a href="https://github.com/mikenguyen13/causalverse" class="external-link uri">https://github.com/mikenguyen13/causalverse</a>.</p>
+</blockquote>
 </div>
 <div class="section level2">
 <h2 id="vignettes">
-<a href="https://mikenguyen13.github.io/causalverse/articles/" class="external-link">Vignettes</a><a class="anchor" aria-label="anchor" href="#vignettes"></a>
+<a href="https://mikenguyen13.github.io/causalverse/articles/">Vignettes</a><a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
 <p>13 comprehensive, journal-quality tutorials covering every major causal inference method:</p>
 <ul>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/a_introduction.html" class="external-link">0. Introduction</a> – Package overview, function index, quick-start examples</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/a_introduction.html">0. Introduction</a> – Package overview, function index, quick-start examples</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/d_rct.html" class="external-link">1. Randomized Control Trials</a> – RCTs, adaptive experiments, SUTVA, interference</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/d_rct.html">1. Randomized Control Trials</a> – RCTs, adaptive experiments, SUTVA, interference</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/e_rd.html" class="external-link">2. Regression Discontinuity</a> – Sharp, fuzzy, multi-cutoff, assumption tests</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/e_rd.html">2. Regression Discontinuity</a> – Sharp, fuzzy, multi-cutoff, assumption tests</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html" class="external-link">3. Synthetic DID</a> – SDID, staggered SDID, placebo inference</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html">3. Synthetic DID</a> – SDID, staggered SDID, placebo inference</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/c_did.html" class="external-link">4. Difference-in-Differences</a> – TWFE, CS DiD, stacked DiD, HonestDiD</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/c_did.html">4. Difference-in-Differences</a> – TWFE, CS DiD, stacked DiD, HonestDiD</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/f_sc.html" class="external-link">5. Synthetic Controls</a> – SCM, augmented SC, penalized SC, RMSPE inference</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/f_sc.html">5. Synthetic Controls</a> – SCM, augmented SC, penalized SC, RMSPE inference</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/g_iv.html" class="external-link">6. Instrumental Variables</a> – 2SLS, Bartik, Mendelian Randomization, MTE</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/g_iv.html">6. Instrumental Variables</a> – 2SLS, Bartik, Mendelian Randomization, MTE</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/h_event_study.html" class="external-link">7. Finance Event Studies</a> – CAR, BHAR, wealth effects, intraday</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/h_event_study.html">7. Finance Event Studies</a> – CAR, BHAR, wealth effects, intraday</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/i_matching.html" class="external-link">8. Matching Methods</a> – PSM, CEM, genetic matching, entropy balancing</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/i_matching.html">8. Matching Methods</a> – PSM, CEM, genetic matching, entropy balancing</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/j_sensitivity.html" class="external-link">9. Sensitivity Analysis</a> – OVB, E-values, Manski bounds, spec curves</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/j_sensitivity.html">9. Sensitivity Analysis</a> – OVB, E-values, Manski bounds, spec curves</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/k_hte.html" class="external-link">10. Heterogeneous Treatment Effects</a> – Causal forests, BLP, GATES, Qini, DML</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/k_hte.html">10. Heterogeneous Treatment Effects</a> – Causal forests, BLP, GATES, Qini, DML</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/l_mediation.html" class="external-link">11. Causal Mediation</a> – ACME, ADE, SEM, moderated mediation</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/l_mediation.html">11. Causal Mediation</a> – ACME, ADE, SEM, moderated mediation</li>
 <li>
-<a href="https://mikenguyen13.github.io/causalverse/articles/m_panel.html" class="external-link">12. Panel Data Methods</a> – FE, RE, GMM, unit roots, cross-sectional dependence</li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/m_panel.html">12. Panel Data Methods</a> – FE, RE, GMM, unit roots, cross-sectional dependence</li>
 </ul>
 </div>
 <div class="section level2">
@@ -259,7 +262,7 @@
 <p>You can install the development version of causalverse from <a href="https://github.com/mikenguyen13/causalverse" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"mikenguyen13/causalverse"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"mikenguyen13/causalverse"</span><span class="op">)</span></span></code></pre></div>
 <p>Or using devtools:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
@@ -270,6 +273,24 @@
 <span><span class="fu"><a href="reference/install_backends.html">install_backends</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># install everything</span></span>
 <span><span class="fu"><a href="reference/install_backends.html">install_backends</a></span><span class="op">(</span><span class="st">"did"</span><span class="op">)</span>     <span class="co"># install just DID packages</span></span>
 <span><span class="fu"><a href="reference/install_backends.html">install_backends</a></span><span class="op">(</span><span class="st">"rd"</span><span class="op">)</span>      <span class="co"># install just RD packages</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="use-this-package-in-your-ai-assistant">Use this package in your AI assistant<a class="anchor" aria-label="anchor" href="#use-this-package-in-your-ai-assistant"></a>
+</h2>
+<p>The documentation of causalverse, including its vignettes and function reference, is indexed by the <a href="https://research-methods-mcp.vercel.app/" class="external-link">Research Methods Library</a>, a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package’s documentation and of the author’s other works on which each answer draws. Access is free and requires no account or API key.</p>
+<p><strong>Endpoint:</strong> <code>https://research-methods-mcp.vercel.app/mcp</code></p>
+<ul>
+<li>
+<strong>Claude</strong> (web, desktop, and mobile): Settings → Connectors → <strong>Add custom connector</strong>; enter the endpoint.</li>
+<li>
+<strong>Claude Code:</strong> <code>claude mcp add --transport http research-methods https://research-methods-mcp.vercel.app/mcp</code>
+</li>
+<li>
+<strong>ChatGPT:</strong> Settings → enable developer mode → add a custom connector of type MCP server with the endpoint and no authentication.</li>
+<li>
+<strong>Cursor</strong> and <strong>Visual Studio Code:</strong> <a href="https://cursor.com/en/install-mcp?name=research-methods&amp;config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwIn0%3D" class="external-link">Add to Cursor</a> or <a href="https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&amp;config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%22%7D" class="external-link">Install in VS Code</a>.</li>
+</ul>
+<p>Configuration for other MCP clients is described on the <a href="https://research-methods-mcp.vercel.app/" class="external-link">server’s website</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="quick-examples">Quick Examples<a class="anchor" aria-label="anchor" href="#quick-examples"></a>
@@ -408,5 +429,3 @@
 
   </body>
 </html>
-<!-- Sun Mar 22 17:25:47 PDT 2026 -->
-<!-- Sun Mar 22 17:26:28 PDT 2026 -->
