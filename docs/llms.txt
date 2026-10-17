@@ -1,0 +1,33 @@
+# causalverse
+
+> An R package by Mike Nguyen that collects the causal inference workflow in one place: randomized experiments, difference-in-differences, synthetic difference-in-differences, synthetic controls, regression discontinuity, instrumental variables, event studies, matching, sensitivity analysis, heterogeneous treatment effects, mediation, and panel data methods, with publication-ready reporting. The documentation site is at https://mikenguyen13.github.io/causalverse/.
+
+- Author: Mike Nguyen, https://mikenguyen.netlify.app
+- Repository: https://github.com/mikenguyen13/causalverse
+- License: GPL-3
+
+## Research Methods Library (MCP server)
+
+- [MCP endpoint](https://research-methods-mcp.vercel.app/mcp): Model Context Protocol server (streamable HTTP, no authentication) that indexes this package's documentation together with the author's books and research articles. Its tools recommend study designs with their identifying assumptions (`choose_method`), search and read sections (`search`, `fetch`), return runnable R and Python code (`get_code`), and format citations (`cite`); every result links to the section consulted.
+- [Research Methods Library](https://research-methods-mcp.vercel.app/): setup instructions for Claude, Claude Code, ChatGPT, Cursor, Visual Studio Code, and other MCP clients.
+
+## Overview
+
+- [Home](https://mikenguyen13.github.io/causalverse/): installation, quick examples, and use of the package in AI assistants
+- [Function reference](https://mikenguyen13.github.io/causalverse/reference/index.html): every exported function, grouped by design
+- [Introduction to CausalVerse](https://mikenguyen13.github.io/causalverse/articles/a_introduction.html)
+
+## Vignettes
+
+- [1. Randomized Control Trials](https://mikenguyen13.github.io/causalverse/articles/d_rct.html)
+- [2. Regression Discontinuity](https://mikenguyen13.github.io/causalverse/articles/e_rd.html)
+- [3. Synthetic Difference-in-Differences](https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html)
+- [4. Difference-in-Differences](https://mikenguyen13.github.io/causalverse/articles/c_did.html)
+- [5. Synthetic Controls](https://mikenguyen13.github.io/causalverse/articles/f_sc.html)
+- [6. Instrumental Variables](https://mikenguyen13.github.io/causalverse/articles/g_iv.html)
+- [7. Event Studies (Finance)](https://mikenguyen13.github.io/causalverse/articles/h_event_study.html)
+- [8. Matching Methods](https://mikenguyen13.github.io/causalverse/articles/i_matching.html)
+- [9. Sensitivity Analysis and Robustness](https://mikenguyen13.github.io/causalverse/articles/j_sensitivity.html)
+- [10. Heterogeneous Treatment Effects and Causal ML](https://mikenguyen13.github.io/causalverse/articles/k_hte.html)
+- [11. Causal Mediation Analysis](https://mikenguyen13.github.io/causalverse/articles/l_mediation.html)
+- [12. Panel Data Methods](https://mikenguyen13.github.io/causalverse/articles/m_panel.html)
