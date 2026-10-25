@@ -204,6 +204,12 @@ reference:
       - iv_sensitivity
       - multiverse_analysis
       - confounding_strength
+  - title: "Meta-Science: Measurement Error from OLS-IV Pairs"
+    desc: "Meta-regression estimators of proxy quality from published OLS and IV coefficients (Pancost & Schaller 2026), with robustness to simultaneity, weak instruments, publication bias, instrument invalidity, and heterogeneous effects."
+    contents:
+      - meta_me
+      - starts_with("meta_me_")
+      - meta_me_plots
   - title: "Visualization (General)"
     desc: "Coefficient plots, event study plots, and HTE visualization."
     contents:
