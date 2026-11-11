@@ -63,6 +63,7 @@
 #' df$mediator <- 0.5 * df$treat + 0.3 * df$X + rnorm(n, 0, 0.5)
 #' df$outcome  <- 0.3 * df$mediator + 0.2 * df$treat + rnorm(n)
 #'
+#' \donttest{
 #' result <- mediation_analysis(
 #'   data      = df,
 #'   outcome   = "outcome",
@@ -71,6 +72,7 @@
 #' )
 #' result$summary_df
 #' result$plot
+#' }
 #'
 #' @importFrom stats glm lm gaussian binomial coef vcov as.formula
 #' @importFrom ggplot2 ggplot aes geom_col geom_errorbar geom_hline

@@ -16,8 +16,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="The All-in-One Causal Inference Toolkit">
-<meta name="description" content="A comprehensive, one-stop-shop toolkit for causal inference in R, the tidyverse of causal analysis. Covers the full causal inference pipeline: randomized experiments (RCT, power analysis, attrition), quasi-experimental designs (DiD, staggered adoption, synthetic DID, synthetic controls, RD, IV), heterogeneous treatment effects (causal forests, BLP, GATES, Qini curves), mediation analysis, sensitivity analysis, panel data diagnostics, and publication-ready reporting. Provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with leading causal inference packages.">
-<meta property="og:description" content="A comprehensive, one-stop-shop toolkit for causal inference in R, the tidyverse of causal analysis. Covers the full causal inference pipeline: randomized experiments (RCT, power analysis, attrition), quasi-experimental designs (DiD, staggered adoption, synthetic DID, synthetic controls, RD, IV), heterogeneous treatment effects (causal forests, BLP, GATES, Qini curves), mediation analysis, sensitivity analysis, panel data diagnostics, and publication-ready reporting. Provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with leading causal inference packages.">
+<meta name="description" content="A comprehensive, one-stop-shop toolkit for causal inference in R, the tidyverse of causal analysis. Covers the full causal inference pipeline: randomized experiments (RCT, power analysis, attrition), quasi-experimental designs (DiD, staggered adoption, synthetic DID, synthetic controls, RD, IV), heterogeneous treatment effects (causal forests, BLP, GATES, Qini curves), mediation analysis, sensitivity analysis, panel data diagnostics, and publication-ready reporting. Provides 80+ utility functions, 14 in-depth vignettes, and seamless integration with leading causal inference packages.">
+<meta property="og:description" content="A comprehensive, one-stop-shop toolkit for causal inference in R, the tidyverse of causal analysis. Covers the full causal inference pipeline: randomized experiments (RCT, power analysis, attrition), quasi-experimental designs (DiD, staggered adoption, synthetic DID, synthetic controls, RD, IV), heterogeneous treatment effects (causal forests, BLP, GATES, Qini curves), mediation analysis, sensitivity analysis, panel data diagnostics, and publication-ready reporting. Provides 80+ utility functions, 14 in-depth vignettes, and seamless integration with leading causal inference packages.">
 <meta property="og:image" content="https://mikenguyen13.github.io/causalverse/logo.png">
 <!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-GLJZT4LT1W"></script><script>
   window.dataLayer = window.dataLayer || [];
@@ -109,7 +109,7 @@
 <!-- badges: start -->
 
 <!-- badges: end -->
-<p><strong>causalverse</strong> is the all-in-one R toolkit for causal inference — the <em>tidyverse</em> of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.</p>
+<p><strong>causalverse</strong> is the all-in-one R toolkit for causal inference — the <em>tidyverse</em> of causal analysis. Version 1.1.0 provides 80+ utility functions, 14 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.</p>
 <p>The package covers <strong>13 major method families</strong>:</p>
 <table class="table">
 <colgroup>
@@ -194,6 +194,13 @@
 <td>mediation, lavaan</td>
 </tr>
 <tr>
+<td><strong>Moderator or Mediator?</strong></td>
+<td>
+<code><a href="reference/role_test.html">role_test()</a></code>, <code><a href="reference/shift_test.html">shift_test()</a></code>, <code><a href="reference/equivalence_shift.html">equivalence_shift()</a></code>, <code><a href="reference/role_bounds.html">role_bounds()</a></code>
+</td>
+<td>prepost</td>
+</tr>
+<tr>
 <td><strong>Panel Data</strong></td>
 <td><code><a href="reference/panel_diagnostics.html">panel_diagnostics()</a></code></td>
 <td>plm, tseries</td>
@@ -226,7 +233,7 @@
 <h2 id="vignettes">
 <a href="https://mikenguyen13.github.io/causalverse/articles/">Vignettes</a><a class="anchor" aria-label="anchor" href="#vignettes"></a>
 </h2>
-<p>13 comprehensive, journal-quality tutorials covering every major causal inference method:</p>
+<p>14 comprehensive, journal-quality tutorials covering every major causal inference method:</p>
 <ul>
 <li>
 <a href="https://mikenguyen13.github.io/causalverse/articles/a_introduction.html">0. Introduction</a> – Package overview, function index, quick-start examples</li>
@@ -254,6 +261,8 @@
 <a href="https://mikenguyen13.github.io/causalverse/articles/l_mediation.html">11. Causal Mediation</a> – ACME, ADE, SEM, moderated mediation</li>
 <li>
 <a href="https://mikenguyen13.github.io/causalverse/articles/m_panel.html">12. Panel Data Methods</a> – FE, RE, GMM, unit roots, cross-sectional dependence</li>
+<li>
+<a href="https://mikenguyen13.github.io/causalverse/articles/n_third_variable_roles.html">13. Moderator, Mediator, Both, or Neither?</a> – Randomization and equivalence tests, gated role verdicts, priming and post-treatment bounds</li>
 </ul>
 </div>
 <div class="section level2">

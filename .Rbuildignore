@@ -8,3 +8,11 @@
 ^causalverse.*\.pdf$
 ^\.claude$
 ^pkgdown$
+^_pkgdown\.yml$
+^docs$
+^draft$
+^temp$
+^Causal_Verse\.png$
+^logo\.png$
+^network_plot\.png$
+^favicon\.ico$

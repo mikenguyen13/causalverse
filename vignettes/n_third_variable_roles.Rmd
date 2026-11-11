@@ -1,0 +1,96 @@
+---
+title: "13. Moderator, Mediator, Both, or Neither?"
+description: >
+  Testing whether a third variable is a moderator or a mediator in a randomized experiment with causalverse: randomization tests, equivalence tests, a gated role test, and bounds for post-treatment moderators.
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{13. Moderator, Mediator, Both, or Neither?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r setup}
+library(causalverse)
+```
+
+## The question
+
+A third variable $Z$ is a **moderator** of a treatment $X$ if it is fixed before treatment, unaffected by it, and the effect of $X$ on the outcome $Y$ varies with it. It is a **mediator** if the treatment moves it and it in turn moves the outcome. These are the MacArthur criteria of Kraemer et al. (2002, 2008). They are claims about causal arrows, so no regression on observational data can settle them. In a randomized experiment, however, two of the three arrows are identified:
+
+- whether $X$ moves $Z$ (randomization identifies the effect of $X$ on anything measured after it), and
+- whether baseline $Z$ modifies the effect of $X$ (effect modification by a pre-treatment variable).
+
+The third arrow, $Z \to Y$, is not randomized, so a "mediator" verdict always means *mediator candidate* under sequential ignorability.
+
+## Did the treatment move Z?
+
+`shift_test()` is an exact randomization test of the sharp null that the treatment left $Z$ unchanged for every unit. It combines a mean, a variance, and a distributional (KS) component, so it catches treatments that push $Z$ up for some units and down for others, which a test on the mean misses.
+
+```{r}
+d <- simulate_role_data("cancelling", n = 600, seed = 1)
+shift_test(d$Z_post, d$X, B = 999, seed = 2)
+shift_test(d$Z_post, d$X, stats = "mean", B = 999, seed = 2)
+```
+
+With a baseline measure, the test is applied to the post-treatment measure residualized on baseline, which stays exact and gains power:
+
+```{r}
+shift_test(d$Z_post, d$X, z_pre = d$Z_pre, B = 999, seed = 2)
+```
+
+Failing to reject is not evidence of no effect. `equivalence_shift()` runs the two one-sided tests (Hartman and Hidalgo 2018) for a pre-specified margin in standard deviations of $Z$:
+
+```{r}
+d0 <- simulate_role_data("neither", n = 2000, seed = 3)
+equivalence_shift(d0$Z_post, d0$X, margin = 0.2)
+```
+
+## The gated role test
+
+`role_test()` chains the steps and returns one of: moderator, mediator, both, neither, post-treatment with no $Z \to Y$ path, or undetermined. Supplying the baseline measure is what makes "both" identifiable and removes most "undetermined" verdicts.
+
+```{r}
+d <- simulate_role_data("both", n = 1000, seed = 4)
+role_test(d, treat = "X", outcome = "Y", z_post = "Z_post", z_pre = "Z_pre",
+          B = 999, seed = 5)
+role_test(d, treat = "X", outcome = "Y", z_post = "Z_post", B = 999, seed = 5)
+```
+
+The post-only call cannot see the moderation, because the variable it would interact with has been moved by the treatment.
+
+## How often do the rules get it right?
+
+`role_simulation()` compares the naive rule (a significant $X \times Z_{post}$ interaction means moderation) with the gated test in post-only and pre/post designs across six worlds with a known truth. A small run:
+
+```{r, eval = FALSE}
+sims <- role_simulation(n = 400, reps = 1000, B = 499, cores = 4, seed = 2026)
+summary(sims)
+```
+
+In a full run, the naive rule calls $Z$ a moderator in roughly 40 percent of samples from the "cancelling" world, where there is no moderator, and turns every "both" world into "moderator". The pre/post gated test calls $Z$ a moderator in essentially none of those samples and recovers "both" in about 95 percent.
+
+## Bounds when the moderator was measured after treatment
+
+When only a post-treatment measure of a binary moderator exists, `role_bounds()` wraps the nonparametric bounds of Blackwell, Brown, Hill, Imai, and Yamamoto (2025) from the **prepost** package:
+
+```{r, eval = requireNamespace("prepost", quietly = TRUE)}
+data(land_experiment, package = "prepost")
+post <- subset(land_experiment, prepost == 1)
+role_bounds(post, "treat_comb", "support", "land_insecure", design = "post", sims = 200)
+```
+
+`role_bounds(..., sensitivity = TRUE)` returns the bounds as a function of the share of respondents whose moderator the treatment could have moved.
+
+## References
+
+- Blackwell, M., Brown, J. R., Hill, S., Imai, K., & Yamamoto, T. (2025). Priming bias versus post-treatment bias in experimental designs. *Political Analysis*, 33(4), 361-377.
+- Hartman, E., & Hidalgo, F. D. (2018). An equivalence approach to balance and placebo tests. *American Journal of Political Science*, 62(4), 1000-1013.
+- Kraemer, H. C., Wilson, G. T., Fairburn, C. G., & Agras, W. S. (2002). Mediators and moderators of treatment effects in randomized clinical trials. *Archives of General Psychiatry*, 59(10), 877-883.
+- Kraemer, H. C., Kiernan, M., Essex, M., & Kupfer, D. J. (2008). How and why criteria defining moderators and mediators differ between the Baron & Kenny and MacArthur approaches. *Health Psychology*, 27(2, Suppl.), S101-S108.
+- Montgomery, J. M., Nyhan, B., & Torres, M. (2018). How conditioning on posttreatment variables can ruin your experiment and what to do about it. *American Journal of Political Science*, 62(3), 760-775.
