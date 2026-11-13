@@ -47,6 +47,7 @@
 #' df$D  <- df$D + df$X1  # confounded dose
 #' df$Y  <- 0.5 * df$D - 0.03 * df$D^2 + df$X1 + rnorm(n)
 #'
+#' \donttest{
 #' result <- dose_response(
 #'   data       = df,
 #'   outcome    = "Y",
@@ -55,6 +56,7 @@
 #'   method     = "gps"
 #' )
 #' result$plot
+#' }
 #'
 #' @importFrom stats lm dnorm predict quantile sd as.formula
 #' @importFrom ggplot2 ggplot aes geom_line geom_ribbon geom_rug

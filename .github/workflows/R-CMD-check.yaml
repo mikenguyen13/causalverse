@@ -18,7 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
+          # MCPanel (Suggests, GitHub-only) bundles an old Eigen that uses
+          # std::result_of / std::unary_negate, which Apple clang's libc++
+          # drops in C++20, so its source build fails on macOS. It is only
+          # needed for the optional 'mc' estimator, so skip it here.
+          - {os: macos-latest,   r: 'release', extra-packages: 'any::rcmdcheck, MCPanel=?ignore'}
           - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
@@ -42,7 +46,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: ${{ matrix.config.extra-packages || 'any::rcmdcheck' }}
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

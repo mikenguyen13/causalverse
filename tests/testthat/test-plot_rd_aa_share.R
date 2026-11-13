@@ -3,6 +3,11 @@ library(causalverse)
 
 test_that("plot_rd_aa_share returns ggplot when given rdbounds output", {
   skip_if_not_installed("rdbounds")
+  # rdbounds() starts parallel::detectCores() - 1 workers, which exceeds the
+  # two-core limit R CMD check --as-cran enforces through _R_CHECK_LIMIT_CORES_
+  limit_cores <- tolower(Sys.getenv("_R_CHECK_LIMIT_CORES_", "false"))
+  skip_if(limit_cores %in% c("true", "warn") && parallel::detectCores() > 3,
+          "rdbounds() would spawn more workers than R CMD check allows")
 
   set.seed(1)
   data <- rdbounds::rdbounds_sampledata(1000, covs = FALSE)

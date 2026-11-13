@@ -106,6 +106,7 @@ articles:
       - k_hte
       - l_mediation
       - m_panel
+      - n_third_variable_roles
 
 reference:
   - title: "Reporting & Themes"
@@ -196,6 +197,15 @@ reference:
       - mediation_analysis
       - lee_bounds
       - med_ind
+  - title: "Moderator or Mediator?"
+    desc: "Whether a third variable is a moderator, a mediator, both, or neither in a randomized experiment."
+    contents:
+      - role_test
+      - shift_test
+      - equivalence_shift
+      - role_bounds
+      - simulate_role_data
+      - role_simulation
   - title: "Robustness & Sensitivity"
     desc: "Specification curves, multiverse analysis, sensitivity plots, exclusion restriction tests."
     contents:

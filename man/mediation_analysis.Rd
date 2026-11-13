@@ -88,6 +88,7 @@ df <- data.frame(
 df$mediator <- 0.5 * df$treat + 0.3 * df$X + rnorm(n, 0, 0.5)
 df$outcome  <- 0.3 * df$mediator + 0.2 * df$treat + rnorm(n)
 
+\donttest{
 result <- mediation_analysis(
   data      = df,
   outcome   = "outcome",
@@ -96,6 +97,7 @@ result <- mediation_analysis(
 )
 result$summary_df
 result$plot
+}
 
 }
 \references{
