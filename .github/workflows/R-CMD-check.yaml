@@ -34,7 +34,7 @@ jobs:
       _R_CHECK_CRAN_INCOMING_REMOTE_: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -54,4 +54,4 @@ jobs:
           upload-snapshots: true
           error-on: '"error"'
           build_args: 'c("--no-build-vignettes")'
-          args: 'c("--no-manual", "--no-vignettes")'
+          args: 'c("--no-manual", "--ignore-vignettes")'

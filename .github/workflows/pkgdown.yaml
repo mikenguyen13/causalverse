@@ -20,7 +20,7 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Deploy to GitHub pages
         uses: JamesIves/github-pages-deploy-action@v4.7.3
