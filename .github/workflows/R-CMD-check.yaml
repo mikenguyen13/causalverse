@@ -24,8 +24,10 @@ jobs:
           # needed for the optional 'mc' estimator, so skip it here.
           - {os: macos-latest,   r: 'release', extra-packages: 'any::rcmdcheck, MCPanel=?ignore'}
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
+          # Pinned: ubuntu-latest is migrating to Ubuntu 26 (actions/runner-images#14748).
+          # Bump to ubuntu-26.04 once dependencies are confirmed to build there.
+          - {os: ubuntu-24.04,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-24.04,   r: 'release'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

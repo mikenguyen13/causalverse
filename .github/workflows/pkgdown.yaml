@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned; see R-CMD-check.yaml note on Ubuntu 26
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
 
