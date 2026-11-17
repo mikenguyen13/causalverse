@@ -31,3 +31,4 @@
 - [10. Heterogeneous Treatment Effects and Causal ML](https://mikenguyen13.github.io/causalverse/articles/k_hte.html)
 - [11. Causal Mediation Analysis](https://mikenguyen13.github.io/causalverse/articles/l_mediation.html)
 - [12. Panel Data Methods](https://mikenguyen13.github.io/causalverse/articles/m_panel.html)
+- [13. Moderator, Mediator, Both, or Neither?](https://mikenguyen13.github.io/causalverse/articles/n_third_variable_roles.html)

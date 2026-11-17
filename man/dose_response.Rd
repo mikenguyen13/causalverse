@@ -74,6 +74,7 @@ df <- data.frame(
 df$D  <- df$D + df$X1  # confounded dose
 df$Y  <- 0.5 * df$D - 0.03 * df$D^2 + df$X1 + rnorm(n)
 
+\donttest{
 result <- dose_response(
   data       = df,
   outcome    = "Y",
@@ -82,6 +83,7 @@ result <- dose_response(
   method     = "gps"
 )
 result$plot
+}
 
 }
 \references{

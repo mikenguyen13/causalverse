@@ -16,6 +16,7 @@
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/k_hte.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/l_mediation.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/m_panel.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/articles/n_third_variable_roles.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/authors.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/index.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_export_fig.html</loc></url>
@@ -49,6 +50,7 @@
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/dose_response_curve.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/dr_ate.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/effect_size_convert.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/equivalence_shift.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/event_study_finance.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/get_balanced_panel.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/heterogeneity_forest_plot.html</loc></url>
@@ -93,9 +95,14 @@
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/rd_covariate_balance.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/rd_placebo_cutoffs.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/rd_plot.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/role_bounds.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/role_simulation.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/role_test.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/sc_gap_plot.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/sc_inference_plot.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/sensitivity_plot.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/shift_test.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/simulate_role_data.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/spec_curve.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/stack_data.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/stacked_did.html</loc></url>

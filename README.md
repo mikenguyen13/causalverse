@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-**causalverse** is the all-in-one R toolkit for causal inference — the *tidyverse* of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.
+**causalverse** is the all-in-one R toolkit for causal inference — the *tidyverse* of causal analysis. Version 1.1.0 provides 80+ utility functions, 14 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.
 
 The package covers **13 major method families**:
 
@@ -22,6 +22,7 @@ The package covers **13 major method families**:
 | **Matching & Weighting** | `balance_plot()`, `love_plot()`, `overlap_weights()`, `covariate_summary()` | MatchIt, cobalt, WeightIt |
 | **Heterogeneous Effects** | `blp_analysis()`, `qini_curve()`, `causal_forest_summary()`, `heterogeneity_plot()` | grf, policytree |
 | **Mediation Analysis** | `mediation_analysis()`, `lee_bounds()` | mediation, lavaan |
+| **Moderator or Mediator?** | `role_test()`, `shift_test()`, `equivalence_shift()`, `role_bounds()` | prepost |
 | **Panel Data** | `panel_diagnostics()` | plm, tseries |
 | **Causal DAGs** | `dag_plot()`, `dag_adjustment_sets()`, `dag_test_implications()` | dagitty, ggdag |
 | **Sensitivity & Robustness** | `multiverse_analysis()`, `spec_curve()`, `sensitivity_plot()`, `pretrend_sensitivity()` | sensemakr, EValue, HonestDiD |
@@ -34,7 +35,7 @@ You can cite this package as follows: "we utilized the causal inference methodol
 
 ## [Vignettes](https://mikenguyen13.github.io/causalverse/articles/)
 
-13 comprehensive, journal-quality tutorials covering every major causal inference method:
+14 comprehensive, journal-quality tutorials covering every major causal inference method:
 
 - [0. Introduction](https://mikenguyen13.github.io/causalverse/articles/a_introduction.html) -- Package overview, function index, quick-start examples
 - [1. Randomized Control Trials](https://mikenguyen13.github.io/causalverse/articles/d_rct.html) -- RCTs, adaptive experiments, SUTVA, interference
@@ -49,6 +50,7 @@ You can cite this package as follows: "we utilized the causal inference methodol
 - [10. Heterogeneous Treatment Effects](https://mikenguyen13.github.io/causalverse/articles/k_hte.html) -- Causal forests, BLP, GATES, Qini, DML
 - [11. Causal Mediation](https://mikenguyen13.github.io/causalverse/articles/l_mediation.html) -- ACME, ADE, SEM, moderated mediation
 - [12. Panel Data Methods](https://mikenguyen13.github.io/causalverse/articles/m_panel.html) -- FE, RE, GMM, unit roots, cross-sectional dependence
+- [13. Moderator, Mediator, Both, or Neither?](https://mikenguyen13.github.io/causalverse/articles/n_third_variable_roles.html) -- Randomization and equivalence tests, gated role verdicts, priming and post-treatment bounds
 
 ## Installation
 

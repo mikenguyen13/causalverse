@@ -1,6 +1,6 @@
 Package: causalverse
 Type: Package
-Date: 2026-03-17
+Date: 2026-11-11
 Title: The All-in-One Causal Inference Toolkit
 Version: 1.1.0
 Authors@R:
@@ -14,13 +14,15 @@ Description: A comprehensive, one-stop-shop toolkit for causal inference in R,
     synthetic controls, RD, IV), heterogeneous treatment effects (causal
     forests, BLP, GATES, Qini curves), mediation analysis, sensitivity
     analysis, panel data diagnostics, and publication-ready reporting.
-    Provides 80+ utility functions, 13 in-depth vignettes, and
+    Provides 80+ utility functions, 14 in-depth vignettes, and
     seamless integration with leading causal inference packages.
 License: GPL-3 | file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Suggests:
+    prepost,
+    parallel,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
@@ -99,7 +101,8 @@ Suggests:
     gt,
     broom,
     mgcv,
-    blavaan
+    blavaan,
+    MCPanel
 Config/testthat/edition: 3
 Imports:
     ggplot2 (>= 3.4.2),
@@ -115,6 +118,7 @@ Imports:
     rlang (>= 1.1.1),
     fixest (>= 0.11.1),
     stats,
+    utils,
     PanelMatch (>= 2.0.1),
     fastDummies (>= 1.7.3),
     magrittr (>= 2.0.3),
@@ -122,5 +126,6 @@ Imports:
     plm (>= 2.6.3),
     MASS
 Remotes:
-    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a
+    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a,
+    susanathey/MCPanel
 VignetteBuilder: knitr

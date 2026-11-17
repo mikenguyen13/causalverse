@@ -11,6 +11,27 @@ methods. Produces smooth dose-response curves with confidence bands."><meta prop
   gtag('js', new Date());
 
   gtag('config', 'G-GLJZT4LT1W');
+</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "causalverse",
+  "alternateName": "The All-in-One Causal Inference Toolkit",
+  "description": "An R package covering the full causal inference pipeline: randomized experiments, quasi-experimental designs (DiD, synthetic control, RD, IV), heterogeneous treatment effects, mediation, sensitivity analysis, and publication-ready reporting.",
+  "url": "https://mikenguyen13.github.io/causalverse/",
+  "codeRepository": "https://github.com/mikenguyen13/causalverse",
+  "programmingLanguage": {"@type": "ComputerLanguage", "name": "R"},
+  "runtimePlatform": "R",
+  "version": "1.1.0",
+  "license": "https://www.gnu.org/licenses/gpl-3.0",
+  "image": "https://mikenguyen13.github.io/causalverse/logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Mike Nguyen",
+    "identifier": "https://orcid.org/0000-0002-3432-8595",
+    "url": "https://mikenguyen.netlify.app/"
+  }
+}
 </script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -178,6 +199,7 @@ Data Perspectives</em> (pp. 73–84). Wiley.</p>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">D</span>  <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">D</span> <span class="op">+</span> <span class="va">df</span><span class="op">$</span><span class="va">X1</span>  <span class="co"># confounded dose</span></span></span>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">Y</span>  <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">*</span> <span class="va">df</span><span class="op">$</span><span class="va">D</span> <span class="op">-</span> <span class="fl">0.03</span> <span class="op">*</span> <span class="va">df</span><span class="op">$</span><span class="va">D</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">df</span><span class="op">$</span><span class="va">X1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">dose_response</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  data       <span class="op">=</span> <span class="va">df</span>,</span></span>
 <span class="r-in"><span>  outcome    <span class="op">=</span> <span class="st">"Y"</span>,</span></span>
@@ -187,6 +209,7 @@ Data Perspectives</em> (pp. 73–84). Wiley.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span><span class="op">$</span><span class="va">plot</span></span></span>
 <span class="r-plt img"><img src="dose_response-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
