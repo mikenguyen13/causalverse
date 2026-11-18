@@ -1,0 +1,53 @@
+# causalverse
+
+> An R package by Mike Nguyen that collects the causal inference workflow in one place: randomized experiments, difference-in-differences, synthetic difference-in-differences, synthetic controls, regression discontinuity, instrumental variables, event studies, matching, sensitivity analysis, heterogeneous treatment effects, mediation, and panel data methods, with publication-ready reporting. The documentation site is at https://mikenguyen13.github.io/causalverse/.
+
+The package provides 80+ functions that wrap and extend 100+ backend packages (fixest, did, synthdid, rdrobust, MatchIt, grf, sensemakr, mediation, plm, and others) and 13 vignettes that teach each design with runnable R code: the identifying assumptions, estimation, diagnostics, and plots. Install with `pak::pkg_install("mikenguyen13/causalverse")`.
+
+- Author: Mike Nguyen (ORCID 0000-0002-3432-8595), https://mikenguyen.netlify.app
+- Repository: https://github.com/mikenguyen13/causalverse
+- License: GPL-3
+
+## How to cite
+
+APA: Nguyen, M. (2026). *causalverse: The all-in-one causal inference toolkit* (Version 1.1.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.8254063
+
+When citing a vignette, add its title and URL, for example: Section "Difference-in-Differences", https://mikenguyen13.github.io/causalverse/articles/c_did.html. Each vignette ends with a "Cite this section" box with APA and BibTeX.
+
+```bibtex
+@manual{Nguyen2026causalverse,
+  author    = {Nguyen, Mike},
+  title     = {{causalverse: The All-in-One Causal Inference Toolkit}},
+  year      = {2026},
+  note      = {Version 1.1.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.8254063},
+  url       = {https://doi.org/10.5281/zenodo.8254063}
+}
+```
+
+## Research Methods Library (MCP server)
+
+- [MCP endpoint](https://research-methods-mcp.vercel.app/mcp?src=llms-txt): Model Context Protocol server (streamable HTTP, no authentication) that indexes this package's documentation together with the author's books and research articles. Its tools recommend study designs with their identifying assumptions (`choose_method`), search and read sections (`search`, `fetch`), return runnable R and Python code (`get_code`), and format citations (`cite`); every result links to the section consulted.
+- [Research Methods Library](https://research-methods-mcp.vercel.app/): setup instructions for Claude, Claude Code, ChatGPT, Cursor, Visual Studio Code, and other MCP clients.
+
+## Overview
+
+- [Home](https://mikenguyen13.github.io/causalverse/): installation, quick examples, and use of the package in AI assistants
+- [Function reference](https://mikenguyen13.github.io/causalverse/reference/): every exported function, grouped by design
+- [Introduction to CausalVerse](https://mikenguyen13.github.io/causalverse/articles/a_introduction.html): what the package covers and how to get started with its research workflow
+
+## Vignettes
+
+- [1. Randomized Control Trials](https://mikenguyen13.github.io/causalverse/articles/d_rct.html): random assignment, power analysis, and estimating treatment effects from experimental data
+- [2. Regression Discontinuity](https://mikenguyen13.github.io/causalverse/articles/e_rd.html): estimating causal effects at a known cutoff in a continuous running variable (sharp, fuzzy, multi-cutoff, kink designs)
+- [3. Synthetic Difference-in-Differences](https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html): combining synthetic control unit weights with DiD time weights to estimate policy effects, including staggered adoption
+- [4. Difference-in-Differences](https://mikenguyen13.github.io/causalverse/articles/c_did.html): TWFE, Callaway-Sant'Anna, Sun-Abraham, stacked DiD, pre-trend tests, and HonestDiD sensitivity
+- [5. Synthetic Controls](https://mikenguyen13.github.io/causalverse/articles/f_sc.html): building a weighted counterfactual from untreated donor units for a single treated unit, with placebo inference
+- [6. Instrumental Variables](https://mikenguyen13.github.io/causalverse/articles/g_iv.html): 2SLS, weak-instrument diagnostics, shift-share instruments, Mendelian randomization
+- [7. Event Studies (Finance)](https://mikenguyen13.github.io/causalverse/articles/h_event_study.html): abnormal returns, CAR, BHAR, and test statistics around corporate events
+- [8. Matching Methods](https://mikenguyen13.github.io/causalverse/articles/i_matching.html): propensity score matching, CEM, weighting, and covariate balance diagnostics
+- [9. Sensitivity Analysis and Robustness](https://mikenguyen13.github.io/causalverse/articles/j_sensitivity.html): omitted variable bias, E-values, bounds, and specification curves
+- [10. Heterogeneous Treatment Effects and Causal ML](https://mikenguyen13.github.io/causalverse/articles/k_hte.html): causal forests, BLP, GATES, Qini curves, and double machine learning
+- [11. Causal Mediation Analysis](https://mikenguyen13.github.io/causalverse/articles/l_mediation.html): decomposing a total effect into direct and indirect paths (ACME, ADE)
+- [12. Panel Data Methods](https://mikenguyen13.github.io/causalverse/articles/m_panel.html): fixed and random effects, dynamic panels (GMM), unit roots, and cross-sectional dependence

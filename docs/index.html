@@ -47,6 +47,11 @@
   }
 }
 </script><!-- cv-exp:head -->
+<meta name="citation_title" content="causalverse: The All-in-One Causal Inference Toolkit">
+<meta name="citation_author" content="Nguyen, Mike">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_doi" content="10.5281/zenodo.8254063">
 <style>
 .cv-box{font-size:.9em;border:1px solid var(--bs-border-color,#dee2e6);border-radius:6px;padding:.75em 1em;margin:1.5em 0 0}
 .cv-box h2,.contents .cv-box h2{font-size:1.15em;font-weight:600;margin:0 0 .5em;padding-top:0}
@@ -124,6 +129,11 @@ aside .cv-box{margin-top:0}
 
 <!-- badges: end -->
 <p><strong>causalverse</strong> is the all-in-one R toolkit for causal inference — the <em>tidyverse</em> of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.</p>
+<p align="center">
+<img src="reference/figures/README-sdid-trajectory.png" alt="Synthetic difference-in-differences trajectory for California's Proposition 99: cigarette sales in California and its synthetic control, 1970 to 2000" width="720"></p>
+<p align="center">
+<em>Synthetic difference-in-differences estimate of California’s Proposition 99, from the <a href="https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html">synthetic DiD vignette</a>.</em>
+</p>
 <p>The package covers <strong>13 major method families</strong>:</p>
 <table class="table">
 <colgroup>
@@ -231,10 +241,20 @@ aside .cv-box{margin-top:0}
 <div class="section level2">
 <h2 id="how-to-cite-this-package">How to cite this package<a class="anchor" aria-label="anchor" href="#how-to-cite-this-package"></a>
 </h2>
-<p>You can cite this package as follows: “we utilized the causal inference methodologies from the <code>causalverse</code> R package (Nguyen 2026)”. Here is the full bibliographic reference to include in your reference list (don’t forget to update the ‘last accessed’ date):</p>
+<p>You can cite this package as follows: “we utilized the causal inference methodologies from the <code>causalverse</code> R package (Nguyen 2026)”. Here is the full bibliographic reference to include in your reference list:</p>
 <blockquote>
-<p>Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.8254063" class="external-link uri">https://doi.org/10.5281/zenodo.8254063</a>. Retrieved from <a href="https://github.com/mikenguyen13/causalverse" class="external-link uri">https://github.com/mikenguyen13/causalverse</a>.</p>
+<p>Nguyen, M. (2026). <em>causalverse: The all-in-one causal inference toolkit</em> (Version 1.1.0) [Computer software]. Zenodo. <a href="https://doi.org/10.5281/zenodo.8254063" class="external-link uri">https://doi.org/10.5281/zenodo.8254063</a></p>
 </blockquote>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="va">@manual</span>{<span class="ot">Nguyen2026causalverse</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="dt">author</span>    = {Nguyen, Mike},</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="dt">title</span>     = {{causalverse: The All-in-One Causal Inference Toolkit}},</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="dt">year</span>      = {2026},</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="dt">note</span>      = {Version 1.1.0},</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="dt">publisher</span> = {Zenodo},</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="dt">doi</span>       = {10.5281/zenodo.8254063},</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="dt">url</span>       = {https://doi.org/10.5281/zenodo.8254063}</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>citation("causalverse")</code> prints the reference in R. When you cite a vignette, add its title and URL; each vignette ends with a “Cite this section” box.</p>
 </div>
 <div class="section level2">
 <h2 id="vignettes">
@@ -274,15 +294,15 @@ aside .cv-box{margin-top:0}
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version of causalverse from <a href="https://github.com/mikenguyen13/causalverse" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"mikenguyen13/causalverse"</span><span class="op">)</span></span></code></pre></div>
 <p>Or using devtools:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mikenguyen13/causalverse"</span><span class="op">)</span></span></code></pre></div>
 <p>To install all optional backend packages for full functionality:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/install_backends.html">install_backends</a></span><span class="op">(</span><span class="op">)</span>          <span class="co"># install everything</span></span>
 <span><span class="fu"><a href="reference/install_backends.html">install_backends</a></span><span class="op">(</span><span class="st">"did"</span><span class="op">)</span>     <span class="co"># install just DID packages</span></span>
@@ -291,18 +311,19 @@ aside .cv-box{margin-top:0}
 <div class="section level2">
 <h2 id="use-this-package-in-your-ai-assistant">Use this package in your AI assistant<a class="anchor" aria-label="anchor" href="#use-this-package-in-your-ai-assistant"></a>
 </h2>
-<p>The documentation of causalverse, including its vignettes and function reference, is indexed by the <a href="https://research-methods-mcp.vercel.app/" class="external-link">Research Methods Library</a>, a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package’s documentation and of the author’s other works on which each answer draws. Access is free and requires no account or API key.</p>
-<p><strong>Endpoint:</strong> <code>https://research-methods-mcp.vercel.app/mcp</code></p>
+<p>Ask questions about causalverse in Claude, Cursor, VS Code, or ChatGPT, with answers that cite the section. The documentation of causalverse, including its vignettes and function reference, is indexed by the <a href="https://research-methods-mcp.vercel.app/" class="external-link">Research Methods Library</a>, a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package’s documentation and of the author’s other works on which each answer draws. Access is free and requires no account or API key.</p>
+<p><strong>Endpoint:</strong> <code>https://research-methods-mcp.vercel.app/mcp?src=book-causalverse</code></p>
+<p><a href="https://cursor.com/en/install-mcp?name=research-methods&amp;config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwP3NyYz1ib29rLWNhdXNhbHZlcnNlIn0%3D" class="external-link"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor"></a> <a href="https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&amp;config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%3Fsrc%3Dbook-causalverse%22%7D" class="external-link"><img src="https://img.shields.io/badge/VS_Code-Install_server-0098FF?logo=visualstudiocode&amp;logoColor=white" alt="Install in VS Code"></a></p>
 <ul>
 <li>
 <strong>Claude</strong> (web, desktop, and mobile): Settings → Connectors → <strong>Add custom connector</strong>; enter the endpoint.</li>
 <li>
-<strong>Claude Code:</strong> <code>claude mcp add --transport http research-methods https://research-methods-mcp.vercel.app/mcp</code>
+<strong>Claude Code:</strong> <code>claude mcp add --transport http research-methods "https://research-methods-mcp.vercel.app/mcp?src=book-causalverse"</code>
 </li>
 <li>
 <strong>ChatGPT:</strong> Settings → enable developer mode → add a custom connector of type MCP server with the endpoint and no authentication.</li>
 <li>
-<strong>Cursor</strong> and <strong>Visual Studio Code:</strong> <a href="https://cursor.com/en/install-mcp?name=research-methods&amp;config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwIn0%3D" class="external-link">Add to Cursor</a> or <a href="https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&amp;config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%22%7D" class="external-link">Install in VS Code</a>.</li>
+<strong>Cursor</strong> and <strong>Visual Studio Code:</strong> use the buttons above.</li>
 </ul>
 <p>Configuration for other MCP clients is described on the <a href="https://research-methods-mcp.vercel.app/" class="external-link">server’s website</a>.</p>
 </div>
@@ -312,7 +333,7 @@ aside .cv-box{margin-top:0}
 <div class="section level3">
 <h3 id="synthetic-difference-in-differences">Synthetic Difference-in-Differences<a class="anchor" aria-label="anchor" href="#synthetic-difference-in-differences"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Estimate treatment effect using multiple methods</span></span>
@@ -327,7 +348,7 @@ aside .cv-box{margin-top:0}
 <div class="section level3">
 <h3 id="event-study-with-publication-ready-plots">Event Study with Publication-Ready Plots<a class="anchor" aria-label="anchor" href="#event-study-with-publication-ready-plots"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Sun &amp; Abraham event study</span></span>
@@ -339,7 +360,7 @@ aside .cv-box{margin-top:0}
 <div class="section level3">
 <h3 id="rd-robustness-checks">RD Robustness Checks<a class="anchor" aria-label="anchor" href="#rd-robustness-checks"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bandwidth sensitivity analysis</span></span>
@@ -354,7 +375,7 @@ aside .cv-box{margin-top:0}
 <div class="section level3">
 <h3 id="specification-curve-analysis">Specification Curve Analysis<a class="anchor" aria-label="anchor" href="#specification-curve-analysis"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run all specifications and visualize</span></span>
@@ -369,7 +390,7 @@ aside .cv-box{margin-top:0}
 <div class="section level3">
 <h3 id="ama-style-publication-plots">AMA-Style Publication Plots<a class="anchor" aria-label="anchor" href="#ama-style-publication-plots"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">causalverse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">wt</span>, <span class="va">mpg</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -381,11 +402,6 @@ aside .cv-box{margin-top:0}
 <span><span class="co"># Export for journal submission</span></span>
 <span><span class="fu"><a href="reference/ama_export_fig.html">ama_export_fig</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"figure1"</span>, filepath <span class="op">=</span> <span class="st">"output/"</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
-</h2>
-<p>Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <a href="https://doi.org/10.5281/zenodo.8254063" class="external-link uri">https://doi.org/10.5281/zenodo.8254063</a>. Retrieved from <a href="https://github.com/mikenguyen13/causalverse" class="external-link uri">https://github.com/mikenguyen13/causalverse</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="use-with-your-ai-assistant">

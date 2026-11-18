@@ -8,3 +8,4 @@
 ^causalverse.*\.pdf$
 ^\.claude$
 ^pkgdown$
+^experiments$

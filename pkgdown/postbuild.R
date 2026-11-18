@@ -11,16 +11,19 @@
 #   _pkgdown.yml (directory URLs for index pages), and the same directory URLs in
 #   sitemap.xml. Pages marked noindex (old vignette names) get no canonical link.
 # - The block between `<!-- cv-exp:head -->` and `<!-- /cv-exp:head -->` in
-#   _pkgdown.yml's in_header (the box styles), copied into pages that were not
-#   rebuilt since it changed.
-# - At the end of each vignette listed under `articles:` in _pkgdown.yml: "Use this
-#   package with your AI assistant" (the Research Methods Library MCP endpoint).
+#   _pkgdown.yml's in_header (Google Scholar citation_* tags and the box styles),
+#   copied into pages that were not rebuilt since it changed.
+# - At the end of each vignette listed under `articles:` in _pkgdown.yml: "Related
+#   in other books" (from pkgdown/related.yml), "Cite this section" (APA and BibTeX
+#   with the vignette's title and URL), and "Use this package with your AI
+#   assistant" (the Research Methods Library MCP endpoint).
 #
 # Base R plus the yaml package (a pkgdown dependency).
 
 docs <- "docs"
 cfg <- yaml::read_yaml("_pkgdown.yml")
 site <- sub("/?$", "/", cfg$url)
+related <- yaml::read_yaml(file.path("pkgdown", "related.yml"))
 vignettes <- unlist(lapply(cfg$articles, `[[`, "contents"))
 
 endpoint <- "https://research-methods-mcp.vercel.app/mcp?src=book-causalverse"
@@ -32,6 +35,14 @@ vscode_url <- paste0(
   "https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&amp;config=",
   "%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app",
   "%2Fmcp%3Fsrc%3Dbook-causalverse%22%7D"
+)
+
+# Citation, as in research-methods-mcp/sources.yml (id: causalverse) and inst/CITATION.
+doi <- "10.5281/zenodo.8254063"
+apa <- paste0(
+  "Nguyen, M. (2026). <em>causalverse: The all-in-one causal inference toolkit</em> ",
+  "(Version 1.1.0) [Computer software]. Zenodo. ",
+  "<a href=\"https://doi.org/", doi, "\">https://doi.org/", doi, "</a>"
 )
 
 read_file <- function(path) {
@@ -106,8 +117,36 @@ page_url <- function(rel) {
 }
 
 end_block <- function(name, title, url) {
+  title_text <- trimws(sub("^[0-9]+\\.\\s*", "", html_unescape(title)))
+  links <- related[[name]]
+  rel_html <- if (length(links)) {
+    items <- vapply(links, function(l) {
+      sprintf("<li><a href=\"%s\">%s</a>, <em>%s</em></li>", l$url, html_escape(l$title), html_escape(l$book))
+    }, "")
+    paste0(
+      "<div class=\"cv-box cv-related\">\n<h2 data-toc-skip>Related in other books</h2>\n<ul>\n",
+      paste(items, collapse = "\n"), "\n</ul>\n</div>\n"
+    )
+  } else ""
+  bibtex <- paste0(
+    "@manual{Nguyen2026causalverse,\n",
+    "  author    = {Nguyen, Mike},\n",
+    "  title     = {{causalverse: The All-in-One Causal Inference Toolkit}},\n",
+    "  year      = {2026},\n",
+    "  note      = {Version 1.1.0. Section: ", gsub("&", "\\&", title_text, fixed = TRUE), ", ", url, "},\n",
+    "  publisher = {Zenodo},\n",
+    "  doi       = {", doi, "},\n",
+    "  url       = {https://doi.org/", doi, "}\n",
+    "}"
+  )
   paste0(
     "<!-- cv-exp:end -->\n<section class=\"cv-end\">\n",
+    rel_html,
+    "<div class=\"cv-box cv-cite\">\n<h2 data-toc-skip>Cite this section</h2>\n",
+    "<p>", apa, "</p>\n",
+    "<p>Section: &ldquo;", html_escape(title_text), "&rdquo;, <a href=\"", url, "\">", url, "</a></p>\n",
+    "<details><summary>BibTeX</summary>\n<div class=\"sourceCode\"><pre><code>",
+    html_escape(bibtex), "</code></pre></div>\n</details>\n</div>\n",
     "<div class=\"cv-box cv-ai\">\n<h2 data-toc-skip>Use this package with your AI assistant</h2>\n",
     "<p>Ask questions about this package in Claude, Cursor, VS Code, or ChatGPT, with answers that cite the section.</p>\n",
     "<div class=\"sourceCode\"><pre><code>", endpoint, "</code></pre></div>\n",

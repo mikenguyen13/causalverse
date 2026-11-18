@@ -8,6 +8,10 @@
 
 **causalverse** is the all-in-one R toolkit for causal inference — the *tidyverse* of causal analysis. Version 1.1.0 provides 80+ utility functions, 13 in-depth vignettes, and seamless integration with 100+ backend packages, covering the full pipeline from experimental design through publication-ready reporting.
 
+<p align="center"><img src="man/figures/README-sdid-trajectory.png" alt="Synthetic difference-in-differences trajectory for California's Proposition 99: cigarette sales in California and its synthetic control, 1970 to 2000" width="720"/></p>
+
+<p align="center"><em>Synthetic difference-in-differences estimate of California's Proposition 99, from the <a href="https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html">synthetic DiD vignette</a>.</em></p>
+
 The package covers **13 major method families**:
 
 | Method | Key Functions | Backend Packages |
@@ -28,9 +32,23 @@ The package covers **13 major method families**:
 
 ## How to cite this package
 
-You can cite this package as follows: "we utilized the causal inference methodologies from the `causalverse` R package (Nguyen 2026)". Here is the full bibliographic reference to include in your reference list (don't forget to update the 'last accessed' date):
+You can cite this package as follows: "we utilized the causal inference methodologies from the `causalverse` R package (Nguyen 2026)". Here is the full bibliographic reference to include in your reference list:
 
-> Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <https://doi.org/10.5281/zenodo.8254063>. Retrieved from <https://github.com/mikenguyen13/causalverse>.
+> Nguyen, M. (2026). *causalverse: The all-in-one causal inference toolkit* (Version 1.1.0) [Computer software]. Zenodo. <https://doi.org/10.5281/zenodo.8254063>
+
+``` bibtex
+@manual{Nguyen2026causalverse,
+  author    = {Nguyen, Mike},
+  title     = {{causalverse: The All-in-One Causal Inference Toolkit}},
+  year      = {2026},
+  note      = {Version 1.1.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.8254063},
+  url       = {https://doi.org/10.5281/zenodo.8254063}
+}
+```
+
+`citation("causalverse")` prints the reference in R. When you cite a vignette, add its title and URL; each vignette ends with a "Cite this section" box.
 
 ## [Vignettes](https://mikenguyen13.github.io/causalverse/articles/)
 
@@ -77,14 +95,17 @@ install_backends("rd")      # install just RD packages
 
 ## Use this package in your AI assistant
 
-The documentation of causalverse, including its vignettes and function reference, is indexed by the [Research Methods Library](https://research-methods-mcp.vercel.app/), a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package's documentation and of the author's other works on which each answer draws. Access is free and requires no account or API key.
+Ask questions about causalverse in Claude, Cursor, VS Code, or ChatGPT, with answers that cite the section. The documentation of causalverse, including its vignettes and function reference, is indexed by the [Research Methods Library](https://research-methods-mcp.vercel.app/), a Model Context Protocol (MCP) server that makes it available to AI assistants. Given a research question, an assistant connected to the server recommends candidate study designs, states their identifying assumptions, returns runnable R and Python code, and cites the sections of this package's documentation and of the author's other works on which each answer draws. Access is free and requires no account or API key.
 
-**Endpoint:** `https://research-methods-mcp.vercel.app/mcp`
+**Endpoint:** `https://research-methods-mcp.vercel.app/mcp?src=book-causalverse`
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=research-methods&config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwP3NyYz1ib29rLWNhdXNhbHZlcnNlIn0%3D)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_server-0098FF?logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%3Fsrc%3Dbook-causalverse%22%7D)
 
 - **Claude** (web, desktop, and mobile): Settings → Connectors → **Add custom connector**; enter the endpoint.
-- **Claude Code:** `claude mcp add --transport http research-methods https://research-methods-mcp.vercel.app/mcp`
+- **Claude Code:** `claude mcp add --transport http research-methods "https://research-methods-mcp.vercel.app/mcp?src=book-causalverse"`
 - **ChatGPT:** Settings → enable developer mode → add a custom connector of type MCP server with the endpoint and no authentication.
-- **Cursor** and **Visual Studio Code:** [Add to Cursor](https://cursor.com/en/install-mcp?name=research-methods&config=eyJ1cmwiOiJodHRwczovL3Jlc2VhcmNoLW1ldGhvZHMtbWNwLnZlcmNlbC5hcHAvbWNwIn0%3D) or [Install in VS Code](https://insiders.vscode.dev/redirect/mcp/install?name=research-methods&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fresearch-methods-mcp.vercel.app%2Fmcp%22%7D).
+- **Cursor** and **Visual Studio Code:** use the buttons above.
 
 Configuration for other MCP clients is described on the [server's website](https://research-methods-mcp.vercel.app/).
 
@@ -161,7 +182,3 @@ ggplot(mtcars, aes(wt, mpg)) +
 # Export for journal submission
 ama_export_fig(filename = "figure1", filepath = "output/")
 ```
-
-## Citation
-
-Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <https://doi.org/10.5281/zenodo.8254063>. Retrieved from <https://github.com/mikenguyen13/causalverse>.

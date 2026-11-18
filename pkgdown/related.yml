@@ -1,0 +1,133 @@
+# "Related in other books" (growth experiment E9): at most three links per vignette,
+# to chapters of the author's other books that cover the same method. Plain URLs,
+# never UTM parameters (the dashboard counts these visits as referrals by host).
+# Matches were found with the Research Methods Library `search` tool. Read by
+# pkgdown/postbuild.R; keys are vignette names (articles/<name>.html).
+
+a_introduction:
+  - title: "Choosing a quasi-experimental method"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-quasi-experimental.html#sec-choosing-a-quasi-experimental-method
+  - title: "Causal Inference and Field Experiments"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/47-causal-inference.html
+
+d_rct:
+  - title: "Experimental Design"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-experimental-design.html
+  - title: "Field Experiments and Causal Inference Seminar"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/60-field-experiments-seminar.html
+
+e_rd:
+  - title: "Regression Discontinuity"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-regression-discontinuity.html
+  - title: "Temporal Discontinuity Designs (regression discontinuity in time)"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-temporal-discontinuity-designs.html
+  - title: "Regression Discontinuity in marketing"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/47-causal-inference.html#sec-causal-rd
+
+b_synthdid:
+  - title: "Synthetic Difference-in-Differences"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-synthetic-difference-in-differences.html
+  - title: "Synthetic Control"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-synthetic-control.html
+
+c_did:
+  - title: "Difference-in-Differences"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-difference-in-differences.html
+  - title: "Staggered adoption and the TWFE critique"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/47-causal-inference.html#sec-causal-week06
+  - title: "Econometric event-study designs"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-event-studies.html#the-standard-event-study-regression
+
+f_sc:
+  - title: "Synthetic Control"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-synthetic-control.html
+  - title: "Synthetic Control in marketing"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/47-causal-inference.html#sec-causal-scm
+  - title: "Synthetic Difference-in-Differences"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-synthetic-difference-in-differences.html
+
+g_iv:
+  - title: "Instrumental Variables"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-instrumental-variables.html
+  - title: "Endogeneity"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-endogeneity.html
+  - title: "Instrumental Variables in marketing"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/47-causal-inference.html#sec-causal-iv
+
+h_event_study:
+  - title: "Event Studies"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-event-studies.html
+  - title: "Event Studies in Finance (Vietnamese market data, Python)"
+    book: Applying Tidy Finance with Python to Vietnam
+    url: https://mikenguyen13.github.io/tidy_finance_vn/60_event_studies.html
+  - title: "A worked event study of marketing returns"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/37-strategic-dynamic-models.html#sec-sdm-event-code
+
+i_matching:
+  - title: "Matching Methods"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-matching-methods.html
+  - title: "Matching and propensity scores"
+    book: "Marketing Research: A Technical and Academic Treatment"
+    url: https://mike-marketing-research.share.connect.posit.cloud/60-field-experiments-seminar.html#sec-fexp-week09
+
+j_sensitivity:
+  - title: "Omitted variable bias"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-endogeneity.html#sec-omitted-variable-bias
+  - title: "Choosing controls, and sensitivity analysis"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-controls.html#step-4-consider-sensitivity-analysis
+
+k_hte:
+  - title: "Machine Learning for Causal Inference"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-ml-causal.html
+  - title: "Uplift Modeling and Heterogeneous Treatment Effects"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-uplift-modeling.html
+  - title: "Causal Machine Learning and Uplift Modeling"
+    book: Advanced Data Analysis
+    url: https://advanced-data-analysis.netlify.app/073-causal-machine-learning.html
+
+l_mediation:
+  - title: "Mediation"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-mediation.html
+  - title: "Moderated Mediation and Conditional Process Analysis"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-conditional-process.html
+  - title: "Mediation: testing the mechanism"
+    book: "Social Science Theory: A Field Guide"
+    url: https://mikenguyen13.github.io/social-theory/using-theory.html#mediation-testing-the-mechanism
+
+m_panel:
+  - title: "Panel Data"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/data.html#sec-panel-data
+  - title: "Panel matching for time-series cross-sectional data"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-matching-methods.html#sec-panel-matching
+  - title: "Internal instruments in dynamic panels"
+    book: A Guide on Data Analysis
+    url: https://mike-data-analysis.share.connect.posit.cloud/sec-instrumental-variables.html#sec-dynamic-panel-iv
