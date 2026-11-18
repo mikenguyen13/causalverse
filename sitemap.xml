@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://mikenguyen13.github.io/causalverse/404.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/LICENSE-text.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/a_introduction.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/b_synthdid.html</loc></url>
@@ -11,20 +10,19 @@
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/g_iv.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/h_event_study.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/i_matching.html</loc></url>
-  <url><loc>https://mikenguyen13.github.io/causalverse/articles/index.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/articles/</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/j_sensitivity.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/k_hte.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/l_mediation.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/articles/m_panel.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/authors.html</loc></url>
-  <url><loc>https://mikenguyen13.github.io/causalverse/index.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_export_fig.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_export_tab.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_labs.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_scale_color.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_scale_fill.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/ama_theme.html</loc></url>
-  <url><loc>https://mikenguyen13.github.io/causalverse/reference/amatheme.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/attrition_analysis.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/bacon_decomp_plot.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/balance_assessment.html</loc></url>
@@ -53,7 +51,7 @@
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/get_balanced_panel.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/heterogeneity_forest_plot.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/heterogeneity_plot.html</loc></url>
-  <url><loc>https://mikenguyen13.github.io/causalverse/reference/index.html</loc></url>
+  <url><loc>https://mikenguyen13.github.io/causalverse/reference/</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/install_backends.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/iv_diagnostic_summary.html</loc></url>
   <url><loc>https://mikenguyen13.github.io/causalverse/reference/iv_diagnostics.html</loc></url>
