@@ -1,6 +1,7 @@
 # Deploy pre-built pkgdown site from docs/ folder.
 # The site is built locally (because vignettes need 80+ optional packages)
 # and committed to the docs/ directory. This workflow simply deploys it.
+# After building, run `Rscript pkgdown/postbuild.R` before committing docs/.
 on:
   push:
     branches: [main, master]

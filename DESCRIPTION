@@ -17,6 +17,8 @@ Description: A comprehensive, one-stop-shop toolkit for causal inference in R,
     Provides 80+ utility functions, 13 in-depth vignettes, and
     seamless integration with leading causal inference packages.
 License: GPL-3 | file LICENSE
+URL: https://mikenguyen13.github.io/causalverse/, https://github.com/mikenguyen13/causalverse
+BugReports: https://github.com/mikenguyen13/causalverse/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

@@ -1,0 +1,6 @@
+# Crawlers read robots.txt only at the host root. https://mikenguyen13.github.io/robots.txt
+# (the user-site repository) already lists this sitemap; this copy documents it here.
+User-agent: *
+Allow: /
+
+Sitemap: https://mikenguyen13.github.io/causalverse/sitemap.xml
