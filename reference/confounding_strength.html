@@ -11,6 +11,27 @@ estimate."><meta property="og:image" content="https://mikenguyen13.github.io/cau
   gtag('js', new Date());
 
   gtag('config', 'G-GLJZT4LT1W');
+</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "causalverse",
+  "alternateName": "The All-in-One Causal Inference Toolkit",
+  "description": "An R package covering the full causal inference pipeline: randomized experiments, quasi-experimental designs (DiD, synthetic control, RD, IV), heterogeneous treatment effects, mediation, sensitivity analysis, and publication-ready reporting.",
+  "url": "https://mikenguyen13.github.io/causalverse/",
+  "codeRepository": "https://github.com/mikenguyen13/causalverse",
+  "programmingLanguage": {"@type": "ComputerLanguage", "name": "R"},
+  "runtimePlatform": "R",
+  "version": "1.1.0",
+  "license": "https://www.gnu.org/licenses/gpl-3.0",
+  "image": "https://mikenguyen13.github.io/causalverse/logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Mike Nguyen",
+    "identifier": "https://orcid.org/0000-0002-3432-8595",
+    "url": "https://mikenguyen.netlify.app/"
+  }
+}
 </script><!-- cv-exp:head -->
 <style>
 .cv-box{font-size:.9em;border:1px solid var(--bs-border-color,#dee2e6);border-radius:6px;padding:.75em 1em;margin:1.5em 0 0}
@@ -23,8 +44,7 @@ estimate."><meta property="og:image" content="https://mikenguyen13.github.io/cau
 .cv-box .cv-install img{height:20px;margin:0 .25rem .25rem 0}
 aside .cv-box{margin-top:0}
 </style>
-<!-- /cv-exp:head -->
-<link rel="canonical" href="https://mikenguyen13.github.io/causalverse/reference/confounding_strength.html">
+<!-- /cv-exp:head --><link rel="canonical" href="https://mikenguyen13.github.io/causalverse/reference/confounding_strength.html">
 </head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -65,6 +85,7 @@ aside .cv-box{margin-top:0}
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/mikenguyen13/causalverse/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -73,7 +94,7 @@ aside .cv-box{margin-top:0}
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sensitivity Analysis for Omitted Variable Bias (E-value &amp; RV)</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/mikenguyen13/causalverse/blob/HEAD/R/confounding_strength.R" class="external-link"><code>R/confounding_strength.R</code></a></small>
       <div class="d-none name"><code>confounding_strength.Rd</code></div>
     </div>
 
@@ -183,6 +204,28 @@ Medicine</em>, 167(4), 268-274.</p>
 <p>Cinelli, C., &amp; Hazlett, C. (2020). Making sense of sensitivity: Extending
 omitted variable bias. <em>Journal of the Royal Statistical Society: Series B</em>,
 82(1), 39-67.</p>
+<p>Diegert, P., Masten, M. A., &amp; Poirier, A. (2026). Assessing omitted
+variable bias when the controls are endogenous. arXiv:2206.02303.</p>
+<p>Masten, M. A., &amp; Poirier, A. (2026). The effect of omitted variables on
+the sign of regression coefficients. <em>American Economic Review</em>, 116(7),
+2685-2710.</p>
+<p>Oster, E. (2019). Unobservable selection and coefficient stability:
+Theory and evidence. <em>Journal of Business and Economic Statistics</em>,
+37(2), 187-204.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>The CRAN package
+<a href="https://mikenguyen13.github.io/regsensitivity/" class="external-link">regsensitivity</a>, which
+is not a dependency of causalverse, implements Diegert, Masten &amp; Poirier
+(2026) for cases where the controls may themselves be correlated with
+the omitted variable, and Oster (2019) with the Masten &amp; Poirier (2026)
+breakdown points for Oster's delta. A minimal call (not run) for a
+regression of <code>y</code> on treatment <code>d</code> with benchmark controls <code>w1</code> and <code>w2</code>:</p>
+<p></p><div class="sourceCode r"><pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikenguyen13/regsensitivity" class="external-link">regsensitivity</a></span><span class="op">)</span></span>
+<span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="fu">regsen_breakdown</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">d</span> <span class="op">+</span> <span class="va">w1</span> <span class="op">+</span> <span class="va">w2</span>, data <span class="op">=</span> <span class="va">df</span>, cbar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">bp</span><span class="op">)</span></span>
+<span><span class="fu">regsen_bounds</span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">d</span> <span class="op">+</span> <span class="va">w1</span> <span class="op">+</span> <span class="va">w2</span>, data <span class="op">=</span> <span class="va">df</span>, analysis <span class="op">=</span> <span class="st">"oster"</span><span class="op">)</span></span></code></pre><p></p></div></div>
     </div>
 
     <div class="section level2">
