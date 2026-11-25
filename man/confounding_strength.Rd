@@ -102,4 +102,30 @@ Medicine}, 167(4), 268-274.
 Cinelli, C., & Hazlett, C. (2020). Making sense of sensitivity: Extending
 omitted variable bias. \emph{Journal of the Royal Statistical Society: Series B},
 82(1), 39-67.
+
+Diegert, P., Masten, M. A., & Poirier, A. (2026). Assessing omitted
+variable bias when the controls are endogenous. arXiv:2206.02303.
+
+Masten, M. A., & Poirier, A. (2026). The effect of omitted variables on
+the sign of regression coefficients. \emph{American Economic Review}, 116(7),
+2685-2710.
+
+Oster, E. (2019). Unobservable selection and coefficient stability:
+Theory and evidence. \emph{Journal of Business and Economic Statistics},
+37(2), 187-204.
+}
+\seealso{
+The CRAN package
+\href{https://mikenguyen13.github.io/regsensitivity/}{regsensitivity}, which
+is not a dependency of causalverse, implements Diegert, Masten & Poirier
+(2026) for cases where the controls may themselves be correlated with
+the omitted variable, and Oster (2019) with the Masten & Poirier (2026)
+breakdown points for Oster's delta. A minimal call (not run) for a
+regression of \code{y} on treatment \code{d} with benchmark controls \code{w1} and \code{w2}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{library(regsensitivity)
+bp <- regsen_breakdown(y ~ d + w1 + w2, data = df, cbar = seq(0, 1, 0.1))
+plot(bp)
+regsen_bounds(y ~ d + w1 + w2, data = df, analysis = "oster")
+}\if{html}{\out{</div>}}
 }

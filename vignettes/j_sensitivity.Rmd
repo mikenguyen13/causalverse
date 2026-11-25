@@ -169,6 +169,30 @@ sapply(sens_results, function(s) s$sensitivity_stats$rv_q)
 
 Always benchmark against observed covariates. If the strongest observed predictor has partial R-squared of 0.05 with the treatment, and $RV_q = 0.20$, then the unobserved confounder would need to be four times as strong as the strongest observed predictor.
 
+### When the Controls May Be Correlated with the Omitted Variable: regsensitivity
+
+Benchmarking against observed covariates assumes they are a fair yardstick for the omitted variable. When the controls may themselves be correlated with that omitted variable (endogenous controls), the [`regsensitivity`](https://mikenguyen13.github.io/regsensitivity/) package on CRAN implements the analysis of Diegert, Masten and Poirier (2026), which adds a parameter `cbar` for how strongly the controls may be associated with it. The same package computes Oster's (2019) $\delta$ bounds and the breakdown points of Masten and Poirier (2026), which separate the $\delta$ that explains the estimate away (what `psacalc` reports) from the smallest $|\delta|$ that can flip its sign. It is not a dependency of `causalverse`; install it with `install.packages("regsensitivity")`. Applied to the data above, with `region` kept as a control but not used as a benchmark:
+
+```{r regsensitivity-pointer, eval = FALSE}
+library(regsensitivity)
+
+form    <- outcome ~ treatment + age + income + education + region
+compare <- c("age", "income", "education")  # benchmark covariates
+
+# Diegert-Masten-Poirier (2026): breakdown point for "effect > 0" in rxbar,
+# traced as the controls are allowed to be more endogenous (cbar from 0 to 1)
+dmp <- regsen_breakdown(form, data = analysis_data, compare = compare,
+                        cbar = seq(0, 1, 0.1))
+plot(dmp)
+
+# Oster (2019) bounds over delta, and the Masten-Poirier (2026)
+# sign-change breakdown point for delta
+oster <- regsen_bounds(form, data = analysis_data, compare = compare,
+                       analysis = "oster")
+breakdown_point(regsen_breakdown(form, data = analysis_data,
+                                 compare = compare, analysis = "oster"))
+```
+
 ---
 
 ## Rosenbaum Bounds
@@ -1618,7 +1642,7 @@ plot(sens_aligned, type = "raw", bty = "l")
 
 | Causal Method | Primary Sensitivity Analysis | Additional Checks |
 |---------------|------------------------------|-------------------|
-| OLS / Selection on observables | sensemakr (OVB), E-values | Specification curve, coefficient stability |
+| OLS / Selection on observables | sensemakr (OVB), E-values | Specification curve, coefficient stability; regsensitivity (Oster delta, breakdown points, endogenous controls) |
 | Matching / Propensity score | Rosenbaum bounds, E-values | Balance checks, different matching algorithms |
 | Difference-in-differences | HonestDiD, placebo tests | Pre-trend tests, varying pre/post windows |
 | Synthetic control | In-space placebos, leave-one-out | Pre-treatment MSPE ratios |
@@ -2293,11 +2317,17 @@ ggplot(dens_df, aes(x = value, fill = group, color = group)) +
 
 - Conley, T. G., Hansen, C. B., and Rossi, P. E. (2012). Plausibly exogenous. *Review of Economics and Statistics*, 94(1), 260-272.
 
+- Diegert, P., Masten, M. A., and Poirier, A. (2026). Assessing omitted variable bias when the controls are endogenous. arXiv:2206.02303.
+
 - Imbens, G. W., and Manski, C. F. (2004). Confidence intervals for partially identified parameters. *Econometrica*, 72(6), 1845-1857.
 
 - Lee, D. S. (2009). Training, wages, and sample selection: Estimating sharp bounds on treatment effects. *Review of Economic Studies*, 76(3), 1071-1102.
 
 - Manski, C. F. (1990). Nonparametric bounds on treatment effects. *American Economic Review*, 80(2), 319-323.
+
+- Masten, M. A., and Poirier, A. (2026). The effect of omitted variables on the sign of regression coefficients. *American Economic Review*, 116(7), 2685-2710.
+
+- Oster, E. (2019). Unobservable selection and coefficient stability: Theory and evidence. *Journal of Business and Economic Statistics*, 37(2), 187-204.
 
 - Rambachan, A., and Roth, J. (2023). A more credible approach to parallel trends. *Review of Economic Studies*, 90(5), 2555-2591.
 
