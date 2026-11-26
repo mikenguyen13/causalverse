@@ -1339,7 +1339,7 @@ $$D = m_0(X) + V, \quad E[V | X] = 0$$
 
 where $\theta_0$ is the causal parameter of interest.
 
-```{r dml-plr, eval = requireNamespace("DoubleML", quietly = TRUE)}
+```{r dml-plr, eval = all(vapply(c("DoubleML", "mlr3", "mlr3learners", "ranger"), requireNamespace, logical(1), quietly = TRUE))}
 library(DoubleML)
 library(mlr3)
 library(mlr3learners)
@@ -1384,7 +1384,7 @@ print(dml_plr$summary())
 For binary treatments, the IRM (also called the AIPW/doubly-robust estimand) estimates the ATE:
 $$Y = g_0(D, X) + U, \quad D = m_0(X) + V$$
 
-```{r dml-irm, eval = requireNamespace("DoubleML", quietly = TRUE)}
+```{r dml-irm, eval = all(vapply(c("DoubleML", "mlr3", "mlr3learners", "ranger"), requireNamespace, logical(1), quietly = TRUE))}
 set.seed(42)
 n <- 1000
 
