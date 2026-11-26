@@ -85,10 +85,6 @@ navbar:
           href: articles/l_mediation.html
         - text: "12. Panel Data Methods"
           href: articles/m_panel.html
-        - text: "-------"
-        - text: "Reporting"
-        - text: "13. Formatting for a Target Journal"
-          href: articles/o_journal_formatting.html
 
 articles:
   - title: "Getting Started"
@@ -111,9 +107,6 @@ articles:
       - l_mediation
       - m_panel
       - n_third_variable_roles
-  - title: "Reporting"
-    contents:
-      - o_journal_formatting
 
 reference:
   - title: "Reporting & Themes"
@@ -127,19 +120,6 @@ reference:
       - ama_export_tab
       - nice_tab
       - causal_table
-  - title: "Journal Formatting (FT50 & UTD24)"
-    desc: "Table and figure rules of top business journals, with export and checks that follow them."
-    contents:
-      - journal_style
-      - journal_list
-      - journal_sources
-      - journal_table
-      - export_tab
-      - theme_journal
-      - journal_palette
-      - scale_colour_journal
-      - export_fig
-      - journal_check
   - title: "Unified Tidy Output"
     desc: "Standardized extraction of estimates from any causal model."
     contents:
