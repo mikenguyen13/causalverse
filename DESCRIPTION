@@ -94,6 +94,8 @@ Suggests:
     mediation,
     lavaan,
     modelsummary,
+    flextable,
+    officer,
     tseries,
     DiagrammeR,
     marginaleffects,
