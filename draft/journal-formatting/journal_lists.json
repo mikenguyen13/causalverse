@@ -1,0 +1,60 @@
+{
+  "smu_lkcsb_top_tier": {
+    "tier_name": "not found (no public official LKCSB journal list located)",
+    "source_url": null,
+    "as_of": "2026-11-25 (search date)",
+    "journals": [],
+    "status": "UNVERIFIED",
+    "notes": [
+      "No official LKCSB/SMU journal list with an 'A+' (or other top) tier was found via web search (multiple query variants, incl. site-restricted).",
+      "business.smu.edu.sg (and graduatestudies.smu.edu.sg) is behind an Imperva/Incapsula bot check: curl returns a challenge page and the in-app browser showed an 'Additional security check is required' CAPTCHA, which was NOT bypassed.",
+      "Wayback Machine CDX index of business.smu.edu.sg uploaded files (~1,900 URLs) contains no journal-list document; SMU Libraries research guides (researchguides.smu.edu.sg/researchsupport, Journal Impact page) point only to external lists (Harzing JQL, ABDC, CWTS), not an SMU list.",
+      "The list is likely internal (faculty handbook / promotion criteria). Ask SMU LKCSB research office or a faculty member for the current PDF; do not infer it from FT50/UTD24.",
+      "Public SMU communications describe research standing via FT50 (FT Research Insights / Aggregated ranking) and UTD24, not via a named A+ tier."
+    ],
+    "urls_checked": [
+      "https://business.smu.edu.sg/publications",
+      "https://researchguides.smu.edu.sg/researchsupport",
+      "https://researchguides.smu.edu.sg/c.php?g=421999&p=2880631",
+      "https://graduatestudies.smu.edu.sg/phd/research-publications-achievements",
+      "https://web.archive.org/cdx/search/cdx?url=business.smu.edu.sg/sites/business.smu.edu.sg/files/*"
+    ]
+  },
+  "ft50": {
+    "version": "FT50 revised April 2026 (FT update dated 29 April 2026 per secondary reporting); the 2016 list is NO LONGER current",
+    "source_url": "https://www.ft.com/ft50-journals",
+    "source_fetch_status": "ft.com could not be fetched by the tools (blocked); changes confirmed from independent secondary sources listed below",
+    "changes_since_2016": {
+      "removed": [
+        "Human Relations",
+        "Journal of Business Ethics",
+        "Organization Studies"
+      ],
+      "added": [
+        "Academy of Management Annals",
+        "American Sociological Review",
+        "Psychological Science"
+      ],
+      "net_count": "still 50 (3-for-3 swap); no other changes reported",
+      "announced": "late April 2026 (29 April 2026 per bluesky-thinking.com); described as the first major revision in more than a decade",
+      "further_changes_expected": "FT said its review of research rankings is ongoing and expected to lead to more modifications (Poets&Quants, 8 May 2026)",
+      "context": "FT launched a review of the research measure in its MBA/EMBA rankings in Oct 2025 (school survey)."
+    },
+    "secondary_sources": [
+      "https://poetsandquants.com/2026/05/08/deans-decry-journals-removal-from-influential-financial-times-list/",
+      "https://www.emerald.com/cpoib/article/doi/10.1108/CPOIB-06-2026-0152/1391438/The-FT50-after-the-2026-revision-epistemic",
+      "https://bluesky-thinking.com/business-research-after-ft50-reshuffle-and-mit-sloan-management-review-closure/",
+      "https://poetsandquants.com/2025/10/23/financial-times-launches-review-of-research-measure-in-mba-emba-rankings/"
+    ],
+    "related_change": "MIT Sloan Management Review (an FT50 journal) is ceasing in its current form: print ends after the fall 2026 issue, regular digital content through November 2026, new fully digital MIT SMR to launch winter 2026-27 (MIT Sloan press update 10 Sep 2026: https://mitsloan.mit.edu/press/update-mit-sloan-management-review). Whether FT keeps SMR on the list was not found.",
+    "impact_on_union": "The caller's union (FT50-2016 + UTD24) still contains the 3 removed journals (JBE, Human Relations, Org Studies) and lacks the 3 added ones (AMA, ASR, Psychological Science)."
+  },
+  "smu_not_in_union": [],
+  "smu_not_in_union_note": "Cannot be computed: SMU LKCSB top-tier list not publicly verifiable (see smu_lkcsb_top_tier.notes). Nothing was guessed.",
+  "ft50_2026_additions_not_in_union": [
+    "Academy of Management Annals",
+    "American Sociological Review",
+    "Psychological Science"
+  ],
+  "ft50_2026_additions_note": "Covered in journals_mgmt_b_smu.json in place of the unverifiable SMU additions."
+}

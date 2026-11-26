@@ -8,3 +8,5 @@
 ^causalverse.*\.pdf$
 ^\.claude$
 ^pkgdown$
+^draft$
+^tools$
