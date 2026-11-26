@@ -1,0 +1,119 @@
+Submission guidelines
+Contents
+Instructions for Authors Compliance with Ethical Standards Competing Interests Research Data and Source Code Policy Authorship principles
+Compliance with Ethical Standards
+Competing Interests
+Research Data and Source Code Policy
+Authorship principles
+Links and downloads
+Open access publishing
+Mistakes to avoid during manuscript preparation
+Instructions for Authors
+Compliance with Ethical Standards
+To ensure objectivity and transparency in research and to ensure that accepted principles of ethical and professional conduct have been followed, authors should include information regarding sources of funding, potential conflicts of interest (financial or non-financial), informed consent if the research involved human participants, and a statement on welfare of animals if the research involved animals.
+Authors should include the following statements (if applicable) in a separate section entitled “Compliance with Ethical Standards” when submitting a paper:
+Disclosure of potential conflicts of interest
+Research involving Human Participants and/or Animals
+Informed consent
+Please note that standards could vary slightly per journal dependent on their peer review policies (i.e. single or double blind peer review) as well as per journal subject discipline. Before submitting your article check the instructions following this section carefully.
+The corresponding author should be prepared to collect documentation of compliance with ethical standards and send if requested during peer review or after publication.
+The Editors reserve the right to reject manuscripts that do not comply with the above-mentioned guidelines. The author will be held responsible for false statements or failure to fulfill the above-mentioned guidelines.
+Competing Interests
+Authors are requested to disclose interests that are directly or indirectly related to the work submitted for publication. Interests within the last 3 years of beginning the work (conducting the research and preparing the work for submission) should be reported. Interests outside the 3-year time frame must be disclosed if they could reasonably be perceived as influencing the submitted work. Disclosure of interests provides a complete and transparent process and helps readers form their own judgments of potential bias. This is not meant to imply that a financial relationship with an organization that sponsored the research or compensation received for consultancy work is inappropriate.
+Editorial Board Members and Editors are required to declare any competing interests and may be excluded from the peer review process if a competing interest exists. In addition, they should exclude themselves from handling manuscripts in cases where there is a competing interest. This may include – but is not limited to – having previously published with one or more of the authors, and sharing the same institution as one or more of the authors. Where an Editor or Editorial Board Member is on the author list we recommend they declare this in the competing interests section on the submitted manuscript. If they are an author or have any other competing interest regarding a specific manuscript, another Editor or member of the Editorial Board will be assigned to assume responsibility for overseeing peer review. These submissions are subject to the exact same review process as any other manuscript. Editorial Board Members are welcome to submit papers to the journal. These submissions are not given any priority over other manuscripts, and Editorial Board Member status has no bearing on editorial consideration.
+Interests that should be considered and disclosed but are not limited to the following:
+Funding: Research grants from funding agencies (please give the research funder and the grant number) and/or research support (including salaries, equipment, supplies, reimbursement for attending symposia, and other expenses) by organizations that may gain or lose financially through publication of this manuscript.
+Employment: Recent (while engaged in the research project), present or anticipated employment by any organization that may gain or lose financially through publication of this manuscript. This includes multiple affiliations (if applicable).
+Financial interests: Stocks or shares in companies (including holdings of spouse and/or children) that may gain or lose financially through publication of this manuscript; consultation fees or other forms of remuneration from organizations that may gain or lose financially; patents or patent applications whose value may be affected by publication of this manuscript.
+It is difficult to specify a threshold at which a financial interest becomes significant, any such figure is necessarily arbitrary, so one possible practical guideline is the following: "Any undeclared financial interest that could embarrass the author were it to become publicly known after the work was published."
+Non-financial interests: In addition, authors are requested to disclose interests that go beyond financial interests that could impart bias on the work submitted for publication such as professional interests, personal relationships or personal beliefs (amongst others). Examples include, but are not limited to: position on editorial board, advisory board or board of directors or other type of management relationships; writing and/or consulting for educational purposes; expert witness; mentoring relations; and so forth.
+Primary research articles require a disclosure statement. Review articles present an expert synthesis of evidence and may be treated as an authoritative work on a subject. Review articles therefore require a disclosure statement. Other article types such as editorials, book reviews, comments (amongst others) may, dependent on their content, require a disclosure statement. If you are unclear whether your article type requires a disclosure statement, please contact the Editor-in-Chief.
+Please note that, in addition to the above requirements, funding information (given that funding is a potential competing interest (as mentioned above)) needs to be disclosed upon submission of the manuscript in the peer review system. This information will automatically be added to the Record of CrossMark, however it is not added to the manuscript itself. Under ‘summary of requirements’ (see below) funding information should be included in the ‘Declarations’ section.
+Summary of requirements
+The above should be summarized in a statement and included on a title page that is separate from the manuscript with a section entitled “Declarations” when submitting a paper. Having all statements in one place allows for a consistent and unified review of the information by the Editor-in-Chief and/or peer reviewers and may speed up the handling of the paper. Declarations include Funding, Competing interests, Ethics approval, Consent, Data, Materials and/or Code availability and Authors’ contribution statements. Please use the title page for providing the statements.
+Once and if the paper is accepted for publication, the production department will put the respective statements in a distinctly identified section clearly visible for readers.
+Please see the various examples of wording below and revise/customize the sample statements according to your own needs.
+When all authors have the same (or no) competing interests and/or funding it is sufficient to use one blanket statement.
+Examples of statements to be used when funding has been received:
+Partial financial support was received from [...]
+The research leading to these results received funding from […] under Grant Agreement No[…].
+This study was funded by […]
+This work was supported by […] (Grant numbers […] and […]
+Examples of statements to be used when there is no funding:
+The authors did not receive support from any organization for the submitted work.
+No funding was received to assist with the preparation of this manuscript.
+No funding was received for conducting this study.
+No funds, grants, or other support was received.
+Examples of statements to be used when there are interests to declare:
+Financial interests: Author A has received research support from Company A. Author B has received a speaker honorarium from Company W and owns stock in Company X. Author C is consultant to company Y.Non-financial interests: Author C is an unpaid member of committee Z.
+Non-financial interests: Author C is an unpaid member of committee Z.
+Financial interests: The authors declare they have no financial interests.Non-financial interests: Author A is on the board of directors of Y and receives no compensation as member of the board of directors.
+Non-financial interests: Author A is on the board of directors of Y and receives no compensation as member of the board of directors.
+Financial interests: Author A received a speaking fee from Y for Z. Author B receives a salary from association X. X where s/he is the Executive Director.Non-financial interests: none.
+Non-financial interests: none.
+Financial interests: Author A and B declare they have no financial interests. Author C has received speaker and consultant honoraria from Company M and Company N. Dr. C has received speaker honorarium and research funding from Company M and Company O. Author D has received travel support from Company O.Non-financial interests: Author D has served on advisory boards for Company M, Company N and Company O.
+Non-financial interests: Author D has served on advisory boards for Company M, Company N and Company O.
+Examples of statements to be used when authors have nothing to declare:
+The authors have no relevant financial or non-financial interests to disclose.
+The authors have no competing interests to declare that are relevant to the content of this article.
+All authors certify that they have no affiliations with or involvement in any organization or entity with any financial interest or non-financial interest in the subject matter or materials discussed in this manuscript.
+The authors have no financial or proprietary interests in any material discussed in this article.
+Authors are responsible for correctness of the statements provided in the manuscript. See also Authorship Principles. The Editor-in-Chief reserves the right to reject submissions that do not meet the guidelines described in this section.
+Research Data and Source Code Policy
+The Journal of the Academy of Marketing Science implements a research data policy that is consistent with Springer Nature. Sharing of all relevant research data and any source codes relevant to analysis is strongly encouraged and authors must add a Data Availability Statement to original research articles.
+Read the full policy: Data Policy — Academy of Marketing Science
+Authorship principles
+These guidelines describe authorship principles and good authorship practices to which prospective authors should adhere to.
+Authorship clarified
+The Journal and Publisher assume all authors agreed with the content and that all gave explicit consent to submit and that they obtained consent from the responsible authorities at the institute/organization where the work has been carried out, before the work is submitted.
+The Publisher does not prescribe the kinds of contributions that warrant authorship. It is recommended that authors adhere to the guidelines for authorship that are applicable in their specific research field. In absence of specific guidelines it is recommended to adhere to the following guidelines*:
+All authors whose names appear on the submission
+1) made substantial contributions to the conception or design of the work; or the acquisition, analysis, or interpretation of data; or the creation of new software used in the work;
+2) drafted the work or revised it critically for important intellectual content;
+3) approved the version to be published; and
+4) agree to be accountable for all aspects of the work in ensuring that questions related to the accuracy or integrity of any part of the work are appropriately investigated and resolved.
+* Based on/adapted from:
+ICMJE, Defining the Role of Authors and Contributors,
+Transparency in authors’ contributions and responsibilities to promote integrity in scientific publication, McNutt at all, PNAS February 27, 2018
+Disclosures and declarations
+All authors are requested to include information regarding sources of funding, financial or non-financial interests, study-specific approval by the appropriate ethics committee for research involving humans and/or animals, informed consent if the research involved human participants, and a statement on welfare of animals if the research involved animals (as appropriate).
+The decision whether such information should be included is not only dependent on the scope of the journal, but also the scope of the article. Work submitted for publication may have implications for public health or general welfare and in those cases it is the responsibility of all authors to include the appropriate disclosures and declarations.
+Data transparency
+All authors are requested to make sure that all data and materials as well as software application or custom code support their published claims and comply with field standards. Please note that journals may have individual policies on (sharing) research data in concordance with disciplinary norms and expectations.
+Role of the Corresponding Author
+One author is assigned as Corresponding Author and acts on behalf of all co-authors and ensures that questions related to the accuracy or integrity of any part of the work are appropriately addressed.
+The Corresponding Author is responsible for the following requirements:
+ensuring that all listed authors have approved the manuscript before submission, including the names and order of authors;
+managing all communication between the Journal and all co-authors, before and after publication;*
+providing transparency on re-use of material and mention any unpublished material (for example manuscripts in press) included in the manuscript in a cover letter to the Editor;
+making sure disclosures, declarations and transparency on data statements from all authors are included in the manuscript as appropriate (see above).
+* The requirement of managing all communication between the journal and all co-authors during submission and proofing may be delegated to a Contact or Submitting Author. In this case please make sure the Corresponding Author is clearly indicated in the manuscript.
+Author contributions
+In absence of specific instructions and in research fields where it is possible to describe discrete efforts, the Publisher recommends authors to include contribution statements in the work that specifies the contribution of every author in order to promote transparency. These contributions should be listed at the separate title page.
+Examples of such statement(s) are shown below:
+• Free text:
+All authors contributed to the study conception and design. Material preparation, data collection and analysis were performed by [full name], [full name] and [full name]. The first draft of the manuscript was written by [full name] and all authors commented on previous versions of the manuscript. All authors read and approved the final manuscript.
+Example: CRediT taxonomy:
+• Conceptualization: [full name], …; Methodology: [full name], …; Formal analysis and investigation: [full name], …; Writing - original draft preparation: [full name, …]; Writing - review and editing: [full name], …; Funding acquisition: [full name], …; Resources: [full name], …; Supervision: [full name],….
+For review articles where discrete statements are less applicable a statement should be included who had the idea for the article, who performed the literature search and data analysis, and who drafted and/or critically revised the work.
+For articles that are based primarily on the student’s dissertation or thesis, it is recommended that the student is usually listed as principal author:
+A Graduate Student’s Guide to Determining Authorship Credit and Authorship Order, APA Science Student Council 2006
+Affiliation
+The primary affiliation for each author should be the institution where the majority of their work was done. If an author has subsequently moved, the current address may additionally be stated. Addresses will not be updated or changed after publication of the article.
+Changes to authorship
+Authors are strongly advised to ensure the correct author group, the Corresponding Author, and the order of authors at submission. Changes of authorship by adding or deleting authors, and/or changes in Corresponding Author, and/or changes in the sequence of authors are not accepted after acceptance of a manuscript.
+Please note that author names will be published exactly as they appear on the accepted submission!
+Please make sure that the names of all authors are present and correctly spelled, and that addresses and affiliations are current.
+Adding and/or deleting authors at revision stage are generally not permitted, but in some cases it may be warranted. Reasons for these changes in authorship should be explained. Approval of the change during revision is at the discretion of the Editor-in-Chief. Please note that journals may have individual policies on adding and/or deleting authors during revision stage.
+Author identification
+Authors are recommended to use their ORCID ID when submitting an article for consideration or acquire an ORCID ID via the submission process.
+Deceased or incapacitated authors
+For cases in which a co-author dies or is incapacitated during the writing, submission, or peer-review process, and the co-authors feel it is appropriate to include the author, co-authors should obtain approval from a (legal) representative which could be a direct relative.
+Authorship issues or disputes
+In the case of an authorship dispute during peer review or after acceptance and publication, the Journal will not be in a position to investigate or adjudicate. Authors will be asked to resolve the dispute themselves. If they are unable the Journal reserves the right to withdraw a manuscript from the editorial process or in case of a published paper raise the issue with the authors’ institution(s) and abide by its guidelines.
+Confidentiality
+Authors should treat all communication with the Journal as confidential which includes correspondence with direct representatives from the Journal such as Editors-in-Chief and/or Handling Editors and reviewers’ reports unless explicit consent has been received to share information.
+Links and downloads
+Instructions for Authors (Download pdf, 321 kB)
+Open access publishing
+To find out more about publishing your work Open Access in Journal of the Academy of Marketing Science, including information on fees, funding and licences, visit our Open access publishing page.

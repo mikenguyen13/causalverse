@@ -1,0 +1,210 @@
+Editorial Statement
+Editorial Board
+Journal Metrics
+SUBMIT
+SUBSCRIBE
+Available Issues
+April 10, 2013 - June 30, 2025
+2020s
+2010s
+2000s
+1990s
+Available Issues
+April 10, 2013 - June 30, 2025
+2025
+2024
+2023
+2022
+2021
+2020
+Volume 36, Issue 2 June 2025CURRENT ISSUEPages iv-xi, 647-1267, iii
+Volume 36, Issue 1 March 2025Pages iii-xi, 1-646, C2
+Available Issues
+April 10, 2013 - June 30, 2025
+2019
+2018
+2017
+2016
+2015
+2014
+2013
+2012
+2011
+2010
+Available Issues
+April 10, 2013 - June 30, 2025
+2009
+2008
+2007
+2006
+2005
+2004
+2003
+2002
+2001
+2000
+Available Issues
+April 10, 2013 - June 30, 2025
+1999
+1998
+1997
+1996
+1995
+1994
+1993
+1992
+1991
+1990
+Submission Guidelines
+Information Systems Research
+Information Systems Research (ISR) welcomes three types of submissions, as outlined in this section.
+Research Articles. Research Articles are full-length papers that seek to theoretically and/or empirically examine significant information systems phenomena. Appropriate submissions should offer a contribution that is sufficiently original and significant so as to warrant a full-length article for the authors to develop and present their argument. The submissions should have a strong grounding in theory. Such a theory could either be a new theory that the authors are advancing or an existing theory the authors are illustrating, testing, refining, challenging, or simply applying.
+ISR seeks to publish research articles of at least three types:
+Articles that are "pure theory"
+Articles that empirically test or illustrate theory
+Articles that apply existing theory
+The audience should be academics, practitioners, or both. A submission should clearly and prominently make known its intended audience so that the editors, reviewers, and readers will know how to approach it.
+Criteria for evaluating the publishability of a research article include:
+Is the phenomenon of salient interest to the information systems community?
+Are the connections to the literature and relevant theories robust?
+Is the theoretical model appropriate and compelling enough to provide justification for the propositions or hypotheses?
+Are the empirical methods appropriate, valid, and well-executed?
+Are the analyses done competently?
+Are the results interesting?
+Are the conclusions compelling?
+Research Commentaries. Research Commentaries are designed to provide a critical evaluation and roadmap for future research on an important information systems phenomenon. Key questions in evaluating the research commentary include:
+Does the paper highlight an important and under-recognized phenomenon or perspective?
+Does the article provide a critical, accurate, and insightful critique of the literature to date?
+Does the article provide insightful directions for future research?
+Will future researchers benefit from the ideas in the paper?
+Are the prescriptions compelling, insightful and actionable?
+The purpose of a Research Commentary is to describe an interesting or novel perspective or phenomenon, explain why this perspective is needed, and how it is missing in the current research and thinking, and describe directions for further research and practice. For example, authors could highlight attention to an emerging or a less-understood phenomenon, by describing it, describing its important elements, and proposing directions for research on this phenomenon.
+The commentary should provide a perspective about how and why attention to this phenomenon is warranted, what are the interesting research questions, and how researchers should develop engage on these questions (any particular theories or methodologies?). Commentaries could be educational, provocative, or direction-setting. Though extensive literature reviews are not needed, the authors must provide some anchors to the existing literature to point out how current research is ignoring the phenomenon.
+Research Commentaries will be shorter in length (no more than 20 pages) than Research Articles with up to a maximum of 8 pages of figures and tables.
+Research Notes. Research Notes promote dialog among the information systems community by incrementally extending well-researched phenomena or providing methodological commentaries.
+Methodological commentaries provide important ideas about the application of specific methodologies, critique their usage in prevailing information systems research, and offer valued guidelines for improving the conduct of research. Often, Research Notes might stimulate debate and the field on an important methodological issue.
+Alternatively, Research Notes seek to extend or alter the nomological network of constructs that currently underlies the information systems community’s understanding about specific phenomena. The primary intent of a Research Note is for authors to demonstrate how the explanatory or descriptive power of a well-understood theoretical or research model could be incrementally improved through the addition of a limited few constructs as mediators, moderators, or additional predictors. Such publishable Research Notes will have the following characteristics:
+Authors introduce the phenomenon of choice and the dominant nomological model shaping the prevailing understanding about it. The phenomenon should be of salient interest to the information systems community.
+Authors provide a compelling conceptual rationale for the extensions to the model in the form of specific mediators, moderators, or predictors. Since a dominant research model is the starting point, less time is spent in theoretically justifying the entire model. Instead, the authors should efficiently explain how and why their proposed extensions are conceptually or theoretically justifiable. Note that some papers might propose several new constructs or reconfigure the prevailing model in novel ways. In such cases, the contribution might be more substantive and the paper should be submitted as a Research Article.
+Authors provide the empirical evidence for their proposed model of the phenomenon and explain its significance for research and practice.
+Research Notes will be shorter in length (no more than 20 pages) than Research Articles with up to a maximum of 8 pages of figures and tables. The primary criteria for reviewing research notes shall be:
+Is the phenomenon salient to the information systems community?
+Are the proposed extensions to the model theoretically justifiable?
+Are the empirical design, data, and analysis robust?
+Are the contributions of the revised model significant?
+Author Portal (for additional author support)
+The INFORMS Author Portal is a resource to support authors as they move through peer review and production. Visit the Author Portal for detailed information regarding INFORMS publication policies, accepted author support, resources (including pre-submission editing services), and journal metrics.
+—PLEASE REVIEW THE FOLLOWING PUBLICATION AND ETHICS POLICIES BEFORE YOU SUBMIT—
+General Submission Guidelines
+Authorship/Authorship Changes
+Guidelines for Ethical Behavior in Publishing
+ORCID
+Rights & Permissions
+JUMP TO: Preparing Your Manuscript | Submitting Your Manuscript | Review Process | After Acceptance
+Preparing Your Manuscript
+Length
+Manuscripts should not be more than 32 (8.5 x 11-inch) pages of text and no more than 38 pages including all material, e.g., references, appendixes, tables, figures. Additional details (e.g., analytical proofs, psychometric details of the measures, copies of the measurement items, etc.) can be provided in an online appendix as a separate document. If the paper is accepted, the appendix will be published online as an electronic companion.
+Format
+Manuscript files (including abstract, references, and footnotes) should be double-spaced, have a standard font of at least 11 points, and have one-inch margins on all four sides.
+Double Blind
+Information Systems Research conducts double-blinded reviews, meaning that both the authors and the reviewers are ‘blind’ to the identity of the other. Authors must remove explicit indications of the authors’ names and institutions and all acknowledgments must be removed. The paper should be written in such a way that it does not reveal an author’s identity (e.g., “I extend the work in my dissertation (Norman 1995)” should be written in a neutral manner like “This work extends the research in Norman (1995)”). Proper attribution of prior work, especially work done by the authors, is a must and takes precedence over maintaining anonymity. Author names, institutions, and acknowledgments will be returned to the printed manuscript upon acceptance for publication.
+Mathematical Notation
+Mathematical expressions in the body of the text should be no more complex than necessary. If there are numbered equations, the numbers should be given in parentheses, flush with the right margin of the page. Important details can be found here.
+Contribution Statement
+Starting June 1, 2023, ISR will require a “contribution statement” in the cover letter of every submission. In fewer than 500 words, authors will need to clearly explain (a) how the paper adds to the existing literature on the topic and/or can transform scholarship in this area; and (b) how the paper can potentially influence practice, policy, or societal outcomes and, when applicable, inform the broader discourse on the topic it addresses. While recognizing that each manuscript cannot offer all types of contributions, the editors (EiC, SE, and AE) will carefully consider the contribution statement as part of the screening process. Papers submitted without a contribution statement will not move forward in the review process.
+Paper Provenance
+ISR adheres to the INFORMS policy on prior publication of results. Authors should take care to indicate how the submitted manuscript differs in its contribution from any of their closely related research that might have been published or is currently in submission at another publication outlet. Authors should also indicate whether the current manuscript was previously submitted in some form to another journal where it was not accepted for publication. In such cases, authors should disclose the major reasons for rejection and what steps have been taken to remedy significant earlier deficiencies. Authors are not allowed to resubmit manuscripts whose earlier versions have been rejected by ISR. Currently, we do not have a reject-and-resubmit option. In general, rejection decisions by SEs should be considered final. In exceptional cases, the editors might invite a fresh submission of a rejected manuscript.
+Submission of a paper to ISR for possible publication means that the authors certify that the manuscript has not been published previously nor is currently submitted for publication elsewhere. As a condition of final acceptance of a paper for publication in Information Systems Research, the authors must indicate if their paper is posted on a working paper website, other than their own. They are responsible for assuring that, if any part of the paper has been copyrighted for prepublication as a working paper, the copyright can and will be transferred to INFORMS when the paper has been accepted. This includes both print and electronic forms of the paper. On acceptance, the text, or any link to full text, must be removed from working paper websites, other than the author’s own website.
+Authors must certify that their submission adheres to the provenance policies of the journal via the online system at http://mc.manuscriptcentral.com/isr.
+Data Provenance
+Authors are required to certify that they have the right to use the data and publish the research results contained in the manuscript. This includes data that may be collected from public sources (such as open web sites). When data are collected from public sources, they should not violate the fair use policy of the data owner such as the web site. In the cases where corporate or other legal permissions are required to use the data or the results derived from the data, these must be obtained before submitting the manuscript for review. Any violation of the data provenance will result in withdrawal of the manuscript from ISR (even after acceptance, retroactively). To understand fair use policy, authors are encouraged to review Measuring Fair Use: The Four Factors here.
+Abstract
+Each manuscript should include an easy-to-read and understandable abstract of not more than 300 words that communicates the contribution of the paper to general readers as clearly as possible.
+Keywords
+Authors should select keywords to describe their paper’s theoretical and methodological orientation. A list of keywords is available within ScholarOne Manuscripts. Keywords are helpful in the selection of appropriate Senior Editor, Associate Editor, and reviewers. Keywords should appear beneath the abstract in the manuscript file.
+References
+References should be listed alphabetically by author name at the end of the paper in conformance with journal style. In-text citations should be indicated by the author’s last name and year of publication, e.g., (Norman 1977) or Norman (1977). Click here for examples of reference style.
+Footnotes
+Footnotes should be numbered consecutively and should be indicated in the text by superscript numbers. Material that would normally appear as a footnote should be placed in the body of the text when it will not impair readability.
+Figures
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.
+Style Templates
+Authors can write their manuscript using their preferred software as long as they can create a PDF that meets the above guidelines. The manuscript style is specified in the template file for ISR, which handles most stylistic issues. You can find the template and other necessary files here.
+Submitting Your Manuscript
+All papers for publication consideration by Information Systems Research should be submitted electronically through ScholarOne Manuscripts at the ScholarOne Manuscripts site for Information Systems Research.
+IMPORTANT NOTE: By submitting a manuscript to or reviewing for this publication, your name, email address, and affiliation, and other contact details the publication might require, will be used for the regular operations of the publication, including, when necessary, sharing with the publisher (INFORMS) and partners for production and publication. The publication and the publisher recognize the importance of protecting the personal information collected from users in the operation of these services, and have practices in place to ensure that steps are taken to maintain the security, integrity, and privacy of the personal data collected and processed. You can learn more here.
+The ScholarOne Submission Process
+There are seven steps for uploading a manuscript in the ScholarOne system:
+Step 1: Type, Title, & Abstract: Enter your manuscript type (ie, research article, research commentary, research notes). Denote whether this is regularly submitted manuscript or for a special issue. Provide the manuscript title and a running header. Add the abstract (not more than 300 words). Last, select two preferred Senior Editors.
+Step 2: Attributes: Authors should select keywords to describe their paper’s theoretical and methodological orientation.
+Step 3: Authors & Institutions: All authors and their institutions must be identified. Please note that the submitting author is required to provide their ORCID iD (more information about ORCID iDs can be found here.
+Step 4: Reviewers & Editors: Authors must enter 5 preferred reviewers and 2 preferred Associate Editors. Authors should not suggest reviewers with whom they have any conflict of interest. An author has a conflict of interest with (a) his/her major professor or a student for whom the author has served as major professor, (b) people working at the same institution, (c) co-authors on work completed or in progress during the last four years.
+Step 5: Details & Comments: Authors can include their cover letter either in the text box or as a separate file. This information will be viewed by the Editor and the Senior Editor but will not be viewed by the reviewers. Authors will denote funding in this section. Last, authors will certify that they are complying with the journal's ethical policy.
+Step 6: File Upload: Authors will upload as many files as needed for their manuscript. These files will be combined into a single PDF document for the peer review process. For revisions, authors should include only the latest set of files.
+Step 7: Review & Submit: As the final step, authors will review the previous six steps for completeness and view the PDF proof generated by the ScholarOne system (this is required). Be sure to select “Submit” when done.
+Ethical Statements Authors Will Certify
+As part of Step 5 (above), authors will certify the following ethical statements within the ScholarOne System:
+Prior Submission
+Has this manuscript been submitted previously to ISR?
+Plagiarism & Copyright
+Confirm the following:
+1. Confirm that the manuscript has been submitted solely to this journal and is not published, in press, or submitted elsewhere.
+2. Confirm that all the research meets the ethical guidelines, including adherence to the legal requirements of the study country.
+3. Confirm that you have prepared (a) a complete text and (b) complete text minus the title page, acknowledgements, and any running headers of author names, to allow blinded review.
+I acknowledge that in submitting this paper I am aware of INFORMS policy on plagiarism and copyright (/authorportal/copyright-plagiarism). Further I acknowledge that I will report to the editor(s) of the journal all of my manuscripts (e.g., prior publications, conference proceedings, book chapters, papers submitted to other journals) that have substantial overlap with the submitted paper. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Ethical Guidelines
+I acknowledge that I am aware of Information Systems Research's guidelines for ethical behavior in publishing (http://pubsonline.informs.org/isre/guidelines-for-ethical-behavior-in-publishing) and all INFORMS policies referred to therein and that this submission conforms to those policies. I have disclosed (in my cover letter and in any related submission questions) any possible perceived conflicts of interest and noted all of my work that has substantial overlap to prior publications, conference proceedings, book chapters, and papers submitted to this journal or any other journals. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Data Provenance
+We certify that the authors of the manuscript have the right to use the data and publish the research results contained in the manuscript. In cases where corporate or other legal permissions are required to use the data or the results derived from the data, the permissions must be obtained before submitting the manuscript for review. Permission documentation must be uploaded at time of submission.
+Troubleshooting
+For additional training and support for using the ScholarOne Manuscripts submission system, please visit ScholarOne’s Author Resources page.
+Contact Your Managing Editor
+Chris Asher INFORMS 5521 Research Park Drive Suite 200 Catonsville, Maryland 21228 [email protected]
+The Review Process
+Information Systems Research uses a double-blind review process. Upon submission, manuscripts are checked for their completeness and adherence to the provenance policies. Next, each completed manuscript is assigned a Senior Editor to manage its evaluation. Each Senior Editor has the autonomy to accept or reject a paper for publication, or to request that the author revise and resubmit the paper. Submissions are screened to provide quick feedback to authors if there are significant issues that would preclude a favorable reaction from the reviewers.
+Associate Editors are assigned by the Senior Editor to provide a recommendation about the disposition of the manuscript. The Associate Editor solicits reviews from two or three reviewers and integrates them to provide a recommendation. The Senior Editor incorporates these recommendations in making a final decision.
+Time in Review
+The journal seeks to complete evaluations and decisions on each submission within 120 days from the original date of submission of a manuscript. If the revision of a manuscript is invited, authors are urged to complete their work and resubmit their paper within six months.
+Appeals Process
+The review process at Information Systems Research is robust, with scholars who are known to be highly competent, thoughtful, and constructive serving in the roles of reviewers, associate editors, and senior editors. The decision of the Senior Editor for a given manuscript is generally considered final.
+On a rare occasion, there may be a manuscript with a negative (rejection) decision that deserves reconsideration. If the authors believe that they have strong reasons to seek reconsideration of the decision on their manuscript, they may file an appeal.
+Appeals will be considered only under the following conditions:
+Factual or technical errors that are demonstrable have been made by the reviewers/editors in assessing the manuscript that contributed materially to the negative decision.
+Significant procedural errors/violations have been made in the review process that contributed materially to the negative decision.
+In such cases, the author(s) may appeal for reconsideration by emailing the Editor-in-Chief, unambiguously explaining how at least one of the conditions stated above has been met. All authors must be copied on the email to the Editor-in-Chief. This should be done at least one week after but not more than eight weeks after the final decision was formally conveyed to the author(s).
+Please note that appeals pertaining to cases where the author(s) believe that the reviewers/editors did not sufficiently appreciate their work and its contributions will not be considered. For any appeal to be entertained, one or both of the conditions listed above must be satisfied.
+Upon receiving the appeal, the Editor-in-Chief will consider the alleged error(s) in consultation with the Senior Editor of the manuscript and, when applicable, with one or both of the Advisory Senior Editors and decide on a suitable course of action. The authors can expect to hear from the Editor-in-Chief in less than a month regarding how the process will proceed. Typical outcomes would be to (i) deny reconsideration; (ii) uphold the decision that was originally made; or (iii) initiate additional round(s) of review of the paper, with the same or different review team and editors, as appropriate.
+After Acceptance
+Final Submission
+A decision of accept will cause the manuscript to appear in the “Manuscripts Accepted for First Look” section of the submitting author’s Author Center. We respectfully request that authors upload their final files to the submission site within 14 days from receipt of the acceptance decision letter. The decision of accept is not considered binding until final files have been received.
+Within the “First Look” section of the submitting author’s Author Center, the author will submit the following files:
+The final version of the manuscript in Word or LaTeX format (provide a .bib file if necessary);
+A final, author-generated PDF;
+Any supplementary material that will be published as an online appendix (ie, electronic companion, or e-companion), in PDF format. (E-companions are not copyedited, so please check the text carefully.);
+A biographical sketch of each author (maximum of 75 words each). Please include position title (e.g., assistant professor). In addition, you may provide other information: e.g., date of Ph.D., granting institution, etc.;
+A practice- and policy-oriented abstract of 200 words or fewer. This paragraph will be used to explain, promote, and share your article and will be published collectively in the journal in a feature titled "Research Spotlights."
+A signed copyright transfer form;
+The completed editorial checklist (please do not convert to PDF); and
+A media promotion form (optional).
+Figures
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.
+Open Access
+The INFORMS Open Option (IOO) provides an Open Access alternative for articles accepted in any INFORMS journals that would have otherwise been available only through subscriptions or pay per view. Please be advised there is a $3,000 (US) fee to make an article Open Access. If you would like to make your article Open Access, you do not need to complete the regular copyright transfer form. Additional details for IOO as well as other types of Open Access can be found here.
+Publication Forms
+Editorial Checklist
+Media Promotion Form
+IOO Publication License (if you would like to make your paper Open Access)
+Contact Your Production Editor
+After receipt of final files from authors, manuscripts are sent to production for copy editing and layout. Questions about the publication status of an accepted manuscript should be directed to [email protected].
+Contact Your Managing Editor
+Chris Asher INFORMS 5521 Research Park Drive Suite 200 Catonsville, Maryland 21228 [email protected]
+Quicklinks & Resources
+Special Issues
+Calls for Papers
+Submission Guidelines
+Ethical Guidelines
+INFORMS Author Portal
+ISR Awards
+Download Journal Flyer
+Sign up for e-Alerts
+Web Feed

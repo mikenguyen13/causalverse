@@ -1,0 +1,42 @@
+Artwork formats checklist
+Preferred and accepted file formats for artwork submission
+Application/format
+Extension
+Accepted
+Tagged Image File Format (TIFF)
+TIF, TIFF
+Recommended image format for halftones and bitmaps
+Joint Photographic Experts Group (JPEG)
+JPG, JPEG
+Recommended image format for halftones
+Encapsulated PostScript (EPS)
+EPS
+Recommended image format for vector-based images (*and embedded images)
+Portable Document Format (PDF)
+PDF
+Recommended format for texts, notes, documents, vector-based images
+Microsoft Word
+DOC, DOCX
+Recommended format for texts, notes, documents
+Microsoft Excel
+XLS, XLSX
+Recommended format, typically charts when used for images, and tables for documents
+Microsoft Powerpoint
+PPT, PPTX
+Recommended format for annotated images
+Checklist
+Before you submit your artwork, make sure you can answer "yes" to the following:
+My files are in the correct format: EPS, PDF, TIFF or JPEG, or Microsoft Office files (Word, PowerPoint, Excel)
+My color images are provided in the preferred RGB colorspace (unless the journal's guide for authors prescribes otherwise)
+The physical dimensions of the artwork match the dimensions of the journal to which I am submitting — see Sizing of Artwork
+The lettering used in the artwork does not vary too much in size — see Sizing of Artwork
+I have used the recommended file-naming conventions — see File Naming
+All illustrations are provided as separate files (unless the journal's guide for authors prescribes otherwise)
+All artwork is numbered according to its sequence in the text
+Figures, schemes and plates have captions and these are provided on a separate sheet along with the manuscript, in addition, all figures are referred to in the text
+If required, I have specified the preferred magnification factor of my artwork on the sheet with filenames that accompany the submission
+All the rights are cleared both for print and electronic publication - view the Elsevier permission guidelines
+Figure captions
+Submit figure captions with your submission. There are two ways to submit figure captions with your submission:
+If the journal provides for a submission item type called "Figure Caption", submit your caption here in the form of a text file
+If there is no such submission item type, you should list your figure captions at the end of your manuscript text file

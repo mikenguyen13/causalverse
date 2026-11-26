@@ -1,0 +1,68 @@
+Human Relations
+Submission guidelines
+Submit manuscript
+Please read the guidelines in full before submitting your manuscript.Manuscripts not conforming to these guidelines may be returned.
+For a detailed set of Instructions to Authors and information on the online manuscript submission system, please visit:
+https://www.humanrelationsjournal.org/journal/submission-guidelines/
+English Language Editing Services: Please click here for information on professional English language editing services recommended by Sage.
+Guidance for contributors
+Articles must advance knowledge, and make a strong theoretical and/or empirical contribution to the literature on work relationships and organizational work processes.
+Authors should use clear English comprehensible to readers outside of their area of specialism.
+Authors should ensure that their methods section is not too long, avoiding overly long explanations of why particular norms and standards have been chosen.
+Where relevant, details may be provided in an appendix or a separate document that readers may download as a data supplement or seek direct from the author.
+Articles must be original research and must not have already been published or be under consideration for publication elsewhere.
+All quotations from published work, including any of the author’s own previous work, must be acknowledged as such and fully cited. (Authors may only repeat the method from their own previous published works without citation.)
+One of our current goals is to continue—as well as highlight for readers—ongoing threads of conversation across works published in the journal. Toward that end, we ask that you review recent issues to ensure that you are connecting to any relevant works in ways that take the conversation forward.
+Do describe in your cover letter how the paper is adding to a conversation in the journal. For instance what 3-4 papers from HR have served as the foundation for your work, or stimulated your thoughts?
+Articles that merely offer scores along or describe relationships between chosen empirical measures, with commentary on the efficaciousness of techniques adopted in measurement, are not suitable for Human Relations. An exception might be made if you present a technical or methodological critique of a particular tool of analysis, thus carrying forward an important debate which engages more than one area of scientific interest.
+Studies referring to simulation exercises involving students or others without experiential knowledge of the simulated context are discouraged. For example, while work team simulations with undergraduate students cannot provide the sole basis of papers considered for publication, the same simulations with Executive MBA students (who are working full-time while going to school) or more generally who have prior experience working in ‘real’ teams proffers a higher likelihood of favourable review.
+Field-study results are more likely to be accepted if they use more than a single technique of data collection and analysis. You should strengthen the validity of, for example, questionnaire scales or constructs by considering multiple influences in the context of the field study.
+We encourage articles with strong research methods, and particularly those that use longitudinal design.
+We welcome articles that deploy novel or emerging research methods. We do not normally publish articles that address mainly research design or methods, for example those developing or testing research instruments. Articles discussing methodology in a wider sense are welcome.
+Human Relations uses CrossCheck™ powered by iThenticate software to check if manuscript content has already been published elsewhere. Human Relations is a member of the Committee on Publication Ethics (COPE) and follows the COPE Code of Conduct and Best Practice Guidelines for journal editors.
+Papers containing a poor standard of English language are less likely to be considered for review.
+PRE-ACCEPTANCE ENGLISH LANGUAGE EDITING: Authors who would like to refine the use of English in their manuscripts might consider using professional editing services—details of companies offering professional editing services can be found using an Internet search engine. There are a variety of services available, including the service offered by our publisher.
+Please be aware that Human Relations and the Tavistock Institute have no affiliation with any of these companies offering professional editing services, and make no endorsement of any particular company, including the service offered above. An author’s use of a professional editing service in no way guarantees that his or her submission will ultimately be accepted. Any arrangement an author enters into will be exclusively between the author and the professional editing service company, and any costs incurred are the sole responsibility of the author.
+Data requirements for articles
+Some very short reflections
+The editorial team ‘desk rejects’ about half of all the articles we receive. This note comments on one reason, the nature of the data deployed. Its purpose is to contribute to the raising of standards. Work that was acceptable in the past may not be published today, and colleagues need to be aware of what we are looking for. Two preliminary remarks set the comments in context.
+First, new empirical data are not required. We publish articles presenting theory development, critical and analytical reviews, and interventions in current areas of controversy (e.g. articles in 2013 by Lindebaum and Zundel in June and by Nielsen and by Mingers and Willmott in August). We particularly welcome articles that address the big issues, including meta-analysis and careful qualitative reviews of a field.
+Second, in empirical papers, suitable data are a necessary but not sufficient feature to get to full peer review. We also need many other things, including a strong theoretical motivation for a study and an explanation of the importance of the contribution. Spotting a gap is not enough. Why does the gap matter, and has filling it told us anything of general importance?
+Turning to the question of data, perhaps the most common reason for rejecting quantitative papers is a reliance on single-respondent cross-section designs. Such designs are not necessarily wrong. They can work well where, for example, mainly factual data are collected and where causal analysis is either not the purpose or where causal inferences can be justified. Similarly, hard-to-reach or marginalized populations may afford only cross-sectional research access. But, all in all, cross-sectional designs have well-rehearsed limitations for causal analysis, and there are now many alternatives including longitudinal and multi-level designs.
+We need to say a little more about qualitative data, specifically interview data. We are aiming to move away from papers that present only a limited number of interviews without appropriate contextual or comparative information. We are certainly not saying that more is necessarily better, though it is the case that we need enough weight of evidence to sustain the points being made. Small numbers of interviews can be acceptable where there is a genuine reason for an exploratory account, where the interviews are tightly focused within an occupation or other group of interest, or are consistent with an detail-intensive analytical approach (e.g., conversation analysis, interpretative phenomenological analysis).
+Human Relations aims to promote high quality social science. The above comments suggest ways in which this goal can be pursued. They are to an extent objectives rather than prescriptions: progress is likely to occur slowly, and there are many valid ways of conducting research. We hope, however, that they both indicate an overall aspiration and help to explain what we will be looking for in individual papers. One measure will be whether desk rejects on grounds of data inadequacy become rarer.
+Publication ethics and antiplagiarism checks
+Human Relations uses iThenticate CrossCheck™ antiplagiarism software to check if manuscript content has already been published elsewhere.
+Human Relations is a member of the Committee on Publication Ethics (COPE) and follows the COPE Code of Conduct and Best Practice Guidelines for journal editors.
+Preparation and submission guidance
+Please do read the below guidance How to prepare and submit an article and do not hesitate to contact the Editorial Office if you have any queries or problems with the submission process – we would be only too pleased to help.
+Submission checklist
+Read our Aims and Scope, Mission Statement, Guidance for contributors and data requirements.
+Read ‘How to prepare your submission’. This document includes the formatting requirements for Human Relations (e.g., how to format headings, references, and tables). You may download this document here.
+Read ‘How to submit your article online’ below. You may download this document here.
+Prepare an electronic version of your cover letter providing details about originality, online versions, data set usage elsewhere, etc.
+Prepare any supplementary files (e.g. other article[s] using the same data set plus a table showing differences and similarities).
+Obtain permissions for any reuse from copyright holders.
+Obtain release forms for worldwide online publication of any images of identifiable people or places.
+Prepare an electronic version of your manuscript in Microsoft Word that does not exceed 45 correctly formatted pages in total.
+State in your manuscript whether or not you have used pseudonyms for study participants (people and organizations).
+Read How to help readers find your article and check that your title, abstract and keywords all help to make your article more discoverable in online searches.
+Prepare your reference list.
+Prepare any tables.
+Prepare any figures.
+Prepare any supplementary material files intended for online-only publication.
+Check that none of the electronic documents contain viruses.
+Check that your manuscript (and response to reviewers, if submitted) does not include author names or details or any other information that might enable reviewers to identify any of the authors.
+Read ‘How to submit your article online’ below.
+Submit your manuscript online.
+How to prepare your submission
+Download a detailed set of Instructions to Authors
+How to submit your article online
+Download information on the online manuscript submission system
+Keep up to date
+Email alerts
+Sign up to receive email alerts:
+With the latest table of contents
+When new articles are published online
+Add email alerts
+You are adding the following journal to your email alerts

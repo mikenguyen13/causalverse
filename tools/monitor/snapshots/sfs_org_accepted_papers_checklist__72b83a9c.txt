@@ -1,0 +1,50 @@
+Accepted Papers Checklist
+Checklist for Preparing Your Paper for Publication in RFS, RAPS, or RCFS
+[Updated November 24, 2026]
+Please read the following instructions carefully.
+1. Upload your replication code to the dataverse (RFS | RAPS | RCFS) per the code sharing policy (RFS | RAPS | RCFS). [RFS papers accepted after October 1, 2025, have already completed this step prior to acceptance and may proceed to the next step.] Authors are responsible for ensuring that their files are usable. This includes code for figures and tables in appendices, but does not include internet appendices.
+-If your files need to be uploaded in a method that retains the original structure, please follow these instructions: You can either compress the files as a .gz or .7zip archive, or place the zip file within another zip file before uploading. Either method will bypass extraction of the files within, and leave the archive as a single file, with the structure inside preserved.
+-If you received an exception to the policy, you must forward a written confirmation to manager@sfs.org. The exception must have been approved by the editor immediately after initial submission.
+2. Please perform a final read of your paper before you send the files to us for copyediting. This is an important step. You should not be making significant changes after copyediting. Please make sure of the following:
+-Internet appendices do not go through copyediting so you should extract them into a separate file.
+-If you would like to include your ORCiD number, please include it on your manuscript in brackets after the author name. Example: Name LastName [https://orcid.org/xxxx-xxxx-xxxx-xxxx]
+-If you’d like to format your paper before copyediting, see our guide.
+-Oxford University Press has provided LaTeX style files (RFS | RAPS | RCFS). Please note that we are not able to assist with LaTeX.
+-If the disclosure is too long for the acknowledgments, please provide it as a supplementary file, labeled clearly, example: “Paper Title Supplementary Disclosure.pdf”
+-Oxford University Press advises that the primary affiliation listed be where the work was conducted, even if the person has left that institution. Affiliations can be further described in the acknowledgments.
+-Corresponding Authors: Our publisher, Oxford University Press, has a growing number of Read and Publish agreements with institutions and consortia, which provide funding for open access publishing. This means that corresponding authors from participating institutions can publish their papers under an open access license, and the institution may pay the charge. Please note, however, that it is not possible to change the corresponding author in order to benefit from Read and Publish funding. Find out if your institution is participating in one of OUP’s Read and Publish agreements.
+3. Include your alt text. You may use this template to help. To foster inclusivity and accessibility, Oxford University Press REQUIRES alt text (alternative text) underneath each figure legend. Good alt text ensures that individuals with visual impairments or those using screen readers can comprehend your figures. The aim of alt text is to provide concise descriptions so that all readers have access to the same level of information. Alt text is applicable to all images, figures, illustrations, and photographs. Alt text is only accessible via e-reader and won’t appear as part of the typeset paper. Detailed guidance on how to draft and submit alt text. Alt text is not required for supplementary material.
+4. Choose the appropriate Code Availability statement and add it to your paper directly before the References.
+Papers that have uploaded code to the dataverse. Add one of the following to your paper: Code Availability: The replication code is available in the Harvard Dataverse at <insert link to code/doi> Code and Data Availability: The replication code and data are available in the Harvard Dataverse at <insert link to code/doi>
+Code Availability: The replication code is available in the Harvard Dataverse at <insert link to code/doi>
+Code and Data Availability: The replication code and data are available in the Harvard Dataverse at <insert link to code/doi>
+Papers that can’t share code and have received a waiver from the editor. Add the following to your paper: Code Availability: The replication code could not be shared because <enter reason>. Permission was provided by the editor.
+Code Availability: The replication code could not be shared because <enter reason>. Permission was provided by the editor.
+No code (theory papers). Add the following to your paper: Code Availability: No new code was generated in support of this research.
+Code Availability: No new code was generated in support of this research.
+5. Send your files to manager@sfs.org. We ask that you do this within 2 weeks of acceptance. If you need more time, please let us know. If your source file is Word, send Word. If your source file is LaTeX, send a PDF. Some copyeditors also work with Overleaf files; if you’d like to work in Overleaf, please note this so we can try to match you with a copyeditor who uses Overleaf. Your paper will be placed in the copyediting queue and you will receive an email once it has been assigned to a copyeditor.
+6. The copyeditor will mark changes on your paper and email the marked-up files to you. The copyeditor will mark journal style, grammar, and formatting. Please aim to return corrections to the copyeditor within a week for the first round and within 2 days for any subsequent rounds; if you need more time, please let the copyeditor know.
+-The author is responsible for implementing the changes, whether you are working in Word, LaTex, Overleaf, etc.
+-If your source file is Word, you’ll be able to make changes directly in Word.
+-If the source file is LaTeX, the copyeditor will mark the changes on the PDF for you to implement in your source files.
+-Some copyeditors also work in Overleaf. If your files are in Overleaf, you can check with your copyeditor to see if they offer that option.
+-It is important to note that once the paper reaches OUP, the typesetter will only be formatting the paper, not providing editing, so you should finalize corrections at this step to reduce the chance of errors being introduced during typesetting.
+-The copyeditor will review your changes and may return an additional round or more of corrections if necessary.
+7. Once the copyeditor approves your paper, please send the following to manager@sfs.org:
+-All source files clearly labeled (Word, Latex, figures, tables, etc.)
+-A clean PDF of the full paper, clearly labeled. OUP will post this file on Advance Access as the Accepted Paper. It will be replaced by the published paper.
+-If applicable, a clean PDF of the Internet Appendix, clearly labeled. OUP will upload this file as is online alongside your published paper. We recommend including the paper title and author names on the file. OUP does not allow supplementary files to be changed or added after publication.
+-The publisher is able to use the figures in the PDF, but the print quality will be better if you are able to provide the original files; details on OUP’s website.
+-The publisher is able to use the tables from the source file if they are editable. If the table is an image, please send the original editable file (Excel, etc.).
+-If you have other supplementary materials, please make sure the files are clearly labeled as “Supplementary” and note these files in your email. OUP will upload these files as is alongside your published paper.
+-We will send your files to Oxford University Press for typesetting and publication. OUP takes over the process at this point, but you should feel free to reach back out to manager@sfs.org if you need assistance.
+8. OUP will request your license to publish. Once you sign the license, OUP will post your Accepted Manuscript on Advance Access and guide you through the final publication steps.
+-OUP will send the license to publish to the corresponding author to sign. They will also send you information about color figures, Open Access, and ordering print copies; details on OUP’s website. You will receive an email from no-reply@scipris.com with your invitation to sign up for an account with SciPris, the Oxford University Press author portal. For SciPris help, contact oupsupport@scipris.com.
+9. OUP will typeset your paper and send the proofs to the corresponding author to check. This usually takes about 3 weeks.
+–It is very important to note that the typesetter is only typesetting at this stage; they do not use a copyeditor. If you need any changes at this point, please ensure you’re following journal style and staying consistent within your paper.
+-Please check your paper thoroughly to ensure it is in its final publishable state. OUP does not allow changes to corrected proofs regardless of the paper’s status in print. This includes changing affiliations. Once a corrected proof is posted, the paper is published and final. Because you have already completed your final read of the paper, at this point any changes you have should be minor.
+10. OUP will post the corrected proof online. Congratulations – your paper is published!
+-The issue order is set by the Executive Editor and is not necessarily based on how long a paper has been ready for print. Once your paper is assigned to an issue by the Executive Editor, it will appear in an issue.
+-OUP will not allow affiliation changes on corrected proofs, even if the paper is not yet in print.
+-The guidelines for posting published versions of papers or uploading papers to repositories are available here for standard license publications. There is an embargo period for uploading an accepted manuscript or published paper. Any author version (preprint) already on SSRN can have the abstract and citation information updated, including a link, DOI, and citation added, along with the note: “This article has been accepted for publication in [Journal Title] Published by Oxford University Press.”]
+-Corrections: The bar for an erratum is high. Please see the policy.

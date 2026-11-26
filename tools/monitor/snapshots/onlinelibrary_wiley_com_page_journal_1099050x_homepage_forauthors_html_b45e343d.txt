@@ -1,0 +1,92 @@
+Journal list menu
+Journal
+Articles
+Actions Tools Follow journal
+Tools
+Follow journal
+Human Resource Management
+AUTHOR GUIDELINES
+Sections
+Submission and Peer Review Process
+Article Types
+After Acceptance
+Read the Editor Hints for a Successful Submission, from Co-Editors-in-Chief, Howard Klein and Fang Lee Cooke.
+1. Submission and Peer Review Process
+New submissions should be made via the Research Exchange submission portal https://wiley.atyponrex.com/journal/HRM. Should your manuscript proceed to the revision stage, you will be directed to make your revisions via the same submission portal. You may check the status of your submission at any time by logging on to submission.wiley.com and clicking the “My Submissions” button. For technical help with the submission system, please review our FAQs or contact [email protected].
+Article Preparation Support Wiley Editing Services offers expert help with English Language Editing, as well as translation, manuscript formatting, figure illustration, figure formatting, and graphical abstract design – so you can submit your manuscript with confidence.
+Also, check out our resources for Preparing Your Article for general guidance about writing and preparing your manuscript.Open AccessThis journal is a subscription journal that offers an Open Access option. You’ll have the option to make your article Open Access after acceptance, which will be subject to an Article Publication Charge (APC), unless a waiver applies. For more details about this journal's APC, click here. To read general information about APCs, please click here.Preprint policy:Human Resource Management will consider for review articles previously available as preprints. You may also post the submitted version of a manuscript to a preprint server at any time. You are requested to update any pre-publication versions with a link to the final published article.
+Please find the Wiley preprint policy here.This Journal operates a double-blind peer review process. Authors are responsible for anonymizing their manuscript in order to remain anonymous to the reviewers throughout the peer review process (see “Main Text File” for more details). Since the journal also encourages posting of preprints, however, please note that if authors share their manuscript in preprint form this may compromise their anonymity during peer review.Data Sharing and Data AvailabilityThis journal expects data sharing. Review Wiley’s Data Sharing policy where you will be able to see and select the data availability statement that is right for your submission.Data CitationPlease review Wiley’s Data Citation policy.Data ProtectionBy submitting a manuscript to or reviewing for this publication, your name, email address, and affiliation, and other contact details the publication might require, will be used for the regular operations of the publication. Please review Wiley’s Data Protection Policy to learn more.FundingYou should list all funding sources in the Acknowledgments section. You are responsible for the accuracy of their funder designation. If in doubt, please check the Open Funder Registry for the correct nomenclature.AuthorshipAll listed authors should have contributed to the manuscript substantially and have agreed to the final submitted version. Review editorial standards and scroll down for a description of authorship criteria.ORCIDThis journal requires ORCID. Please refer to Wiley’s resources on ORCID.Reproduction of Copyright MaterialIf excerpts from copyrighted works owned by third parties are included, credit must be shown in the contribution. It is your responsibility to also obtain written permission for reproduction from the copyright owners. For more information visit Wiley’s Copyright Terms & Conditions FAQ.
+The corresponding author is responsible for obtaining written permission to reproduce the material "in print and other media" from the publisher of the original source, and for supplying Wiley with that permission upon submission.Manuscript Requirements
+Title Page
+The title page should contain:
+A brief informative title containing the major key words. The title should not contain abbreviations (see Wiley's best practice SEO tips);
+A short running title of less than 40 characters;
+The full names of the authors;
+The author's institutional affiliations where the work was conducted, with a footnote for the author’s present address if different from where the work was conducted;
+Acknowledgments.
+Important: the journal operates a double-blind peer review policy. Please anonymize your manuscript and prepare a separate title page containing author details.
+Main Text File
+Manuscripts can be uploaded either as a single document (containing the main text, tables and figures), or with figures and tables provided as separate files. Should your manuscript reach revision stage, figures and tables must be provided as separate files. The main manuscript file can be submitted in Microsoft Word (.doc or .docx) format or LaTeX (.tex) format.Your main document file should include:
+A short informative title containing the major key words. The title should not contain abbreviations
+Acknowledgment;
+Abstract structured (intro/methods/results/conclusion) or unstructured
+keywords;
+Main body: formatted as introduction, materials & methods, results, discussion, conclusion
+References;
+Tables (each table complete with title and footnotes);
+Figures: Figure legends must be added beneath each individual image during upload AND as a complete list in the text.
+LaTeX Guidelines for Submission:For author requiring a LaTeX template, we strongly recommend reviewingWiley’s New Journal Design (NJD) LaTeX Authoring Template.If submitting your manuscript file in LaTeX format via Research Exchange, select the file designation “Main Document – LaTeX .tex File” on upload. When submitting a LaTeX Main Document, you must also provide a PDF version of the manuscript for Peer Review. Please upload this file as “Main Document - LaTeX PDF.” All supporting files that are referred to in the LaTeX Main Document should be uploaded as a “LaTeX Supplementary File.”
+LaTeX Guidelines for Post-Acceptance:
+Please check that you have supplied the following files for typesetting post-acceptance:
+PDF of the finalized source manuscript files compiled without any errors.
+The LaTeX source code files (text, figure captions, and tables, preferably in a single file), BibTeX files (if used), any associated packages/files along with all other files needed for compiling without any errors. This is particularly important if authors have used any LaTeX style or class files, bibliography files (.bbl, .bst. .blg) or packages apart from those used in the NJD LaTeX Template class file.
+Electronic graphics files for the illustrations in Encapsulated PostScript (EPS), PDF or TIFF format. Authors are requested not to create figures using LaTeX codes.
+Additional FilesPrior use of DatasetIf the dataset in the manuscript has been used in a previously published study or if the dataset is currently under review elsewhere, the authors will need to provide a data transparency table as part of the submission process (this will not be part of the actual submitted manuscript). This table should list all of the variables from the dataset and all of the studies coming from the data, and demonstrate the independence of each of the manuscripts developed from the shared dataset.Reference StyleThis journal uses APA reference style. Review your reference style guidelines prior to submission.
+This journal operates under a double-blind peer review model. Papers will only be sent to review if the Editor-in-Chief determines that the paper meets the appropriate quality and relevance requirements.
+In-house submissions, i.e. papers authored by Editors or Editorial Board members of the title, will be sent to Editors unaffiliated with the author or institution and monitored carefully to ensure there is no peer review bias.
+Wiley's policy on the confidentiality of the review process is available here.
+Guidelines on Publishing and Research Ethics in Journal Articles
+2. Article Types
+Article Type
+Description
+Word Limit
+Abstract / Structure
+Other Requirements
+Original Article
+Reports of new research findings or conceptual analyses that make a significant contribution to knowledge.
+Approximately 10,000 Words or 35 Pages of Text. Exceptions can be requested by contacting the Editor.
+Approximately 10,000 Words or 35 Pages of Text.
+Exceptions can be requested by contacting the Editor.
+Yes, Structured
+Data Availability Statement IRB Statement
+Data Availability Statement
+IRB Statement
+3. After Acceptance
+First LookAfter your paper is accepted, your files will be assessed by the editorial office to ensure they are ready for production. You may be contacted if any updates or final files are required. Otherwise, your paper will be sent to the production team.Wiley Author ServicesWhen an accepted article is received by Wiley’s production team, the corresponding author will receive an email asking them to login or register with Wiley Author Services. You will be asked to sign a publication license at this point as well as pay for any applicable APCs.Copyright & LicensingYou may choose to publish under the terms of the journal’s standard copyright agreement, or Open Access under the terms of a Creative Commons License.
+Standard re-use and licensing rights vary by journal. Note that certain funders mandate a particular type of CC license be used. This journal uses the CC-BY/CC-BY-NC/CC-BY-NC-ND Creative Commons License.
+Self-Archiving Definitions and Policies: Note that the journal’s standard copyright agreement allows for self-archiving of different versions of the article under specific conditions.ProofsAuthors will receive an e-mail notification with a link and instructions for accessing HTML page proofs online. Authors should also make sure that any renumbered tables, figures, or references match text citations and that figure legends correspond with text citations and actual figures. Proofs must be returned within 48 hours of receipt of the email.Article Promotion Support Wiley Editing Services offers professional video, design, and writing services to create shareable video abstracts, infographics, conference posters, lay summaries, and research news stories for your research – so you can help your research get the attention it deserves.Author Name Change Policy In cases where authors wish to change their name following publication, Wiley will update and republish the paper and redeliver the updated metadata to indexing services. Our editorial and production teams will use discretion in recognizing that name changes may be of a sensitive and private nature for various reasons including (but not limited to) alignment with gender identity, or as a result of marriage, divorce, or religious conversion. Accordingly, to protect the author’s privacy, we will not publish a correction notice to the paper, and we will not notify co-authors of the change. Authors should contact the journal’s Editorial Office with their name change request.Correction to authorship In accordance with Wiley’s Best Practice Guidelines on Research Integrity and Publishing Ethics and the Committee on Publication Ethics’ guidance, Human Resource Management will allow authors to correct authorship on a submitted, accepted, or published article if a valid reason exists to do so. All authors – including those to be added or removed – must agree to any proposed change. To request a change to the author list, please complete the Request for Changes to a Journal Article Author List Form and contact either the journal’s editorial or production office, depending on the status of the article. Authorship changes will not be considered without a fully completed Author Change form. [Correcting the authorship is different from changing an author’s name; the relevant policy for that can be found in Wiley’s Best Practice Guidelines under “Author name changes after publication.”]
+Sign up for email alerts
+Submit an article
+As of November 7, 2022, all new Human Resource Management manuscripts are submitted through the Research Exchange platform.
+For submissions started prior to November 7, 2022, please visit Manuscript Central to manage or complete your submission.
+Journal Metrics
+Wiley Editing Services
+Professionally-edited manuscripts are accepted more than twice as often. Take the stress out of manuscript writing with Article Preparation services.
+English Language Editing
+Figure Formatting
+Manuscript Formatting
+Manuscript Language Checker (Free)
+Graphical Abstract Design
+View all services
+More from this journal
+Calls for Papers
+Call for Special Issue Proposals
+Special Issues
+Virtual Issues
+Video Gallery
+Press Releases
+Awards
+Editor Spotlight
+Stay Connected
+LinkedIn
+YouTube

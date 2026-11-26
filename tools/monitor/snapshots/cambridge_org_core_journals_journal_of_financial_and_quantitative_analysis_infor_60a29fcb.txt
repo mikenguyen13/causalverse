@@ -1,0 +1,128 @@
+< Back to search results
+Home
+Journals
+Journal of Financial and Quantitative Analysis
+Journal information
+Author instructions
+Preparing your materials
+English
+Français
+Journal of Financial and Quantitative Analysis
+Add bookmark
+Add alert
+RSS feed
+Share
+Submit manuscript
+Announcements
+Subscribe
+Submit manuscript
+We partner with a secure submission system to handle manuscript submissions.
+Please note:
+You will need an account for the submission system, which is separate to your Cambridge Core account. For login and submission support, please visit the submission and support pages .
+Please review this journal's author instructions, particularly the preparing your materials page, before submitting your manuscript.
+Click Proceed to submission system to continue to our partner's website.
+Other actions Submit manuscript Information Announcements Subscribe Add bookmark Add alert RSS Feed Share
+Submit manuscript
+Information
+Announcements
+Subscribe
+Add bookmark Add alert RSS Feed Share
+Add bookmark
+Add alert
+RSS Feed
+Share
+Journal home
+Journal information
+William F. Sharpe Best Paper Award
+JFQA video collection
+All issues
+Latest issue
+Most read
+FirstView articles
+Accepted manuscripts
+About this journal Editorial board Contact details Journal metrics Abstracting and indexing Author instructions Fees and pricing Preparing your materials Submitting your materials Publication process after acceptance Publishing agreement Post publication impact Peer review information Review process Instructions for peer reviewers Reviewer benefits Journal policies Open access options Publishing ethics Rights and permissions Privacy Sponsorship and advertising
+About this journal Editorial board Contact details Journal metrics Abstracting and indexing
+Editorial board
+Contact details
+Journal metrics
+Abstracting and indexing
+Author instructions Fees and pricing Preparing your materials Submitting your materials Publication process after acceptance Publishing agreement Post publication impact
+Fees and pricing
+Preparing your materials
+Submitting your materials
+Publication process after acceptance
+Publishing agreement
+Post publication impact
+Peer review information Review process Instructions for peer reviewers Reviewer benefits
+Review process
+Instructions for peer reviewers
+Reviewer benefits
+Journal policies Open access options Publishing ethics Rights and permissions Privacy Sponsorship and advertising
+Open access options
+Publishing ethics
+Rights and permissions
+Privacy
+Sponsorship and advertising
+Use of Artificial Intelligence (AI) Tools
+We acknowledge the increasing use of artificial intelligence (AI) tools in research and writing processes. In this section we explain how to declare the use of AI tools in an accountable and transparent way, in accordance with the Cambridge University Press Research Publishing Ethics Guidelines.
+Authorship
+We do not consider artificial intelligence (AI) tools to meet the accountability requirements of authorship, and therefore generative AI tools such as ChatGPT should not be listed as authors on any submitted content.
+Credit and citation
+All use of AI-generated content must comply with our plagiarism policy and best practices regarding citation and acknowledgement.
+You must not present ideas, words, data, or other material originally produced by third parties without appropriate acknowledgement or permission.
+Transparency: declaration and description
+We outline below the forms of AI use that must be declared and described to readers, as well as where and how to do this within your manuscript.
+What to declare
+You should always declare and describe your use of an AI tool if you have used it to generate text or images (this includes the translation of sources or of your own work) or to analyse or extract insights from data or other materials.
+Minimal and non-generative uses of AI tools in manuscript preparation do not require declaration. For instance, basic spelling or language checking, incorporation of single words or brief phrases, or minor formatting tasks such as converting section headers to bold type. It is important to note that accountability for the use of AI tools, including minimal and non-generative ones, rests with the author. Caution should be used in all cases and it is important to check your article thoroughly for unintended consequences, particularly in relation to the references.
+If you are unsure about whether a particular use of an AI tool requires declaration, please contact the journal’s editorial office.
+Where to declare
+Use of AI tools should be declared in your manuscript in the same way that you would declare your use of other tools and assistance.
+If you have used AI tools to generate text within your manuscript, this should be declared in the same way you would declare your use of other language-editing services, for example in a separate acknowledgments section or in a footnote.
+If you have used AI tools to collect or analyse data, the way you have done this should be described in your methods section or general description of your methodology, in the same way you would describe your use of other software or analysis processes.
+If you have used AI tools to generate visual content that appears in your manuscript, this should be declared in the captions of any figures that you have generated or modified using AI tools.
+This ensures your declarations appear where readers, editors, and reviewers naturally expect to find information about tools and processes used in your work.
+How to declare
+Descriptions of your use of AI tools should include:
+the name and version of the tool you used
+the date(s) you used the tool for the purpose(s) described, to the extent reasonably possible
+how the tool can be accessed or used by others, to the extent reasonably possible
+a full description of how you used the tool
+appropriate citations to any third-party text, datasets or other material used or included in the tool’s output.
+Additionally, as appropriate, descriptions should include:
+any proprietary information relevant to the use of the tool
+any ways in which you modified the version of the tool that you used (such as training it on your own data)
+any competing interests or potential bias that should be considered as a consequence of the tool’s use, including as a result of its ownership or development.
+Accessibility requirements
+All articles published by Cambridge are required to meet the accessibility standards outlined in the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA. To ensure that material published in Cambridge journals is accessible to and understandable by all, authors should carefully consider elements such as colour use, contrast, and text clarity when preparing images and tables. For detailed guidance on image and multimedia file preparation and preferred formats, please see the Cambridge Journals Artwork Guide.
+Image, table, and multimedia descriptions: Accessibility materials must be made available for all figures, tables, and multimedia content to be published within the article, including the provision of image descriptions or “alt-text” for all figures. Authors have the opportunity to prepare their own alt-text and video/audio descriptions for all of their relevant materials and submit this to Cambridge as part of the Accessibility Descriptions Submission Form.
+As the subject expert, authors are encouraged to provide their own accessibility materials. For detailed instructions on their preparation, please see our guide to Preparing Accessible Materials. If accessibility materials are required for the publication of your article and not provided with the accepted manuscript files, these will be machine generated for you and made available to review at proof stage. The accuracy of accessibility materials is the responsibility of the author; please ensure these are checked carefully.
+Labelling: All illustrative materials should be referred to in your manuscript text as “Figures”. Tables and figures must be cited in the text, must be numbered consecutively in Arabic numerals, and captions must be provided in all cases. Diagrams, graphs, maps, boxes, graphical diagrams, and code snippets must also be labelled and numbered. For further information, please see Preparing Accessible Materials.
+ORCID
+We require all corresponding authors to identify themselves using ORCID when submitting a manuscript to this journal. ORCID provides a unique identifier for researchers and, through integration with key research workflows such as manuscript submission and grant applications, provides the following benefits:
+Discoverability: ORCID increases the discoverability of your publications, by enabling smarter publisher systems and by helping readers to reliably find work that you have authored.
+Convenience: As more organisations use ORCID, providing your iD or using it to register for services will automatically link activities to your ORCID record, and will enable you to share this information with other systems and platforms you use, saving you re-keying information multiple times.
+Keeping track: Your ORCID record is a neat place to store and (if you choose) share validated information about your research activities and affiliations.
+See our ORCID FAQs for more information.
+If you don’t already have an iD, you will need to create one if you decide to submit a manuscript to this journal. You can register for one directly from your user account on Editorial Manager, or alternatively via https://ORCID.org/register.
+If you already have an iD, please use this when submitting your manuscript, either by linking it to your Editorial Manager account, or by supplying it during submission.
+ORCIDs can also be used if authors wish to communicate to readers up-to-date information about how they wish to be addressed or referred to (for example, they wish to include pronouns, additional titles, honorifics, name variations, etc.) alongside their published articles. We encourage authors to make use of the ORCID profile’s “Published Name” field for this purpose. This is entirely optional for authors who wish to communicate such information in connection with their article. Please note that this method is not currently recommended for author name changes: see Cambridge’s author name change policy if you want to change your name on an already published article. See our ORCID FAQs for more information.
+Allow content?
+This content requires cookies. To view content please update your cookie preferences.
+You can view the Journal of Financial and Quantitative Analysis instructions for authors in the "Submissions" area of the JFQA website here: https://jfqa.org/submissions/
+Allow content?
+This content requires cookies. To view content please update your cookie preferences.
+The Journal of Financial and Quantitative Analysis (JFQA) publishes theoretical and empirical research in financial economics. Topics include corporate finance, investments, capital and security markets, and quantitative methods of particular relevance to financial researchers.
+Manuscripts are considered for publication in the JFQA on the understanding that they have not been previously published, in whole or in part, and are not being simultaneously considered for publication elsewhere.
+Allow content?
+This content requires cookies. To view content please update your cookie preferences.
+Paper Length
+The JFQA welcomes short and impactful papers, which will be published as regular articles if they are of sufficient quality and interest as determined during the peer review process. Conversely, the JFQA discourages submissions of excessive length. Authors should anticipate that final versions of accepted papers will rarely exceed 40 to 45 pdf pages, not including internet appendices. Excessively long submissions may be desk rejected.
+Submission Requirements
+Acceptable submissions include two files:
+Title page, including author name(s) and affiliation(s), mailing and e-mail address(es), and work phone number(s) as well as, obviously, the title. All author identification information, including acknowledgments, should be contained only in this file.
+Manuscript, in text-searchable PDF, which will be sent anonymized to the reviewer(s), the first page of which should begin with the title, followed by a 1-paragraph abstract of no more than 100 words. Please remove any author-identifying information from this file. Format for the file should be:
+8.5 × 11” paper size
+1” margins
+12-point body text
+Double-space main body, appendices, and figure and table description paragraphs

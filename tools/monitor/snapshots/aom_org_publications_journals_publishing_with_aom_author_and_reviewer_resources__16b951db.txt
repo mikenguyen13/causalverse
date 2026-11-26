@@ -1,0 +1,71 @@
+Submitting to Academy of Management Journal
+Academy of Management Journal Author Guidelines
+When submitting to Academy of Management Journal (AMJ), authors should present empirical research that advances management theory and informs practice. Submissions must offer strong empirical and theoretical contributions and clearly demonstrate their significance to the field.
+AMJ welcomes all empirical methods—qualitative, quantitative, field, laboratory, meta-analytic, and mixed methods—and favors studies that test, extend, or build robust theoretical frameworks while addressing issues of high importance to management. The journal is not limited by discipline, level of analysis, or national context.
+What to Know Before Submitting to AMJ
+Submissions should present bold, original research that offers meaningful new implications or insights for management theory. This can include challenging established views, building theory inductively, providing first empirical tests, conducting meta-analyses with theoretical impact, or offering constructive replications that clarify a theory’s scope.
+Articles must be relevant to practice, identify a compelling management issue supported by a strong theoretical framework, and clearly define specialized terms or methods.
+Authors should ensure their work appeals to AOM’s diverse readership by demonstrating the broader relevance of specialized research, avoiding jargon, and contributing significantly to the field’s understanding of the topic.
+Getting Started
+The video below provides helpful information about submitting to AMJ.
+Criteria for Publication
+When submitting to AMJ, please keep in mind that AMJ publishes articles that make strong empirical, theoretical, and practical contributions to the field of management.
+Empirical Contributions
+Because empirical contributions are difficult to revise after data collection, authors should ensure research designs and instruments are sound before beginning their studies. Submissions without a substantial empirical component will not be reviewed.
+Theoretical Contributions
+Theoretical contributions should provide meaningful new insights, such as challenging established views, building theory inductively, offering first empirical tests, conducting meta-analyses with theoretical implications, or clarifying a theory’s boundaries through constructive replication. Methodological papers are welcome if they include both theoretical and empirical contributions.
+Practical Relevance
+Practical relevance is essential. Authors should clearly identify a compelling management issue and a strong theoretical framework for addressing it, specifying implications for practice whenever possible.
+Articles must be accessible to AMJ’s broad readership. Authors should make the relevance of specialized research clear, avoid jargon, define technical terms, and explain analytic techniques. Manuscripts are evaluated for their contribution-to-length ratio and should be concise without sacrificing clarity. Typically, papers should not exceed 40 double-spaced pages (Times New Roman 12-point font, one-inch margins, inclusive of all content). Longer manuscripts may be considered when warranted, but incorrectly prepared papers may be returned for revision before review.
+Where to Submit Other Types of Articles
+Purely conceptual papers should be directed to Academy of Management Review; work on management education to Academy of Management Learning & Education; evidence-based articles without a primary theoretical focus to Academy of Management Perspectives. Responses or commentaries will be considered only if they include an independent empirical contribution and will undergo peer review.
+Style Guide, AI Policy, and Ethics
+Please review our Style Guide for manuscript requirements prior to submitting to Academy of Management Journal.
+All work submitted to AOM must be created by the authors and must not be the product of artificial intelligence tools—unless it is appropriate to the research question and properly cited. Authors must be transparent in disclosing any AI use in the manuscript cover letter and in the article acknowledgements. Authors must also confirm that they read and understand the AOM AI policy.
+View AOM’s Ethics policy page, which includes our Code of Ethics and detailed procedures and inquiry requests.
+Submitting to AMJ: The Review Process
+The AMJ review process is conducted in various stages before a decision is reached.
+Desk decisions. When a manuscript is first received, the editor completes a preliminary screening of a manuscript to assess the degree to which it:
+(1) Fits the criteria described in AMJ’s Mission Statement and Information for Contributors; and(2) Possesses at least a minimal likelihood of being favorably evaluated by AMJ’s reviewers.
+Submissions that fail to satisfy one or both of those criteria may be returned to the authors as a desk decision, sometimes in the form of a desk reject and sometimes in the form of a desk edit.
+Normal review process. For each manuscript that passes the initial review stage, the editor assigns an action editor (either him or herself or an associate editor or guest editor) and three reviewers. The action editor then makes publication decisions about the manuscript. These decisions are made in conjunction with recommendations provided by members of the Journal’s Editorial Board or other qualified reviewers.
+All submissions are blind-reviewed and may be returned for revision if they are prepared in a way that compromises blind review.
+AMJ strives to provide constructive and developmental feedback to authors within 60 days. However, the initial quality of the manuscript can dramatically influence both the efficiency and effectiveness of the review process. A well-developed manuscript is easier to review and will likely receive more positive feedback. Manuscripts should always be reviewed by your scholarly colleagues prior to submission to AMJ.
+Prepare manuscripts in accordance with the AMJ Style Guide for Authors. Manuscripts that are prepared incorrectly tend to be less favorably reviewed, and may be returned to the author for revision prior to submission to the full review process.
+Submission of a manuscript to AMJ also carries an implicit quid pro quo: the author’s willingness to review for AMJ and provide feedback through the peer review process for their colleagues. Authors who submit manuscripts to AMJ for review are expected to reciprocate by reviewing for AMJ if called upon to do so.
+Using Manuscript Central
+Go to the Manuscript Central Website at https://mc.manuscriptcentral.com/AMJ and log in. At the Welcome Page, go to Author Center. On the right-hand side of the page, you will see Author Resources. Click below to submit a new document.
+This is a six-step process:
+Type, Title, and Abstract Document Type: From the drop-down menu, select type of document. Insert title. Insert abstract. (If you are submitting a proposal, insert a brief description about your proposal).
+Document Type: From the drop-down menu, select type of document.
+Insert title.
+Insert abstract. (If you are submitting a proposal, insert a brief description about your proposal).
+Attributes Keyword: We require that you submit three keywords for each document you are submitting. From the drop-down menu of keywords, select a keyword, then click “add.”
+Keyword: We require that you submit three keywords for each document you are submitting. From the drop-down menu of keywords, select a keyword, then click “add.”
+Authors and Institutions This page allows you to add additional authors.
+This page allows you to add additional authors.
+Details and Comments Answer all questions on this page. Please note that you should include any acknowledgements in the Cover Letter section. All author identifiers must be removed from your work prior to submission. Refer to submission requirements for details.
+Answer all questions on this page. Please note that you should include any acknowledgements in the Cover Letter section. All author identifiers must be removed from your work prior to submission. Refer to submission requirements for details.
+File Upload Please note that File Designation is a drop down list and refers to the type of document you are uploading: cover letter, main document, supplementary file for review (which can be viewed by editors and reviewers), or supplementary file not for review (for the editor’s eyes only).
+Please note that File Designation is a drop down list and refers to the type of document you are uploading: cover letter, main document, supplementary file for review (which can be viewed by editors and reviewers), or supplementary file not for review (for the editor’s eyes only).
+Review and Submit This page allows you to review your entire application and make any necessary changes before submitting.
+This page allows you to review your entire application and make any necessary changes before submitting.
+If you need assistance uploading your paper, please contact the ScholarOne helpline on weekdays (Monday – Friday)between 2400 – 2030 EST (UTC – 5) at 1-434-964-4100 or 1-888-503-1050 (US). You may also send an email to: [email protected] or visit this website.
+Visit Manuscript Central at https://mc.manuscriptcentral.com/AMJ. On the right-hand side, you will see a box that says “New user?” Click “Register here.”
+Registering is a three-step process.
+Email and name: Enter salutation, name, and email address
+Address: Enter mailing address
+User ID and password: Please create a password. Keyword: We require that you submit three keywords for each document you are submitting. From the drop-down menu of keywords,select a keyword, then click Add Unavailable dates: This is only for reviewers. Please leave blank. Signature: Insert your name and title. Browse: This should be left blank; you will upload your document later.
+Keyword: We require that you submit three keywords for each document you are submitting. From the drop-down menu of keywords,select a keyword, then click Add
+Unavailable dates: This is only for reviewers. Please leave blank.
+Signature: Insert your name and title.
+Browse: This should be left blank; you will upload your document later.
+If you need assistance uploading your paper, please contact the ScholarOne helpline on weekdays (Monday – Friday) between 2400 – 2030 EST (UTC – 5) at 1-434-964-4100 or 1-888-503-1050 (US). You may also email: [email protected] or visit this website.
+Questions?
+We’re here to help. If you have questions, please contact [email protected].
+AMJ expands Manuscript Portfolio to include Research Methods articles
+Supporting an AOM BOG initiative, AMJ expanded its Manuscript Portfolio: We invite authors to submit Research Methods articles designed to advance theory and span boundaries.
+Beginning 1 January 2024, Academy of Management Journal (AMJ) expanded the types of manuscripts considered for publication to include the Manuscript Type: “AMJ Research Methods.” These new methodological articles will highlight the critical role that methods play in theory development and testing.
+Congruent with the overall mission of AMJ, our vision is that methods articles published in the journal will be a catalyst for theory development. In this sense, we are looking for specific types of methodological articles—namely, articles that clearly illustrate how an advancement in methods or application of methods from other fields could lead to substantive changes in how management theory is proposed and tested. Furthermore, consistent with the notion that AMJ is a “big tent” journal that offers a home for scholars across all areas and disciplines of the Academy of Management, methods manuscripts should strive to be of broad relevance and span boundaries in terms of being applicable to multiple audiences—such as macro and qualitative researchers, micro and macro researchers, and/or researchers in different AOM divisions and interest groups. In addition, AMJ’s methods papers should provide example hypotheses and should be written in a way that is accessible to a wide scholarly audience.
+Authors are invited to submit their research methods articles via AMJ’s ScholarOne Manuscripts submission website. Received papers will be handled by AMJ’s newly expanded editorial team, which includes an added group of methods-focused editors: Deputy Editor Paul Bliese (Univ. of South Carolina) and three Associate Editors: S. Trevis Certo (Arizona State Univ.), Anne Smith (Univ. of Tennessee), and Mo Wang (Univ. of Florida).
+We also invite prospective authors to read the “From the Editors” article in AMJ’s first issue of 2024 (February).

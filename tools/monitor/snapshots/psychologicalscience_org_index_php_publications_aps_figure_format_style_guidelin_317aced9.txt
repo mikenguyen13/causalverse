@@ -1,0 +1,41 @@
+APS Figure Format and Style Guidelines
+Updated December 2020
+1) For raster (pixel-based) images (brain scans, photographs of experimental setup, etc):
+Formats accepted: .jpg, .tif, .psd, .eps
+Figures submitted in these formats must have a resolution of at least 300 pixels per inch (PPI; you can find more information about pixel density here). If the resolution is lower than 300 PPI, the image will appear blurry or pixelated in print, even if it appears clear on a computer screen. Note: Any image embedded in a Microsoft Office file has a resolution of only 72 PPI, no matter what the resolution of the original image was before it was embedded; please do not submit any images in .doc or .ppt format.
+2) For vector (line-based) graphics (graphs, line art, diagrams, etc):
+Formats accepted: .xls, .ppt , .ai, .doc (only if created in Word), .pdf
+Figures submitted in these formats can be scaled up and down in size without pixelation, so image resolution is not an issue; figures may be edited for clarity, so editability is the primary concern. We ask that authors submit line graphics in their native file format, which is the format of the program in which a figure was originally created. For example, if you created a graph in Excel, supply the original Excel file rather than an Excel file embedded in a Word document. If a line-based figure was created in a software program other than Excel, PowerPoint, Word, or Adobe Illustrator (e.g., SAS, SigmaPlot, or MATLAB), we ask that the author submit a PDF file exported directly from the program.
+Please adhere to the following format when naming figure files: AuthorLastNameFigX.fileformat (e.g. SmithFig1.xls, SmithFig2.jpg, etc.).
+Q: I created my figure in Excel and copied and pasted it into Word. Which version should I submit?
+A: Submit the Excel file.
+Q: I created my figure in SigmaPlot and copied and pasted it into Word. Which version should I submit?
+A: Export the figure from SigmaPlot in PDF format and submit the PDF file.
+Q: My figure was created in PowerPoint and includes text boxes as well as 2 photos I embedded in the slide. What should I submit?
+A: Submit both the PowerPoint file and a high-resolution JPEG of each photo.
+Details:
+Please note that yellow may not show up well, especially in line graphs.
+In all labels—including the key—the first letter of each important word and of any word of at least 4 letters should be capitalized. Exception: Units of measure indicated in parentheses don’t have the first letter capitalized, e.g., “Response Time (ms).”
+Exception: Units of measure indicated in parentheses don’t have the first letter capitalized, e.g., “Response Time (ms).”
+Minus signs—NOT HYPHENS—should be used to indicate negative numbers or subtraction (a minus sign can be inserted by holding down the “Alt” key on a computer keyboard while pressing 0, 1, 5, 0 on the number pad, in sequence).
+Do not insert a box around a key or a figure.
+A graph should have two axes (ordinate and abscissa) only. Do not include extraneous axes.
+In mathematical expressions, there should be a single letter space before and after each operator: =, ×, +, –, <, >, etc. Exception: Do not insert spaces in subscripts or superscripts.
+Exception: Do not insert spaces in subscripts or superscripts.
+The ordinate axis must be labeled to indicate the nature of the quantities referred to. For example, if a graph shows response times (ordinate) in various conditions (abscissa), the ordinate must be labeled “Response Time,” in addition to showing the numerical values.
+Numerical values on the ordinate axis should be oriented horizontally.
+If a figure includes error bars, they must be explained in the caption. In the case of a bar graph, be sure that error bars are easily visible (e.g., a black error bar will be invisible in a data bar with a black or dark-gray fill).
+Font style and size: Labels and numbers in figures should be in Helvetica Neue 57 Condensed roman font. (If you do not have this font installed on your device, please use regular Helvetica or Arial font.) Do not use boldface font unless it’s intended to highlight something. In that case, the caption should explain what the boldface indicates. Symbols referring to variables should be in Helvetica Neue 57 Condensed italic font. (If you do not have this font installed on your device, please use regular Helvetica or Arial font.) Otherwise, do not use italics. Greek letters (e.g., regression coefficients) should not be in italics. All ordinate and abscissa quantities, or any sublabel along the ordinate or abscissa, should be in 9-point font. All main ordinate and abscissa labels should be in 10-point font. The title header (at the top of a figure), if there is one, should be in 12-point font. Keys should be in 9-point font. This includes the height of boxes illustrating fills in a bar graph and symbols used to differentiate lines in a line graph. Whenever possible, the key should be placed toward the top of a graph (i.e., toward the top inside the graph or above the graph, as space allows). Symbols (e.g., squares, diamonds) plotted in a graph should be no smaller than the corresponding symbols in the key. Panel labels (a, b, c, etc.) should be in 18-point font, lowercase, positioned to the upper left of the corresponding panels. They should not be followed by periods or surrounded by parentheses. All other text in graphs (e.g., a label for a graphed line or symbol) should be in 9-point font.
+Labels and numbers in figures should be in Helvetica Neue 57 Condensed roman font. (If you do not have this font installed on your device, please use regular Helvetica or Arial font.) Do not use boldface font unless it’s intended to highlight something. In that case, the caption should explain what the boldface indicates.
+Do not use boldface font unless it’s intended to highlight something. In that case, the caption should explain what the boldface indicates.
+Symbols referring to variables should be in Helvetica Neue 57 Condensed italic font. (If you do not have this font installed on your device, please use regular Helvetica or Arial font.) Otherwise, do not use italics. Greek letters (e.g., regression coefficients) should not be in italics.
+Greek letters (e.g., regression coefficients) should not be in italics.
+All ordinate and abscissa quantities, or any sublabel along the ordinate or abscissa, should be in 9-point font.
+All main ordinate and abscissa labels should be in 10-point font.
+The title header (at the top of a figure), if there is one, should be in 12-point font.
+Keys should be in 9-point font. This includes the height of boxes illustrating fills in a bar graph and symbols used to differentiate lines in a line graph. Whenever possible, the key should be placed toward the top of a graph (i.e., toward the top inside the graph or above the graph, as space allows).
+This includes the height of boxes illustrating fills in a bar graph and symbols used to differentiate lines in a line graph.
+Whenever possible, the key should be placed toward the top of a graph (i.e., toward the top inside the graph or above the graph, as space allows).
+Symbols (e.g., squares, diamonds) plotted in a graph should be no smaller than the corresponding symbols in the key.
+Panel labels (a, b, c, etc.) should be in 18-point font, lowercase, positioned to the upper left of the corresponding panels. They should not be followed by periods or surrounded by parentheses.
+All other text in graphs (e.g., a label for a graphed line or symbol) should be in 9-point font.

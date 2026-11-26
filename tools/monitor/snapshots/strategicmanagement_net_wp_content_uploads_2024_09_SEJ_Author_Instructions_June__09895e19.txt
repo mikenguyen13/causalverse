@@ -1,0 +1,376 @@
+Author Guidelines
+Last updated: 8 June 2023
+Strategic Entrepreneurship Journal
+Editorial office: SEJ@strategicmanagement.net
+Submit here: https://wiley.atyponrex.com/journal/SEJ
+SEJ Author Guidelines
+Contents
+SEJ policies and procedures.......................................................................................................................... 3
+SEJ aims and scope................................................................................................................................... 3
+General notes ............................................................................................................................................ 3
+Initial manuscript submission ................................................................................................................... 4
+Article types accepted by the journal........................................................................................................ 4
+Editorial process and policies ................................................................................................................... 5
+Ethical policies ......................................................................................................................................... 5
+Plagiarism ............................................................................................................................................. 5
+Open Access ............................................................................................................................................. 5
+Early View ................................................................................................................................................ 6
+Costs to authors ........................................................................................................................................ 6
+SEJ style guidelines ...................................................................................................................................... 7
+Organization and basic manuscript formatting ......................................................................................... 7
+Title page .............................................................................................................................................. 7
+Abstract ................................................................................................................................................ 7
+Main document..................................................................................................................................... 7
+Figures and tables ..................................................................................................................................... 8
+File formats ............................................................................................................................................... 8
+Citations and references............................................................................................................................ 8
+Reference style ..................................................................................................................................... 9
+Appendices and supplementary material ................................................................................................ 10
+General APA guidelines ......................................................................................................................... 11
+Copy Editing ........................................................................................................................................... 12
+2
+SEJ Author Guidelines
+SEJ policies and procedures
+SEJ aims and scope
+Strategic Entrepreneurship Journal is a research journal that publishes original work recommended by a
+developmental, double-blind review process conducted by peer scholars. Strategic entrepreneurship
+involves innovation and subsequent changes that add value to society and change societal life in ways that
+have significant, sustainable, and durable consequences.
+SEJ is international in scope and acknowledges theory- and evidenced-based research conducted and/or
+applied in all regions of the world. It is devoted to content and quality standards based on scientific
+method, relevant theory, tested or testable propositions, and appropriate data and evidence, all replicable
+by others, and all representing original contributions.
+SEJ values contributions that lead to improved practice of managing organizations as they deal with the
+entrepreneurial process involving imagination, insight, invention, and innovation as well as the inevitable
+changes and transformations that result and benefit society.
+General notes
+Submitted manuscripts should not have been previously published and should not be submitted for
+publication elsewhere while they are under consideration by SEJ.
+To be sure that manuscripts move through the review process smoothly and quickly, we ask authors to
+observe basic formatting and style requirements when submitting manuscripts:
+Element Description
+Font 12-point readable font (preferably Times New Roman)
+Line spacing Double-spaced body text, single-spaced references
+Margins One inch (2.5 cm)
+Page size Letter (8.5 x 11) inches
+Page numbers Yes
+Required layout
+Abstract, body text, references, appendices, tables, and figures
+(main document)
+Journal style APA
+Submissions that do not follow SEJ guidelines may have to be returned for revision and resubmission in
+order to ensure the timely flow of manuscripts through the editorial process. For more information, please
+review the SEJ style guidelines starting on page 7.
+We suggest that you circulate your manuscript among colleagues before submitting to SEJ and make
+revisions based on their thoughtful suggestions. The reviewers should not be your first readers.
+3
+SEJ Author Guidelines
+Initial manuscript submission
+All manuscripts considered for submission must be sent to SEJ’s online submission site,
+https://wiley.atyponrex.com/journal/SEJ. In case of questions, please contact:
+Wiley’s SEJ Editorial Office
+Email: SEJedoffice@wiley.com
+SEJ is published by Wiley in partnership with the Strategic Management Society. Information about the
+journal is located on Wiley Online (https://onlinelibrary.wiley.com/journal/1932443x) and the Society’s
+website (https://www.strategicmanagement.net/SEJ/overview/overview).
+For additional tools, visit Author Resources (https://authorservices.wiley.com/home.html), an enhanced
+suite of online tools for Wiley InterScience journal authors, featuring Article Tracking, Email Publication
+Alerts, and Customized Research Tools.
+Article types accepted by the journal
+Article type Description Page limit
+Research Article Detailed study that presents original research. 40
+Special Issue Article A study that presents original research that fits with a theme of 40
+an SEJ special issue. To view current special issue calls for
+papers, please visit
+https://www.strategicmanagement.net/SEJ/overview/special-
+issues/open-calls
+Commentary Commentary pieces are expected to spur conversation in 40
+entrepreneurship by covering timely topics relevant to SEJ's
+scope or discussing an SEJ article by providing fresh insights.
+They are expected to be narrow and focused pieces and are
+usually commissioned by the journal.
+Editorial An article by the SEJ co-editors that express the views of the 40
+editors, often regarding the journal’s policies, scholarly
+research in entrepreneurship, or an article published in the
+same issue.
+4
+SEJ Author Guidelines
+Editorial process and policies
+SEJ does not pre-screen submissions. To evaluate your paper, it must be submitted online at
+https://wiley.atyponrex.com/journal/SEJ.
+Once a paper is submitted, the editorial process is generally as follows:
+• Each SEJ paper is assigned to a Co-editor. She/he does an initial review of the paper and decides
+whether to assign an Associate Editor.
+• The Co-editor or Associate Editor determines if the paper will go through the double-blind peer
+review process.
+• If the manuscript passes the initial review, the Associate Editor selects the reviewers based on the
+scholarly expertise and availability of potential reviewers.
+SEJ has a double-blind review process, which means the reviewers are not aware of the authors’ identities
+and vice versa. Only the assigned Co-editor, Associate Editor, authors, and the SEJ editorial office staff
+view the reviews.
+The SEJ Co-editors assign submitted manuscripts to Associate Editors based on the expertise of editors
+and the need to balance workload among the editors. In the cover letter accompanying a submission,
+authors may request specific Associate Editors or reviewers with whom the authors have no conflict
+of interest. The Co-editors will make a good faith effort to honor requests but cannot guarantee that
+requests can be met due to the need to balance editorial and reviewer workload, as well as editorial
+discretion regarding the appropriate match of editorial and reviewer expertise to the submission.
+Ethical policies
+The Strategic Entrepreneurship Journal holds to the Strategic Management Society’s Code of Conduct,
+which is located here: https://www.strategicmanagement.net/home/governance/code-of-conduct.
+See in particular, Point 11, “EDITORIAL AND REVIEW PROCESS.”
+By submitting to, reviewing for, and/or serving as an editor of Strategic Entrepreneurship Journal, you
+are acknowledging your responsibility to adhere to these values in your interactions with authors, editors,
+and employees of the Strategic Management Society and our publisher, Wiley.
+Plagiarism
+For every submission, SEJ uses CrossCheck’s iThenticate, a plagiarism detection software, to detect and
+quantify any duplicated text and possible plagiarism. To find out more about CrossCheck, please visit
+http://www.crossref.org/crosscheck.html.
+Open Access
+Open Access is available to authors of primary research articles who wish to make their article available
+to non-subscribers on publication or whose funding agency requires grantees to archive the final version
+of their article. With Open Access, the author, the author’s funding agency, or the author’s institution
+pays a fee to ensure that the article is made available to non-subscribers upon publication via Wiley
+Online Library, as well as deposited in the funding agency’s preferred archive.
+5
+SEJ Author Guidelines
+Prior to acceptance, there is no requirement to inform the editorial office that you intend to publish your
+paper Open Access if you do not wish to. All Open Access articles are treated in the same way as any
+other article. They go through the journal’s standard peer review process and will be accepted or rejected
+based on their own merit.
+Further information can be found at Wiley’s website at: https://authorservices.wiley.com/author-
+resources/Journal-Authors/licensing/open-access-agreements.html
+Note: Wiley has numerous transformation agreements that mean your work could be published
+Open Access at no charge to you. To take advantage, be sure that you choose your Corresponding
+Author wisely. If your Corresponding Author is affiliated with a university/country with which Wiley has
+an agreement, your paper is eligible for this benefit. Review this document for more details on whether
+your paper may qualify.
+Early View
+SEJ is covered by Wiley’s Early View publishing service. Early View articles are complete full-text
+articles published online in advance of their publication in a printed issue. Articles are therefore available
+as soon as they are ready, rather than having to wait for the next scheduled print issue. Early View articles
+are complete and final. They have been fully reviewed, revised and edited for publication, and the
+authors’ final corrections have been incorporated. Because they are in final form, no changes can be made
+after online publication. The nature of Early View articles means that they do not yet have volume, issue
+or page numbers, so Early View articles cannot be cited in the traditional way. They are therefore given a
+Digital Object Identifier (DOI), which allows the article to be cited and tracked before it is allocated to an
+issue. After print publication, the DOI remains valid and can continue to be used to cite and access the
+article.
+Costs to authors
+There is no fee for submitting manuscripts to SEJ. The only fee(s) associated with publishing an accepted
+article are optional.
+6
+SEJ Author Guidelines
+SEJ style guidelines
+Organization and basic manuscript formatting
+Element Description
+Font 12-point readable font (preferably Times New Roman)
+Line spacing Double-spaced body text, single-spaced references
+Margins One inch (2.5 cm)
+Page size Letter (8 ½ x 11) inches
+Page numbers Yes
+Required layout
+Abstract, body text, references, appendices, tables and figures
+(main document)
+Journal style APA
+We strongly suggest that you limit the paper size to 40 pages, which includes figures and tables.
+References should be single spaced to conserve manuscript space. The language of the journal is
+American English. Please be sure that your paper is double spaced and uses a 12-point readable font and
+one-inch margins on all sides. Your text must be left justified.
+Title page
+This should be a separate file from the main document. Please list the title of the documents and the full
+names, titles, email addresses, and affiliations (with complete addresses) of all authors on the title page. A
+running head (a short title of up to 60 characters) of your choice should appear on the title page as well.
+The names of any sponsors of your research, including grant numbers and/or people you would like to
+thank, may be included in an acknowledgements section. When submitting a paper, acknowledgements
+should be included ONLY on the title page and not in the text of the paper. If your paper is accepted, the
+acknowledgements will move to the main paper, at the end of the text and right before the references.
+Abstract
+SEJ requires two abstracts: one academic and another managerial. First, supply a one-paragraph research
+summary of up to 125 words. This is a precise summary of your entire paper, not just your conclusions,
+and it must be able to stand alone, separate from the rest of the paper. Second, supply a one-paragraph
+managerial summary of up to 125 words. This has the same requirements as the research summary, but it
+should be written in plain, non-academic language that is geared toward business practitioners. Please do
+not include citations to other works in the abstracts.
+For indexing purposes, please include five (5) keywords that describe your paper.
+Main document
+Please double-space the body text (font size 12) and use one-inch margins. Do not include any author
+names, author affiliations, or acknowledgements in the main document. Please ensure that there are no
+edits (such as Track Changes and comment bubbles) showing in the text.
+7
+SEJ Author Guidelines
+Organize the paper into sections and use three levels of headings. Headings are not numbered. The first
+level should be capitalized, bold, and center aligned (e.g., RESULTS). The second level should have the
+main words starting with a capital letter (e.g., Descriptive Statistics and Correlation Matrix) and left
+aligned. The third level should be in lower case and italicized (e.g., Independent variable).
+Figures and tables
+Please do not incorporate your figures and/or tables into the text of your article. Please include an
+instruction such as “INSERT TABLE 1 HERE” where appropriate. Figures and tables should appear at
+the end of the manuscript, after the references section, in the order in which they are mentioned in the
+paper. Here are some additional guidelines regarding figures and tables:
+• It is best if your tables are editable (not images).
+• All tables and figures should be numbered and include legends.
+• Please use consistent lettering and sizing in original artwork.
+• Each table and figure must have placement instructions within the body text to indicate where
+these items should go (e.g., “Insert Table 1 Here”).
+• Figure files:
+o Should be in high resolution (at least 300dpi for printing purposes), and the following
+formats are preferred: .tiff and .png.
+o Will appear in color online (if submitted in color) but will appear in black and white in
+print.
+File formats
+At the submission stage, SEJ can accept files in Word and PDF.
+• Before you submit your materials, you will be given the chance to review your manuscript as a
+PDF. Please review the PDF before submitting. If any part of the paper does not convert properly,
+please work on the formatting before submitting.
+• If the paper is not readable after the system converts it to PDF, we will send it back to you for
+formatting revisions.
+Once your paper is accepted, we will request that files be provided in Word (.doc, .docx, .rtf).
+• Tables must be included in an editable format, not as pictures.
+• We can also accept LaTex files at this point. If you choose to upload LaTex files, please ensure
+there is also a PDF that shows us the placement of the various pieces.
+• If you have an appendix intended to be online-only, it may be submitted in any format. Online
+appendix material will not be copy edited or revised, so please ensure it appears exactly as you
+would like.
+Citations and references
+SEJ uses APA style. Use the author-date method of in-text citation. The author’s last name and the year of
+publication for the source should appear in the text; for example (Jones, 1998). If a direct quote is
+included, the page number should appear as well; for example (Jones, 1998, p. 182).
+8
+SEJ Author Guidelines
+When a cited work has six or more authors, the form (main author et al., year) is to be used. If there are
+five or fewer authors, all names should be included at the first text citation and et al. used thereafter.
+When reference is made to more than one work by the same author(s) published in the same year, identify
+each citation in the text in the following manner: (Collins, 2005a, 2005b).
+If necessary, cite unpublished or personal work in the text, but please do not include it in the reference
+list. When your parenthetical citation includes two or more works, order them alphabetically, separated by
+a semi-colon (Smith, 2002; Thompson, 1983).
+All references must have a corresponding citation in the text and vice versa.
+Reference style
+A complete list of sources should appear in alphabetical order in the reference list at the end of the paper.
+Examples of correct referencing style:
+Article type Example
+Books Badaracco, J. L. (1991). The knowledge link: How firms compete through
+strategic alliances. Boston, MA: Harvard Business School Press.
+Bleeke, J., & Ernst, D. (Eds.). (1993). Collaborating to compete: Using
+strategic alliances and acquisitions in the global marketplace. New York, NY:
+John Wiley & Sons.
+Book Chapters Bowman, E. H., & Singh, H. (1990). Overview of corporate restructuring:
+Trends and consequences. In L. Rock, & R. H. Rock (Eds.), Corporate
+restructuring (pp. 1–16). New York, NY: McGraw-Hill.
+Collis, D. (1996). Organizational capability as a source of profit. In B.
+Moingeon & A. Edmondson (Eds.), Organizational learning and competitive
+advantage (pp. 139–163). London, U.K.: SAGE Publications.
+Computer Software Ludwig, T. (2002). PsychInquiry [computer software]. New York, NY: Worth.
+Datasets United States Department of Housing and Urban Development.
+(2008). Indiana income limits [data file]. Retrieved from
+https://www.huduser.org/Datasets/IL/IL08/in_fy2008.pdf
+Journal Articles Bagozzi, R., & Phillips, L. (1982). Representing and testing organizational
+theories: A holistic construal. Administrative Science Quarterly 27(3), 459–
+489.
+Durand, R., & Jacqueminet, A. (2015). Peer conformity, attention, and
+heterogeneous implementation of practices in MNEs. Journal of International
+Business Studies, 46(8), 917–937.
+Wooldridge, M.B., & Shapka, J. (2012). Playing with technology: Mother-
+toddler interaction scores lower during play with electronic toys. Journal of
+9
+SEJ Author Guidelines
+Applied Developmental Psychology, 33(5), 211-218.
+https://doi.org/10.1016/j.appdev.2012.05.005
+Online Sources Parker-Pope, T. (2008, May 6). Psychiatry handbook linked to drug
+industry. The New York Times. Retrieved from https://well.blogs.nytimes.com/
+Sick, L. (Ed.). (2009). Record structure for APA databases. Retrieved from
+http://www.apa.orgldatabasesltraininglrecord-structure.pdf
+Papers Presented at Misiolek, N. (2003). Knowledge management and the corporate university:
+Meetings Insights from the knowledge-based view of the firm. Paper presented at the
+annual meeting of the Academy of Management, Seattle, WA.
+Periodicals Henry, W. A., III. (1990, April 9). Making the grade in today's schools. Time,
+135, 28-31.
+Schultz, S. (2005, December 28). Calls made to strengthen state energy
+policies. The Country Today, pp. 1A, 2A.
+Working Papers Cohen, M. D., Nelson, R. R., & Walsh, J. P. (2000). Protecting their
+intellectual assets: Appropriability conditions and why U.S. manufacturing
+firms patent (or not). NBER working paper 7552, National Bureau of
+Economic Research, Cambridge, MA. Available at:
+http://www.nber.org/papers/w7552
+Child, J., & Yan, Y. (1999). Predicting the performance of international
+alliances: An investigation in China. Working paper, Chinese Management
+Centre, University of Hong Kong, Hong Kong, China.
+Appendices and supplementary material
+Appendices are placed after the references. If there is only one Appendix, no number is needed after it
+(i.e., Appendix 1). If you have an appendix that should be published online only, please call it the “online
+appendix” throughout the article. It should be a file separate from the main article. Use letters instead of
+numbers for labelling tables and figures in the appendix.
+10
+SEJ Author Guidelines
+General APA guidelines
+SEJ generally follows APA style. Here is a brief summary of common style issues:
+Element Description
+• Spell out all abbreviations at first use in the body of the article, and use
+abbreviated forms thereafter; for example, return on investment (ROI). If an
+Abbreviations abbreviated form is used only once, it should be spelled out. This is for the
+benefit of readers, including students, some of whom may not be familiar
+with the meanings of all abbreviations.
+• Place table name above the table using this format:
+Figures & TABLE 1 Name of table
+Tables • Place figure name below the figure using this format:
+FIGURE 1 Name of figure
+• Footnotes, rather than endnotes, are used. They are incorporated into the text
+Footnotes
+(shown at bottom of the page).
+• Please number sections.
+• Heading style varies, depending on the level.
+o Heading 1: ALL CAPS, bold
+Headings o Heading 2: Sentence case, bold
+o Heading 3: Sentence case, bold
+o Heading 4: Sentence case, bold
+o Heading 5: Sentence case, bold, with full-stop, run-on with text
+• Identify each hypothesis by number. If you want to abbreviate the hypothesis
+number in the text, please be sure to note that when first presenting the
+Hypotheses hypothesis. Here is an example of SEJ style:
+Hypothesis (H1). Here is the text for Hypothesis 1.
+• Numbers one to nine are spelled out, and numbers 10 and above appear as
+numerals. The main exceptions are when numbers refer to ratings, code
+numbers, or precise measurement (i.e., used with units) (Ex: numerals for
+number of participants; 7-point scale, but three items, factor 5, score 4).
+• If a sentence begins with a number, the number must be spelled out. It is
+Numbers usually easier to rephrase the sentence.
+• Commas are used in numbers 1,000 or higher. SEJ uses American style, so
+decimal points (not decimal commas) are used. For instance, two-hundred-
+thousand is 200,000 (not 200.000 or 200 000) and five thousand dollars and
+50 cents is $5,000.50 (not 5.000,50 or 5 000,50). Please be sure to use
+American style in the text, tables and figures.
+11
+SEJ Author Guidelines
+• A zero (0) should be used before the decimal point with numbers that are less
+than 1 when the statistic can exceed 1 (Ex: 0.23 cm; Cohen’s d – 0.70). Do
+not use a zero before a decimal fraction when the statistic cannot be greater
+than 1 (Ex: correlations, proportions, and levels of significance, such as p =
+.028).
+• Commas appear before the final “and” (also “or”) in a series.
+• Double, rather than single, quotation marks are used.
+• En dashes (–) rather than hyphens (-) are used to denote ranges, for example,
+1996–2000; pages 124–155.
+• Em dashes (—) rather than hyphens (--) are used to separate a thought or
+Punctuation phrase from the surrounding sentence.
+• The journal uses italicized rather than underlined text
+• Commas and periods always appear inside quotation marks, even if those
+quotation marks are used to signify the special definition of a word or phrase.
+• Multiple citations are handled as followed: (Smith, 1980; Kennedy & Jones,
+1999)
+• Leave one space between sentences, after punctuation, etc.
+• Leave one space in mathematical equations or results (Ex: p ≥ .70)).
+Spacing
+• Blocks of long quotations are indented and single spaced. They do not need
+quotation marks.
+• Ampersands (&) should not be used in the text unless it is a commonly used
+expression (e.g., R&D), part of a universally known product (e.g., M&Ms), or
+included in a company name (e.g., Standard & Poor’s). Ampersands may also
+Symbols be used with author names in citations, but only in parentheses, and
+references.
+• Percent is spelled out in regular text, but a % sign is used in parenthesized
+text and figures.
+Copy Editing
+Every accepted SEJ article goes through copy editing, but this level of copy editing is very light.
+SEJ strongly recommends that you enlist the services of a professional copy editor to improve the writing,
+grammar, punctuation, and formatting of your accepted paper.
+12

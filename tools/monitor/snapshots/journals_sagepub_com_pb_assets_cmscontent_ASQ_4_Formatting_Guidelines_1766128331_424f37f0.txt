@@ -1,0 +1,72 @@
+ASQ Formatting Guidelines
+File Types
+ScholarOne accepts submissions in Word or pdf format. ASQ requires Word for accepted
+manuscripts, as we provide in-house editing prior to submitting articles to the publisher for
+layout and production. If you submit a pdf initially, please be prepared to convert your
+manuscript to Word if it is accepted.
+Text, Notes, and Headings
+Submit text that is double spaced in 12-point Times New Roman. Do not try to reduce your page
+count by adjusting the line spacing, such as by setting it to exactly 24 points. Paragraphs should
+be left-aligned.
+Offset quotes (those at least three lines long) and reference lists may be singled spaced.
+ASQ does not print epigraphs: offset quotes that start the body of a paper.
+Use footnotes sparingly. Essential material should be incorporated in the text; material with weak
+relevance should be deleted. Whenever possible, place footnotes at the end of sentences, not in
+the middle.
+Organize the manuscript by using primary, secondary, and tertiary headings, rather than
+numbered headings. Indicate the heading level as follows:
+LEVEL-ONE HEADING
+Paragraph text . . .
+Level Two Heading
+Paragraph text . . .
+Level-three heading. Paragraph text . . .
+Figures and Tables
+In text, provide at least one direct reference to each figure and table, as well as a note that
+indicates where that element should appear in the article. Title each figure and table, and for
+graphs, label all axes. Figures and tables can appear at the end of your submission file, or (for a
+first-round submission) you can embed them in the text if you prefer.
+For accepted submissions, all tables and figures must be grouped together and placed after your
+text and reference list. At that stage, tables must be provided in an editable format, and if figures
+can be shared in an editable format, we will ask that you do so. (Figures created in Stata can be
+sent to ASQ in a pdf or other format to be shared with the typesetter.)
+For significance levels in tables, ASQ uses the following presentation:
+• p < .05; •• p < .01; ••• p < .001.
+1
+We advocate against showing a significance level of p < .10. If you do include that level, indicate
+it with a plus sign (+).
+For notes in tables, we use the following symbols:
+* First note in the table (such as one that applies to the entire table).
+† Second note.
+‡ Third note.
+§ Fourth note.
+For figures, keep the following in mind:
+• ASQ still prints hard copies of issues, and the legibility of figures on the printed page is a
+key consideration for figures’ layout.
+• Text-heavy figures can be a challenge for legibility; try to minimize the text in any figure.
+• Font sizes should be consistent within a figure. If a figure features heading text that is
+much larger than other text, the smaller text may become illegible when the figure is
+sized to fit on the printed page.
+• Figures will appear in grayscale in the printed ASQ issue. Online versions of ASQ articles
+can feature color images, but each figure also needs to make sense when it’s printed in
+grayscale. Avoid text references to a specific color in the figure, as not all readers will see
+that color. Use graphic patterns in addition to (or in lieu of) colors to distinguish between
+elements in a figure.
+Citations
+Cite sources by noting in parentheses the last name of the author, the year of publication, and
+page numbers for direct quotations or to refer to a point in a book. Use APA style. Details on
+APA style for in-text citations can be found here.
+Reference List
+At the end of the manuscript text, list every reference cited in the manuscript; do not include any
+references that are not cited in the text. Alphabetize this list by the (first) author’s last name. If
+the list includes more than one source by a given (first) author, list that author’s references in
+chronological order. Do not number references or use “ibid.,” “op. cit.,” or “loc. cit.” Also,
+include URLs in reference list entries only when the URLs are needed for readers to locate the
+publication. For example, if a journal article lists volume and page numbers, no URL should be
+included.
+For first submissions and revisions (until provisional acceptance), you may use a reference
+format of your choice as long as you provide sufficient information for your readers to identify
+your sources. Formatting your reference list following ASQ’s specific style guidelines is
+2
+essential only after provisional acceptance, at which point we ask you to format references
+according to APA style. Details on APA style for references can be found here.
+3

@@ -1,0 +1,66 @@
+Journal of Accounting and Economics
+Guide for authors
+Submission checklist
+Before you beginSubmission FeeDeclaration of interestDeclaration of generative AI in scientific writingSubmission declaration and verificationUse of inclusive languageReporting sex- and gender-based analysesChanges to authorshipCopyrightRole of the funding sourceOpen accessSubmission
+Submission Fee
+Declaration of interest
+Declaration of generative AI in scientific writing
+Submission declaration and verification
+Use of inclusive language
+Reporting sex- and gender-based analyses
+Changes to authorship
+Role of the funding source
+Open access
+Submission
+Preparation
+Queries
+Peer review
+Double anonymized review
+Essential title page information
+Highlights
+Abstract
+Keywords
+Artwork
+Tables
+References
+Video
+Supplementary material
+Research data
+Research Elements
+After acceptance
+Online proof correction
+Offprints
+Author inquiries
+Ensure that the following items are present:
+One author has been designated as the corresponding author with contact details:• E-mail address• Full postal address
+All necessary files have been uploaded:Manuscript:• Include keywords• All figures (include relevant captions)• All tables (including titles, description, footnotes)• Ensure all figure and table citations in the text match the files provided• Indicate clearly if color should be used for any figures in printGraphical Abstracts / Highlights files (where applicable)Supplemental files (where applicable)
+Further considerations• Manuscript has been 'spell checked' and 'grammar checked'• All references mentioned in the Reference List are cited in the text, and vice versa• Permission has been obtained for use of copyrighted material from other sources (including the Internet)• A competing interests statement is provided, even if the authors have no competing interests to declare• Journal policies detailed in this guide have been reviewed• Referee suggestions and contact details provided, based on journal requirements
+For further information, visit our Support Center.
+Before you begin
+In order to redeem the discount, we ask eligible authors to fill out this Support Center contact form to obtain a discount code which can be used during the submission process in Editorial Manager (EM). For more information about submission fees, please visit 'How do I pay for my Submission Fee charge?'
+Please be careful to avoid fraudulent acceptance letters. Please see this link for more information on how to identify fake acceptance letters and publishing charge scams. If you need help verifying the legitimacy of an acceptance letter, please contact [email protected].
+Where authors use generative artificial intelligence (AI) and AI-assisted technologies in the writing process, authors should only use these technologies to improve readability and language. Applying the technology should be done with human oversight and control, and authors should carefully review and edit the result, as AI can generate authoritative-sounding output that can be incorrect, incomplete or biased. AI and AI-assisted technologies should not be listed as an author or co-author, or be cited as an author. Authorship implies responsibilities and tasks that can only be attributed to and performed by humans, as outlined in Elsevier’s AI policy for authors.
+Authors should disclose in their manuscript the use of AI and AI-assisted technologies in the writing process by following the instructions below. A statement will appear in the published work. Please note that authors are ultimately responsible and accountable for the contents of the work.
+Disclosure instructionsAuthors must disclose the use of generative AI and AI-assisted technologies in the writing process by adding a statement at the end of their manuscript in the core manuscript file, before the References list. The statement should be placed in a new section entitled ‘Declaration of Generative AI and AI-assisted technologies in the writing process’.
+Statement: During the preparation of this work the author(s) used [NAME TOOL / SERVICE] in order to [REASON]. After using this tool/service, the author(s) reviewed and edited the content as needed and take(s) full responsibility for the content of the publication.
+This declaration does not apply to the use of basic tools for checking grammar, spelling, references etc. If there is nothing to disclose, there is no need to add a statement.
+DefinitionsSex generally refers to a set of biological attributes that are associated with physical and physiological features (e.g., chromosomal genotype, hormonal levels, internal and external anatomy). A binary sex categorization (male/female) is usually designated at birth (""sex assigned at birth""), most often based solely on the visible external anatomy of a newborn. Gender generally refers to socially constructed roles, behaviors, and identities of women, men and gender-diverse people that occur in a historical and cultural context and may vary across societies and over time. Gender influences how people view themselves and each other, how they behave and interact and how power is distributed in society. Sex and gender are often incorrectly portrayed as binary (female/male or woman/man) and unchanging whereas these constructs actually exist along a spectrum and include additional sex categorizations and gender identities such as people who are intersex/have differences of sex development (DSD) or identify as non-binary. Moreover, the terms ""sex"" and ""gender"" can be ambiguous—thus it is important for authors to define the manner in which they are used. In addition to this definition guidance and the SAGER guidelines, the resources on this page offer further insight around sex and gender in research studies.
+Subscribers may reproduce tables of contents or prepare lists of articles including abstracts for internal circulation within their institutions. Permission of the Publisher is required for resale or distribution outside the institution and for all other derivative works, including compilations and translations. If excerpts from other copyrighted works are included, the author(s) must obtain written permission from the copyright owners and credit the source(s) in the article. Elsevier has preprinted forms for use by authors in these cases.
+For gold open access articles: Upon acceptance of an article, authors will be asked to complete a 'License Agreement' (more information). Permitted third party reuse of gold open access articles is determined by the author's choice of user license.
+Author rightsAs an author you (or your employer or institution) have certain rights to reuse your work. More information.
+Preparation
+Highlights should be submitted in a separate editable file in the online submission system. Please use 'Highlights' in the file name and include 3 to 5 bullet points (maximum 85 characters, including spaces, per bullet point).
+Funding: This work was supported by the National Institutes of Health [grant numbers xxxx, yyyy]; the Bill & Melinda Gates Foundation, Seattle, WA [grant number zzzz]; and the United States Institutes of Peace [grant number aaaa].
+It is not necessary to include detailed descriptions on the program or type of grants and awards. When funding is from a block grant or other resources available to a university, college, or other research institution, submit the name of the institute or organization that provided the funding.
+If no funding has been provided for the research, it is recommended to include the following sentence:
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+A detailed guide on electronic artwork is available.You are urged to visit this site; some excerpts from the detailed information are given here.FormatsIf your electronic artwork is created in a Microsoft Office application (Word, PowerPoint, Excel) then please supply 'as is' in the native document format. Regardless of the application used other than Microsoft Office, when your electronic artwork is finalized, please 'Save as' or convert the images to one of the following formats (note the resolution requirements for line drawings, halftones, and line/halftone combinations given below): EPS (or PDF): Vector drawings, embed all used fonts. TIFF (or JPEG): Color or grayscale photographs (halftones), keep to a minimum of 300 dpi. TIFF (or JPEG): Bitmapped (pure black & white pixels) line drawings, keep to a minimum of 1000 dpi. TIFF (or JPEG): Combinations bitmapped line/half-tone (color or grayscale), keep to a minimum of 500 dpi.Please do not: • Supply files that are optimized for screen use (e.g., GIF, BMP, PICT, WPG); these typically have a low number of pixels and limited set of colors; • Supply files that are too low in resolution; • Submit graphics that are disproportionately large for the content.
+Below are a number of ways in which you can associate data with your article or make a statement about the availability of your data when submitting your manuscript. If you are sharing data in one of these ways, you are encouraged to cite the data in your manuscript and reference list. Please refer to the "References" section for more information about data citation. For more information on depositing, sharing and using research data and other relevant research materials, visit the research data page.
+There are different ways to link your datasets to your article. When available, you can directly link your dataset to your article by providing the relevant information in the submission system. For more information, visit the database linking page.
+For supported data repositories a repository banner will automatically appear next to your published article on ScienceDirect.
+In addition, you can link to relevant data or entities through identifiers within the text of your manuscript, using the following format: Database: xxxx (e.g., TAIR: AT1G01020; CCDC: 734053; PDB: 1XFN).
+Research Elements is a suite of peer-reviewed, open access journals which make your research objects findable, accessible and reusable. Articles place research objects into context by providing detailed descriptions of objects and their application, and linking to the associated original research articles. Research Elements articles can be prepared by you, or by one of your collaborators.
+During submission, you will be alerted to the opportunity to prepare and submit a manuscript to one of the Research Elements journals.
+More information can be found on the Research Elements page.
+After acceptance
+Author inquiries

@@ -1,0 +1,173 @@
+Citation search
+Submission information
+Instructions for authors
+Editorial policies
+Editing services
+Editing services site
+About this journal
+Journal metrics
+Aims & scope
+Journal information
+Editorial board
+News & call for papers
+Advertising information
+Browse all articles & issues
+Current issue
+All volumes & issues
+Special issues
+Open access articles
+Most read articles
+Most cited articles
+Keep up to date
+New content alerts
+RSS
+Subscribe to this journal
+Subscription options & pricing
+Your download is now in progress and you may close this window
+Choose new content alerts to be informed about new research of interest to you
+Easy remote access to your institution's subscriptions on any device, from any location
+Save your searches and schedule alerts to send you new results
+Export your search results into a .csv file to support your research
+Login or register to access this feature
+Choose new content alerts to be informed about new research of interest to you
+Easy remote access to your institution's subscriptions on any device, from any location
+Save your searches and schedule alerts to send you new results
+Export your search results into a .csv file to support your research
+Register now or learn more
+Instructions for authors
+Editorial policies
+Editing services site
+Journal metrics
+Aims & scope
+Journal information
+Editorial board
+News & call for papers
+Advertising information
+Instructions for authors
+Contents
+About the Journal
+Open Access
+Peer Review and Ethics
+Preparing Your Paper Structure Word Limits Style Guidelines Formatting and Templates References Taylor & Francis Editing Services Checklist: What to Include
+Structure
+Word Limits
+Style Guidelines
+Formatting and Templates
+References
+Taylor & Francis Editing Services
+Checklist: What to Include
+Using Third-Party Material
+Submitting Your Paper
+Data Sharing Policy
+Publication Charges
+Complying with Funding Agencies
+My Authored Works
+About the Journal
+Journal of Management Information Systems is an international, peer-reviewed journal publishing high-quality, original research. Please see the journal's Aims & Scope for information about its focus and peer-review policy.
+Please note that this journal only publishes manuscripts in English.
+Journal of Management Information Systems accepts the following types of article: original articles.
+Open Access
+You have the option to publish open access in this journal via our Open Select publishing program. Publishing open access means that your article will be free to access online immediately on publication, increasing the visibility, readership and impact of your research. Articles published Open Select with Taylor & Francis typically receive 95% more citations* and over 7 times as many downloads** compared to those that are not published Open Select.
+Your research funder or your institution may require you to publish your article open access. Visit our Author Services website to find out more about open access policies and how you can comply with these.
+You will be asked to pay an article publishing charge (APC) to make your article open access and this cost can often be covered by your institution or funder. Use our APC finder to view the APC for this journal.
+Please visit our Author Services website if you would like more information about our Open Select Program.
+*Citations received up to 9th June 2021 for articles published in 2016-2020 in journals listed in Web of Science®. Data obtained on 9th June 2021, from Digital Science's Dimensions platform, available at https://app.dimensions.ai **Usage in 2018-2020 for articles published in 2016-2020.
+Peer Review and Ethics
+Taylor & Francis is committed to peer-review integrity and upholding the highest standards of review. Once your paper has been assessed for suitability by the editor, it will then be single anonymous peer reviewed by two independent, anonymous expert referees, each delivering at least one report. If you have shared an earlier version of your Author’s Original Manuscript on a preprint server, please be aware that anonymity cannot be guaranteed. Further information on our preprints policy and citation requirements can be found on our Preprints Author Services page. Find out more about what to expect during peer review and read our guidance on publishing ethics.
+Preparing Your Paper
+Structure
+Your paper should be compiled in the following order: title page; abstract; keywords; main text introduction, materials and methods, results, discussion; acknowledgments; declaration of interest statement; references; appendices (as appropriate); table(s) with caption(s) (on individual pages); figures; figure captions (as a list).
+Word Limits
+Please include a word count for your paper.
+A typical paper for this journal should be no more than 40 pages, inclusive of:
+Abstract
+Tables
+References
+Figure or table captions
+Endnotes
+Style Guidelines
+Please refer to these quick style guidelines when preparing your paper, rather than any published articles or a sample copy.
+Please use American spelling style consistently throughout your manuscript.
+Please use double quotation marks, except where “a quotation is ‘within’ a quotation”.
+Please note that long quotations should be indented without quotation marks.
+Formatting and Templates
+Papers may be submitted in Word format. Please do not submit your paper as a PDF. Figures should be saved separately from the text. To assist you in preparing your paper, we provide formatting template(s).
+Word templates are available for this journal. Please save the template to your hard drive, ready for use.
+If you are not able to use the template via the links (or if you have any other template queries) please contact us here.
+Taylor & Francis Editing Services
+To help you improve your manuscript and prepare it for submission, Taylor & Francis provides a range of editing services. Choose from options such as English Language Editing, which will ensure that your article is free of spelling and grammar errors, Translation, and Artwork Preparation. For more information, including pricing, visit this website .
+Submission Guidelines
+Original submission
+The paper to be sent for a double-blind review should be provided in the MS Word or PDF format. The paper and the file should be fully anonymized so that the authors are not identified anywhere in the work. Self-references may be, however, left in the reference list. All figures, tables, etc., should be included at the end of the paper, in the same file. Their placement should be indicated in the text. When a survey instrument is used, but not included in the paper, it should be provided for the benefit of the referees as a separate anonymized attachment.
+The cover letter should provide full affiliation, the postal and e-mail addresses, and telephone number(s) of the authors, with the corresponding author indicated. Brief biographical statements of all authors should be included. The cover letter should include the title page of the paper, with the names and affiliations of all the authors. The title page should acknowledge any funding sources.
+Every manuscript should contain an abstract (up to 150 words), and a set of key words and phrases to serve as indicators of the paper’s content. No citations should be included in the abstract.
+The text should be in 12-point typeface, double-spaced, and left-justified. The pages should be numbered.
+The length of the complete MS should generally not surpass 40 pages, unless there is a persuasive justification provided in the cover letter. The intention to shorten the paper at later time is not a persuasive justification. An online appendix may be supplied in a separate file.
+Optionally, non-conflicting reviewer nominations can be made. These may be taken into account when the reviewer panel is appointed. Submission of a paper to JMIS is a certification by the authors that the manuscript is not copyrighted, and is not and will not be under a simultaneous review by any other journal or proceedings.
+Revisions
+Revised papers should follow the above guidelines. In addition, they should contain the responses to the reviewers in a single file. All the files should be anonymous.
+Accepted papers
+The final submissions should be made in an editable format, preferably MS Word. The cover page should contain the full postal and e-addresses of all the authors, and should be followed by the page with the authors’ bio sketches.
+The online appendixes should be submitted in a separate file.
+References
+The reference list should be provided at the end of the paper. The references should be arranged alphabetically according to the name of the first author or editor, and numbered. Citations in the text, referring to this list, should be made as numbers in square brackets, e.g., [9].
+References should be provided as follows:
+References to items in periodicals
+These should take the form: author(s), title, journal (italicized or underlined), volume and issue numbers, date, inclusive pages. For all authors, last names are given first; likewise for editors, with the names followed by “(ed.)”. The name of the last author ends with a period. More than two authors (but not editors) are separated by semicolons. The title has only the first word and proper names (or their derivatives) starting with capital letters, and it ends with the period. The date is given in parentheses.
+Example:
+Hinz, O.; Otter, T.; and Skiera, B. Estimating Network Effects in Two-Sided Markets. Journal of Management Information Systems, 37, 1 (2020), 12-38.
+References to Books, Chapters, and Conference Proceedings
+Author(s) are specified in the same style as for periodicals. In the title, all principal words are capitalized and the title is italicized or underlined. The title ends with a period and is followed by city, “:”, publisher, year.
+Example:
+Haskel, J. and Westlake, S. Capitalism without Capital: The Rise of the Intangible Economy. Princeton: Princeton University Press, 2018.
+References to book chapters take this form: authors, title, “In,” names of the editors, “(ed./eds.)”, title of the book (all principal words capitalized and the entire title italicized or underlined), city, “:”, publisher, year, “pp.” inclusive pages. Note the need to include page numbers.
+Reference to publications in conference proceedings should be made in a similar fashion as to the book chapters, with the full name of the conference italicized. Page numbers are necessary.
+Figures and Tables
+In preparing an accepted manuscript for publication, figures should be submitted as original drawings, complete, and ready for photo-reproduction. Tables submitted as cleanly printed copy may also be reproduced photographically. All lettering and figure elements should be large enough to be readable when the figure has been reduced to fit the journal page. All figures and tables must be specifically referred to in the text. All figures and tables should have brief, descriptive captions. Capitalization should be consistent.
+Proofs
+Authors will receive page proofs of their papers, which should be returned to the publisher within three working days.
+References
+Please use this reference guide when preparing your paper.
+Taylor & Francis Editing Services
+To help you improve your manuscript and prepare it for submission, Taylor & Francis provides a range of editing services. Choose from options such as English Language Editing, which will ensure that your article is free of spelling and grammar errors, Translation, and Artwork Preparation. For more information, including pricing, visit this website.
+Checklist: What to Include
+Author details. Please ensure all listed authors meet the Taylor & Francis authorship criteria. All authors of a manuscript should include their full name and affiliation on the cover page of the manuscript. Where available, please also include ORCiDs and social media handles (Facebook, Twitter or LinkedIn). One author will need to be identified as the corresponding author, with their email address normally displayed in the article PDF (depending on the journal) and the online article. Authors’ affiliations are the affiliations where the research was conducted. If any of the named co-authors moves affiliation during the peer-review process, the new affiliation can be given as a footnote. Please note that no changes to affiliation can be made after your paper is accepted. Read more on authorship.
+Should contain an unstructured abstract of 150 words. Read tips on writing your abstract.
+You can opt to include a video abstract with your article. Find out how these can help your work reach a wider audience, and what to think about when filming.
+Between 3 and 6 keywords. Read making your article more discoverable, including information on choosing a title and search engine optimization.
+Funding details. Please supply all details required by your funding and grant-awarding bodies as follows: For single agency grants This work was supported by the [Funding Agency] under Grant [number xxxx]. For multiple agency grants This work was supported by the [Funding Agency #1] under Grant [number xxxx]; [Funding Agency #2] under Grant [number xxxx]; and [Funding Agency #3] under Grant [number xxxx].
+Disclosure statement. This is to acknowledge any financial or non-financial interest that has arisen from the direct applications of your research. If there are no relevant competing interests to declare please state this within the article, for example: The authors report there are no competing interests to declare. Further guidance on what is a conflict of interest and how to disclose it.
+Biographical note. Please supply a short biographical note for each author. This could be adapted from your departmental website or academic networking profile and should be relatively brief (e.g. no more than 200 words).
+Data availability statement. If there is a data set associated with the paper, please provide information about where the data supporting the results or analyses presented in the paper can be found. Where applicable, this should include the hyperlink, DOI or other persistent identifier associated with the data set(s). Templates are also available to support authors.
+Data deposition. If you choose to share or make the data underlying the study open, please deposit your data in a recognized data repository prior to or at the time of submission. You will be asked to provide the DOI, pre-reserved DOI, or other persistent identifier for the data set.
+Supplemental online material. Supplemental material can be a video, dataset, fileset, sound file or anything which supports (and is pertinent to) your paper. We publish supplemental material online via Figshare. Find out more about supplemental material and how to submit it with your article.
+Figures. Figures should be high quality (1200 dpi for line art, 600 dpi for grayscale and 300 dpi for color, at the correct size). Figures should be supplied in one of our preferred file formats: EPS, PS, JPEG, TIFF, or Microsoft Word (DOC or DOCX) files are acceptable for figures that have been drawn in Word. For information relating to other file types, please consult our Submission of electronic artwork document.
+Tables. Tables should present new information rather than duplicating what is in the text. Readers should be able to interpret the table without reference to the text. Please supply editable files.
+Equations. If you are submitting your manuscript as a Word document, please ensure that equations are editable. More information about mathematical symbols and equations.
+Units. Please use SI units (non-italicized).
+Using Third-Party Material
+You must obtain the necessary permission to reuse third-party material in your article. The use of short extracts of text and some other types of material is usually permitted, on a limited basis, for the purposes of criticism and review without securing formal permission. If you wish to include any material in your paper for which you do not hold copyright, and which is not covered by this informal agreement, you will need to obtain written permission from the copyright owner prior to submission. More information on requesting permission to reproduce work(s) under copyright.
+Submitting Your Paper
+This journal uses Editorial Manager to manage the peer-review process. If you haven't submitted a paper to this journal before, you will need to create an account in Editorial Manager. Please read the guidelines above and then submit your paper in the relevant Author Centre, where you will find user guides and a helpdesk.
+This journal accepts articles by direct email. Please send your submission to:
+Dr. Vladimir Zwass
+Please note that Journal of Management Information Systems uses Crossref™ to screen papers for unoriginal material. By submitting your paper to Journal of Management Information Systems you are agreeing to originality checks during the peer-review and production processes.
+On acceptance, we recommend that you keep a copy of your Accepted Manuscript. Find out more about sharing your work.
+Data Sharing Policy
+This journal applies the Taylor & Francis Basic Data Sharing Policy. Authors are encouraged to share or make open the data supporting the results or analyses presented in their paper where this does not violate the protection of human subjects or other valid privacy or security concerns.
+Authors are encouraged to deposit the dataset(s) in a recognized data repository that can mint a persistent digital identifier, preferably a digital object identifier (DOI) and recognizes a long-term preservation plan. If you are uncertain about where to deposit your data, please see this information regarding repositories.
+Authors are further encouraged to cite any data sets referenced in the article and provide a Data Availability Statement.
+At the point of submission, you will be asked if there is a data set associated with the paper. If you reply yes, you will be asked to provide the DOI, pre-registered DOI, hyperlink, or other persistent identifier associated with the data set(s). If you have selected to provide a pre-registered DOI, please be prepared to share the reviewer URL associated with your data deposit, upon request by reviewers.
+Where one or multiple data sets are associated with a manuscript, these are not formally peer-reviewed as a part of the journal submission process. It is the author’s responsibility to ensure the soundness of data. Any errors in the data rest solely with the producers of the data set(s).
+Publication Charges
+There are no submission fees, publication fees or page charges for this journal.
+Color figures will be reproduced in color in your online article free of charge. If it is necessary for the figures to be reproduced in color in the print version, a charge will apply.
+Charges for color figures in print are £300 per figure ($400 US Dollars; $500 Australian Dollars; €350). For more than 4 color figures, figures 5 and above will be charged at £50 per figure ($75 US Dollars; $100 Australian Dollars; €65). Depending on your location, these charges may be subject to local taxes.
+Complying with Funding Agencies
+We will deposit all National Institutes of Health or Wellcome Trust-funded papers into PubMedCentral on behalf of authors, meeting the requirements of their respective open access policies. If this applies to you, please tell our production team when you receive your article proofs, so we can do this for you. Check funders’ open access policy mandates here. Find out more about sharing your work.
+My Authored Works
+On publication, you will be able to view, download and check your article’s metrics (downloads, citations and Altmetric data) via My Authored Works on Taylor & Francis Online. This is where you can access every article you have published with us, as well as your free eprints link, so you can quickly and easily share your work with friends and colleagues.
+We are committed to promoting and increasing the visibility of your article. Here are some tips and ideas on how you can work with us to promote your research.
+Queries
+If you have any queries, please visit our Author Services website or contact us here.
+Updated 17th March 2023

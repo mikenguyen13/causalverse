@@ -1,0 +1,99 @@
+Author Submission Guidelines
+A comprehensive step-by-step guide to successful manuscript submission. Click each section below to expand and explore the complete submission journey.
+Must Follow MIS Quarterly Mission
+Papers submitted to MIS Quarterly should relate to the journal's mission of enhancement and communication of knowledge concerning:
+Development of IT-based services
+Management of IT resources
+Use, impact, and economics of IT with managerial, organizational, and societal implications
+Professional issues affecting the IS field as a whole
+Must Address Diverse Readership
+In order to cater to our wide-ranging readership, papers submitted should seek to address as broad of audience as possible:
+Specialized terms should be defined clearly and briefly
+Technical material should be included in appendices where possible
+Authors should frame technical material in a way that is easy to grasp
+No Formal Pre-submission Feedback
+MISQ does not offer formal pre-submission feedback. Authors may personally seek feedback from editorial board members, as they would informally approach any scholar. Board members reserve the right to decline, and such feedback would not be part of the formal review process. A board member who engages in informal feedback also reserves the right to recuse themselves from the formal review process. Papers have entered the formal review process once submitted to Manuscript Central.
+Must Understand & Meet Journal Standards
+Before submitting, authors should have a clear understanding of MISQ's expected quality standards and relevant submission categories. We highly recommend authors review previous journal issues to ensure clarity.
+Avoid Submitting Premature Papers
+Submitting underdeveloped papers can greatly increase the publishing time and risks outright rejection. It is essential authors read & follow MISQ's submission criteria provided on the website and seek out third-person input from experienced colleagues to ensure a seamless and efficient review process.
+1. Research Article 55 pages max
+Primary research category for original contributions. Must present new theories, test existing theories, or expand understanding of digital phenomena with substantial evidence.
+2. Research Note 30 pages max
+Concise research contributions, empirical insights, or methodological discussions. Half the length of research articles but still offering distinct contributions.
+3. Methods Article 55 pages max
+Address current methodological issues or propose innovative new research methods with potential impact beyond Information Systems.
+4. Research Commentary 30 pages max
+Platform for senior scholars invited by the EIC to discuss research streams and offer insights on field advancement.
+5. Theory and Review 55-65 pages max
+A space for conceptual articles that develop novel theories and generate theoretical insights designed to advance information systems design, development, management, use, and outcomes.
+Two Types:
+Theory-Generative Research Synthesis (65 pages): Comprehensive review and synthesis of previously published research used to generate insights and implications
+Theory Development (55 pages): Grounding in theory and/or practice used to develop a new IS theory through new constructs, unique theory elaboration, multiple theoretical perspectives integration, or challenging existing philosophical foundations
+6. Issues and Opinions 30 pages max
+A forum for fully developed and articulated position statements concerning emerging, paradoxical, or controversial research issues with rigorous arguments and scholarly evidence. Scientometric papers will be considered but must yield large theoretical contributions. Submissions should focus on a forward-looking perspective.
+Body Text
+Font: Times New Roman, 12pt
+Spacing: Double-spaced
+Alignment: Left-justified only
+Margins: 1-inch on all sides
+Paper Size: Standard letter (8.5" × 11")
+Tables & Figures
+Font: Can use font sizes smaller than 12-point Times New Roman (e.g., 10-point Arial or Calibri)
+Spacing: Text within figures, tables, and exhibits may be single spaced
+Alignment: Must be embedded in the body of the paper, following the first reference
+References: Do not include if not referenced in text
+References
+Font: Times New Roman, 12pt
+Spacing: Single-spaced with left hanging-indent
+Order: Alphabetical by author name
+Style: APA 7th edition
+In-text: (DeGross, 1977) or DeGross (1977)
+Document Structure
+Page 1:
+Paper title
+Abstract
+Keywords (5-10 specific terms)
+Page 2: Begin manuscript with proper heading hierarchy
+Citations and Footnotes
+In-text citations should follow APA 7th edition
+Start with information being cited, not author name
+Authors should limit the use of footnotes as they can be distracting
+Include all relevant references but remain discreet when self-citing
+Required Documents
+Transparency Commitment: Upload during Step 2 under Miscellaneous using provided template
+Anonymized Manuscript: Remove author names/affiliations from all munscript documents
+ScholarOne Submission
+All manuscripts must be submitted through MISQ's ScholarOne Manuscripts site. Registration is required separately for MISQ (different from other platforms like ICIS or Information Systems Research). Communications regarding your manuscript will take place through the ScholarOne portal.
+Review Process Overview
+Revision Response Guidelines
+Authors invited to submit a revision must address feedback from editors and reviewers following these guidelines:
+Summary of Changes: Start with succinct overview of major changes (max 2 pages)
+Point-by-Point Responses: Address each reviewer comment systematically. Write concisely and mention explicitly where changes were made rather than copying text segments
+Avoid Redundancy: Don't repeat responses if an issue was raised by multiple review team members
+Formatting Guidelines: Revisions must continue to adhere to manuscript guidelines, including maximum page limits.
+Uploading Files: Upload your revision response document (summary + point-by-point) in both Step 2 and Step 3 on ScholarOne. You will upload the same document to two locations. Please note that this document can not include the authors' names.
+Templates
+Download these essential templates to help with your manuscript preparation and submission:
+Online Resources
+Access these external resources to support your submission process:
+🎉 Complete Your MISQ Submission Journey!
+You now have all the information needed to successfully submit your manuscript to MIS Quarterly. Follow these steps carefully, and good luck with your submission!
+About MISQ
+Overview
+Editorial Board
+Contact Us
+Subscribe
+Social Links
+LinkedIn
+Facebook
+MISQ Insider
+AIS eLibrary
+Alerts
+Sign Up for Emails
+Policies
+Privacy Policy
+Publication Policies
+Sign In or Create an Account
+Sharing Unavailable
+Sharing content requires targeting cookies to be enabled. Please update your cookie preferences to use this feature.

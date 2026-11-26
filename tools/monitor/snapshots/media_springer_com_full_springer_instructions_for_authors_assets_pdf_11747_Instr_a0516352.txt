@@ -1,0 +1,250 @@
+Instructions for Authors
+Aims and Scopes
+The Journal of the Academy of Marketing Science (JAMS) is devoted to the study and
+improvement of marketing and serves as a vital link between scholarly research and practice by
+publishing research-based articles in the substantive domain of marketing.
+Manuscripts submitted for publication consideration in JAMS are judged on the basis of their
+potential contribution to the advancement of the science and/or practice of marketing. In order
+for a manuscript to be published in JAMS it must, at the minimum, meet the following criteria:
+● Focus on a substantive issue in the domain of marketing
+● Offer fundamentally new insights that advance the field
+● Be literature-based and scholarly
+● Demonstrate conceptual rigor
+● Provide evidence of methodological rigor, if an empirical piece
+● JAMS is committed to providing authors with:
+● Timely and constructive reviews
+● Specific and extensive directions (when necessary) for revising a manuscript
+● A decision to either accept or reject a manuscript as early as possible in the review
+process
+The JAMS Editorial Office makes a concerted effort to ensure manuscript turnaround in fewer
+than 40 days. However, because JAMS is committed to ensuring that reviews are fair, informed,
+objective, and constructive, there may be occasional instances in which the turnaround time is
+longer.
+Review Process
+JAMS is committed to providing authors with:
+● Timely and constructive reviews
+● Specific and extensive directions (when necessary) for revising a manuscript
+● A decision to either accept or reject a manuscript as early as possible in the review
+process
+The procedures guiding the selection of articles for publication in JAMS are similar to those in
+place at most other double-blind refereed journals. Manuscripts are accepted for publication
+only after they are evaluated by at least two reviewers who are either members of the editorial
+review board or ad hoc reviewers; the editor's decision on whether or not to accept a manuscript
+for publication is influenced considerably by the evaluations and recommendations of these
+qualified and knowledgeable reviewers.
+Manuscripts submitted for publication consideration in JAMS are judged on the basis of their
+potential contribution to the advancement of the science and/or practice of marketing. In order
+for a manuscript to be published in JAMS it must, at the minimum, meet the following criteria:
+● Focus on a substantive issue in the domain of marketing
+● Offer fundamentally new insights that advance the field
+● Be literature-based and scholarly
+● Demonstrate conceptual rigor
+● Provide evidence of methodological rigor, if an empirical piece
+TURNAROUND TIME
+The JAMS Editorial Office makes a concerted effort to ensure manuscript turnaround in less
+than 50 days. However, because JAMS is committed to ensuring that reviews are fair, informed,
+objective, and constructive, there may be occasional instances in which the turnaround time is
+longer.
+Manuscript Submission
+Submission of a manuscript implies: that the work described has not been published before; that
+it is not under consideration for publication anywhere else; that its publication has been
+approved by all co-authors, if any, as well as by the responsible authorities – tacitly or explicitly
+– at the institute where the work has been carried out. The publisher will not be held legally
+responsible should there be any claims for compensation.
+Manuscript length should be reasonable for the contribution offered. Maximum page length is 54,
+including title page, tables and figures, and references. Prior to submitting their works to JAMS
+for review, authors are strongly urged to solicit informal feedback on earlier drafts of their
+manuscript from colleagues at their own institution and/or at other institutions. Such actions can
+be conducive to lowering the likelihood of a manuscript being rejected, as well as the primary
+focus of the reviewers' comments being developmental in nature rather than on the manuscript's
+weaknesses that should be grounds for rejection. Manuscript with any author-identifying
+information removed from the body of the text, and formatted with 1" margins and double
+spaced.
+Permissions
+Authors wishing to include figures, tables, or text passages that have already been published
+elsewhere are required to obtain permission from the copyright owner(s) for both the print and
+online format and to include evidence that such permission has been granted when submitting
+their papers. Any material received without such evidence will be assumed to originate from the
+authors.
+Consistent with the AMS Code of Ethics referenced above, authors of empirical studies
+accepted for publication in JAMS are required to report methodology-related information (e.g.,
+sampling frame, sample size, and reliability of scales) and results (e.g. correlations among
+variables and size of effects in terms of beta coefficients, strength of association measures, or
+elasticities along with the standard error) in a manner that would enable future researchers to
+replicate the study or use the study in subsequent meta-analysis studies. Authors are expected
+to provide the data upon any reasonable request.
+Online Submission
+Please follow the hyperlink “Submit manuscript” on the right and upload all of your manuscript
+files following the instructions given on the screen. More information about JAMS is available at
+its AMS page: https://www.ams-web.org/jams including a link to the submission system. By
+submitting a paper for consideration in JAMS, the authors collevtively agree that they have
+acted consistently with the AMS Code of Publishing Ethics (see:
+https://www.ams-web.org/publishing-code-of-ethics). Manuscripts must be submitted
+electronically via our Editorial Manager system at: http://jams.edmgr.com.
+Please ensure you provide all relevant editable source files. Failing to submit these source files
+might cause unnecessary delays in the review and production process.
+Manuscript’s Previous History
+If your submission has been reviewed elsewhere before being sent to JAMS, please provide us
+a history of the paper. With this information we can contact the editor of the other journal(s) to
+ascertain the identity of the manuscript's previous reviewers. This assures a fair review process
+in that a fresh set of reviewers is assigned to the manuscript. We do not hold it against a paper
+that it has been rejected elsewhere as long as it has sought to improve upon previously rejected
+versions by taking into account comments from previous reviews.
+During the online submission process, you will be given a chance to insert this information
+under “Author Comments.” The editorial office views this information prior to assigning reviewers
+to the manuscript.
+Suggestions for Potential Reviewers (optional).
+Authors are welcome to suggest potential reviewers for their manuscript at the time of
+submission. Please also disclose who has seen previous drafts of your manuscript (and as such
+would not be able to provide blind reviews). While due consideration will be given to the author's
+suggestions for potential reviewers, this should not be construed as an assurance that one or
+more of the reviewers assigned to a manuscript will be chosen from among the list of reviewers
+suggested by the author. Please include your suggestions in your “Author Comments.”
+As part of the submission process we ask that you sign a copyright form assigning the copyright
+to JAMS (this assignment becomes void if we do not publish the paper). This certifies that the
+paper has not been published elsewhere and is not under review at any other publication. If the
+rights to the paper have been assigned to another publication you cannot legally assign the
+Title Page
+Please make sure your title page contains the following information.
+Title
+The title should be concise and informative.
+Author information
+● The name(s) of the author(s)
+● The affiliation(s) of the author(s), i.e. institution, (department), city, (state), country
+● A clear indication and an active e-mail address of the corresponding author
+● If available, the 16-digit ORCID of the author(s)
+If address information is provided with the affiliation(s) it will also be published.
+For authors that are (temporarily) unaffiliated we will only capture their city and country of
+residence, not their e-mail address unless specifically requested.
+The cover page of the manuscript showing the author’s name and affiliation is removed by the
+JAMS Office before the manuscript is sent to reviewers in order to ensure objectivity. Please do
+not identify the author(s) in the body of the paper either directly or by citation.
+Large Language Models (LLMs), such as ChatGPT, do not currently satisfy our authorship
+criteria. Notably an attribution of authorship carries with it accountability for the work, which
+cannot be effectively applied to LLMs. Use of an LLM should be properly documented in the
+Methods section (and if a Methods section is not available, in a suitable alternative part) of the
+manuscript.
+Abstract
+Please provide an abstract of up to 150 words. The abstract should not contain any undefined
+abbreviations or unspecified references.
+For life science journals only (when applicable)
+● Trial registration number and date of registration for prospectively registered trials
+● Trial registration number and date of registration, followed by “retrospectively registered”,
+for retrospectively registered trials
+Keywords
+Please provide 4 to 6 keywords which can be used for indexing purposes.
+Acknowledgements
+An Acknowledgment section may be included to acknowledge, for example, people who have
+assisted with aspects of the work (but who do not qualify as authors), disclaimers,
+collaborations, etc.
+Statements and Declarations
+The following statements should be included under the heading "Statements and Declarations"
+for inclusion in the published paper. Please note that submissions that do not include relevant
+declarations will be returned as incomplete.
+● Competing Interests: Authors are required to disclose financial or non-financial
+interests that are directly or indirectly related to the work submitted for publication.
+Please refer to “Competing Interests and Funding” below for more information on how to
+complete this section.
+Text Formatting
+Manuscripts should be submitted in Word.
+● Use a normal, plain font (e.g., 12-point Times Roman) for text.
+● Use italics for emphasis.
+● Use the automatic page numbering function to number the pages.
+● Do not use field functions.
+● Use tab stops or other commands for indents, not the space bar.
+● Use the table function, not spreadsheets, to make tables.
+● Use the equation editor or MathType for equations.
+● Save your file in docx format (Word 2007 or higher) or doc format (older Word versions).
+General. Each page of the manuscript must have page numbers and fonts must be in 12-point
+size. Providing a properly formatted manuscript is helpful to reviewers as they try to provide
+constructive comments to the authors.
+Section headers. Organization of the paper should be logical wording consistent. All headers
+should be left aligned and bolded, with A-level headers in 14-point font size, B-level headers in
+12-point font size, and Clevel headers 12-point font and run in with the paragraph text (no
+periods after C-level headers). All headers should be sentence case, with capitalization directly
+after a colon. Please use no more than three levels of displayed headings.
+Abbreviations
+Abbreviations should be defined at first mention and used consistently thereafter.
+Footnotes
+Footnotes can be used to give additional information, which may include the citation of a
+reference included in the reference list. They should not consist solely of a reference citation,
+and they should never include the bibliographic details of a reference. They should also not
+contain any figures or tables.
+Footnotes to the text are numbered consecutively; those to tables should be indicated by
+superscript lower-case letters (or asterisks for significance values and other statistical data).
+Footnotes to the title or the authors of the article are not given reference symbols.
+Always use footnotes instead of endnotes.
+Tables and Figures
+All tables and figures should be able to stand alone and make sense without reference to the
+text. Indicate table and figure placement within text and then include each table/figure on a
+separate page at the end of the article. Tables should be typed flush with the left-hand margin
+and have proper labeling of axes, column headings, and other notations; put labels on the
+graphical element rather than in legends to save the reader the need to cross reference, and
+don’t use acronyms in tables and figures, but spell out the name of each
+construct. Figures and artwork must be high quality and camera ready, such as clean,
+black-and-white laser printouts. Each figure should appear on a separate page. Titles should be
+sentence case.
+Mathematical notations
+Notations should be clearly explained within the text. Equations should be centered on the
+page. If equations are numbered, type the number in parentheses flush with the right margin.
+Unusual symbols and Greek letters should be identified. For equations that may be too wide to
+fit in a single column, indicate appropriate breaks.
+Acknowledgments
+Acknowledgments of people, grants, funds, etc. should be placed in a separate section on the
+title page. The names of funding organizations should be written in full.
+Declarations.
+Please add a declaration that states the authors have no conflict of interest (assuming no
+conflict of interest) immediately before the References section.
+Editorial Procedure
+Double-blind peer review
+This journal follows a double-blind reviewing procedure. This means that the author will remain
+anonymous to the reviewers throughout peer review. It is the responsibility of the author to
+anonymize the manuscript and any associated materials.
+● Author names, affiliations and any other potentially identifying information should be
+removed from the manuscript text and any accompanying files (such as figures of
+supplementary material);
+● A separate Title Page should be submitted, containing title, author names, affiliations,
+and the contact information of the corresponding author. Any acknowledgements,
+disclosures, or funding information should also be included on this page;
+● Authors should avoid citing their own work in a way that could reveal their identity.
+References.
+The list of references should only include works that are cited in the text and that have been
+published or accepted for publication; references should integrate recent work in the area.
+Personal communications and unpublished works should only be mentioned in the text. Please
+do not use footnotes or endnotes as a substitute for a reference list.
+Cite references in the text by name and year in parentheses. Some examples:
+- Negotiation research spans many disciplines (Thompson 1990).
+- This result was later contradicted (Becker and Seligman 1996).
+- This effect has been widely studied (Abbott 1991; Barakat et al. 1995; Kelso and Smith
+1998; Medvec et al. 1993).
+Reference list entries should be alphabetized by the last names of the first author of each work.
+Articles published in JAMS use APA reference formatting. Some examples:
+- Journal articles:
+Bagozzi, R. P. (1995). Reflections on relationship marketing in consumer markets. Journal of the
+Academy of Marketing Science, 23, 272–277.
+Bagozzi, R. P., & Yi, Y. (1988). On the evaluation of structural equation models. Journal of the
+Academy of Marketing Science, 16, 74–94.
+Varadarajan, R., Yadav, M. S., & Shankar, V. (2008). First-mover advantage in an
+Internet-enabled market environment: Conceptual framework and propositions. Journal of the
+Academy of Marketing Science, 36, 293–308.
+- Books:
+Aaker, D. A. (1991). Managing brand equity. New York: Free Press.
+Park, J.-W., & Kim, K.-H. (2001). The role of consumer relationships with a brand in brand
+extensions: Some exploratory findings. In M. C. Gilly & J. Meyers-Levy (Eds.), Advances in
+consumer research (pp. 179–185). Valdosta, GA: Association for Consumer Research.
+- Online documents:
+UNICEF. (1998). The state of the world's children. Retrieved May 15, 2009 from
+http://www.unicef.org/sowc98/mainmenu.htm
+You may also view samples of JAMS articles via SpringerLink:
+http://www.springerlink.com/content/0092-0703
+Contact Information
+If you encounter any problems during the online submission process, please click “Contact Us”
+on the Editorial Manager menu bar at http://jams.edmgr.com to be directed to our Springer site
+administrator.
+To contact the JAMS Editorial Office for any other types of queries, please contact Laurie
+Marshall, Managing Editor, at: jams.man.ed@gmail.com
+Modules to add in
+● Compliance with Ethical Standards
+● Competing Interests
+● Authorship principles
+And contact

@@ -1,0 +1,258 @@
+Academy of Management
+STYLE GUIDE FOR AUTHORS
+For information about desired content,
+length of submissions, and how to submit Acknowledgment. If you wish to
+manuscripts, please see the journal submis- acknowledge financial support or other assis-
+sion pages. tance, add a note at the bottom of your title
+page. This applies ONLY to Accepted papers. A
+Manuscript Submission and Format title page with author-identifying information
+should NOT be included with a paper submitted
+Submit manuscripts to each journal’s online for review.
+submission and review website.
+Please use Times New Roman 12-point type Abstract. An abstract of no more than 200 words
+(not “Times” or other font choice) and the 8 1⁄2 × and the title of the work go on page 2.
+11 page (Letter) setting. Files should be Word
+Back Pages
+documents, with body text double-spaced. Sec-
+tion headings and subheadings should be set to Group references and any appendixes, tables,
+1.5 spacing. Top and side margins should be set and figures at the end of your manuscript. Tables
+at 1 inch (using Word’s Normal margin setting). should be grouped together, followed by figures—
+Neither page numbers nor running heads are regardless of the order in which they are men-
+necessary and should not be included in your tioned in the body of your paper. They should fol-
+document. low the References section. Appendices/supple-
+mentary material would come last.
+Publication of Accepted Articles
+Headings and Sections
+Accepted papers are copyedited. Authors
+review edits in page proofs. Each journal’s AOM’s journals use only three levels of headings.
+production team will contact you immediately Use bold- face for all three. Main headings (all capital
+after the Editor assigns your work to an issue. letters; centered) are first. Second-level headings (ti-
+If your work is Accepted, please keep the respec- tle-style letters; flush left) are next. Third-level head-
+tive Managing Editor informed of changes of ad- ings (first letter of first word capitalized; indented;
+dress and long absences: italicized; and run into paragraph) are next. Do not
+AMJ mmalgrande@aom.org number section headings.
+AMR iburns@aom.org Don’t skip steps: no second-level headings before
+AMP iburns@aom.org you use a first-level heading, for instance. Use sec-
+AMLE svictor@aom.org ond- and third-level headings in sets of two or more.
+ANNALS svictor@aom.org Examples:
+AMD szaid@aom.org
+METHODS [1st level]
+Front Pages Data and Sample [2nd level]
+Address. For final versions of Accepted man- Measures [2nd level]
+uscripts only, a title page should be added (this Independent variable. [3rd level]
+is not included with submissions under review). Dependent variables. [3rd level]
+Under the title of your work, list authors’ names,
+university affiliations (university names only,
+NOT departments), and complete addresses. Footnotes
+Example: Use footnotes placed on their respective pages (not
+endnotes).
+AN EXCELLENT STUDY
+A. A. MANAGEMENT SCHOLAR Hypotheses (when applicable)
+Current University
+Building and/or Street Fully and separately state each hypothesis you
+City, State, Zip Code tested separately. Phrase it in the present tense. Give
+Tel: (000) 000-0000Fax: (000) 000-0000 it a distinct number (Hypothesis 1) or number- letter
+email: scholar@univ.edu
+1
+out the copyright holder’s express written permission. Users may print, download or email articles for individual use only.
+AOM Style Guide
+(Hypothesis 1a) label. Set hypotheses off in indented might be interpreted as denigrating. Do not use
+blocks, in italic type, and single-spaced. Examples: “he” or “she” exclusively. Using the plural— chang-
+Hypothesis 1a. Concise writing has a positive relation-
+ing “the manager . . . he” to “managers . . .
+ship to publication. they”—is one solution; using “he or she” (“him or
+Hypothesis 1b. Following AMJ’s “Style Guide for Au- her”) is another.
+thors” has a positive relationship to publication.
+Active voice and first person. Write in the active
+Language voice (“They did it”) instead of the passive voice (“It
+Technical terms. Help your work to be accessible to was done”) to make it easy for readers to see who did
+a wide-ranging readership. Define key technical terms. what. Use the first person (“I” or “we”) to describe
+A technical term is a word or phrase that is not in a what you, or you and your coauthors, did. Examples:
+general-use dictionary with the meaning you (or even
+Passive (less desirable)—Two items were found to lack fac-
+you and other published scholars) ascribe to it. Put tor validity by Earley (1989).
+quotation marks around the first appearance in your
+paper of each technical term, or define it. Active (more desirable)—Earley (1989) found that two
+items lacked factor validity.
+Abbreviations. Avoid using abbreviations for the Third person (less desirable)—The author developed three
+names of concepts. Use ordinary words for variable new items.
+names—not code names or other abbreviations. Use First person (more desirable)—I developed three new
+the same name for a variable throughout your text, items.
+tables, figures, and appendixes.
+Names of organizations and research instruments Anthropomorphism. Do not describe inanimate
+may be abbreviated, but give the full name the first entities (models, theories, firms, and so forth) as act-
+time you mention one of these. Names of software ing in ways only humans can act.
+and some databases may be abbreviated.
+Appendixes
+Reporting math. All equations need to be cre-
+ated in Word, or converted to Word if you’ve created Present long but essential methodological details,
+them using another program. Do not “talk in math” such as the calculation of measures, in an appendix
+in regular text. Use words. For instance, “We sur- or appendixes. Be concise.
+veyed 100 employees,” not “We surveyed n = 100 Avoid exact reproductions of surveys.
+employees.” Label appendixes “APPENDIX A,” “APPENDIX
+Do use symbols and numbers to report results B,” and so forth. A substantive title, such as “Items
+and give formulas. Italicize letters that are custom- in Scales,” should follow. Label tables within ap-
+arily italicized (e.g., p, r, b, F, Z). Use boldface italic pendixes “Table A1,” “B1,” and so forth.
+for vectors. Put spaces on either side of equals
+signs, minus signs, etc. Tables and Figures
+Illustrative results within text go in parentheses.
+Look at tables and figures in published issues of other
+Introduce them with complete sentences. Example:
+journals to see preferred formats. Write to the copy edi-
+One coefficient for the interaction was significant tor if you have questions. Use as many pages as you need
+(model 3: β = 0.06, p < .05; model 5: β = 1.06).
+to create tables and figures that match our formats.
+Present equations either in your running text or Tables must be created using Microsoft Word, or
+displayed. Examples: converted to Word tables if generated using a differ-
+ent program, such as Excel. They should not be
+Run-in equation—We used Craig’s (1992: 20) distance for-
+mula (d = xyz). placed into your document as images. Note that a
+straight Excel file is not currently an acceptable for-
+Displayed equation—
+mat. Excel files should be converted to Word for plac-
+[e -A( xt) A(X t ) yt ] ing into your Word document. Tables that contain
+Pr(Yt = yt xt) = , (1) artwork or graphics must be submitted as illustra-
+Yt!
+where Yt is. . . .
+tions in an acceptable format.
+Tables should be formatted as follows. Arrange the
+Define each new term in all equations. data so that columns of like material read down,
+not across. The headings should be sufficiently clear
+Sexist or biased language. Avoid language that so that the meaning of the data is understandable
+2
+out the copyright holder’s express written permission. Users may print, download or email articles for individual use only.
+AOM Style Guide
+without reference to the text. Tables should have ti- Name and year—Several studies (Adams, 1994; Bern-
+stein, 1988, 1992; Celias, 2000a, 2000b) support this
+tles and sufficient experimental detail in a legend conclusion.
+immediately following the title to be understanda-
+Year only—But Van Dorn and Xavier (2001) presented
+ble without reference to the text. Each column in a
+conflicting evidence.
+table must have a heading, and abbreviations, when
+necessary, should be defined in the legend or foot- Order. Order citations alphabetically. Designate two
+note. or more works by one author (or by an identical group
+Number tables and figures consecutively (one se- of authors) published in the same year by adding “a,”
+ries for tables, one for figures) using Arabic num- “b,” and so forth, after the year. See the previous exam-
+bers (not letters or Roman numerals). Place them at ple for “name and year” example.
+the end of your manuscript, but indicate the position
+Multiple authors. If a work has two authors, give
+of each in the text as follows:
+both names every time you cite it. For three through
+------------------------------------ six authors, give all names the first time, then use
+Insert Table 2 about here “et al.” in citations. Examples:
+------------------------------------
+First citation—(Foster, Whittington, Tucker, Horner, Hub-
+bard, & Grimm, 2000).
+Each table or figure needs an introductory sen-
+tence in your text. Subsequent citation—(Foster et al., 2000).
+For seven or more authors, use “et al.” even for the first
+More on tables. Use the same name for each variable citation. (But the corresponding reference should
+that you use in your text. Don’t use code names and give all the names.)
+abbreviations. Example:
+Desirable variable name—Profitability
+Undesirable variable name—PRFT
+Page numbers in citations. Use this format:
+Writing a book is “a long and arduous task” (Lee, 1998: 3).
+Each table should report one type of analysis
+(which is identified in the title), and each vertical col- Citation with no author. For an article with no
+umn and horizontal row should contain only one author, cite the periodical as author. Example:
+type of data.
+Report only two decimal places for all statistics. Periodical as author—Analysts predicted an increase in
+service jobs (Wall Street Journal, 1999).
+Place correlation coefficients in the lower-left cor-
+ners of their tables. For reports, handbooks, and the like, cite the “corpo-
+Use superscript small letters for table footnotes. rate author” that produced them. Example:
+Significance levels go in a stack under your regu-
+Organization as author—Analysts predict an increase in
+lar table footnotes. Example: service jobs in the U.S. Industrial Outlook (U.S. Depart-
+†
+p < .10 ment of Commerce, 1992).
+* p < .05
+** p < .01 Such sources can also be identified informally. No
+corresponding reference will then be needed. Exam-
+Or you may use a single lettered footnote: ple:
+a
+All values greater than . . . are significant at. . . .
+Informal citation—According to the 1999 U.S. Industrial
+More on figures. Figures, unlike tables, contain Outlook, published by the U.S. Department of Commerce,
+service jobs will increase.
+drawings (e.g., an arrow, boxes). Make sure your fig-
+ures print out clearly so that they can be scanned. Electronic sources. Use a regular citation (author,
+Figures should be in TIF or JPEG formats, placed im- year) if you can identify an author of one of the types
+mediately following your tables at the end of the discussed above (human, periodical, or corporate). If
+manuscript Word document. not, give the web address that was your source in pa-
+rentheses. No corresponding reference need be used
+Citations in the latter case.
+These are your in-text, in parentheses, identifica-
+tions of other research. Every work that has a cita- References
+tion needs to have a corresponding reference (see References are your entries in the alphabetical list
+“References”). Examples: at the end of your article. Do not number your
+3
+out the copyright holder’s express written permission. Users may print, download or email articles for individual use only.
+AOM Style Guide
+Reference entries. This list should include only chapter (regular type, single-capital rule. In Editors’
+work you have cited. initials and last names (Eds.), Title of book: Page
+Order. Alphabetize references by the last name of numbers. City (same rules as above): Publisher. Ex-
+a sole author, a first author, or an editor, or by the amples:
+name of a corporate author (for instance, U.S. Cen- Levitt, B., & March, J. G. 1988. Organizational learning. In
+sus Bureau) or periodical (such as the Wall Street W. R. Scott & J. F. Short (Eds.), Annual review of soci-
+ology, vol. 14: 319 –340. Palo Alto, CA: Annual Reviews.
+Journal) if there is no human author or editor. Order
+works by an identical author by year of publication, Dutton, J., Bartunek, J., & Gersick, C. 1996. Growing a personal, pro-
+fessional collaboration. In P. Frost & S. Taylor (Eds.),
+listing the earliest first. If the years of publication are Rhythms of academic life: 239–248. London: Sage.
+also the same, differentiate entries by adding small
+letters (“a,” “b,” etc.) after the years. Repeat the au- Unpublished works. These include working papers,
+thor’s name for each entry. dissertations, and papers presented at meetings.
+Examples:
+Books. Follow this form: Last names, initials
+Duncan, R. G. 1971. Multiple decision-making structures in
+(separated by a space). Year. Title (Boldface italic, adapting to environmental uncertainty. Working paper
+capitalize only the first letter of the first word and no. 54 –71, Northwestern University Graduate School of
+of the first word after a long dash or colon.) City Management, Evanston, IL.
+where published: Name of publisher. (For small Smith, M. H. 1980. A multidimensional approach to individ-
+U.S. and Canadian cities, follow the name of the city ual differences in empathy. Unpublished doctoral disser-
+tation, University of Texas, Austin.
+with the postal abbreviation for the state or prov-
+ince; for small cities in other countries, give the full Wall, J. P. 1983. Work and nonwork correlates of the career
+plateau. Paper presented at the annual meeting of the
+name of the country.) Examples: Academy of Management, Dallas.
+Granovetter, M. S. 1965. Getting a job: A study of contracts
+and careers. Chicago: University of Chicago Press. Electronic documents. Include the author’s name, if
+Kahn, R. L., & Boulding, E. (Eds.). 1964. Power and conflict in
+known; the full title of the document; the full title of the
+organizations. Glencoe, IL: Free Press. work it is part of; the URL, http, or other address; and
+Katz, D., & Kahn, R. L. 1978. The social psychology of orga-
+the date the document was posted or accessed.
+nizations (2nd ed.). New York: Wiley.
+National Center for Education Statistics. 1992. Digest of ed-
+Biographical Sketches
+ucation statistics. Washington, DC: National Center for Each author of an Accepted article is asked to sub-
+Education Statistics.
+mit a biographical sketch of about 50 words. Your
+Periodicals. Follow this form: Authors’ last sketch should identify where you earned your high-
+names, initials. Year. Title (regular type; same sin- est degree, your present affiliation and position, and
+gle-capital rule as for books). Name of Periodical your current research interests. The first author
+(boldface italic, title-style capitalization), volume should include an email address, which is optional
+number (issue number, if needed—see below): page for the other authors.
+numbers. Examples:
+Thank You
+Shrivastava, P. 1995. The role of corporations in achieving eco-
+logical sustainability. Academy of Management Re-view, Your attention to the conventions described in this
+20: 936 –960. guide will be much appreciated, will increase the
+Nonaka, I. 1991. The knowledge-creating company. Harvard likelihood your submission will be favorably re-
+Business Review, 69(6): 96 –104. viewed, and will make the work of everyone in-
+Include an issue number only if every issue of the volved—you, the reviewers, the editors, and the
+referenced periodical begins with a page numbered readers—easier.
+1. (Look at more than one issue to check.) Please contact AMJ and AMD Senior Managing Ed-
+If an article has no author, the periodical is refer- itor Michael Malgrande at mmalgrande@aom.org;
+enced. Examples: AMP and AMR Managing Editor Irina Burns at
+BusinessWeek. 1998. The best B-schools. October 19: 86–94. iburns@aom.org; AMLE and ANNALS Managing Ed-
+Harvard Business Review. 2003. How are we doing? 81(4): 3. itor Stacey Victor at svictor@aom.org; and Edito-
+rial Services Director Susan Zaid at szaid@aom.org
+Chapters in books, including annuals. Follow this with your queries on style or submissions.
+form: Authors’ last names, initials. Year. Title of
+Document last updated: March 17, 2021
+4
+out the copyright holder’s express written permission. Users may print, download or email articles for individual use only.

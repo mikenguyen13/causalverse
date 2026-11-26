@@ -1,0 +1,62 @@
+CAR EDITORIAL POLICIES
+AIMS & SCOPE
+Contemporary Accounting Research (CAR) publishes leading-edge research that contributes to our collective understanding of accounting’s role in organizations, markets or society. Canadian-based and global in scope, CAR seeks to reflect the worldwide intellectual diversity in accounting research. Therefore, CAR welcomes interesting and intellectually rigorous work in all topic areas of accounting, using any appropriate method, and based in any discipline or research tradition that can contribute to accounting knowledge.
+EDITORIAL & PEER-REVIEW PROCESS
+The Editor-in-Chief (EIC) has ultimate responsibility for ensuring the quality of the journal. The EIC assesses each submitted manuscript to determine whether its topic falls within CAR’s Aims and Scope, and whether the likelihood of success is sufficiently high to merit review. If not, the paper is returned to the authors without review. If the paper merits review, the EIC assigns it to an Editor with relevant expertise. From time to time, we may draw on Consulting Editors or members of the Editorial Board to serve as ad hoc Editors.
+CAR strives to offer authors a fair, constructive, expert, and timely review process. The Editor assigned to a specific manuscript is responsible for the entire editorial and peer review process, subject to oversight by the EIC. The Editor normally assigns two reviewers, who provide review reports and recommendations. CAR discourages reviewers from attempting to identify authors, and requires them to report any known conflicts of interest. The Editor decides on the paper’s disposition, using the review reports as input, and communicates with the authors. The EIC reviews all decisions to accept papers for publication.
+Authors are jointly responsible for adhering to the highest standards of academic integrity in the conduct, writing and presentation of their research. Authors must submit a declaration of academic integrity, agreed by all authors, with any new submission.
+Beginning January 1, 2024, authors must make a declaration on the use of generative AI during the manuscript submission process, in accordance with the CAAA Journals’ Statement on the Use of Generative AI
+REVIEWER FEE WAIVERS
+Posted January 2, 2026; Effective February 1, 2026
+For several years, Contemporary Accounting Research (CAR) has issued submission fee waivers in recognition of timely completion of reviews.
+To keep the fee waiver program sustainable while continuing to recognize the valuable contributions of our reviewers, CAR has updated its guidelines. Please see below for details.
+REVIEW ELIGIBILITY
+Upon submission of three prompt reviews within a two-year period, a reviewer is eligible for a waived submission fee on a new submission to CAR, provided all of the following conditions are met:
+only reviews of first and second-round manuscripts are eligible for waivers;
+only reviews submitted within 30 days of the original reviewer invitation will be considered prompt; and
+all three prompt reviews must be submitted within a two-year period that commences upon submission of the first of such three prompt reviews.
+Any reviews submitted later than February 1, 2026 must comply with all of the above conditions to be eligible for a waiver.
+All prompt reviews submitted prior to 2023 are not eligible. Prompt reviews submitted in 2023 will be eligible to be applied towards a waiver until June 30, 2026. Prompt reviews submitted in 2024 will be eligible until December 31, 2026. Prompt reviews submitted in 2025 will be eligible until December 31, 2027. Prompt reviews submitted in January 2026 will be eligible to be applied towards a waiver until January 2028. (Updated February 20, 2026)
+WAIVER USE CONDITIONS
+Waivers are valid for two years from the date the third eligible review was submitted or the waiver expiry date, whichever is later. If redeeming a waiver as payment, the manuscript submission must be made within one month of such waiver redemption. Waivers are non-transferable and must be claimed by a member of the submitting author team. Waivers are not valid for previous submissions. If you pay a submission fee and subsequently wish to claim a waiver instead, you must email [email protected] within 48 hours of payment. No refunds will be provided when a waiver is used as the method of payment.
+ACCESSING WAIVERS
+The CAAA member portal is being updated to include waiver functionality and is expected to be available for use in early 2026. In the meantime, please email [email protected] to confirm whether you are eligible to claim a waiver.
+FUTURE UPDATES TO TERMS & CONDITIONS
+CAR reserves the right to change the terms of its reviewer fee waivers program at any time. We will notify you of any changes by posting an updated version of this editorial policy, which changes shall take effect 30 days after the changes are posted. CAR also reserves the right to discontinue the reviewer fee waivers program at any time, including the right to cancel any eligibility for fee waivers that have not been redeemed at the time of discontinuation, with or without notice and without any liability. This Agreement will be governed by and construed and interpreted in accordance with the laws of Ontario and the applicable federal laws of Canada without giving effect to its conflict of law principles.
+APPEALS
+All appeals go through the EIC. An appeal requires a new submission fee, which is not refundable. No appeal may be made until at least one month has passed since the decision, and any appeal must be made within six months of the decision. The author(s) should provide a letter explaining the basis for the appeal, generally an error and not a difference of opinion. All appeals must be initiated and approved by all authors of the original manuscript. The EIC will assign a judge to the appeal, normally a Consulting Editor. The judge will have access to all submissions, reviews and correspondence related to the manuscript, and may communicate with any of the parties involved (authors, reviewers and Editor). The judge will decide whether to re-start the review process, and if so, whether to do so with the same Editor. The judge’s decision is final.
+USE OF GENERATIVE AI
+This statement relates to AI that may be used to generate the content (text, tables, figures) of a research paper.
+The CAAA follows the guidance of the Committee On Publication Ethics (COPE) on issues relating to publication integrity and ethical conduct, including the evolving topic of generative AI tools. COPE position statement on the use of generative AI tools
+The journals of the CAAA are published by Wiley. Publisher’s guidance on the use of generative AI tools
+Per these guidelines and rationale, a generative AI tool cannot fulfil the role of, nor be listed as, an author of an article. If such a tool has been used to generate any portion of a manuscript, authors must declare this during the submission process of a new manuscript, and its use must be described, transparently and in detail, in the Methods section. The Editors will review and approve its use on a case-by-case basis.
+The use of AI (or AI assistance) tools in research design or methods must be disclosed, per the Author Declaration Form and Data Integrity Information form.
+Tools used for data analysis, data management, spelling and grammar checking, and referencing may be used without disclosure.
+We encourage all authors to stay informed about generative AI and academic publishing by following COPE’s forums, discussion papers, and other resources.
+As the field of AI and generative AI is rapidly changing, the CAAA Journal Editors in Chief will review and adapt this policy as needed.
+Reviewed and approved, September 2023
+Download a pdf version of this statement
+USE OF GENERATIVE AI IN PEER REVIEW
+Peer review is at the heart of the publication process and there is considerable risk that generative AI or AI-assisted tools will generate incomplete, incorrect, or biased conclusions. Moreover, a submitted manuscript is a confidential document and uploading any part of the document into a generative AI tool could violate the authors’ confidentiality, proprietary, and data privacy rights. Therefore, at CAR, reviewers are prohibited from using generative AI tools in the review process.
+Reviewers bear full responsibility for the contents of their reports, and are also banned from uploading their completed review reports into AI tools, even to improve readability or language. Instead, reviewers should use tools such as Grammarly and spellcheck to perform these functions.
+Finally, note that the editorial team is actively evaluating AI tools that protect confidentiality and do not use manuscripts for training, so our AI use policy may be revised in the future.
+JOINT STATEMENT OF PRINCIPLES OF THE COALITION FOR DIVERSITY AND INCLUSION IN SCHOLARLY PUBLISHING (C4DISC)
+The CAAA is pleased to announce our adoption of the Joint Statement of Principles of the Coalition for Diversity and Inclusion in Scholarly Publishing (C4DISC).
+As an Association, we acknowledge our responsibility to examine our organizational and individual biases so we can develop and change; to actively promote inclusivity and accessibility; and to establish policy on equity, diversity, inclusion and belonging that underscores all the structures and services of the CAAA. We commit to devoting time and resources to these efforts.
+While we work towards this overall objective of institutional change, we can also take smaller practical steps – formal and informal – to promote and examine equity and inclusion at the CAAA. Adopting the Joint Statement is one such step on our journey; by doing so, we join a wider academic community that shares practices and resources and works together towards improvement and change.
+The C4DISC Joint Statement of Principles may be found here: https://c4disc.org/principles/
+We invite you to find out more about C4DISC here: https://c4disc.org/main/mission-vision-and-values/
+PRINT-ON-DEMAND
+Beginning in 2024, the CAAA journals will be published in online-only format. This is a proactive move towards reducing the environmental impact caused by the production and distribution of printed copies and will allow the journal to invest in further innovation, digital development and sustainability measures.
+It is still possible to obtain print copies of the journals through a print-on-demand service, and for the 2024 volume, Wiley is offering an 80% discount off the institutional online subscription price*.
+Discount code: VAMEWFKQEM1R
+Eligibility
+The 2024 discount code is valid only for whole volume subscriptions (2024 volume) through 31 December 2024. The discount does not apply to single issues.
+How to Order
+Go to the Sheridan POD webstoreUse the search box to locate the journal and select the 2024 volumeCanadian customers should select USA for shipping rateApply the discount code provided above at check out to get the discounted rate
+Go to the Sheridan POD webstore
+Use the search box to locate the journal and select the 2024 volume
+Canadian customers should select USA for shipping rate
+Apply the discount code provided above at check out to get the discounted rate
+Download a pdf of step-by-step ordering instructions.
+*The discount applies to full-volume orders and does not apply to single-issue purchases.

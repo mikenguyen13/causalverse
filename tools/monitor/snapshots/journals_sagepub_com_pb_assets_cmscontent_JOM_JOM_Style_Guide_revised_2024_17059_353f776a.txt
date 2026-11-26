@@ -1,0 +1,325 @@
+Revised 8/31/17
+Page 1 of 13
+JOURNAL OF MANAGEMENT STYLE GUIDE
+MISSION STATEMENT
+The Journal of Management publishes scholarly empirical, theoretical, and review articles dealing with
+management. Manuscripts suitable for publication in the Journal of Management cover such areas as
+business strategy and policy, entrepreneurship, human resource management, organizational behavior,
+organizational theory, and research methods.
+TYPING
+Manuscripts should be typed in a 12-point, Times New Roman font. They must be double spaced
+(including references, appendices, tables, and figures). As reviewers often prefer to write notes on the
+manuscript, authors should use one inch (2.54 centimeters) margins. Every page in the manuscript
+should contain a short running head and the page number. This information should be right justified.
+Pages should measure 8.5 by 11 inches. Manuscript length should be limited to 50 pages inclusive of
+references, non-supplementary appendices, tables and figures.
+MAJOR SECTIONS OF THE PAPER
+A sample template is included at the end of this document. There is also a template available here
+(http://mc.manuscriptcentral.com/societyimages/jom/JOM-Paper-Template.pdf) for papers that have been
+conditionally accepted.
+ABSTRACT AND TITLE
+During the electronic submission process, there will be specific fields for entering a manuscript title (limit
+15 words) as well as an abstract (limit 250 words). The abstract should not be included in the main
+document of the manuscript. Do not submit a title page with your main manuscript document.
+MAIN DOCUMENT
+The principal divisions of the manuscript should appear in the following order: body of the article,
+references, footnotes, tables, figures, and non-supplementary appendices. The body of the article begins
+immediately on page 1. The title of the paper should appear at the top of this first page. It should be
+centered, bold-faced, and in all capital letters. Number all pages, including those with
+references, non-supplementary appendices, tables, and figures. Group these, in the order just given, on
+separate pages at the end of the article. All main body paragraphs should be indented.
+The manuscript (body, references, footnotes, table, figures and non-supplementary appendices) will be
+uploaded to the Journal of Management as a single document called “main document” during the
+electronic submission process.
+BLIND REVIEW
+When preparing a manuscript for electronic submission, the authors should remove all identifying
+information such as names or affiliations or author notes. Instead, the title should only appear at the
+beginning of the text. This will facilitate the blind review process. There is a separate area for uploading a
+title page with author information that will not be visible to reviewers.
+Revised 8/31/17
+Page 2 of 13
+ACKNOWLEDGEMENTS
+Do not place acknowledgements into the manuscript, as these could compromise the blind review
+process. If authors wish to acknowledge the contribution of individuals or institutions that are not authors,
+they are encouraged to do so. At the time of submission the website offers a place in which
+acknowledgements can be directly typed.
+FOOTNOTES
+Do not use footnotes (or endnotes) in your text. As alluded to above, footnotes should be placed in a
+separate section of the paper that appears after the author notes and before the tables. This should be
+treated as a major heading with the word FOOTNOTES (or FOOTNOTE if there is only one) as the title.
+The heading FOOTNOTES should be centered, bold-faced, and typed in capital letters. Each footnote
+should be consecutively numbered, beginning with 1 and corresponding to its citation in the text.
+HEADINGS
+Main headings should be used to designate the major sections of an article. Within the main body of the
+paper, the major headings typically include such things as INTRODUCTION, METHOD, RESULTS, and
+DISCUSSION. Supporting material, such as references, tables, and appendices are also treated as major
+headings. In all cases, major headings should be centered, bold-faced, and typed in all capital letters.
+Example:
+METHOD
+Secondary headings should be typed flush with the left margin, in title case (small letters with major
+words beginning with capitals), and in bold. Example:
+Data and Sample
+Third-order or paragraph headings should begin with a standard paragraph indention, be typed in
+sentence case (small letters with only the initial word capitalized), followed by a period, and in bold. The
+text should follow on the same line.
+Example:
+Manager sample. Respondents consisted of a random sample of 300 managers who worked
+full time at a large manufacturing facility...
+When a section of text is divided, there should be at least two subsections.
+HYPOTHESES
+In manuscripts reporting tests of formal hypotheses, these should be explicitly identified as such. State
+each hypothesis that is tested in your analyses separately and give it a distinct number.
+VARIABLES
+Revised 8/31/17
+Page 3 of 13
+The names of constructs and variables should be expressed using ordinary words; in general, do not use
+unconventional abbreviations, acronyms, or code names. For industry accepted acronyms, please spell
+out the term initially then use acronyms in subsequent references.
+Example:
+“Recently, research related to Subject Matter Experts (SMEs) has increased. SME literature….”
+Be sure to use the same name for each variable in your text, tables, and figures.
+TABLES AND FIGURES
+Useful tables and figures do not duplicate the text; they supplement and clarify it. Because tables and
+figures are considerably more expensive to prepare for publication than text, please carefully consider
+what they add to your manuscript’s impact.
+Place each table or figure on a separate page. Double-space all text. Number tables and figures
+consecutively (one series for tables, one for figures) from the beginning to the end of the article. Indicate
+the position of each in the text as follows:
+------------------------------
+Insert Table 2 about here
+------------------------------
+TABLE CHECKLIST
+1. Center the word Table (in title case) and the number of the table (Arabic numeral) at the top of
+the page.
+2. Center the title (in title case) under the table heading.
+3. Report the results of only one type of analysis in each table.
+4. Range headings across the top of the table. Do not add new headings in the body of the table.
+5. Do not use abbreviations or computer code names for variables. Also, please do not use table
+notes. Use the same names you used in the text.
+6. Use only two decimal places for statistics (except p-values, see next).
+7. All reported statistical estimates (e.g., regression weights, mean differences) must have
+corresponding standard errors, and inferential statistics (t, z, or F, depending on which is
+most pertinent) with precise p values reported (e.g., p = .072, rounded to the third decimal
+place) rather than in star notation (*) or statistical significant cutoff bands (e.g., p < .05).
+8. For most articles, the first table should report descriptive statistics, including means, standard
+deviations, and a full correlation matrix. Correlations should fill the lower-left corner of the page.
+9. To distinguish some numerals (for instance, to indicate which loadings define a factor), boldface
+type can be used. Do not use this option when other conventions, such as footnotes, are
+sufficient.
+10. Use plain type in capital and small letters—no italic or bold, except as noted above.
+11. Designate a general footnote that explains the whole table or a column, row, or item with a
+superscript small letter (a, b, c).
+Note that each level is on a separate line.
+Revised 8/31/17
+Page 4 of 13
+FIGURE CHECKLIST
+ Center the word Figure (in title case) and the number of the figure (Arabic numeral) at the top of
+the page.
+ Center the title (in title case) under the Figure heading.
+ Spell out all words in the body of the figure.
+ Use the same variable names you used in the tables and text.
+ Avoid stacking words or numbers (listing characters vertically).
+ Make sure lines and graphic elements are crisp and clear.
+ Use letters for footnotes, as in tables.
+CITATIONS
+Giving proper credit to the sources of original ideas and previous work is an important aspect of good
+scholarship. Inappropriate or inaccurate citations do not do justice to the authors cited and can be
+misleading to readers.
+A tendency and a desire to cite one's own previous or current work is understandable. However,
+excessive use of self-citations is frowned upon. When submitting your manuscript for publication
+consideration, use self-citations cautiously. Minimize references that would reveal the manuscript's
+authorship. Doing this is important for protecting the double-blind review process.
+Citations should be made in the text by enclosing the cited authors' names and the year of the work cited
+in parentheses.
+Example:
+Several studies (Ferris & Kacmar, 1992; Malhotra & Bazerman, 2008; Morrison, 1993a, 1993b)
+support this conclusion.
+Please note the use of alphabetical order and ampersands. Also note that two or more works by the same
+author (or by an identical group of authors) published in the same year are distinguished by "a," "b," etc.,
+added after the year.
+Citations to the source of a direct quotation must give a page number or numbers; these follow the date of
+publication and are separated from it by a colon. Example: Adams has said that writing a book is "a long
+and arduous task" (1974: 3). Also cite page numbers when you paraphrase or summarize specific
+arguments or findings of authors.
+If a work has two authors, give both names every time the work is cited in the text. If a work has between
+two and six authors, list all authors the first time it is cited, then use "et al."
+Example:
+Emotional exhaustion is related to work attitudes (Cropanzano, Rupp, & Byrne, 2003).
+(first citation)
+... exhaustion was also related to job performance (Cropanzano et al., 2003).
+(subsequent citation)
+Revised 8/31/17
+Page 5 of 13
+For more than six authors, use the "et al." form even for the first citation. But the matching reference at
+the end of the article should include a complete list of the authors.
+When citing the same manuscript more than once in the same paragraph, provide the date during the
+initial citation. For subsequent citations in the same paragraph, use only the names of the author(s).
+REFERENCES
+Include an alphabetically ordered list of the works you have cited in your article. This list should begin on
+a separate page headed REFERENCES. As this is a major heading, the word “REFERENCES” should be
+centered, in all capital letters, and bold-faced.
+References should follow hanging indentation format. Specially, the first line should be flush with the left
+margin. Subsequent lines should be indented.
+Examples:
+Amit, R., & Zott, C. 2001. Value creation in E-business. Strategic Management Journal, 22: 493-520.
+Barney, J. 1991. Firm resources and sustained competitive advantage. Journal of Management, 17: 99-
+120.
+Campion, M. A., Maertz, C. P., Palmer, D. K., & Tan, H. 1997. Rules for references: Suggested
+guidelines for choosing literary citations for research articles in applied psychology. Personnel
+Psychology, 50: 165-167.
+Haleblian, J., Devers, C. E., McNamara, G., Carpenter, M. A., & Davison, R. B. 2009. Taking stock of
+what we know about mergers and acquisitions: A review and research agenda. Journal of
+Management, 35: 469-502.
+Katz, D., & Kahn, R. L. 1978. The social psychology of organizations (2nd ed.). New York: Wiley.
+Mathieu, J., Maynard, M. T., Rapp, T., & Gilson, L. 2008. Team effectiveness 1997-2007: A review of
+recent advancements and a glimpse into the future. Journal of Management, 34: 410-476.
+Podsakoff, P. M., & Organ, D. W. 1986. Self-reports in organizational research: Problems and prospects.
+Journal of Management, 12: 531-544.
+Shane, S., & Venkataraman, S. 2000. The promise of entrepreneurship as a field of research. Academy
+of Management Review, 25: 217-226.
+U.S. Department of Labor Statistics. 1976-83. Employment and earnings. Washington DC: U.S.
+Government Printing Office.
+Revised 8/31/17
+Page 6 of 13
+Alphabetize references by the last name of the author (the first author) or the editor, or by the name of the
+corporate author (e.g., U.S. Census Bureau) or periodical (e.g., Wall Street Journal, p. A1) if there is no
+individual author or editor. Several works by an identical author (or group of authors) are ordered by year
+of publication, with the earliest listed first. If the years of publication are also the same, differentiate
+entries by adding small letters ("a," "b," etc.) after the years. Authors' names are repeated for each entry.
+Book entries follow this form: Authors' or Editors' Last Names, Initials. Year. Title of book. (Book titles are
+italicized and typed in lowercase letters except for the first letter of the first word and the first word after a
+long dash or colon). City Where Published, State or Country (add only if needed to identify the city, and
+use U.S. Postal Service abbreviations for states): Name of Publisher. Please note and follow the
+punctuation used in these and subsequent examples.
+Periodical entries follow this form: Authors' Last Names, Initials. Year. Title of article or paper (in
+lowercase letters except for the first letter of the first word and the first word after a long dash or colon).
+Name of Periodical, volume number (issue number if needed): page numbers.
+Example:
+Goggin, W. C. 1974. How the multi-dimensional structure works at Dow Corning. Harvard Business
+Review, 55(1): 54-65.
+Include an issue number only if a periodical's pages are not numbered consecutively throughout its
+volumes---that is, if each issue begins with a page numbered "1."
+If a periodical article has no author, treat the name of the periodical like a corporate author, in both the
+citation and reference.
+Examples:
+Citation: There is fear that Social Security rates may rise (Wall Street Journal, 1984).
+Reference: Wall Street Journal. 1984. Inflation rate may cause Social Security increase. September
+24: 14.
+Chapters in books follow this form: Authors' Last Names, Initials. Year. Title of chapter (in lowercase
+letters except for the first letter of the first word and first word after a colon). In Editors' Initials and Last
+Names (Eds.), Title of book: page numbers. City Where Published, State or Country (only if necessary to
+identify the city): Name of Publisher.
+Examples:
+Berg, N. A. 1973. Corporate role in diversified companies. In B. Taylor & I. MacMillan (Eds.), Business
+policy: Teaching and research: 298-347. New York: Wiley.
+Roberts, F. S. 1976. Strategy for the energy crisis: The case of commuter transportation policy. In R.
+Axelrod (Ed.), Structure of decision: 142-179. Princeton, NJ: Princeton University Press.
+Unpublished papers, dissertations, and presented papers should be listed in the references using the
+following formats:
+Revised 8/31/17
+Page 7 of 13
+Duncan, R. G. 1971. Multiple decision-making structures in adapting to environmental uncertainty.
+Working paper no. 54-71, Northwestern University Graduate School of Management, Evanston,
+IL.
+Smith, M. H. 1980. A multidimensional approach to individual differences in empathy. Unpublished
+doctoral dissertation, University of Texas, Austin.
+Wall, J. P. 1983. Work and nonwork correlates of the career plateau. Paper presented at the annual
+meeting of the Academy of Management, Dallas, TX.
+A reference to an electronic document should include the author's name, if known; the full title of the
+document; the full title of the work it is part of, if there is one; the ftp, http, or other address; and the date
+the document was accessed.
+Rogelberg, S. G., & Rupp, D. E. 2014. Ethical practices of journal authors: Voluntary code of conduct.
+Retrieved from http://editorethics.uncc.edu/code.aspx.
+To cite an article that is in press, include the publication information from the source (as much as
+possible). If the article has a DOI (digital object identifier) such as the Journal of Management Online
+First system generates, give that number at the end.
+Schleicher, D., Bull, R.A., & Green, S.G. in press. Rater reactions to forced distribution rating
+systems. Journal of Management. doi:10.1177/0149206308318618
+APPENDICES
+Non-supplementary appendices present lengthy but essential methodological details, such as
+explanations of the calculation of measures or items in a new survey instruments. Presentation should
+be concise but not abbreviated. Each appendix should be treated as a major heading. The title of each
+appendix should be typed in all capital letters, centered, and bold-faced. Multiple appendices are
+APPENDIX A, APPENDIX B, etc. A single appendix does not require a letter.
+Online Supplement / Online Appendix Instructions
+Supplements and online appendices (i.e. appendices that are not to appear as part of the main article)
+should be uploaded as Online Supplements. Authors should include a footnote on the title page
+(below authors’ names) that says “Supplemental material for this article is available at http://
+xxx.sagepub.com/supplemental”. The web address will be corrected in production.
+Label the online supplement as such so it can be easily identified. There is a 50-page manuscript limit -
+this includes all notes, references, tables, figures, etc. Further, initial (first) submissions may not
+include any online supplement material. In revisions, upload the online supplement as a separate file
+and designate it as with the Online Supplements file type.
+Revised 8/31/17
+Page 8 of 13
+AVOIDING SEXIST AND OTHER BIASED LANGUAGE
+Authors should avoid terms or usages that are denigrating to ethnic or other groups or that may be
+interpreted as such. Be particularly careful in dealing with gender, where long-established customs, such
+as the use of "he" as a generic pronoun ("a manager ... he"), can imply gender-based discrimination.
+Using plural pronouns—changing "the manager ... he" to "managers ... they"—is preferred.
+CONCLUSION
+Thank you in advance for paying careful attention to the details of this journal's style set forth in this guide
+when making your submissions. We appreciate your efforts, as adherence to Journal of Management
+guidelines will smooth and expedite both review and publication. Properly prepared manuscripts tend to
+be more favorably received by reviewers.
+Abstract
+Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract Abstract
+Keywords: keyword; keyword; keyword; keyword
+Revised 8/31/17
+Page 9 of 13
+TITLE
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body.
+SECTION
+Revised 8/31/17
+Page 10 of 13
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Subsection
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body.
+Second Subsection. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body.
+------------------------
+Insert Table 1 about here
+-----------------------
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Revised 8/31/17
+Page 11 of 13
+Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body. Body.
+Body. Body. Body.
+References
+Barney, J. 1991. Firm resources and sustained competitive advantage. Journal of Management,
+17: 99-120.
+Cohen, S. G., & Bailey, D. E. 1997. What makes teams work: Group effectiveness research from
+the shop floor to the executive suite. Journal of Management, 23: 239-290.
+Folger, R. G., & Cropanzano, R. 1998. Organizational justice and human resource management.
+Thousand Oaks, CA: Sage Publications Inc.
+Podsakoff, P. M., & Organ, D. W. 1986. Self-reports in organizational research: Problems and
+prospects. Journal of Management, 12: 531-544.
+Rogelberg, S. G., & Rupp, D. E. 2014. Ethical practices of journal authors: Voluntary code of
+conduct. Retrieved from http://editorethics.uncc.edu/code.aspx.
+Revised 8/31/17
+Page 12 of 13
+Roberts, F. S. 1976. Strategy for the energy crisis: The case of commuter transportation
+policy. In R. Axelrod (Ed.), Structure of decision: 142-179. Princeton, NJ: Princeton
+University Press.
+Table 1
+Descriptive Statistics
+Variable M SD 1 2 3
+1. Variable 1 1 1 .10 .10 .10
+2. Variable 2 2 2 .20 .20 .20
+3. Variable 3 3 3 .30 .30 .30
+* p < .05
+** p < .01
+Revised 8/31/17
+Page 13 of 13
+Figure 1
+Interaction of A and B
+Low B
+Y High B

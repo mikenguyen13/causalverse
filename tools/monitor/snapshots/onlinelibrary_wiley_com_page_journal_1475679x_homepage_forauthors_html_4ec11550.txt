@@ -1,0 +1,94 @@
+Journal list menu
+Journal
+Articles
+Actions Tools Follow journal
+Tools
+Follow journal
+Journal of Accounting Research
+Author Guidelines
+Find out more about Journal of Accounting Research's submission statistics here.
+Author Guidelines & Journal Policies
+Submission
+To submit a paper to the Journal of Accounting Research, please go to the Journal of Accounting Research Electronic Office
+Beginning January 1, 2023, JAR has changed the submission fee from a $500 fee to a tiered fee system. The system is based on the country the submitting authors reside in. Tier One countries will pay $750. Tier Two countries will pay $500. Tier Three countries will pay $50. Note, all authors must reside in Tier Two or Three countries to receive the lower rate. For more information, visit our Payment page.
+To pay the submission fee, visit our payment page. If the fee is not received within a week of submission, the paper will be withdrawn from consideration.
+The submission should comply with our data policy explained below.
+Resubmissions should include separate documents that summarize your responses to comments made by the referee(s) and editor.
+In order for submissions to be considered a revision, all submissions with a revise and resubmit decision must be submitted within 12 months of the decision letter. Any revisions submitted after 12 months will be considered a new submission, and need not receive the same editor or referee.
+All author identification should be removed from the submission and any additional files. The names should be removed from the Properties section of the files.
+At the time of initial submission, JAR uses iThenticate software to screen manuscripts for signs of plagiarism.
+All electronic correspondence should be sent to: [email protected].
+Data and Code Sharing Policy
+For all new submissions, we require authors of empirical papers (including archival, experimental, field studies, surveys, structural papers, and simulations) to comply with the following data and code sharing policy, unless the editors have agreed to an exception from this policy. Authors need to seek any exceptions from this policy at the time of initial submission.
+To be provided upon initial submission on a separate data description sheet:
+A description of which author(s) handled the data and conducted the analyses.
+A detailed description of how the raw data were obtained or generated, including data sources, the specific date(s) on which data were downloaded or obtained, and the instrument used to generate the data (e.g., for surveys or experiments). We recommend that more than one author is able to vouch for the stated source of the raw data.
+If the data are obtained from an organization on a proprietary basis, the authors should privately provide the editors with contact information for a representative of the organization who can confirm data were obtained by the authors. The editors would not make this information publicly available. The authors should also provide information to the editors about the data sharing agreement with the organization (e.g., non-disclosure agreements, any restrictions imposed by the organization on the authors, such as restrictions to publish certain results). In particular, the authors should indicate if an organization or data provider imposes restrictions on the publication of the results, has not given the authors full control of the relevant data, requires that the results have to be reviewed or approved prior to public release of the paper or publication. This information should be provided to the editors upon submission.
+To be provided in the paper or the online appendix:
+The data description sheet and the program(s) (or the step-by-step description from item #5) will be posted on the JAR website after publication along with the online appendix.
+Authors should keep in mind that the overarching goal of our policy is to increase transparency, facilitate replication and, ultimately, to strengthen the credibility of published research. Thus, after completing the above steps, it will likely be useful for authors to step back and ask whether the information they have provided will allow an informed researcher to understand and replicate the analyses reported in the paper (subject to the exceptions indicated).
+We also advise authors to review the FAQ Sheet on our data and code sharing policy posted on the JAR website.
+At this stage, we do not require that authors make the raw or final datasets publicly available. However, we strongly encourage authors to publicly share their data to the extent reasonably possible and as long as sharing does not violate any copyrights or confidentiality agreements. If the authors are willing to share data, we can host them on the JAR website. Alternatively, authors can consider posting or storing their data and programs with a third party.
+Appeals
+Because of the large number of submissions and the fact that appeals consume a disproportionate amount of editorial time, the Journal follows a formal policy for appeals. The general principle has been and remains that our decisions are final. However, we recognize that there can be circumstances (e.g., fundamental misunderstandings of facts) in which an appeal is justified. In those cases, we ask authors to submit a formal letter stating the reasons for the appeal. The letter should be concise (and not a response document). Considering the resources that appeals consume, we ask for a submission fee of $500. As a first step, the senior editors will evaluate the appeal correspondence and jointly assess the merits of the case. If the editors decide that the appeal and the authors’ arguments do not alter the decision, the previous rejection becomes final. If the editors decide that a reconsideration of the decision is warranted, the paper will be sent to the original reviewer(s) as well as to a new reviewer. The new reviewer will advise us solely on the merits of the appeal. Based on the ensuing responses, the editors will make a final decision. No further appeal will then be considered.
+Desk Rejection
+The Journal follows a two-step review process. First, all new submissions are screened to decide whether the submitted manuscript has a reasonable likelihood of potentially becoming publishable in the Journal. If the paper does not pass this hurdle, a brief letter will inform authors of the desk rejection. The author(s) will not receive a referee report and cannot appeal this decision. In the case of desk rejection, half of the submission fee will be refunded. If the paper passes the first hurdle, it will be sent out for review. This policy is intended to conserve the scarcest journal resource—reviewer time and effort—for those papers that we judge have a better chance of publication. In our view, this policy is also in the interest of the authors. There is little point in waiting for a referee report and editorial decision if the paper is likely to be rejected because it is a poor fit for the journal, not of sufficiently broad interest to our readers, and/or lacks a sufficiently large incremental contribution.
+​​​​​“Home School” Submissions
+All manuscripts submitted by authors from the home school of a senior editor (with such authors being current faculty and Ph.D. students) will be handled by a senior editor from a different school to avoid potential conflicts of interest. Senior editors will also not handle any manuscripts of their own former PhD students (i.e., for whom they were serving as dissertation chairs). For former Ph.D. students from their home school, senior editors will not handle any manuscripts for five years post graduation.
+Restrictions on the Number of Submissions
+Authors can submit at most four new papers over a (rolling) two-year period, not counting those submissions that receive a “revise & resubmit” decision. When a new submission by an author (or her/his coauthors) exceeds this maximum, the submission will be declined.
+Resubmission of Rejected Papers
+We do not accept resubmissions of previously rejected papers, unless the authors deem the submission substantively a new paper. In such a case, the authors should inform the Journal upon submission that a prior version of this paper was previously rejected. Failure to do so results in an automatic rejection without refund of the submission fee. A resubmission of a previously rejected paper will go to same editor. If the editor decides that the submission is not a substantively new paper, our desk rejection policy applies.
+Conflict of Interests
+The purpose of this policy is to provide readers of published manuscripts with information about the authors’ other interests, which in turn could influence how readers receive and understand the manuscript. Authors are asked to err on the side of full disclosure; it is better to disclose a relationship than not to do so.
+The journal and its publisher Wiley require that all authors disclose any potential sources of conflict of interest. Any interest or relationship, financial or otherwise, which might be perceived as influencing an author’s objectivity, is considered a potential source of conflict of interest. These sources must be disclosed when directly relevant or indirectly related to the analyses and conclusions that the authors describe in their manuscript. Potential sources of conflict of interest include but are not limited to: Advisory Positions, Board membership, Consultancy, Employment, Funding, Grants, Litigation Support, Patents, Royalties, Stock or Stock Options or Speaking Fees. For further guidance on conflicts of interests, we refer authors to the guidelines developed by the ICMJE. If the authors have no conflict of interest to declare, they must also state this at submission.
+The existence of a conflict of interest does not necessarily preclude publication in the journal. It is the responsibility of the submitting author to review this policy with all co-authors and to list any potential sources of conflict for any of the authors upon submission: (i) in the cover letter to the editors, (ii) in the online system and (iii) in the manuscript (under acknowledgments in the first footnote of the manuscript). We also require authors to state explicitly in the online system and the acknowledgements when they have no conflict of interest to declare.
+The senior and associate editors do their best to avoid conflicts of interest in handling manuscripts and when assigning manuscripts for review. In addition, associate editors and reviewers are expected to notify the senior editor handling the manuscript of any potential conflicts of interests (e.g., due to competing manuscripts, coauthorships or other relationships).
+Citation Ethics
+The editors hereby affirm that it has been, and will continue to be, our policy to avoid coercive citation practices. While we retain professional discretion to suggest that authors cite particular papers, we will do so only when scientifically appropriate, and without regard to the authors of the cited paper or the journal in which it is published. We also expect authors of submitted manuscripts to avoid strategic citation practices, such as the omission of citations to concurrent or competing papers as well as the omission of citations to their own papers when such papers are clearly related to the submitted manuscript. If this policy is violated, the editors may refuse to consider future work from the authors for publication in JAR (in line with the COPE guidelines).
+Style Instructions
+Describe your research (for example, sampling criteria and tests) with sufficient precision to allow an interested, albeit energetic, reader to replicate it.
+Make all tables and figures as self-contained as possible. That is, ensure that tables are readable on a stand-alone basis, without reference to the text or to other tables. Describe the sample, tests, variables and variable abbreviations in the relevant table headings, not in footnotes, in a stand-alone table, or in an appendix.
+Include an abstract of less than 150 words in the paper.
+Number footnotes consecutively and place them at the bottom of the manuscript pages, not at the end of the manuscript.
+Cite references in the text as follows: 'Jones and Smith [1992] find that. . .' or 'Previous research findings in this area are inconclusive (e.g., Jones and Smith [1995], Black et al. [1970])'. Authors should ensure that there is a one-to-one correspondence between references cited in the text and those listed in the reference list (names and years also should correspond). List the references at the end of the manuscript text, after appendices but before tables and figures. Authors should adhere to the following guide for references:
+For books
+JAGGER, M., and K. RICHARDS. Healthy Living for Aged Rock Stars. 4th ed. Chicago: University of Chicago Press, 2006.
+For journal articles
+JONES, A., and J. PEREZ. 'The Effect of Accounting Information on Liquidity Risk: The Case of Australian Bean Counters.' Journal of Antiquated Accounting 12 (1978): 123-456.
+For unpublished work
+JONES, A., and F. BLACK. 'The Role of Scurrilous Rodents in Experimental Auditing Research,' Unpublished paper, University of Nottingthing, 2007. Available at http://papers.ssrn.com/sol3/papers.cfm?abstract _id=0000000.
+Use the active voice where possible. For example, write 'We define cash flow as. . .' and not 'Cash flow is defined as... .'
+Do not write the paper as if it were a mystery story, that is, focus on your major results and their implications as early as possible in the narrative; do not take readers down tortured paths you may have followed.
+Early View
+Journal of Accounting Research is covered by Wiley’s Early View service. Early View articles are complete full-text articles published online in advance of their publication in a printed issue. Articles are therefore available as soon as they are ready, rather than having to wait for the next scheduled print issue. Early View articles are complete and final. They have been fully reviewed, revised and edited for publication, and the authors? final corrections have been incorporated. Because they are in final form, no changes can be made after online publication. The nature of Early View articles means that they do not yet have volume, issue or page numbers, so Early View articles cannot be cited in the traditional way. They are therefore given a Digital Object Identifier (DOI), which allows the article to be cited and tracked before it is allocated to an issue. After print publication, the DOI remains valid and can continue to be used to cite and access the article.
+For authors signing the copyright transfer agreement
+If a paper is accepted for publication, the author identified as the formal corresponding author will receive an email prompting them to log in to Author Services, where via the Wiley Author Licensing Service (WALS) they will be required to complete a copyright license agreement on behalf of all authors of the paper.
+Authors may choose to publish under the terms of the journal’s standard copyright agreement, or Open Access under the terms of a Creative Commons License.
+If the Open Access option is not selected the corresponding author will be presented with the copyright transfer agreement (CTA) to sign. The terms and conditions of the CTA can be previewed in the samples associated with the Copyright FAQs below:
+CTA Terms and Conditions
+For authors choosing Open Access
+If the Open Access option is selected the corresponding author will have a choice of the following Creative Commons License Open Access Agreements (OAA):
+Creative Commons Attribution License OAA
+Creative Commons Attribution Non-Commercial License OAA
+Creative Commons Attribution Non-Commercial -NoDerivs License OAA
+To preview the terms and conditions of these open access agreements please visit the Copyright FAQs hosted on Wiley Author Services http://authorservices.wiley.com/bauthor/faqs_copyright.asp and visit http://www.wileyopenaccess.com/details/content/12f25db4c87/Copyright--License.html.
+If you select the Open Access option and your research is funded by The Wellcome Trust and members of the Research Councils UK (RCUK) or the Austrian Science Fund (FWF) you will be given the opportunity to publish your article under a CC-BY license supporting you in complying with your Funder requirements. For more information on this policy and the Journal’s compliant self-archiving policy please visit:http://www.wiley.com/go/funderstatement.
+Wiley’s Author Name Change Policy
+In cases where authors wish to change their name following publication, Wiley will update and republish the paper and redeliver the updated metadata to indexing services. Our editorial and production teams will use discretion in recognizing that name changes may be of a sensitive and private nature for various reasons including (but not limited to) alignment with gender identity, or as a result of marriage, divorce, or religious conversion. Accordingly, to protect the author’s privacy, we will not publish a correction notice to the paper, and we will not notify co-authors of the change. Authors should contact the journal’s Editorial Office with their name change request.
+Sign up for email alerts
+Tools
+Submit an Article
+Browse free sample issue
+Subscribe to this journal
+More from this journal
+News
+Forthcoming in JAR
+Online Supplements and Datasheets
+2024 JAR Conference Call for Papers
+Excellence in Refereeing
+Referee of the Year Award
+Award Winning JAR Articles
+Most Cited & Impact Factor
+Top Cited Research of All Time
+JAR Conference Web Casts

@@ -1,0 +1,121 @@
+SUBMISSION GUIDELINES AND POLICIES
+Rev. March 12, 2024
+The Journal of Finance (the “Journal”) is the world's leading journal in financial economics, published by The
+American Finance Association (“AFA”). The Journal publishes leading research across all major fields of
+financial research. It is the most widely cited academic journal in finance and one of the most widely cited
+journals in economics as well. Published six times a year, each issue of the Journal reaches over 8,000
+academics, finance professionals, libraries, government, and financial institutions around the world.
+By submitting your manuscript to the Journal for publication, you agree to these Submission Guidelines and
+Policies (the “Guidelines”). Please read them carefully. Failure to comply with any of these Guidelines may
+result in rejection of your submission or revocation of any publication offer from the Journal.
+Please note: refereeing at the Journal is “single blind,” and the
+identity of the author will be known to the referee. Therefore, your
+title page should contain the title of the manuscript, the names of
+the authors, and an abstract of no more than 100 words. Please see
+additional submission rules below.
+All references herein to “you” or “your” means all authors of each manuscript being submitted to the Journal,
+and “including” means “including, without limitation.”
+1. Submission Rules.
+a) All manuscripts must be submitted electronically starting here. Paper sub- missions are not
+accepted.
+b) All submitted manuscripts must be; (i) original, (ii) unpublished (including any online
+publication), (iii) not under submission at another journal, and (iv) not under consideration for
+publication in another form, such as a monograph or chapter of a book. You may not submit
+your manuscript for publication elsewhere until an editorial decision is made by the Journal.
+Failure to observe this rule may result in rejection of your submission.
+c) Authors of manuscripts accepted by the Journal are prohibited from publishing the manuscript
+in any other publication (including any online publication) before the manuscript is published
+in the Journal, unless they receive approval to do so from the Journal editor.
+d) Any resubmission of a manuscript that was previously rejected by the Journal
+will be automatically rejected.
+e) All manuscripts must be submitted in PDF format and must not exceed 60 pages, with at least
+1.5 line spacing, 12-point font, 1-inch side margins, and 1.5-inch top/bottom margins. This
+page limit includes internal appendices, reference lists, figures, and tables. Manuscripts
+exceeding these limits will be automatically rejected. Additional material may be included
+in an Internet
+Appendix (IA) (see item 1.k below) at the end of the PDF file. The IA should be clearly
+identified as such (e.g., it should start on a new page, with “Internet Appendix” clearly written
+in large font at the top of the page). However, the manuscript must be self-contained so that
+readers can understand it in its entirety without having to rely on any separate material.
+f) Footnotes should appear at the bottom of the page on which they are referenced.
+g) Tables and figures can appear either embedded or at the end of the manuscript. Please ensure
+that all variables and graphs are clearly labeled and easily understood.
+h) All but very short mathematical expressions should be displayed on a separate line. Equations
+should be numbered consecutively on the right margin.
+i) An abstract of no more than 100 words must be included as part of any submission.
+j) The introductory section of your manuscript should emphasize the incremental contributions
+of your research. Citations should be kept to the minimum required to clarify and highlight
+your contributions. The article should end with a brief nontechnical summary statement of the
+main conclusions.
+k) Submissions can include a supplementary appendix that might include extra tables, extra
+figures, data description, and proofs. If the manuscript is accepted, the supplementary
+appendix will appear as an Internet Appendix with the online version of the article at the
+publisher’s website.
+l) If your paper uses proprietary data (that is not available for purchase by the academic
+community) and is accepted for publication, your final submission must be accompanied by
+an authorization letter showing that each such source of the data approves its use in the Journal
+of Finance.
+m) These Guidelines and any other policies that may govern the submission of a manuscript to
+the Journal shall be bound upon all authors of such manuscript and who may be required to
+agree explicitly to the Guidelines and any other policies as a condition to publishing such
+manuscript.
+2. Fees & Refund Policy.
+a) Submission Fees. The fees for submitting a manuscript to the Journal
+are:
+High-Income Economies – AFA Members: $400, Non-Members: $525 Middle-Income
+Economies – AFA Members: $100, Non-Members: $150 Low-Income Economies – No
+Submission Fee.
+Click here for lists of economies by income level. Submission fees, if any, must be paid via
+credit card (Visa, MasterCard or American Express) and are required for publication
+consideration.
+b) Refunds. The submission fee will be refunded if a submitted manuscript is desk rejected or if
+an editorial decision is made more than 100 days after the receipt of the submission by the
+Journal. This refund policy applies only to a manuscript's first submission (not revisions).
+c) Appeals. The Journal allows authors to appeal rejected submissions. The non- refundable fee
+for an appeal is $600. Click here for our appeal policy and instructions for submitting. Click
+here to submit an appeal.
+3. General Policies.
+a) Right to Refuse Publication. The Journal, at its sole and absolute discretion, may refuse to
+publish any submitted manuscript and/or may revoke any publication offer for any reason
+whatsoever, including any failure to comply with these Guidelines, in whole or in part.
+b) Other Policies. You acknowledge that your submitted manuscript shall be subject to other
+policies identified to you at the time of or after submission of such manuscript, including the
+Data and Code Sharing Policy which can be found here.
+c) Copyright Assignment. It is AFA’s policy to acquire all publication rights in all material in the
+Journal. Publication of your manuscript, if accepted, is conditional on your assignment deemed
+hereby transferred to the AFA effective as of the date when the manuscript is accepted, of any
+and all publishing rights worldwide in the manuscript, in and on any and all media and using all
+technologies, whether now known or hereafter devised, including to all of your right, title,
+interest, copyrights, including all supplements, enhancements, modifications, and derivations
+thereto, in and to the manuscript. Failure to timely execute any separate additionally copyright
+assignment in a form reasonably requested by the AFA may, in AFA’s sole discretion, result in
+revocation of any publication offer made to you by the Journal.
+d) Author Representations and Warranties. By submitting your manuscript to the Journal, you
+represent and warrant that:
+i. No content in the manuscript violates any applicable law or violate any third-party legal
+right, including any pertaining to the protection of confidential information, any
+proprietary right, publicity right, privacy right, or any other legal right, including through
+the incorporation into the manuscript of any data, formula, text, image, artwork,
+illustration, diagram, graphic, photograph, or other material. If you have obtained the
+applicable rights and consents from the party holding any such right, you shall provide
+copies of such third-party written agreements to the Journal as required for the Journal
+to exercise any and all rights needed in connection with its publication, promotion, and
+commercial exploitation of the manuscript as contemplated in these Guidelines,
+including each additional document linked-to herein;
+ii. The manuscript does not include any defamatory material;
+iii. The manuscript is original and does not include any material that will infringe any
+any other legal right of any third party;
+iv. The manuscript has not been previously published elsewhere in its final form (either in
+printed or electronic format) and is not being considered for publication elsewhere;
+v. You are able to grant to the AFA1 all rights necessary to publish and otherwise
+exploit the manuscript;
+vi. You personally along with any of your listed co-authors (if any) exclusively own the
+vii. You will cooperate fully with the AFA in preparing the manuscript for publication.
+e) Indemnification. You shall indemnify, defend, and hold harmless the AFA, its shareholders,
+officers, directors, members, agents, attorneys, employees, and sublicensees against any claim
+in connection with the breach of any obligation, warranty or representation set forth above. At
+the AFA’s option, defense of any such action may be undertaken by counsel of the AFA’s
+selection, the cost of which shall be paid by you as part of your indemnification obligation. You
+shall not enter into any settlement of any such indemnified claim absent the AFA’s express prior
+written consent, not to be unreasonably withheld but to be exercised in the AFA’s sole and
+absolute discretion.

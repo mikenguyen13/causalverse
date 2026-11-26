@@ -1,0 +1,297 @@
+The following documents must be submitted in ScholarOne after acceptance:
+Final manuscript as a Word file
+Figure files (if applicable)
+Web appendix as a Word file (if applicable)
+Ferber Award eligibility form (for authors of dissertation-based manuscripts who wish to be considered for the annual Ferber Award)
+Editorial office staff will review the final files to ensure adherence to all requirements before sending to Oxford University Press (OUP) for publication. Incomplete submissions will be returned to authors until all required information has been provided.
+Before submitting your final files, also review the following guidelines regarding the publication process:
+Correspondence
+Permissions
+Research Ethics, Transparency, and Open Science
+Licensing and Advance Access
+Open Access
+Proofs
+Post-Publication Updates
+Publication Rights
+Final Manuscript
+The final version of your manuscript must be provided in Word format and formatted in accordance with our style guide. Our sample accepted manuscript provides additional guidance.
+For all matters not covered by our style guide, JCR follows the Chicago Manual of Style.
+The final manuscript must include the following items (in the following order) and must adhere to the journal’s 60-page limit before adding the additional items required after acceptance (these are noted below):
+Article Title
+Authorship List (added after acceptance and does not count toward the 60-page limit)
+Author Note (added after acceptance and does not count toward the 60-page limit)
+Abstract
+Keywords
+Main Text (tables and figures should remain embedded within the main text)
+Data and Materials Availability Statement
+Data Collection Statement (added after acceptance and does not count toward the 60-page limit)
+Appendixes (if applicable; note that a manuscript appendix differs from a web appendix)
+References
+Headings List (added after acceptance and does not count toward the 60-page limit)
+This will be your final opportunity to make changes to your manuscript before you receive the proof. At the proofing stage, the publisher will allow corrections to typos, formatting, and factual errors only. Therefore, it is imperative to prepare the final version of your manuscript carefully:
+Verify that all author names and affiliations are correct
+Make sure references are accurate, verifiable, and complete (i.e., there must be a reference for every citation and a citation for every reference)
+Check the accuracy of all statistics, formulas, tables, and figures (the copyeditor does not check for technical or quantitative accuracy)
+If you removed identifying information from your manuscript to ensure anonymity during the review process (e.g., in the methods sections where data collection and participant pools are discussed), add this information to the final version for publication
+Ensure all comments among authors have been removed, all tracked changes have been accepted or rejected, and “track changes” has been turned off
+Note: Consider hiring a professional proofreader or copyeditor to improve the readability and clarity of your manuscript. Our submission guidelines include a list of suggested professional editing services to assist with proofreading, copyediting, general writing, and language or translation issues. If this will delay the submission of your final files, contact the editorial office to request additional time.
+Article Title
+Online indexing databases and search engines such as Google Scholar and Web of Science use titles to categorize and display articles. A well-constructed and informative title should make your article discoverable to a larger number of scholars, which could lead to more citations.
+Consider changing your title if you believe a different title would do a better job of drawing a wide variety of potential readers
+Keep your title concise and clear (many titles can be shortened)
+Use descriptive terms and phrases that accurately highlight the article’s core content
+The first page of the final manuscript must include your article title. Follow Chicago Manual of Style rules on title capitalization:
+Capitalize the first and last words
+Capitalize all other major words
+Lowercase articles (a, an, and the)
+Lowercase as in any grammatical function
+Lowercase common coordinating conjunctions (and, but, for, or, and nor)
+Lowercase the part of a proper name that would be lowercase in text (e.g., de or von)
+Capitalize prepositions with five or more letters (e.g., About, Against, Among, Before, Through, Within)
+Lowercase prepositions with four letters or less except when they are used adverbially or adjectivally (e.g., up in Look Up, down in Turn Down, to in Come To) or when they compose part of a Latin expression used adjectivally or adverbially (e.g., De Facto, In Vitro)
+Lowercase to not only as a preposition but also as part of an infinitive (to Run, to Hide, etc.)
+Also note:
+Do not italicize the entire title
+Do not place the entire title in quotation marks
+Do not use a period (full stop) at the end of your title
+You can easily convert your title to the correct style using the following free online tools:
+Capitalize My Title
+Title Case Converter
+Authorship List
+The first page of the final manuscript must also include an authorship list following the article title:
+List all author names (centered) in order of authorship
+Capitalize each word (e.g., Annabelle L. Arthur)
+Provide all author names exactly as they should appear in publication (e.g., Annabelle L. Arthur versus Annie Arthur)
+The author order and the styling of author names must match the order and styling in the author note on the second page
+Ensure that all authors who contributed to the article are fairly acknowledged and that the published authorship list accurately reflects individual contributions. OUP requires all published articles to contain clear and accurate attribution of authorship and supports the ICMJE definitions of authorship. Artificial intelligence (AI) tools such as ChatGPT do not qualify as authors.
+We recommend that authors maintain a consistent publication name across all publications whenever possible. This facilitates indexing and enhances discoverability (on the publisher’s platform, Google Scholar, Web of Science, PubMed, etc.).
+Author Note
+The second page of the final manuscript must include an author note (provided as a single paragraph) with the following information for each author:
+Full name
+Email address
+Current position
+Current affiliation (i.e., department and university/institution)
+Complete address (including city, state/province, and country)
+The author note must also include a sentence designating the corresponding author (e.g., “Address all correspondence to Annabelle L. Arthur”).
+Additionally, provide the following additional information as applicable:
+Acknowledgments of financial, technical, or other assistance
+Disclose the use of AI (e.g., to help generate content or images, write code, process data, or for translation); artificial intelligence (AI) tools such as ChatGPT do not qualify as authors but use of these tools should be acknowledged
+If you have a web appendix: A sentence explaining that supplementary materials are included (e.g., “Supplementary materials are included in the web appendix accompanying the online version of this article”)
+If you wish to be considered for the Ferber Award: A sentence stating that the manuscript is based on the lead author’s dissertation
+Note:
+Provide all author names exactly as they should appear in publication (e.g., Annabelle L. Arthur versus Annie Arthur)
+Use third person throughout (e.g., “The authors thank…”)
+The author order and the styling of print names must match the order and styling in the authorship list on the first page
+We cannot update author affiliations, contact information, or other information listed in the author note after the corrected proof is published
+We recommend authors maintain a consistent publication name across all publications whenever possible. This facilitates indexing and enhances discoverability (on the publisher’s platform, Google Scholar, Web of Science, PubMed, etc.).
+See our sample author notes.
+Abstract
+The third page of the final manuscript must include an abstract (maximum of 200 words) that substantively summarizes the article and addresses the following:
+Topic/Issue
+Approach/Methods
+Results/Findings
+Implications/Conclusions
+Note:
+Do not include any citations, links, tables, or figures in your abstract
+Do not include any information that is not in your article
+Write in the third person (avoid using “I” or “we“)
+Be concise; avoid expressions such as “we found that consumers…” (i.e., omit “we found that…” and just write “consumers…” instead)
+In crafting your abstract, recognize that JCR is an interdisciplinary journal and we aspire to being read and cited by scholars in a wide variety of disciplines. In most cases, the title and the abstract are the only part of an article that scholars will see in online indexing databases and search engines such as Google Scholar and Web of Science. A well-constructed and informative abstract should make your article discoverable to a larger number of scholars, which could lead to more citations.
+Make the writing in your abstract accessible, so that the importance of your article will be transparent. Include terms and descriptions that will allow your article to be found by scholars interested in your theories, substantive findings, and methods. For instance, a manuscript investigating processing style by comparing adults across the age span should reference both the relevant theories of processing and the operationalization through age, such that scholars with either interest would be drawn to the work.
+See our sample abstract.
+Keywords
+The third page of the final manuscript must also include a list of three (3) to six (6) keywords in a separate paragraph after the abstract.
+The keywords will be published, and they will be hyperlinked and searchable to enhance discoverability and attract readers.
+Data and Materials Availability Statement
+In the spirit of open science, JCR requires, by default, that anonymized data be made available to readers. The preferred method to share data is via a third-party repository (e.g., Dataverse).
+Authors must include a data and materials availability statement in the final version of their manuscript for publication. This statement should outline where the data can be found (by including a link to the data) or, if data cannot be made publicly available, explain why the data cannot be made available. If you are sharing a link to your data files and study materials, ensure it is completely anonymized.
+The data and materials availability statement should be provided as a single paragraph and should appear on a new page before the data collection statement.
+Data Collection Statement
+Authors must include their data collection statement in the final version of their manuscript for publication.
+The data collection statement should be provided as a single paragraph and should appear on a new page before the references (or before the manuscript appendixes if applicable).
+See our sample data collection statements.
+Appendixes
+A manuscript appendix is distinct from a web appendix. A manuscript appendix contains content that is integral to the manuscript (not supplementary materials or enhancements).
+Note:
+Manuscript appendixes should begin on a new page before the references (after the data collection statement)
+Label each appendix (centered and typed in all capital letters, e.g., APPENDIX A)
+Label a single manuscript appendix without letters or numbers (i.e., APPENDIX)
+Label multiple manuscript appendixes with letters (i.e., APPENDIX A, APPENDIX B, APPENDIX C)
+Each appendix must have a short descriptive title, centered and typed in all capital letters (do not italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+Mention appendix contents in-text where relevant (e.g., “See the appendix for additional details” or “See appendix B for details”)
+Manuscript appendixes must follow all manuscript formatting guidelines (exceptions include stimuli, instruments, and other content included in its original form)
+References
+Your references should appear on a new page after the data collection statement (or after the manuscript appendixes if applicable):
+References must be double spaced with a half-inch (1.27 cm) hanging indent
+Ensure that all references are accurate, verifiable, and complete
+Each reference should be cited in the text at an appropriate place (do not include references that have no corresponding citations in the text)
+Provide the complete reference for all in-text citations (i.e., there must be a citation for every reference and a reference for every citation)
+See our sample accepted manuscript which includes sample references. Additionally, our style guide contains detailed instructions on formatting references.
+Headings List
+To ensure accurate typesetting, authors must provide a list of headings in the order they appear in the manuscript.
+The headings list should appear on a new page at the end of the final manuscript file (after the references) as follows:
+1) PRIMARY HEADING 2) Secondary Heading3) Tertiary Heading 2) Secondary Heading3) Tertiary Heading 3) Tertiary Heading1) PRIMARY HEADING 1) PRIMARY HEADING2) Secondary Heading 2) Secondary Heading 1) PRIMARY HEADING
+Note:
+Use only numbers 1, 2, and 3 to designate the type of heading (e.g., do not create a list numbering the headings as 1, 2, 3, 4, 5, 6, 7, etc.)
+Secondary headings are optional but must follow a primary heading
+If using secondary headings, you must use at least two in a section
+Tertiary headings are optional but must follow a secondary heading
+If using tertiary headings, there are no restrictions (i.e., you can use one or more tertiary headings)
+Also note:
+Do not place the entire heading in quotation marks
+Do not use a period (full stop) at the end of a heading
+Tables
+Tables for accepted manuscripts must be included in the final manuscript. Each table must be provided in an editable format (this is required for typesetting):
+Do not use tabs and spaces.
+Do not insert the entire table in a text box or as an image.
+Use Word’s table feature with columns and rows.
+If necessary, you may upload the editable version of your table in a separate Word or Excel file (however, the table must also be included within the manuscript file).
+Note:
+Place your tables within the main text of the final manuscript.
+Each table should be numbered consecutively.
+All titles, labels, and notes should be included with each table.
+Refer to tables in-text by number (e.g., table 1).
+Do not refer to tables using terms such as “above,” “below,” “preceding,” or “the following.”
+If necessary, you may include tables in landscape orientation (however, please ensure the other manuscript contents are in portrait orientation).
+Specific Table Guidelines
+Capitals: Only the initial letter of a given word, phrase, or columnar head in a table is capitalized.
+Columns: Decimals must be aligned.
+Heads: All columns must have headings; each column head must relate to its subhead.
+Labels: Number each table (centered and typed in all capital letters, e.g., TABLE 1).
+Notes: Notes cued by lowercase superscript letters appear at the bottom of the table below the rule, paragraph indented; descriptive information in addition to any notes should be placed above the notes, paragraph indented.
+Tables with text only: Tables with text only should be formatted in the same way as tables with numbers (as Word tables with columns, rows, and individual cells).
+Titles: Each table must have a short descriptive title, centered and typed in all capital letters (do not italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+Typefaces: Use only sans serif typefaces (e.g., Helvetica, Arial) in tables.
+Figures
+Figures for accepted manuscripts must be included in the final manuscript. In addition, the typesetter requires separate figure files for all figures (including images) in the final manuscript.
+Note:
+It is the author’s responsibility to obtain all necessary permissions for figures prior to publication.
+Place your figures within the main text of the final manuscript.
+Each figure should be numbered consecutively.
+All titles, labels, and notes should be included with each figure.
+Refer to figures in text by number (e.g., figure 1).
+Do not refer to figures using terms such as “above,” “below,” “preceding,” or “the following.”
+If necessary, you may include figures in landscape orientation (however, please ensure the other manuscript contents are in portrait orientation).
+Specific Figure Guidelines
+Axes: Label both vertical and horizontal axes. The ordinate label should be centered above the ordinate axis; the abscissa label should be placed flush right, beneath the abscissa. Place all calibration tics inside the axis lines and their values outside the axis lines. If the junction of the axes is zero, there should be only one zero.
+Error Bars: When graphing means, the inclusion of error bars is optional. However, if error bars are reported, they must be the 95% confidence interval.
+Labels: Number each figure (centered and typed in all capital letters, e.g., FIGURE 1).
+Legends: Legends should be placed horizontally, if possible, either in an appropriate white space in the figure or centered beneath the figure.
+Lines: Clearly differentiate lines within figures. Variations include bold line, fine line, broken line, dotted line, etc. Lines within the figure should be identified by either a legend or a short description in a note.
+Notes and Source Lines: Notes and source lines appear at the bottom of the table or figure, indented and aligned to the left. Descriptive information in addition to any notes should be placed above the notes, paragraph indented.
+Space: When boxes are used to delimit text or freespace drawings in figures, white space inside boxes should be kept to a minimum.
+Titles: Each figure must have a short descriptive title, centered and typed in all capital letters (do not italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+Typefaces: Use only sans serif typefaces (e.g., Helvetica, Arial) in figures. Lettering on all figures must be professional in appearance and large enough to be easily read when reduced to actual size.
+Making Figures Accessible
+Authors are encouraged to provide alt text for figures. Alt text provides concise and informative descriptions so that all readers (including those using screen readers) can benefit from the visual elements integral to scholarly content. Including alt text demonstrates a commitment to accessibility and enhances the overall impact and reach of your work.
+Good alt text should be objective and:
+Concise: Fewer than 100 words (preferably 25 to 30 words)
+Unique: Avoid repeating information found in captions or surrounding text; for images entirely explained by captions or text, consider labeling them as indicating that their purpose is primarily ornamental rather than conveying additional information
+Clear: Spell out contractions, abbreviations, numbers, and non-Latin characters
+Simple: Refrain from using formatting (e.g., bullet points)
+Conclude with a full stop/period, allowing for a pause before the screen reader continues
+Additional considerations:
+Grouped images and multi-panel figures: When images are grouped, provide alt text for individual figures rather than a collective description.
+Punctuation: Screen readers are unable to interpret all types of punctuation, so only use the following: periods, commas, semi-colons, colons, parentheses, brackets, quotation mark, and sashes
+Graphs: Summarize the graph by emphasizing key details, trends, and relationships in the data. If significant, explicitly list underlying values in a logical order. Avoid redundancy if key values have already been discussed in the text. Use full units like “kilometers” for accurate pronunciation by screen readers.
+Here are some examples of good alt text to guide you:
+Image of a microscope: “Microscope image showing a close-up of a single-cell organism.”
+Graph of statistical data: “Line graph displaying the trend of increasing average temperatures over the past decade.”
+Illustration of a plant cell: “Color illustration of a plant cell showing the different organelles and their functions.”
+For additional guidance, please see OUP’s alt text instructions and more detailed guidelines for making figures accessible.
+Color Reproduction
+Figures supplied in color will be published in color online at no charge to the author. However, authors are charged for print reproduction of color figures. Authors who do not wish to pay for color reproduction in the print version of the journal should consider grayscaling images.
+When you receive the proof from the publisher, you will be asked to indicate whether you wish to incur the cost of printing color figures or prefer to have them published in black and white at no additional cost.
+Payment of color reproduction fees is handled entirely by OUP. Editorial office staff are unable to assist with payment or provide receipts.
+Figure Files
+You must also upload a separate file for each figure included in the final manuscript (including figures appearing in manuscript appendixes, if applicable)
+However, do not upload separate files for figures included in a web appendix
+Omit labels, titles, and notes from the separate figure files
+Figures can be submitted in the following formats: .ai, .bmp, .eps, .gif, .pdf, .png, .ppt/.pptx, .ps, .raw, .tif/.tiff, .xls/xlsx
+Source files (e.g., Excel or PowerPoint) are preferred for figures such as flowcharts, drawings, slides, maps, bar/pie/line/column charts (this ensures high quality typesetting)
+Web Appendix
+Authors are encouraged to provide a supplementary document (i.e., a web appendix) containing stimuli, instruments, replication studies, or additional information not included in the manuscript that will accompany the online version of your article.
+A web appendix is distinct from a manuscript appendix. A web appendix should include supplementary materials or enhancements only (not content integral to the article).
+The web appendix will not be copyedited or proofed. It will be published almost exactly as provided when the accepted manuscript is posted on Advance Access.
+A link to the web appendix (labeled as “Supplementary Data”) will be included in the table of contents in the online version of the article. In-text mentions of web appendix contents in the manuscript will also link to the web appendix file.
+Note:
+Upload only one (1) web appendix file containing all supplementary materials
+Include a title page (and label it “WEB APPENDIX”) with the following: the article title (exactly as it appears in the final manuscript file) the authorship list (exactly as it appears in the final manuscript file) a table of contents or a brief paragraph describing the contents of the web appendix
+the article title (exactly as it appears in the final manuscript file)
+the authorship list (exactly as it appears in the final manuscript file)
+a table of contents or a brief paragraph describing the contents of the web appendix
+Label each web appendix (centered and typed in all capital letters, e.g., WEB APPENDIX A)
+Label a single web appendix without letters or numbers (i.e., WEB APPENDIX)
+Label multiple web appendixes with letters (i.e., WEB APPENDIX A, WEB APPENDIX B, WEB APPENDIX C)
+Each web appendix must have a short descriptive title, centered and typed in all capital letters (do not italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+Mention web appendix contents in-text where relevant (e.g., “See the web appendix for additional details” or “See web appendix B for details”)
+The web appendix must be provided as a Word file and follow all manuscript formatting guidelines (exceptions include stimuli, instruments, and other content that is included in its original form)
+See our recommendations for including content in Excel files containing many columns or worksheets or media files
+In the author note of your final manuscript, include a sentence explaining that supplementary materials are included, e.g., “Supplementary materials are included in the web appendix accompanying the online version of this article”
+It is the author’s responsibility to obtain all necessary permissions for figures or other third-party included in the web appendix prior to publication
+Correspondence
+Authors must designate a corresponding author.
+If the corresponding author’s primary institution participates in a Read and Publish Agreement, you may be eligible to publish your article open access for no charge.
+The designated corresponding author should communicate with OUP and the editorial office (not the editor in chief or handling editor) on behalf of all authors and is expected to coordinate communications with co-authors.
+The submitting author may designate a different author to serve as corresponding author
+The corresponding author should also be indicated in the author note
+All correspondence pertaining to your accepted manuscript will be sent only to the corresponding author designated in ScholarOne
+The submitting author can update the corresponding author during each round of revision but can no longer update this information after the manuscript is accepted by the editor
+If you need to update the corresponding author after acceptance, contact the editorial office and copy all co-authors on the request (do not submit the final files until this request is approved)
+The editorial office is unable to change the corresponding author after the final files are forwarded to OUP for production
+The corresponding author must submit the publication license and will remain the point of contact throughout the proofing process
+The corresponding author will remain the point of contact for queries about the published article
+Note: OUP policy limits changes in authorship. After the accepted manuscript is sent to production, changing the designated corresponding author is permitted only when there is a substantive reason to do so (OUP’s ethics team determines this; not the journal). Changing the corresponding author in order to access Read and Publish funding will not be possible.
+Permissions
+It is your responsibility to obtain permission to reproduce figures and other third-party content that will appear in your article or web appendix prior to acceptance.
+If your manuscript or web appendix contain content that requires permission to reproduce, make sure you have obtained all relevant permissions and that the correct permission text has been used as required by the copyright holders.
+Do not submit your final files until all necessary permissions have been obtained.
+Due to the complexity of copyright issues, all permissions-related queries are handled by OUP. Editorial office staff are unable to advise on what constitutes fair use of third-party content or how to obtain necessary permissions.
+OUP provides guidance to help authors determine when permission is needed to use third-party content and answer common questions pertaining to the process of obtaining permissions. See OUP’s rights and permissions guidelines for authors or contact OUP with questions regarding permissions.
+Your university’s legal department may also be able to provide assistance.
+Note: If you have any concerns regarding permissions after you have already submitted your final files, contact the editorial office immediately to hold publication of your article until this is resolved.
+Research Ethics, Transparency, and Open Science
+Review our policies on research ethics, transparency, and open science (revised September 24, 2026) carefully prior to submitting the final version of your accepted manuscript and note the requirement to maintain data and study materials for at least seven (7) years after the date of publication:
+Safeguarding Participants’ Rights
+Research Method Transparency
+Sharing Data
+Sharing Study Materials
+Preregistration
+Data Collection Statement
+Data and Study Materials Maintenance Policy
+Plagiarism Check
+Author Misconduct Policy
+Licensing and Advance Access
+The editorial office will forward the files to OUP after all required materials have been provided.
+After the editorial office has completed processing, the corresponding author will receive an email from [email protected] (within two business days) with the DOI and instructions to complete the publication license.
+The corresponding author will need to register for or sign in to an account with SciPris (OUP’s new author portal launched in June 2023). SciPris is a completely different system from ScholarOne and ScholarOne login credentials will not work there.
+JCR does not charge a publication fee. The only fees related to publishing your article are optional (open access licensing and print reproduction of color figures) and OUP will only request payment for these fees through the SciPris portal or to an OUP bank account.
+If you have any concerns about the legitimacy of a payment request, contact an OUP customer services agent through the SciPris portal or directly at [email protected].
+After the licensing is completed, OUP will publish the accepted version of your article and the web appendix (if applicable) on Advance Access.
+The accepted version will publish in PDF format and will be labeled as an ACCEPTED MANUSCRIPT until the corrected proof publishes. The PDF will indicate that it has not been copyedited or typeset but can be cited or quoted using the DOI.
+OUP’s website has additional information about licensing and the publication process.
+Note: Authors should contact [email protected] with any questions regarding licensing. Licensing is handled entirely by OUP. Editorial office staff are unable to assist with the licensing process.
+Open Access
+JCR is a hybrid open access journal and authors may choose to pay an open access fee to make their accepted manuscript freely available online.
+As part of the licensing process, you will be asked to indicate whether or not you wish to pay for open access.
+You may also be eligible to publish your article open access for no charge if the corresponding author’s institution participates in a Read and Publish Agreement. As noted in the correspondence section above, OUP policy limits changes in authorship. After the accepted manuscript is sent to production, changing the designated corresponding author is permitted only when there is a substantive reason to do so (OUP’s ethics team determines this; not the journal). Changing the corresponding author in order to access Read and Publish funding will not be possible.
+OUP’s website has additional information on open access publishing and compliance with funder policies when publishing your article.
+Note: Authors should contact [email protected] with any questions regarding licensing. Payment of open access fees and assistance with funder compliance is handled entirely by OUP. Editorial office staff are unable to assist with payment and funder compliance.
+Proofs
+Approximately two weeks after submitting the publication license, the corresponding author will receive an email with a link to OUP’s online proofing system and instructions for submitting corrections to the manuscript proof.
+The copyeditor and typesetter will make corrections and modifications to the manuscript, so it is imperative to review the proof very carefully. The corresponding author should submit corrections and respond to queries on the proof within three business days. To avoid publication delays and ensure that the article is published with your corrections, please adhere to this timeframe and respond to all queries. If you expect to be away from email and unable to receive your proof, or if you need extra time to review your proof, notify the editorial office.
+Changes contradicting journal style cannot be made and are restricted to typos, formatting, or factual errors.
+After the corrections are provided, the final version of your article will publish and remain on Advance Access (labeled as a CORRECTED PROOF) until it publishes to an issue.
+OUP’s website has additional information about proofing and the publication process.
+Note: Only the manuscript will be copyedited and typeset. The web appendix will be published almost exactly as provided and changes cannot be made to the web appendix during the proofing process.
+Post-Publication Updates
+Per OUP policy, any changes to your article after publication of the corrected proof will be accompanied by a formal correction notice published with a separate DOI that links to the original article (this includes articles on Advance Access that have not yet published to an issue).
+Changes to content published within the last 12 months will be made directly to the original, where possible. However, any changes to older content will be explained in the linked correction notice only.
+Authors may request corrections only if the publication record is seriously affected by the academic accuracy of published information.
+To request a correction, submit all required information to OUP. The correction will be sent to the journal for approval and a proof of the correction notice will be sent to the corresponding author.
+Publication Rights
+After the corrected proof publishes online, the corresponding author will receive a link providing free access to the article. This link can be shared with colleagues and media contacts.
+JCR has a 12-month embargo period for accepted manuscripts. Authors should review the author self-archiving policy before posting versions of their work on their website, their institution’s website, or other repositories.
+Due to the complexity of copyright matters, all queries related to publication rights and permissions are handled by OUP. Editorial office staff are unable to advise on publication rights and permissions.
+Information regarding publication rights and permissions for reuse or republication of JCR content is available on OUP’s website.
+If you have any questions, please contact the editorial office.

@@ -1,0 +1,186 @@
+Editorial Statement
+Editorial Board
+Journal Metrics
+SUBMIT
+SUBSCRIBE
+Available Issues
+April 10, 2013 - January 9, 2026
+2020s
+2010s
+2000s
+1990s
+Available Issues
+April 10, 2013 - January 9, 2026
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+Volume 28, Issue 1 January-February 2026CURRENT ISSUEPages 1-341, iii
+Available Issues
+April 10, 2013 - January 9, 2026
+2019
+2018
+2017
+2016
+2015
+2014
+2013
+2012
+2011
+2010
+Available Issues
+April 10, 2013 - January 9, 2026
+2009
+2008
+2007
+2006
+2005
+2004
+2003
+2002
+2001
+2000
+Available Issues
+April 10, 2013 - January 9, 2026
+1999
+Submission Guidelines
+Manufacturing & Service Operations Management
+Manufacturing & Service Operations Management (M&SOM) is the premier journal for the operations management research community. This bimonthly journal publishes a wide range of research that focuses on the production and operations management of goods and services including technology management, productivity and quality management, product development, cross-functional coordination, and practice-based research.
+This document provides the instructions to follow to submit a paper to M&SOM. Your submission is considered active (for cycle-time tracking purposes) only when you have completed all of the requirements in this document. The information requested is used to ensure you receive a high-quality and unbiased review in a timely manner.
+Author Portal (for additional author support)
+The INFORMS Author Portal is a resource to support authors as they move through peer review and production. Visit the Author Portal for detailed information regarding INFORMS publication policies, accepted author support, resources (including pre-submission editing services), and journal metrics.
+—PLEASE REVIEW THE FOLLOWING PUBLICATION AND ETHICS POLICIES BEFORE YOU SUBMIT—
+General Submission Guidelines
+Authorship/Authorship Changes
+Guidelines for Ethical Behavior in Publishing
+ORCID
+Rights & Permissions
+JUMP TO: Preparing Your Manuscript | Submitting Your Manuscript | Review Process | After Acceptance
+Preparing Your Manuscript
+To avoid unnecessary delays in processing manuscript submissions, it is the author's responsibility to adhere to the following guidelines.
+Length
+Papers cannot exceed 32 pages, including all references, tables, graphs, and appendices, when typeset using either the Latex or Word style files for M&SOM. In addition to the regular manuscript, authors may submit as a separate file a supporting document intended for publication as an online supplement to the paper; the online supplement is restricted to be at most 16 manuscript pages (for new submissions submitted after January 1, 2021).
+Writing
+Strong English writing helps a paper make it through the peer review process. We encourage you to consult a language editing service as necessary before submitting your paper. In addition, if you have questions about the fit of your paper to a particular department, we encourage you to consult the department editor(s) before submitting your paper to the journal.
+Format
+Double spacing (defined as at most 33 lines per page) should be used throughout the regular manuscript, including abstract and references. Please do not use footnotes in papers. Papers should have one inch margins on all sides, one column, and use 11-point font. The manuscript file should be uploaded as a PDF and contain the paper's title, abstract, main body, references, figures, tables, and appendices.
+Double-Anonymous Peer Review
+M&SOM conducts double-anonymous reviews, meaning that both the authors and the reviewers are not provided with the identity of the other. Authors must remove explicit indications of the authors' names and institutions and all acknowledgments must be removed. The paper should be written in such a way that it does not reveal an author's identity (e.g., "I extend the work in my dissertation (Norman 1995)" should be written in a neutral manner like "This work extends the research in Norman (1995)"). Proper attribution of prior work, especially work done by the authors, is a must and takes precedence over maintaining anonymity. Author names, institutions, and acknowledgments will be returned to the printed manuscript upon acceptance for publication.
+Supplemental Material/Online Supplement
+Authors may submit additional materials that are not part of the main manuscript file. As with the manuscript file, this must be a PDF and not contain any information that would identify the authors. Please label the file as an Online Appendix or E-Companion. The online supplement is restricted to be at most 16 manuscript pages as listed above (for new submissions submitted after January 1, 2021).
+Six Tips for Submitting an Article to M&SOM
+For additional submission information, please view the blog, Six Tips for Submitting an Article to M&SOM, written by M&SOM's former Editor-in-Chief, Christopher Tang.
+Abstract
+Each submitted article must contain a structured abstract (no more than 300 words) that is based on the following subsections (without technical jargon):
+Problem definition: What is your research problem?
+Methodology/results: What is the research method and the key findings?
+Managerial implications: How can academics / managers / decision makers benefit from your paper?
+Please include the above three sections in your abstract followed by the appropriate information in both Step 1 of the submission process and in the main paper file.
+References
+References should be listed alphabetically by author name at the end of the paper in conformance with journal style. In-text citations should be indicated by the author's last name and year of publication, e.g., (Norman 1977) or Norman (1977). Click here for examples of reference style.
+Footnotes
+M&SOM does not use footnotes; authors should incorporate subsidiary material that would otherwise appear in footnotes in the main text, in parentheses.
+Figures
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.
+Style Templates
+Authors can write their manuscript using their preferred software as long as they can create a PDF that meets the above guidelines. The manuscript style is specified in the template file for M&SOM, which handles most stylistic issues. You can find the template and other necessary files here.
+Submitting Your Manuscript
+All papers for publication consideration by M&SOM should be submitted electronically through ScholarOne Manuscripts at the ScholarOne Manuscripts site for M&SOM.
+IMPORTANT NOTE: By submitting a manuscript to or reviewing for this publication, your name, email address, and affiliation, and other contact details the publication might require, will be used for the regular operations of the publication, including, when necessary, sharing with the publisher (INFORMS) and partners for production and publication. The publication and the publisher recognize the importance of protecting the personal information collected from users in the operation of these services, and have practices in place to ensure that steps are taken to maintain the security, integrity, and privacy of the personal data collected and processed. You can learn more here.
+The ScholarOne Submission Process
+There are seven steps for uploading a manuscript in the ScholarOne system:
+Step 1: Type, Title, & Abstract: Enter your manuscript type. Please read the journal's Department Mission Statements for information regarding selecting a department to submit your paper to. To avoid unnecessary delays in processing your submission, please ensure you submit a structured abstract, as discussed in the Preparing Your Manuscript section above. You must choose 2 preferred Department Editors (DEs) from the department you selected. If you chose Manufacturing and Supply Chain Management as your department, please make your first DE choice from that department and the second from a different department. If you are unsure who to select as your preferred Department Editor, please select Dr. Perakis. She will review your paper and assign to the appropriate Department Editor.
+For new submissions, please note when selecting your preferred Department Editor that it is not guaranteed that editor will be assigned to your paper. For papers that received minor or major revision decisions under the previous editorial board, your paper will be assigned back to the same editorial team.
+Step 2: File Upload: Authors will upload as many files as needed for their manuscript. Submitting authors will upload the blinded files for their manuscript and supplemental material. A technical appendix is considered "supplemental material." Supplemental materials are viewed by the Editor, Associate Editor, and reviewers. For revised manuscripts, in addition to uploading the revised manuscript file(s), authors should upload an additional PDF file that contains the response to the previous reports as a supplemental file. The response to the reviewers should begin with a general description of all major changes made in the paper. Please indicate if a change is in response to a particular reader (reviewers, Associate Editor and/or Editor). This general description should be targeted to all of the reviewers. The authors may choose to have subsequent sections that target specific reviewers, but those sections should not repeat portions of the first section, i.e., it should be assumed that all reviewers will read the initial section describing the changes in the paper.
+Step 3: Attributes: Please enter up to five key words to describe your paper from the dropdown list. You may mention additional key words in the Cover Letter to the Editor if applicable.
+Step 4: Authors & Institutions: All authors and their institutions must be identified. Please note that the submitting author is required to provide their ORCID iD (more information about ORCID iDs can be found here).
+Step 5: Reviewers & Editors: You must enter 6 preferred reviewers, 2 preferred Department Editors (in Step 1), and 3 preferred Associate Editors. Authors also have the option to enter any non-preferred reviewers. Regular Associate Editors are preferred but you may also include Guest Associate Editors if you feel their expertise is particularly appropriate for the manuscript. These persons should have no conflict of interest with any of the authors of the paper. An author has a conflict of interest with (a) his/her major professor or a student for whom the author has served as major professor, (b) people working at the same institution, and (c) co-authors on work completed or in progress during the last three years. When choosing the Manufacturing and Supply Chain Management department, you will need to enter a second preferred department editor from a department other than the Manufacturing and Supply Chain Management department.
+Step 6: Details & Comments: This is where you can provide additional information either in the text box or by uploading a cover letter. This information will be viewed by the Editor and the Associate Editor but will not be viewed by the reviewers. You may provide any additional comments for the Editor or Associate Editor that will assist us in the evaluation of your paper. For example, you could offer a brief explanation for your choice of six reviewers and three Associate Editors.
+Step 7: Review & Submit: As the final step, authors will review the previous six steps for completeness and view the PDF proof generated by the ScholarOne system (this is required). Be sure to select "Submit" when done.
+Ethical Statements Authors Will Certify
+As part of Step 5 (above), authors will certify the following ethical statements within the ScholarOne system:
+Prior Submission
+Has this manuscript been submitted previously to M&SOM?
+Plagiarism & Copyright
+Confirm the following:
+Confirm that the manuscript has been submitted solely to this journal and is not published, in press, or submitted elsewhere.
+Confirm that all the research meets the ethical guidelines, including adherence to the legal requirements of the study country.
+Confirm that you have prepared (a) a complete text and (b) complete text minus the title page, acknowledgements, and any running headers of author names, to allow blinded review.
+I acknowledge that in submitting this paper I am aware of INFORMS policy on plagiarism and copyright (https://pubsonline.informs.org/authorportal/copyright-plagiarism). Further I acknowledge that I will report to the editor(s) of the journal all of my manuscripts (e.g., prior publications, conference proceedings, book chapters, papers submitted to other journals) that have substantial overlap with the submitted paper. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Ethical Guidelines
+I acknowledge that I am aware of Manufacturing and Service Operations Management's guidelines for ethical behavior in publishing (http://pubsonline.informs.org/page/msom/submission-guidelines) and all INFORMS policies referred to therein and that this submission conforms to those policies. I have disclosed (in my cover letter and in any related submission questions) any possible perceived conflicts of interest and noted all of my work that has substantial overlap to prior publications, conference proceedings, book chapters, and papers submitted to this journal or any other journals. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Troubleshooting
+For additional training and support for using the ScholarOne Manuscripts submission system, please visit ScholarOne's Author Resources page.
+Contact Your Managing Editor
+Machelle Zellers INFORMS [email protected]
+The Review Process
+This page summarizes the review process and details the expected cycle times. Each manuscript is checked to ensure that it conforms to the formatting requirements and all supporting documents have been included.
+The initial review of all manuscripts is conducted by the Department Editor, a process that could take up to a month. If the manuscript aligns with the journal’s editorial mission, it is assigned to an Associate Editor (AE). If not, the manuscript is returned to the authors along with a brief report detailing the reasons for this decision. In the event of no advancement after a month, it is suggested that the authors request an update from the Managing Editor by contacting the journal.
+The AE reviews the manuscript for fit and quality. The AE has three options: (i) The AE can reject the paper if the AE feels the contribution of the paper is insufficient even if all of the results are correct and even if the authors would be given the opportunity to provide a revision. (ii) The AE can reject the paper if the AE feels that the paper has the potential to make a contribution but there are obvious omissions or corrections needed in the analysis. If either option (i) or (ii) are taken, the AE writes a report for the authors detailing the reasoning behind the decision. (iii) The AE can choose to recruit two to three reviewers.
+The review process for revisions is nearly identical to the review process for new submissions: The only difference between the processes is in the supplemental materials the authors provide: With a revision, the authors write a response to the reviewers. In particular, the target cycle times are the same for new submissions and revisions.
+Assuming the paper is sent to reviewers, the AE waits to receive at least two reports. The AE summarizes the reports and recommends one of the following actions:
+Accept: The paper is publishable as is.
+Conditionally accept: The paper is publishable but requires some very minor changes; the revised manuscript will not be sent back to the AE, but will be checked by the Editor.
+Minor revision required: The paper is probably publishable, but needs some minor revisions before a final decision can be made.
+Major revision required: The paper may or may not be publishable; a major revision is needed before a final decision can be made.
+Reject and Resubmit: The paper is not publishable as is, but the review team would like to grant the author one (final) round of review, as a new submission.
+Reject: The paper is not publishable as is and not likely to be publishable even with a revision.
+The AE's report provides a synthesis of the referees' evaluations, the AE's own assessment of the paper, and the AE's recommendation. When the recommendation is reject, the report should provide an explanation and justification for this decision; to the extent it is possible, the report should also provide constructive feedback on what might make this into a publishable paper. When the recommendation is for a revision, the report should attempt to provide for the authors a clear set of actions to guide the revision, as well as some explanation as to why these actions will result in a better paper; this is particularly important when the reviewers make contradictory recommendations.
+The Editor reviews the reports (AE's and reviewers') and makes a final decision. In most cases, the Editor follows the recommendation of the AE. If the Editor's recommendation differs from the AE's, then the Editor writes a detailed report explaining the decision. If the Editor's recommendation is to resubmit, the Editor provides guidance to the authors on how to proceed.
+Authors who received a decision of Reject may submit a revised version of their work as a new submission once. This revised paper will receive an additional submission cycle (of up to two rounds). If a paper received a Reject and Resubmit decision in a previous submission cycle prior to the rejection, it does not qualify for a new cycle (of course, exceptions may be made under unusual circumstances). Authors are expected to have made substantial improvements to their paper and to have addressed the editor and reviewer comments from the previous submission cycle when they resubmit. Please note that the same reviewer team from the previous submission may or may not be assigned.
+Expected Processing Times
+It is the objective of the M&SOM editorial board to provide fair, critical, and constructive reviews in a timely manner. The following are the target deadlines:
+The Editor is given 4 days to do the initial read of the manuscript and either return the paper to the author(s) or assign an AE.
+The AE is given 9 days to do an initial read and either return the paper to the author(s) or assign reviewers.
+Each reviewer is given 35 days (5 weeks) to complete his/her report.
+The AE is given 10 days to summarize the reviewers' reports and to synthesize his/her recommendation.
+The Editor is given 5 days to make a final decision after the AE report is received.
+Therefore, assuming a manuscript is sent into each stage of the review process, authors should expect to receive a decision within 63 days (9 weeks) of submitting a manuscript. This time period begins when the authors successfully complete the submission process, i.e., only after they have submitted a manuscript that conforms to all formatting requirements and all necessary supporting documents have been uploaded to the ScholarOne system.
+Appeals
+As stated also in the author submission guidelines, authors who received a decision of Reject may submit a revised version of their work as a new submission once. This revised paper will receive an additional submission cycle (of up to two rounds). If a paper received a Reject and Resubmit decision in a previous submission cycle prior to the rejection, it does not qualify for a new cycle (of course, exceptions may be made under unusual circumstances). Authors are expected to have made substantial improvements to their paper and to have addressed the editor and reviewer comments from the previous submission cycle when they resubmit. Please note that the same reviewer team from the previous submission may or may not be assigned.
+Nevertheless, if the author(s) have not received a second chance as stated above and believe that one or more significant technical errors have been made by the reviewers/editors that affected the final decision then the author(s) can appeal. In such cases, the author(s) may appeal by email to the relevant Department Editor or the Editor-in-Chief. This should be done at least one week after but not more than eight weeks after the final decision was transmitted to the author(s).
+The editor(s) will consider the merits of the alleged error and choose a path of action which is generally among the following (1) Uphold the decision made; (2) Secure one or more additional reviews of the paper for further consideration.
+Appeals though are not for cases where the author(s) believe that the reviewers/editors did not sufficiently appreciate the paper.
+After Acceptance
+Final Submission
+A decision of accept will cause the manuscript to appear in the “Manuscripts Accepted for First Look” section of the submitting author’s Author Center. We respectfully request that authors upload their final files to the submission site within 14 days from receipt of the acceptance decision letter. The decision of accept is not considered binding until final files have been received.
+Within the “First Look” section of the submitting author’s Author Center, the author will submit the following files:
+The final version of the manuscript in Word or LaTeX format (provide a .bib file if necessary); include full author contact information and keywords;
+A final, author-generated PDF;
+Any supplementary material that will be published as an online appendix (ie, electronic companion, or e-companion), in PDF format. (E-companions are not copyedited, so please check the text carefully.);
+A signed copyright transfer form (link below);
+If you would like to make your paper Open Access, please fill out the IOO Publication License form (link below) instead of the copyright form. The fee for Open Access is $3000 (USD).
+The completed editorial checklist (please do not convert to PDF); and
+A media promotion form (optional).
+Figures
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.
+Open Access
+The INFORMS Open Option (IOO) provides an Open Access alternative for articles accepted in any INFORMS journals that would have otherwise been available only through subscriptions or pay per view. Please be advised there is a $3,000 (US) fee to make an article Open Access. If you would like to make your article Open Access, you do not need to complete the regular copyright transfer form. Additional details for IOO as well as other types of Open Access can be found here.
+Publication Forms
+Editorial Checklist
+Media Promotion Form
+IOO Publication License (if you would like to make your paper Open Access)
+Contact Your Production Editor
+After receipt of final files from authors, manuscripts are sent to production for copy editing and layout. Questions about the publication status of an accepted manuscript should be directed to [email protected].
+Quicklinks & Resources
+From the Editor Blog
+M&SOM Review Blog
+OM Forum
+M&SOM Best Paper Award
+M&SOM Meritorious Service Award
+Special Issues
+Calls for Papers
+M&SOM Data Driven Research Challenge
+M&SOM Frontiers in Operations
+M&SOM Practice-Based Research Competition
+M&SOM Practice Platform
+Journal AI Policy
+Submission Guidelines
+Ethical Guidelines
+INFORMS Author Portal
+Download Journal Flyer
+Sign up for e-Alerts
+Web Feed

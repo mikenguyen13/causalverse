@@ -1,0 +1,45 @@
+Journal of Management Information Systems
+Information for Contributors
+Submission of Manuscripts
+Submission Guidelines
+References
+Figures and Tables
+Proofs and Reprints
+Journal of Management Information Systems is a top-ranked refereed quarterly intended to provide an integrated view of the entire field of MIS. It serves the needs of researchers as well as practitioners and executives managing the information resource.
+The journal accepts for double-blind referee review full-scale submissions that make a significant novel contribution to the field of information systems. After passing a preliminary review, a submission will undergo generally two or more stages of referee reviews to be ready for publication in a premium journal.
+Submission of Manuscripts
+Manuscripts should be submitted to Dr. Vladimir Zwass Editor-in-Chief, Journal of Management Information Systems at jmis@fdu.edu
+Submission Guidelines
+The address for submission is: jmis@fdu.edu
+The subject line should be "JMIS Submission".
+1. Original submission
+The submission should be made as an attachment to the email, along with a separate cover letter furnished as another attachment.
+The paper to be sent for a double-blind review should be provided in the MS Word or PDF format. The paper and the file should be fully anonymized so that the authors are not identified anywhere in the work. Self-references may be, however, left in the reference list. All figures, tables, etc., should be included at the end of the paper, in the same file. Their placement should be indicated in the text. When a survey instrument is used, but not included in the paper, it should be provided for the benefit of the referees as a separate anonymized attachment.
+The cover letter should provide full affiliation, the postal and e-mail addresses, and telephone number(s) of the authors, with the corresponding author indicated. Brief biographical statements of all authors should be included. The cover letter should include the title page of the paper, with the names and affiliations of all the authors. The title page should acknowledge any funding sources.
+Every manuscript should contain an abstract (up to 150 words), and a set of key words and phrases to serve as indicators of the paper's content. No citations should be included in the abstract.
+The text should be in 12-point typeface, double-spaced, and left-justified. The pages should be numbered.
+The length of the complete MS should not surpass 50 pages. The intention to shorten the paper at later time is not a persuasive justification. An online appendix may be supplied in a separate file.
+Optionally, non-conflicting reviewer nominations can be made. These may be taken into account when the reviewer panel is appointed. Submission of a paper to JMIS is a certification by the authors that the manuscript is not copyrighted, and is not and will not be under a simultaneous review by any other journal or proceedings.
+The References of the original submission should be alphabetized, with the exact style to be adjusted as shown below if the paper will be accepted for publication.
+2. Revisions
+Revised papers should follow the above guidelines. In addition, they should contain the responses to the reviewers in a single file. All the files should be anonymous.
+3. Accepted papers
+The final submissions should be made in an editable format, preferably MS Word. The cover page should contain the full postal and e-addresses of all the authors, and should be followed by the page with the authors' bio sketches.
+The online appendixes should be submitted in a separate file.
+References
+The reference list should be provided at the end of the paper. The references should be arranged alphabetically according to the name of the first author or editor, and numbered. Citations in the text, referring to this list, should be made as numbers in square brackets, e.g., [9].
+References should be provided as follows:
+References to items in periodicals
+These should take the form: author(s), title, journal (italicized or underlined), volume and issue numbers, date, inclusive pages. For all authors, last names are given first; likewise for editors, with the names followed by "(ed.)". The name of the last author ends with a period. More than two authors (but not editors) are separated by semicolons. The title has only the first word and proper names (or their derivatives) starting with capital letters, and it ends with the period. The date is given in parentheses.
+Example:
+Brynjolfsson, E.; Liu, M.; and Westerman, G. Do computers reduce the value of worker persistence? Journal of Management Information Systems, 39, 1 (2022), 41-67.
+References to Books, Chapters, and Conference Proceedings
+Author(s) are specified in the same style as for periodicals. In the title, all principal words are capitalized and the title is italicized or underlined. The title ends with a period and is followed by city, ":", publisher, year.
+Example:
+Haskel, J. and Westlake, S. Capitalism without Capital: The Rise of the Intangible Economy. Princeton: Princeton University Press, 2018.
+References to book chapters take this form: authors, title, "In," names of the editors, "(ed./eds.)", title of the book (all principal words capitalized and the entire title italicized or underlined), city, ":", publisher, year, "pp." inclusive pages. Note the need to include page numbers.
+Reference to publications in conference proceedings should be made in a similar fashion as to the book chapters, with the full name of the conference italicized. Page numbers are necessary.
+Figures and Tables
+In preparing an accepted manuscript for publication, figures should be submitted as original drawings, complete, and ready for photo-reproduction. Tables submitted as cleanly printed copy may also be reproduced photographically. All lettering and figure elements should be large enough to be readable when the figure has been reduced to fit the journal page. All figures and tables must be specifically referred to in the text. All figures and tables should have brief, descriptive captions. Capitalization should be consistent.
+Proofs and E-prints
+Authors will receive page proofs of their papers, which should be returned to the publisher within three working days. Each author will receive 50 free e-prints of their article from the publisher.

@@ -1,0 +1,212 @@
+All manuscripts must be submitted online through the ScholarOne manuscript submission sites:
+Journal of Marketing ScholarOne siteJournal of Marketing Research ScholarOne siteJournal of Public Policy & Marketing ScholarOne siteJournal of International Marketing ScholarOne siteJournal of Interactive Marketing ScholarOne site
+Submissions that arrive via mail or email will not be processed for review.
+First-time authors will be required to create a ScholarOne user account in order to proceed. Each submission must adhere to the guidelines set forth on this page; those that do not follow the guidelines will be returned to the author for correction. Review these videos for advice on how to get published.
+If you have any questions, please contact us at jom@ama.org for Journal of Marketing, jmr@ama.org for Journal of Marketing Research, jppm@ama.org for Journal of Public Policy & Marketing, jim@ama.org for Journal of International Marketing, or jnm@ama.org for Journal of Interactive Marketing.
+Review AMA Editorial Policies and Procedures and Research Transparency Policy before submitting your manuscript.
+FORMATTING BASICS | MANUSCRIPT ORGANIZATION | ARTICLE TYPESAUTHOR ANONYMITY | PLAGIARISM CHECK | READABILITY AND LANGUAGE GUIDELINESMANUSCRIPT COMPONENTS | ACCEPTED MANUSCRIPT GUIDELINES
+Formatting Basics
+File Types: Word; if your manuscript was created in LaTeX, please upload a PDF. Microsoft Word templates are now available for use in preparing manuscripts for all AMA journals. This Word template zip file contains (1) a title page template, (2) a main document template, (3) a Web Appendix template, (4) a sample main document PDF, (5) a sample Web Appendix PDF, and (6) a main document template for submissions to the Journal of Public Policy & Marketing. LaTeX style files are available for use in preparing manuscripts for all AMA journals. This LaTeX template zip file contains (1) a journal template style file, JMR_template.tex, for submission of papers; (2) a BiBTeX style file, jmr.bst, to conform with AMA reference style; and (3) a BiBTex reference file, for references. The AMA thanks Sai Chand Chintala of Cornell University for preparing these files.
+Microsoft Word templates are now available for use in preparing manuscripts for all AMA journals. This Word template zip file contains (1) a title page template, (2) a main document template, (3) a Web Appendix template, (4) a sample main document PDF, (5) a sample Web Appendix PDF, and (6) a main document template for submissions to the Journal of Public Policy & Marketing.
+LaTeX style files are available for use in preparing manuscripts for all AMA journals. This LaTeX template zip file contains (1) a journal template style file, JMR_template.tex, for submission of papers; (2) a BiBTeX style file, jmr.bst, to conform with AMA reference style; and (3) a BiBTex reference file, for references. The AMA thanks Sai Chand Chintala of Cornell University for preparing these files.
+Font (including references): 12-point Times New Roman (or 12-point LaTeX font)
+Text: Double-spaced (tables and references may be single-spaced)
+Page Layout: 1-inch margins on all sides with no page numbers, line numbers, or header/footer
+Page Maximum: 50 pages, properly formatted and inclusive of title, abstract, keywords, text, footnotes, references, tables, figures, and print appendices (web appendices do not count toward the page limit). The 50-page maximum applies to all stages of the review process. (Note: Some article types have different length restrictions. See Article Types.)
+Manuscript Organization
+To facilitate the double-anonymized peer-review process, each submission should be broken into at least two separate files: (1) title page and (2) main document. If your manuscript includes a Web Appendix, please upload it as a separate PDF. Identifying information should not appear anywhere within the main document or Web Appendix files (see Author Anonymity).
+FILE 1: Title Page
+Title
+Author(s) name, title, institution, address, telephone number, and email address
+Author(s) note
+Acknowledgment
+Statements and declarations Ethical considerations Consent to participate Declaration of conflicting interest Funding statement Data availability statement (see Data Availability Statements page)
+Ethical considerations
+Consent to participate
+Declaration of conflicting interest
+Funding statement
+Data availability statement (see Data Availability Statements page)
+FILE 2: Main Document
+Page 1:1
+Title
+Abstract
+Keywords
+Page 2 and on, with each new element beginning on its own page:
+Main text (including any tables, figures, and footnotes)
+References
+Appendices, if any
+The purpose of the JPP&M Policy Contribution Statement is to allow authors to highlight the public policy relevance of the submitted manuscript. In the statement, the authors are asked to succinctly articulate (1) the policy conversation that the submission initiates or to which it seeks to contribute, (2) how the manuscript moves our understanding beyond existing marketing and public policy literature, and (3) what specific policy stakeholders might be impacted by the results of the inquiry and how. The Policy Contribution Statement should be submitted as part of the initial submission of a paper and will be shared with the review team. It should not exceed 300 words. The Policy Contribution Statement does not count toward the 50-page limit.
+(Optional) FILE 3: Web Appendix (see Web Appendix format guidelines)
+Please Note: No exceptions will be made for the items above. Submissions that do not follow the above guidelines will be returned for correction before they can be considered in the review process.
+Back to top
+Article Types
+Research Articles
+All AMA journals publish research articles, which can include empirical and conceptual papers. When submitting, select “New Submission” as the manuscript type and ensure you follow the guidelines on this page. For more information about the articles each journal publishes, see the individual journal pages and recently published articles.
+Special Issue Articles
+AMA journals publish a variety of special issues. Calls for papers can be found on the individual journal pages and on the homepages of each journal’s ScholarOne site. When submitting, select “Special Issue Submission” as the manuscript type, specify the title of the special issue in response to the appropriate submission question, and ensure you follow the guidelines on this page and in the call for papers.
+Journal of Interactive Marketing Reports
+JNM Reports are shorter papers (less than 4,000 words excluding references, abstract, tables, and figures) that focus on timely topics with clear implications for practice (marketers, consumers, or policy makers). Reports go through an expedited review process, without compromising on rigor, and receive a “reject” or “conditional accept” decision after the first round. Conditionally accepted papers are handled by the Editor (needed with assistance from an Associate Editor if needed), who works with the authors to get the paper to an unconditionally accepted version within 3 months. Submissions are therefore required to be very well polished. When submitting, select “Research Report” as the manuscript type.
+Journal of International Marketing Insight Papers
+Insight Papers are shorter manuscripts (under 4,000 words, including all components of the submission) designed for a faster peer review process compared with typical research articles. These papers focus on insights that would benefit from rapid dissemination or serve as a meaningful extension of an already-published article, providing additional contextual confirmation or disconfirmation. Submissions must include initial empirical evidence to support the insight and must be carefully edited and polished for writing and flow. Due to the timely nature of the topics, Insight Papers will receive a final decision within two rounds of review.
+Journal of Public Policy & Marketing Bridging Theory and Practice
+The focus of Bridging Theory and Practice articles is to deliver short conceptual articles that make a contribution at the intersection of marketing and public policy. These articles often address an emerging or shifting policy topic with important implications for marketing practice, consumer behavior, and social impact. Importantly, these articles challenge our current theoretical understanding of a topic to contribute new understanding for how the policy operates to influence marketplace outcomes. Finally, these articles also have strong implications for marketing practice and develop a robust research agenda for the future. As this article format is designed to merge policy, marketing practice, and theory implications, the research team will ideally combine marketing academic–focused authors with a coauthor who brings an industry, practice-oriented, or interdisciplinary lens to examine the shifting marketing and policy environment. The target length is 4,000 words not including references, tables, figures, and appendices. Successful papers accomplish four critical things:
+Center on a timely and substantive marketing and public policy topic
+Reimagine the way we currently see the issue, making a conceptual contribution grounded in but substantively advancing academic literature in this topical area
+Bridge theory and practice with strong industry and policy implications
+Outline a research agenda for the future on the topic.
+Journal of Public Policy & Marketing Policy Notes
+Policy Notes are shorter empirical papers that present exceptionally novel and important substantive findings with direct implications for a timely public policy topic. Policy Notes will feature papers with exceptionally strong length-to-contribution ratios. Standards for rigor will be the same as those for other article categories; the key difference is that Policy Notes should be findings-forward with direct and highly relevant implications for public policy. Submissions should be 4,000 words (maximum at all stages of review) not including title, abstract, keywords, footnotes, references, tables, figures, and appendices.
+Back to top
+Author Anonymity
+Your manuscript should not contain any identifying information about the authors or their universities. When referring to the location of a data collection effort, authors should only make general references to places such as a “large public university” or a “Fortune 500 company.” There is no need to disclose the geographic location of any data collection sites. Once the review process has been completed, these details will be added to the paper. Authors should cite any of their own relevant work. However, if there are anonymity concerns, authors should reach out the Editor(s) in Chief with questions.
+Back to top
+Plagiarism Check
+The AMA editorial office uses iThenticate to determine the level of plagiarism associated with a submitted manuscript. Like most journals, AMA journals view “self-plagiarism” (when authors use materials from their own published work without citation) as a form of plagiarism. Please review the guidelines available from the University of Wisconsin Writing Center (PDF) and the Department of Health & Human Services Office of Research Integrity.
+Back to top
+Readability and Language Guidelines
+AMA journal manuscripts are judged not only on the depth and scope of the ideas presented and their contributions to the field but also on their clarity. Readers of AMA journals have varied backgrounds. Thus, the following guidelines should be followed:
+Write in an interesting, readable manner with varied sentence structure, and use active voice. Use as little passive voice as possible.
+Avoid using technical terms that few readers are likely to understand. If you use these terms, include definitions. Remember: The journal is designed to be read, not deciphered.
+Keep sentences short so the reader does not get lost before the end of a sentence.
+Copy Editing and Proofreading
+It is important to convey your ideas in a clear and engaging manner. Weak writing can detract from your contribution in important ways. Therefore, it is essential that you proofread your manuscript carefully before submission and consider hiring a copy editor. Getting your colleagues’ input on content and communications is also helpful as they will raise issues that you may miss after working on the project for several years. It also helps to read papers published in the journal to get a sense of journal style. Once your revisions are complete, ensure that all comments among authors have been removed and that all tracked changes have been accepted or rejected.
+Inclusive Language
+The AMA strives to ensure inclusive language in our journals, with the understanding that usage continues to evolve. In general, avoid gendered and biased language.
+Use the inclusive singular “they” (rather than “he/she” or any other variation) for a hypothetical person/consumer.
+The AMA prefers “race and ethnicity” rather than “race/ethnicity.”
+It is now AMA style to provide full survey gender demographics in text. Example: “200 participants (51.2% female, 47.8% male, .8% nonbinary, .2% preferred not to state),” not “200 participants (51.2% female).”
+Helpful resources on inclusive language are available from the American Psychological Association and the Conscious Style Guide, among many others.
+Use of Generative AI
+If any content is AI-generated, it must be clearly identified in the main document (e.g., in the “Methods” section) and noted in the “Acknowledgments” section of the title page. AI bots, such as ChatGPT, should not be listed as an author. For more information, see Sage’s ChatGPT and Generative AI policy.
+Back to top
+Manuscript Components
+Title
+The title should not exceed 25 words.
+Abstract
+The abstract is limited to 200 words and summarizes the key components of the manuscript, offering the reader a sample of the manuscript. The abstract should be written in third person.
+Keywords
+Include up to 8 primary keywords that best suit the topic of the manuscript; these do not necessarily need to match the “Topics/Methods” that are selected in ScholarOne upon submission.
+Main Text
+Please do not add any headers/footers on each page. Headings are text only (not numbered) and are formatted according to level. Do not number the pages of manuscripts upon submission because ScholarOne will add page and line numbers to the PDF that is created during the submission process.
+PRIMARY HEADING: Centered, title-style capitalization (first letter of each word), and bold, with an extra return before and after.
+SECONDARY HEADING: Flush left with title-style capitalization (first letter of each word) and in both boldface and italics. You must have at least two sections beginning with a secondary heading; if there is only one, the heading should be excluded.
+TERTIARY HEADING: Left justified, with sentence-style capitalization (first word only), in italics. If only one tertiary heading is used, the heading should be excluded. Please note: We now prefer tertiary headings to be placed on their own line above the paragraph, rather than starting the paragraph text on the same line as the heading.
+Do not use more than three levels of headings.
+Sections should not be numbered or referred to as “Section No.” in the text.
+Mathematical Notation
+All technical and quantitative features must be carefully checked for precision.
+Equations should be centered on the page.
+If equations are numbered, type the number in parentheses flush with the right margin.
+If equations are too wide to fit in a single column (please consult a printed issue of the journal), indicate appropriate breaks.
+All equations, symbols, and letters that indicate variables should be in roman font—that is, do not use italics or bold. The exceptions are italic p to indicate probability, italic l (letter ell) when used as a variable (to avoid confusion with the number 1), and boldface matrices and vectors.
+Numbered equations and models should be referred to in text as Equation 1, Model 1, etc., not “equation (1)” or any other variation.
+Standard deviation should be abbreviated as SD, standard error as SE, and mean as M.
+Do not place a zero before any decimal points (.97).
+Leave one space on either side of operational signs and signs of relation (M = 4.32, F(1, 139) = 34.65, p = .012).
+Do not use more than three decimal places when reporting decimal values.
+Report actual p-values (rather than thresholds such as p < .05), standard errors, and effect sizes (see AMA Policy for Reporting Results).
+Avoid using Word’s Equation Editor, MathType, or LaTeX number/variable formatting for simple in-line mathematical symbols (Greek letters, plus signs, numerals, etc.). Type these as regular text instead, using the “Symbol” function in Word when necessary. Use math mode or an equation editor only when necessary to convey the intended expression.
+For any type of equation that involves more complex arrangement (e.g., overbars, variables that carry stacked super- and subscripts, summation or product symbols that carry subformulas), it is preferable to use MathType or LaTeX.
+References
+References begin on their own page and are listed in alphabetical order by the first author’s last name. Only references cited within the text are included. Use full first name, not just initials.
+For examples of reference list formatting, see Reference Examples.
+Each reference should be cited in the text by the author’s last name and year of publication enclosed in parentheses without punctuation: (Thorelli 1960), or if the author’s name is included in the text of the sentence: Thorelli (1960). If a particular page, section, or equation is cited, it should also be placed in the parentheses: (Thorelli 1960, p. 112) or (Thorelli 1960, Table 1). For citations of up to three authors, list all author names; for four or more authors, use the first author’s name followed by “et al.” (no italics). A series of citations should be listed in alphabetical order and separated by semicolons: (Donnelly 1961; Thorelli 1960; Welch 1981).
+Footnotes
+Footnotes are to be used sparingly and must be concise. Most articles contain no more than 10 footnotes, and each footnote should not exceed 40 words.
+Tables
+Tables should be placed within the text rather than at the end of the document.
+Tables should be numbered consecutively in the order in which they are first mentioned in the text.
+Tables should have titles that reflect the take-away. For example, “Factors That Impact Ad Recall” or “Inattention Can Increase Brand Switching” are more effective than “Study 1: Results.”
+Designate units (e.g., %, $, n) in column headings.
+Refer to tables in text by number (see Table 1). Avoid using “above” or “below.”
+Notes cued by lowercase superscript letters appear at the bottom of the table below the rule. Letters are used for data-specific information. Other descriptive information should be labeled as “Notes:” and placed after the letters.
+Tables with text only should be treated in the same manner as tables with numbers (formatted as tables with rows, columns, and individual cells).
+Make sure the necessary measures of statistical significance are reported with the table (see AMA Policy for Reporting Results).
+Tables should include actual p-values, rather than asterisks that signify p-value thresholds (e.g., *p < .05).
+Include the standard errors of parameter estimates in tables.
+Do not insert tables in the Word file as pictures. All tables should be editable in Word.
+Figures
+Figures should be placed within the text rather than at the end of the document.
+Figures should be numbered consecutively in the order in which they are first mentioned in the text. The term “figure” refers to a variety of material, including line drawings, maps, charts, graphs, diagrams, photos, and screenshots, among others.
+Figures should have titles that reflect the take-away. For example, “Factors That Impact Ad Recall” or “Inattention Can Increase Brand Switching” are more effective than “Study 1: Results.”
+Use Arial font in figures whenever possible.
+For graphs, label both vertical and horizontal axes.
+Axis labels in graphs should use “Headline-Style Capitalization.”
+Legends in graphs should use “Sentence-style capitalization.”
+All bar graphs should include error bars where applicable.
+Place all calibration tick marks as well as the values outside of the axis lines.
+Refer to figures in text by number (see Figure 1). Avoid using “above” or “below.”
+The cost of color printing is borne by the authors. If you do not intend to pay for color printing for a figure that contains color, then it will automatically appear in grayscale in print and in color online.
+If you submit artwork in color and do not intend to pay for color printing, please make sure that the colors you use will work well when converted to grayscale, and avoid referring to color in the text (e.g., avoid “the red line in Figure 1”). Use contrasting colors with different tones (i.e., dark blue and dark red will convert into almost identical shades of gray). Don’t use light shades or colors such as yellow against a light background.
+When using color in figures, avoid using color combinations that could be difficult for people with color vision deficiency to distinguish, especially red-green and blue-purple. Many apps are available online (search for “colorblindness simulator” or similar terms) to provide guidance on likely issues. Use symbols, words, shading, etc. instead of color to distinguish parts of a figure when needed. Avoid wording such as “the red line in Figure 1.”
+When preparing grayscale figures, use gray levels between 20% and 80%, with at least 20% difference between the levels of gray. Whenever possible, avoid using patterns of hatching instead of grays to differentiate between areas of a figure. Grayscale files should not contain any color objects.
+When reporting the results from an experiment in a figure:
+Use the full scale range on the y-axis (e.g., 1–7).
+Include error bars and specify in the figure notes what they represent (e.g., ±1 SE).
+Include the means.
+Include actual p-values, rather than significance levels with asterisks.
+Upon acceptance: Submit original Excel or PowerPoint files for all figures, not just a graphic pasted into Excel, PowerPoint, or Word. This is so the production staff can edit the content. We also accept PDF, EPS, or PostScript files made from the application that created the original figure if it was not created in Word or PowerPoint. Specifically, please export (rather than save) the file from the original application. Avoid bitmap or TIFF files. However, when these files must be used—as in photographs or screenshots—submit print-quality graphics. For a photograph or screenshot, this requires a resolution of at least 300 ppi/dpi. For a line drawing or chart, the resolution should be at least 800 ppi/dpi.
+Appendix
+If appendices are provided, they appear on a new page at the end of the manuscript. Multiple appendices are labeled with letters (Appendix A, Appendix B). A single appendix is labeled without letters (Appendix). Multiple appendices must be numbered in the order in which they are to appear.
+Any mathematical proof or development that is not critical to the exposition of the main part of the text may be placed in an appendix.
+Web Appendix
+Authors are free to provide a Web Appendix file as a companion to their articles. Authors may use the Web Appendix Word template or review the sample Web Appendix PDF in this Word template zip file when preparing their Web Appendix.
+Page 1 of the Web Appendix file must contain the following:
+The words “Web Appendix” or “Web Appendices”
+Title of paper
+Upon acceptance: author names and contact details (omit for anonymity prior to acceptance)
+Table of contents with page numbers (if the Web Appendix has multiple sections)
+The following disclosure: “These materials have been supplied by the authors to aid in the understanding of their paper. The AMA is sharing these materials at the request of the authors.”
+The purpose of a Web Appendix is to provide supplementary materials that are highly relevant to the article and may facilitate replication (e.g., study stimuli, pretests, replication studies, supplementary analyses). In contrast, material that is central to the understanding of the article should be included in the text or in an Appendix that is published with the article in the journal. Material that is not directly relevant (e.g., additional studies that are not central to the conclusions of the paper) should not be included in the Web Appendix.
+Each paper can have (at most) one Web Appendix file, which will be posted on the journal’s website upon acceptance.
+Web appendices will not be copyedited by the journal. Upon acceptance, the Web Appendix must be submitted as a single PDF file and must be ready to post as is.
+Please follow these instructions when preparing your Web Appendix:
+The first page of the Web Appendix must include the following: (1) the words “Web Appendix” or “Web Appendices,” (2) title of the paper, (3) author names and contact details (omit for anonymity prior to acceptance), (4) a table of contents with page numbers for each section (if the Web Appendix has multiple sections), and (5) the following disclosure: “These materials have been supplied by the authors to aid in the understanding of their paper. The AMA is sharing these materials at the request of the authors.”
+Use Times New Roman 12-point font.
+Use the same heading styles as in the main paper.
+If the Web Appendix has multiple sections, please ensure they are clearly labeled “Web Appendix A,” “Web Appendix B,” and so on. These headings may be given descriptive titles, such as “Web Appendix A: Robustness Checks.”
+If the Web Appendix has multiple sections, please ensure each section begins on a new page.
+If the Web Appendix has multiple sections, please include page numbers, beginning with 1 (please note that this is different from the main document, which should not have page numbers).
+Tables and figures in the Web Appendix should have the letter “W” before each table and figure number (i.e., “Table W1,” “Table W2”).
+All equations should be numbered in sequence from the beginning to the end of the Web Appendix. Because in-text equations are numbered 1, 2, …, N, and because any equations in print-based appendices will be numbered A1, A2, …, AN, any Web Appendix equations should be numbered and referred to as W1, W2, …, WN.
+References that are cited only in the Web Appendix should be listed only at the end of the Web Appendix.
+The Web Appendix does not count toward the 50-page limit.
+The Web Appendix should be uploaded as a single PDF file (please note that this is different from the main document, which should be uploaded as a Word document [or as a PDF if written in LaTeX]).
+Please follow these guidelines for mentions of the Web Appendix in the text:
+If there is a Web Appendix, it must be mentioned in text (e.g., “for further information, see the Web Appendix”). Please refer to such appendices as “Web Appendix.” Because some appendices might appear in print and others on the Web, it is necessary to standardize this terminology to eliminate reader confusion.
+Any Web Appendix sections and Web Appendix tables/figures that are mentioned in the main text must be called out in alphanumeric order (e.g., Web Appendix E should not be mentioned in text before Web Appendices A through D). A mention of a Web Appendix in a footnote is considered to appear at the location of the note number in the text.
+AMA will provide the URL for the Web Appendix, so you do not need to include this in your paper.
+Back to top
+Accepted Manuscript Guidelines
+Upon conditional acceptance, final files should be submitted through ScholarOne. Final submissions must meet all the stylistic requirements outlined on this page.
+Upon unconditional acceptance, authors will receive an email containing a link and instructions for completing a Contributor Form. Please complete the Contributor Form agreement as soon as possible. You will receive a separate email from the AMA editorial office if any additional files or file updates are needed before we can proceed with publication. If the accepted article is published on any preprint sites (e.g., SSRN), update the preprint to link to the published paper.
+Please ensure these final files are uploaded to ScholarOne separately:
+Main document (including title page, tables, figures, and print appendix if any) as a Word Doc (PDF is allowed only if the paper was created in LaTeX) (this file will be published as an Express/Accepted Manuscript)
+Figures in original file format (in addition to including the figures in the main document) (see figure guidelines above)
+Web Appendix as a PDF (see Web Appendix guidelines above)
+All LaTeX files in a single compressed file (e.g., .zip) (if applicable)
+Please follow all formatting instructions in the Submission Guidelines above. Please pay particular attention to the following items that can cause delays in editing and publication:
+The manuscript, including tables, figures, and appendices, does not exceed 50 pages.
+Make sure the text of the paper is 12-point font, double-spaced (tables and references may be single-spaced).
+Provide a title page with author names and complete contact information of authors, including present position (i.e., title, department/school affiliation, university, email) (for a template, download this Word template zip file).
+In addition to including figures in the main document, also submit original Excel or PowerPoint files for all graphics, not just a graphic pasted into Excel, PowerPoint, or Word. This is so the production staff can edit the content. We also accept PDF, EPS, or PostScript files made from the application that created the original figure if it was not created in Word or PowerPoint.
+Pay particular attention to the instructions for preparing tables and figures, especially regarding use of color, file formats, font, etc.
+Abstract should be in third person (“the authors”).
+Use active voice (We designed the next three studies to test the propositions) instead of passive voice (The next three studies were designed to test the propositions) throughout the paper. Use of “we” is acceptable for multiauthored papers; for single authors, we recommend use of “I” pronouns (passive voice is also acceptable).
+Sections should not be numbered or referred to as “Section No.” in the text.
+When secondary headings are used, please make sure to have more than one secondary heading per section (e.g., you may have a primary heading and two secondary/tertiary headings, but never a single secondary heading in a subsection).
+Equations set apart from the text need to be numbered (1, 2, etc.). In text, refer to your equation as “In Equation 1, we …” not “In (1), we ….”
+Include all author names in in-text citations with up to three authors (use the first author name and “et al.” only for four or more authors).
+Include all author names in the reference list for works with up to 20 authors (with “et al.” for 21 or more authors). See reference style examples.
+Include first and last names in all references, unless the initials were used in the original reference. Also include volume, issue (season, month, or date), and full page range for all journal/periodical references. This will reduce query time considerably.
+Back to top
+Explore the AMA Journals
+Academic Journals Check out the latest information and insights from Journal of Marketing, Journal of Marketing Research, Journal of Public Policy & Marketing, Journal of International Marketing, and Journal of Interactive Marketing.
+Academic Journals
+Check out the latest information and insights from Journal of Marketing, Journal of Marketing Research, Journal of Public Policy & Marketing, Journal of International Marketing, and Journal of Interactive Marketing.
+Editorial Policies & Procedures The following policies are applicable to all journals published by the American Marketing Association.
+Editorial Policies & Procedures
+The following policies are applicable to all journals published by the American Marketing Association.
+Research Transparency Policy Read the full Research Transparency Policy, which goes into effect August 1, 2025.
+Research Transparency Policy
+Read the full Research Transparency Policy, which goes into effect August 1, 2025.

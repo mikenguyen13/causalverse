@@ -1,0 +1,82 @@
+American Economic Review
+ISSN 0002-8282 (Print) | ISSN 1944-7981 (Online)
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Menu
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Submission Guidelines
+Please read these guidelines thoroughly before submitting a paper.
+Submission Policy
+All papers submitted to the AER must represent original work and should fully reference and describe all prior work on the same subject. Papers under consideration for publication at another journal are ineligible for submission to the AER.
+Prior to submission, authors should familiarize themselves with how the AER handles conflicts of interest between authors and coeditors, as described in our Editorial Policy. Potential personal conflicts should be identified in an accompanying cover letter during submission.
+The AEA screens all submissions for plagiarism using CrossRef's Similarity Check. By submitting to an AEA journal, the author grants permission to the Association to check the manuscript for plagiarism using the Similarity Check system.
+Submissions to the AEA journals should conform to the AEA Disclosure Policy, which provides principles for the disclosure of financial conflicts of interest and, when relevant, information regarding IRB approval. Disclosure is author- and paper-specific; a specific relationship may be relevant for one of an author’s papers but not for another.
+Artificial intelligence (AI) software, such as chatbots or other large language models, may not be listed as an author. If AI software was used in the preparation of the manuscript, including drafting or editing text, this must be briefly described during the submission process, which will help us understand how authors are or are not using chatbots or other forms of AI. Authors are solely accountable for, and must thoroughly fact-check, outputs created with the help of AI software.
+Prior to acceptance, authors of papers that contain empirical work, simulations, or experimental work must provide the data, code, and other details of the computations sufficient to permit replication. All submissions must comply with the AEA Data and Code Availability Policy.
+Research involving field experiments must be recorded in the AEA registry for randomized controlled trials (RCTs). (Laboratory experiments do not need to be registered at this time.)
+The AER reserves the right to reject any paper without review. Papers previously rejected by the AER should not be resubmitted and will not reviewed.
+Submission and Publication Fees
+Submission Fee
+The AER submission fee is adjusted according to AEA membership status and the economic classification that applies to the country in which the authors work. For authors to take advantage of the lower (or waived) fees offered to low- and middle-income countries, the submitting author must meet that criteria. Please be prepared to pay the fee by credit card during the submission process. Papers rejected without review will be refunded 50 percent of the submission fee.
+AEA members: (Join the AEA) High-income countries: $200 Middle-income countries: $100 Low-income countries: $0
+High-income countries: $200
+Middle-income countries: $100
+Low-income countries: $0
+Nonmembers:High-income countries: $300 Middle-income countries: $200 Low-income countries: $0
+High-income countries: $300
+Middle-income countries: $200
+Low-income countries: $0
+Publication Fee
+If a paper is accepted for publication, a fee of $15 per typeset page will be assessed when page proofs are sent for author review. (Note: this applies to papers first submitted on or after February 1, 2024.)
+Length Recommendations
+The average length of an AER article is 35–36 typeset pages. However, shorter, impactful papers will also be given full consideration.
+We strongly recommend that manuscripts not exceed a length equivalent to 40 pages when formatted using 11-point font, 1.5 spacing, and 1-inch margins, or 45 pages when formatted using 12-point font, 1.5 spacing, and 1-inch margins. The suggested length includes figures, tables, references, and appendices.
+Manuscript Preparation
+The AEA has launched a three-year randomized controlled trial of the effects of author-anonymized peer reviewing, commonly referred to as "double-blind." The instructions below have been modified to allow for the anonymization of author identities.
+An abstract of 100 or fewer words is required.
+The manuscript should be in PDF format and should be kept under 10 MB when reasonably possible. Adherence to the journal's Style Guide is required for accepted articles but is optional at the time of submission.
+Manuscripts must be anonymized to avoid revealing author identities: The title of the article and the abstract should appear at the top of the first page, but author names, author affiliations, author contact information, and the acknowledgement footnote should be omitted from the manuscript and should instead be provided in a separate PDF document, labeled "title page." All references to the authors' prior work should be cited using the authors' names and should avoid the use of pronouns, such as "my" or "our," or phrases such as "the authors' previous work." Identifying locations and institutional affiliations, such as descriptions of study sites or IRB approvals, should be omitted. Links to online information stored on personal websites or at institutions with which any of the coauthors are affiliated should be omitted. Do not include an entry for an RCT registration in the reference list as it would reveal author identity.
+The title of the article and the abstract should appear at the top of the first page, but author names, author affiliations, author contact information, and the acknowledgement footnote should be omitted from the manuscript and should instead be provided in a separate PDF document, labeled "title page."
+All references to the authors' prior work should be cited using the authors' names and should avoid the use of pronouns, such as "my" or "our," or phrases such as "the authors' previous work."
+Identifying locations and institutional affiliations, such as descriptions of study sites or IRB approvals, should be omitted.
+Links to online information stored on personal websites or at institutions with which any of the coauthors are affiliated should be omitted.
+Do not include an entry for an RCT registration in the reference list as it would reveal author identity.
+Supplementary appendices must be anonymized.
+Correspondence to the reviewers, such as response letters, must be anonymized.
+Appendices
+Manuscripts may include one or more in-paper appendices for technical proofs, derivations, and other material that can be separated from the main text but that is considered part of the paper. These appendices should begin on a new page following the text, preceding the references. They are typeset and edited and become a part of the total page count of the manuscript.
+Authors may submit a Supplemental Appendix that contains material such as nonessential extensions, nonessential alternative specifications or robustness checks, and additional discussion that will be of interest to those pursuing work in the area. Supplemental appendices are posted under "additional materials" and are not edited or typeset.
+The paper (including any in-paper appendices) must be self-contained, in the sense that a reader can understand and evaluate the findings without consulting the Supplemental Appendix. All essential information, such as data sources, variable definitions, and methods (for empirical work) and proofs of the formal results (for theoretical work), must be included in the paper.
+Submission Instructions
+Once your submission materials have been prepared in accordance with these guidelines, please use the ScholarOne Manuscripts platform to submit your paper.
+A cover letter is not required and should only be used to provide substantive information, such as the identification of coeditors with whom the author may have a personal conflict of interest. Any data access limitations should also be noted in the cover letter. If a cover letter is included, we prefer to receive it in the provided form field rather than as a separate document.
+Each (co)author should prepare a separate PDF document entitled "Disclosure Statement," which must be provided with the manuscript. The disclosure statement should include the (co)author’s name and the title of the article. If an author has nothing to disclose, that fact should be explicitly stated in the disclosure statement. Submissions that do not include these statements will be considered incomplete and will not be reviewed.
+For research involving field experiments, authors must supply the AEA RCT identification number during the manuscript submission process and should include a citation of their registration in the acknowledgement footnote of the paper. Sample citation: This RCT was registered as AEARCTR-0000005 (Zhang 2017).
+Additional Information
+Authors have the option to use AEA Templates. If these templates are used, they should be used in "review mode."
+If you are using bibliographic software to prepare your reference list, we prefer that you use the "Chicago Manual Author-Date" style.
+Authors may opt to publish joint papers in random order of coauthors using the symbol ⓡ between author names.
+If you have any questions, please contact the AER Editorial Office at info_aerjournal@aeapubs.org or call 412-432-2300.

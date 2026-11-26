@@ -1,0 +1,211 @@
+Editorial Statement
+Editorial Board
+Journal Metrics
+Journal Sponsors
+SUBMIT
+SUBSCRIBE
+Available Issues
+April 10, 2013 - January 12, 2026
+2020s
+2010s
+2000s
+1990s
+1980s
+Available Issues
+April 10, 2013 - January 12, 2026
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+Volume 45, Issue 1 January-February 2026CURRENT ISSUEPages 1-248, ii
+Available Issues
+April 10, 2013 - January 12, 2026
+2019
+2018
+2017
+2016
+2015
+2014
+2013
+2012
+2011
+2010
+Available Issues
+April 10, 2013 - January 12, 2026
+2009
+2008
+2007
+2006
+2005
+2004
+2003
+2002
+2001
+2000
+Available Issues
+April 10, 2013 - January 12, 2026
+1999
+1998
+1997
+1996
+1995
+1994
+1993
+1992
+1991
+1990
+Available Issues
+April 10, 2013 - January 12, 2026
+1989
+1988
+1987
+1986
+1985
+1984
+1983
+1982
+Submission Guidelines
+Marketing Science
+Marketing Science focuses primarily on articles that answer important research questions in marketing using mathematical modeling. However, the journal also considers empirical papers that report significant findings (but without any specific contribution to modeling), papers that describe applications (emphasizing implementation issues), behaviorally oriented papers that contribute (theoretically or empirically) to the understanding of and/or lead to the development of mathematical models, and scholarly papers reporting developments (in fundamental disciplines) of interest to marketing.
+Author Portal (for additional author support)
+The INFORMS Author Portal is a resource to support authors as they move through peer review and production. Visit the Author Portal for detailed information regarding INFORMS publication policies, accepted author support, resources (including pre-submission editing services), and journal metrics.
+—PLEASE REVIEW THE FOLLOWING PUBLICATION AND ETHICS POLICIES BEFORE YOU SUBMIT—
+General Submission Guidelines
+Authorship/Authorship Changes
+Guidelines for Ethical Behavior in Publishing
+ORCID
+Rights & Permissions
+JUMP TO: Preparing Your Manuscript | Submitting Your Manuscript | Review Process | After Acceptance
+Preparing Your Manuscript
+Generative AI: Author Use and Responsibilities
+Authors are welcome to use generative artificial intelligence (Gen AI) tools in the preparation of their manuscripts. However, the authors are responsible for the accuracy of all facts and references cited in the paper. If a review team detects inaccurate information in a paper, e.g., fake (“hallucinated”) references, the editors reserve the right to reject the paper for this reason alone. Please also see Artificial Intelligence Authorship.
+Manuscript Objectives
+Different manuscripts have different objectives. We evaluate a manuscript based on both the quality and difficulty of the objective as well as the extent to which the objective was achieved. Here are some possible objectives (in alphabetic order) and what you would need to do. Remember, these are just a few examples of possible objectives and how to approach them. Note that it is desirable to have the potential to observe, test and replicate manuscript claims.
+Develop a Normative Theory. You develop a theory that provides conditions when apparently inferior alternatives are shown to be optimal. This type of research requires a high level of rigor and logic. You would need to show that firms often face the conditions when the theory is appropriate. You might also examine why firms have not already taken these alternatives (e.g., changes in technology, changes in regulation, changes in cost structures).
+Develop New Normative Tools. You develop a tool that some managers or consultants would find valuable. You should compare your tool to existing tools and show that your tool (at least under some conditions) outperforms existing tools on common measures of performance (e.g., forecasting, simplicity of use, outcome measures, etc.).
+Discover an Empirical Regularity. You discover an empirical regularity or discover that some published findings seem to generalize across a wide variety of situations. This type of research needs to establish that the generalization holds. It is also useful to explore the implications for marketing and explore whether the research suggests new previously unknown actions.
+New Method Development. You develop a new method that allows better decisions or extraction of information that ultimately produces better decisions. The new method should lead (hopefully) to firms taking better actions than existing methods. This type of research requires you to compare your new method with existing methods. You need to establish some superiority on some criteria or conditions when your method performs better.
+Propose New Descriptive or Positive Theories. You develop a new explanation for an existing and observed phenomenon. If there are existing explanations, you provide proof that your explanation has more explanatory power. It is important to argue why the phenomenon requires explanation and how this explanation might change the actions of some decision-makers. Positive theories must be testable (i.e., have refutable implications).
+Substantive Empirical Comparisons. You compare more successful companies with less successful companies and make conclusions. This type of research requires you to pay careful attention to the quality of your data, the rigor of your analysis and the validation of your results.
+Theory Testing. You test either an existing theory or a new theory. This type of research requires you to develop competing implications for the different theories and show that your theory explains or predicts better than alternative theories.
+Exposition. Good ideas are often simple. When you prepare a paper for submission, please try to make it as readable as possible to as broad an audience as is feasible. The easier it is for reviewers and editors to read your paper, the more likely they are to recognize your contributions (Hauser 1989).
+Do not try to hide the paper’s weaknesses. It is better to discuss them and point out potential solutions, than have the reviewers uncover them.
+Additional Guidelines
+Database Submissions
+Practice Paper Publication Process
+Manuscript Types
+Marketing Science primarily publishes regular manuscripts that follow the traditional journal process as well as “Marketing Science: Frontiers” manuscripts. The Frontiers section seeks papers from all methodologies that address business or social problems that are of considerable importance because of their scale, scope, or urgency. These problems should be marketing relevant but may not necessarily fall into the traditional definition of marketing. Papers addressing these problems are expected to have significant and direct implications for (i) academic research in marketing or its interface with another discipline, or (ii) managerial practice, or (iii) public policy. The papers will help push the boundary of research in marketing. Frontiers papers tend to target an audience that extends beyond the traditional Marketing Science audience. Therefore, they tend to be written as short and accessible papers. Authors should strive to keep their manuscripts to 6,000 words including all references, tables, graphs, and appendices. Supplemental information is provided in online appendices to ensure quality and rigor. Because the type of questions that Frontiers papers typically address can be time-sensitive, the review process for Frontiers papers is designed to be faster than that for regular submissions to Marketing Science.
+Length
+Regular Manuscripts. Authors should strive to keep their manuscripts to 40 double-spaced pages, including all references, tables, graphs, and appendices (online appendices, if submitted, do not count toward the page limit and can be of any length). Authors are encouraged to express their ideas succinctly and efficiently, and manuscripts shorter than the limit are welcome.
+Frontiers Manuscripts. Frontiers manuscripts have a limit of 6,000 words for all pages of the paper (including references, tables, graphs, and appendices), which is stringently enforced. Online appendices, if submitted, do not count toward the word limit and can be of any length.
+Format
+Submissions can be created in Microsoft Word or LaTeX formats but should be uploaded to the submission site as either a MS Word or PDF file (the system cannot convert LaTeX files). The manuscript (including abstract, references, and footnotes) should be double-spaced, one column, have a standard font of 11 or 12 points, and have one-inch margins on all four sides. The title, abstract (approximately 100-200 words), and keywords are to appear on the first page of the submitted manuscript. Please place tables, figures, and footnotes either in the text or at the end of the manuscript and make sure they are appropriately referenced within the manuscript.
+Double Anonymous
+Marketing Science uses a double-anonymous review process, ensuring that both authors and reviewers remain unaware of each other’s identities. Authors must remove explicit indications of the authors’ names and institutions and all acknowledgments must be removed. The paper should be written in such a way that it does not reveal an author’s identity (e.g., “I extend the work in my dissertation (Norman 1995)” should be written in a neutral manner like “This work extends the research in Norman (1995)”). Proper attribution of prior work, especially work done by the authors, is a must and takes precedence over maintaining anonymity. Author names, institutions, and acknowledgments will be returned to the printed manuscript upon acceptance for publication.
+Style Templates
+Authors can use their preferred software when compiling a manuscript as long as they provide a compiled PDF file in the manuscript submission system. For those who prefer to use LaTeX, style files are available on the INFORMS Author Portal.
+Data Disclosure and Replication Policy
+The primary objective of the policy is to ensure that Marketing Science papers are replicable. Broadly speaking, the policy requires that upon acceptance of a paper by Marketing Science, the author(s) of the paper must submit the data and estimation codes used in the paper. The journal will make these ﬁles available on its website to scholars interested in replicating accepted papers’ results. The complete policy is published in the January-February 2013 Editorial and can be downloaded here.
+If a nondisclosure agreement (NDA) that was noted at the time of submission prevents the author from providing the data used in the paper, please provide either a disguised data set (with noise/multipliers added to the variables) or simulated data along with the code for running the analysis, and a Readme file that explains the data set and instructions for how to run the code on the data. Please provide these data in a separate zip file.
+Mathematical Notation
+Mathematical expressions in the body of the text should be no more complex than necessary. If there are numbered equations, the numbers should be given in parentheses, flush with the right margin of the page.
+Keywords
+Authors should select 3-6 keywords to describe their paper’s theoretical and methodological orientation. A list of keywords is available within ScholarOne Manuscripts. Keywords are helpful in the selection of appropriate Senior Editor, Associate Editor, and reviewers. Keywords should appear beneath the abstract in the manuscript file.
+Abstract
+Each manuscript should include an easy-to-read and understandable abstract of not more than 200 words that communicates the contribution of the paper to general readers as clearly as possible. It is important that your abstract not contain mathematical notation that may be difficult to properly present in Web browsers. The abstract is not only a part of the full article (print and online) but, more importantly, serves as the only free-for-all record of your paper. It is reused and remapped by a variety of online portals and metadata databases, some of which are text only. Please provide a text-only, or, if that is absolutely impossible, try to minimize the use of math symbols and please completely avoid accented variables.
+References
+References should be listed alphabetically by author name at the end of the paper in conformance with journal style. In-text citations should be indicated by the author’s last name and year of publication, e.g., (Norman 1977) or Norman (1977). Click here for examples of reference style.
+Footnotes
+Footnotes should be numbered consecutively and should be indicated in the text by superscript numbers. Material that would normally appear as a footnote should be placed in the body of the text when it will not impair readability.
+Figures
+The Author Portal contains detailed instructions for figure composition.
+Submitting Your Manuscript
+Manuscripts should be submitted online at the ScholarOne Manuscripts site for Marketing Science.
+The ScholarOne Submission Process
+There are seven steps for uploading a manuscript in the ScholarOne system:
+Step 1: Type, Title, & Abstract: Enter your manuscript type (ie, Original Article, Frontiers in Marketing Science, Commentary, Rejoinder, Database Submission, Editorial, Practice Paper, Special Issue Paper). Provide the manuscript title. Add the abstract (not more than 200 words).
+Step 2: Attributes: Authors should select 3–6 keywords to describe their paper's theoretical and methodological orientation.
+Step 3: Authors & Institutions: All authors and their institutions must be identified. Please note that all authors are required to provide their ORCID iD (more information about ORCID iDs can be found here.
+Step 4: Reviewers & Editors: Authors should enter 3 preferred reviewers and 2 preferred Associate Editors from the list available here. Authors should not suggest reviewers with whom they have any conflict of interest. An author has a conflict of interest with (a) his/her major professor or a student for whom the author has served as major professor, (b) people working at the same institution, (c) co-authors on work completed or in progress during the last three years.
+Step 5: Details & Comments: Authors can include their cover letter either in the text box or as a separate file. This information will be viewed by the Editor and the Associate Editor but will not be viewed by the reviewers. Authors will denote funding in this section. Authors will certify that they are complying with the journal's ethical policies. Authors will also choose their preferred Senior Editor.
+Step 6: File Upload: Authors will upload as many files as needed for their manuscript. These files will be combined into a single PDF document for the peer review process. For revisions, authors should include only the latest set of files.
+Step 7: Review & Submit: As the final step, authors will review the previous six steps for completeness and view the PDF proof generated by the ScholarOne system (this is required). Be sure to select “Submit” when done.
+Ethical Statements Authors Will Certify
+As part of Step 5 (above), authors will certify the following ethical statements within the ScholarOne System:
+Prior Submission
+Has this manuscript been previously submitted to Marketing Science by you or any of your current or past coauthors and rejected by the journal?
+Plagiarism & Copyright
+Confirm that the manuscript has been submitted solely to this journal and is not published, in press, or submitted elsewhere.
+Confirm that copyrights for this manuscript have not been assigned to any other publication (including conference proceedings) or any organization.
+I acknowledge that in submitting this paper I am aware of INFORMS policy on plagiarism and copyright (http://authors.pubs.informs.org). Further I acknowledge that I will report to the editor(s) of the journal all of my manuscripts (e.g., prior publications, conference proceedings, book chapters, papers submitted to other journals) that have substantial overlap with the submitted paper. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Ethical Guidelines
+I acknowledge that I am aware of Marketing Science's guidelines for ethical behavior in publishing (http://pubsonline.informs.org/page/mksc/submission-guidelines) and all INFORMS policies referred to therein and that this submission conforms to those policies. I have disclosed (in my cover letter and in any related submission questions) any possible perceived conflicts of interest and noted all of my work that has substantial overlap to prior publications, conference proceedings, book chapters, and papers submitted to this journal or any other journals. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Replication Policy
+Confirm that you have read the Marketing Science replication policy and agree to comply with it if the manuscript is accepted for publication in Marketing Science. If you have signed any nondisclosure agreement for your data, please inform the editor in your cover letter, along with relevant details.
+Competing Interests
+Confirm that you have read the Competing Interests Policy and provide all relevant disclosure statements in your paper. Please make sure the information in your manuscript at initial submission does not contain author names, as the peer review process is double blind. If your paper is accepted author names will be added to the statements at that time.
+Troubleshooting
+For additional training and support for using the ScholarOne Manuscripts submission system, please visit ScholarOne’s Author Resources page.
+Contact Your Managing Editor
+Machelle Zellers INFORMS 5521 Research Park Drive Suite 200 Catonsville, Maryland 21228 [email protected]
+The Review Process
+Regular Manuscripts. Manuscripts are evaluated on whether they provide a significant original contribution on an important topic in marketing and their readability. If the manuscript passes this initial evaluation, the Senior Editor assigns reviewers and an Associate Editor. The reviewers evaluate the quality of the logic, methods and evidence found in the manuscript. The reviewers may determine the manuscript is missing critical information necessary for a complete review and request additional information. When the reviewers have completed their analysis, a review form with recommendation is completed and provided to the Associate Editor. The reviewers and the Associate Editor provide constructive, fair, and timely reviews with the goal of identifying the best of these submissions for ultimate publication in the journal. Ultimately, the Senior Editor renders a decision concerning the manuscript. This information is relayed to the authors.
+All reviews are blinded and play an important advisory role to the Associate Editors and Senior Editor. We encourage reviewers to be constructive, fair, and timely with the goal of identifying the best of these submissions for ultimate publication.
+Frontiers Manuscripts. The review process for Frontiers manuscripts is structured similarly to that for regular manuscripts, but members of the review team are given less time to write their reports. Associate Editors may give recommendations to the Senior Editor for reviewers submissions. The Senior Editor assigns reviewers.
+Decisions
+Marketing Science seeks to publish the highest quality quantitatively oriented papers in marketing; however, it also recognizes that sending a manuscript through the review system carries a cost for authors, reviewers, the Associate Editors, and the field as a whole. Toward this end, there are submissions (as determined by the Senior Editor) that will be deemed unsuitable for going forward with a full review process. This decision to “desk reject” a paper would be based on the manuscript's fit with the mission of the Journal or because it is unlikely that it would become acceptable for publication within a number of rounds of review. If a Frontiers submission is desk rejected due to a lack of fit with the section, and if the Senior Editor deems that the submission would be appropriate as a regular submission, the authors may be given the option to resubmit as a regular submission.
+The following are the possible decisions that can be rendered as a result of the full review process. The range of decisions is the same for regular submissions as for Frontiers submissions:
+Accept: The paper is ready to be published.
+Conditional Accept: The paper is acceptable subject to minor modifications that will be overseen by the Associate Editor and Senior Editor only.
+Minor Revision: A favorable outcome is likely if the modifications that are described are made. The paper will go out to the review team to assess the changes that are made. The deadline for revisions is nine months from the date of decision.
+Major Revision: While the paper has significant merit, due to the extensive nature of the revisions described, it is highly uncertain as to whether the paper will have a favorable outcome.The deadline for revisions is nine months from the date of decision.
+Reject & Resubmit: In its current form, the paper is unacceptable for publication. However, a paper that is revised along the lines suggested would be considered for resubmission as the topic is of considerable interest. There is a 12-month deadline for resubmitting papers that received a “Reject & Resubmit” decision.
+Reject: The paper is unacceptable in its current form for publication and is unlikely to reach an acceptable level in a number of review rounds.
+As a rule, Marketing Science does not allow resubmissions of rejected manuscripts. If a submission is based on a manuscript that was previously rejected and for which the senior editor explicitly invited a resubmission (i.e., the previous submission received a “reject & resubmit”), it is the responsibility of the author(s) to disclose the previous submission during the submission process. Failure to disclose any related previous submission to Marketing Science is a violation of our ethical guidelines.
+Appeals
+Occasionally, reviewers or Associate Editors will make errors in their reviews. The Editor-in-Chief and the Senior Editor may fail to catch these errors. Although it is unlikely that an error would impact the final decision on a manuscript, the possibility exists. Therefore, we do allow authors to appeal decisions.
+Authors should never appeal decisions only because they disagree with the outcome or feel that the evaluators merely lacked appreciation for what they have done (evaluators are often chosen from the author’s recommendations). Moreover, authors should never appeal on the grounds that their standing in the discipline accords them some special treatment. We give all authors equal opportunity and maintain a double-blind review process. However, if the reviewers or evaluators have made errors that can be documented, authors can and should appeal decisions following the instructions provided here. Please note that this formal appeals process is the only option for appealing a decision. Informal appeals are not allowed.
+After Acceptance
+We respectfully request that authors upload their final files to the submission site within 14 days from receipt of the acceptance decision letter. The decision of accept is not considered binding until final files have been received.
+Final Submission
+A decision of accept will cause the manuscript to appear in the “Manuscripts Accepted for First Look” section of the submitting author's Author Center, where the author will submit the following files:
+A source file of the manuscript in LaTeX or Microsoft Word, with a cover page that includes full author contact information and keywords;
+A PDF file of the main paper;
+A PDF file of online appendices (‘e-companions’; these are not edited, so source files are not needed);
+Figure source files;
+A biographical sketch of each author (maximum of 75 words each; please include position title (e.g., assistant professor));
+Data/replication files (if applicable);
+A signed copyright transfer form OR PubLicense Form for Open Access (see below);
+Completed editorial checklist (including a sentence that describes the paper for the Table of Contents); and
+Media promotion form (optional).
+Figures
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.
+Open Access
+The INFORMS Open Option (IOO) provides an Open Access alternative for articles accepted in any INFORMS journals that would have otherwise been available only through subscriptions or pay per view. Please be advised there is a $3,000 (US) fee to make an article Open Access. If you would like to make your article Open Access, you do not need to complete the regular copyright transfer form. Additional details for IOO as well as other types of Open Access can be found here.
+Publication Forms
+Editorial Checklist
+Media Promotion Form
+IOO Publication License (if you would like to make your paper Open Access)
+Contact Your Production Editor
+After receipt of final files from authors, manuscripts are sent to production for copy editing and layout. Questions about the publication status of an accepted manuscript should be directed to [email protected].
+Quicklinks & Resources
+Special Issues
+Online Databases
+Press
+ISMS Fellows Forum
+Guidelines for Reviewers and Editors, including the use of Generative AI
+Calls for Papers
+Science-to-Practice Initiative
+Submission Guidelines
+Data Disclosure and Replication Policy
+Competing Interests Policy
+Conference-Forward-to-Journal Policy
+Ethical Guidelines
+INFORMS Author Portal
+Download Journal Flyer
+Follow Marketing Science on Facebook
+Sign up for e-Alerts
+Web Feed

@@ -1,0 +1,56 @@
+Author Guidelines
+5-Key Manuscript Requirements
+(also see below details)
+(1) Know the Journal
+We are an Empirical Operations Management outlet: See mission & recent editorials (e.g. "Holding North")
+Not a link above. Simply see the Selection of Key Contemporary Methods Discussions in JOM. Also see details below:
+▪️ On making experimental design choices ▪️
+▪️ Renaissance of case research ▪️
+▪️ Supervised ML for theory building and testing ▪️
+▪️ Intervention-based research in OM ▪️
+▪️ Addressing endogeneity in OM research ▪️
+▪️ Causal inference under selection on observables ▪️
+▪️ Avoiding bias and fallacy in survey research ▪️
+▪️ Field experiments in OM ▪️
+▪️ How to combine empirical and simulation methods ▪️
+(3) Know your Department
+Is your work a Fit to Departmental Mission and Call?
+See below for more details regarding our submission policies and review our SHARED POLICIES on AI USAGE in Manuscript Development and plagiarism checks.
+(5) Submit your Best Work
+ANONYMITY: All files must be stripped of identifiers. Submissions may be rejected for consideration if authors fail to do so (see how)
+If you are not familiar with the existing work in JOM, relating to your research interested, or are seeking AEs and ERB reviewers to recommend in a review, delve into that body of work using the JOM-Spotlight tool.
+▪️ Download Spotlight ▪️
+Above file must be fully downloaded (won't function in a browser). View the walkthrough on the right (latest tool, linked above, is a minor update of that shown in the video)>>
+(Also See: How to Unblock macros / avoid Read-only status)
+Author Guidelines (in detail)
+The mission of the Journal of Operations Management (JOM) is to publish original, empirical, operations management (OM) research that demonstrates both academic and practical relevance. If you are frequently considering JOM as an outlet for publication, please also make sure to review the RAC Policy.
+Manuscript Requirements
+Manuscripts submitted to JOM must:
+Be well grounded in the scholarly literature, including the appropriate OM literature. Authors interested in contributing to JOM should know the audience they are writing for, and the extant body of knowledge that that audience is already familiar with. Contributions must involve meaningful theoretical argumentation relevant to that literature (see “Holding North” for discussions on OM relevance, and “Meaningful Pathways” discussions on theory).
+Use empirical research methods. JOM does not publish purely analytical models or optimization techniques: These belong in operations research, industrial engineering, or analytical OM journals. Science can be defined as learning from observation: It is the observation that renders the research empirical. As you prepare your manuscript, describe precisely what has been observed and what is learned from it. Use rigorous methodology in both data collection and analysis, and explain this methodology clearly and transparently. Use this methods checklist to prevent methods concerns from interdicting your submission.
+Authors are encouraged to (a) use AI to check for consistency and reporting accuracy of the document before submission, (b) be aware of the restrictions to AI use in manuscript development as outlined in our share Policies on AI use.
+Apart from recognizing the overall mission of the Journal, submissions must designate a specific Department of interest, or targeted Special Issue. Authors unfamiliar with the specific missions and editorial statements of Departments, or Special Issues, are expected to fully acquaint themselves prior to any submission, and should be able to articulate their rationale for fit within the cover letter (to accompany any submission).
+Manuscript guidelines must be followed for each submission. This includes avoiding any AI usage that is strictly prohibited by Journal policy. Further, as a matter of course, authors are expected to cite all sources supporting the research. Use quotation marks or otherwise indicate clearly any strings of words drawn from other sources. JOM is a member of the Committee on Publication Ethics (COPE) and uses iThenticate's CrossCheck software to detect instances of overlapping and similar text in submitted manuscripts. Read Wiley's Top 10 Publishing Ethics Tips for Authors here. Wiley's Publication Ethics Guidelines can be found here. Accordingly, authors should pre-check manuscripts with plagiarism detection software (e.g., Turnitin.com) prior to submitting to JOM. In most cases, no other single source should account for more than 1% of the wording in your manuscript, unless those words are in quotation marks or otherwise clearly delineated as not your own. If a manuscript’s overall similarity score is greater than 15%, then you must explain the reason for this in your cover letter. Otherwise, the manuscript will be returned to you for similarity reduction before it can enter the evaluation process. [For additional guidance on document structure and support see Documents & Support]
+Submit your best work using the publisher portal, only after you have attended to points 1-4. Submissions that do not fulfil each of these criteria will be returned to the authors and if the missing information persist may be immediately rejected from consideration.
+Submission Process
+Submission materials must include (a) a separate document title page with author contact information (b) a manuscript free of author-identifiers (see how to remove from file details), and (c) a cover letter (outlining the specific departmental or SI fit). All submissions must also provide (d) a clear identification of recommended AEs and ERB reviewers. In the case of revised work, (e) a response document free of author-identifiers must also be included and authors must ensure that the combined system PDF file contains both the manuscript and that response document. Supporting information, if submitted, should be supplied as separate files. If your article includes any Videos and/or other Supplementary material, these should be included in your initial submission for peer review purposes. Missing any of these items can result in an administrative rejection of a submission.
+📝Cover Letters are required along with your manuscript submission. Every cover letter should include:
+1) An explanation of how the manuscript fits into JOM’s and its department’s mission statements (please review those statements in advance)
+In your letter you MUST specify 2 Departments, with one specified as preferred).
+2) A recommendation list of at least 3 Associate Editors and at least 3 ERB Reviewers suitable to review the work and free of conflicts of interest.
+3) A disclosure of the use of AI per the shared AI policy publicly posted for journals in the Operations Management domain.
+4) A disclosure of any dissertation and/or conference papers upon which the manuscript is based, and/or prior use of the data in other publications.
+5) A disclosure of previous "reject and resubmit” decision, or whether is it a significant recrafting of a work that was previously granted a rejection at JOM.
+6) [Optional] Additional information regarding items on the online submission forms, such as conflicts of interest (see conflict of interest policy ) & funding sources.
+AEs and ERB reviewers will not see the cover letter
+☑️The following Submission Checklist of all items that must be part of that Cover Letter should also be submitted. Submissions will not be considered in the absence of this checklist and the verification that all checked items are present.
+Once you have prepared your submission materials following the author guidelines above, submit your manuscript through the Research Exchange (ReX) submission portal: https://wiley.atyponrex.com/journal/JOOM . Wiley's ReX platform generates PDFs using its own rendering algorithm. To help ensure high-quality output, we provide formatting tips for both Word and LaTeX users.
+You may check the status of your submission at any time by logging on to submission.wiley.com and clicking the "My Submissions" button. For technical help with the submission system, please review our FAQs or contact submissionhelp@wiley.com.
+For editorial enquiries, please contact us: (Use BOTH email addresses in a single message please):
+WileyPeerReview@wiley.com , journalofoperationsmanagement@gmail.com
+The Review Process
+All authors are expected to respond in a reasonable timeframe to any inquiries made by JOM before, during, and after the review process and to meet the revision deadline if offered. JOM uses a double-blind review process. Author identities will be shared with the Editors-in-Chief (EICs) and Department Editors (DEs), but not with reviewers or Associate Editors (AEs), and vice versa. When a manuscript is first received, the Managing Editor will assign it to one of the co-EICs to perform a preliminary screening. The EiCS/he asks three questions: (1) Is the study empirical? (2) Is the contribution about OM? Is the contribution significant enough to warrant publication? (3) If one or more answers to these questions is no, then the EIC may return the manuscript to the authors as an immediate desk rejection or, under special circumstances, to ask the authors to better align the submissions to the journals expectations. Otherwise, the EIC will assign the manuscript to a DE.
+The DE will then assemble a review team typically consisting of two or three reviewers and an AE. Once a reviewers accepts the invitation, they are he/she is given four weeks to return the review. The AE will receive and review the manuscript concurrently, and will then have an additional two weeks to complete his/her report to the DE. The DE will recommend a decision based on the reviewers' and AE's reports. The EIC makes the final decision and informs the authors about the outcome of the review process, including whether the manuscript is being rejected, accepted, or invited for a revision and resubmission.
+For further details about the review process, read this editorial and our process overview.
+Response Document
+A response document is required with any resubmission of a new or revised manuscript after a “reject and resubmit” or “major revision” decision. This response document should detail the authors’ responses to each of the review team’s comments on a point-by-point basis. These responses may highlight particular aspects of the revised manuscript and/or rebut some of the criticisms. Response documents should be completely anonymous (to maintain double-blind review) and well-written in a respectful and collegial way.

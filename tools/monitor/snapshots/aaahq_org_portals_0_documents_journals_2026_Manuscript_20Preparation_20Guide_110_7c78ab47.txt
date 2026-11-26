@@ -1,0 +1,827 @@
+MANUSCRIPT PREPARATION AND STYLE
+The American Accounting Association journals’ manuscript preparation guidelines follow The
+Chicago Manual of Style (16th ed.; University of Chicago Press). Spelling follows Webster’s Collegiate
+Dictionary.
+Recent Updates:
+• Updated Submission Checklist.
+• Updated guidelines regarding the submission of figure graphics.
+• Added Sample of Formatting for Figure Captions and Titles for Final Submission.
+• Added compliance requirements for Data Integrity and Research Record (on Conditional Acceptance to The
+Accounting Review; see the Submission Checklist).
+• Added guidelines for including alternative text (Alt-Text) to graphics, charts, and other visual elements to
+improve accessibility to readers with disabilities.
+TABLE OF CONTENTS
+I. Manuscript Formatting
+i. General Manuscript Information
+ii. Title Page
+iii. Abstracts and Article Text Page
+• Abstract
+• Article Text
+iv. Section and Subsection Headings
+v. General Formatting
+• Pagination
+• Numbers
+• Percentages
+• Mathematical Notation
+• Equations
+• Footnotes
+• Generative AI and AI-Assisted Technology Statement
+• Supplemental Material
+vi. Tables and Figures
+vii. Graphics
+viii. Author Services
+• Editing and Promotional Services
+• Paperpal Preflight (pre-submission check)
+II. Citations and References
+ix. Citations
+x. Reference List
+xi. Sample Reference Entries
+xii. Tax Journal Citations and Sample References
+III. Submission Checklist
+IV. Case Studies and Learning Strategies
+V. Editorial Policies
+VI. Publications Policies
+VII. Title Page Examples
+VIII. Abstract and Article First Page Example
+MANUSCRIPT FORMATTING
+Authors who are ready to submit their article for publication need to refer to
+the Submission Checklist for submission-specific guidelines.
+General Manuscript Information and Guidelines
+1. Authors should strive to be succinct and clear.
+• Initial submissions and revisions to all journals (except Accounting Horizons and
+Current Issues in Auditing) should not exceed 55 pages including references, figures,
+tables, and appendices. For initial submissions to Accounting Horizons, manuscripts should
+not exceed 25 pages of text and 40 pages in total (excluding title and abstract). Current
+Issues in Auditing should not exceed more than 2,500 words of text. See “Case Studies and
+Learning Strategies” for other exceptions.
+• For initial submissions, all documents intended for peer review (including manuscript,
+tables, figures, instruments, appendices, teaching notes, etc.) can be submitted as one file
+or multiple files (either Word, PDF, or LaTex). If submitting as one file, place all tables
+and figures after the main text and references. Any documents not intended for review (title
+page, cover letter, Conflict of Interest forms, etc.) should be submitted as separate files,
+which are accessible only to editors. On Conditional Acceptance, the author(s) will be
+asked to submit the manuscript and other materials intended for publication as individual
+files to assist production. See the guidelines, as detailed below, for the approved file
+formats. See “Sample of Formatting for Figure Captions and Titles for Final Submission”
+for more information regarding Conditional Acceptance submission.
+2. Initial submissions of manuscripts can be in Word, PDF, or LaTeX format. When
+submitting manuscripts that are developed in LaTeX, please submit all relevant files along
+with a PDF of the merged article. Final accepted manuscripts should either be submitted in
+Microsoft® Word (.doc or .docx) or LaTeX (.tex) format. Provide supporting files for
+LaTeX-based articles.
+3. The body of the text must be formatted in 12-point Times New Roman and double-spaced
+(except for indented quotations) with 1-inch margins from top, bottom, and sides.
+4. Authors of papers that report primary data collected from human subjects through
+experiments, surveys, or interviews must provide documentation and include a footnote that
+affirms that the Institutional Review Board (IRB) or equivalent body at the institution where
+the research was conducted has approved the project or granted exemption. Please refer to
+the Publications Ethics for Academic Research policy for more about the use of human
+participants.
+• Per journal policy, please provide an anonymous copy of your survey instrument in its
+original form. This will be used for the purpose of review only. If it requires translation to
+English, please provide both versions. All personal and university identifiers must be
+removed.
+5. Authors may also submit, when appropriate, a proposed Online Appendix of a
+reasonable length that covers material that is not central to the paper but may be needed
+for reviewers and readers to evaluate the paper. This might include additional qualitative
+information, such as quotes or additional data and measurement information, such as the
+description of a novel or complex statistical method.
+6. To promote anonymous review, authors must not identify themselves directly or
+indirectly in their papers or in experimental test instruments included with the
+submission. Single authors must not use the editorial “we.”
+7. The American Accounting Association encourages use of gender-neutral language in
+its publications.
+8. The American Accounting Association now complies with the European Accessibility
+Act (EAA) and WCAG 2.1 to ensure digital accessibility of all published materials
+through the use of “alt-text” for people who rely on screen readers or other assistive
+technologies to read and review our journals. Please refer to the Alt-Text Guidelines
+for Authors for more information and instructions for creating the required alt-text for
+tables, figures, exhibits, and other graphics that are included in the article. Note: Alt-
+text should briefly convey the main result or function of the image (e.g., “Line chart
+showing audit fees increased steadily from 2010 to 2020, with a sharp rise after 2015”)
+so that it communicates the essential message to readers who cannot view the image.
+Note that alt-text is to be provided for each individual graphic that is included in the
+article, notably for multi-panel figures.
+9. The AAA requires that all authors evaluate and disclose whether they have any
+financial or nonfinancial conflicts of interest that are related to their research when
+they submit a paper. Submitting authors will indicate whether there are any potential
+conflicts of interest for all authors during the submission process and in the cover
+letter, if provided. Additionally, authors will disclose any conflicts of interest on the
+title page. Please refer to the Publications Ethics for Academic Research policy for
+more about the conflict of interest statements.
+10. Use of AI and AI-assisted writing tools must be consistent with the AAA policies on
+Authorship and Plagiarism. Authors need to disclose the use of AI and AI-assisted
+tools in their work. The use of AI and AI- assisted technologies in research design and
+analysis should be described as part of the methodology of the work. The use of AI
+and AI-assisted tools for uses other than research design and analysis is disclosed at
+the beginning of the manuscript in a separate statement, immediately after the abstract
+and before the introduction section of the paper. This section is titled “Declaration of
+Generative AI and AI-Assisted Technologies in the Writing Process.” In that
+statement, the authors should specify the tool(s) used, the extent of use, and the
+reason(s) for using the tool(s). Authors should not list AI or AI-assisted tools as an
+author or co-author or cite AI or AI-assisted tools as authors. Please refer to the
+Publications Ethics for Academic Research policy for more about the use of AI and
+AI-assisted technology.
+11. A wide range of supplemental materials can be hosted on the AAA Digital Library
+including, for example, audio and/or video files, spreadsheets, financial reports,
+datasets. Supplemental materials must be mentioned in the article text, footnotes, or
+table/figure/appendix notes. These materials will be subject to normal editorial review
+and therefore should also not include author-identifying information. All supplemental
+material files are to be provided at the time of article submission, including datasets
+that are currently hosted on author-proprietary or other commercial websites. See the
+Supplemental Material section for more information. See also the Case Studies and
+Learning Strategies section (as appropriate).
+12. Reuse of previously published, copyrighted material must be consistent with the
+Publications Ethics for Academic Research policies regarding Prior Publication. Reuse
+can include either reproduction (i.e., replication, reprint), whereby the author
+replicates the material (such as a table, figure, or appendix) exactly as it appeared in
+the original publication, or adaptation, whereby the author uses previously published
+data but presents it in a new configuration. In either circumstance, appropriate source
+attribution is required.
+• In cases of reproduction (re-use) of copyrighted material, the authors must receive
+permission from the holder of the original copyright to reuse the materials in their
+current manuscript and provide the documentation of this permission. For most
+academic journals, including seeking reuse permission for previously published
+AAA journal material, authors can seek permission documentation through the
+manuscript in a note for the table, figure, graphic, or appendix that the material is
+“Source: Reprinted from” the original source with the appropriate citation or URL,
+and then add “Reprinted with permission.” Note: Authors must seek, receive, and
+provide permission documentation for the reproduction reuse of any copyrighted
+material, including material from their own previously published materials.
+• In the case of adaptation (based on but not exactly replicated) the authors must
+indicate in the manuscript in the notes for the table, figure, graphic, or appendix that
+the material is “Source: Adapted from” the original source with the appropriate
+citation or URL.
+For journal-specific information, please view the editorial policies of each journal below.
+Title Page
+The title page must be a stand-alone Word document (PDFs are not allowed),
+formatted in 12-point Times New Roman. Do not use table-grid or column formatting.
+On initial submission, the title page must include:
+• The title of the paper
+• All authors’ names and affiliations (university, company, or other institution)
+• Acknowledgement (if desired)
+• Financial conflict of interest disclosure for all authors (even if to state that there
+are no conflicts)
+• Whether the paper has supplemental material(s) intended for publication
+On final submission, the title page must include:
+• The title of the paper
+• All authors’ names and affiliations (including college/school, department, city,
+state, country)
+• Preferred running title (maximum 115 characters and spaces)
+• Acknowledgement (if desired)
+• Financial conflict of interest disclosure for all authors (even if to state that there
+are no conflicts)
+• Other disclaimers (optional)
+• Data Availability Statement (for studies using data)
+• JEL Classifications
+• Keywords (minimum of three, maximum of 10)
+• Whether the article includes approved downloadable supplemental material
+For examples of correctly formatted title pages (initial and final), see examples here.
+Abstract and Article Text
+Abstract
+The article file must begin with the abstract of no more than 150 words. The abstract
+should concisely inform the reader of the manuscript’s topic, its methods, and its findings. The
+manuscript’s title, without author names or affiliations, must appear on the abstract page.
+Article Text
+The text of the paper starts below the abstract and the “Declaration of Generative AI
+and AI-Assisted Technologies in the Writing Process” statement with a section labeled I.
+INTRODUCTION. The introduction should provide more details about the paper’s purpose,
+motivation, methodology, and findings. Both the abstract and the “Introduction” section should
+be relatively nontechnical, yet clear enough for an informed reader to understand the
+manuscript’s contribution. See example here. Note: For accepted articles, the AI disclosure
+statement will be moved to the end of the manuscript during production.
+Section and Subsection Headings
+First-level headings are to be arranged so that major headings are centered, bold,
+capitalized, and be numbered using roman numerals I, II, III, etc.
+Second-level headings are flush left, bold, and both uppercase and lowercase. Third-
+level headings are flush left, bold, italic, and both uppercase and lowercase. Fourth-level
+headings are paragraph indent, bold, and lowercase. See below for the correct formatting:
+A CENTERED, BOLD, ALL CAPITALIZED, FIRST-LEVEL HEADING
+A Flush Left, Bold, Uppercase and Lowercase, Second-Level Heading
+A Flush Left, Bold, Italic, Uppercase and Lowercase, Third-Level Heading
+A paragraph indent, bold, lowercase, fourth-level heading. Text starts …
+General Formatting
+General Word Document Formatting
+Provide the title page as a stand-alone Word document. Ensure that all required title
+page information is included, depending on the stage of the submission. See the examples
+provided below.
+The article must be presented in this order as a separate document:
+AI use disclosure statement (Required even if no use of AI; refer to the Publications
+Ethics for Academic Research policy)
+Text
+References
+Numbered Figures (captions only, see Graphics for more information)
+Numbered Tables
+Exhibits (when applicable)
+Appendices
+Numbered tables and figures must be directly mentioned in the text, e.g., “See Table
+1.” Do not include “Insert Table X [Figure X] here” instructions.
+In the initial submission and subsequent revisions, numbered figure graphics and
+other graphics can be included at the end of the single file or as separate files. In the final
+version of the manuscript, they must be removed from the manuscript and provided as
+separate files that are named accordingly. See the “Tables and Figures“ section below for
+table formatting requirements and specs for figures, images, screenshots, and any other
+graphics that are to be inserted.
+Pagination
+All pages, including references, appendices, and tables are to be serially numbered.
+Numbers
+Spell out numbers from one to ten, except when used in tables and lists, and when used
+with mathematical, statistical, scientific, or technical units and quantities, such as distances,
+weights and measures. For example: three days; 3 kilometers; 30 years. All other numbers are
+expressed numerically.
+Percentages
+In nontechnical copy use the word percent in the text, e.g., “We find that approximately
+28 percent of the sample has a new CEO.” In tables and figures, the symbol % is used, e.g.,
+28%.
+Mathematical Notation
+Mathematical notation should be employed only where its rigor and precision are
+necessary, and in such circumstances where authors should explain the principal operations
+performed in narrative format. Notation should be avoided in footnotes. Use standard
+mathematical notation and symbols. Do not use wingdings, geometric shapes, or images. To
+comply with accessibility requirements, mathematical equations must be properly formatted
+using a markup language such as MathML, MathJax, or MathType.
+Equations
+Equations should be consecutively numbered in parentheses flush with the right-hand
+margin, as appropriate.
+Footnotes
+Footnotes are not used solely for documentation (citations). Textual footnotes should be
+used only for extensions and useful excursions of information that, if included in the body of
+the text, might disrupt its continuity. Footnotes must be inserted using the “Footnote” feature in
+Microsoft Word, which will automatically number the footnotes. Footnote callouts are to be
+formatted as Arabic numerals. Do not use “endnote” formatting.
+Journal articles that use legal-style footnote documentation should follow The
+Bluebook: A Uniform System of Citation, as used by the Harvard Law Review.
+Generative AI and AI-Assisted Technology Statement
+Please refer to the Publications Ethics for Academic Research policy for future guidance
+on the use of AI and AI-assisted technology.
+Supplemental Material
+All supplemental materials are subject to editorial review and approval. Authors who
+provide materials that are designed to assist the reader to conduct research must include a
+direct mention of the file(s) in the text and submit the accompanying files at the time of
+submission. This includes datasets or other research materials that are currently hosted on
+author-proprietary, institution, or other commercial websites. Contact the journal’s editorial
+office if one or more of the files cannot be uploaded during the submission process.
+Authors may also, when necessary, submit a proposed Online Appendix of a
+reasonable length that covers material that is not central to the paper but may be needed for
+reviewers and readers to evaluate the paper. This might include additional qualitative
+information, such as quotes or additional data and measurement information, such as the
+description of a novel or complex statistical method. This will be published as an Online
+Appendix if ultimately deemed necessary by the editor. The AAA journals do not view Online
+Appendices as a repository for supporting material or for material the authors simply want to
+make available online. For example, Online Appendices would not typically include tables
+that relate to empirical analyses that are summarized in footnotes in the printed version of the
+paper. An Online Appendix must be mentioned in the article text, footnotes, or
+table/figure/appendix notes. Proposed Online Appendices will be accessible by reviewers and
+therefore should not include author-identifying information.
+All published supplemental materials will be hyperlinked within the article text. For
+Case, CLOIG, or Teaching Notes, all supplemental materials will be listed in the Index of
+Supplemental Materials. Hyperlinking will occur during publication production, prior to
+publication.
+Each published supplemental material file must have a unique file name. That is, there
+cannot be two files that have the file name. As an example, authors sometimes provide two
+versions of the same basic file, e.g., a “student” version and an “instructor” version. In this
+instance, differentiate the file names, e.g., Audit Worksheet_Student, Audit
+Worksheet_Instructor.
+Examples [blue font indicates the name of the downloadable file]:
+• Additional analyses are provided in the Online Appendix.
+• Students are to complete Audit Worksheet_Student.
+• Instructors can update the Audit Worksheet_Instructor as appropriate for their use.
+See Case Studies and Learning Strategies for more information regarding these specific types
+of articles and the inclusion of downloadable supplemental material.
+Tables and Figures
+1. Use an Arabic number and a complete title that indicates the exact contents of the
+table/figure. The titles should be sufficiently detailed to enable the reader to interpret the
+tables and figures without reference to the text.
+2. A reference to each table/figure must be made in the text. Tables/figures must be
+mentioned in numerical order. Do not include in-text callouts (e.g., “Insert Table X
+[Figure X] here”). Tables/figures will be positioned in the article as close to the first
+mention of the table/figure as possible during the final page-layout process.
+3. Variables used in tables and figures must be either defined in every table/figure, or defined
+once in an appendix that includes all variables used in the paper. Include a table/figure
+note when variables are defined in an appendix. All variables used in the article should be
+formatted in italics and must be consistently formatted with regard to upper/lowercase, use
+of capital letters, and symbols (e.g., %). All variables must be fully, formally defined at
+least once. Definitions for binary variables must include both values, e.g., “equal to 1 if …
+and 0 otherwise.”
+4. Create tables using the table editor in Microsoft Word or Excel. Do not format tables using
+keyboard spaces, tabs, and hard returns or by revising page layout using the “Columns” or
+“Section Break” features in Word. Do not insert images as tables.
+5. Figure graphics should be interpretable in greyscale, and should also be reasonably
+interpreted without reference to the text. Original color graphics can be included in the
+submission files and will be used for the digital publication. Note that graphics will be in
+grayscale in all journals that publish in hardcopy. Please refer to the Alt-Text Guidelines
+for Authors for more information and instructions for creating the required alt-text for
+figures, exhibits, and other graphics that are included in the article.
+6. In the final version of the manuscript, figure graphics must be removed from the
+manuscript and provided as separate files, with appropriate file names. Figures must
+conform to the graphics specifications provided. See “Specifications for Graphics” below.
+See also Sample of Formatting for Figure Captions and Titles for Final Submission.
+7. Miscellaneous graphics that are to be inserted in the article (for the benefit of the reader or
+to enhance the dialog of the article, and other than numbered figures) must be provided as
+separate files, with appropriate file names. Embed the graphic in the text (article body or
+appendix) where the graphic is to appear. The corresponding graphic files must conform
+to the same specifications as for figure graphics, including alt-text. See “Specifications for
+Graphics” below. See also Sample of Formatting for Figure Captions and Titles for Final
+Submission.
+8. Source attribution and re-use permission notes should be included as necessary, notably for
+replicated figures, images, graphics, and tables. Please note that it is the responsibility of
+the author to obtain re- use permissions. Reuse permission can be requested through the
+please contact CCC’s customer service representatives on the website.
+9. Please ensure that the reporting of descriptive statistics and of models and tests of
+hypotheses is complete. For experimental papers, this would generally include: (1)
+reporting standard deviation and cell sizes in any tables of means, (2) including degrees of
+freedom along with any reported test statistics that have degrees of freedom, whether in
+the tables, footnotes, or text, and (3) ensuring ANOVA, MANOVA, ANCOVA, etc.,
+tables are complete, including all estimated terms, including the error term, along with the
+associated degrees of freedom. Note that if test statistics and associated degrees of
+freedom are reported in the tables, authors need not repeat these statistics in the text. For
+example, authors could provide only the p-values for effects (tests) of interest in the text,
+if desired.
+10. When tabular values are not applicable in a column, use “NA” capitalized with no slash
+between. When tabular values are non-significant in a column and therefore no value is
+shown, use “n.s.”
+Specifications for Graphics
+At the time of final submission, numbered figures, e.g., Figure 1, Figure 2, must
+be removed from the manuscript and submitted as separate files, with appropriate file
+names (e.g., Figure 1.jpg, Figure 2_Panel A.pdf). Include only the figure caption and title
+(e.g., “FIGURE 1 Rates of Increase”) in the text. For figures that have two or more panels,
+ensure that the font(s) and font size are consistent across the panels. Include the panel
+descriptions (e.g., Panel A: Graph of Pre-SOX Earnings) in the text, under the figure
+caption/title. Provide a separate graphic for each panel. The only text that should be part of the
+graphic is the text that pertains to the imagery, charts, graphics, etc. Provide alt-text for each
+graphic file; see the Alt-Text Guidelines for Authors for more information.
+Images, such as screen shots, photos, or graphics other than those associated with
+numbered figures, should be embedded in the text (article body or appendices) where they are
+meant to appear in the published article. These images should also be submitted as separate
+files, with identifiable file names, e.g., Screen Shot of Tableau Interface.jpg. Provide alt-text
+for each image file; see the Alt-Text Guidelines for Authors for more information.
+See also Sample of Formatting for Figure Captions and Titles for Final Submission.
+NOTE: We do not permit the use of images in submitted manuscripts that are likenesses of
+people, typically captured through photography or as social media avatars, unless express
+permission has been granted by the individual(s) to use their likeness. A permission statement
+must be provided prior to publication. Please click here for a sample permission statement.
+Acceptable Graphic Formats
+For accepted manuscripts, all graphics must be submitted as separate files (one file for each
+graphic).
+Use only these file formats:
+• EPS (preferred format), PS, TIFF (.tif), PDF, JPEG (.jpg), and PNG (.png).
+Application files (e.g., Corel Draw, Microsoft Word) are not acceptable.
+• Scalable vector formats (i.e., EPS and PS). Publishing suggests the use of Adobe
+Illustrator (Paid, OS X, Windows) or Inkscape (Freeware, OS X, Windows, Linux)for
+the creation of acceptable illustrations and Adobe Photoshop (Paid, OS X, Windows)
+or GIMP (Freeware, OS X, Windows Linux) for the editing of acceptable photographs.
+• Submit a single file for each figure with figure parts; label each part Panel A, Panel B,
+etc.
+• When submitting your manuscript, include all illustrations and line art for your
+paper.
+• Set the correct orientation for each graphics file.
+• Set the graphic for:
+• Line art: 600 dpi resolution and black/white bitmap, not grayscale.
+• Halftones: 264 dpi and grayscale, not black/white bitmap.
+Author Services
+Editing and Promotional Services
+As part of our ongoing efforts to promote research and support authors, the American
+Accounting Association is partnering with CACTUS Communications to provide new services
+that will help authors be more productive, increase their impact, and elevate their personal brand.
+Services offered will include:
+Language Editing—Improve manuscript writing quality and publication-readiness with
+an in-depth language edit by a subject-matter expert.
+Academic Translation—Translation and editing services ensure that the final
+manuscript meets international publication standards.
+Research Promotion Services—Accounting Practitioners have indicated a preference for
+quick and easy- to-digest formats. Communicate research with high-impact plain
+language summaries, animated short videos, and stunning infographics that a lay
+audience can easily understand.
+Click here to visit the Author Services Portal.
+Paperpal Preflight (recommended pre-submission check)
+The American Accounting Association, in partnership with CACTUS, offers a machine
+learning, pre- submission technical check to ensure your manuscript is ready for submission.
+Paperpal Preflight provides feedback and suggestions for improvements of your manuscript but
+does not guarantee acceptance for peer review or publication. Some of the checks performed
+may only apply to specific article types; please check the journal’s editorial policy or the AAA’s
+complete style guide for further detail. Should your manuscript be accepted, journal editors may
+still require significant changes based on journal and style guidelines.
+Click here to select your journal and get started.
+CITATIONS AND REFERENCES
+Citations
+In-text citations are made using an author-date format. Cited works must correspond to
+the works listed in the “References” section. Authors should make an effort to include the
+relevant page numbers in the in-text citations.
+1. In the text, works are cited as follows: author’s last name and year, without comma, in
+parentheses. For example: one author, (Berry 2003); two authors, (Fehr and Schmidt
+2003); three to five authors, (Scholes, Wolfson, Erickson, Maydew, and Shevlin 2008);
+six or more authors, (Dikolli et al. 2013); more than one work cited, (Levitt 1998; Cole
+and Yakushiji 2002; Dechow, Sloan, and Sweeney 1995); with two works by the same
+author(s), (Nelson 2003, 2005).
+2. When the author’s name is mentioned in the text, it need not be repeated in the citation.
+For example: “Cohen et al. (2005) provide …”
+3. Authors should cite themselves, in the third person, as though they would any work that is
+cited in the text.
+4. For repeated citations of works that have three or more authors, use only the first author’s
+last name followed by “et al.” (et is not followed by a period): first citation, Dechow,
+Kothari, and Watts (1998); subsequent citations, Dechow et al. (1998).
+5. Unless confusion would result, do not use “p.” or “pp.” before page numbers. For
+example, (Dechow and Dichev 2002, 41–42).
+6. When the reference list contains two or more works by the same author (the only author
+or first of two or more authors) published in the same year, the suffix a, b, etc., is appended
+to the date in both the in- text citations and in the “References” section. For example,
+(Johansson 2004a, 2004b, 2004c; Baiman and Rajan 2002a, 2002b; Dhaliwal, Erickson, and Li
+2005a; Dhaliwal, Krull, Li, and Moser 2005b).
+7. First initials of same-surname authors are added to the first citation of the work to conform
+to AAA standard style, e.g., P. Podsakoff, MacKenzie, Lee, and N. Podsakoff (2003).
+8. Citations to institutional works should use acronyms or short titles where practicable.
+For example: (NCFFR, The Treadway Commission 1987).
+9. If the paper refers to statutes, legal treatises, or court cases, citations acceptable in law
+reviews, such as the Harvard Law Review, should be used.
+Reference List
+Every manuscript must include a “References” section that contains only those works
+cited within the text. Each entry should contain all information necessary for unambiguous
+identification of the published work. Use the following formats (which generally follow The
+Chicago Manual of Style):
+1. Arrange citations in alphabetical order according to the surname of the first author or the
+name of the institution or body responsible for the published work.
+2. Use authors’ initials instead of proper names.
+3. For two or more authors, separate authors with a comma, including a comma before
+“and” (Dechow, P. M., R. Sloan, and A. Sweeney).
+4. Date of publication follows the name(s) or author(s).
+5. Titles of journals or newspapers are not to be abbreviated.
+6. Provide DOIs or online links, when available.
+7. For resource materials that were only available online and are now no longer available,
+please include a “last accessed” date as a parenthetical note appended to the end of the
+URL.
+Sample Reference Entries
+American Institute of Certified Public Accountants (AICPA). 2015. Exposure Draft:
+Proposed Revisions to AICPA/NASBA Uniform Accountancy Act and NASBA Uniform
+Accountancy Act Rules. Durham, NC: AICPA.
+https://us.aicpa.org/content/dam/aicpa/advocacy/state/downloadabledocuments/inactiv
+e-retired-exposure-draft- nov-2015.pdf
+Ball, R., S. P. Kothari, and V. V. Nikolaev. 2013a. On estimating conditional conservatism.
+The Accounting Review 88 (3): 755–787. https://doi.org/10.2308/accr-50371
+Ball, R., S. P. Kothari, and V. V. Nikolaev. 2013b. Econometrics of the Basu asymmetric
+timeliness coefficient and accounting conservatism. Journal of Accounting Research
+51 (5): 1071–1097. https://doi.org/10.1111/1475- 679X.12026
+Bradshaw, M. T. 2011. Analysts’ forecasts: What do we know after decades of work?
+(Working paper). https://papers.ssrn.com/sol3/papers.cfm? abstract_id=1880339
+Bradshaw, M. T., L. F. Lee, and K. Peterson. 2016. The interactive role of difficulty and
+incentives in explaining the annual earnings forecast walkdown. The Accounting
+Review 91 (4): 995–1021. https://doi.org/10.2308/accr-51398
+Bradshaw, M. T., S. A. Richardson, and R. G. Sloan. 2001. Do analysts and auditors use
+information in accruals? Journal of Accounting Research 39 (1): 45–74.
+https://doi.org/10.1111/1475-679X.00003
+Bradshaw, M. T., Y. Ertimur, and P. O’Brien. 2017. Financial analysts and their
+contribution to well-functioning capital markets. Foundations and Trends in
+Accounting 11 (3): 119–191. https://doi.org/10.1561/1400000042
+Ross, S., R. Westerfield, and J. Jaffe. 2020. Corporate Finance: Core Principles &
+Applications. New York, NY: McGraw-Hill.
+Securities and Exchange Commission (SEC). 2009. Interactive Data to Improve Financial
+Reporting. No. 33-9002. Washington, DC: SEC.
+https://www.sec.gov/rules/final/2009/33-9002.pdf
+Standard & Poor’s. 2011. Standard & Poor’s Compustat Xpressfeed: Understanding the
+Data. New York, NY: McGraw-Hill.
+Star Tribune. 1993. EDGAR on-line//240 firms start filing documents electronically with
+the SEC today (April 26).
+U.S. House of Representatives. 2002. The Sarbanes-Oxley Act of 2002. Public Law 107-
+204 [H. R. 3763]. Washington, DC: Government Printing Office.
+https://www.govinfo.gov/content/pkg/PLAW-107publ204/pdf/PLAW-
+107publ204.pdf
+Vuong, Q. 1989. Likelihood ratio tests for model selection and non-nested hypotheses.
+Econometrica 57 (2): 307–333.
+Zamora, V. L. 2009. Do managers benefit from superior forecasting? Seattle University
+(Working paper).https://ssrn.com/abstract=1324204
+Tax Journal Citations and Sample References
+For journal articles that use legal-style footnotes, reference to a single regulation,
+government promulgation, or court case should be made as shown below. Generally, references
+to multiple works of the same type (e.g., two revenue rulings) or multiple works of different
+types (e.g., a revenue ruling and a court case) should be made through the use of a footnote
+unless they are brief and do not disrupt the flow of the text. The form for tax citations often
+encountered is presented below.
+I.R.C. § 1248(a) LTR 8208047 (11/26/80)
+Treas. Reg. § 1.1248–3(a)(4) Rev. 43 TC 1654 (1975)
+Rul. 82-1, 1982-1 CB 417 TC Memo 1943–496 (1943)
+Rev. Proc. 82-1, 1982-1 CB 751 370 F. Supp. 69 (DC-Tx., 1974)
+656 F. 2d 659 (CT. Cl., 1981) 388 U.S. 1492 (1980)
+411 F. 2d 1275 (CA-6, 1975)
+SUBMISSION CHECKLIST
+Initial Submission
+1 Does your paper align with the journal’s stated mission?
+2 Is your Title Page correctly formatted according to the AAA Title Page
+Requirements?
+Title page components (initial submission):
+• Title
+• Author names, affiliations
+• Acknowledgements (optional)
+• Financial conflict of interest statement
+• Whether the article has supplemental material intended for publication
+For an example of a correctly formatted initial title page, see example
+here.
+3 You may submit your manuscript and other materials for initial review as
+a single file or multiple files. If submitting as a single file, are your tables
+and figures placed after the main text and references?
+4 Is IRB approval or exemption required for your research? If so, did you
+fulfill that requirement and is there a mention of approval/exemption in a
+footnote within the article?
+Note: Please review the AAA’s Publications Ethics for Academic
+Research policy on human subjects research. A copy of the IRB
+approval/exemption is required on initial submission. Research with the
+IRB approval/exemption must also submit the full instrument used as a
+supplemental file.
+5 Is your abstract 150 words or less?
+Note: The abstract in the manuscript and the submission metadata must
+match.
+6 Have you checked the specific journal to ensure your manuscript is within
+page limits?
+Please refer to General Manuscript Information and Guidelines in this
+document.
+7 Did each author complete the author Editorial Conflict of Interest form?
+8 Have all of your files been anonymized?
+Note: Authors must ensure that no identifying information is included in
+the text or the metadata/properties of all files uploaded for submission.
+9 Have you included the required AI use disclosure statement after the
+abstract and before the text? Please refer to the Publications Ethics for
+Academic Research policy for more about AI disclosure.
+10 For supplemental files permitted by the journal during an initial
+submission, are the supplemental files properly formatted according to
+journal policy? Note: Articles that have supplemental material file(s),
+such as an Online Appendix or pedagogical materials, must include a
+direct mention of the file(s) in the text. The accompanying file names(s)
+must conform to AAA standard style and format. Please refer to the
+journal’s editorial policy and manuscript preparation guide for details.
+All supplemental material files are subject to editorial review and
+approval, and must be included with your final submission files.
+Revised Submissions
+1 Has there been any changes to the author team? If so, did you seek the
+necessary approval for any authorship change? Have new authors
+completed an Editorial Conflict of Interest form?
+Note: Click here to view the policy on Authorship.
+2 Did you ensure the title page, along with any revisions, continues to
+comply with the AAA Title Page Requirements?
+3 Has the AI use disclosure statement been updated to reflect additional AI
+use since last submission?
+4 If a survey/experiment/interview was added during revision, did you seek
+IRB approval or exemption? Please review the AAA’s policy on Human
+Subjects Research here. Is there a mention of approval/exemption in a
+footnote within the article and did you upload your formal IRB
+approval/exemption documentation with your submission?
+5 Is the article fully formatted according to AAA’s Manuscript Preparation
+Guide for the submission journal?
+6 Do all citations have a corresponding reference entry (including those in
+footnotes, tables, figures, appendices)? Do author groups, name spellings,
+and publication years exactly match the corresponding reference entries?
+Note: Errors, discrepancies, and inconsistencies in authors, name
+spellings, and dates delay timely production and can result in time-
+consuming revisions during the final stage
+of production.
+7 Are all reference entries cited in the article (including in footnotes, tables,
+figures, appendices)?
+8 Do all discussions of research data correspond to and are consistent with
+the tabular data provided in the tables?
+Note: If tabular data were changed as the result of a revision, ensure that
+the in-text discussion is changed accordingly, or vice versa. This review
+can prevent the need to publish an erratum.
+9 Do the table columns sum to the totals that are shown (as applicable)?
+Note: If totals do not exactly sum due to rounding, consider adding a
+table note for explanation.
+10 Are all article-specific terms, terminologies, and variable names
+formatted consistently with regard to spelling, use of upper and lower
+case, and the use of roman or italics?
+Note: Errors, discrepancies, and inconsistencies result in time-consuming
+revisions during the final stage of production.
+11 Are all tables formatted as Word tables, Excel, or LaTex?
+Note: Tables that are not formatted as Word tables, Excel, or LaTex will
+cause a significant delay in production.
+12 Are all numbered tables, figures, or exhibits mentioned in the article?
+Note: A direct mention of every table, figure, or exhibit in the article text
+is required (i.e., an instruction to “Insert Table X Here” is insufficient).
+Tables must be included with text. Numbered figures and other graphics
+must be removed from the text and supplied as separate files. Please see
+here for more details. See also Sample of Formatting for Figure Captions
+and Titles for Final Submission.
+13 Are graphics used for figures or appendices your original work?
+Note: If taken from a published article, you must secure permission for
+re-use (even if you were an author of that published paper). The statement
+of permission is to be added as a figure note or footnote, as applicable.
+14 Do all graphics conform to the specifications required?
+Note: See here for details.
+Additional Requirements for Conditionally Accepted Articles
+1 Have you (and all co-authors) completed the Copyright Release form, or,
+if applicable, the Open Access Publishing Agreement?
+Note: If you need a copy of the form, please contact the editorial
+office of the journal.
+2 Is your Title Page correctly formatted according to the AAA Title Page
+Requirements?
+Title page components:
+• Title
+• Author names, affiliations, city, state, country
+• Preferred running head
+• Acknowledgements (optional)
+• Financial conflict of interest statement
+• Other disclaimers (optional)
+• Data availability statement (for studies using data)
+• Keywords
+• Whether the article includes downloadable supplemental material
+For an example of a correctly formatted final title page, see
+example here.
+3 (The Accounting Review only)
+Have you provided a Data Description Disclosures list and submitted all
+computer code used to produce the results reported in the paper, as
+required under the AAA Data Integrity and Research Record policy?
+Note: Instructions for submitting this information are included in the
+Publication Ethics for Academic Research policy.
+CASE STUDIES AND LEARNING STRATEGIES
+Manuscript Formatting Guidelines for Case Studies and Learning Strategies
+These guidelines pertain only to journals that publish these article types, including
+Issues in Accounting Education (IACE), Current Issues in Auditing (CIIA), Journal
+of Emerging Technologies in Accounting (JETA), Journal of Governmental &
+Nonprofit Accounting (JOGNA), Journal of Information Systems (JIS), and Journal
+of Forensic Accounting Research (JFAR).
+Case Studies
+Case and Case Learning Objectives and Implementation Guidance (CLOIG)
+Please follow the “Word document and General Manuscript Information” for all case
+studies.
+Title Page
+The title page is submitted as a separate Word document and follows the format of a
+standard manuscript.
+Body of Case/CLOIG
+The Case and Case Learning Objectives and Implementation Guidance (CLOIG) must
+be presented as one Word document. The first page of the case should contain the title
+and abstract (following the format of a standard manuscript). Case Studies typically
+start with a section labeled I. CASE.
+A page break separates the Case and CLOIG. Each segment must include all
+relevant elements specific to that segment, including references, index of
+supplemental material (when applicable), all captions for numbered figures and other
+graphics, numbered tables, exhibits, and appendices. Thus, include with the Case all
+references, index, figures, tables, and appendices (as applicable for the Case), and then
+the CLOIG with its references, index, figures, tables, and appendices (as applicable for
+the CLOIG).
+The Case and CLOIG should not exceed 55 pages in length. Please refer to “Word
+Document and General Manuscript Information” for more information.
+Numbered figures and other graphics are to be submitted as separate files, one file per
+graphic, formatted per the specifications in the Graphics section.
+Teaching Notes
+The Teaching Notes must be presented as one Word document, without a title page or
+abstract. The first page should start with “TEACHING NOTES” followed by the title
+of the case study. Include all relevant elements specific to Teaching Notes in the Word
+document, including references, index of supplemental material (when applicable),
+numbered figures and other graphics, numbered tables, exhibits, and appendices.
+There is no page limit for Teaching Notes. Please refer to “Word Document and
+General Manuscript Information” for general styles and formatting requirements.
+Teaching Notes are published online and can only be accessed by full-member
+subscribers.
+Supplemental Materials
+All supplemental materials, including Word, Excel, PowerPoint, PDF, videos, and other
+file types, are to be delivered at the time of submission. Links to the author’s personal
+website, faculty page, YouTube, or cloud storage are not acceptable.
+• Supplemental material files that are to be made available with the Case are to be
+directly mentioned, by file name, and also listed in the “Index of Supplemental
+Materials,” which immediately follows the Case References section.
+• Supplemental material files that are to be made available with the CLOIG are to
+be directly mentioned,by
+file name, and also listed in the Index of Supplemental Materials, which
+immediately follows the CLOIG References section.
+• Supplemental material files that are to be made available in the Teaching Notes
+are to be directly
+• mentioned, by file name, and also listed in the Index of Supplemental Materials,
+which immediately follows the Teaching Notes References section.
+• A statement of permission must be included for any supplemental material videos
+of real-time students or other non-author individuals. Please click here for a
+sample permission statement.
+Supplemental material files that are included in the Case and CLOIG segments will be
+available to all AAA subscribers on AAA’s digital library website.
+Supplemental material files that are included in the Teaching Notes are only available
+to full-member subscribers. See the Supplemental Material section for more
+information.
+Learning Strategies
+Learning Strategies are aimed at instructors only. These manuscripts start with an
+abstract but are then set up in varying ways based on that specific learning strategy.
+They should include some type of implementation guidance that may or may not be a
+formal CLOIG section. Learning Strategies often have supplemental materials. Please
+follow the general formatting guidelines previously discussed in the Manuscript
+Preparation Guidelines and the Case Studies, notably the inclusion of supplemental
+materials.
+Learning Strategies are available to the full membership, in print and online. If the
+Learning Strategy includes “solutions” or other supplemental materials that are meant
+only for instructors (and should not be accessible by students), then please submit a
+corresponding Teaching Notes file. Follow the formatting guidelines for Teaching
+Notes, notably the inclusion of supplemental material(s).
+EDITORIAL POLICIES
+See the Editorial Polices below for other journal-specific guidelines.
+Issues in Accounting Education
+Accounting Horizons
+The Accounting Review
+Auditing: A Journal of Practice & Theory
+Behavioral Research in Accounting
+Current Issues in Auditing
+Journal of Emerging Technologies in Accounting
+Journal of Forensic Accounting Research
+Journal of Governmental & Nonprofit Accounting
+Accounting Historians Journal
+Journal of International Accounting Research
+The ATA Journal of Legal Tax Research
+Journal of Management Accounting Research
+Accounting and the Public Interest
+Journal of Financial Reporting
+Journal of Information Systems
+The Journal of the American Taxation Association
+PUBLICATIONS POLICIES
+Please review the American Accounting Association’s Publications Ethics for
+Academic Research policy, which is a framework that informs authors, editors, and reviewers
+of their responsibilities to ensure the quality and integrity of manuscripts published in our
+journals and presented at AAA meetings and conferences.
+SAMPLE TITLE PAGE (INITIAL SUBMISSION)
+Do Income Tax-Related Deficiencies in Publicly Disclosed PCAOB Part II Reports
+Influence Audit Client Financial Reporting of Income Tax Accounts? A Synthesis of
+Recent Research
+Jonathan E. Shipman University of Arkansas
+Quinn T. Swanquist Georgia State University
+Robert L. Whited University of Massachusetts Amherst
+PCAOB
+We thank Michelle Hutchens, Carlos Jimenez-Angueira, Pete Frischmann, Rebecca Lester,
+Tom Neubig, Sonja Rego, Kathleen Powers and the rest of the Texas Tax Reading Group, the
+Iowa Tax Reading Group, Jenny Brown and the rest of the Arizona State Tax Reading Group,
+and workshop participants at The University of Hong Kong, the University of Oregon,
+Singapore Management University, the 2013 AAA Western Regional Meeting, the 2013
+Illinois Tax Symposium and the 2013 AAA Annual Meeting for helpful comments.
+Robert L. Whited is grateful for research funding provided by the PCAOB. The remaining
+authors did not receive funding from their institutions.
+Does this article have supplemental material(s)? No.
+SAMPLE TITLE PAGE (FINAL)
+Do Income Tax-Related Deficiencies in Publicly Disclosed PCAOB Part II Reports
+Influence Audit Client Financial Reporting of Income Tax Accounts? A Synthesis of
+Recent Research
+Jonathan E. Shipman University of Arkansas
+Quinn T. Swanquist Georgia State University
+Robert L. Whited University of Massachusetts Amherst
+PCAOB
+Running Head: Do Tax Deficiencies in PCAOB Part II Reports Influence Financial
+Reporting of Income Taxes?
+We thank Michelle Hutchens, Carlos Jimenez-Angueira, Pete Frischmann, Rebecca Lester,
+Tom Neubig, Sonja Rego, Kathleen Powers and the rest of the Texas Tax Reading Group, the
+Iowa Tax Reading Group, Jenny Brown and the rest of the Arizona State Tax Reading Group,
+and workshop participants at The University of Hong Kong, the University of Oregon,
+Singapore Management University, the 2013 AAA Western Regional Meeting, the 2013
+Illinois Tax Symposium and the 2013 AAA Annual Meeting for helpful comments.
+Robert L. Whited is grateful for research funding provided by the PCAOB. The remaining
+authors did not receive funding from their institutions.
+The views expressed herein are those of the authors and do not reflect any position of the
+PCAOB.
+Jonathan E. Shipman, University of Arkansas, COLLEGE, DEPARTMENT, CITY, ST,
+USA; Quinn T. Swanquist, Georgia State University, COLLEGE, DEPARTMENT, CITY,
+ST, USA; Robert L. Whited, University of Massachusetts Amherst, COLLEGE,
+DEPARTMENT, CITY, ST, USA and PCAOB, Job Title/Department, City, State, USA
+[Town, Country].
+Data Availability: [Include a statement when applicable, otherwise disregard.]
+JEL Classifications: [Include classifications when applicable, otherwise disregard.]
+Keywords: PCAOB Part II; tax deficiencies; audit report. Does this article have supplemental
+material(s)? No.
+ABSTRACT AND ARTICLE FIRST PAGE EXAMPLE
+Industry Characteristics, Risk Premiums, and Debt Pricing
+ABSTRACT
+Despite theoretical and anecdotal evidence highlighting the importance of industry-level analyses to lenders, the
+empirical literature on debt pricing has focused almost exclusively on firm-level forces that affect expected loss.
+This paper provides empirical evidence that industry-level characteristics relate to debt pricing through risk
+premiums. We address the empirical challenges that arise when testing these theories by using a proprietary dataset
+of time-varying and forward-looking measures of industry characteristics. These characteristics include growth,
+sensitivity to external shocks, and industry structure, all measured at the six-digit NAICS level. Our results show
+that lenders demand higher spreads to bear industry-level risk. The relation exists within subsamples with constant
+credit ratings, and strengthens when lenders’ loan portfolios are less diversified and during periods when
+diversification is difficult. Therefore, our results suggest that industry characteristics relate to debt pricing by
+informing lenders not only about expected loss but also about risk premiums.
+Declaration of Generative AI and AI-Assisted Technologies in the Writing Process
+Statement here.
+I. INTRODUCTION
+Text of article starts here...
+SAMPLE OF FORMATTING FOR FIGURE CAPTIONS AND TITLES FOR
+FINAL SUBMISSION
+Upon Conditional Acceptance, the manuscript must be reformatted to facilitate
+production. All graphics, images, pictures, and screenshots are to be removed from the Word
+document (LaTeX document) and provided as separate files. See “Specifications for
+Graphics” for more information.
+Guidelines for Numbered Figures (e.g., Figure 1, Figure 2)
+All numbered figures must be mentioned in the article body, e.g., “See Figure 1 for the
+distribution of profits over the research period.”
+Insert corresponding figure captions and figure titles, along with figure notes (as
+applicable) and alt-text for each figure graphic, after the end of the References section. For
+example (see color legend below):
+FIGURE 1
+Distribution of Profits
+This figure provides the distribution of profits over the research period, 2020–2025.
+[alt-text] Bar graph that illustrations the yearly increase of distribution profits, lowest in 2020,
+highest in 2025.
+BLUE: Figure caption
+PINK: Figure title
+YELLOW: Figure notes (as applicable)
+GRAY: Alt-text
+NOTE: Shading is for ease of representation. Do not use shading in the manuscript.
+Follow the same guidelines for figures that have multiple panels:
+FIGURE 1
+Distribution of Profits
+Panel A: Distribution for Research Period
+[alt-text] Bar graph that illustrations the yearly increase of distribution profits, lowest in 2020,
+highest in 2025.
+Panel B: Distribution for Target Year
+[alt-text] Bar graph that illustrations the monthly distribution profits for the target year, 2024.
+NOTE: Alt-text is required for each panel.
+Guidelines for Within-Text Images other than Numbered Figures
+For manuscripts that require an image to appear in a designated place within the text,
+such as the inclusion of a computer icon, maintain that image in the text and also provide it
+as a separate file. Provide appropriate alt-text at the end of the article.

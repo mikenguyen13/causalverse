@@ -1,0 +1,583 @@
+Author Guidelines
+Manuscripts should be submitted online through the Journal's editorial site
+INTRODUCTION
+The Journal of Consumer Psychology (JCP) publishes top-quality research articles that contribute
+both theoretically and empirically to our understanding of the psychology of consumer
+behavior. JCP is the official journal of the Society for Consumer Psychology. JCP publishes
+articles in areas such as consumer judgment and decision processes, consumer needs, attitude
+formation and change, reactions to persuasive communications, consumption experiences,
+consumer information processing, consumer-brand relationships, affective, cognitive, and
+motivational determinants of consumer behavior, family and group decision processes, and
+cultural and individual differences in consumer behavior. Most published articles are likely to
+report new empirical findings, obtained either in the laboratory or in field experiments that
+contribute to existing theory in both consumer research and psychology. However, results of
+survey research, correlational studies, and other methodological paradigms are also welcomed
+to the extent that the findings extend our psychological understanding of consumer behavior.
+Theoretical and/or review articles integrating existing bodies of research and providing new
+insights into the underpinnings of consumer behavior and consumer decision processes are
+also encouraged.
+Further details regarding the journal's content, along with copies of past editorials, accepted
+manuscripts, and other information, can be obtained from the Society for Consumer
+Psychology website (https://www.myscp.org/).
+AUDIENCE
+The Journal is intended for researchers in consumer psychology, social and cognitive
+psychology, judgment and decision making, and related disciplines. It is also relevant to
+professionals in advertising and public relations, marketing and branding, consumer and
+market research, and public policy.
+AUTHOR BENEFITS AND INDEXING
+Publishing in JCP provides many author benefits. The Journal is widely regarded as one of the
+top journals both in psychology and marketing. It is abstracted and indexed in many leading
+databases including ABI/Inform, Current Contents Search, PsycINFO, Social SciSearch, Social
+Sciences Citation Index, and UnCover.
+BEFORE YOU BEGIN
+Scientific Standards and Expectations
+JCP is committed to publishing research with the highest standards in scholarship and scientific
+practices. In particular, the Journal is committed to (a) a high degree of transparency in how the
+research was actually conducted, (b) a high degree of reproducibility of the reported findings,
+and (c) a strict respect of the ethical research standards set forth by the American Psychological
+Association (see Standard 8: Research and Publication at http://www.apa.org/ethics/code/).
+Declaration of interest
+All authors must disclose any financial and personal relationships with other people or
+organizations that could inappropriately influence (bias) their work. Examples of potential
+conflicts of interest include employment, consultancies, stock ownership, honoraria, paid
+expert testimony, patent applications/ registrations, and grants or other funding. If there are no
+conflicts of interest then please state this:
+'Conflicts of interest: none'.
+Rejected Manuscript Resubmission Policy
+Submission of previously rejected manuscripts that were previously rejected by Journal of
+Consumer Psychology (either through regular review or for a special issue) will not be
+considered for review. Resubmission of such manuscripts is not acceptable, even if the
+manuscript has been somewhat revised. However, it is permissible to submit a completely new
+manuscript that may have stemmed in part from a rejected manuscript, as long as there are
+new studies, a new conceptualization, and a new write-up per Editor invitation. The new
+manuscript will be assigned a completely new review team. The submitting author should
+clearly state in the cover letter that the manuscript is related to a previous submission and
+provide the identification number of the previous submission.
+Invited Research Reviews
+JCP publishes invited and non-invited conceptual reviews. Invited Research Review articles are
+quite rare and highly selective. Such articles are expected to take on "big" topics that are of
+interest to a wide audience of researchers in consumer behavior and psychology. Invited
+Research Reviews are not designed to be self-motivated or idiosyncratic.
+Submission declaration and verification
+Submission of an article implies that the work described has not been published previously
+(except in the form of an abstract or as part of a published lecture or academic thesis or as an
+electronic preprint), that it is not under consideration for publication elsewhere, that its
+publication is approved by all authors and tacitly or explicitly by the responsible authorities
+where the work was carried out, and that, if accepted, it will not be published elsewhere in the
+same form, in English or in any other language, including electronically without the written
+consent of the copyright-holder. To verify originality, your article may be checked by the
+originality detection service CrossCheck.
+Originality of the Work
+By submitting their manuscript the authors certify (a) that the work described has not been
+published previously (except in the form of an abstract or as part of a published lecture or
+academic thesis or as an electronic preprint; (b) that it is not under consideration for
+publication elsewhere; (c) that its publication is approved by all authors and the responsible
+authorities where the work was carried out; and (d) that, if accepted, the manuscript will not be
+published elsewhere including electronically in the same form, in English or in any other
+language, without the written consent of the copyright-holder.
+Ethical Standards and Institutional Review Board Approval
+Upon submission, authors are asked to certify that the reported research, was conducted in
+accordance with the Ethical Standards for Research and Publication set forth by the American
+Psychological Association (see Chapter 1 of the APA Publication Manual, 6th Edition, and
+Standard 8: Research and Publication at http://www.apa.org/ethics/code/). These standards
+include (a) proper protection of research participants (e.g., confidentiality, informed consent,
+participant safety, avoidance of coercion, restricted use of deception, etc.), (b) integrity in
+research reporting (e.g., absence of data fabrication, no plagiarism, prompt correction of
+published errors), and (c) integrity in research dissemination (e.g., proper credit for publication,
+obligation to share data, etc.). Therefore, by certifying that their research conforms to the
+Ethical Standards of the American Psychological Association, the authors commit to sharing
+their data upon request by the review team during the review process and/or by other
+researchers seeking to verify or replicate the results after publication. In the online submission
+process, authors are further asked to specify who was primarily responsible for collecting and
+analyzing the various data reported in the manuscript, and when and where the data were
+collected. In addition, authors are asked to certify that they have obtained proper approval to
+conduct their research from their Institutional Review Board (IRB) or equivalent authorities at
+their own institution.
+Transparency and Reproductibility
+When preparing their manuscript for submission it is critical that the authors strive to make
+their research methodology as transparent and reproducible as possible. Examples of
+information that is essential for transparency and reproducibility include: Detailed
+demographics of the samples Sampling method and method of participant recruitment Clear
+and detailed description of each study's procedure Clear and detailed explanation if any
+experimental manipulation used Clear explanation of any screening or discarding of data
+performed Complete description of the exact statistical models used for the analyses (e.g., any
+covariates, interaction terms, fixed vs. random effects, etc.) Degrees of freedom for statistical
+testsCell means, standard deviations, and cell size A comprehensive list of the type of
+information that authors should provide in order to ensure that their research is as transparent
+and reproducible as possible is provided in the appendix of this author packet. To enhance the
+transparency and subsequent reproducibility of the reported research, submissions should
+include a "Methodological Details Appendix" (MDA) that provides additional details about the
+specific methodology used in the research: details that might be too lengthy to present in the
+main body of the manuscript, but (a) would help the review team fully understand how the
+research was actually conducted, and (b) would help future readers of the published article
+replicate the research precisely. Although the exact content of the MDA will vary from
+manuscript to manuscript (depending on the type of studies being reported), information that
+would typically appear in MDAs include: Full phrasing of the questions and scales used for the
+reported findings; Full text of any scenarios or vignettes used; Sample images of any advertising
+stimuli used; Screencapture of any computer interface used; Pertinent details about the
+procedure (e.g., instructions, filler task); additional details about the method, analyses and
+results as indicated in the appendix to this document. The MDA should be appended to the
+manuscript file for the duration of the review process. Authors who prefer certain
+methodological details to appear in the body of the paper or in a regular appendix to be
+printed with the article can choose to do so, provided that the manuscript respects the Journal's
+length requirements.
+The policy of the Journal of Consumer Psychology is to publish papers only if the data, methods
+used in the analysis, and materials used to conduct the research are clearly and precisely
+documented and are maximally available to any researcher for purposes of reproducing the
+results or replicating the procedure. Authors reusing data available from public repositories
+must provide program code, scripts for statistical packages, and other documentation sufficient
+to allow an informed researcher to precisely reproduce all published results.
+Authors using original data must:a. make the data available upon request.b. include all
+variables, treatment conditions, and observations described in the manuscript.c. provide a full
+account of the procedures used to collect, preprocess, clean, or generate the data.d. provide
+program code, scripts, codebooks, and other documentation sufficient to precisely reproduce
+all published results.e. provide research materials and description of procedures necessary to
+conduct an independent replication of the research. In rare cases, despite authors' best efforts,
+some or all data or materials cannot be shared for legal or ethical reasons. In such cases,
+authors must inform the editors at the time of submission. Authors are encouraged to
+anticipate data and material sharing at the beginning of their projects to provide for these
+circumstances. It is understood that in some cases access will be provided under restrictions to
+protect confidential or proprietary information. Editors may grant exceptions to data and
+material access requirements provided authors:a. explain the restrictions on the dataset or
+materials and how they preclude public access.b. provide a public description of the steps
+others should follow to request access to the data or materials.c. provide software and other
+documentation that will precisely reproduce all published results.d. provide access to all data
+and materials for which the constraints do not apply.
+Design and Analysis Transparency
+The policy of JCP is to publish papers where authors follow standards for disclosing key aspects
+of the research design and data analysis. Authors are encouraged to review the standards
+available for many research applications from http://www.equatornetwork.org/ and use those
+that are relevant for the reported research applications.
+Preregistration
+Authors may choose to preregister their research with an analysis plan in an independent,
+institutional registry (e.g., http://clinicaltrials.gov/ ,
+http://socialscienceregistry.org/ , http://openscienceframework.org/ , http://egap.org/,
+http://ridie.3ieimpact.org/). Preregistration of studies involves registering the study design,
+variables, and treatment conditions. Including an analysis plan involves specification of
+sequence of analyses or the statistical model that will be reported.
+Changes to authorship
+Authors are expected to consider carefully the list and order of authors before submitting their
+manuscript and provide the definitive list of authors at the time of the original submission. Any
+addition, deletion or rearrangement of author names in the authorship list should be made
+only before the manuscript has been accepted and only if approved by the journal Editor. To
+request such a change, the Editor must receive the following from the corresponding author:
+(a) the reason for the change in author list and (b) written confirmation (e-mail, letter) from all
+authors that they agree with the addition, removal or rearrangement. In the case of addition or
+removal of authors, this includes confirmation from the author being added or removed.
+Only in exceptional circumstances will the Editor consider the addition, deletion or
+rearrangement of authors after the manuscript has been accepted. While the Editor considers
+the request, publication of the manuscript will be suspended. If the manuscript has already
+been published in an online issue, any requests approved by the Editor will result in a
+corrigendum.
+Upon acceptance of an article, authors will be asked to complete a 'Journal Publishing
+Agreement'. An e-mail will be sent to the corresponding author confirming receipt of the
+manuscript together with a 'Journal Publishing Agreement' form or a link to the online version
+of this agreement.
+Subscribers may reproduce tables of contents or prepare lists of articles including abstracts for
+internal circulation within their institutions. Permission of the Publisher is required for resale or
+distribution outside the institution and for all other derivative works, including compilations
+and translations. If excerpts from other copyrighted works are included, the author(s) must
+obtain written permission from the copyright owners and credit the source(s) in the article.
+For open access articles: Upon acceptance of an article, authors will be asked to complete an
+'Exclusive License Agreement'. Permitted third party reuse of open access articles is determined
+by the author's choice of user license.
+Author rights
+As an author you (or your employer or institution) have certain rights to reuse your work.
+Role of the funding source
+You are requested to identify who provided financial support for the conduct of the research
+and/or preparation of the article and to briefly describe the role of the sponsor(s), if any, in
+study design; in the collection, analysis and interpretation of data; in the writing of the report;
+and in the decision to submit the article for publication. If the funding source(s) had no such
+involvement then this should be stated.
+Funding body agreements and policies
+We have established a number of agreements with funding bodies which allow authors to
+comply with their funder's open access policies. Some funding bodies will reimburse the author
+for the Open Access Publication Fee. Details of existing agreements are available online.
+Open access
+This journal offers authors a choice in publishing their research:
+Subscription
+Articles are made available to subscribers as well as developing countries and patient groups
+through our universal access programs.
+No open access publication fee payable by authors.
+Open access
+Articles are freely available to both subscribers and the wider public with permitted reuse.
+An open access publication fee is payable by authors or on their behalf, e.g. by their research
+funder or institution.
+Regardless of how you choose to publish your article, the journal will apply the same peer
+review criteria and acceptance standards.
+For open access articles, permitted third party (re)use is defined by the following Creative
+Commons user licenses:
+Creative Commons Attribution (CC BY)
+Lets others distribute and copy the article, create extracts, abstracts, and other revised
+versions, adaptations or derivative works of or from an article (such as a translation), include in
+a collective work (such as an anthology), text or data mine the article, even for commercial
+purposes, as long as they credit the author(s), do not represent the author as endorsing their
+adaptation of the article, and do not modify the article in such a way as to damage the author's
+honor or reputation.
+Creative Commons Attribution-NonCommercial-NoDerivs (CC BY-NC-ND)
+For non-commercial purposes, lets others distribute and copy the article, and to include in a
+collective work (such as an anthology), as long as they credit the author(s) and provided they do
+not alter or modify the article.
+Green open access
+Authors can share their research in a variety of different ways and we have a number of green
+open access options available. Authors can also self-archive their manuscripts immediately and
+enable public access from their institution's repository after an embargo period. This is the
+version that has been accepted for publication and which typically includes author-
+incorporated changes suggested during submission, peer review and in editor-author
+communications. Embargo period: For subscription articles, an appropriate amount of time is
+needed for journals to deliver value to subscribing customers before an article becomes freely
+available to the public. This is the embargo period and it begins from the date the article is
+formally published online in its final and fully citable form. This journal has an embargo period
+of 24 months.
+Language (usage and editing services)
+Please write your text in good English (American or British usage is accepted, but not a mixture
+of these).
+PREPARATION
+The Journal of Consumer Psychology accepts four types of manuscripts: (a) Research Articles (full
+length), (b) Research Reports (shorter), (c) Research Reviews, and (d) ResearchDialogues.
+Manuscripts should be submitted online through the Journal's editorial site
+at https://mc.manuscriptcentral.com/jconsumerpsychology, where authors will be guided
+step by step through the creation and uploading of their files. The submission file should be
+submitted in the native format of the word processor used. The system will automatically
+convert source files to a single PDF file of the article, which will be used in the peer-review
+process. All correspondence, including notification of the Editor's decision and requests for
+revision, will take place via e-mail generated via the submission system.
+Style and Length
+All manuscripts submitted to JCP should be written and formatted according to the APA Style as
+specified by the Publication Manual of the American Psychological Association, 6th Edition. We
+strongly encourage authors to carefully review the APA manual, as it provides detailed
+information about the proper reporting of psychology-based research. A short tutorial on APA
+style can be found at: http://flash1r.apa.org/apastyle/basics/.
+Submitted manuscripts should respect the following length requirements:
+Research Reports: less than 4,000 words, excluding abstract, references, tables and figures.
+Please see the section on Guidelines for Research Reports for details on the content of these
+reports.
+Research Articles: 50 pages maximum (double-spaced), including abstract, references, tables
+and figures.
+Research Reviews: 50 pages maximum (double-spaced), including abstract, references, tables
+and figures. This applies to both invited and regular-submission reviews. Please see the section
+of Additional Editorial and Publisher Policies
+Research Dialogues: 50 pages maximum (double-spaced), including abstract, references, tables
+and figures, for target articles; and 30 pages maximum (double-spaced), including abstract,
+references, tables and figures, for commentaries and rejoinders. These papers are invited.
+The text should be in single-column, double-spaced format, and should not be justified or
+hyphenated. Do not embed graphically designed equations or tables. Instead, prepare these
+using the word processor's facility. Do not import tables and figures into the text; instead,
+indicate their approximate locations in the text. Please use the "spell-check" and "grammar-
+check" functions of your word processor, and have your manuscript proofread carefully before
+submission.
+Peer review
+This journal operates a double blind review process. All contributions will be initially assessed
+by the editor for suitability for the journal. Papers deemed suitable are then typically sent to a
+minimum of two independent expert reviewers to assess the scientific quality of the paper. The
+Editor is responsible for the final decision regarding acceptance or rejection of articles. The
+Editor's decision is final.
+Use of wordprocessing software
+It is important that the file be saved in the native format of the wordprocessor used. The text
+should be in single-column, double-spaced format. Keep the layout of the text as simple as
+possible. Most formatting codes will be removed and replaced on processing the article. In
+particular, do not use the wordprocessor's options to justify text or to hyphenate words.
+However, do use bold face, italics, subscripts, superscripts etc. Do not embed "graphically
+designed" equations or tables, but prepare these using the wordprocessor's facility. When
+preparing tables, if you are using a table grid, use only one grid for each individual table and
+not a grid for each row. If no grid is used, use tabs, not spaces, to align columns. The electronic
+text should be prepared in a way very similar to that of conventional manuscripts. Do not
+import the figures into the text file but, instead, indicate their approximate locations directly in
+the electronic text and on the manuscript. See also the section on Electronic illustrations. To
+avoid unnecessary errors you are strongly advised to use the "spell-check" and "grammar-
+check" functions of your wordprocessor.
+Information on APA style: Required for JCP
+For information on APA style, click on the following link to use the APA tutorial. You can turn off
+the sound and advance at your own pace. The link is: http://flash1r.apa.org/apastyle/basics/ To
+turn off the sound, click on the sound icon on the bottom right, and click Mute. To advance at
+your own pace, click the forward arrow on the bottom left. Hint: If you open a link to a new
+window, minimize it afterwards because closing it will close the tutorial.
+Article structure
+Introduction, theory and hypotheses
+State the objectives of the work and the theory and hypotheses. Provide an adequate
+background, avoiding a detailed literature survey or a summary of the results.
+Material and methods
+Provide sufficient detail to allow the work to be reproduced. Methods already published should
+be indicated by a reference: only relevant modifications should be described.
+Results
+Results should be clear and concise.
+Discussion
+This should explore the significance of the results of the work, not repeat them. A combined
+Results and Discussion section is often appropriate. Avoid extensive citations and discussion of
+published literature.
+Conclusions
+The main conclusions of the study may be presented in a short Conclusions section, which may
+stand alone or form a subsection of a Discussion or Results and Discussion section.
+Tables, figure captions and figures
+The main results and theoretical model may be shown in one or more tables and/or figures.
+Appendices
+All empirical manuscripts need to include a Methodological Detail Appendix (MDA) for greater
+transparency and reproducibility of the research (see section on "Scientific Standards and
+Expectations" above and appendix to this document on "Promoting Research Transparency
+andReproducibility). Additional appendices may be included and should be uploaded as a single
+file. If there is more than one appendix (besides the MDA), they should be identified as A, B, C,
+etc. Formulae and equations in appendices should be given separate numbering: Eq. (A.1), Eq.
+(A.2), etc.; in a subsequent appendix, Eq. (B.1), and so on.
+Author Identifiers
+During the review process, please remove all author identifiers from the main body of the
+manuscript and from any appendices, figures, and tables. Do not disclose the specific location
+where the data were collected to prevent revealing the researcher's identity. Such information
+should be reinserted after acceptance of the manuscript.
+Essential title page information
+Title. Concise and informative. Titles are often used in information-retrieval systems. Avoid
+abbreviations and formulae where possible.
+Author names and affiliations. Please clearly indicate the given name(s) and family name(s) of
+each author and check that all names are accurately spelled. Present the authors' affiliation
+addresses (where the actual work was done) below the names. Indicate all affiliations with a
+lowercase superscript letter immediately after the author's name and in front of the
+appropriate address. Provide the full postal address of each affiliation, including the country
+name and, if available, the e-mail address of each author.
+Corresponding author.Clearly indicate who will handle correspondence at all stages of
+refereeing and publication, also post-publication. Ensure that the e-mail address is given and
+that contact details are kept up to date by the corresponding author.
+Present/permanent address. If an author has moved since the work described in the article was
+done, or was visiting at the time, a 'Present address' (or 'Permanent address') may be indicated
+as a footnote to that author's name. The address at which the author actually did the work
+must be retained as the main, affiliation address. Superscript Arabic numerals are used for
+such footnotes.
+Abstract
+A concise and factual abstract limited to 175 words is required. The abstract should state briefly
+the purpose of the research, the principal results and major conclusions. An abstract is often
+presented separately from the article, so it must be able to stand alone. For this reason,
+References should be avoided, but if essential, then cite the author(s) and year(s). Also, non-
+standard or uncommon abbreviations should be avoided, but if essential they must be defined
+at their first mention in the abstract itself.
+Highlights
+Highlights are optional for this journal. They consist of a short collection of bullet points that
+convey the core findings of the article and can be submitted in a separate file in the online
+submission system. Should you wish to include Highlights with your submission, please use
+'Highlights' in the file name and include 3 to 5 bullet points (maximum 85 characters per bullet
+point including spaces).
+Abbreviations
+Define abbreviations that are not standard in this field in a footnote to be placed on the first
+page of the article. Such abbreviations that are unavoidable in the abstract must be defined at
+their first mention there, as well as in the footnote. Ensure consistency of abbreviations
+throughout the article.
+Acknowledgements
+Collate acknowledgements as a review-blind item on the title page. List here those individuals
+who provided help during the research (e.g., providing language help, writing assistance or
+proof reading the article, etc.).
+Formatting of funding sources
+List funding sources in this standard way to facilitate compliance to funder's requirements:
+Funding: This work was supported by the National Institutes of Health [grant numbers xxxx,
+yyyy]; the Bill & Melinda Gates Foundation, Seattle, WA [grant number zzzz]; and the United
+States Institutes of Peace [grant number aaaa].
+It is not necessary to include detailed descriptions on the program or type of grants and
+awards. When funding is from a block grant or other resources available to a university, college,
+or other research institution, submit the name of the institute or organization that provided the
+funding.
+If no funding has been provided for the research, please include the following sentence:
+This research did not receive any specific grant from funding agencies in the public,
+commercial, or not-for-profit sectors.
+Footnotes
+Footnotes should be used sparingly. Number them consecutively throughout the article, using
+superscript Arabic numbers. In accordance with APA style, indicate the position of footnotes in
+the text and present the footnotes themselves on a separate page at the end of the article. Do
+not include footnotes in the Reference list. Footnotes pertaining to tables should be indicated
+with a superscript lowercase letter.
+Electronica Artwork
+If your electronic artwork is created in a Microsoft Office application (Word, PowerPoint, Excel)
+then please supply "as is" in the native document format. For artwork created with applications
+other than Microsoft Office, please "Save as" or convert to one of the following formats (note
+the resolution requirements for line drawings, halftones, and line/halftone combinations given
+below): o EPS (or PDF): Vector drawings, embed all used fonts. TIFF (or JPEG): Color or grayscale
+photographs (halftones), keep to a minimum of 300 dpi. TIFF (or JPEG): Bitmapped (pure black &
+white pixels) line drawings, keep to a minimum of 1000 dpi. TIFF (or JPEG): Combinations
+bitmapped line/halftone (color or grayscale), keep to a minimum of 500 dpi. For color artwork,
+please make sure that the files have proper resolution and are in an acceptable format: TIFF (or
+JPEG), EPS (or PDF), or MS Office files. For color reproduction in print, you will receive
+information regarding the costs from us after receipt of your accepted article. Please indicate
+your preference for color: in print or on the Web only. To prevent complications that may arise
+when converting color figures to "grayscale" for the printed version, please also submit usable
+black-and-white versions of all the color illustrations.
+Please follow these additional general guidelines: Make sure you use uniform lettering and
+sizing of your original artwork. Embed the used fonts if the application provides that option.
+Aim to use the following fonts in your illustrations: Arial, Courier, Times New Roman, Symbol, or
+fonts that look similar to these. Number the illustrations according to their sequence in the text.
+Use a logical naming convention for your artwork files. Provide captions to illustrations
+separately. Size the illustrations close to the desired dimensions of the printed version. Submit
+each illustration as a separate file. Please do not: Supply files that are optimized for screen use
+(e.g., GIF, BMP, PICT, WPG); these typically have a low number of pixels and limited set of colors;
+Supply files that are too low in resolution; Submit graphics that are disproportionately large for
+the content.
+Figure captions
+Ensure that each illustration has a caption. Supply captions separately, not attached to the
+figure. A caption should comprise a brief title (noton the figure itself) and a description of the
+illustration. Keep text in the illustrations themselves to a minimum but explain all symbols and
+abbreviations used.
+Tables and Figures
+Tables should appear after references, followed by any figures. The tables and figures will later
+be embedded in the text, so indicate where to insert them (e.g., INSERT TABLE 1 HERE). If there
+is only one table or figure, do not number; otherwise number consecutively. Each table should
+have a title and caption on top, left justified, formatted as follows: Table # (line 1); Caption (line
+2). Each figure should have a title and caption formatted as follows: Fig. #. Caption (on the same
+line). Put figure titles and captions on one sheet followed by the figures; one figure per page.
+Each table and figure caption should end with a period. The first letter of the first word in the
+title and caption, and each column and row head, should be capitalized. In the tables,
+horizontal lines should appear below the caption and each column head and at the bottom.
+Numbers in tables should be aligned based on decimal points. Ensure that each illustration has
+a caption. Supply captions separately, not attached to the figure. A caption should include a
+brief title (not on the figure itself) and a description of the illustration. Keep text in the
+illustrations themselves to a minimum but explain all symbols and abbreviations used.
+References
+In-text citations and reference lists should follow the style of the American Psychological
+Association (see http://flash1r.apa.org/apastyle/basics/). Please ensure that every reference
+cited in the text is also present in the reference list (and vice versa). Unpublished results and
+personal communications are not recommended in the reference list but may be mentioned in
+the text. If such references are included in the reference list, they should also follow the APA
+style. Citation of a reference as 'in press' implies that the item has been accepted for
+publication.
+Authors should double-check their reference lists before submitting their manuscripts to JCP.
+Reference lists should include recent articles in consumer psychology, consumer behavior
+and/or marketing that are relevant to the topic. These field-specific references serve two
+functions: (a) they help clarify the submitted paper's contribution to the field's existing
+literature; and (b) they facilitate the choice of suitable JCP reviewers. For classic concepts,
+authors should also cite the studies that developed the concepts.
+The list of references should be arranged first alphabetically and then further sorted
+chronologically if necessary. More than one reference from the same author(s) in the same year
+must be identified by the letters a, b, c, etc., placed after the year of publication (see APA Style
+Manual).
+Examples: Reference to a journal publication:
+Trope, Y., Liberman, N., & Wakslak, C. (2007). Construal levels and psychological distance:
+Effects on representation, prediction, evaluation, and behavior. Journal of Consumer Psychology,
+17(2), 83-95.
+Mellers, B. A., Schwartz, A., Ho, K., & Ritov, I. (1997). Decision affect theory: Emotional reactions
+to the outcomes of risky options. Psychological Science, 8(6), 423-429.
+Reference to a book:
+Strunk, W., Jr., & White, E. B. (1979). The elements of style (4th ed.). New York: Longman.
+Reference to a chapter in an edited book:
+Mettam, G. R., & Adams, L. B. (2009). How to prepare an electronic version of your article. In B.
+S. Jones, & R. Z. Smith (Eds.), Introduction to the electronic age (pp. 281-304). New York: E-
+Publishing
+Inc. Web references:
+As a minimum, the full URL should be given and the date when the reference was last accessed.
+Any further information, if known (DOI, author names, dates, reference to a source publication,
+etc.), should also be given. Web references can be listed separately (e.g., after the reference list)
+under a different heading if desired, or can be included in the reference list. Data references:
+Oguro, M., Imahiro, S., Saito, S., Nakashizuka, T. (2015).Mortality data for Japanese oak wilt
+disease and surrounding forest compositions. Mendeley Data, v1.
+http://dx.doi.org/10.17632/xwj98nb39r.1
+References in a special issue:
+Please ensure that the words "this issue" are added to any references in the list (and any
+citations in the text) to other articles in the same Special Issue.
+Data references
+This journal encourages you to cite underlying or relevant datasets in your manuscript by citing
+them in your text and including a data reference in your Reference List. Data references should
+include the following elements: author name(s), dataset title, data repository, version (where
+available), year, and global persistent identifier. Add [dataset] immediately before the reference
+so we can properly identify it as a data reference. The [dataset] identifier will not appear in your
+published article.
+Supplementary material
+Supplementary material such as applications, images and sound clips, can be published with
+your article to enhance it. Submitted supplementary items are published exactly as they are
+received (Excel or PowerPoint files will appear as such online). Please submit your material
+together with the article and supply a concise, descriptive caption for each supplementary file.
+If you wish to make changes to supplementary material during any stage of the process, please
+make sure to provide an updated file. Do not annotate any corrections on a previous version.
+Please switch off the 'Track Changes' option in Microsoft Office files as these will appear in the
+published version.
+RESEARCH DATA
+This journal encourages and enables you to share data that supports your research publication
+where appropriate, and enables you to interlink the data with your published articles. Research
+data refers to the results of observations or experimentation that validate research findings. To
+facilitate reproducibility and data reuse, this journal also encourages you to share your
+software, code, models, algorithms, protocols, methods and other useful materials related to
+the project.
+Below are a number of ways in which you can associate data with your article or make a
+statement about the availability of your data when submitting your manuscript. If you are
+sharing data in one of these ways, you are encouraged to cite the data in your manuscript and
+reference list. Please refer to the "References" section for more information about data citation.
+Data linking
+If you have made your research data available in a data repository, you can link your article
+directly to the dataset. There are different ways to link your datasets to your article. When
+available, you can directly link your dataset to your article by providing the relevant information
+in the submission system.
+In addition, you can link to relevant data or entities through identifiers within the text of your
+manuscript, using the following format: Database: xxxx (e.g., TAIR: AT1G01020; CCDC: 734053;
+PDB: 1XFN).
+Mendeley Data
+This journal supports Mendeley Data, enabling you to deposit any research data (including raw
+and processed data, video, code, software, algorithms, protocols, and methods) associated with
+your manuscript in a free-to-use, open access repository. Before submitting your article, you
+can deposit the relevant datasets to Mendeley Data. Please include the DOI of the deposited
+dataset(s) in your main manuscript file. The datasets will be listed and directly accessible to
+readers next to your published article online.
+Data statement
+To foster transparency, we encourage you to state the availability of your data in your
+submission. This may be a requirement of your funding body or institution. If your data is
+unavailable to access or unsuitable to post, you will have the opportunity to indicate why during
+the submission process, for example by stating that the research data is confidential.
+Submission Checklist
+Prior to submitting their paper for review, author should perform the following checks: One
+author has been designated as the corresponding author with contact details (e-mail address,
+full postal address, and phone number); Manuscript (structure, format, citations, reference list,
+etc.) conforms to APA style, and length requirements are respected; All references mentioned in
+the reference list are cited in the text, and vice versa; Manuscript has been copy-edited (spell-
+checked and grammar-checked) carefully; Authors have reviewed the Journal's "Scientific
+Standards and Expectations" and agree to abide by them; A Methodological Detail Appendix
+(MDA) is ready to be submitted with the paper, including information such as: Full phrasing of
+the questions and scales used for the reported findings; Full text of the key scenarios or
+vignettes used; Sample images of advertising stimuli used; Screencapture of computer
+interface; Additional statistical details useful for reanalysis as described in the appendix of this
+document; Elaboration on pertinent details of the procedure (e.g., brief description of the filler
+task). All necessary files are ready to be uploaded: Text of the letter to the editor; Disidentified
+manuscript, including abstract and keywords; Separate title page with author information and
+author note; All figures in a single file with a separate figure caption page; All tables (including
+title, description, footnotes) in a single file; Methodological Detail Appendix; Other Permission
+has been obtained for use of copyrighted material from other sources (including the Web).
+Color figures are clearly marked as being intended for color reproduction on the Web and in
+print, or to be reproduced in color only on the Web and in black-and-white in print. If only color
+on the Web is required, black-and white versions of the figures are also supplied for printing
+purposes.
+AFTER ACCEPTANCE
+Online proof correction
+Corresponding authors will receive an e-mail with a link to our online proofing system, allowing
+annotation and correction of proofs online. The environment is similar to MS Word: in addition
+to editing text, you can also comment on figures/tables and answer questions from the Copy
+Editor. Web-based proofing provides a faster and less error-prone process by allowing you to
+directly type your corrections, eliminating the potential introduction of errors.
+If preferred, you can still choose to annotate and upload your edits on the PDF version. All
+instructions for proofing will be given in the e-mail we send to authors, including alternative
+methods to the online version and PDF.
+We will do everything possible to get your article published quickly and accurately. Please use
+this proof only for checking the typesetting, editing, completeness and correctness of the text,
+tables and figures. Significant changes to the article as accepted for publication will only be
+considered at this stage with permission from the Editor. It is important to ensure that all
+corrections are sent back to us in one communication. Please check carefully before replying, as
+inclusion of any subsequent corrections cannot be guaranteed. Proofreading is solely your
+responsibility.
+Guidelines for Research Reports
+What is the Journal of Consumer Psychology (JCP) looking for in Research Reports? Research
+Reports are manuscripts that are less than 4,000 words in length excluding the abstract, title
+page, references, tables, and figures. Research Reports, formerly referred to as Short Articles,
+should contain novel and interesting empirical or theoretical research just like longer-length
+Research Articles. However, unlike Research Articles, for novel and interesting theoretical ideas,
+authors of a Research Report may provide less empirical evidence; and for novel and
+interesting empirical findings, they may give less theoretical support. Despite these differences
+from Research Articles, we will maintain high standards of rigor (in terms of literature review,
+conceptualization, methodology, empirical analysis, and stated insights derived from analysis).
+Authors should acknowledge past related research and show how their paper relates to this
+earlier work. Shortage of space should not result in a lack of care in the literature review.
+Because Research Reports are meant to be widely disseminated to spark new research, they
+should also be easy to read.
+Research Reports may focus on novel and interesting empirical findings (based on data from
+experiments, surveys, or secondary sources). Examples include manuscripts whose findings: (1)
+are novel and interesting by themselves, (2) refute commonly held beliefs, (3) refute prior
+theory, or (4) refute prior explanatory processes. Some preliminary theoretical explanation
+must be offered for this category, but it is not necessary for authors to rule out all possible
+alternative explanations. Thus, inconclusive process evidence is not a reason to reject a
+Research Report (unless an alternative explanation is obvious and more compelling). However,
+note that authors need to provide substantial evidence for their proposed empirical findings-
+either through large sample sizes or multiple studies or both. Thus, authors may be asked to
+collect additional data for further support of the phenomenon (additional study) or for a more
+rigorous testing of the phenomenon (new study to replace an original study). Even if not
+conclusively establishing the process, authors should speculate about the process right at the
+outset of the paper, not just at the end. The strengths of the claims about the process should
+be proportional to the evidence being provided. For instance, if the authors only provide
+preliminary evidence of the process, they need to acknowledge upfront that other accounts are
+possible.

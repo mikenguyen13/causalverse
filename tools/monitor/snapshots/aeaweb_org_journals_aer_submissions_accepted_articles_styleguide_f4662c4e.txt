@@ -1,0 +1,52 @@
+American Economic Review
+ISSN 0002-8282 (Print) | ISSN 1944-7981 (Online)
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Menu
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Accepted Articles: Manuscript Preparation Guidelines
+Please review these guidelines thoroughly before preparing and uploading your manuscript files, supplemental materials, and required documents (see checklist). All materials, with the exception of data and code, are uploaded through ScholarOne Manuscripts.
+When preparing manuscripts, authors should follow the Chicago Manual of Style and the AER Style Guide.
+Manuscript PDF
+The manuscript PDF should include the main text, exhibits, references, and appendices. Manuscripts should not include a title page. Title and byline should be placed at the top of the first page.
+Manuscript Native Files
+Authors must provide the native files used to create the manuscript PDF. AEA templates may be used for LaTeX, Scientific Word, and Microsoft Word.
+Data and Code
+Authors of conditionally accepted papers that contain empirical work, simulations, or experimental work must provide the data, code, and other details of the computations sufficient to permit replication. Data and code should be made available and retained in an openly accessible trusted data repository, such as the AEA Data and Code Repository.
+As part of the archive, authors must provide a README file listing all included files and documenting the purpose, format, and provenance of each file provided, as well as instructing a user on how replication can be conducted.
+See the Data and Code Availability Policy for details.
+Data and Code: Related Documents
+Authors must provide a signed Data and Code Availability Form and a signed Data and Code Archive Agreement with the final manuscript files.
+Author Disclosure Statements
+Each (co)author must submit an individual disclosure statement (in PDF format) including the paper title and the author's name at the top. Statements must acknowledge (i) funding sources; (ii) any other potential conflict of interest; and (iii) IRB approval, if applicable. If there is nothing to disclose, an author is still required to supply a disclosure statement formally making that claim.
+See the full AEA Disclosure Policy for details and guidance.
+Supplemental Appendix
+Authors may submit a Supplemental Appendix that contains material such as nonessential extensions, nonessential alternative specifications or robustness checks, and additional discussion that will be of interest to those pursuing work in the area.
+The Supplemental Appendix must be provided as a separate PDF and should include a heading that begins with "Supplemental Appendix," followed by the manuscript title and the names of the authors. Supplemental appendices are posted under "Additional Materials" and are not edited or typeset.
+Presentation Slides
+Authors may supply optional presentation slides as a separate, clearly labeled PDF. Presentation slides are posted under "Additional Materials."
+Publication Agreements
+When authors fulfill all requirements of conditional acceptance, they will receive a Publication Agreement. Each (co)author must submit a separate, signed agreement and specify whether implicit or explicit reprint rights are preferred.

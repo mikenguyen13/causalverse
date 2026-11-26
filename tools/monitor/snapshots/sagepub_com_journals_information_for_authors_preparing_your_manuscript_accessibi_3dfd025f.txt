@@ -1,0 +1,33 @@
+Sage Journals Information
+Preparing your manuscript
+Accessibility guidelines
+Accessibility at manuscript submission
+Why Accessibility Matters—And Why It’s Essential for Your Article
+At Sage Publishing, we believe that everyone should be able to learn from and engage with the content we publish. That’s why accessibility isn’t just a technical or legal requirement—it’s a core part of our mission to support every reader, regardless of ability.
+Making your article accessible helps more people benefit from your work. It’s also increasingly a legal requirement for content to meet recognized accessibility standards.
+This guide offers practical tips to help you write with accessibility in mind. It also explains the kinds of adjustments Sage may make to your article—such as changes to heading levels, table formatting, and figures—to ensure it meets accessibility best practices.
+By following these guidelines, you’re helping your research reach a wider audience and ensuring it’s presented in the most inclusive way possible.
+On occasion, the guidelines below may not match existing recommendations in the common style manuals followed by Sage journals. In these cases, Sage will follow accessibility best practices over the style manual recommendations.
+Use Headings in a Clear, Step-by-Step Order
+When writing your article, make sure your headings follow a logical order—like steps in a staircase. This helps all readers understand your work more easily, and it’s especially important for people using screen readers or other assistive tools. Here’s what to keep in mind:
+Don’t skip heading levels. For example, don’t jump from a main heading (H1) straight to a third-level heading (H3). You need to include a second-level heading (H2) in between.
+The same rule applies throughout: always move one level at a time (H1 → H2 → H3 → H4), without skipping. This structure makes your article easier to follow and ensures it meets accessibility standards.
+Tables
+Always label tabular data as a table: Designations like figures, charts, or exhibits should be reserved for images.
+Always include a header row and/or column: This helps organize the information as clearly as possible for screen readers and other assistive technology.
+Always include a number and title: These are important contextual clues to all learners and help make the table content more recognizable and accessible.
+Don’t include tables as images: Tables should always be editable within Word and not included as images.
+Wherever possible, reduce complexity: As a general rule, simpler is better. Simple presentations facilitate comprehension in all readers and are especially important for reducing cognitive load on persons with disabilities or persons relying on assistive technologies.
+Never use color, including shading, to convey meaning in a table: Color applied to a table will not be interpreted by a screen reader and thus any meaning it was intended to add will be lost. Sage has predefined styling for tables that follows accessibility best practices that will be applied to all tables regardless of how they are submitted in the manuscript.
+Organize information in cells to format a table: Hard returns and tabs may not be rendered correctly. Always separate information in cells across rows and columns to ensure that it is conveyed as intended.
+Figures and Data Visualizations
+If your figure could be summarized in two or three sentences or if your figure includes large amounts of text or tables that could stand alone without the visual, it is possible you don’t need a visualization at all.
+If your figure includes a table, it should be a real text-based table instead of a figure.
+Leave out complex infographics: It is difficult to create alternative text and long description that would make this art accessible. These figures should be replaced with simplified art that is accessible.
+Whenever possible, reduce complexity: One way to accomplish this is to limit the number of series in a chart or visualization so that readers can easily parse out the important concepts. We recommend having no more than 7 series within a given data visualization.
+Always include a number and title: These are important contextual clues to all readers and help make the content more recognizable and accessible.
+Consistently label charts and visual presentations of data as figures: This helps screen readers and other assistive technology know how to present this information and gives all readers a consistent reference for this information.
+Accessibility guide for Sage Journals
+Please see our Sage Journals Accessibility Guide for further details on the journal platform’s accessibility features.
+For further support, please reach out Sage’s Accessibility Team at [email protected]
+You may be interested in
