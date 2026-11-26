@@ -52,7 +52,16 @@ You can cite this package as follows: "we utilized the causal inference methodol
 
 ## Installation
 
-You can install the development version of causalverse from [GitHub](https://github.com/mikenguyen13/causalverse) with:
+Install the latest build from [R-universe](https://mikenguyen13.r-universe.dev/causalverse), which serves pre-built binaries for Windows and macOS, so nothing needs compiling:
+
+``` r
+install.packages(
+  "causalverse",
+  repos = c("https://mikenguyen13.r-universe.dev", "https://cloud.r-project.org")
+)
+```
+
+Or install the development version from [GitHub](https://github.com/mikenguyen13/causalverse) with pak:
 
 ``` r
 # install.packages("pak")
