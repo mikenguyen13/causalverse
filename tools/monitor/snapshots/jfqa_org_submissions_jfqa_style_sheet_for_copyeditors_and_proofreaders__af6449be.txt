@@ -1,0 +1,171 @@
+Style Sheet for Copyeditors and Proofreaders
+Abbreviations
+Abbreviate for example (e.g.), that is (i.e.), and versus (vs.) when used parenthetically.
+Abbreviate these months when they are followed by numbers (i.e., part of a date): Jan., Feb., Mar., Apr., Aug., Sept., Oct., Nov., Dec.
+When introducing an author-name abbreviation (e.g., “FF” for Fama–French), include it directly after the name and before a parenthetical year reference (e.g., Smith and Barnard (SB) (1984)).
+Double-check frequently used abbreviations (e.g., SIC, CRSP) for definition errors (typically, misspellings).
+Acknowledgments and author info
+Order (of individual entries of authors): Last name, e-mail address (all lowercase), college/school division, institutional affiliation (not address, city, or country). Add “(corresponding author)” after appropriate name and before email.
+Use “thank” rather than “would like to thank.”
+Parenthesize: “the editor,” “the referee,” and “associate editor and referee.” List thank-you recipients in alpha order (this can include the editor and ref); if the referee is anonymous, put that item at the beginning of the thanked-people list.
+Acronyms (common)
+Spell out and define on first mention (minimal punctuation preferred, e.g., BM, IBES, IID, etc.), even if used only once, including in the abstract. If used in the abstract and the paper, spell out in each. This list includes some of the acronyms you do not need to spell out.
+Appendix
+Appendices need names.
+Appendices, including Supplementary Material (if applicable) must be called out at least once in the text.
+Preferably, tables in appendices should be situated within a text framework; that is, the table itself is not the appendix.
+Where feasible, we prefer the run-in style for lists in appendices (term, colon, em space, definition) rather than table/column format.
+Numbering, labeling: Table A1, Figure A1, equation (A-1). Multiple appendix sections are A.1, A.2, etc.
+Appendix footnotes continue numbering from main text.
+JFQA/Cambridge refers to internet appendices as Supplementary Material.
+Supplementary tables are numbered thus: Table A1, Figure A-7.1, , Equation (A-1).
+Equations / expressions
+Verify that all variables have been defined and query inconsistencies.
+All but very short mathematical expressions should be displayed and centered on a separate line. Important displayed equations must be labeled with consecutive Arabic numerals in parentheses on the left (e.g., “equation (2)”).
+Expressions should be aligned, and subscripts and superscripts clearly formatted to avoid confusion.
+When variables (or other entities) are “equal to 1,” if applicable, add “, and 0 otherwise.”
+Text commas vs. math commas: NB that a math comma may sneak into the text, or vice versa, causing a gap. 1,000 is a proper place for a text comma. CAR(1,0) is a proper place for a math comma.
+R­2 is built into the author (tex) template; no need to request $R\hspace*{.5pt}^2$
+Numbers in formulae are roman (for style, follow Mathematics Into Type and/or the Physical Review Style and Notation Guide.
+“E” is roman in math expressions when it represents expectations.
+Functions (e.g., cov, var, ln, log, arg min, arg max, exp, Pr) are set in roman. Note that we favor “ln(XXXX)” when representing “natural logarithm” and “log” for “logarithm.”
+Use \times (or Alt+0215) to produce “×”in place of “*” or a regular “x” for multiplication wherever possible.
+Inline fractions go sideways: a/(b+c); if complex inline fraction, may be converted to a display equation: \displaystyle\frac
+Equality and inequality signs line up; times and plus signs stay on the right side of the equation.
+Break expressions (usually) before “+” and avoid breaking before “×”
+Formula numbers flush left, formulae centered, as demonstrated below:
+Numbers
+Use Arabic numerals to describe/modify items that are countable (e.g., shares, weeks, dollars, people, cases (e.g., court cases). Spell out numbers when discussing something intangible (e.g., ideas, scenarios, concepts, periods of time).
+Arabic numerals for values; Chicago style for quantities.
+Date/page ranges: connect via en-dash (– in TeX, alt-0150 in Word), e.g. 5%–10%. When the date phrase includes “period of,” use “to” rather than an en dash.
+If “N” represents a number or a normal distribution, it should be roman (if a variable, then italic).
+Order of elements in paper
+Cover page
+Title
+Author(s)
+Acknowledgments
+Abstract
+Main text with numbered footnotes
+Appendix (may include footnotes, continue numbering from main text)
+References (must be called out in text; alphabetize by author last name 1,2,3, etc., date, title)
+Figures
+Tables
+Queries
+Supplementary Material (optional). NB we do not copyedit the Supplementary Material.
+Punctuation and capitalization
+Use a colon after follows or following at end of an introduction.
+Cap first word of a full sentence after colon.
+Em-dash: Not overtly encouraged, but not necessary to forbid.
+En-dash: To connect two (juxtaposed, separate) ideas or items, rather than have one describe the other (as in a compound adjective). For example, Fama–French, CEO–chair changes, a leverage–competition relationship versus a first-stage regression.
+Serial comma: use it (in text and citations).
+Terms in lists: sentence style.
+In titles/heads and reference list, lowercase with, from, and other prepositions of four or fewer characters. Capitalize any/all words of five or more characters. If, for example, “with” comes in set comparing it to “without,” capitalize both.
+Lowercase model X, column X (no parentheses)
+Query List (from copyeditor to author)
+Use Acrobat’s Advanced Search feature for global searches and to ensure that all instances have been marked. Keep in mind that line numbers may interfere with your search.
+Number queries in the text margins and list on a separate page (so that the queries are not entered as part of the edits, e.g., “Q-0:”).
+Make a list of all acronyms that have been defined and a list of acronyms to be defined.
+Make list of acronyms that we add definitions for, to be verified by the authors.
+Double-check frequently used abbreviations for errors.
+List references that have not been cited.
+Add citations that are not listed to the references. Query all mismatches.
+Add discrepancies to the query list and use $\blacksquare$ (in TeX) to locate them.
+References
+Alphabetize references by last name (author1, author2, etc., then year, then article title, if necessary). It is not necessary to alphabetize lists of citations within the body text.
+References by the same author(s) are ordered by date, then alphabetically by title (e.g., Smith (2005a), (2005b)).
+Multiple-author works’ references: If the names are used as a compound modifier (e.g., the Fama–French model), use an en dash. Otherwise, you can use either method: Fama and French’s (1997) 3-factor model OR the Fama–French (1997) 3-factor model.
+Use serial comma for parenthetical citations. For two-author citations, use only a comma, not “and” (e.g., “Odean (1999), Barber and Odean (2001).” Where the “not-and” treatment is awkward, avoid it. JFQA prefers to offset citations in parentheses where possible.
+List all authors’ names on first callout, use et al. subsequently (and consistently).
+Within a paragraph, a repeat-referenced citation need include only the author(s’) name(s) on second reference (i.e., not the date), but if author has multiple papers in the reference list, include the date in each citation, even within a paragraph.
+Omit reference list items cited (only) in Supplementary Material.
+Omit year-citations from abstracts, titles, and headings wherever possible.
+Avoid using footnotes for citations (including URLs).
+Inline reference examples
+(Smith (1988))
+(Brown (1995), (1998)) or Brown (1995), (1998) depending on context
+(Jones (1994), p. 51)
+(Brown (1995), Jones (1994))
+(Green (1988a), eq. 3)
+Reference list examples
+Book: Berle, A. A., and G. C. Means. The Modern Corporation and Private Property. New York, NY: Macmillan (1932).
+Journal: Brown, S., and J. Warner. “Using Daily Stock Returns: The Case of Event Studies.” Journal of Financial Economics, 14 (1985), 1–31.
+Forthcoming: “The Bitter and the Sweet.” Psychology of Investing, forthcoming (2018).
+Single item in book: Hopt, K. J. “The German Two-Tier Board: Experience, Theories, Reforms.” In Comparative Corporate Governance: the State of the Art and Emerging Research, Vol. 1, K. J. Hopt, H. Kanda, M. J. Roe, and S. Prigge, eds. New York, NY: Oxford University Press and Clarendon Press (1998), 227–259.
+Journal, 3 or more authors: Titman, S.; K. C. Wei; and F. Xie. “Capital Investments and Stock Returns.” Journal of Financial and Quantitative Analysis, 29 (2004), 677–700.
+Working Paper: Huson, M. “Does Governance Matter? Evidence from CalPERS Interventions.” Working Paper, University of Alberta (1997).
+Sections, numbering
+I, II, III
+A, B, C
+1, 2, 3
+a, b, c
+i), ii) (enumeration)If there is a single subheading for a level, change to a single unnumbered heading (\subsection*{}, \subsubsection*{})
+Tables & Figures
+Ensure that parentheses, square brackets, boldface, and asterisk(s) are defined when used in tables.
+Use \times in place of “*” for multiplication.
+Tables and figures must have titles and explanatory/descriptive introductory text. Their introductory wording should specify the number (e.g., “Table 1 reports…”). They must also be referred to in the text before they make their appearance. (If not possible to place hook before, must be proximal.)
+Paragraphs that mention tables (or some portion thereof) need to cite the table [number] when first mentioned (e.g., column 1 in Panel A of Table 1).
+Omit year-citations and spelled-out names in headings and table/figure titles (instead, make sure they are proximal in the description, if appropriate). However, as we like to think of tables as capable of standing on their own, do not remove a spelled-out phrase in the table intro that you might otherwise or otherwhere want to decrease to an acronym (e.g., CARs or CAPM).
+Subfigures are graphs, not panels.
+Capitalization: column heads title case, row heads sentence case. The case of a single-letter variable in a column head should stay as it needs to (e.g., t-, p-), but whatever it’s modifying (e.g., value) should be capped in column headings.
+Table columns are aligned by text comma and decimal places.
+Figures should have title-case labels for x- and y-axes and legends.
+Footnotes within a table should be marked as a, b, c, etc., and run in at the end of the descriptive table intro paragraph.
+“*, **, and *** indicate significance at the 10%, 5%, and 1% levels, respectively.” It is standard practice to list all three combinations even if they aren’t all used in the specific table, but if they author has listed fewer, OK to leave as is.
+Column widths themselves do not all have to be equal (not always room for that) but the space between them should be equal; columns themselves should be the width of the widest entry in that column.
+Theorems
+Italic label and number, roman text, blank line above and below, no indent. This style should also apply to lemmas, hypotheses, propositions, etc.
+Tracked Change Behavior/etiquette (Word only)
+If only a single letter is changed, please make it so that only that letter is tracked as changed, rather than the whole word. (This is part of our goal to have changes be as minimal and error-free as possible.)
+Wording and Spelling
+(follow http://www.merriam-webster.com, Chicago Manual of Style)
+1-standard-deviation increase, but increase by 1 standard deviation
+2-digit SIC
+3-factor model
+4 lags
+advisor (preferred over adviser)
+AM, PM (small caps, no space after numerals)
+book-to-market ratio (compound requires a noun)
+Compustat (not all caps)
+cross section (n)
+data: (n) plural
+data set
+Datastream
+equal-weighted (not equally weighted)
+Eurostat
+ExecuComp
+firm-year
+global financial crisis (lowercase)
+Great Depression
+health care
+hetero-, homogeneous
+hetero-, homoscedastic
+higher-order (hyphenated when adjective)
+home page
+IID (independent and identically distributed). We prefer this uppercase acronym but some authors protest, and prefer i.i.d.
+parameterize, parameterization
+price-to-book ratio (compound requires a noun)
+probit: lowercase
+Sharpe ratio: does not need citation.
+Standard & Poor’s (S&P). Note that the S&P 500 index is lowercase (except, of course, in titling).
+Thomson Reuters: no hyphen
+Tobit: initial-capped
+Tobin’s Q unless otherwise specifically necessary (e.g., “the Tobin’s ‘q’ theorem”). When used as a variable, TOBINS_Q.
+trade-off
+U.K., U.S. as adjective; spell out when a noun.
+website (URL required), Internet, e-mail.
+Wiley & Sons
+year–end
+zero mean
+Usage and Terminology
+Articles and papers. “Article” is generally preferred, but internal consistency is the priority.
+Tables report; figures show or display.
+Introductory clauses such as “in this article” should be followed by a comma.
+Sole-authored papers should avoid using “we.”
+Use “available from the authors” rather than “available upon request.”
+Do not italicize Latin phrases.
+Avoid contractions.
+Prefixes: Close them up (e.g., co, non, sub, etc.) unless it would cause confusion.
+Look for superfluous (first-position) “the” in section, table, and figure names.
+It is not necessary to add (or remove) “the” before, e.g. “t-statistic” at the beginning of a sentence.
+“Source:” in tables or appendices should be roman.
+Last updated October 2025

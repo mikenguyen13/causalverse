@@ -1,0 +1,790 @@
+Search Menu
+AI Discovery Assistant
+Menu
+Sign in through your institution Remember myinstitution
+Issues
+More content Advance articles Featured articles Virtual Issues
+Advance articles
+Featured articles
+Virtual Issues
+JEL B - History of Economic Thought, Methodology, and Heterodox Approaches Browse content in B - History of Economic Thought, Methodology, and Heterodox Approaches B4 - Economic Methodology Browse content in B4 - Economic Methodology B49 - Other C - Mathematical and Quantitative Methods Browse content in C - Mathematical and Quantitative Methods C0 - General Browse content in C0 - General C01 - Econometrics C1 - Econometric and Statistical Methods and Methodology: General Browse content in C1 - Econometric and Statistical Methods and Methodology: General C10 - General C11 - Bayesian Analysis: General C12 - Hypothesis Testing: General C13 - Estimation: General C14 - Semiparametric and Nonparametric Methods: General C15 - Statistical Simulation Methods: General C2 - Single Equation Models; Single Variables Browse content in C2 - Single Equation Models; Single Variables C21 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions C22 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes C23 - Panel Data Models; Spatio-temporal Models C25 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions; Probabilities C26 - Instrumental Variables (IV) Estimation C3 - Multiple or Simultaneous Equation Models; Multiple Variables Browse content in C3 - Multiple or Simultaneous Equation Models; Multiple Variables C31 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions; Social Interaction Models C32 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes; State Space Models C33 - Panel Data Models; Spatio-temporal Models C34 - Truncated and Censored Models; Switching Regression Models C35 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions C36 - Instrumental Variables (IV) Estimation C38 - Classification Methods; Cluster Analysis; Principal Components; Factor Models C4 - Econometric and Statistical Methods: Special Topics Browse content in C4 - Econometric and Statistical Methods: Special Topics C40 - General C41 - Duration Analysis; Optimal Timing Strategies C44 - Operations Research; Statistical Decision Theory C5 - Econometric Modeling Browse content in C5 - Econometric Modeling C50 - General C51 - Model Construction and Estimation C52 - Model Evaluation, Validation, and Selection C53 - Forecasting and Prediction Methods; Simulation Methods C54 - Quantitative Policy Modeling C55 - Large Data Sets: Modeling and Analysis C57 - Econometrics of Games and Auctions C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling Browse content in C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling C61 - Optimization Techniques; Programming Models; Dynamic Analysis C62 - Existence and Stability Conditions of Equilibrium C63 - Computational Techniques; Simulation Modeling C67 - Input-Output Models C68 - Computable General Equilibrium Models C7 - Game Theory and Bargaining Theory Browse content in C7 - Game Theory and Bargaining Theory C70 - General C72 - Noncooperative Games C73 - Stochastic and Dynamic Games; Evolutionary Games; Repeated Games C78 - Bargaining Theory; Matching Theory C79 - Other C8 - Data Collection and Data Estimation Methodology; Computer Programs Browse content in C8 - Data Collection and Data Estimation Methodology; Computer Programs C81 - Methodology for Collecting, Estimating, and Organizing Microeconomic Data; Data Access C83 - Survey Methods; Sampling Methods C9 - Design of Experiments Browse content in C9 - Design of Experiments C90 - General C91 - Laboratory, Individual Behavior C92 - Laboratory, Group Behavior C93 - Field Experiments D - Microeconomics Browse content in D - Microeconomics D0 - General Browse content in D0 - General D01 - Microeconomic Behavior: Underlying Principles D02 - Institutions: Design, Formation, Operations, and Impact D03 - Behavioral Microeconomics: Underlying Principles D1 - Household Behavior and Family Economics Browse content in D1 - Household Behavior and Family Economics D10 - General D11 - Consumer Economics: Theory D12 - Consumer Economics: Empirical Analysis D13 - Household Production and Intrahousehold Allocation D14 - Household Saving; Personal Finance D15 - Intertemporal Household Choice: Life Cycle Models and Saving D18 - Consumer Protection D2 - Production and Organizations Browse content in D2 - Production and Organizations D21 - Firm Behavior: Theory D22 - Firm Behavior: Empirical Analysis D23 - Organizational Behavior; Transaction Costs; Property Rights D24 - Production; Cost; Capital; Capital, Total Factor, and Multifactor Productivity; Capacity D25 - Intertemporal Firm Choice: Investment, Capacity, and Financing D29 - Other D3 - Distribution Browse content in D3 - Distribution D30 - General D31 - Personal Income, Wealth, and Their Distributions D4 - Market Structure, Pricing, and Design Browse content in D4 - Market Structure, Pricing, and Design D40 - General D41 - Perfect Competition D42 - Monopoly D43 - Oligopoly and Other Forms of Market Imperfection D44 - Auctions D47 - Market Design D5 - General Equilibrium and Disequilibrium Browse content in D5 - General Equilibrium and Disequilibrium D50 - General D51 - Exchange and Production Economies D52 - Incomplete Markets D53 - Financial Markets D57 - Input-Output Tables and Analysis D58 - Computable and Other Applied General Equilibrium Models D6 - Welfare Economics Browse content in D6 - Welfare Economics D60 - General D61 - Allocative Efficiency; Cost-Benefit Analysis D62 - Externalities D63 - Equity, Justice, Inequality, and Other Normative Criteria and Measurement D64 - Altruism; Philanthropy D7 - Analysis of Collective Decision-Making Browse content in D7 - Analysis of Collective Decision-Making D70 - General D71 - Social Choice; Clubs; Committees; Associations D72 - Political Processes: Rent-seeking, Lobbying, Elections, Legislatures, and Voting Behavior D73 - Bureaucracy; Administrative Processes in Public Organizations; Corruption D74 - Conflict; Conflict Resolution; Alliances; Revolutions D78 - Positive Analysis of Policy Formulation and Implementation D8 - Information, Knowledge, and Uncertainty Browse content in D8 - Information, Knowledge, and Uncertainty D80 - General D81 - Criteria for Decision-Making under Risk and Uncertainty D82 - Asymmetric and Private Information; Mechanism Design D83 - Search; Learning; Information and Knowledge; Communication; Belief; Unawareness D84 - Expectations; Speculations D85 - Network Formation and Analysis: Theory D86 - Economics of Contract: Theory D9 - Micro-Based Behavioral Economics Browse content in D9 - Micro-Based Behavioral Economics D90 - General D91 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making D92 - Intertemporal Firm Choice, Investment, Capacity, and Financing E - Macroeconomics and Monetary Economics Browse content in E - Macroeconomics and Monetary Economics E0 - General Browse content in E0 - General E00 - General E03 - Behavioral Macroeconomics E1 - General Aggregative Models Browse content in E1 - General Aggregative Models E10 - General E12 - Keynes; Keynesian; Post-Keynesian E13 - Neoclassical E17 - Forecasting and Simulation: Models and Applications E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy Browse content in E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy E20 - General E21 - Consumption; Saving; Wealth E22 - Investment; Capital; Intangible Capital; Capacity E23 - Production E24 - Employment; Unemployment; Wages; Intergenerational Income Distribution; Aggregate Human Capital; Aggregate Labor Productivity E25 - Aggregate Factor Income Distribution E26 - Informal Economy; Underground Economy E27 - Forecasting and Simulation: Models and Applications E3 - Prices, Business Fluctuations, and Cycles Browse content in E3 - Prices, Business Fluctuations, and Cycles E30 - General E31 - Price Level; Inflation; Deflation E32 - Business Fluctuations; Cycles E37 - Forecasting and Simulation: Models and Applications E4 - Money and Interest Rates Browse content in E4 - Money and Interest Rates E40 - General E41 - Demand for Money E42 - Monetary Systems; Standards; Regimes; Government and the Monetary System; Payment Systems E43 - Interest Rates: Determination, Term Structure, and Effects E44 - Financial Markets and the Macroeconomy E47 - Forecasting and Simulation: Models and Applications E49 - Other E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit Browse content in E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit E50 - General E51 - Money Supply; Credit; Money Multipliers E52 - Monetary Policy E58 - Central Banks and Their Policies E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook Browse content in E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook E60 - General E61 - Policy Objectives; Policy Designs and Consistency; Policy Coordination E62 - Fiscal Policy E63 - Comparative or Joint Analysis of Fiscal and Monetary Policy; Stabilization; Treasury Policy E65 - Studies of Particular Policy Episodes E7 - Macro-Based Behavioral Economics Browse content in E7 - Macro-Based Behavioral Economics E70 - General E71 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on the Macro Economy F - International Economics Browse content in F - International Economics F1 - Trade Browse content in F1 - Trade F10 - General F11 - Neoclassical Models of Trade F12 - Models of Trade with Imperfect Competition and Scale Economies; Fragmentation F13 - Trade Policy; International Trade Organizations F14 - Empirical Studies of Trade F15 - Economic Integration F16 - Trade and Labor Market Interactions F17 - Trade Forecasting and Simulation F18 - Trade and Environment F19 - Other F2 - International Factor Movements and International Business Browse content in F2 - International Factor Movements and International Business F20 - General F21 - International Investment; Long-Term Capital Movements F22 - International Migration F23 - Multinational Firms; International Business F3 - International Finance Browse content in F3 - International Finance F30 - General F31 - Foreign Exchange F32 - Current Account Adjustment; Short-Term Capital Movements F33 - International Monetary Arrangements and Institutions F34 - International Lending and Debt Problems F36 - Financial Aspects of Economic Integration F4 - Macroeconomic Aspects of International Trade and Finance Browse content in F4 - Macroeconomic Aspects of International Trade and Finance F40 - General F41 - Open Economy Macroeconomics F42 - International Policy Coordination and Transmission F43 - Economic Growth of Open Economies F44 - International Business Cycles F45 - Macroeconomic Issues of Monetary Unions F5 - International Relations, National Security, and International Political Economy Browse content in F5 - International Relations, National Security, and International Political Economy F50 - General F51 - International Conflicts; Negotiations; Sanctions F53 - International Agreements and Observance; International Organizations F55 - International Institutional Arrangements F6 - Economic Impacts of Globalization Browse content in F6 - Economic Impacts of Globalization F60 - General F62 - Macroeconomic Impacts F63 - Economic Development F64 - Environment F65 - Finance F66 - Labor F68 - Policy G - Financial Economics Browse content in G - Financial Economics G0 - General Browse content in G0 - General G01 - Financial Crises G02 - Behavioral Finance: Underlying Principles G1 - General Financial Markets Browse content in G1 - General Financial Markets G10 - General G11 - Portfolio Choice; Investment Decisions G12 - Asset Pricing; Trading volume; Bond Interest Rates G13 - Contingent Pricing; Futures Pricing G14 - Information and Market Efficiency; Event Studies; Insider Trading G15 - International Financial Markets G18 - Government Policy and Regulation G2 - Financial Institutions and Services Browse content in G2 - Financial Institutions and Services G20 - General G21 - Banks; Depository Institutions; Micro Finance Institutions; Mortgages G22 - Insurance; Insurance Companies; Actuarial Studies G23 - Non-bank Financial Institutions; Financial Instruments; Institutional Investors G24 - Investment Banking; Venture Capital; Brokerage; Ratings and Ratings Agencies G28 - Government Policy and Regulation G3 - Corporate Finance and Governance Browse content in G3 - Corporate Finance and Governance G30 - General G31 - Capital Budgeting; Fixed Investment and Inventory Studies; Capacity G32 - Financing Policy; Financial Risk and Risk Management; Capital and Ownership Structure; Value of Firms; Goodwill G33 - Bankruptcy; Liquidation G34 - Mergers; Acquisitions; Restructuring; Corporate Governance G35 - Payout Policy G38 - Government Policy and Regulation G4 - Behavioral Finance Browse content in G4 - Behavioral Finance G40 - General G41 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making in Financial Markets G5 - Household Finance Browse content in G5 - Household Finance G51 - Household Saving, Borrowing, Debt, and Wealth H - Public Economics Browse content in H - Public Economics H0 - General Browse content in H0 - General H00 - General H1 - Structure and Scope of Government Browse content in H1 - Structure and Scope of Government H11 - Structure, Scope, and Performance of Government H2 - Taxation, Subsidies, and Revenue Browse content in H2 - Taxation, Subsidies, and Revenue H20 - General H21 - Efficiency; Optimal Taxation H22 - Incidence H23 - Externalities; Redistributive Effects; Environmental Taxes and Subsidies H24 - Personal Income and Other Nonbusiness Taxes and Subsidies; includes inheritance and gift taxes H25 - Business Taxes and Subsidies H26 - Tax Evasion and Avoidance H3 - Fiscal Policies and Behavior of Economic Agents Browse content in H3 - Fiscal Policies and Behavior of Economic Agents H30 - General H31 - Household H4 - Publicly Provided Goods Browse content in H4 - Publicly Provided Goods H41 - Public Goods H42 - Publicly Provided Private Goods H5 - National Government Expenditures and Related Policies Browse content in H5 - National Government Expenditures and Related Policies H50 - General H51 - Government Expenditures and Health H52 - Government Expenditures and Education H53 - Government Expenditures and Welfare Programs H55 - Social Security and Public Pensions H56 - National Security and War H57 - Procurement H6 - National Budget, Deficit, and Debt Browse content in H6 - National Budget, Deficit, and Debt H60 - General H63 - Debt; Debt Management; Sovereign Debt H7 - State and Local Government; Intergovernmental Relations Browse content in H7 - State and Local Government; Intergovernmental Relations H71 - State and Local Taxation, Subsidies, and Revenue H75 - State and Local Government: Health; Education; Welfare; Public Pensions H8 - Miscellaneous Issues Browse content in H8 - Miscellaneous Issues H81 - Governmental Loans; Loan Guarantees; Credits; Grants; Bailouts I - Health, Education, and Welfare Browse content in I - Health, Education, and Welfare I0 - General Browse content in I0 - General I00 - General I1 - Health Browse content in I1 - Health I10 - General I11 - Analysis of Health Care Markets I12 - Health Behavior I13 - Health Insurance, Public and Private I14 - Health and Inequality I15 - Health and Economic Development I18 - Government Policy; Regulation; Public Health I2 - Education and Research Institutions Browse content in I2 - Education and Research Institutions I20 - General I21 - Analysis of Education I22 - Educational Finance; Financial Aid I23 - Higher Education; Research Institutions I24 - Education and Inequality I25 - Education and Economic Development I26 - Returns to Education I28 - Government Policy I3 - Welfare, Well-Being, and Poverty Browse content in I3 - Welfare, Well-Being, and Poverty I30 - General I31 - General Welfare I32 - Measurement and Analysis of Poverty I38 - Government Policy; Provision and Effects of Welfare Programs I39 - Other J - Labor and Demographic Economics Browse content in J - Labor and Demographic Economics J0 - General Browse content in J0 - General J00 - General J01 - Labor Economics: General J08 - Labor Economics Policies J1 - Demographic Economics Browse content in J1 - Demographic Economics J10 - General J11 - Demographic Trends, Macroeconomic Effects, and Forecasts J12 - Marriage; Marital Dissolution; Family Structure; Domestic Abuse J13 - Fertility; Family Planning; Child Care; Children; Youth J14 - Economics of the Elderly; Economics of the Handicapped; Non-Labor Market Discrimination J15 - Economics of Minorities, Races, Indigenous Peoples, and Immigrants; Non-labor Discrimination J16 - Economics of Gender; Non-labor Discrimination J17 - Value of Life; Forgone Income J18 - Public Policy J2 - Demand and Supply of Labor Browse content in J2 - Demand and Supply of Labor J20 - General J21 - Labor Force and Employment, Size, and Structure J22 - Time Allocation and Labor Supply J23 - Labor Demand J24 - Human Capital; Skills; Occupational Choice; Labor Productivity J3 - Wages, Compensation, and Labor Costs Browse content in J3 - Wages, Compensation, and Labor Costs J30 - General J31 - Wage Level and Structure; Wage Differentials J32 - Nonwage Labor Costs and Benefits; Retirement Plans; Private Pensions J33 - Compensation Packages; Payment Methods J38 - Public Policy J4 - Particular Labor Markets Browse content in J4 - Particular Labor Markets J41 - Labor Contracts J42 - Monopsony; Segmented Labor Markets J44 - Professional Labor Markets; Occupational Licensing J47 - Coercive Labor Markets J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining Browse content in J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining J50 - General J52 - Dispute Resolution: Strikes, Arbitration, and Mediation; Collective Bargaining J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers Browse content in J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers J60 - General J61 - Geographic Labor Mobility; Immigrant Workers J62 - Job, Occupational, and Intergenerational Mobility J63 - Turnover; Vacancies; Layoffs J64 - Unemployment: Models, Duration, Incidence, and Job Search J65 - Unemployment Insurance; Severance Pay; Plant Closings J68 - Public Policy J7 - Labor Discrimination Browse content in J7 - Labor Discrimination J71 - Discrimination J8 - Labor Standards: National and International Browse content in J8 - Labor Standards: National and International J81 - Working Conditions J82 - Labor Force Composition J83 - Workers' Rights K - Law and Economics Browse content in K - Law and Economics K0 - General Browse content in K0 - General K00 - General K1 - Basic Areas of Law Browse content in K1 - Basic Areas of Law K10 - General K14 - Criminal Law K3 - Other Substantive Areas of Law Browse content in K3 - Other Substantive Areas of Law K31 - Labor Law K33 - International Law K35 - Personal Bankruptcy Law K36 - Family and Personal Law K4 - Legal Procedure, the Legal System, and Illegal Behavior Browse content in K4 - Legal Procedure, the Legal System, and Illegal Behavior K40 - General K41 - Litigation Process K42 - Illegal Behavior and the Enforcement of Law L - Industrial Organization Browse content in L - Industrial Organization L0 - General Browse content in L0 - General L00 - General L1 - Market Structure, Firm Strategy, and Market Performance Browse content in L1 - Market Structure, Firm Strategy, and Market Performance L10 - General L11 - Production, Pricing, and Market Structure; Size Distribution of Firms L12 - Monopoly; Monopolization Strategies L13 - Oligopoly and Other Imperfect Markets L14 - Transactional Relationships; Contracts and Reputation; Networks L15 - Information and Product Quality; Standardization and Compatibility L16 - Industrial Organization and Macroeconomics: Industrial Structure and Structural Change; Industrial Price Indices L2 - Firm Objectives, Organization, and Behavior Browse content in L2 - Firm Objectives, Organization, and Behavior L20 - General L22 - Firm Organization and Market Structure L23 - Organization of Production L25 - Firm Performance: Size, Diversification, and Scope L3 - Nonprofit Organizations and Public Enterprise Browse content in L3 - Nonprofit Organizations and Public Enterprise L31 - Nonprofit Institutions; NGOs; Social Entrepreneurship L4 - Antitrust Issues and Policies Browse content in L4 - Antitrust Issues and Policies L41 - Monopolization; Horizontal Anticompetitive Practices L42 - Vertical Restraints; Resale Price Maintenance; Quantity Discounts L43 - Legal Monopolies and Regulation or Deregulation L5 - Regulation and Industrial Policy Browse content in L5 - Regulation and Industrial Policy L50 - General L51 - Economics of Regulation L6 - Industry Studies: Manufacturing Browse content in L6 - Industry Studies: Manufacturing L60 - General L62 - Automobiles; Other Transportation Equipment; Related Parts and Equipment L63 - Microelectronics; Computers; Communications Equipment L65 - Chemicals; Rubber; Drugs; Biotechnology L7 - Industry Studies: Primary Products and Construction Browse content in L7 - Industry Studies: Primary Products and Construction L71 - Mining, Extraction, and Refining: Hydrocarbon Fuels L73 - Forest Products L8 - Industry Studies: Services Browse content in L8 - Industry Studies: Services L81 - Retail and Wholesale Trade; e-Commerce L82 - Entertainment; Media L86 - Information and Internet Services; Computer Software L9 - Industry Studies: Transportation and Utilities Browse content in L9 - Industry Studies: Transportation and Utilities L93 - Air Transportation L94 - Electric Utilities L95 - Gas Utilities; Pipelines; Water Utilities L96 - Telecommunications M - Business Administration and Business Economics; Marketing; Accounting; Personnel Economics Browse content in M - Business Administration and Business Economics; Marketing; Accounting; Personnel Economics M0 - General Browse content in M0 - General M00 - General M1 - Business Administration Browse content in M1 - Business Administration M11 - Production Management M12 - Personnel Management; Executives; Executive Compensation M14 - Corporate Culture; Social Responsibility M15 - IT Management M2 - Business Economics Browse content in M2 - Business Economics M21 - Business Economics M3 - Marketing and Advertising Browse content in M3 - Marketing and Advertising M31 - Marketing M37 - Advertising M5 - Personnel Economics Browse content in M5 - Personnel Economics M50 - General M51 - Firm Employment Decisions; Promotions M52 - Compensation and Compensation Methods and Their Effects M54 - Labor Management M55 - Labor Contracting Devices N - Economic History Browse content in N - Economic History N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations Browse content in N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations N10 - General, International, or Comparative N13 - Europe: Pre-1913 N2 - Financial Markets and Institutions Browse content in N2 - Financial Markets and Institutions N20 - General, International, or Comparative N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy Browse content in N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy N30 - General, International, or Comparative N31 - U.S.; Canada: Pre-1913 N32 - U.S.; Canada: 1913- N33 - Europe: Pre-1913 N34 - Europe: 1913- N4 - Government, War, Law, International Relations, and Regulation Browse content in N4 - Government, War, Law, International Relations, and Regulation N42 - U.S.; Canada: 1913- N43 - Europe: Pre-1913 N44 - Europe: 1913- N45 - Asia including Middle East N47 - Africa; Oceania N5 - Agriculture, Natural Resources, Environment, and Extractive Industries Browse content in N5 - Agriculture, Natural Resources, Environment, and Extractive Industries N53 - Europe: Pre-1913 N9 - Regional and Urban History Browse content in N9 - Regional and Urban History N90 - General, International, or Comparative N92 - U.S.; Canada: 1913- N94 - Europe: 1913- O - Economic Development, Innovation, Technological Change, and Growth Browse content in O - Economic Development, Innovation, Technological Change, and Growth O1 - Economic Development Browse content in O1 - Economic Development O10 - General O11 - Macroeconomic Analyses of Economic Development O12 - Microeconomic Analyses of Economic Development O13 - Agriculture; Natural Resources; Energy; Environment; Other Primary Products O14 - Industrialization; Manufacturing and Service Industries; Choice of Technology O15 - Human Resources; Human Development; Income Distribution; Migration O16 - Financial Markets; Saving and Capital Investment; Corporate Finance and Governance O17 - Formal and Informal Sectors; Shadow Economy; Institutional Arrangements O18 - Urban, Rural, Regional, and Transportation Analysis; Housing; Infrastructure O19 - International Linkages to Development; Role of International Organizations O2 - Development Planning and Policy Browse content in O2 - Development Planning and Policy O23 - Fiscal and Monetary Policy in Development O24 - Trade Policy; Factor Movement Policy; Foreign Exchange Policy O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights Browse content in O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights O30 - General O31 - Innovation and Invention: Processes and Incentives O32 - Management of Technological Innovation and R&D O33 - Technological Change: Choices and Consequences; Diffusion Processes O34 - Intellectual Property and Intellectual Capital O38 - Government Policy O4 - Economic Growth and Aggregate Productivity Browse content in O4 - Economic Growth and Aggregate Productivity O40 - General O41 - One, Two, and Multisector Growth Models O42 - Monetary Growth Models O43 - Institutions and Growth O44 - Environment and Growth O47 - Empirical Studies of Economic Growth; Aggregate Productivity; Cross-Country Output Convergence O5 - Economywide Country Studies Browse content in O5 - Economywide Country Studies O51 - U.S.; Canada O53 - Asia including Middle East O55 - Africa P - Economic Systems Browse content in P - Economic Systems P0 - General Browse content in P0 - General P00 - General P1 - Capitalist Systems Browse content in P1 - Capitalist Systems P16 - Political Economy P2 - Socialist Systems and Transitional Economies Browse content in P2 - Socialist Systems and Transitional Economies P21 - Planning, Coordination, and Reform P25 - Urban, Rural, and Regional Economics P26 - Political Economy; Property Rights P4 - Other Economic Systems Browse content in P4 - Other Economic Systems P43 - Public Economics; Financial Economics P48 - Political Economy; Legal Institutions; Property Rights; Natural Resources; Energy; Environment; Regional Studies Q - Agricultural and Natural Resource Economics; Environmental and Ecological Economics Browse content in Q - Agricultural and Natural Resource Economics; Environmental and Ecological Economics Q1 - Agriculture Browse content in Q1 - Agriculture Q12 - Micro Analysis of Farm Firms, Farm Households, and Farm Input Markets Q15 - Land Ownership and Tenure; Land Reform; Land Use; Irrigation; Agriculture and Environment Q16 - R&D; Agricultural Technology; Biofuels; Agricultural Extension Services Q2 - Renewable Resources and Conservation Browse content in Q2 - Renewable Resources and Conservation Q22 - Fishery; Aquaculture Q23 - Forestry Q28 - Government Policy Q3 - Nonrenewable Resources and Conservation Browse content in Q3 - Nonrenewable Resources and Conservation Q33 - Resource Booms Q35 - Hydrocarbon Resources Q4 - Energy Browse content in Q4 - Energy Q41 - Demand and Supply; Prices Q43 - Energy and the Macroeconomy Q5 - Environmental Economics Browse content in Q5 - Environmental Economics Q50 - General Q51 - Valuation of Environmental Effects Q52 - Pollution Control Adoption Costs; Distributional Effects; Employment Effects Q53 - Air Pollution; Water Pollution; Noise; Hazardous Waste; Solid Waste; Recycling Q54 - Climate; Natural Disasters; Global Warming Q55 - Technological Innovation Q56 - Environment and Development; Environment and Trade; Sustainability; Environmental Accounts and Accounting; Environmental Equity; Population Growth Q58 - Government Policy R - Urban, Rural, Regional, Real Estate, and Transportation Economics Browse content in R - Urban, Rural, Regional, Real Estate, and Transportation Economics R1 - General Regional Economics Browse content in R1 - General Regional Economics R10 - General R11 - Regional Economic Activity: Growth, Development, Environmental Issues, and Changes R12 - Size and Spatial Distributions of Regional Economic Activity R13 - General Equilibrium and Welfare Economic Analysis of Regional Economies R14 - Land Use Patterns R15 - Econometric and Input-Output Models; Other Models R2 - Household Analysis Browse content in R2 - Household Analysis R21 - Housing Demand R23 - Regional Migration; Regional Labor Markets; Population; Neighborhood Characteristics R28 - Government Policy R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location Browse content in R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location R31 - Housing Supply and Markets R33 - Nonagricultural and Nonresidential Real Estate Markets R4 - Transportation Economics Browse content in R4 - Transportation Economics R41 - Transportation: Demand, Supply, and Congestion; Travel Time; Safety and Accidents; Transportation Noise R48 - Government Pricing and Policy R5 - Regional Government Analysis Browse content in R5 - Regional Government Analysis R51 - Finance in Urban and Rural Economies Z - Other Special Topics Browse content in Z - Other Special Topics Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Browse content in Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Z10 - General Z12 - Religion Z13 - Economic Sociology; Economic Anthropology; Social and Economic Stratification Z18 - Public Policy
+B - History of Economic Thought, Methodology, and Heterodox Approaches Browse content in B - History of Economic Thought, Methodology, and Heterodox Approaches B4 - Economic Methodology Browse content in B4 - Economic Methodology B49 - Other
+Browse content in B - History of Economic Thought, Methodology, and Heterodox Approaches
+B4 - Economic Methodology Browse content in B4 - Economic Methodology B49 - Other
+Browse content in B4 - Economic Methodology
+B49 - Other
+C - Mathematical and Quantitative Methods Browse content in C - Mathematical and Quantitative Methods C0 - General Browse content in C0 - General C01 - Econometrics C1 - Econometric and Statistical Methods and Methodology: General Browse content in C1 - Econometric and Statistical Methods and Methodology: General C10 - General C11 - Bayesian Analysis: General C12 - Hypothesis Testing: General C13 - Estimation: General C14 - Semiparametric and Nonparametric Methods: General C15 - Statistical Simulation Methods: General C2 - Single Equation Models; Single Variables Browse content in C2 - Single Equation Models; Single Variables C21 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions C22 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes C23 - Panel Data Models; Spatio-temporal Models C25 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions; Probabilities C26 - Instrumental Variables (IV) Estimation C3 - Multiple or Simultaneous Equation Models; Multiple Variables Browse content in C3 - Multiple or Simultaneous Equation Models; Multiple Variables C31 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions; Social Interaction Models C32 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes; State Space Models C33 - Panel Data Models; Spatio-temporal Models C34 - Truncated and Censored Models; Switching Regression Models C35 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions C36 - Instrumental Variables (IV) Estimation C38 - Classification Methods; Cluster Analysis; Principal Components; Factor Models C4 - Econometric and Statistical Methods: Special Topics Browse content in C4 - Econometric and Statistical Methods: Special Topics C40 - General C41 - Duration Analysis; Optimal Timing Strategies C44 - Operations Research; Statistical Decision Theory C5 - Econometric Modeling Browse content in C5 - Econometric Modeling C50 - General C51 - Model Construction and Estimation C52 - Model Evaluation, Validation, and Selection C53 - Forecasting and Prediction Methods; Simulation Methods C54 - Quantitative Policy Modeling C55 - Large Data Sets: Modeling and Analysis C57 - Econometrics of Games and Auctions C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling Browse content in C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling C61 - Optimization Techniques; Programming Models; Dynamic Analysis C62 - Existence and Stability Conditions of Equilibrium C63 - Computational Techniques; Simulation Modeling C67 - Input-Output Models C68 - Computable General Equilibrium Models C7 - Game Theory and Bargaining Theory Browse content in C7 - Game Theory and Bargaining Theory C70 - General C72 - Noncooperative Games C73 - Stochastic and Dynamic Games; Evolutionary Games; Repeated Games C78 - Bargaining Theory; Matching Theory C79 - Other C8 - Data Collection and Data Estimation Methodology; Computer Programs Browse content in C8 - Data Collection and Data Estimation Methodology; Computer Programs C81 - Methodology for Collecting, Estimating, and Organizing Microeconomic Data; Data Access C83 - Survey Methods; Sampling Methods C9 - Design of Experiments Browse content in C9 - Design of Experiments C90 - General C91 - Laboratory, Individual Behavior C92 - Laboratory, Group Behavior C93 - Field Experiments
+Browse content in C - Mathematical and Quantitative Methods
+C0 - General Browse content in C0 - General C01 - Econometrics
+Browse content in C0 - General
+C01 - Econometrics
+C1 - Econometric and Statistical Methods and Methodology: General Browse content in C1 - Econometric and Statistical Methods and Methodology: General C10 - General C11 - Bayesian Analysis: General C12 - Hypothesis Testing: General C13 - Estimation: General C14 - Semiparametric and Nonparametric Methods: General C15 - Statistical Simulation Methods: General
+Browse content in C1 - Econometric and Statistical Methods and Methodology: General
+C10 - General
+C11 - Bayesian Analysis: General
+C12 - Hypothesis Testing: General
+C13 - Estimation: General
+C14 - Semiparametric and Nonparametric Methods: General
+C15 - Statistical Simulation Methods: General
+C2 - Single Equation Models; Single Variables Browse content in C2 - Single Equation Models; Single Variables C21 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions C22 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes C23 - Panel Data Models; Spatio-temporal Models C25 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions; Probabilities C26 - Instrumental Variables (IV) Estimation
+Browse content in C2 - Single Equation Models; Single Variables
+C21 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions
+C22 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes
+C23 - Panel Data Models; Spatio-temporal Models
+C25 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions; Probabilities
+C26 - Instrumental Variables (IV) Estimation
+C3 - Multiple or Simultaneous Equation Models; Multiple Variables Browse content in C3 - Multiple or Simultaneous Equation Models; Multiple Variables C31 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions; Social Interaction Models C32 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes; State Space Models C33 - Panel Data Models; Spatio-temporal Models C34 - Truncated and Censored Models; Switching Regression Models C35 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions C36 - Instrumental Variables (IV) Estimation C38 - Classification Methods; Cluster Analysis; Principal Components; Factor Models
+Browse content in C3 - Multiple or Simultaneous Equation Models; Multiple Variables
+C31 - Cross-Sectional Models; Spatial Models; Treatment Effect Models; Quantile Regressions; Social Interaction Models
+C32 - Time-Series Models; Dynamic Quantile Regressions; Dynamic Treatment Effect Models; Diffusion Processes; State Space Models
+C33 - Panel Data Models; Spatio-temporal Models
+C34 - Truncated and Censored Models; Switching Regression Models
+C35 - Discrete Regression and Qualitative Choice Models; Discrete Regressors; Proportions
+C36 - Instrumental Variables (IV) Estimation
+C38 - Classification Methods; Cluster Analysis; Principal Components; Factor Models
+C4 - Econometric and Statistical Methods: Special Topics Browse content in C4 - Econometric and Statistical Methods: Special Topics C40 - General C41 - Duration Analysis; Optimal Timing Strategies C44 - Operations Research; Statistical Decision Theory
+Browse content in C4 - Econometric and Statistical Methods: Special Topics
+C40 - General
+C41 - Duration Analysis; Optimal Timing Strategies
+C44 - Operations Research; Statistical Decision Theory
+C5 - Econometric Modeling Browse content in C5 - Econometric Modeling C50 - General C51 - Model Construction and Estimation C52 - Model Evaluation, Validation, and Selection C53 - Forecasting and Prediction Methods; Simulation Methods C54 - Quantitative Policy Modeling C55 - Large Data Sets: Modeling and Analysis C57 - Econometrics of Games and Auctions
+Browse content in C5 - Econometric Modeling
+C50 - General
+C51 - Model Construction and Estimation
+C52 - Model Evaluation, Validation, and Selection
+C53 - Forecasting and Prediction Methods; Simulation Methods
+C54 - Quantitative Policy Modeling
+C55 - Large Data Sets: Modeling and Analysis
+C57 - Econometrics of Games and Auctions
+C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling Browse content in C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling C61 - Optimization Techniques; Programming Models; Dynamic Analysis C62 - Existence and Stability Conditions of Equilibrium C63 - Computational Techniques; Simulation Modeling C67 - Input-Output Models C68 - Computable General Equilibrium Models
+Browse content in C6 - Mathematical Methods; Programming Models; Mathematical and Simulation Modeling
+C61 - Optimization Techniques; Programming Models; Dynamic Analysis
+C62 - Existence and Stability Conditions of Equilibrium
+C63 - Computational Techniques; Simulation Modeling
+C67 - Input-Output Models
+C68 - Computable General Equilibrium Models
+C7 - Game Theory and Bargaining Theory Browse content in C7 - Game Theory and Bargaining Theory C70 - General C72 - Noncooperative Games C73 - Stochastic and Dynamic Games; Evolutionary Games; Repeated Games C78 - Bargaining Theory; Matching Theory C79 - Other
+Browse content in C7 - Game Theory and Bargaining Theory
+C70 - General
+C72 - Noncooperative Games
+C73 - Stochastic and Dynamic Games; Evolutionary Games; Repeated Games
+C78 - Bargaining Theory; Matching Theory
+C79 - Other
+C8 - Data Collection and Data Estimation Methodology; Computer Programs Browse content in C8 - Data Collection and Data Estimation Methodology; Computer Programs C81 - Methodology for Collecting, Estimating, and Organizing Microeconomic Data; Data Access C83 - Survey Methods; Sampling Methods
+Browse content in C8 - Data Collection and Data Estimation Methodology; Computer Programs
+C81 - Methodology for Collecting, Estimating, and Organizing Microeconomic Data; Data Access
+C83 - Survey Methods; Sampling Methods
+C9 - Design of Experiments Browse content in C9 - Design of Experiments C90 - General C91 - Laboratory, Individual Behavior C92 - Laboratory, Group Behavior C93 - Field Experiments
+Browse content in C9 - Design of Experiments
+C90 - General
+C91 - Laboratory, Individual Behavior
+C92 - Laboratory, Group Behavior
+C93 - Field Experiments
+D - Microeconomics Browse content in D - Microeconomics D0 - General Browse content in D0 - General D01 - Microeconomic Behavior: Underlying Principles D02 - Institutions: Design, Formation, Operations, and Impact D03 - Behavioral Microeconomics: Underlying Principles D1 - Household Behavior and Family Economics Browse content in D1 - Household Behavior and Family Economics D10 - General D11 - Consumer Economics: Theory D12 - Consumer Economics: Empirical Analysis D13 - Household Production and Intrahousehold Allocation D14 - Household Saving; Personal Finance D15 - Intertemporal Household Choice: Life Cycle Models and Saving D18 - Consumer Protection D2 - Production and Organizations Browse content in D2 - Production and Organizations D21 - Firm Behavior: Theory D22 - Firm Behavior: Empirical Analysis D23 - Organizational Behavior; Transaction Costs; Property Rights D24 - Production; Cost; Capital; Capital, Total Factor, and Multifactor Productivity; Capacity D25 - Intertemporal Firm Choice: Investment, Capacity, and Financing D29 - Other D3 - Distribution Browse content in D3 - Distribution D30 - General D31 - Personal Income, Wealth, and Their Distributions D4 - Market Structure, Pricing, and Design Browse content in D4 - Market Structure, Pricing, and Design D40 - General D41 - Perfect Competition D42 - Monopoly D43 - Oligopoly and Other Forms of Market Imperfection D44 - Auctions D47 - Market Design D5 - General Equilibrium and Disequilibrium Browse content in D5 - General Equilibrium and Disequilibrium D50 - General D51 - Exchange and Production Economies D52 - Incomplete Markets D53 - Financial Markets D57 - Input-Output Tables and Analysis D58 - Computable and Other Applied General Equilibrium Models D6 - Welfare Economics Browse content in D6 - Welfare Economics D60 - General D61 - Allocative Efficiency; Cost-Benefit Analysis D62 - Externalities D63 - Equity, Justice, Inequality, and Other Normative Criteria and Measurement D64 - Altruism; Philanthropy D7 - Analysis of Collective Decision-Making Browse content in D7 - Analysis of Collective Decision-Making D70 - General D71 - Social Choice; Clubs; Committees; Associations D72 - Political Processes: Rent-seeking, Lobbying, Elections, Legislatures, and Voting Behavior D73 - Bureaucracy; Administrative Processes in Public Organizations; Corruption D74 - Conflict; Conflict Resolution; Alliances; Revolutions D78 - Positive Analysis of Policy Formulation and Implementation D8 - Information, Knowledge, and Uncertainty Browse content in D8 - Information, Knowledge, and Uncertainty D80 - General D81 - Criteria for Decision-Making under Risk and Uncertainty D82 - Asymmetric and Private Information; Mechanism Design D83 - Search; Learning; Information and Knowledge; Communication; Belief; Unawareness D84 - Expectations; Speculations D85 - Network Formation and Analysis: Theory D86 - Economics of Contract: Theory D9 - Micro-Based Behavioral Economics Browse content in D9 - Micro-Based Behavioral Economics D90 - General D91 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making D92 - Intertemporal Firm Choice, Investment, Capacity, and Financing
+Browse content in D - Microeconomics
+D0 - General Browse content in D0 - General D01 - Microeconomic Behavior: Underlying Principles D02 - Institutions: Design, Formation, Operations, and Impact D03 - Behavioral Microeconomics: Underlying Principles
+Browse content in D0 - General
+D01 - Microeconomic Behavior: Underlying Principles
+D02 - Institutions: Design, Formation, Operations, and Impact
+D03 - Behavioral Microeconomics: Underlying Principles
+D1 - Household Behavior and Family Economics Browse content in D1 - Household Behavior and Family Economics D10 - General D11 - Consumer Economics: Theory D12 - Consumer Economics: Empirical Analysis D13 - Household Production and Intrahousehold Allocation D14 - Household Saving; Personal Finance D15 - Intertemporal Household Choice: Life Cycle Models and Saving D18 - Consumer Protection
+Browse content in D1 - Household Behavior and Family Economics
+D10 - General
+D11 - Consumer Economics: Theory
+D12 - Consumer Economics: Empirical Analysis
+D13 - Household Production and Intrahousehold Allocation
+D14 - Household Saving; Personal Finance
+D15 - Intertemporal Household Choice: Life Cycle Models and Saving
+D18 - Consumer Protection
+D2 - Production and Organizations Browse content in D2 - Production and Organizations D21 - Firm Behavior: Theory D22 - Firm Behavior: Empirical Analysis D23 - Organizational Behavior; Transaction Costs; Property Rights D24 - Production; Cost; Capital; Capital, Total Factor, and Multifactor Productivity; Capacity D25 - Intertemporal Firm Choice: Investment, Capacity, and Financing D29 - Other
+Browse content in D2 - Production and Organizations
+D21 - Firm Behavior: Theory
+D22 - Firm Behavior: Empirical Analysis
+D23 - Organizational Behavior; Transaction Costs; Property Rights
+D24 - Production; Cost; Capital; Capital, Total Factor, and Multifactor Productivity; Capacity
+D25 - Intertemporal Firm Choice: Investment, Capacity, and Financing
+D29 - Other
+D3 - Distribution Browse content in D3 - Distribution D30 - General D31 - Personal Income, Wealth, and Their Distributions
+Browse content in D3 - Distribution
+D30 - General
+D31 - Personal Income, Wealth, and Their Distributions
+D4 - Market Structure, Pricing, and Design Browse content in D4 - Market Structure, Pricing, and Design D40 - General D41 - Perfect Competition D42 - Monopoly D43 - Oligopoly and Other Forms of Market Imperfection D44 - Auctions D47 - Market Design
+Browse content in D4 - Market Structure, Pricing, and Design
+D40 - General
+D41 - Perfect Competition
+D42 - Monopoly
+D43 - Oligopoly and Other Forms of Market Imperfection
+D44 - Auctions
+D47 - Market Design
+D5 - General Equilibrium and Disequilibrium Browse content in D5 - General Equilibrium and Disequilibrium D50 - General D51 - Exchange and Production Economies D52 - Incomplete Markets D53 - Financial Markets D57 - Input-Output Tables and Analysis D58 - Computable and Other Applied General Equilibrium Models
+Browse content in D5 - General Equilibrium and Disequilibrium
+D50 - General
+D51 - Exchange and Production Economies
+D52 - Incomplete Markets
+D53 - Financial Markets
+D57 - Input-Output Tables and Analysis
+D58 - Computable and Other Applied General Equilibrium Models
+D6 - Welfare Economics Browse content in D6 - Welfare Economics D60 - General D61 - Allocative Efficiency; Cost-Benefit Analysis D62 - Externalities D63 - Equity, Justice, Inequality, and Other Normative Criteria and Measurement D64 - Altruism; Philanthropy
+Browse content in D6 - Welfare Economics
+D60 - General
+D61 - Allocative Efficiency; Cost-Benefit Analysis
+D62 - Externalities
+D63 - Equity, Justice, Inequality, and Other Normative Criteria and Measurement
+D64 - Altruism; Philanthropy
+D7 - Analysis of Collective Decision-Making Browse content in D7 - Analysis of Collective Decision-Making D70 - General D71 - Social Choice; Clubs; Committees; Associations D72 - Political Processes: Rent-seeking, Lobbying, Elections, Legislatures, and Voting Behavior D73 - Bureaucracy; Administrative Processes in Public Organizations; Corruption D74 - Conflict; Conflict Resolution; Alliances; Revolutions D78 - Positive Analysis of Policy Formulation and Implementation
+Browse content in D7 - Analysis of Collective Decision-Making
+D70 - General
+D71 - Social Choice; Clubs; Committees; Associations
+D72 - Political Processes: Rent-seeking, Lobbying, Elections, Legislatures, and Voting Behavior
+D73 - Bureaucracy; Administrative Processes in Public Organizations; Corruption
+D74 - Conflict; Conflict Resolution; Alliances; Revolutions
+D78 - Positive Analysis of Policy Formulation and Implementation
+D8 - Information, Knowledge, and Uncertainty Browse content in D8 - Information, Knowledge, and Uncertainty D80 - General D81 - Criteria for Decision-Making under Risk and Uncertainty D82 - Asymmetric and Private Information; Mechanism Design D83 - Search; Learning; Information and Knowledge; Communication; Belief; Unawareness D84 - Expectations; Speculations D85 - Network Formation and Analysis: Theory D86 - Economics of Contract: Theory
+Browse content in D8 - Information, Knowledge, and Uncertainty
+D80 - General
+D81 - Criteria for Decision-Making under Risk and Uncertainty
+D82 - Asymmetric and Private Information; Mechanism Design
+D83 - Search; Learning; Information and Knowledge; Communication; Belief; Unawareness
+D84 - Expectations; Speculations
+D85 - Network Formation and Analysis: Theory
+D86 - Economics of Contract: Theory
+D9 - Micro-Based Behavioral Economics Browse content in D9 - Micro-Based Behavioral Economics D90 - General D91 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making D92 - Intertemporal Firm Choice, Investment, Capacity, and Financing
+Browse content in D9 - Micro-Based Behavioral Economics
+D90 - General
+D91 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making
+D92 - Intertemporal Firm Choice, Investment, Capacity, and Financing
+E - Macroeconomics and Monetary Economics Browse content in E - Macroeconomics and Monetary Economics E0 - General Browse content in E0 - General E00 - General E03 - Behavioral Macroeconomics E1 - General Aggregative Models Browse content in E1 - General Aggregative Models E10 - General E12 - Keynes; Keynesian; Post-Keynesian E13 - Neoclassical E17 - Forecasting and Simulation: Models and Applications E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy Browse content in E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy E20 - General E21 - Consumption; Saving; Wealth E22 - Investment; Capital; Intangible Capital; Capacity E23 - Production E24 - Employment; Unemployment; Wages; Intergenerational Income Distribution; Aggregate Human Capital; Aggregate Labor Productivity E25 - Aggregate Factor Income Distribution E26 - Informal Economy; Underground Economy E27 - Forecasting and Simulation: Models and Applications E3 - Prices, Business Fluctuations, and Cycles Browse content in E3 - Prices, Business Fluctuations, and Cycles E30 - General E31 - Price Level; Inflation; Deflation E32 - Business Fluctuations; Cycles E37 - Forecasting and Simulation: Models and Applications E4 - Money and Interest Rates Browse content in E4 - Money and Interest Rates E40 - General E41 - Demand for Money E42 - Monetary Systems; Standards; Regimes; Government and the Monetary System; Payment Systems E43 - Interest Rates: Determination, Term Structure, and Effects E44 - Financial Markets and the Macroeconomy E47 - Forecasting and Simulation: Models and Applications E49 - Other E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit Browse content in E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit E50 - General E51 - Money Supply; Credit; Money Multipliers E52 - Monetary Policy E58 - Central Banks and Their Policies E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook Browse content in E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook E60 - General E61 - Policy Objectives; Policy Designs and Consistency; Policy Coordination E62 - Fiscal Policy E63 - Comparative or Joint Analysis of Fiscal and Monetary Policy; Stabilization; Treasury Policy E65 - Studies of Particular Policy Episodes E7 - Macro-Based Behavioral Economics Browse content in E7 - Macro-Based Behavioral Economics E70 - General E71 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on the Macro Economy
+Browse content in E - Macroeconomics and Monetary Economics
+E0 - General Browse content in E0 - General E00 - General E03 - Behavioral Macroeconomics
+Browse content in E0 - General
+E00 - General
+E03 - Behavioral Macroeconomics
+E1 - General Aggregative Models Browse content in E1 - General Aggregative Models E10 - General E12 - Keynes; Keynesian; Post-Keynesian E13 - Neoclassical E17 - Forecasting and Simulation: Models and Applications
+Browse content in E1 - General Aggregative Models
+E10 - General
+E12 - Keynes; Keynesian; Post-Keynesian
+E13 - Neoclassical
+E17 - Forecasting and Simulation: Models and Applications
+E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy Browse content in E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy E20 - General E21 - Consumption; Saving; Wealth E22 - Investment; Capital; Intangible Capital; Capacity E23 - Production E24 - Employment; Unemployment; Wages; Intergenerational Income Distribution; Aggregate Human Capital; Aggregate Labor Productivity E25 - Aggregate Factor Income Distribution E26 - Informal Economy; Underground Economy E27 - Forecasting and Simulation: Models and Applications
+Browse content in E2 - Consumption, Saving, Production, Investment, Labor Markets, and Informal Economy
+E20 - General
+E21 - Consumption; Saving; Wealth
+E22 - Investment; Capital; Intangible Capital; Capacity
+E23 - Production
+E24 - Employment; Unemployment; Wages; Intergenerational Income Distribution; Aggregate Human Capital; Aggregate Labor Productivity
+E25 - Aggregate Factor Income Distribution
+E26 - Informal Economy; Underground Economy
+E27 - Forecasting and Simulation: Models and Applications
+E3 - Prices, Business Fluctuations, and Cycles Browse content in E3 - Prices, Business Fluctuations, and Cycles E30 - General E31 - Price Level; Inflation; Deflation E32 - Business Fluctuations; Cycles E37 - Forecasting and Simulation: Models and Applications
+Browse content in E3 - Prices, Business Fluctuations, and Cycles
+E30 - General
+E31 - Price Level; Inflation; Deflation
+E32 - Business Fluctuations; Cycles
+E37 - Forecasting and Simulation: Models and Applications
+E4 - Money and Interest Rates Browse content in E4 - Money and Interest Rates E40 - General E41 - Demand for Money E42 - Monetary Systems; Standards; Regimes; Government and the Monetary System; Payment Systems E43 - Interest Rates: Determination, Term Structure, and Effects E44 - Financial Markets and the Macroeconomy E47 - Forecasting and Simulation: Models and Applications E49 - Other
+Browse content in E4 - Money and Interest Rates
+E40 - General
+E41 - Demand for Money
+E42 - Monetary Systems; Standards; Regimes; Government and the Monetary System; Payment Systems
+E43 - Interest Rates: Determination, Term Structure, and Effects
+E44 - Financial Markets and the Macroeconomy
+E47 - Forecasting and Simulation: Models and Applications
+E49 - Other
+E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit Browse content in E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit E50 - General E51 - Money Supply; Credit; Money Multipliers E52 - Monetary Policy E58 - Central Banks and Their Policies
+Browse content in E5 - Monetary Policy, Central Banking, and the Supply of Money and Credit
+E50 - General
+E51 - Money Supply; Credit; Money Multipliers
+E52 - Monetary Policy
+E58 - Central Banks and Their Policies
+E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook Browse content in E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook E60 - General E61 - Policy Objectives; Policy Designs and Consistency; Policy Coordination E62 - Fiscal Policy E63 - Comparative or Joint Analysis of Fiscal and Monetary Policy; Stabilization; Treasury Policy E65 - Studies of Particular Policy Episodes
+Browse content in E6 - Macroeconomic Policy, Macroeconomic Aspects of Public Finance, and General Outlook
+E60 - General
+E61 - Policy Objectives; Policy Designs and Consistency; Policy Coordination
+E62 - Fiscal Policy
+E63 - Comparative or Joint Analysis of Fiscal and Monetary Policy; Stabilization; Treasury Policy
+E65 - Studies of Particular Policy Episodes
+E7 - Macro-Based Behavioral Economics Browse content in E7 - Macro-Based Behavioral Economics E70 - General E71 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on the Macro Economy
+Browse content in E7 - Macro-Based Behavioral Economics
+E70 - General
+E71 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on the Macro Economy
+F - International Economics Browse content in F - International Economics F1 - Trade Browse content in F1 - Trade F10 - General F11 - Neoclassical Models of Trade F12 - Models of Trade with Imperfect Competition and Scale Economies; Fragmentation F13 - Trade Policy; International Trade Organizations F14 - Empirical Studies of Trade F15 - Economic Integration F16 - Trade and Labor Market Interactions F17 - Trade Forecasting and Simulation F18 - Trade and Environment F19 - Other F2 - International Factor Movements and International Business Browse content in F2 - International Factor Movements and International Business F20 - General F21 - International Investment; Long-Term Capital Movements F22 - International Migration F23 - Multinational Firms; International Business F3 - International Finance Browse content in F3 - International Finance F30 - General F31 - Foreign Exchange F32 - Current Account Adjustment; Short-Term Capital Movements F33 - International Monetary Arrangements and Institutions F34 - International Lending and Debt Problems F36 - Financial Aspects of Economic Integration F4 - Macroeconomic Aspects of International Trade and Finance Browse content in F4 - Macroeconomic Aspects of International Trade and Finance F40 - General F41 - Open Economy Macroeconomics F42 - International Policy Coordination and Transmission F43 - Economic Growth of Open Economies F44 - International Business Cycles F45 - Macroeconomic Issues of Monetary Unions F5 - International Relations, National Security, and International Political Economy Browse content in F5 - International Relations, National Security, and International Political Economy F50 - General F51 - International Conflicts; Negotiations; Sanctions F53 - International Agreements and Observance; International Organizations F55 - International Institutional Arrangements F6 - Economic Impacts of Globalization Browse content in F6 - Economic Impacts of Globalization F60 - General F62 - Macroeconomic Impacts F63 - Economic Development F64 - Environment F65 - Finance F66 - Labor F68 - Policy
+Browse content in F - International Economics
+F1 - Trade Browse content in F1 - Trade F10 - General F11 - Neoclassical Models of Trade F12 - Models of Trade with Imperfect Competition and Scale Economies; Fragmentation F13 - Trade Policy; International Trade Organizations F14 - Empirical Studies of Trade F15 - Economic Integration F16 - Trade and Labor Market Interactions F17 - Trade Forecasting and Simulation F18 - Trade and Environment F19 - Other
+Browse content in F1 - Trade
+F10 - General
+F11 - Neoclassical Models of Trade
+F12 - Models of Trade with Imperfect Competition and Scale Economies; Fragmentation
+F13 - Trade Policy; International Trade Organizations
+F14 - Empirical Studies of Trade
+F15 - Economic Integration
+F16 - Trade and Labor Market Interactions
+F17 - Trade Forecasting and Simulation
+F18 - Trade and Environment
+F19 - Other
+F2 - International Factor Movements and International Business Browse content in F2 - International Factor Movements and International Business F20 - General F21 - International Investment; Long-Term Capital Movements F22 - International Migration F23 - Multinational Firms; International Business
+Browse content in F2 - International Factor Movements and International Business
+F20 - General
+F21 - International Investment; Long-Term Capital Movements
+F22 - International Migration
+F23 - Multinational Firms; International Business
+F3 - International Finance Browse content in F3 - International Finance F30 - General F31 - Foreign Exchange F32 - Current Account Adjustment; Short-Term Capital Movements F33 - International Monetary Arrangements and Institutions F34 - International Lending and Debt Problems F36 - Financial Aspects of Economic Integration
+Browse content in F3 - International Finance
+F30 - General
+F31 - Foreign Exchange
+F32 - Current Account Adjustment; Short-Term Capital Movements
+F33 - International Monetary Arrangements and Institutions
+F34 - International Lending and Debt Problems
+F36 - Financial Aspects of Economic Integration
+F4 - Macroeconomic Aspects of International Trade and Finance Browse content in F4 - Macroeconomic Aspects of International Trade and Finance F40 - General F41 - Open Economy Macroeconomics F42 - International Policy Coordination and Transmission F43 - Economic Growth of Open Economies F44 - International Business Cycles F45 - Macroeconomic Issues of Monetary Unions
+Browse content in F4 - Macroeconomic Aspects of International Trade and Finance
+F40 - General
+F41 - Open Economy Macroeconomics
+F42 - International Policy Coordination and Transmission
+F43 - Economic Growth of Open Economies
+F44 - International Business Cycles
+F45 - Macroeconomic Issues of Monetary Unions
+F5 - International Relations, National Security, and International Political Economy Browse content in F5 - International Relations, National Security, and International Political Economy F50 - General F51 - International Conflicts; Negotiations; Sanctions F53 - International Agreements and Observance; International Organizations F55 - International Institutional Arrangements
+Browse content in F5 - International Relations, National Security, and International Political Economy
+F50 - General
+F51 - International Conflicts; Negotiations; Sanctions
+F53 - International Agreements and Observance; International Organizations
+F55 - International Institutional Arrangements
+F6 - Economic Impacts of Globalization Browse content in F6 - Economic Impacts of Globalization F60 - General F62 - Macroeconomic Impacts F63 - Economic Development F64 - Environment F65 - Finance F66 - Labor F68 - Policy
+Browse content in F6 - Economic Impacts of Globalization
+F60 - General
+F62 - Macroeconomic Impacts
+F63 - Economic Development
+F64 - Environment
+F65 - Finance
+F66 - Labor
+F68 - Policy
+G - Financial Economics Browse content in G - Financial Economics G0 - General Browse content in G0 - General G01 - Financial Crises G02 - Behavioral Finance: Underlying Principles G1 - General Financial Markets Browse content in G1 - General Financial Markets G10 - General G11 - Portfolio Choice; Investment Decisions G12 - Asset Pricing; Trading volume; Bond Interest Rates G13 - Contingent Pricing; Futures Pricing G14 - Information and Market Efficiency; Event Studies; Insider Trading G15 - International Financial Markets G18 - Government Policy and Regulation G2 - Financial Institutions and Services Browse content in G2 - Financial Institutions and Services G20 - General G21 - Banks; Depository Institutions; Micro Finance Institutions; Mortgages G22 - Insurance; Insurance Companies; Actuarial Studies G23 - Non-bank Financial Institutions; Financial Instruments; Institutional Investors G24 - Investment Banking; Venture Capital; Brokerage; Ratings and Ratings Agencies G28 - Government Policy and Regulation G3 - Corporate Finance and Governance Browse content in G3 - Corporate Finance and Governance G30 - General G31 - Capital Budgeting; Fixed Investment and Inventory Studies; Capacity G32 - Financing Policy; Financial Risk and Risk Management; Capital and Ownership Structure; Value of Firms; Goodwill G33 - Bankruptcy; Liquidation G34 - Mergers; Acquisitions; Restructuring; Corporate Governance G35 - Payout Policy G38 - Government Policy and Regulation G4 - Behavioral Finance Browse content in G4 - Behavioral Finance G40 - General G41 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making in Financial Markets G5 - Household Finance Browse content in G5 - Household Finance G51 - Household Saving, Borrowing, Debt, and Wealth
+Browse content in G - Financial Economics
+G0 - General Browse content in G0 - General G01 - Financial Crises G02 - Behavioral Finance: Underlying Principles
+Browse content in G0 - General
+G01 - Financial Crises
+G02 - Behavioral Finance: Underlying Principles
+G1 - General Financial Markets Browse content in G1 - General Financial Markets G10 - General G11 - Portfolio Choice; Investment Decisions G12 - Asset Pricing; Trading volume; Bond Interest Rates G13 - Contingent Pricing; Futures Pricing G14 - Information and Market Efficiency; Event Studies; Insider Trading G15 - International Financial Markets G18 - Government Policy and Regulation
+Browse content in G1 - General Financial Markets
+G10 - General
+G11 - Portfolio Choice; Investment Decisions
+G12 - Asset Pricing; Trading volume; Bond Interest Rates
+G13 - Contingent Pricing; Futures Pricing
+G14 - Information and Market Efficiency; Event Studies; Insider Trading
+G15 - International Financial Markets
+G18 - Government Policy and Regulation
+G2 - Financial Institutions and Services Browse content in G2 - Financial Institutions and Services G20 - General G21 - Banks; Depository Institutions; Micro Finance Institutions; Mortgages G22 - Insurance; Insurance Companies; Actuarial Studies G23 - Non-bank Financial Institutions; Financial Instruments; Institutional Investors G24 - Investment Banking; Venture Capital; Brokerage; Ratings and Ratings Agencies G28 - Government Policy and Regulation
+Browse content in G2 - Financial Institutions and Services
+G20 - General
+G21 - Banks; Depository Institutions; Micro Finance Institutions; Mortgages
+G22 - Insurance; Insurance Companies; Actuarial Studies
+G23 - Non-bank Financial Institutions; Financial Instruments; Institutional Investors
+G24 - Investment Banking; Venture Capital; Brokerage; Ratings and Ratings Agencies
+G28 - Government Policy and Regulation
+G3 - Corporate Finance and Governance Browse content in G3 - Corporate Finance and Governance G30 - General G31 - Capital Budgeting; Fixed Investment and Inventory Studies; Capacity G32 - Financing Policy; Financial Risk and Risk Management; Capital and Ownership Structure; Value of Firms; Goodwill G33 - Bankruptcy; Liquidation G34 - Mergers; Acquisitions; Restructuring; Corporate Governance G35 - Payout Policy G38 - Government Policy and Regulation
+Browse content in G3 - Corporate Finance and Governance
+G30 - General
+G31 - Capital Budgeting; Fixed Investment and Inventory Studies; Capacity
+G32 - Financing Policy; Financial Risk and Risk Management; Capital and Ownership Structure; Value of Firms; Goodwill
+G33 - Bankruptcy; Liquidation
+G34 - Mergers; Acquisitions; Restructuring; Corporate Governance
+G35 - Payout Policy
+G38 - Government Policy and Regulation
+G4 - Behavioral Finance Browse content in G4 - Behavioral Finance G40 - General G41 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making in Financial Markets
+Browse content in G4 - Behavioral Finance
+G40 - General
+G41 - Role and Effects of Psychological, Emotional, Social, and Cognitive Factors on Decision Making in Financial Markets
+G5 - Household Finance Browse content in G5 - Household Finance G51 - Household Saving, Borrowing, Debt, and Wealth
+Browse content in G5 - Household Finance
+G51 - Household Saving, Borrowing, Debt, and Wealth
+H - Public Economics Browse content in H - Public Economics H0 - General Browse content in H0 - General H00 - General H1 - Structure and Scope of Government Browse content in H1 - Structure and Scope of Government H11 - Structure, Scope, and Performance of Government H2 - Taxation, Subsidies, and Revenue Browse content in H2 - Taxation, Subsidies, and Revenue H20 - General H21 - Efficiency; Optimal Taxation H22 - Incidence H23 - Externalities; Redistributive Effects; Environmental Taxes and Subsidies H24 - Personal Income and Other Nonbusiness Taxes and Subsidies; includes inheritance and gift taxes H25 - Business Taxes and Subsidies H26 - Tax Evasion and Avoidance H3 - Fiscal Policies and Behavior of Economic Agents Browse content in H3 - Fiscal Policies and Behavior of Economic Agents H30 - General H31 - Household H4 - Publicly Provided Goods Browse content in H4 - Publicly Provided Goods H41 - Public Goods H42 - Publicly Provided Private Goods H5 - National Government Expenditures and Related Policies Browse content in H5 - National Government Expenditures and Related Policies H50 - General H51 - Government Expenditures and Health H52 - Government Expenditures and Education H53 - Government Expenditures and Welfare Programs H55 - Social Security and Public Pensions H56 - National Security and War H57 - Procurement H6 - National Budget, Deficit, and Debt Browse content in H6 - National Budget, Deficit, and Debt H60 - General H63 - Debt; Debt Management; Sovereign Debt H7 - State and Local Government; Intergovernmental Relations Browse content in H7 - State and Local Government; Intergovernmental Relations H71 - State and Local Taxation, Subsidies, and Revenue H75 - State and Local Government: Health; Education; Welfare; Public Pensions H8 - Miscellaneous Issues Browse content in H8 - Miscellaneous Issues H81 - Governmental Loans; Loan Guarantees; Credits; Grants; Bailouts
+Browse content in H - Public Economics
+H0 - General Browse content in H0 - General H00 - General
+Browse content in H0 - General
+H00 - General
+H1 - Structure and Scope of Government Browse content in H1 - Structure and Scope of Government H11 - Structure, Scope, and Performance of Government
+Browse content in H1 - Structure and Scope of Government
+H11 - Structure, Scope, and Performance of Government
+H2 - Taxation, Subsidies, and Revenue Browse content in H2 - Taxation, Subsidies, and Revenue H20 - General H21 - Efficiency; Optimal Taxation H22 - Incidence H23 - Externalities; Redistributive Effects; Environmental Taxes and Subsidies H24 - Personal Income and Other Nonbusiness Taxes and Subsidies; includes inheritance and gift taxes H25 - Business Taxes and Subsidies H26 - Tax Evasion and Avoidance
+Browse content in H2 - Taxation, Subsidies, and Revenue
+H20 - General
+H21 - Efficiency; Optimal Taxation
+H22 - Incidence
+H23 - Externalities; Redistributive Effects; Environmental Taxes and Subsidies
+H24 - Personal Income and Other Nonbusiness Taxes and Subsidies; includes inheritance and gift taxes
+H25 - Business Taxes and Subsidies
+H26 - Tax Evasion and Avoidance
+H3 - Fiscal Policies and Behavior of Economic Agents Browse content in H3 - Fiscal Policies and Behavior of Economic Agents H30 - General H31 - Household
+Browse content in H3 - Fiscal Policies and Behavior of Economic Agents
+H30 - General
+H31 - Household
+H4 - Publicly Provided Goods Browse content in H4 - Publicly Provided Goods H41 - Public Goods H42 - Publicly Provided Private Goods
+Browse content in H4 - Publicly Provided Goods
+H41 - Public Goods
+H42 - Publicly Provided Private Goods
+H5 - National Government Expenditures and Related Policies Browse content in H5 - National Government Expenditures and Related Policies H50 - General H51 - Government Expenditures and Health H52 - Government Expenditures and Education H53 - Government Expenditures and Welfare Programs H55 - Social Security and Public Pensions H56 - National Security and War H57 - Procurement
+Browse content in H5 - National Government Expenditures and Related Policies
+H50 - General
+H51 - Government Expenditures and Health
+H52 - Government Expenditures and Education
+H53 - Government Expenditures and Welfare Programs
+H55 - Social Security and Public Pensions
+H56 - National Security and War
+H57 - Procurement
+H6 - National Budget, Deficit, and Debt Browse content in H6 - National Budget, Deficit, and Debt H60 - General H63 - Debt; Debt Management; Sovereign Debt
+Browse content in H6 - National Budget, Deficit, and Debt
+H60 - General
+H63 - Debt; Debt Management; Sovereign Debt
+H7 - State and Local Government; Intergovernmental Relations Browse content in H7 - State and Local Government; Intergovernmental Relations H71 - State and Local Taxation, Subsidies, and Revenue H75 - State and Local Government: Health; Education; Welfare; Public Pensions
+Browse content in H7 - State and Local Government; Intergovernmental Relations
+H71 - State and Local Taxation, Subsidies, and Revenue
+H75 - State and Local Government: Health; Education; Welfare; Public Pensions
+H8 - Miscellaneous Issues Browse content in H8 - Miscellaneous Issues H81 - Governmental Loans; Loan Guarantees; Credits; Grants; Bailouts
+Browse content in H8 - Miscellaneous Issues
+H81 - Governmental Loans; Loan Guarantees; Credits; Grants; Bailouts
+I - Health, Education, and Welfare Browse content in I - Health, Education, and Welfare I0 - General Browse content in I0 - General I00 - General I1 - Health Browse content in I1 - Health I10 - General I11 - Analysis of Health Care Markets I12 - Health Behavior I13 - Health Insurance, Public and Private I14 - Health and Inequality I15 - Health and Economic Development I18 - Government Policy; Regulation; Public Health I2 - Education and Research Institutions Browse content in I2 - Education and Research Institutions I20 - General I21 - Analysis of Education I22 - Educational Finance; Financial Aid I23 - Higher Education; Research Institutions I24 - Education and Inequality I25 - Education and Economic Development I26 - Returns to Education I28 - Government Policy I3 - Welfare, Well-Being, and Poverty Browse content in I3 - Welfare, Well-Being, and Poverty I30 - General I31 - General Welfare I32 - Measurement and Analysis of Poverty I38 - Government Policy; Provision and Effects of Welfare Programs I39 - Other
+Browse content in I - Health, Education, and Welfare
+I0 - General Browse content in I0 - General I00 - General
+Browse content in I0 - General
+I00 - General
+I1 - Health Browse content in I1 - Health I10 - General I11 - Analysis of Health Care Markets I12 - Health Behavior I13 - Health Insurance, Public and Private I14 - Health and Inequality I15 - Health and Economic Development I18 - Government Policy; Regulation; Public Health
+Browse content in I1 - Health
+I10 - General
+I11 - Analysis of Health Care Markets
+I12 - Health Behavior
+I13 - Health Insurance, Public and Private
+I14 - Health and Inequality
+I15 - Health and Economic Development
+I18 - Government Policy; Regulation; Public Health
+I2 - Education and Research Institutions Browse content in I2 - Education and Research Institutions I20 - General I21 - Analysis of Education I22 - Educational Finance; Financial Aid I23 - Higher Education; Research Institutions I24 - Education and Inequality I25 - Education and Economic Development I26 - Returns to Education I28 - Government Policy
+Browse content in I2 - Education and Research Institutions
+I20 - General
+I21 - Analysis of Education
+I22 - Educational Finance; Financial Aid
+I23 - Higher Education; Research Institutions
+I24 - Education and Inequality
+I25 - Education and Economic Development
+I26 - Returns to Education
+I28 - Government Policy
+I3 - Welfare, Well-Being, and Poverty Browse content in I3 - Welfare, Well-Being, and Poverty I30 - General I31 - General Welfare I32 - Measurement and Analysis of Poverty I38 - Government Policy; Provision and Effects of Welfare Programs I39 - Other
+Browse content in I3 - Welfare, Well-Being, and Poverty
+I30 - General
+I31 - General Welfare
+I32 - Measurement and Analysis of Poverty
+I38 - Government Policy; Provision and Effects of Welfare Programs
+I39 - Other
+J - Labor and Demographic Economics Browse content in J - Labor and Demographic Economics J0 - General Browse content in J0 - General J00 - General J01 - Labor Economics: General J08 - Labor Economics Policies J1 - Demographic Economics Browse content in J1 - Demographic Economics J10 - General J11 - Demographic Trends, Macroeconomic Effects, and Forecasts J12 - Marriage; Marital Dissolution; Family Structure; Domestic Abuse J13 - Fertility; Family Planning; Child Care; Children; Youth J14 - Economics of the Elderly; Economics of the Handicapped; Non-Labor Market Discrimination J15 - Economics of Minorities, Races, Indigenous Peoples, and Immigrants; Non-labor Discrimination J16 - Economics of Gender; Non-labor Discrimination J17 - Value of Life; Forgone Income J18 - Public Policy J2 - Demand and Supply of Labor Browse content in J2 - Demand and Supply of Labor J20 - General J21 - Labor Force and Employment, Size, and Structure J22 - Time Allocation and Labor Supply J23 - Labor Demand J24 - Human Capital; Skills; Occupational Choice; Labor Productivity J3 - Wages, Compensation, and Labor Costs Browse content in J3 - Wages, Compensation, and Labor Costs J30 - General J31 - Wage Level and Structure; Wage Differentials J32 - Nonwage Labor Costs and Benefits; Retirement Plans; Private Pensions J33 - Compensation Packages; Payment Methods J38 - Public Policy J4 - Particular Labor Markets Browse content in J4 - Particular Labor Markets J41 - Labor Contracts J42 - Monopsony; Segmented Labor Markets J44 - Professional Labor Markets; Occupational Licensing J47 - Coercive Labor Markets J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining Browse content in J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining J50 - General J52 - Dispute Resolution: Strikes, Arbitration, and Mediation; Collective Bargaining J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers Browse content in J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers J60 - General J61 - Geographic Labor Mobility; Immigrant Workers J62 - Job, Occupational, and Intergenerational Mobility J63 - Turnover; Vacancies; Layoffs J64 - Unemployment: Models, Duration, Incidence, and Job Search J65 - Unemployment Insurance; Severance Pay; Plant Closings J68 - Public Policy J7 - Labor Discrimination Browse content in J7 - Labor Discrimination J71 - Discrimination J8 - Labor Standards: National and International Browse content in J8 - Labor Standards: National and International J81 - Working Conditions J82 - Labor Force Composition J83 - Workers' Rights
+Browse content in J - Labor and Demographic Economics
+J0 - General Browse content in J0 - General J00 - General J01 - Labor Economics: General J08 - Labor Economics Policies
+Browse content in J0 - General
+J00 - General
+J01 - Labor Economics: General
+J08 - Labor Economics Policies
+J1 - Demographic Economics Browse content in J1 - Demographic Economics J10 - General J11 - Demographic Trends, Macroeconomic Effects, and Forecasts J12 - Marriage; Marital Dissolution; Family Structure; Domestic Abuse J13 - Fertility; Family Planning; Child Care; Children; Youth J14 - Economics of the Elderly; Economics of the Handicapped; Non-Labor Market Discrimination J15 - Economics of Minorities, Races, Indigenous Peoples, and Immigrants; Non-labor Discrimination J16 - Economics of Gender; Non-labor Discrimination J17 - Value of Life; Forgone Income J18 - Public Policy
+Browse content in J1 - Demographic Economics
+J10 - General
+J11 - Demographic Trends, Macroeconomic Effects, and Forecasts
+J12 - Marriage; Marital Dissolution; Family Structure; Domestic Abuse
+J13 - Fertility; Family Planning; Child Care; Children; Youth
+J14 - Economics of the Elderly; Economics of the Handicapped; Non-Labor Market Discrimination
+J15 - Economics of Minorities, Races, Indigenous Peoples, and Immigrants; Non-labor Discrimination
+J16 - Economics of Gender; Non-labor Discrimination
+J17 - Value of Life; Forgone Income
+J18 - Public Policy
+J2 - Demand and Supply of Labor Browse content in J2 - Demand and Supply of Labor J20 - General J21 - Labor Force and Employment, Size, and Structure J22 - Time Allocation and Labor Supply J23 - Labor Demand J24 - Human Capital; Skills; Occupational Choice; Labor Productivity
+Browse content in J2 - Demand and Supply of Labor
+J20 - General
+J21 - Labor Force and Employment, Size, and Structure
+J22 - Time Allocation and Labor Supply
+J23 - Labor Demand
+J24 - Human Capital; Skills; Occupational Choice; Labor Productivity
+J3 - Wages, Compensation, and Labor Costs Browse content in J3 - Wages, Compensation, and Labor Costs J30 - General J31 - Wage Level and Structure; Wage Differentials J32 - Nonwage Labor Costs and Benefits; Retirement Plans; Private Pensions J33 - Compensation Packages; Payment Methods J38 - Public Policy
+Browse content in J3 - Wages, Compensation, and Labor Costs
+J30 - General
+J31 - Wage Level and Structure; Wage Differentials
+J32 - Nonwage Labor Costs and Benefits; Retirement Plans; Private Pensions
+J33 - Compensation Packages; Payment Methods
+J38 - Public Policy
+J4 - Particular Labor Markets Browse content in J4 - Particular Labor Markets J41 - Labor Contracts J42 - Monopsony; Segmented Labor Markets J44 - Professional Labor Markets; Occupational Licensing J47 - Coercive Labor Markets
+Browse content in J4 - Particular Labor Markets
+J41 - Labor Contracts
+J42 - Monopsony; Segmented Labor Markets
+J44 - Professional Labor Markets; Occupational Licensing
+J47 - Coercive Labor Markets
+J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining Browse content in J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining J50 - General J52 - Dispute Resolution: Strikes, Arbitration, and Mediation; Collective Bargaining
+Browse content in J5 - Labor-Management Relations, Trade Unions, and Collective Bargaining
+J50 - General
+J52 - Dispute Resolution: Strikes, Arbitration, and Mediation; Collective Bargaining
+J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers Browse content in J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers J60 - General J61 - Geographic Labor Mobility; Immigrant Workers J62 - Job, Occupational, and Intergenerational Mobility J63 - Turnover; Vacancies; Layoffs J64 - Unemployment: Models, Duration, Incidence, and Job Search J65 - Unemployment Insurance; Severance Pay; Plant Closings J68 - Public Policy
+Browse content in J6 - Mobility, Unemployment, Vacancies, and Immigrant Workers
+J60 - General
+J61 - Geographic Labor Mobility; Immigrant Workers
+J62 - Job, Occupational, and Intergenerational Mobility
+J63 - Turnover; Vacancies; Layoffs
+J64 - Unemployment: Models, Duration, Incidence, and Job Search
+J65 - Unemployment Insurance; Severance Pay; Plant Closings
+J68 - Public Policy
+J7 - Labor Discrimination Browse content in J7 - Labor Discrimination J71 - Discrimination
+Browse content in J7 - Labor Discrimination
+J71 - Discrimination
+J8 - Labor Standards: National and International Browse content in J8 - Labor Standards: National and International J81 - Working Conditions J82 - Labor Force Composition J83 - Workers' Rights
+Browse content in J8 - Labor Standards: National and International
+J81 - Working Conditions
+J82 - Labor Force Composition
+J83 - Workers' Rights
+K - Law and Economics Browse content in K - Law and Economics K0 - General Browse content in K0 - General K00 - General K1 - Basic Areas of Law Browse content in K1 - Basic Areas of Law K10 - General K14 - Criminal Law K3 - Other Substantive Areas of Law Browse content in K3 - Other Substantive Areas of Law K31 - Labor Law K33 - International Law K35 - Personal Bankruptcy Law K36 - Family and Personal Law K4 - Legal Procedure, the Legal System, and Illegal Behavior Browse content in K4 - Legal Procedure, the Legal System, and Illegal Behavior K40 - General K41 - Litigation Process K42 - Illegal Behavior and the Enforcement of Law
+Browse content in K - Law and Economics
+K0 - General Browse content in K0 - General K00 - General
+Browse content in K0 - General
+K00 - General
+K1 - Basic Areas of Law Browse content in K1 - Basic Areas of Law K10 - General K14 - Criminal Law
+Browse content in K1 - Basic Areas of Law
+K10 - General
+K14 - Criminal Law
+K3 - Other Substantive Areas of Law Browse content in K3 - Other Substantive Areas of Law K31 - Labor Law K33 - International Law K35 - Personal Bankruptcy Law K36 - Family and Personal Law
+Browse content in K3 - Other Substantive Areas of Law
+K31 - Labor Law
+K33 - International Law
+K35 - Personal Bankruptcy Law
+K36 - Family and Personal Law
+K4 - Legal Procedure, the Legal System, and Illegal Behavior Browse content in K4 - Legal Procedure, the Legal System, and Illegal Behavior K40 - General K41 - Litigation Process K42 - Illegal Behavior and the Enforcement of Law
+Browse content in K4 - Legal Procedure, the Legal System, and Illegal Behavior
+K40 - General
+K41 - Litigation Process
+K42 - Illegal Behavior and the Enforcement of Law
+L - Industrial Organization Browse content in L - Industrial Organization L0 - General Browse content in L0 - General L00 - General L1 - Market Structure, Firm Strategy, and Market Performance Browse content in L1 - Market Structure, Firm Strategy, and Market Performance L10 - General L11 - Production, Pricing, and Market Structure; Size Distribution of Firms L12 - Monopoly; Monopolization Strategies L13 - Oligopoly and Other Imperfect Markets L14 - Transactional Relationships; Contracts and Reputation; Networks L15 - Information and Product Quality; Standardization and Compatibility L16 - Industrial Organization and Macroeconomics: Industrial Structure and Structural Change; Industrial Price Indices L2 - Firm Objectives, Organization, and Behavior Browse content in L2 - Firm Objectives, Organization, and Behavior L20 - General L22 - Firm Organization and Market Structure L23 - Organization of Production L25 - Firm Performance: Size, Diversification, and Scope L3 - Nonprofit Organizations and Public Enterprise Browse content in L3 - Nonprofit Organizations and Public Enterprise L31 - Nonprofit Institutions; NGOs; Social Entrepreneurship L4 - Antitrust Issues and Policies Browse content in L4 - Antitrust Issues and Policies L41 - Monopolization; Horizontal Anticompetitive Practices L42 - Vertical Restraints; Resale Price Maintenance; Quantity Discounts L43 - Legal Monopolies and Regulation or Deregulation L5 - Regulation and Industrial Policy Browse content in L5 - Regulation and Industrial Policy L50 - General L51 - Economics of Regulation L6 - Industry Studies: Manufacturing Browse content in L6 - Industry Studies: Manufacturing L60 - General L62 - Automobiles; Other Transportation Equipment; Related Parts and Equipment L63 - Microelectronics; Computers; Communications Equipment L65 - Chemicals; Rubber; Drugs; Biotechnology L7 - Industry Studies: Primary Products and Construction Browse content in L7 - Industry Studies: Primary Products and Construction L71 - Mining, Extraction, and Refining: Hydrocarbon Fuels L73 - Forest Products L8 - Industry Studies: Services Browse content in L8 - Industry Studies: Services L81 - Retail and Wholesale Trade; e-Commerce L82 - Entertainment; Media L86 - Information and Internet Services; Computer Software L9 - Industry Studies: Transportation and Utilities Browse content in L9 - Industry Studies: Transportation and Utilities L93 - Air Transportation L94 - Electric Utilities L95 - Gas Utilities; Pipelines; Water Utilities L96 - Telecommunications
+Browse content in L - Industrial Organization
+L0 - General Browse content in L0 - General L00 - General
+Browse content in L0 - General
+L00 - General
+L1 - Market Structure, Firm Strategy, and Market Performance Browse content in L1 - Market Structure, Firm Strategy, and Market Performance L10 - General L11 - Production, Pricing, and Market Structure; Size Distribution of Firms L12 - Monopoly; Monopolization Strategies L13 - Oligopoly and Other Imperfect Markets L14 - Transactional Relationships; Contracts and Reputation; Networks L15 - Information and Product Quality; Standardization and Compatibility L16 - Industrial Organization and Macroeconomics: Industrial Structure and Structural Change; Industrial Price Indices
+Browse content in L1 - Market Structure, Firm Strategy, and Market Performance
+L10 - General
+L11 - Production, Pricing, and Market Structure; Size Distribution of Firms
+L12 - Monopoly; Monopolization Strategies
+L13 - Oligopoly and Other Imperfect Markets
+L14 - Transactional Relationships; Contracts and Reputation; Networks
+L15 - Information and Product Quality; Standardization and Compatibility
+L16 - Industrial Organization and Macroeconomics: Industrial Structure and Structural Change; Industrial Price Indices
+L2 - Firm Objectives, Organization, and Behavior Browse content in L2 - Firm Objectives, Organization, and Behavior L20 - General L22 - Firm Organization and Market Structure L23 - Organization of Production L25 - Firm Performance: Size, Diversification, and Scope
+Browse content in L2 - Firm Objectives, Organization, and Behavior
+L20 - General
+L22 - Firm Organization and Market Structure
+L23 - Organization of Production
+L25 - Firm Performance: Size, Diversification, and Scope
+L3 - Nonprofit Organizations and Public Enterprise Browse content in L3 - Nonprofit Organizations and Public Enterprise L31 - Nonprofit Institutions; NGOs; Social Entrepreneurship
+Browse content in L3 - Nonprofit Organizations and Public Enterprise
+L31 - Nonprofit Institutions; NGOs; Social Entrepreneurship
+L4 - Antitrust Issues and Policies Browse content in L4 - Antitrust Issues and Policies L41 - Monopolization; Horizontal Anticompetitive Practices L42 - Vertical Restraints; Resale Price Maintenance; Quantity Discounts L43 - Legal Monopolies and Regulation or Deregulation
+Browse content in L4 - Antitrust Issues and Policies
+L41 - Monopolization; Horizontal Anticompetitive Practices
+L42 - Vertical Restraints; Resale Price Maintenance; Quantity Discounts
+L43 - Legal Monopolies and Regulation or Deregulation
+L5 - Regulation and Industrial Policy Browse content in L5 - Regulation and Industrial Policy L50 - General L51 - Economics of Regulation
+Browse content in L5 - Regulation and Industrial Policy
+L50 - General
+L51 - Economics of Regulation
+L6 - Industry Studies: Manufacturing Browse content in L6 - Industry Studies: Manufacturing L60 - General L62 - Automobiles; Other Transportation Equipment; Related Parts and Equipment L63 - Microelectronics; Computers; Communications Equipment L65 - Chemicals; Rubber; Drugs; Biotechnology
+Browse content in L6 - Industry Studies: Manufacturing
+L60 - General
+L62 - Automobiles; Other Transportation Equipment; Related Parts and Equipment
+L63 - Microelectronics; Computers; Communications Equipment
+L65 - Chemicals; Rubber; Drugs; Biotechnology
+L7 - Industry Studies: Primary Products and Construction Browse content in L7 - Industry Studies: Primary Products and Construction L71 - Mining, Extraction, and Refining: Hydrocarbon Fuels L73 - Forest Products
+Browse content in L7 - Industry Studies: Primary Products and Construction
+L71 - Mining, Extraction, and Refining: Hydrocarbon Fuels
+L73 - Forest Products
+L8 - Industry Studies: Services Browse content in L8 - Industry Studies: Services L81 - Retail and Wholesale Trade; e-Commerce L82 - Entertainment; Media L86 - Information and Internet Services; Computer Software
+Browse content in L8 - Industry Studies: Services
+L81 - Retail and Wholesale Trade; e-Commerce
+L82 - Entertainment; Media
+L86 - Information and Internet Services; Computer Software
+L9 - Industry Studies: Transportation and Utilities Browse content in L9 - Industry Studies: Transportation and Utilities L93 - Air Transportation L94 - Electric Utilities L95 - Gas Utilities; Pipelines; Water Utilities L96 - Telecommunications
+Browse content in L9 - Industry Studies: Transportation and Utilities
+L93 - Air Transportation
+L94 - Electric Utilities
+L95 - Gas Utilities; Pipelines; Water Utilities
+L96 - Telecommunications
+M - Business Administration and Business Economics; Marketing; Accounting; Personnel Economics Browse content in M - Business Administration and Business Economics; Marketing; Accounting; Personnel Economics M0 - General Browse content in M0 - General M00 - General M1 - Business Administration Browse content in M1 - Business Administration M11 - Production Management M12 - Personnel Management; Executives; Executive Compensation M14 - Corporate Culture; Social Responsibility M15 - IT Management M2 - Business Economics Browse content in M2 - Business Economics M21 - Business Economics M3 - Marketing and Advertising Browse content in M3 - Marketing and Advertising M31 - Marketing M37 - Advertising M5 - Personnel Economics Browse content in M5 - Personnel Economics M50 - General M51 - Firm Employment Decisions; Promotions M52 - Compensation and Compensation Methods and Their Effects M54 - Labor Management M55 - Labor Contracting Devices
+Browse content in M - Business Administration and Business Economics; Marketing; Accounting; Personnel Economics
+M0 - General Browse content in M0 - General M00 - General
+Browse content in M0 - General
+M00 - General
+M1 - Business Administration Browse content in M1 - Business Administration M11 - Production Management M12 - Personnel Management; Executives; Executive Compensation M14 - Corporate Culture; Social Responsibility M15 - IT Management
+Browse content in M1 - Business Administration
+M11 - Production Management
+M12 - Personnel Management; Executives; Executive Compensation
+M14 - Corporate Culture; Social Responsibility
+M15 - IT Management
+M2 - Business Economics Browse content in M2 - Business Economics M21 - Business Economics
+Browse content in M2 - Business Economics
+M21 - Business Economics
+M3 - Marketing and Advertising Browse content in M3 - Marketing and Advertising M31 - Marketing M37 - Advertising
+Browse content in M3 - Marketing and Advertising
+M31 - Marketing
+M37 - Advertising
+M5 - Personnel Economics Browse content in M5 - Personnel Economics M50 - General M51 - Firm Employment Decisions; Promotions M52 - Compensation and Compensation Methods and Their Effects M54 - Labor Management M55 - Labor Contracting Devices
+Browse content in M5 - Personnel Economics
+M50 - General
+M51 - Firm Employment Decisions; Promotions
+M52 - Compensation and Compensation Methods and Their Effects
+M54 - Labor Management
+M55 - Labor Contracting Devices
+N - Economic History Browse content in N - Economic History N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations Browse content in N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations N10 - General, International, or Comparative N13 - Europe: Pre-1913 N2 - Financial Markets and Institutions Browse content in N2 - Financial Markets and Institutions N20 - General, International, or Comparative N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy Browse content in N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy N30 - General, International, or Comparative N31 - U.S.; Canada: Pre-1913 N32 - U.S.; Canada: 1913- N33 - Europe: Pre-1913 N34 - Europe: 1913- N4 - Government, War, Law, International Relations, and Regulation Browse content in N4 - Government, War, Law, International Relations, and Regulation N42 - U.S.; Canada: 1913- N43 - Europe: Pre-1913 N44 - Europe: 1913- N45 - Asia including Middle East N47 - Africa; Oceania N5 - Agriculture, Natural Resources, Environment, and Extractive Industries Browse content in N5 - Agriculture, Natural Resources, Environment, and Extractive Industries N53 - Europe: Pre-1913 N9 - Regional and Urban History Browse content in N9 - Regional and Urban History N90 - General, International, or Comparative N92 - U.S.; Canada: 1913- N94 - Europe: 1913-
+Browse content in N - Economic History
+N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations Browse content in N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations N10 - General, International, or Comparative N13 - Europe: Pre-1913
+Browse content in N1 - Macroeconomics and Monetary Economics; Industrial Structure; Growth; Fluctuations
+N10 - General, International, or Comparative
+N13 - Europe: Pre-1913
+N2 - Financial Markets and Institutions Browse content in N2 - Financial Markets and Institutions N20 - General, International, or Comparative
+Browse content in N2 - Financial Markets and Institutions
+N20 - General, International, or Comparative
+N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy Browse content in N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy N30 - General, International, or Comparative N31 - U.S.; Canada: Pre-1913 N32 - U.S.; Canada: 1913- N33 - Europe: Pre-1913 N34 - Europe: 1913-
+Browse content in N3 - Labor and Consumers, Demography, Education, Health, Welfare, Income, Wealth, Religion, and Philanthropy
+N30 - General, International, or Comparative
+N31 - U.S.; Canada: Pre-1913
+N32 - U.S.; Canada: 1913-
+N33 - Europe: Pre-1913
+N34 - Europe: 1913-
+N4 - Government, War, Law, International Relations, and Regulation Browse content in N4 - Government, War, Law, International Relations, and Regulation N42 - U.S.; Canada: 1913- N43 - Europe: Pre-1913 N44 - Europe: 1913- N45 - Asia including Middle East N47 - Africa; Oceania
+Browse content in N4 - Government, War, Law, International Relations, and Regulation
+N42 - U.S.; Canada: 1913-
+N43 - Europe: Pre-1913
+N44 - Europe: 1913-
+N45 - Asia including Middle East
+N47 - Africa; Oceania
+N5 - Agriculture, Natural Resources, Environment, and Extractive Industries Browse content in N5 - Agriculture, Natural Resources, Environment, and Extractive Industries N53 - Europe: Pre-1913
+Browse content in N5 - Agriculture, Natural Resources, Environment, and Extractive Industries
+N53 - Europe: Pre-1913
+N9 - Regional and Urban History Browse content in N9 - Regional and Urban History N90 - General, International, or Comparative N92 - U.S.; Canada: 1913- N94 - Europe: 1913-
+Browse content in N9 - Regional and Urban History
+N90 - General, International, or Comparative
+N92 - U.S.; Canada: 1913-
+N94 - Europe: 1913-
+O - Economic Development, Innovation, Technological Change, and Growth Browse content in O - Economic Development, Innovation, Technological Change, and Growth O1 - Economic Development Browse content in O1 - Economic Development O10 - General O11 - Macroeconomic Analyses of Economic Development O12 - Microeconomic Analyses of Economic Development O13 - Agriculture; Natural Resources; Energy; Environment; Other Primary Products O14 - Industrialization; Manufacturing and Service Industries; Choice of Technology O15 - Human Resources; Human Development; Income Distribution; Migration O16 - Financial Markets; Saving and Capital Investment; Corporate Finance and Governance O17 - Formal and Informal Sectors; Shadow Economy; Institutional Arrangements O18 - Urban, Rural, Regional, and Transportation Analysis; Housing; Infrastructure O19 - International Linkages to Development; Role of International Organizations O2 - Development Planning and Policy Browse content in O2 - Development Planning and Policy O23 - Fiscal and Monetary Policy in Development O24 - Trade Policy; Factor Movement Policy; Foreign Exchange Policy O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights Browse content in O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights O30 - General O31 - Innovation and Invention: Processes and Incentives O32 - Management of Technological Innovation and R&D O33 - Technological Change: Choices and Consequences; Diffusion Processes O34 - Intellectual Property and Intellectual Capital O38 - Government Policy O4 - Economic Growth and Aggregate Productivity Browse content in O4 - Economic Growth and Aggregate Productivity O40 - General O41 - One, Two, and Multisector Growth Models O42 - Monetary Growth Models O43 - Institutions and Growth O44 - Environment and Growth O47 - Empirical Studies of Economic Growth; Aggregate Productivity; Cross-Country Output Convergence O5 - Economywide Country Studies Browse content in O5 - Economywide Country Studies O51 - U.S.; Canada O53 - Asia including Middle East O55 - Africa
+Browse content in O - Economic Development, Innovation, Technological Change, and Growth
+O1 - Economic Development Browse content in O1 - Economic Development O10 - General O11 - Macroeconomic Analyses of Economic Development O12 - Microeconomic Analyses of Economic Development O13 - Agriculture; Natural Resources; Energy; Environment; Other Primary Products O14 - Industrialization; Manufacturing and Service Industries; Choice of Technology O15 - Human Resources; Human Development; Income Distribution; Migration O16 - Financial Markets; Saving and Capital Investment; Corporate Finance and Governance O17 - Formal and Informal Sectors; Shadow Economy; Institutional Arrangements O18 - Urban, Rural, Regional, and Transportation Analysis; Housing; Infrastructure O19 - International Linkages to Development; Role of International Organizations
+Browse content in O1 - Economic Development
+O10 - General
+O11 - Macroeconomic Analyses of Economic Development
+O12 - Microeconomic Analyses of Economic Development
+O13 - Agriculture; Natural Resources; Energy; Environment; Other Primary Products
+O14 - Industrialization; Manufacturing and Service Industries; Choice of Technology
+O15 - Human Resources; Human Development; Income Distribution; Migration
+O16 - Financial Markets; Saving and Capital Investment; Corporate Finance and Governance
+O17 - Formal and Informal Sectors; Shadow Economy; Institutional Arrangements
+O18 - Urban, Rural, Regional, and Transportation Analysis; Housing; Infrastructure
+O19 - International Linkages to Development; Role of International Organizations
+O2 - Development Planning and Policy Browse content in O2 - Development Planning and Policy O23 - Fiscal and Monetary Policy in Development O24 - Trade Policy; Factor Movement Policy; Foreign Exchange Policy
+Browse content in O2 - Development Planning and Policy
+O23 - Fiscal and Monetary Policy in Development
+O24 - Trade Policy; Factor Movement Policy; Foreign Exchange Policy
+O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights Browse content in O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights O30 - General O31 - Innovation and Invention: Processes and Incentives O32 - Management of Technological Innovation and R&D O33 - Technological Change: Choices and Consequences; Diffusion Processes O34 - Intellectual Property and Intellectual Capital O38 - Government Policy
+Browse content in O3 - Innovation; Research and Development; Technological Change; Intellectual Property Rights
+O30 - General
+O31 - Innovation and Invention: Processes and Incentives
+O32 - Management of Technological Innovation and R&D
+O33 - Technological Change: Choices and Consequences; Diffusion Processes
+O34 - Intellectual Property and Intellectual Capital
+O38 - Government Policy
+O4 - Economic Growth and Aggregate Productivity Browse content in O4 - Economic Growth and Aggregate Productivity O40 - General O41 - One, Two, and Multisector Growth Models O42 - Monetary Growth Models O43 - Institutions and Growth O44 - Environment and Growth O47 - Empirical Studies of Economic Growth; Aggregate Productivity; Cross-Country Output Convergence
+Browse content in O4 - Economic Growth and Aggregate Productivity
+O40 - General
+O41 - One, Two, and Multisector Growth Models
+O42 - Monetary Growth Models
+O43 - Institutions and Growth
+O44 - Environment and Growth
+O47 - Empirical Studies of Economic Growth; Aggregate Productivity; Cross-Country Output Convergence
+O5 - Economywide Country Studies Browse content in O5 - Economywide Country Studies O51 - U.S.; Canada O53 - Asia including Middle East O55 - Africa
+Browse content in O5 - Economywide Country Studies
+O51 - U.S.; Canada
+O53 - Asia including Middle East
+O55 - Africa
+P - Economic Systems Browse content in P - Economic Systems P0 - General Browse content in P0 - General P00 - General P1 - Capitalist Systems Browse content in P1 - Capitalist Systems P16 - Political Economy P2 - Socialist Systems and Transitional Economies Browse content in P2 - Socialist Systems and Transitional Economies P21 - Planning, Coordination, and Reform P25 - Urban, Rural, and Regional Economics P26 - Political Economy; Property Rights P4 - Other Economic Systems Browse content in P4 - Other Economic Systems P43 - Public Economics; Financial Economics P48 - Political Economy; Legal Institutions; Property Rights; Natural Resources; Energy; Environment; Regional Studies
+Browse content in P - Economic Systems
+P0 - General Browse content in P0 - General P00 - General
+Browse content in P0 - General
+P00 - General
+P1 - Capitalist Systems Browse content in P1 - Capitalist Systems P16 - Political Economy
+Browse content in P1 - Capitalist Systems
+P16 - Political Economy
+P2 - Socialist Systems and Transitional Economies Browse content in P2 - Socialist Systems and Transitional Economies P21 - Planning, Coordination, and Reform P25 - Urban, Rural, and Regional Economics P26 - Political Economy; Property Rights
+Browse content in P2 - Socialist Systems and Transitional Economies
+P21 - Planning, Coordination, and Reform
+P25 - Urban, Rural, and Regional Economics
+P26 - Political Economy; Property Rights
+P4 - Other Economic Systems Browse content in P4 - Other Economic Systems P43 - Public Economics; Financial Economics P48 - Political Economy; Legal Institutions; Property Rights; Natural Resources; Energy; Environment; Regional Studies
+Browse content in P4 - Other Economic Systems
+P43 - Public Economics; Financial Economics
+P48 - Political Economy; Legal Institutions; Property Rights; Natural Resources; Energy; Environment; Regional Studies
+Q - Agricultural and Natural Resource Economics; Environmental and Ecological Economics Browse content in Q - Agricultural and Natural Resource Economics; Environmental and Ecological Economics Q1 - Agriculture Browse content in Q1 - Agriculture Q12 - Micro Analysis of Farm Firms, Farm Households, and Farm Input Markets Q15 - Land Ownership and Tenure; Land Reform; Land Use; Irrigation; Agriculture and Environment Q16 - R&D; Agricultural Technology; Biofuels; Agricultural Extension Services Q2 - Renewable Resources and Conservation Browse content in Q2 - Renewable Resources and Conservation Q22 - Fishery; Aquaculture Q23 - Forestry Q28 - Government Policy Q3 - Nonrenewable Resources and Conservation Browse content in Q3 - Nonrenewable Resources and Conservation Q33 - Resource Booms Q35 - Hydrocarbon Resources Q4 - Energy Browse content in Q4 - Energy Q41 - Demand and Supply; Prices Q43 - Energy and the Macroeconomy Q5 - Environmental Economics Browse content in Q5 - Environmental Economics Q50 - General Q51 - Valuation of Environmental Effects Q52 - Pollution Control Adoption Costs; Distributional Effects; Employment Effects Q53 - Air Pollution; Water Pollution; Noise; Hazardous Waste; Solid Waste; Recycling Q54 - Climate; Natural Disasters; Global Warming Q55 - Technological Innovation Q56 - Environment and Development; Environment and Trade; Sustainability; Environmental Accounts and Accounting; Environmental Equity; Population Growth Q58 - Government Policy
+Browse content in Q - Agricultural and Natural Resource Economics; Environmental and Ecological Economics
+Q1 - Agriculture Browse content in Q1 - Agriculture Q12 - Micro Analysis of Farm Firms, Farm Households, and Farm Input Markets Q15 - Land Ownership and Tenure; Land Reform; Land Use; Irrigation; Agriculture and Environment Q16 - R&D; Agricultural Technology; Biofuels; Agricultural Extension Services
+Browse content in Q1 - Agriculture
+Q12 - Micro Analysis of Farm Firms, Farm Households, and Farm Input Markets
+Q15 - Land Ownership and Tenure; Land Reform; Land Use; Irrigation; Agriculture and Environment
+Q16 - R&D; Agricultural Technology; Biofuels; Agricultural Extension Services
+Q2 - Renewable Resources and Conservation Browse content in Q2 - Renewable Resources and Conservation Q22 - Fishery; Aquaculture Q23 - Forestry Q28 - Government Policy
+Browse content in Q2 - Renewable Resources and Conservation
+Q22 - Fishery; Aquaculture
+Q23 - Forestry
+Q28 - Government Policy
+Q3 - Nonrenewable Resources and Conservation Browse content in Q3 - Nonrenewable Resources and Conservation Q33 - Resource Booms Q35 - Hydrocarbon Resources
+Browse content in Q3 - Nonrenewable Resources and Conservation
+Q33 - Resource Booms
+Q35 - Hydrocarbon Resources
+Q4 - Energy Browse content in Q4 - Energy Q41 - Demand and Supply; Prices Q43 - Energy and the Macroeconomy
+Browse content in Q4 - Energy
+Q41 - Demand and Supply; Prices
+Q43 - Energy and the Macroeconomy
+Q5 - Environmental Economics Browse content in Q5 - Environmental Economics Q50 - General Q51 - Valuation of Environmental Effects Q52 - Pollution Control Adoption Costs; Distributional Effects; Employment Effects Q53 - Air Pollution; Water Pollution; Noise; Hazardous Waste; Solid Waste; Recycling Q54 - Climate; Natural Disasters; Global Warming Q55 - Technological Innovation Q56 - Environment and Development; Environment and Trade; Sustainability; Environmental Accounts and Accounting; Environmental Equity; Population Growth Q58 - Government Policy
+Browse content in Q5 - Environmental Economics
+Q50 - General
+Q51 - Valuation of Environmental Effects
+Q52 - Pollution Control Adoption Costs; Distributional Effects; Employment Effects
+Q53 - Air Pollution; Water Pollution; Noise; Hazardous Waste; Solid Waste; Recycling
+Q54 - Climate; Natural Disasters; Global Warming
+Q55 - Technological Innovation
+Q56 - Environment and Development; Environment and Trade; Sustainability; Environmental Accounts and Accounting; Environmental Equity; Population Growth
+Q58 - Government Policy
+R - Urban, Rural, Regional, Real Estate, and Transportation Economics Browse content in R - Urban, Rural, Regional, Real Estate, and Transportation Economics R1 - General Regional Economics Browse content in R1 - General Regional Economics R10 - General R11 - Regional Economic Activity: Growth, Development, Environmental Issues, and Changes R12 - Size and Spatial Distributions of Regional Economic Activity R13 - General Equilibrium and Welfare Economic Analysis of Regional Economies R14 - Land Use Patterns R15 - Econometric and Input-Output Models; Other Models R2 - Household Analysis Browse content in R2 - Household Analysis R21 - Housing Demand R23 - Regional Migration; Regional Labor Markets; Population; Neighborhood Characteristics R28 - Government Policy R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location Browse content in R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location R31 - Housing Supply and Markets R33 - Nonagricultural and Nonresidential Real Estate Markets R4 - Transportation Economics Browse content in R4 - Transportation Economics R41 - Transportation: Demand, Supply, and Congestion; Travel Time; Safety and Accidents; Transportation Noise R48 - Government Pricing and Policy R5 - Regional Government Analysis Browse content in R5 - Regional Government Analysis R51 - Finance in Urban and Rural Economies
+Browse content in R - Urban, Rural, Regional, Real Estate, and Transportation Economics
+R1 - General Regional Economics Browse content in R1 - General Regional Economics R10 - General R11 - Regional Economic Activity: Growth, Development, Environmental Issues, and Changes R12 - Size and Spatial Distributions of Regional Economic Activity R13 - General Equilibrium and Welfare Economic Analysis of Regional Economies R14 - Land Use Patterns R15 - Econometric and Input-Output Models; Other Models
+Browse content in R1 - General Regional Economics
+R10 - General
+R11 - Regional Economic Activity: Growth, Development, Environmental Issues, and Changes
+R12 - Size and Spatial Distributions of Regional Economic Activity
+R13 - General Equilibrium and Welfare Economic Analysis of Regional Economies
+R14 - Land Use Patterns
+R15 - Econometric and Input-Output Models; Other Models
+R2 - Household Analysis Browse content in R2 - Household Analysis R21 - Housing Demand R23 - Regional Migration; Regional Labor Markets; Population; Neighborhood Characteristics R28 - Government Policy
+Browse content in R2 - Household Analysis
+R21 - Housing Demand
+R23 - Regional Migration; Regional Labor Markets; Population; Neighborhood Characteristics
+R28 - Government Policy
+R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location Browse content in R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location R31 - Housing Supply and Markets R33 - Nonagricultural and Nonresidential Real Estate Markets
+Browse content in R3 - Real Estate Markets, Spatial Production Analysis, and Firm Location
+R31 - Housing Supply and Markets
+R33 - Nonagricultural and Nonresidential Real Estate Markets
+R4 - Transportation Economics Browse content in R4 - Transportation Economics R41 - Transportation: Demand, Supply, and Congestion; Travel Time; Safety and Accidents; Transportation Noise R48 - Government Pricing and Policy
+Browse content in R4 - Transportation Economics
+R41 - Transportation: Demand, Supply, and Congestion; Travel Time; Safety and Accidents; Transportation Noise
+R48 - Government Pricing and Policy
+R5 - Regional Government Analysis Browse content in R5 - Regional Government Analysis R51 - Finance in Urban and Rural Economies
+Browse content in R5 - Regional Government Analysis
+R51 - Finance in Urban and Rural Economies
+Z - Other Special Topics Browse content in Z - Other Special Topics Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Browse content in Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Z10 - General Z12 - Religion Z13 - Economic Sociology; Economic Anthropology; Social and Economic Stratification Z18 - Public Policy
+Browse content in Z - Other Special Topics
+Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Browse content in Z1 - Cultural Economics; Economic Sociology; Economic Anthropology Z10 - General Z12 - Religion Z13 - Economic Sociology; Economic Anthropology; Social and Economic Stratification Z18 - Public Policy
+Browse content in Z1 - Cultural Economics; Economic Sociology; Economic Anthropology
+Z10 - General
+Z12 - Religion
+Z13 - Economic Sociology; Economic Anthropology; Social and Economic Stratification
+Z18 - Public Policy
+Submit Author Guidelines Submission Site Open Access Why Submit
+Author Guidelines
+Submission Site
+Open Access
+Why Submit
+Purchase
+About About The Review of Economic Studies Editorial Board Advertising and Corporate Services Alerts Self-Archiving Policy Dispatch Dates
+About The Review of Economic Studies
+Editorial Board
+Advertising and Corporate Services
+Alerts
+Self-Archiving Policy
+Dispatch Dates
+Journals on Oxford Academic
+Books on Oxford Academic
+Instructions to Authors
+This page contains the publisher's information for authors. Further information on submission guidelines and Data Availability Policy.
+Permission to Reproduce Figures and Extracts
+Permission to reproduce copyright material, for print and online publication in perpetuity, must be cleared and if necessary paid for by the author; this includes applications and payments to DACS, ARS and similar licensing agencies where appropriate. Evidence in writing that such permissions have been secured from the rights-holder must be made available to the editors. It is also the author's responsibility to include acknowledgements as stipulated by the particular institutions. Please note that obtaining copyright permission could take some time. Oxford Journals can offer information and documentation to assist authors in securing print and online permissions: please see the Guidelines for Authors section on the Rights and Permissions page. Should you require copies of this then please contact the editorial office of the journal in question or the Oxford Journals Rights department on [email protected].
+Third-Party Content in Open Access papers
+If you will be publishing your paper under an Open Access licence but it contains material for which you do not have Open Access re-use permissions, please state this clearly by supplying the following credit line alongside the material:
+Title of content Author, Original publication, year of original publication, by permission of [rights holder]
+This image/content is not covered by the terms of the Creative Commons licence of this publication. For permission to reuse, please contact the rights holder.
+Journal of Economic Literature (JEL) Classification Codes
+The Journal offers browse-by-subject using JEL codes. Authors should provide the relevant JEL codes upon submission.
+Supplementary Data
+The Review of Economic Studies has a data access policy which requires some authors to provide supplementary data files for publication alongside their articles.
+Preprint policy
+Authors retain the right to make an Author’s Original Version (preprint) available through various channels, and this does not prevent submission to the journal. For further information see our Online Licensing, Copyright and Permissions policies. If accepted, the authors are required to update the status of any preprint, including your published paper’s DOI, as described on our Author Self-Archiving policy page.
+Upon receipt of accepted manuscripts at Oxford Journals authors will be invited to complete an online copyright licence to publish form.
+Please note that by submitting an article for publication you confirm that you are the corresponding/submitting author and that Oxford University Press ("OUP") may retain your email address for the purpose of communicating with you about the article. You agree to notify OUP immediately if your details change. If your article is accepted for publication OUP will contact you using the email address you have used in the registration process. Please note that OUP does not retain copies of rejected articles
+It is a condition of publication for all Oxford Journals that authors either assign copyright or grant an exclusive licence to Oxford University Press or the sponsoring Society. This ensures that all of the necessary rights needed for publication of the article are in place including provision for any requests from third parties to reproduce content from the journals are handled efficiently and consistently by OUP, enabling the content to be as widely disseminated as possible. No article will be published unless the licence has been received at Oxford Journals. Any queries about the licence should be sent as soon as possible to Rights and Permissions so that any issues can be resolved quickly and to avoid any delay in publication.
+As part of the terms of the licence agreement, Authors may use their own material in other publications written or edited by themselves provided that the journal is acknowledged as the original place of publication and Oxford University Press as the publisher. As the Author(s), copyright of the Article remains yours (or your employer's if your employer claims copyright in your work).
+Work submitted for publication must be original, previously unpublished, and not under consideration for publication elsewhere. If previously published figures, tables, or parts of text are to be included, the copyright-holder's permission must have been obtained prior to submission. For more information on how to obtain permissions, please consult Rights and Permissions.
+Open Access Option for Authors
+Review of Economic Studies offers the option of publishing under either a standard licence or an open access licence. Please note that some funders require open access publication as a condition of funding. If you are unsure whether you are required to publish open access, please do clarify any such requirements with your funder or institution.
+Should you wish to publish your article open access, you should select your choice of open access licence in our online system after your article has been accepted for publication. You will need to pay an open access charge to publish under an open access licence.
+Details of the open access licences and open access charges.
+OUP has a growing number of Read and Publish agreements with institutions and consortia which provide funding for open access publishing. This means authors from participating institutions can publish open access, and the institution may pay the charge. Find out if your institution is participating.
+Open Access and RCUK-Compliance
+Review of Economic Studies allows authors to deposit the 'post-print' version of their papers (including changes made during the review process, but excluding typesetting and copyediting) in an institutional or other repository after an embargo period. For authors whose funders require it (for example, those funded by the RCUK), this embargo period can be reduced to 12 months; for all other authors, the embargo period stands at 24 months.
+Colour Charges
+You must pay any applicable colour charges through our licencing and payment portal, SciPris, when production of your paper is complete.
+The Journal charges £350/$600/€525 per printed colour image. The price is exclusive of value added tax, goods and services tax, and any similar sales or excise taxes. Any applicable taxes will be added to the invoiced charge at the prevailing rate. Colour charges can be avoided by submitting grayscale images for print along with full colour images for the online paper.
+If you choose to publish under an open access licence, colour charges still apply.
+Proofs
+Authors are sent a link to the page proofs by email. These should be checked immediately and corrections, as well as answers to any queries, returned to the publishers as an annotated PDF uploaded to the online link within 3 working days (further details are supplied with the proof). It is the author's responsibility to check proofs thoroughly.
+Figure accessibility and alt text
+Incorporating alt text (alternative text) when submitting your paper helps to foster inclusivity and accessibility. Good alt text ensures that individuals with visual impairments or those using screen readers can comprehend the content and context of your figures. The aim of alt text is to provide concise and informative descriptions of your figure so that all readers have access to the same level of information and understanding, and that all can engage with and benefit from the visual elements integral to scholarly content. Including alt text demonstrates a commitment to accessibility and enhances the overall impact and reach of your work. 
+Alt text is applicable to all images, figures, illustrations, and photographs.
+Alt text is only accessible via e-reader and so it won’t appear as part of the typeset article.
+Detailed guidance on how to draft and submit alt text.
+Advance Access
+Advance Access articles are published online soon after they have been accepted for publication, in advance of their appearance in a printed journal. Appearance in Advance Access (in either of the models below) constitutes official publication, and the Advance Access version can be cited by a unique DOI (Digital Object Identifier). When an article appears in an issue, it is removed from the Advance Access page. Model A: The original manuscripts will be published online as soon as possible after they have been accepted. In order to achieve this rapid publication time, the accepted manuscript is published online before copyediting and formatting has been carried out. The accepted manuscript is then copyedited and typeset as normal, and a proof sent for checking and correction, before print and online publication of the final version in an issue. Both versions of the paper continue to be accessible and citable. Model B: Articles posted for Advance Access have been copyedited and typeset and any corrections included. This is before they are paginated for inclusion in a specific issue of the journal. Once an article appears in an issue, both versions of the paper continue to be accessible and citable.
+Archiving / Public Access Policy
+For information about this journal's policy, please visit our Author Self-Archiving policy page.
+Crossref Funding Data Registry
+In order to meet your funding requirements authors are required to name their funding sources in the manuscript. For further information on this process or to find out more about CHORUS, visit the CHORUS initiative.
+Latest
+Most Read
+Most Cited
+About The Review of Economic Studies
+Editorial Board
+Contact Us
+Author Guidelines
+Facebook
+X (formerly Twitter)
+Purchase
+Recommend to your Library
+Advertising and Corporate Services
+Journals Career Network
+Online ISSN 1467-937X
+Print ISSN 0034-6527
+About Oxford Academic
+Publish journals with us
+University press partners
+What we publish
+New features
+For authors
+Open access
+Purchasing
+Institutional account management
+Rights and permissions
+Get help with access
+Accessibility
+Contact us
+Advertising
+Media enquiries
+Oxford University Press
+News
+Oxford Languages
+University of Oxford
+Oxford University Press is a department of the University of Oxford. It furthers the University's objective of excellence in research, scholarship, and education by publishing worldwide
+Privacy policy
+Legal notice
+This Feature Is Available To Subscribers Only
+Sign In or Create an Account
+This PDF is available to Subscribers Only
+For full access to this pdf, sign in to an existing account, or purchase an annual subscription.
+Gift article access
+As a benefit of your subscription, you can share temporary access to restricted articles.
+Each link will stop working after 30 days or 10 uses. You may create up to 10 links in a 30 day period.
+Please sign in to your personal account to gift article access.
+Gift article access
+As a benefit of your subscription, you can share temporary access to restricted articles.
+Each link will stop working after 30 days or 10 uses. You may create up to 10 links in a 30 day period.
+Gift articles remaining: 0

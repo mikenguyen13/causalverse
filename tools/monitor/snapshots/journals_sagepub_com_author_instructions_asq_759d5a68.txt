@@ -1,0 +1,74 @@
+Administrative Science Quarterly
+Submission guidelines
+Submit manuscript
+Please read the guidelines in full before submitting your manuscript.Manuscripts not conforming to these guidelines may be returned.
+Please keep these points in mind as you review the following information and prepare a new submission for ASQ:
+All authors submitting to ASQ must read and adhere to our updated Data and Methods Transparency policy and guidelines. When submitting, authors will be required to explain how they will share information regarding their data and methods while adhering to practices that are appropriate for the type(s) of data and method(s) the authors employ. Before a paper is accepted for publication in ASQ, authors must ensure the proposed transparency plan has been implemented.
+As of January 2025, ASQ follows APA style for in-text citations and reference lists. Details on APA style for in-text citations can be found here, and details for references can be found here.
+For a first submission, you may choose whether to place any figures and tables within the body of your manuscript or at the end of your submission.
+Although ASQ does not have firm page limits, your page count is very important. Our suggested article length is 35 to 45 pages of text (12-point Times New Roman, double spaced, 1-inch margins) plus references, tables, figures, and appendices if needed. Editors will unsubmit a very long manuscript and request cuts before considering it for review.
+If you use AI-powered tools during manuscript preparation, as the submitting author you are fully responsible for the accuracy and presentation of your content, including for appropriately citing and referencing other scholars' work. Consult Sage’s AI policy for additional guidance.
+ASQ Invitation to Contributors
+Additional information is available through the following links:
+Writing Tips for ASQ Submissions
+Data and Methods Transparency
+Presentation of Evidence
+Procedure for Data Checking
+Formatting Guidelines
+FAQs for ASQ Authors
+The ASQ logo reads, “Dedicated to advancing the understanding of administration through empirical investigation and theoretical analysis.” The editors interpret that statement to entail three criteria that affect editorial decisions. About any manuscript they ask: Does this research (1) advance our understanding of organizing in contexts such as teams, enterprises, or markets; (2) develop a new theoretical account or empirical findings about organizing that challenge previous understandings; and (3) address a significant and challenging problem of management? Theory is how we advance research and improve practice, but new empirical findings that disconfirm theory are also valuable. We have found that the combination of theory and empirical evidence generally offers the strongest contribution. We do consider theory-only papers, as well as those focused primarily on empirics or problems, but such papers have less often succeeded in our review process.
+ASQ editors and reviewers ask, “What's interesting here?” But we take pains not to confuse interesting work with work that contains mere novelties, clever turns of phrase, or other substitutes for insight. Instead, we try to identify work that challenges prevailing assumptions and established research. Building a coherent, cumulative body of knowledge typically involves research that offers new syntheses or themes, identifies new patterns or causal sequences, or generates new propositions.
+Authors should clearly articulate what we learn from their research that we did not know before. Some topics in organizational studies have become stagnant and repetitious. Research in mature fields that does not attempt to update a fundamental belief in previously published research is unlikely to advance understanding.
+We attach no priorities to particular subjects for study, but we believe in studying important problems. We are receptive to multiple forms of grounding but not to a lack of theoretical grounding. We do not attach greater significance to one methodological style than another, but we value data. Consequently, we are open to work based on qualitative or quantitative data collected from archives, the lab, or the field, as well as simulations and formal models.
+We refrain from listing topics of particular interest, as ASQ should publish articles on topics that have not previously appeared in the journal. However, articles should have a grounding in some organizational literature, conversation, or insight. Manuscripts that are inappropriate will be returned promptly.
+Writing for ASQ
+We are interested in compact presentations of theory and research, suspecting that very long manuscripts contain an unclear line of argument, multiple arguments, or no argument at all. Each manuscript should contain one key point, which the author should be able to state in one sentence. Digressions from one key point commonly occur when authors cite more literature than is necessary to frame and justify an argument.
+We are interested in good writing, as poor writing often leads to unclear statements of contribution, confusing theoretical development, and other problems that are common in submissions that receive rejection decisions. We're looking for manuscripts that are well argued (clear and logical) and well written (accessible and well phrased). Clear writing reflects clear thinking. For tips on writing a paper for submission to ASQ, click here.
+Obtaining and responding to comments from trusted colleagues before submitting a manuscript can help authors anticipate reviewers’ reactions and increase the probability of a favorable review.
+We realize that our authors may use an AI-powered chatbot as a writing tool. As the submitting author, you are fully responsible for the accuracy and presentation of your content, including for appropriately citing and referencing other scholars' work.
+Data and Methods Transparency
+ASQ has developed guidelines for best practices for ensuring data and methods transparency, available here. Our aims include supporting authors who employ a diversity of methods, ensuring the trustworthiness of articles we publish, and helping readers understand how research was performed. Our aims do not include heightening authors’ anxieties or encouraging overly long submissions featuring every possible robustness check. We encourage evolving efforts that promote good science and the clear reporting of it.
+Presentation of Evidence
+We welcome submissions from authors who think seriously about how best to present their contribution, as the compelling presentation of supporting evidence is one key dimension of a submission’s quality. For our thoughts about how to use tables and figures effectively and creatively, please click here.
+Ethical Practices
+ASQ is a member of the Committee on Publication Ethics (COPE) and adheres to its guidelines, which are available by clicking here.
+A submitted manuscript should not be under review for publication in another outlet (e.g., book chapter, journal) while it is under review at ASQ. ASQ does accept submissions of papers that have been accepted for publication in a shortened form in the Academy of Management Best Papers Proceedings.
+Authors should not resubmit a manuscript that ASQ has rejected at an earlier time, even if it is a substantial revision of a previously rejected submission. Authors should also disclose papers published in other journals or under review that are related to the current submission. One of the items authors respond to in ScholarOne when submitting to ASQ reads as follows:
+Check this item if your submission has no substantial overlap with another submitted or published paper. Leave this item unchecked if there is any overlap between this submission and one or more of your papers submitted or published elsewhere. In many cases, overlap is not a concern and will not exclude a submission from consideration. Describe in detail in your cover letter the precise nature of the theoretical or empirical overlap and attach the other paper(s) to your submission using the designation Additional Editorial File.
+For ASQ, any of the following constitutes overlap between two manuscripts:
+The same explanatory construct, outcome of interest, or model; or
+The same variable as the dependent and/or independent measure; or
+The same sample; or
+A different sample from the same empirical context; or
+Any other similarity that might lead a reasonable reader to infer an overlap.
+We value transparency in the submission process. Please engage thoroughly with this item by using the submission cover letter to explain the relationship between the current submission and prior submissions to ASQ and/or other papers of yours.
+Authors should take reasonable precautions to preserve the integrity of the blind review process and avoid potential conflicts of interest. As part of the submission process, authors may suggest in their cover letter the names of peers who could be called upon to review their manuscript. (Note that ScholarOne no longer allows authors to list suggested reviewers as part of the submission process itself.) Suggested reviewers should be experts in their fields and should be able to provide objective assessments of the manuscript. When recommending reviewers, please keep the following in mind:
+The reviewer should have no prior knowledge of the submission.
+The reviewer should not have collaborated with any of the authors.
+The reviewer should not have been a member of any author’s dissertation committee.
+The reviewer should not have the same institutional affiliation as any of the authors.
+The editors are not obliged to accept authors’ suggestions for preferred or non-preferred reviewers.
+Authors should also refrain from requesting handling editors who would have a conflict of interest in handling the paper.
+Prior to submitting, authors should (whenever possible) remove from public websites any working paper or other version of the manuscript.
+ASQ reserves the right to request additional information as appropriate for purposes of addressing reasonable claims of data errors or misuse. Any individuals involved in this process will use the information obtained only for this purpose and will treat it confidentially. See ASQ’s process for investigating data-related claims.
+Submission Guidelines
+Submit your manuscript to ScholarOne at https://mc.manuscriptcentral.com/asq. You can upload either Word or PDF files, but be aware that should the article be accepted for publication, we will request Word files for copy editing and production.
+For detailed information about how to format your submission, including text, tables, figures, citations, and references, click here.
+Upload a title page, with contact information for all authors, and be sure that all authors’ names are entered into the manuscript submission form. Each author’s listed affiliation(s) should be the institution(s) where the research was conducted.
+Copy and paste a cover letter into the submission form that lists people who have already viewed the paper, members of thesis committees and colleagues who would have a conflict of interest in reviewing the paper, and any other circumstances that might affect the integrity of the blind review process. It is not useful to include a description or summary of the paper in the cover letter. Do use the cover letter to tell the editor whether any of the data in the submitted manuscript have been published elsewhere or are used in manuscripts under review in other outlets and how the submitted manuscript differs.
+If the submission uses the same data as a manuscript under review elsewhere, upload the other manuscript using the file designation “Additional Editorial File.” Files with this designation will be available to the editors but not to reviewers.
+ASQ strongly favors manuscripts that offer high intellectual value per page. Submit the shortest possible manuscript that accomplishes your aims. Our suggested article length is 35 to 45 pages of text (12-point Times New Roman, double spaced) plus references, tables, figures, and appendices if needed. To save space, you can place supplemental material online (anonymized) and share a link to it in the manuscript. The length of a manuscript relative to its contribution is one of our evaluation criteria, and editors will unsubmit a very long manuscript and request cuts before considering it for review.
+Include an informative abstract of 200 words or fewer. Avoid jargon, and prioritize readability. The better your abstract, the easier it is for others to engage with your work. See abstracts of published work at http://journals.sagepub.com/home/asq for examples.
+Provide several keywords for the paper from the ASQ ScholarOne keyword list.
+Cite your own previous work only when doing so is appropriate; excessive or unnecessary self-citations can compromise both your arguments and anonymity. If you cite your own published work or work in progress, include that work in your reference list with full bibliographic information. Reference your own work as you would the work of another scholar.
+When submitting a manuscript that refers to racial and ethnic groups, please consult the APA style guidelines, which offer helpful conventions.
+Use the active voice whenever possible, which can include first-person pronouns. Use “we” only for multiple authors.
+Define a term accurately when it is first used, and use it consistently with that meaning throughout. Find the best way to express an idea once rather than repeating the same idea in different words. Avoid jargon.
+For responses to frequently asked questions about the ASQ submission and review process, click here.
+Keep up to date
+Email alerts
+Sign up to receive email alerts:
+With the latest table of contents
+When new articles are published online
+Add email alerts
+You are adding the following journal to your email alerts

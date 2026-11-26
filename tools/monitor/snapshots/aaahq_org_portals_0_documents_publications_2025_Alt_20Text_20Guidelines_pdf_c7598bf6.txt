@@ -1,0 +1,215 @@
+Alt-Text Guidelines for Authors
+Table of Contents
+AAA Statement on Accessibility ...................................................................................... 2
+Alt-Text Requirements ................................................................................................... 2
+Guidelines and Examples for Creating Alt-Text ............................................................... 4
+Alt-Text Guidelines ...................................................................................................... 4
+Alt-Text Examples ....................................................................................................... 5
+Long Description Guidelines ......................................................................................... 5
+Long Description Examples........................................................................................... 6
+Instructions for Adding Alt-Text to Your Manuscript ....................................................... 7
+Resources ...................................................................................................................... 8
+For examples of alt-text, please refer to Alt-Text Examples.
+AAA Statement on Accessibility
+The American Accounting Association is committed to ensuring digital accessibility for people
+with disabilities. We are continually improving the user experience for everyone and applying the
+relevant accessibility standards according to the European Accessibility Act (EAA) and WCAG
+2.1. To that end, we require published articles to incorporate “alt-text” (alternative text) to
+provide concise descriptions of non-text content (images, charts, diagrams, etc.) for users who
+rely on screen readers or other assistive technologies.
+Alt-Text Requirements
+Alt-text (alternative text) is brief descriptive text (150 characters maximum, with spaces) that
+conveys the meaning and function of an image and ensures that the visual content is accessible
+for all readers on digital platforms. Alt-text will be embedded into the image’s HTML code and
+therefore typically hidden for any readers who do not use a screen reader.
+Alt-text requirements apply to all articles that receive conditional acceptance by a journal. In
+preparing the final revised version of their manuscript, the authors must provide alt-text when an
+image, figure, diagram, or other visual content:
+1. Conveys content that is essential for understanding the text.
+2. Illustrates a concept being explained in the article.
+3. Provides new information not present in the surrounding text.
+Authors are required to provide alt-text, where applicable as outlined above, for all images,
+figures, diagrams, and visual content that:
+• They have created themselves.
+• They have reproduced from a third party.
+The alt-text requirement applies to all parts of the submission, including the main article,
+appendices, and any supplementary materials hosted by the AAA.
+Alt-text is not required for:
+• Decorative visuals (e.g., stock photos, cover images).
+• Tables, which are not to be submitted as images (see the AAA Manuscript Preparation
+Guidelines for formatting requirements for tables). If a table also includes an embedded
+graphic, such as a line graph or bar chart, please ensure that alt-text is provided for the
+graphic(s).
+• Third-party content that is merely referenced (e.g., via citation or link) but not included
+or reproduced in the main article, supplementary materials, or appendices.
+Long Descriptions for Complex Visuals: If the content and function of an image cannot be
+adequately conveyed with alt-text (150 characters maximum, with spaces), then a “long
+description” will be required in addition to alt-text. Long descriptions are typically created for
+“complex visuals.” that present a significant number of data points or multiple
+variables/groupings, use color to indicate specific aspects and/or categories, or otherwise include
+visualizations comprised of many elements or details. According to the Web Accessibility
+Initiative, complex visuals are typically:
+• Maps and infographics
+• Heat maps or diagrams
+• Graphs and charts, such as bar graphs, line graphs, pie charts, and flow charts, especially
+if the data rely on colors or patterns that may not be discernible by everyone
+• Diagrams and illustrations where the page text relies on the user being able to visually
+interpret the image
+Guidelines for creating both alt-text and long descriptions are included in this document. If you
+are unsure if an image should be considered complex, please contact the editor of the journal to
+which you submitted your manuscript.
+Please refer to the table below for a comprehensive overview of which types of images require
+alt-text and long descriptions.
+Alt-Text Requirements Per Image Type
+Image Type Alt-Text Required? Purpose of Alt-Text Action for Authors
+Write concise alt-text
+Informative Images Yes Conveys key data, that summarizes what
+(Simple charts, trends, or relationships the image shows or
+graphs, diagrams) explains
+Conceptual Summarize the key
+Illustrations Yes Explains theoretical or concept or structure in
+(models, frameworks, logical structures alt-text
+flowcharts)
+Photographs that
+have academic In the alt-text, describe
+relevance Yes Provides historical, who/what is shown and
+(e.g., photos of scientific, or contextual why it is significant
+tools/methodology or insight
+specimens)
+Decorative Images
+(any image that does
+not add meaningful No N/A None
+information, e.g.,
+stock photos of people
+or places)
+Describe the academic
+Institutional Logos Yes Indicates identity or relevance or unique
+affiliation meaning of the logo in
+alt-text
+Complex Visuals* Yes + Long Conveys key data, Provide brief alt-text and
+(Infographics, maps, Description trends, or relationships fully explain with a long
+and complex charts, description
+graphs, diagrams and
+illustrations)
+* If the content and function of the visual cannot be fully understood from the alt-text, a
+long description is required.
+Guidelines and Examples for Creating Alt-Text
+Alt-Text Guidelines
+When creating alt-text, authors should:
+• Describe purpose, not appearance: Focus on the information the image conveys, rather
+than simply describing how it looks.
+• Be concise: Alt-text is limited to 150 characters (with spaces). Readers who rely on
+screen readers may need to listen to the entire alt-text before they can continue, so
+keeping it brief helps maintain a quality reading experience.
+• Avoid redundancy: Do not repeat captions or content that is already included in the in-
+text discussion.
+• Avoid beginning the alt-text with phrases like “An image/photo of” or “Figure 1
+shows…” For example, you can write “An illustration/cartoon of...” or “A scatter plot
+showing...” as this is more informative.
+• For charts/graphs: Succinctly describe the trend, relationship, or key finding.
+• Do not include any special characters, symbols, or markup (bold, italics, etc.) as this
+may negatively impact screen readers’ ability to read the text.
+• End alt-text with a period, even if it isn’t a full sentence. The period ensures that the
+screen reader pauses after reading the alt-text.
+• Use long descriptions in addition to alt-text for complex visuals.
+Alt-Text Examples
+Below are some examples of appropriate alt-text per image type:
+Examples of Alt-Text
+Image Type Alt-Text Example
+Line chart showing audit fees over time “Line chart showing audit fees increased
+steadily from 2010 to 2020, with a sharp
+rise after 2015.”
+Bar graph comparing Big 4 and non-Big 4 “Bar graph comparing Big 4 and non-Big 4
+firms firms, with Big 4 showing higher mean
+audit quality scores.”
+Flowchart of internal control process “Flowchart outlining internal control
+stages: risk assessment, control activities,
+monitoring, and reporting.”
+Scatter plot showing earnings “Scatter plot indicating a negative
+management vs. firm size correlation between firm size and
+likelihood of earnings management.”
+Conceptual model of accounting theory “Diagram illustrating how information
+asymmetry affects reporting choices,
+moderated by auditor incentives.”
+Long Description Guidelines
+Long descriptions are incorporated into the digital version of the article, in the footnotes or an
+external resource URL (for long descriptions that exceed a paragraph or include tables). Long
+descriptions should adequately communicate everything that the audience is expected to
+understand from the image. Long descriptions should not duplicate already-included figure notes
+or in-text discussion (that is, do not “copy and paste” for existing text). Unlike alt-text, long
+descriptions do not have a character or word count limit. They may also contain data tables or
+lists. For example, a flowchart or concept map can be converted into a numbered list.
+Start the long description with a general overview of the image and then break it down into
+specific information, focusing on key details. A description of every aspect or individual data
+point is not necessary, but be sure to describe all elements of the image that are important for
+understanding its purpose and meaning. Your long description should include things like:
+• The information the graph is conveying
+• Trends
+• Groupings
+• Categories
+• Axis information (x and y)
+• Minimum and maximum values
+• Outliers
+Long Description Examples
+Example 1
+Figure 3. Composition of Audit Fees by Industry Sector (2022)
+Alt-Text: Stacked bar chart of audit fee types by industry. Finance and Technology lead
+in total fees, with consulting making up a large portion.
+Long Description: A stacked bar chart showing the breakdown of audit fees across five
+industry sectors in 2022: Finance, Technology, Healthcare, Manufacturing, and Retail.
+The x-axis lists the sectors, while the y-axis shows total fees in U.S. dollars, ranging from
+$0 to about $1.2 million. Each bar is divided into dark blue for base audit fees, light blue
+for tax-related fees, and gray for consulting fees. Finance has the highest total audit fees,
+with consulting comprising more than half. Technology follows closely, with substantial
+contributions from both consulting and tax services. Healthcare and Manufacturing show
+moderate fees, primarily made up of base audit costs. Retail reports the lowest fees
+overall. The chart illustrates how fee composition varies by sector, especially in Finance
+and Technology, where non-core audit services represent a significant share.
+Example 2
+Figure 4. Average Audit Fees by U.S. State (2022)
+Alt-Text: Map of U.S. shaded by average audit fees in 2022. Dark: New York, California,
+and Illinois show the highest fees; light: states with lower fees.
+Long Description: A choropleth map of the United States, color-coded to reflect the
+average audit fees paid by publicly listed companies in each state during 2022. A gradient
+from light to dark blue indicates fee levels, with darker shades representing higher
+averages. New York, California, and Illinois show the darkest shades, with average fees
+exceeding $850,000. Texas, Massachusetts, and Florida follow, with fees between
+$500,000 and $800,000. In contrast, lighter-shaded states such as Iowa, Arkansas, and
+Mississippi report averages below $300,000. The map reveals regional differences in
+audit pricing, likely influenced by firm size, industry concentration, and local cost
+structures, with the highest fees concentrated in states that serve as financial hubs.
+Instructions for Adding Alt-Text to Your Manuscript
+Alt-text should be added to the image caption and clearly labeled with the identifier “[Alt-Text]”.
+The alt-text should be added directly below the regular caption.
+Below is an example of correctly formatted alt-text:
+FIGURE 5: Auditor Tenure and Report Lag in Public Companies
+Public companies with longer auditor tenure generally exhibited shorter audit report lags,
+suggesting greater efficiency through familiarity over time.
+[Alt-Text] Scatter plot showing a negative trend between auditor tenure and audit report
+lag.
+Please note that alt-text will not be visible in either the print version or the digital version of the
+article. Long descriptions will be visible in the digital version and will appear as footnotes or in
+an external resource URL.
+Long descriptions should be added to the regular caption directly below the alt-text and preceded
+by the identifier “[Long Description].”
+FIGURE 5: Auditor Tenure and Report Lag in Public Companies
+Public companies with longer auditor tenure generally exhibited shorter audit report lags,
+suggesting greater efficiency through familiarity over time.
+[Alt-Text] Scatter plot showing a negative trend between auditor tenure and audit report
+lag.
+[Long Description] A scatter plot with auditor tenure in years on the x-axis and audit
+report lag in days on the y-axis. Each point represents a public company’s data for the
+2022 fiscal year. The plot shows a downward-sloping trend line, indicating that as auditor
+tenure increases, the number of days between fiscal year-end and audit report issuance
+tends to decrease. This suggests that longer auditor relationships may lead to more
+efficient audit processes. Outliers with unusually long report lags are noted in companies
+with both low and high auditor tenure.
+Resources
+The following resources were used in the creation of this document:
+WCAG 2 Overview
+Write helpful Alt Text to describe images – Harvard University
+How to write Alt Text and Long Descriptions – Routledge
+Accessible manuscript preparation – A guide to alt texts – Brill
+Web Accessibility Initiative
+Guide to Long Descriptions – AccessiblePublishing.ca
+Alternative text and long description – Best practices

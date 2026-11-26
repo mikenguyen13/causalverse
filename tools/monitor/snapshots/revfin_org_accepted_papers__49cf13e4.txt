@@ -1,0 +1,98 @@
+Congratulations on having your paper accepted by the Review of Finance. This page contains all the information you need to prepare for publication.
+What happens next
+Please complete the steps below. If your paper is not covered by our Code Sharing Policy, please proceed directly to Section 2.
+Section 1: Submit your replication package
+Accepted papers that contain empirical analysis, simulations, numerical computations, or experimental work must provide the programs needed for replication.
+The replication package must contain the code and the data or pseudo-data needed to run it. The code must run on the supplied data or pseudo-data and reproduce the structure of the tables reported in the paper. It should include the details needed for other researchers to run it, such as the software packages, programming languages and data formats used, and comments explaining the purpose of each section of the code. If the package contains multiple files, please also include a README file explaining its structure. Where the software used produces log files, please include these in the package. For further details, please see our Code Sharing Policy.
+Please submit your replication package as follows:
+Create an account with Harvard Dataverse, or log in to your existing account.
+Go to the Review of Finance Dataverse collection, select Add Data, and then select New Dataset.
+Check that Review of Finance replication package is selected under Dataset Template. Complete the required fields, following the field-specific instructions, and upload your complete replication package.
+Select Save Dataset. Harvard Dataverse will assign the dataset a permanent DOI. Copy the full DOI link displayed beneath the dataset title; it will begin https://doi.org/.
+Add the following sentence to the Data Availability Statement in your manuscript (see the checklist of final publication files in Section 2 below), replacing “[DOI]” with the full DOI link for your dataset: “Replication materials are available in the Review of Finance Dataverse: [DOI].”
+Return to your dataset in Harvard Dataverse, select Submit for Review, and complete the submission confirmation.
+Once submitted, the dataset cannot be edited while it is under review. If changes are required, the Review of Finance will return it to you with comments. The dataset will remain unpublished until the review process has been completed.
+Section 2: Send us your final publication files
+Please compile all of the files in this checklist:
+Final manuscript: Please provide your final manuscript in two formats: (1) an editable version, supplied either as a Word document or as the complete LaTeX source files, and (2) a PDF version. Please ensure that the manuscript follows the formatting guidelines in the next section. The manuscript must include a Data Availability Statement in the end matter under the heading “Data availability”. If your paper is covered by our Code Sharing Policy, the statement must include the DOI for your replication package, using the wording provided in Section 1. Any in-text appendices should also be included in the manuscript files.
+Figures and tables: Please provide a ZIP file named “Figures and tables”, containing each figure and table as a separate file in its original standalone format and, where applicable, in an editable format. Please do not provide only images copied from the manuscript or screenshots.
+Article Information Page: Please provide a completed Article Information Page. For more information on how to fill this in, see the sections below entitled Categories and Summaries. Please save this with the file name ‘Article Information Page MS [insert manuscript number]’.
+Online appendix: If you are including an online appendix, please provide it as a separate PDF file, labelled (e.g. ‘Online Appendix_MS [insert manuscript number]’).
+Once you have compiled these documents, attach them to an email with the subject line ‘Accepted Paper – final documents for MS [insert manuscript number]’ and email them to [email protected].
+Section 3: What happens after submission
+Once we receive your final publication files and, where applicable, your replication package, we will check them in parallel. If any documents are missing, or if changes are required to either the publication files or the replication package, the Editorial Office will contact you.
+Once all of the required materials have been approved, we will publish the replication package in the Review of Finance Dataverse and pass the final publication files to OUP for copyediting and typesetting. OUP will then be in touch with you in due course, usually within a couple of weeks.
+Your article will be published online in Advance Access shortly after the finalised versions are provided to OUP. This is before it has been copy edited, paginated, and published in a specific issue of the journal. Advance Access articles are considered officially published and can be cited using a unique DOI (Digital Object Identifier). Once an article is assigned to an issue, it is removed from the Advance Access page, but its DOI remains unchanged.
+Formatting Guidelines
+Your paper can use any format for sections and bibliographies upon initial submission to the Review of Finance. After conditional acceptance, please ensure that your paper adheres to the following guidelines before resubmitting the final manuscript.
+Bibliography
+Example: Keng, Shao-Hsun, Chun-Hung Lin, and Peter F. Orazem. 2017. “Expanding College Access in Taiwan, 1978–2014: Effects on Graduate Quality and Income Inequality.” Journal of Human Capital 11, no. 1 (Spring): 1–34. https://doi.org/10.1086/690235.
+For single authors use first name and last name (Strayed, Cheryl). For two or more authors, invert first author’s name only, i.e. Strayed, Cheryl, Henry Bauer and Carl Nold. For more than 10 authors, list the first 7 authors followed by “et al“.
+A comma separates all authors’ names. An “and” comes before the name of the last author.
+There is no comma after the final initial of the final author. But there should be a comma before ‘and’ and the final author. The year immediately follows.
+There is a period after the year. Then follows the title of the paper, which is in quotation marks. Only the first word is capitalized (except for any words that follow a colon).
+The title is followed by a period, and then the journal name in italics. Do not abbreviate journal names.
+There is no comma after the journal name. Then there is the journal volume, then a comma, and then the page numbers. The page numbers are separated by an “en” dash (–), not a hyphen (-). The full page numbers are given. For example, rather than 256–89, it should be 256–289. A period is after the page numbers. If the DOI is available, include it after the page numbers.
+Citations of papers in the main text
+For any paper which contains four authors or more, cite them as “Brown et al.” where Brown is the first author.
+For any papers that are cited within a phrase in parentheses, the year of the paper does not go in parentheses, a comma separates more than two authors, and a semicolon separates each paper, e.g. (Armstrong and Malacinski 1989; Beigl 1989; Pickett and White 1985). For references with four or more authors, use the first author’s last name followed by et al. (Smith et al. 2000)
+Other
+Please ensure that your manuscript does not exceed 60 pages, including in-text appendices, bibliographies, figures and tables. Any appendices that take your manuscript beyond the page limit will have to be published as supplementary online-only appendices.
+If your appendices are over 15 pages (but the entire manuscript is still within the 60 page limit), please consider converting some to supplementary appendices. Please note that your manuscript can have both in-text and supplementary appendices.
+Please ensure that any “minus” numbers within the main text, or in any table, are indicated with an “en” dash (–), not a hyphen (-)
+For all section titles, all main words in the title should be capitalized, e.g. “Measuring the CEO Investment Cycle”. For any main sections (e.g. 2), the title should be in bold, and there should be a period after the number, e.g. “2. Analysis”. For sub-sections (e.g. 2.1), the title should not be in bold, and there is no period after the number, e.g. “2.1 First-Best Benchmark”.
+All figures and images must include alternative text (alt text). Alt text is a short, descriptive text that conveys the content and function of visual elements to readers who may be unable to see them, including those who use screen readers or other assistive technologies. More information on alt text can be found here.
+Categories
+In the Article Information Page, please include one, or at most two, categories that fit your paper. The OUP website will classify all RF papers into categories, so that a reader who wishes to learn more about a category can find other RF papers that do so. This will achieve a similar effect to a special issue, but virtually:
+Behavioral corporate finance
+Capital structure and dividend policy
+Corporate governance
+Corporate social responsibility
+Entrepreneurship
+Executive compensation
+Investment and innovation
+Investment banking
+IPOs and SEOs
+Labor and finance
+Law and finance
+Mergers, acquisitions, restructurings, and divestitures
+Mutual funds and institutional investors
+Politics and finance
+Security design
+Venture capital and private equity
+Disclosure
+Real effects of financial markets
+Empirical banking
+Financial regulation
+Financial stability and systemic risk
+International banking
+Theoretical banking
+Asia
+Emerging markets
+Eurozone
+Exchange rates
+International asset pricing
+Islamic finance
+Latin America
+Behavioral asset pricing
+Derivatives
+Experimental finance
+Fixed income and credit risk
+Investment strategies and anomalies
+Macro finance
+Portfolio choice
+Theoretical asset pricing
+Household finance
+Insurance
+Real estate
+Financial econometrics
+Market microstructure
+Real options
+Risk management
+Summaries
+This section provides further information on the summaries that are requested in the Article Information Page. We understand that some authors may not have the time to prepare these, thus, participation is entirely optional. Your paper will be featured in the EFA emails (described below) regardless, and we will instead include your abstract in the marketing email.
+Digests (500-word summary)
+These are short summaries of a paper, longer than an abstract (thus allowing authors to describe the contribution of their paper in greater detail) but much shorter than an introduction. Critically, unlike both abstracts and introductions, a Digest can contain a graph or diagram. A picture often tells a thousand words.
+The intended audiences of digests are multiple. The most important audience is other academics. Digests are a much faster way to understand the punchline of the paper than a multi-page introduction. A secondary audience is practitioners and the media, who are also more likely to read a digest summary than an academic paper.
+We intend to include the digests in the emails that advertise the Review of Finance papers and we will also publish them on our website at https://revfin.org/digests/. The digests will contain the link to the actual paper – they aim to draw attention to your paper and encourage people to read it, rather than being a substitute for doing so.
+If you would like a digest to be featured, please include a 500-word summary of your paper in the Article Information Page. 500 words is a strict maximum, not a target; shorter summaries are likely to be more impactful. You may include up to one figure. The figure can be a diagram or a graph, but not a table. Some papers may not have figures, so the figure is optional. If you decide to include a figure, please attach it as a separate document, ensuring the file name makes it clear that it is to be used in your digest (i.e. by using the file name ‘digest figure’ or similar)

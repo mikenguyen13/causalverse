@@ -1,0 +1,203 @@
+The Journal of Finance Style Guidelines
+UPDATED February 2017
+I. BODY OF PAPER/CONTENT GUIDELINES
+General Text
+• All text must be double-spaced.
+• Text must be in literary present tense throughout. For example, "we predict the dependent
+variable" rather than "we predicted the dependent variable." Use past tense when describing
+historical events. For example, "investors sold shares in our sample" rather than "investors sell
+shares in our sample."
+• Grammar, spelling, and punctuation corrections must be made.
+• Do not start a sentence with notation (i.e., variables).
+• Adverb phrases do not need to be hyphenated (e.g., actively managed, not actively-managed).
+• Bullet points or small roman numerals (e.g., (i), (ii), etc.) may be used to list items.
+• Please indicate the location of the figures and tables in the text.
+• Please use the following treatment: “See, for example, ...” rather than “See, e.g., ....” Similarly,
+use “..., that is, .....” rather than “..., i.e., .....” However, “(i.e., ...)” or “(e.g., ...)” is fine.
+• Please use the following treatment: NYSE, NASDAQ, and Amex.
+• Do not use italics on Latin. For example, “ceteris paribus” rather than “ceteris paribus.”
+Dates
+• Dates should be written as “1980 to 1990” in the text. “1980–90” or “1980–1990” is okay for
+tables although it should be consistent.
+Math/Variables
+• Use the percent symbol (%) for percentages, not the word “percent.”
+• Lengthy mathematical proofs and very extensive detailed tables should be placed in an appendix
+or omitted entirely.
+• All equations, except very short mathematical expressions, should be displayed on a separate line
+and centered.
+• Equations should be numbered consecutively in the right margin with Arabic numerals in
+parentheses.
+• References to variables in the body of the paper (after its introduction and in equations), whether
+a name or letter, should be italicized. Examples: p-value, t-statistic, Dummy-Year.
+• Max E[…x…] is a “problem” or “expression” (See Variable Selection for Portfolio Choice by
+Ait-Sahalia and Brandt, August 2001, 56:4).
+Abstract
+• The abstract should be double-spaced and not more than 100 words.
+Sections and Subsections
+• The introduction is not numbered as a separate section, nor is it titled.
+• The first paragraph of the introduction is not indented. All subsequent paragraphs are indented.
+• Section I should be the first section following the introduction.
+• The final paragraph of the introduction should outline the remainder of the paper.
+• Sections are numbered with Roman numerals.
+• Subsection headings should be lettered A, B, C, etc.
+• Subsubsection headings should be lettered A.1., A.2., etc. (See format examples below.)
+Tables
+• Tables are numbered with Roman numerals and must have a title and descriptive legend.
+• The legend must define all variable notation (e.g., “∆WC is change in working capital”) and
+briefly explain what the table shows.
+• In general, tables should be self-contained, requiring no further information from other sources
+to make them understandable. However, if a table’s legend runs more than 300 words, lengthy
+details on variable construction should be located in a separate definitions table or appendix,
+with the legend indicating where the reader can find such details. The goal here is to shorten
+table legends and reduce redundancy across legends. (Note: Table legends may refer back to a
+previous table, rather than a separate definitions table or appendix, as appropriate.)
+• Tables should be in portrait orientation, with up to 8 columns and 12-point text.
+• Indicate the location of the tables in the margin of the paper’s text.
+Figures
+• Figures are numbered with Arabic numerals and must have a caption. There should also be a
+descriptive legend if necessary to explain what the figure shows or to define variable notation (as
+with tables, figure legends should direct the reader to a separate definitions table or appendix if
+lengthy, OR to a previous figure as appropriate).
+• Indicate the location of the figures in the margin of the paper’s text.
+• Figures must be camera-ready with all axes labeled.
+• Please use color figures to enhance the readability of the online version of your article. (After
+copyediting, authors are asked to provide black-and-white figure files as well, along with the
+color figures, but the final version of the accepted manuscript should be prepared with color
+figures.)
+• If you want to use color in figures in the print journal, the cost is $500 per page (containing any
+number of figures). Notify Wendy Washburn at editor@jfinance.org if you would like to pay for
+color. Color is free in the online version of the journal.
+Footnotes
+• Footnotes should be double-spaced.
+• The initial footnote identifying the author(s) etc. should be marked with an asterisk and placed at
+the bottom of the title page.
+• The number of footnotes must not exceed the number of pages within the article.
+• Footnotes in tables should be limited to technical information such as levels of significance. All
+other information belongs in the legend.
+References
+• References in the text are by author(s) name and date of publication. For example, Tufano (1996)
+or (Tufano (1996)).
+• Use “et al.” when referencing a source with four or more authors. For example: (Leven et al.
+(1999)).
+• All references mentioned in the text must be included in the list of references and vice versa.
+References must be on a separate page at the end of the paper, unnumbered and double spaced.
+References must include first names of all authors.
+• References to data sources within the body of the paper or the tables should be italicized.
+• Research/consulting firms do not need to be referenced.
+• Personal communications should be left as footnotes.
+Appendices
+• Appendices should be lettered A, B, C, etc.
+• If there is only one appendix, there is no need to letter it A.
+• Tables within an appendix should be lettered AI, AII, etc.
+• Figures and equations within an appendix should be numbered A1, A2, etc.
+II. SECTIONAL FORMATS
+Title Page
+Title of Paper
+AUTHOR(S) FULL NAMES(S)*
+[If multiple, separate by comma or “and” before final name.]
+ABSTRACT
+Text of abstract is strictly limited to 100 words, is slightly indented from
+margins, and text is block justified.
+*The university of each professor. The author(s) thank(s) . . . use full names for all
+acknowledgments. Authors may also acknowledge participants at conferences and any funding from
+special sources.
+Body of Paper
+I. Here Is the Title of the First Section
+Indent the first line of all paragraphs. Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxx
+A. This Is the Format for Subsection A
+A.1. This Is the Format for a Subsection of a Subsection
+Indent paragraph
+A.2. This Is the Format for a Subsection of a Subsection
+Indent paragraph
+B. This Is the Format for Subsection B
+B.1 Regression Variables [for example]
+Here is a list of the regression variables we used in our paper. Xxxxxxxxxxxxxxxxxxxx xxxxxx
+VARIABLE1 – xxxxxxxxxxxxxxxxx
+VARIABLE2 – xxxxxxxxxxxxxxxxx
+B.2. Explanatory Variables [for example]
+Firm size: Logarithm of the number of firm employees in 1992. Source: SMF.
+Firm leverage: Ratio of total sales in 1994 to beginning-of-period total bank debt. Source: SMF (sales)
+and CR (bank debt).
+Body of Paper (cont.)
+C. Formulas and Empirical Model
+The basis of our model relies on the equation [for example]
+a + b = c, (1)
+where
+a(E) = E[d + k]. (2)
+Optimal trading, given this physical nonnegativity constraint, implies that equilibrium spot prices
+and aggregate inventory must jointly satisfy
+P = 1 + f[H] (3a)
+H ³ f[G] + 23. (3b)
+D. Empirical Implications [for example]
+Here is an example of how propositions, proofs, and corollaries should be given in the paper.
+Xxxxx xxxxxxxxxxxxx xxxxxxxxxxxxxxxxxx xxxxxxxxxxxxx
+PROPOSITION 1: The equilibrium with single banking described in Proposition 1 obtains when the
+probability of a liquidity crisis…
+Proof: See Appendix A [or the proof may be given here]
+COROLLARY 1.1 (Inventory): Consider two inventory processes…
+PROPOSITION 2: A stationary rational expectations equilibrium exists and has the following
+properties:
+(a) the equilibrium inventory…
+(b) a unique finite upper bound…for all variables, and
+(c) the equilibrium spot price…for all variables.
+COROLLARY 2.1 (Properties of J): In a rational expectations equilibrium…
+COROLLARY 2.2 (Regeneration): In the rational expectations equilibrium with…
+Appendix Examples
+Appendix A. Proofs
+[Note: If there is only one appendix, then ® LEMMA 1]
+LEMMA A1: Given the finite horizon, variables…
+Proof of Lemma A1: To prove that condition (5) is sufficient, notice that expected profits of
+uninformed lenders is …xxxxxxxxxxxxxxxx… To this end, rewrite equation (3) as
+a + b = c, (A1)
+where
+a(E) = E[d + k]. (A2)
+III. REFERENCE FORMATS (Examples)
+Periodicals:
+Scholes, Myron, 1991, Stock and compensation, Journal of Finance 46, 803–823.
+Wright, Brian D., and Jefrey C. Williams, 1989, A theory of negative prices for storage, Journal of
+Futures Markets 9, 1–13.
+Schwert, G. William, 1993, The Journal of Financial Economics: A retrospective evaluation (1974–91),
+Journal of Financial Economics 33, 369–424.
+Monograph (Books):
+Fama, Eugene F., and Merton H. Miller, 1972, The Theory of Finance (The Dryden Press, Hinsdale, IL).
+Keynes, John Maynard, 1930, A Treatise on Money, Vol. II (Macmillan, London).
+Contributions to Collective Work:
+Grossman, Sanford J., and Oliver D. Hart, 1982, Corporate financial structure and managerial
+incentives, in John J. McCall, ed.: The Economics of Information and Uncertainty (University of
+Chicago Press).
+Government Documents:
+Securities and Exchange Commission Release No. 24-2446, 1940.
+National Association of Securities Dealers, 1998, Notice to Members 98-88.
+Committee on Ways and Means, U.S. House of Representatives, 1992, Overview of Entitlement
+Programs, 1992 Green Book.
+Kennickell, Arthur, 1992, Imputation of the 1989 survey of consumer finances: Multiple imputation and
+stochastic relaxation, manuscript, Federal Reserve Board.
+U.K. Parliament, 1960, Committee on the Working of the Monetary System [Radcliffe Committee],
+Principal memoranda of evidence, Vol. 1, London.
+Magazines and Newspapers:
+The Economist, 1998, Overcharging underwriters, June 27.
+Morgenson, Gretchen, 1998, Stock options are not a free lunch, Forbes, May 18.
+Lowenstein, Roger, 1997, Street’s incredible unshrinking spread, Wall Street Journal, April 10, C1.
+University Papers:
+Buchinsky, Moshe, and Oved Yosha, 1995, Evaluating the probability of failure of a banking firm,
+Cowles Foundation Discussion paper no. 1108, Yale University.
+Ongena, Steven, and David C. Smith, 1998, What determines the number of bank relationships? Cross-
+country evidence, Unpublished manuscript, Norwegian School of Management.
+Ang, Andrew, and Geert Bekaert, 1998, Regime switches in interest rates, NBER Working paper 6508,
+Stanford University.
+Clarida, Richard, Jordi Gali, and Mark Gertler, 1997, Monetary policy rules and macroeconomic
+stability; Evidence and some theory, mimeo, Columbia University.
+Routledge, Bryan R., Duane J. Seppi, and Chester S. Spatt, 1999, The “spark spread”: An equilibrium
+model of cross-commodity price relationships in electricity, Working paper, Carnegie Mellon
+University.
+Institutes and Foundations:
+Conroy, Robert, Robert S. Harris, and Young Park, 1994, Analysts’ Earnings Forecast Accuracy in
+Japan and the United Sates, The Research Foundation of The Institute of Chartered Financial Analysts,
+August.
+Livingston, Miles, and Davis Gregory, 1989, The Stripping of U.S. Treasury Securities (Salomon
+Brothers Center for the Study of Financial Institutions, New York University, New York).
+Research/Data Sources:
+Herzfeld, Thomas J., The Thomas J. Herzfeld Encyclopedia of Closed-End Funds, 1989/90, 1990/91,
+1991/92, and 1992/93 (Thomas J. Herzfeld Advisors, Inc., Miami, FL).
+Wiesenberger’s Statistical Survey of Closed-End Investment Companies, various years.

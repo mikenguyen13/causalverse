@@ -1,0 +1,367 @@
+How to prepare your submission
+Please note, rejected papers may not be resubmitted unless the action editor explicitly invites a
+resubmission in the decision letter.
+1. Read our Aims and Scope, Mission statement, Guidance for contributors and Data requirements
+and instructions below.
+2. ANONYMISE YOUR MANUSCRIPT (and any ‘Response to decision letter’ for the editor and
+reviewers).
+The journal uses a double-blind review process whereby the reviewer is not aware of the identity
+of the author(s) and the author is not aware of the identity of the reviewers.
+Please follow the instructions below very carefully to avoid revealing the identity of any of the
+author(s) to the reviewers:
+• Do not put author name(s) anywhere on the manuscript.
+• Do not include any acknowledgements as these might give clues to your identity
+(acknowledgements can be added to articles after acceptance).
+• Do not refer directly to yourself or co-authors or to previous work by you or your co-authors
+within your article, as this could help to identify you. For example, if citing your previous work,
+please use the third person form: 'in their previous study (Brown et al., 2013)', 'Brown and
+colleagues (Brown et al., 2013) proposed'; do not use the ﬁrst person form: 'in our previous study
+(Brown et al., 2013)', 'we (Brown et al., 2013) proposed'.
+When citing your previous work:
+• DO use the third person form: e.g. ‘in their previous study (Brown et al., 2013)…', 'Brown and
+colleagues (Brown et al., 2013) proposed…'
+• DO NOT use the ﬁrst person form: e.g. 'in our previous study (Brown et al., 2013)…', 'we (Brown et
+al., 2013) proposed…'
+• DO NOT use ‘Author, 2006' or 'XXXX, 2009' or ‘Reference withheld for peer review’, etc., in the text
+or references list because this can help others to identify the author(s). Please use the third
+person form (e.g. Brown et al., 2013) instead and include the reference in the list as normal.
+• If it is not possible to change the wording to avoid possible identiﬁcation of an author, please omit
+the reference entirely from both the text and references list.
+• If you would like to discuss how to anonymise your paper prior to submission, please email
+humanrelationsjournal@tavinstitute.org
+3. ARTICLE ORIGINALITY AND COVER LETTER PREPARATION:
+• One of our current goals is to continue—as well as highlight for readers—ongoing threads of
+conversation across works published in the journal. Toward that end, we ask that you review
+recent issues to ensure that you are connecting to any relevant works in ways that take the
+conversation forward. In your cover letter brieﬂy describe what speciﬁc works you are connecting
+to
+• Verify that your article has not been published by – nor is in press, under consideration or under
+review with – another journal or as a book or book chapter.
+Version Jan 2026
+Conﬁrm that your paper, or an earlier version of it, has not been published in an online form.
+The exceptions to the bar on prior online publication are:
+1. Publication on your institutional (university) repository.
+2. Publication in conference proceedings – please provide details and conﬁrm that the
+abstract has been rewritten for submission to Human Relations in accordance with
+guidance under point #9 below.
+• Human Relations uses iThenticate CrossCheck™ antiplagiarism software to check if manuscript
+content has already been published elsewhere.
+• PhD theses: If your submission is based on your PhD thesis which has been posted online,
+please take care to ensure that your submission is adequately diﬀerent from your PhD,
+otherwise we reserve the right to consider online posting of your PhD to constitute prior
+publication of your submission.
+• If your article uses the same data set as another article(s), please supply a table showing areas
+of commonality and the distinctiveness of the present submission along with copies of the
+other articles. You should select ‘Supplemental Files (not for review)’ ﬁle designation.
+For quantitative articles, specify each article and list the variables they have in
+common, commenting as necessary as to their centrality to the article.
+For qualitative data, specify the themes or concepts in the diﬀerent articles, with comments
+as needed.
+• Human Relations does not require a declaration of conﬂicting interests in your cover letter
+but recommends that you review the good practice guidelines on conﬂicting interests on the
+SAGE Journal Author Gateway.
+4. PERMISSIONS
+• Authors are responsible for obtaining permission from copyright holders before submission.
+• Where quotations exceed 400 words, the permission of the publisher (or copyright holder)
+must be obtained before submisison and acknowledged in the manuscript.
+• Figures and tables reproduced from already published work require permission from the
+original publisher (or copyright holder). It should be stated in the relevant ﬁgure or table notes
+that permission for reproduction has been granted, giving the reference and name of the
+Release forms for images of identiﬁable people or workplaces:
+• Images of identiﬁable people or workplaces require permission to publish the images online
+worldwide from those identiﬁed / study participants from that workplace, otherwise images
+should be pixelated to protect their identity.
+• You may use the template release form to request permission.
+• Permissions should be uploaded as supplementary ﬁles when you ﬁrst submit the articlr more
+information, please see guidance for obtaining permission on the SAGE Journal Author
+Gateway.
+Version Jan 2026
+5. PAGE FORMATTING
+• Use Times New Roman 12 point font with 2.54 cm (one inch) margins all round throughout.
+• Double-space all manuscript content, including the abstract, text, endnotes, references, etc.,
+except for tables and ﬁgures.
+• One page should only contain one ﬁgure or table
+• All independent component of the manuscript, including the abstract, text, references, tables,
+and ﬁgures should begin on a new page.
+6. LENGTH RESTRICTIONS
+• Manuscripts must not exceed 13,000 words in total, including abstract, text, endnotes,
+references, appendices, but excluding tables and figures.
+• Manuscripts that are formatted incorrectly and/or exceed the given word limit will be sent
+back to the authors for reformatting.
+7. SUPPLEMENTARY MATERIALS FOR ONLINE-ONLY PUBLICATION
+• Authors may submit additional information such as ethnographic context, appendices, additional
+text, analysis, references, tables or ﬁgures as supplementary material for online-only publication.
+• Any supplementary material is intended to provide readers with useful but non-essential
+information, and as such the reviewers are not obliged to look at it. The manuscript should tell the
+full story on its own. Supplementary material should not be used merely to keep the manuscript
+within our word limits.
+• Supplementary materials should be submitted directly to Human Relations and not through
+third-party sites. The MS should not contain links to external websites to ensure the peer review
+process remains anonymous
+• Supplementary Material intended for online-only publication should be uploaded as ﬁle
+designation 'Supplemental Files' and clearly cited in the main manuscript text.
+How to include supplementary material:
+• Remember that accepted supplementary material will be posted online as received without
+being copy edited or proofread so please check content carefully to avoid formatting and
+textual errors
+• In the manuscript ﬁle, indicate clearly any links to the online-only supplementary material and
+include the supplementary material ﬁle name
+• Use clear headings at the top of the document to indicate that content is intended for
+online-only publication
+• Upload this ﬁle after your manuscript ﬁle and any table and ﬁgure ﬁles
+• Select ‘Supplemental Files’ (not ‘Main Document’) File Designation
+8. FILE TYPES
+• We can only use electronic ﬁles conforming to our guidelines.
+• For text and table ﬁles we prefer Word docx, Word doc, RTF, Excel XLS.
+Version January 2026
+• Equations should be submitted using Oﬃce Math ML and Math
+type.
+• Please refer to guidelines on submitting artwork below.
+Version Jan 2026
+Formatting ﬁgures, tables, photographs, artwork, and other graphics:
+Quality: High quality electronic format print-ready illustrations, pictures and graphs are required.
+Illustrations, pictures, and graphs, should be supplied with the highest quality and in an electronic
+format that helps us to process your article in the best way possible. Included text should be large
+enough to be readable after reduction in size for publication.
+Format: TIFF, JPEG, PDF: Common format for pictures (containing no text or graphs).
+EPS: Preferred format for graphs and line art (retains quality when enlarging/zooming in).
+MS Oﬃce ﬁles (Word, PowerPoint, Excel) are also accepted provided they meet certain conditions
+(see below).
+Resolution: Rasterized based ﬁles (i.e. with .tiﬀ or .jpeg extension) require a resolution of at least
+300 dpi (dots per inch). Line art should be supplied with a minimum resolution of 800 dpi.
+Fonts: The lettering used in the artwork should not vary too much in size and type (usually sans serif
+font as a default). The ﬁrst word only in titles, headings, labels, etc., should have an initial capital.
+Dimension: Check that the artwork supplied matches or exceeds the dimensions of the
+journal. Images cannot be scaled up after origination.
+Colour: Please note that usable coloured images will be published in colour online and black and
+white in print (unless otherwise arranged). Therefore, it is important that you supply images that
+are comprehensible in black and white as well (i.e., by using colour with a distinctive pattern or
+dotted lines). The captions should reﬂect this by not using words indicating colour.
+Editability: Figures and tables should not be embedded into the document as the journal needs
+to be able to access all elements for editing before publication.
+Microsoft Oﬃce ﬁgures:
+Microsoft Oﬃce is essentially a family of applications that can be used to produce a variety of
+document types including written documents, spreadsheets, presentations and databases.
+Although we prefer artwork ﬁles in TIFF, EPS or PDF format, we are also aware that a number of
+authors already (for convenience) submit their artwork in MS Oﬃce formats and therefore we will
+continue to support these submission types now and in the future.
+Format:
+• Resolution: Images should be supplied with a resolution of at least 300 dpi.
+• Dimension: Once you have imported/inserted an image into a Microsoft Oﬃce application, do
+not change its size
+• Fonts: Please use only 'truetype' fonts, i.e., Arial, Courier, Helvetica, Symbol, Times.
+• Check for more information at http://www.microsoft.com/oﬃce.
+9. TITLE, ABSTRACT AND KEYWORDS
+Read How to help readers ﬁnd your article and check that your title, abstract and keywords all
+help make your article more discoverable in online searches.
+Version Jan 2026
+Title: Ensure the main key phrase for your topic is in your article title. Make sure your title is
+descriptive, unambiguous, accurate and reads well. Remember people search on key phrases
+not just single words (e.g. 'women’s health' not 'health').
+Abstract: Articles should contain an abstract of between 100–200 words, summarising succinctly
+and without jargon the main aims, ﬁndings and contribution of the article. Content should include
+the research topic and questions, participants, methods used, results, data analysis, conclusions,
+practical implications and suggested future research.
+At Human Relations, we are moving toward making our abstracts more digestible for our readership
+that has expertise in a wide range of topics and methodologies. Since the abstract is the ﬁrst thing
+that potential readers will read, we encourage you to make it as inviting and enticing as possible. We
+urge you to consider how you might pose a question, make a clear statement, or make a
+controversial claim, so that students, practitioners, the press, and academics outside of the research
+area know what the main contribution of your paper is. It will inevitably increase the chances that
+your paper is read by others in the future.
+The better you write your abstract, the better the likelihood that your article will appear high up in
+the search results rankings. This is vitally important as researchers will rarely investigate beyond the
+ﬁrst few results from Google.
+Keywords: Include your main 3 or 4 key phrases and add in at least 3 or 4 additional key words.
+Where more than one phrase (or abbreviation) is often used to describe the same thing, include
+both/all variants, e.g. both human resource management and HRM.
+10. SPELLING AND TERMINOLOGY
+• British or US spelling is acceptable, but please be consistent throughout your
+manuscript.
+• Spell out in full all terms at ﬁrst mention, followed by the acronym in brackets.
+• Please deﬁne any specialist terms.
+11. HEADINGS
+Human Relations uses three levels of heading:
+i. Bold lower case with initial capital
+ii. Italic lower case with initial capital
+iii. Italic lower case with initial capital. Used at the start of a paragraph, followed by several
+spaces and then regular text.
+12. NUMBERS AND DATES
+• In the text numbers below 10 should be written out as a word unless used in conjunction
+with units (e.g. three people, 4 kg).
+• Full points (not commas) should be used for decimals.
+• For numbers less than one, a zero should be inserted before the decimal point.
+• Use spaces (not commas) within numbers (e.g. 10 000, 0.125 275).
+Version Jan 2026
+• When referring to pagination and dates use the smallest number of numerals possible (e.g.
+10–19, 42–5, 1961–75).
+• Dates should be in the form 22 March 2015.
+13. AVOID ITALICS AND QUOTE MARKS WHERE POSSIBLE
+Avoid using italics and quote marks where possible for terms included in the text.
+14. QUOTATIONS
+• Quotations should be kept to a minimum.
+• Where possible, keep quotations to 100 words or fewer.
+• Indicate short quotations by single quotation marks [‘ ’] and use double quotation marks [“ ”] to
+indicate quotes within quotes (i.e. quotes within text already within single quotation marks).
+• Longer quotations should be indented from the left-hand margin.
+• Where quotations exceed 400 words, the permission of the publisher (or copyright holder)
+must be obtained and acknowledged. Authors are responsible for obtaining permission from
+15. FIGURES, TABLES, ARTWORK AND OTHER GRAPHICS
+General guidance for ﬁgures and tables
+Illustrations, pictures and graphs, should be supplied with the highest quality and in an electronic
+format that helps us to publish your article in the best way possible. Please follow the guidelines
+below to enable us to prepare your artwork for the printed issue as well as the online version.
+• Ensure that each table or ﬁgure is cited in the text (see below).
+• Each table or ﬁgure should have a short, descriptive title.
+• Table column headings should deﬁne clearly the data presented.
+• Only the ﬁrst word of the title, headings and labels should be capitalised.
+• Place all notes and sources for tables or ﬁgures underneath.
+• Spell out any acronyms or abbreviations in full after a Notes: heading beneath the table or ﬁgure.
+-Tables and ﬁgures should be single-spaced (all other manuscript content should be
+double-spaced).
+Placement
+Please insert tables and ﬁgures created in MS Word after the references.
+Figures and other ﬁles created outside Word (i.e. Excel, PowerPoint, JPG, TIFF, EPS, and PDF) should
+be submitted as separate ﬁles.
+Indicating the position of tables and ﬁgures
+Please indicate the position of ﬁgures and tables in the text as follows:
+- - ----- ---- --- ------ -- - ----
+INSERT TABLE 1 ABOUT HERE
+Version Jan 2026
+---------------------------
+16. NOTES
+• Essential notes should be indicated by superscript numbers in the text.
+• Notes should be presented at the end of the text, before the references, not as footnotes at
+the bottom of the page.
+17. TEXT CITATIONS
+General:
+• Do not use ibid., op. cit., infra., supra. Instead, show the subsequent citation of the same source in
+the same way as the ﬁrst.
+• Initials should be used without spaces or full points. Note the following for the style of text
+citations:
+• If the author's name is in the text, follow with the year in parentheses: ...Author Last Name (year)
+has argued...
+• If author's name is not in the text, insert last name, comma and year: ...one study (Author Last
+Name, year) has described...
+• Where appropriate (for quotations, etc.), the page number follows the year, separated by a colon:
+...it has been noted (Author Last Name, year: page numbers) that...
+• Where there are two authors, give both names, joined by 'and'; if three or more authors, use the
+ﬁrst author's last name and 'et al.': ...it has been stated (Author Last Name and Author Last Name,
+year) ... ...some investigators (Author Last Name et al., year)...
+• If there is more than one reference to the same author and year, insert a, b, etc. in both the text
+and the reference list: ...it was described (Author Last Name, year a: page numbers–page
+numbers)...
+• Enclose within a single pair of parentheses a series of references, separated by semicolons: ...and
+it has been noted (Author Last Name and Author Last Name, year; Author Last Name and Author
+Last Name, year; Author Last Name, year)...
+• Please order alphabetically by author names.
+• If two or more references by the same author are cited together, separate the dates with a
+comma:
+• ...the author has stated this in several studies (Author Last Name, year, year, year, year)... Please
+start with the oldest publication. <
+• Enclose within the parentheses any brief phrase associated with the reference: ...several
+investigators have claimed this (but see Author Last Name, year: page numbers–page numbers)
+• For an institutional authorship, supply the minimum citation from the beginning of the complete
+reference: ...a recent statement (Name of Institution, year: page numbers). occupational data
+(Name of Bureau or Institution, year: page numbers) reveal...
+Version Jan 2026
+• For authorless articles or studies, use the name of the magazine, journal, newspaper or
+sponsoring organization, and not the title of the article: ...it was stated (Name of Journal, year)
+that...
+• Citations from personal communications are not included in the reference list: ...has been
+hypothesized (Name of Person Cited, year, personal communication).
+18. REFERENCES LIST
+All references cited in the text should be listed alphabetically and in full, after the text and any notes,
+using SAGE Harvard style:
+General:
+• Check that the list is in alphabetical order (treat Mc as Mac).
+• Names should be in upper and lower case.
+•Where several references have the same author(s), do not use ditto marks or em dashes; the name
+must be repeated each time.
+• Names containing de, van, von, De, Van, Von, de la, etc. should be listed under D and V
+Last
+respectively. List them as: De Roux DP and not Roux DP de. When cited in the main text without
+the ﬁrst name, use capitals for De, Van, Von, De la, etc. (Van Dijk, year).
+• Names containing Jr or II should be listed as follows:
+- Author Last Name, Author First Name, Jr (year)
+- Author Last Name, Author First Name, II (year)
+• References where the ﬁrst-named author is the same should be listed as follows:
+o Single-author references in date order;
+o Two-author references in alphabetical order according to the second author's name;
+Ion the event of more than one entry having the same date, entries should be placed in alphabetical
+order of second (or third) author, and a, b, etc. must be inserted.
+Brown J (2014)
+Brown AB and Yates P (2013)
+Brown W (2011)
+Brown W (2013a)
+Brown W (2013b)
+Brown W and Jones M (2010)
+Brown W and Peters P (2011)
+Brown W, Hughes J and Kent T (2011)
+Brown W, Kent T and Lewis S (2010a)
+Brown W, Kent T and Lewis S (2010b)
+Version Jan 2026
+• Check that all periodical data are included – volume, issue and page numbers, publisher, place
+of publication, etc.
+Note the following for the style of reference list citations:
+Books:
+Author A (year) Book Title. Place: Publisher name.
+Author A and Author B (year) Book Title. Place: Publisher name.
+For example:
+Day DV and Antonakis J (2012) The Nature of Leadership, 2nd edn. Thousand Oaks, CA: SAGE.
+Chapter in a book:
+Author A (year) Chapter title. In: Author A (ed.) Book Title. Place: Publisher, 00–00.
+Author A (year) Chapter title. In: Author A, Author B (eds) Book Title. Place: Publisher, 00–00.
+For example:
+Johns G (2008) Absenteeism and presenteeism: Not at work or not working well. In: Cooper
+CL, Barling J (eds) The SAGE Handbook of Organizational Behavior. London: SAGE, 160–77.
+– Note that page numbers for the chapter are included.
+Editor(s) of a book:
+Author A (ed.) (year) Book Title. Place: Publisher. Author A, Author B (eds) (year) Book Title.
+Place: Publisher.
+For example:
+Greenwood R, Oliver C, Sahlin K, Suddaby R (eds) (2008) The SAGE Handbook of
+Organizational Institutionalism. Thousand Oaks, CA: SAGE.
+Journal articles:
+Author A and Author B (year) Article title. Journal vol(iss): 0000.
+Author A, Author B and Author C (year) Article title. Journal vol(iss): 00–00.
+Author A, Author B, Author C and Author D (year) Article title. Journal vol(iss): 00– 00.
+For example:
+Romero E and Pescosolido A (2008) Humor and group eﬀectiveness. Human Relations 61(3):
+395– 418.
+or
+Townley B, Beech N and McKinlay A (2009) Managing in the creative industries: Managing the
+motley crew. Human Relations 62(7): 939–62. – Note that the journal title is given in full and is
+italicized and both the volume number and the issue number are included.
+Journal articles published ahead of print:
+Version Jan 2026
+Author A and Author B (year) Article title. Journal. Epub ahead of print [day] [month] [year].
+DOI: [number].
+Author A, Author B and Author C (year) Article title. Journal. Epub ahead of print [day] [month]
+[year]. DOI: [number]. Author A, Author B, Author C, Author D and Author E (year) Article title.
+Journal. Epub ahead of print [day] [month] [year]. DOI: [number].
+For example: Jarzabkowski J, Bednarek R and Cabantous L (2014) Conducting global team-based
+ethnography: Methodological challenges and practical methods. Human Relations. Epub ahead
+of print 25 September 2014. DOI:10.1177/0018726714535449
+Newspaper article
+Author A (year) Article title. Newspaper, date, p. 00 For example: Clark JM, (2006) Referencing style
+for journals. The Independent, 21 May, p.10.
+Paper presented at a symposium or annual meeting:
+Author A and Author B (year) Article title. Paper presented at meeting name, location.
+For example: Comet C and Lazega E, Selz M (2008). R&D partnerships as social exchange. Paper
+presented at the meeting of the International Network on Social Network Analysis, Tampa, FL.
+Unpublished thesis:
+Author A (year) Article title. Unpublished doctoral thesis, Aﬃliation, Place. For example: Price RA
+( 2004) Checking out supermarket labour usage: The nature of labour usage and employment
+relations consequences in a food retail ﬁrm in Australia. Unpublished doctoral thesis, Griﬃth
+University , Queensland, Australia
+Website:
+Author A (year) Article Title. Available at: URL.
+For example:
+National Center for Professional Certiﬁcation. (2002) Factors Aﬀecting Organizational Climate and
+Retention.
+Available at: www.cwla.org./programmes/triechmann/2002fbwﬁles.
+or
+Boje DM (2002) Leadership in a Postmodern Age. (Notes). Available at:
+http://cbae.nmsu .edu/~dboje /teaching/338 /leadership_in_a _postmodern_age.htm.
+Version Jan 2026

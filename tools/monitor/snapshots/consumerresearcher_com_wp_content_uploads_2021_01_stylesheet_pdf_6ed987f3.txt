@@ -1,0 +1,462 @@
+1
+JCR Style Guide
+This style guide is for accepted manuscripts. Before you submit your final materials, read the instructions
+for authors of accepted manuscripts and see our sample accepted manuscript for additional guidance.
+Note: If you are preparing a manuscript for review, you must follow the submission guidelines instead but
+may use this style guide for details on reporting statistics or formatting the main text and references.
+GENERAL INFORMATION
+By following the style guide carefully, authors can avoid publication delays and reduce the possibility of
+errors caused by the conversion of improperly formatted manuscripts or portions of such manuscripts that
+have to be rekeyed. Authors are responsible for the correct formatting of their manuscripts.
+All manuscripts must be double spaced (this also pertains to references and interviews) in 12-point Times
+New Roman font with one-inch margins on all sides. Use the one font style throughout and align text to the
+left margin. Number pages consecutively in the upper right corner throughout (the title page is page 1).
+For all matters not covered by this style guide, JCR follows the Chicago Manual of Style. If you need
+assistance with proofreading or copyediting, our submission guidelines include a list of suggested
+professional editing services.
+MANUSCRIPT ORDER AND REQUIRED CONTENT
+• Title
+• Authorship List
+• Author Note
+• Abstract
+• Keywords
+• Main Text (place all tables and figures within the main text)
+• Data and Materials Availability Statement
+• Data Collection Statement
+• Appendixes
+• References
+• Headings List
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+2
+Title (appears on page 1; no headers or footers)
+The title of the manuscript is centered on the first page and appears in upper and lower case.
+Manuscript titles follow Chicago Manual of Style rules on headline style capitalization:
+• Capitalize the first and last words
+• Capitalize all other major words
+• Lowercase articles (a, an, and the)
+• Lowercase as in any grammatical function
+• Lowercase common coordinating conjunctions (and, but, for, or, and nor)
+• Lowercase the part of a proper name that would be lowercase in text (e.g., de or von)
+• Capitalize prepositions with five or more letters (e.g., About, Against, Among, Before, Through)
+• Lowercase prepositions with four letters or less except when they are used adverbially or adjectivally
+(e.g., up in Look Up, down in Turn Down, to in Come To) or when they compose part of a Latin
+expression used adjectivally or adverbially (e.g., De Facto, In Vitro)
+• Lowercase to not only as a preposition but also as part of an infinitive (to Run, to Hide, etc.)
+Do not italicize the entire title, place the entire title in quotation marks, or use a period (full stop) at the
+end of your title.
+Our website provides guidance for crafting a well-constructed and informative title.
+Authorship List (appears on page 1; no headers or footers)
+The authorship list is centered on the first page below the title. List names in order of authorship and
+capitalize each word (e.g., Annabelle L. Arthur).
+The author order and the styling of print names (e.g., Jan Smith vs. Jan M. Smith) must match the order
+and styling in the author note on the second page.
+Author Note (appears on page 2; no title, headers, or footers)
+The author note includes the following information for each author:
+• Full name
+• Email address
+• Current position
+• Current affiliation (i.e., department and university/institution)
+• Complete address (including city, state/province, and country)
+The author note must also include a sentence designating the corresponding author (e.g., “Address all
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+3
+correspondence to Annabelle L. Arthur”) and the following additional information if applicable:
+• Acknowledgments of financial, technical, or other assistance (use third person throughout, e.g., “The
+authors thank…”)
+• Disclose the use of AI (e.g., to help generate content or images, write code, process data, or for
+translation); artificial intelligence (AI) tools such as ChatGPT do not qualify as authors but use of
+these tools should be acknowledged
+• If your manuscript has a web appendix, include a sentence explaining that supplementary
+materials are included (e.g., “Supplementary materials are included in the web appendix
+accompanying the online version of this article.”)
+• If you wish to be considered for the Ferber Award, include a sentence stating that the manuscript
+is based on the lead author's dissertation
+Abstract (appears on page 3; no title, headers, or footers)
+Include an abstract of no more than 200 words that substantively summarizes the article and addresses the
+following:
+• Topic/Issue
+• Approach/Methods
+• Results/Findings
+• Implications/Conclusions
+Note:
+• Do not include any citations, links, tables, or figures in your abstract
+• Do not include any information that is not in your article
+• Write in the third person (avoid using “I” or “we”)
+• Be concise; avoid expressions such as “we found that consumers…” (i.e., omit “we found that” and
+just write “consumers…” instead)
+Our website provides guidance for crafting a well-constructed and informative abstract.
+Keywords (appears on page 3; no title, headers, or footers)
+In a separate paragraph after the abstract, include a list of three to six keywords.
+Type Keywords: (italicized) and then list the keywords (lowercase and separated by commas).
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+4
+Main Text (begins on page 4; no title, headers, or footers)
+Capitalization Within Text
+• Use lowercase for referencing: table 1, equation 1, appendix A, hypothesis A, study 1, experiment 1.
+Citations
+• Citations enclose within parentheses the author surname followed by publication date: (Kinsey 1960).
+• Multiple citations are listed alphabetically and separated by semicolons: (Gatignon and Robertson
+1985; Green and Gold 1981).
+• Multiple citations by the same author(s) are separated by a comma: (Moschis and Moore 1978, 1979).
+• Entries on the bibliography page listed in alphabetical order. Articles by a single author precede
+coauthored works by that author. Coauthored works are listed alphabetically, name by name: (Green
+1978; Green and Gold 1981; Green and White 1980).
+• The citation should stand just within a punctuation mark. When it is necessary to reference a particular
+page, section, or equation, the page number should be placed within the parentheses:
+(Andreasen 1984, 785). NB: no “p.” or “pp.” for page or pages.
+• If an author has published two or more works in the same year, list them alphabetically by title in the
+references, differentiated by letters after the date in both the reference list and the text: (1988a,
+1988b).
+• Two authors: always cite both authors (e.g., Green and Smith 1978).
+• Three authors: after first mention (e.g., Black, Jones, and Gould 1990), use first author’s name followed
+by et al. (e.g., Black et al. 1990).
+• Four or more authors: always use first author’s name followed by et al.
+• Do not use cf., i.e., e.g., refer to, compare, see, or other abbreviations before proper names in citations.
+Footnotes
+• You may use footnotes, which appear at the bottom of the given page (not to be confused with
+endnotes, which appear at the end of the manuscript and are not allowed at JCR).
+• Create notes that are linked to the text using the footnote function on your word processor so that the
+footnotes are automatically and accurately renumbered when you make changes.
+• Use footnotes sparingly. If you have extensive footnote-like material, it should be included in a web
+appendix instead.
+General Formatting Requirements
+• Abbreviations: Use abbreviations such as “i.e.” and “e.g.” (followed by comma) within parentheses
+only. Spell out “that is” and “for example” in the text.
+• Aesthetic: This spelling is preferred (not “esthetic”).
+• Amazon Mechanical Turk: Spell out in full on first mention. Subsequent mentions may be abbreviated
+as “Amazon MTurk” or simply “MTurk” (never “mTurk”).
+• Ampersands: Do not use this symbol (“&”).
+• Article: Change all mention of “paper” or “manuscript” to “article” (for accepted manuscripts only).
+• Blank Pages: Avoid. Do not leave any blank pages within text or between sections.
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+5
+• Boldface: Use for primary headings only.
+• Character Spacing: Do not use condensed characters.
+• Commas: Use the serial comma; i.e., include commas before conjunctions: “Green, Smith, and Jones.”
+• Dashes: should connect the text on both sides—thank you! (That was an example of the dash format.)
+• Font: Use 12-point Times Roman font throughout text.
+• Hyphens: Avoid using hyphens after “-ly” modifiers—for example, there is no hyphen in “poorly
+arranged” and “randomly selected.”
+• Italics: Use for in-text emphasis sparingly, if at all.
+• Line Spacing: All text must be double spaced; do not set the spacing at “exactly 12” or anything else.
+• Margins: Format the manuscript with one-inch (2.54 cm) margins on all sides.
+• Participants: When describing a study, replace the term “subjects” with “participants” or “respondents”
+except where the term is technical (e.g., “between subjects”) or theoretical.
+• Percent: Use “%” following numerals. Do not spell out “percent” (unless it stands alone without a
+numeral or follows a number beginning a sentence, as in “Twenty-three percent of respondents…).
+• Quotation Marks: Do not use in-text unless you are directly quoting a work or defining something. Do
+not use for emphasis. Always place commas and periods inside quotation marks, not outside.
+• Respondents: When describing a study, replace the term “subjects” with “participants” or
+“respondents” except where the term is technical (e.g., “between subjects”) or theoretical.
+• Spaces: Use only one space bar space (not two) at the end of sentences and after colons.
+• Special Formatting, Section Breaks: Do not use. Use hard page returns to start a new section.
+• Spelling and Usage: Write your text in English. American or British usage is accepted, but not a
+mixture of these (with exceptions for quotes, references, and stimuli which should maintain their
+original). For spelling, follow Merriam-Webster’s 11th Collegiate Dictionary or the Oxford English
+Dictionary 3rd Edition.
+• Subjects: When describing a study, replace the term “subjects” with “participants” or “respondents”
+except where the term is technical (e.g., “between subjects”) or theoretical.
+• Underlining: Do not underline text in any instance.
+• Versus: Spell out in-text. Abbreviate if in parentheses (“vs.” in parentheses).
+• Web Appendix: When mentioning web appendix contents in-text, spell out “web appendix” (do not
+abbreviate as “WA” or use other terms). Refer to a single web appendix without letters or numbers
+(e.g., see the web appendix). Refer to multiple web appendixes with letters (e.g., see web appendix A,
+see web appendix B).
+Headers and Footers
+• Except for page numbers, omit headers and footers from all pages. Page numbers should appear in
+the top right corner of each page.
+Headings
+• You may use up to three levels of headings.
+• You must have more than one secondary heading per section (or no secondary headings).
+• You may have a primary heading and two secondary headings, but never a single secondary heading
+in a section; there are no restrictions on tertiary headings.
+• Primary Headings: all capital letters, centered, and in bold typeface; add an extra return (i.e., an
+additional double space) before and after.
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+6
+• Secondary Headings: capital and lowercase letters, flushed left; add an extra return before and after.
+• Tertiary Headings: capital and lowercase letters, paragraph indented, italicized, and punctuated with a
+period; add an extra return before heading. Text follows on same line.
+• Do NOT place the entire heading in quotation marks or use a period (full stop) at the end of a heading.
+Hypotheses
+• Bold, indented, syllabus style (double spaced in your manuscript):
+H1: Classifier-related clustering in recall should be more likely to occur for speakers of
+classifier languages than for speakers of nonclassifier languages.
+• Use lowercase and spell out in-text (hypothesis 2).
+Numbers
+• Numbers under 10 are spelled out except in special circumstances (six to 10 hours, but 5%).
+• Use (Western) Arabic numerals for number 10 and above.
+• Numbers followed by the percent sign (%) are always numerals (6%, 25%) unless the number starts a
+sentence (e.g., “Twenty-three percent of those surveyed…”).
+• Use numerals with percent signs (5%), units of measurement (4 inches long), money ($4), dimensions
+(2 x 2 contingency table), and in technical and mathematical contexts.
+• Spell out numbers that begin sentences (“Twenty-three children began the program…”).
+Statistics
+• Check all technical and quantitative features (including tables, figures, equations, and captions).
+• Standard Deviation: abbreviate as “SD” (roman)
+• Not Significant: abbreviate as “NS” (roman).
+• Italicize all letters as indicated here (e.g., p, F, M, df, r, t). Do not italicize Greek letters. Use x, not an
+asterisk, for interactions.
+• No zero before decimal point in probabilities (e.g., p = .035).
+• Use p for probabilities and M for means (for singular and plural).
+• Use italicized M when reporting means in the text (e.g., Mmales = 3.5). Do not use space bar.
+• Leave one space on either side of operational signs and signs of relation.
+• Reporting p-values:
+o Be as specific as possible; e.g., opt for p = .035 instead of p < .05
+• Indicating Significance:
+o Indicate a result is significant if p < .05 (but report using the specific p-value, e.g., p = .043).
+o Indicate a result is marginally significant if p is between .05 and .10 (but report using the
+specific p-value, e.g., p = .065).
+o Indicate a result is not significant if p > .10 (but report using the specific p-value, e.g., p = .670).
+o Please do not use terms such as “approaching significance” or “directionally significant.”
+• Report effect sizes when appropriate.
+• Format example for statistical test results: (F(1, 139) = 4.65, p =.033).
+• Format when statistical test results follow a mean: (M = 5.12; F(1, 139) = 4.65, p = .033).
+• Format when results follow differences in means: (4.67 vs. 5.68; F(1, 81) = 2.94, p = 090).
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+7
+• Format example for in-text reporting of confidence intervals: 95% CI [.03, .57]
+• Confidence intervals can also be reported as two columns in a table.
+• χ2(12) (chi-square number in regular font, not subscript). Spell out chi-square in-text, and use χ2 with
+statistics.
+• F(7, 12) not F(7, 12). Be sure there is one space after the comma.
+• Equations: centered and not numbered, if only one equation. If more than one equation, center
+equation and put bold number flush right in parentheses. Example:
+ŷ = B0 + B2 x f. (2)
+Units of Measurement
+• Spell out units of measurement in-text whenever preceded by numerals (4 minute task; NB: no hyphen
+between numeral and unit)
+• However, units of measurement may be abbreviated in tables
+Data and Materials Availability Statement
+A data and materials availability statement must be included in the final version of the manuscript for
+publication. This should be provided as a single paragraph on a new page just before the data collection
+statement. Use the following heading: DATA AND MATERIALS AVAILABILITY STATEMENT
+This statement should outline where the data can be found (by including a link to the data). If data cannot
+be made publicly available, the statement should explain why the data cannot be made available.
+Data Collection Statement
+A data collection statement must be included in the final version of the manuscript for publication. This
+should be provided as a single paragraph on a new page just before the appendixes (or before the
+references if there are no appendixes). Use the following heading: DATA COLLECTION STATEMENT.
+Use third person throughout (e.g., "The authors jointly analyzed the data.") and provide the following
+information for each study:
+• Where the data were collected (including university name, if applicable)
+• When the data were collected
+• Who collected the data
+• Who analyzed the data
+• Where the data are currently stored
+If a research assistant or lab manager collected data under the supervision of one of the authors, this
+information should be included (however, you are not required to provide their names).
+Our research ethics guidelines provide sample data collection statements.
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+8
+Appendixes
+Appendixes (if included; this is not required) appear on a new page after the data collection statement
+and before the references.
+• A manuscript appendix is distinct from a web appendix containing supplementary materials. A
+manuscript appendix should contain content that is integral to the manuscript.
+• Label each appendix (centered and typed in all capital letters, e.g., APPENDIX A).
+• Label a single manuscript appendix without letters or numbers (i.e., APPENDIX).
+• Label multiple manuscript appendixes with letters (i.e., APPENDIX A, APPENDIX B).
+• Each appendix must have a short descriptive title, centered and typed in all capital letters (do
+not italicize the entire title, place the entire title in quotation marks, or use a period at the end
+of the title).
+• Mention appendix contents in-text where relevant (e.g., “See the appendix for additional
+details” or “See appendix B for details”).
+• Manuscript appendixes must follow all manuscript formatting guidelines (exceptions include
+stimuli, instruments, and other content included in its original form).
+References
+Each reference should be cited in the text at an appropriate place. Do not include references that have
+no corresponding citations in the text, and be sure that you have provided the complete reference for
+every citation. There must be a reference for every citation, and a citation for every reference.
+References must be double spaced with a half-inch (1.27 cm) hanging indent and begin on a new page
+following the text (or appendixes, if any). Authors should cite references judiciously, with the goal of
+including only those prior works of direct relevance and importance to the research reported. The
+reference list is not intended to serve as a bibliography; all unnecessary, redundant, or tangential
+references should be eliminated.
+List references alphabetically by last name of the first author. Subsequent authors in the entry are listed
+by first and last name. For three or more authors, list up to six in the reference list; for more than six
+authors, list the first three, followed by et al. Works by a single author precede coauthored works by that
+author. Works by a single author or same team of authors are arranged chronologically (oldest to most
+recent). Works by different teams of authors are arranged alphabetically by second and third authors.
+Works published in the same year by an author or team of authors are arranged alphabetically by title:
+Moschis, George P. (1976), “Acquisition of the Consumer Role by Adolescents,” unpublished
+dissertation, the Graduate College, University of Wisconsin, Madison, WI 53706.
+Moschis, George P. (1980), “Communication Information Use: Individual versus Social
+Predictors,” Communication Research, 7 (April), 139-60.
+Moschis, George P. and Gilbert A. Churchill Jr. (1978), “Consumer Socialization: A Theoretical
+and Empirical Analysis,” Journal of Marketing Research, 15 (November), 599–609.
+Moschis, George P. and Roy L. Moore (1979a), “Decision Making among the Young: A
+Socialization Perspective,” Journal of Consumer Research, 6 (September), 101–12.
+Moschis, George P. and Roy L. Moore (1979b), “Family Communication and Consumer
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+9
+Socialization,” in Advances in Consumer Research, Vol. 6, ed. William L. Wilkie, Ann
+Arbor, MI: Association for Consumer Research, 359–63.
+Moschis, George P., Roy L. Moore, and Ruth B. Smith (1984), “The Impact of Family
+Communication on Adolescent Consumer Socialization,” in Advances in Consumer
+Research, Vol. 11, ed. Thomas C. Kinnear, Provo, UT: Association for Consumer
+Research, 314–19.
+General Reference Guidelines
+• For in-text citation formatting, please see the citation instructions on pages 3-4 of this style guide.
+• Provide volume plus issue month, season, or number, plus pages for each journal article reference.
+• Spell author and editor names exactly as they appear in source works.
+• Page numbers. Delete the first digit of the second number if the first digit of the second number is the
+same as the first digit of the first number. Example: 148−49, but 188−204.
+• Do not use “eds.” (always use “ed.”). This stands for “edited by.” The exception is when there are
+multiple editors (instead of authors) before the year of publication.
+• Do not use “in press.” Use “forthcoming” in place of the date when the date is not known and in place of
+page numbers when the date is known.
+• Question marks in titles are never followed by a comma or a period. Example: “Why Me? Because I
+Said So.”
+• Zip code abbreviations for U.S. states (e.g., CA, IL, NY) and Canadian provinces (e.g., BC, ON, QC).
+• Shortened form for publishers (e.g., Sage, Routledge).
+• Do not underline anything. Article titles should be in quotation marks, while journal and book titles
+should be in italics.
+• Include last accessed dates for websites and URLs.
+Formatting Guidelines for Specific References
+• Periodicals: List author names, including first names, publication date, article title in quotation marks,
+unabbreviated name of the periodical in italics, volume number, issue designation (month, season, or
+number), and full page numbers:
+McCracken, Grant (1986), “Culture and Consumption: A Theoretical Account of the Structure and
+Movement of the Cultural Meaning of Consumer Goods,” Journal of Consumer Research,
+13 (June), 71–84.
+• Books: List author names, including first names, publication date, book title in italics, place of
+publication, and name of publisher:
+Lincoln, Yvonna S. and Egon G. Guba (1985), Naturalistic Inquiry, Beverly Hills, CA: Sage.
+• Excerpts from Books: List author names, including first names, publication date, article/chapter title
+in quotation marks, book title in italics, editors, place of publication, name of publisher, and excerpt
+page numbers:
+Taylor, Shelley E. and Jennifer Crocker (1981), “Schematic Bases of Social Information
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+10
+Processing,” in Social Cognition: The Ontario Symposium, Vol. 1, ed. E. Tory Higgins,
+Hillsdale, NJ: Erlbaum, 89-134.
+• Unpublished Manuscripts: References to working papers, preprints, presented papers, unpublished
+dissertations, and such include author names, title in quotes, and year of submission or presentation.
+The words “working paper,” “preprint,” “report,” “review paper,” etc., are not capitalized unless the work
+is part of a numbered series. Include information about the sponsoring university or organization, such
+as department, college, city, state, and zip code. For preprints, include the date and the DOI.
+Anderson, Paul F. and John G. Thatcher (1986), “On Borrowing, Epistemology, and Category
+Mistakes in Business Research,” Working Paper No. 1–786–035, Harvard Business
+School, Boston, MA 02163.
+Dai, Tinglong and Shubhranshu Singh (2022), “Overdiagnosis and Undertesting for Infectious
+Diseases,” preprint, October 27, https://doi.org/10.2139/ssrn.3725057.
+Simmons, Carolyn J. (1986), “Effect of Missing Information on Product Evaluation,” unpublished
+dissertation, Marketing Department, College of Business Administration, University of
+Florida, Gainesville, FL 32611.
+Wallendorf, Melanie (1987), “On Intimacy,” paper presented at the American Marketing Association
+Winter Educators’ Conference, San Antonio, TX.
+• Proceedings, Edited Works: Proceedings citations are treated as excerpts from an edited book.
+References must list author names, including first names, publication date, article title in quotation
+marks, conference proceedings title in italics, volume number, first and last names of the editors, place
+of publication, name of publisher, and page numbers:
+Olson, Jerry C. (1981), “Toward a Science of Consumer Behavior,” in Advances in Consumer
+Research, Vol. 9, ed. Andrew A. Mitchell, Ann Arbor, MI: Association for Consumer
+Research, v-x.
+Lastovicka, John L. and David M. Gardner (1979), “Components of Involvement,” in Attitude
+Research Plays for High Stakes, ed. John C. Maloney and Bernard Silverman, Chicago:
+American Marketing Association, 53–73.
+• Government Publication
+U.S. Bureau of the Census (1983), Statistical Abstract of the United States, Washington,
+DC: Government Printing Office.
+• Different Co-authors, Forthcoming Works
+Wittink, Dick R. and Phillipe Cattin (1981), “Alternative Estimation Methods for Conjoint Analysis: A
+Monte Carlo Study,” Journal of Marketing Research, 18 (February), 121–26.
+Wittink, Dick R. and Lakshman Krishnamurthi (forthcoming), “Rank Order Preferences and the
+Part-Worth Model: Implications for Derived Attribute Importances and Choice Predictions,”
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+11
+in Proceedings of the Third Annual Market Measurement and Analysis Conference, ed.
+John W. Keon, Providence, RI: Institute of Management Sciences.
+• Websites and URLs
+The Learning Now Foundation. “Learning from the Web.” Last Accessed May 11, 2022.
+http://www.learning.org/now/.
+• Newspapers
+Frank, Robert H. (1999), “The Gasoline Powered Raise,” New York Times, June 30, A23.
+• Reference with Original Publication Dates
+Veblen, Thorstein (1899/1979), The Theory of the Leisure Classes, New York: Penguin.
+Headings List
+Provide a list of headings (ordered as you wish them to appear in your paper), left justified, with primary
+headings (numbered 1) formatted in bold type in all capital letters; secondary headings (numbered 2)
+formatted in upper and lower case; and tertiary headings (numbered 3) formatted in italics in upper and
+lower case. The order should be the same as the text order. The headings list follows the figures in your
+manuscript (as part of the main manuscript; not a separate file).
+Use at least two secondary headings (or no secondary headings) in a section. You may have a primary
+heading and two secondary headings, but never a section with a single secondary heading. There are no
+restrictions on tertiary headings.
+Sample Headings List:
+1) PRIMARY HEADING
+2) Secondary Heading
+3) Tertiary Heading
+2) Secondary Heading
+3) Tertiary Heading
+1) PRIMARY HEADING
+Do NOT number headings 1, 2, 3, 4, 5, 6, etc.; ONLY use 1, 2, and 3 to designate the type of heading.
+Do NOT place the entire heading in quotation marks or use a period (full stop) at the end of a heading.
+Tables (include titles, labels, and notes)
+Tables (if included; this is not required) should be placed within the main text and numbered
+consecutively. Refer to tables in-text by number (e.g., table 1). When referring to tables, do not use
+“above,” “below,” “preceding,” “the following,” and the like. If there is only one table, refer to it as table 1
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+12
+in the text.
+The typesetter requires an editable version of each table. Use Word’s table feature with columns, rows,
+and individual cells. Do not use tabs and spaces; and do not insert the entire table in a text box.
+Specific Table Guidelines
+• Capitals: Only the initial letter of a given word, phrase, or columnar head in a table is capitalized.
+• Columns: Decimals must be aligned.
+• Heads: All columns must have headings; each column head must relate to its subhead.
+• Labels: Number each table. Table labels must be centered and typed in all capital letters.
+• Notes: Notes cued by lowercase superscript letters appear at the bottom of the table below the rule,
+paragraph indented. Descriptive information in addition to any notes should be placed above the
+notes, paragraph indented.
+• Tables with Text Only: Tables with text only should be formatted in the same way as tables with
+numbers (as Word tables with columns, rows, and individual cells).
+• Titles: Tables must have a short descriptive title, centered and typed in all capital letters (do not
+italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+• Typefaces: Use only sans serif typefaces (e.g., Helvetica, Arial) in tables.
+Figures (include titles, labels, and notes)
+Figures (if included; this is not required) should be placed within the main text and numbered
+consecutively. Refer to figures in-text by number (e.g., figure 1). When referring to figures, do not use
+“above,” “below,” “preceding,” “the following,” and the like. If there is only one figure, refer to it as figure
+1 in the text.
+Specific Figure Guidelines
+• Axes: Label both vertical and horizontal axes. The ordinate label should be centered above the
+ordinate axis; the abscissa label should be placed flush right, beneath the abscissa. Place all
+calibration tics inside the axis lines and their values outside the axis lines. If the junction of the axes is
+zero, there should be only one zero.
+• Error Bars: When graphing means, the inclusion of error bars is optional. However, if error bars are
+reported, they must be the 95% confidence interval.
+• Labels: Number each figure. Figure labels must be centered and typed in all capital letters.
+• Legends: Legends should be placed horizontally, if possible, either in an appropriate white space in
+the figure or centered beneath the figure.
+• Lines: Clearly differentiate lines within figures. Variations include bold line, fine line, broken line, dotted
+line, etc. Lines within the figure should be identified by either a legend or a short description in a note.
+• Notes and Source Lines: Notes and source lines appear at the bottom of the table or figure, indented
+and aligned to the left. Descriptive information in addition to any notes should be placed above the
+notes, paragraph indented.
+• Photography Requirements: Authors who plan to use photographs are required to include these
+photographs as part of the main manuscript file. Photographs should be treated as figures and
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.
+13
+uploaded as separate files as outlined above.
+• Space: When boxes are used to delimit text or freespace drawings in figures, white space inside boxes
+should be kept to a minimum.
+• Titles: Each figure must have its own descriptive title, centered and typed in all capital letters (do not
+italicize the entire title, place the entire title in quotation marks, or use a period at the end of the title).
+• Typefaces: Use only sans serif typefaces (e.g., Helvetica, Arial) in figures. Lettering on all figures must
+be professional in appearance and large enough to be easily read when reduced to actual size.
+This style guide is for accepted manuscripts. If you are preparing a manuscript for review, you must follow the submission guidelines but may
+use this style guide for detailed instructions on reporting statistics or formatting the main text and references.

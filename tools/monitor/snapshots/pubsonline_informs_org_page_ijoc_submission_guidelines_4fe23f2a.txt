@@ -1,0 +1,224 @@
+Editorial Statement
+Editorial Board
+Journal Metrics
+Journal Sponsors
+SUBMIT
+SUBSCRIBE
+Available Issues
+April 12, 2013 - February 13, 2026
+2020s
+2010s
+2000s
+1990s
+1980s
+Available Issues
+April 12, 2013 - February 13, 2026
+2026
+2025
+2024
+2023
+2022
+2021
+2020
+Volume 38, Issue 1 January-February 2026CURRENT ISSUEPages iv-xvi, 1-339, iii
+Available Issues
+April 12, 2013 - February 13, 2026
+2019
+2018
+2017
+2016
+2015
+2014
+2013
+2012
+2011
+2010
+Available Issues
+April 12, 2013 - February 13, 2026
+2009
+2008
+2007
+2006
+2005
+2004
+2003
+2002
+2001
+2000
+Available Issues
+April 12, 2013 - February 13, 2026
+1999
+1998
+1997
+1996
+1995
+1994
+1993
+1992
+1991
+1990
+Available Issues
+April 12, 2013 - February 13, 2026
+1989
+Submission Guidelines
+INFORMS Journal on Computing
+The theory and practice of computing and operations research are necessarily intertwined. The INFORMS Journal on Computing publishes high quality papers that expand the envelope of operations research and computing. We seek original research papers on relevant theories, methods, experiments, systems, and applications. We also welcome novel survey and tutorial papers, and papers describing new and useful software tools. We expect contributions that can be built upon by subsequent researchers or used by practitioners.The INFORMS Journal on Computing expects all submissions to be complete and accurate, and we expect any results to be authentic and certifiable with standard methods to the best of the corresponding author’s knowledge. The corresponding author is responsible for communication with co-authors and for confirming any co-authors’ agreement to our submission policies and disclosures. Failure to follow INFORMS and IJOC policies may constitute an ethical violation and may result in sanctions.
+Author Portal (for additional author support)
+The INFORMS Author Portal is a resource to support authors as they move through peer review and production. Visit the Author Portal for detailed information regarding INFORMS publication policies, accepted author support, resources (including pre-submission editing services), and journal metrics.
+—PLEASE REVIEW THE FOLLOWING PUBLICATION AND ETHICS POLICIES BEFORE YOU SUBMIT—
+General Submission Guidelines
+Authorship/Authorship Changes
+Guidelines for Ethical Behavior in Publishing
+ORCID
+Rights & Permissions
+INFORMS Journal on Computing Proceedings Policy
+Papers that were published in refereed proceedings can be accepted for publication in INFORMS Journal on Computing as long as the following conditions are met:
+The paper extends the results published in the proceedings version in substantial and meaningful ways. “Substantial and meaningful” can include one or more of the following: extensions of key results, additional methodological contributions, and detailed development of key proofs. The paper must be accessible and of interest to a large part of the INFORMS Journal on Computing community, which means that additional background and motivation might be required in the Introduction of the paper. The "substantial and meaningful" criterion is subject to the discretion of the Area Editor, Associate Editor, and Reviewers.
+The submitted paper cites the previously published proceedings versions and clearly explains the contributions made in the paper that extend the original proceedings paper.
+Any change in authorship between the conference paper and the journal submission must be explained in a separate document submitted with the paper. In the case of removing an author, all authors must agree to this removal of a proceedings author from the journal submission. The INFORMS Authorship Policy (and Author Change Form) can be accessed here.
+The following supplemental material are included: a) the original proceedings paper; b) a 1-page summary of the key contributions made in the paper that extend the original proceedings paper; c) a version of the submitted paper with all portions that are identical to the earlier proceedings paper highlighted clearly.
+The author will secure appropriate copyright release permissions from the proceedings so that any copyrighted material can be included in INFORMS Journal on Computing.
+Disclosure of the proceedings paper must be included in the cover letter to the editors from the author during the initial submission.
+JUMP TO: Preparing Your Manuscript | Submitting Your Manuscript | Review Process | After Acceptance
+Preparing Your Manuscript
+Abstract
+Provide an abstract of not more than 300 words in length. This should be written using non-technical language, and without the use of formulas or mathematical notation (see note above on mathematical notation). We recommend these three aspects be covered in the abstract (in this order):
+(1) Research Questions and Challenges;
+(2) Methodology and Results;
+(3) Importance and Implications.
+The purpose of the abstract is to provide a concise, highly readable overview of the manuscript's objectives, methods, and the nature and significance of the conclusions and contribution.
+Artificial Intelligence: Reviewing and Generative Artificial Intelligence Policy
+August 2023
+Reviewing a technical manuscript implies responsibilities that can only be attributed to humans. The critical thinking and assessment required for peer-review are outside the scope of generative AI and AI-assisted technologies, and there is a risk that the technology will generate incorrect, incomplete, or biased outcomes. These considerations, together with the principle that submitted manuscripts are to be treated as confidential documents, results in the IJOC Generative AI policies for reviewers and editors:
+Generative AI should not be used to assist in the review, evaluation, or decision-making process of a manuscript. Some specific examples are below but these are not comprehensive:
+Reviewers or editors should not upload the manuscript or any part of it into a Generative AI tool, as there is no guarantee of where materials are being sent, saved, or viewed, or how they may be used in the future to train the model, and this may violate author confidentiality.
+This confidentiality requirement extends to the peer review report and any other communication about the manuscript, such as the notification or decision letters, as they may also contain confidential information about the manuscript and/or the authors. For this reason, they should not be uploaded into a Generative AI tool, even if it is just for the purpose of improving language and readability.
+If an editor or reviewer suspects Generative AI has been used in the paper under review which has resulted in improper aspects such as bogus references, nonsensible reasoning, or misinformation that person should report the matter to the editor in charge, normally the area editor.
+Cover Letter
+We require a cover letter for all new submissions:
+(1) Clearly and briefly explain why INFORMS Journal on Computing (IJOC) is an appropriate outlet for your paper. It will help if you can list a few IJOC papers that are in the same topic area as your paper. (Note that this in no way implies that you must cite IJOC papers in your own paper.) If there are no such papers, please explain why this novel topic is appropriate for IJOC.
+(2) Please briefly explain your specific choice of the area you are submitting to from among the ten offered.
+Data Policy
+Attaching research data, such as instance data for experiments, to the electronically published versions of papers can be an important part of INFORMS Journal on Computing’s role in the research community. The Data Policy can be accessed here.
+Format
+Submissions must be single-column, 1.5-spaced, with 12-point font and 1-inch margins all around. Authors are encouraged to submit the main document as a PDF file separate from any source or figure files.
+Length Policy
+As of May 2025
+Manuscript files (including abstract and references) should be 1.5-line-spaced, have a standard font size of 12 points, and have one-inch margins on all four sides. The manuscript should be in a single-column format. Please do not use footnotes; incorporate subsidiary material that would otherwise appear in footnotes in the main text, possibly in parentheses or brackets, or as a proper reference.
+Papers cannot exceed 25 pages, including all references, tables, and graphs, with an additional up to 10 pages for the appendices, which should be packaged as an online supplement if longer than 2 pages. Both the paper and the appendices (if they exist) will be included in the materials sent to reviewers. Data sets, extended results, code, and associated artifacts of accepted papers are made available as an online software and data repository through the IJOC GitHub Organization (https://github.com/INFORMSJoC) and are not included in the page counts cited above. See the IJOC Data Policy and Software Policy for more information.
+Exceptions to this length policy are possible — for instance, an extensive review paper — but must be discussed with the relevant area editor.
+Contact information for each area editor is available here.
+If you believe that you have a valid exception to this policy, please describe it in your cover letter. The area editor will review your paper and cover letter – if they have not already – and decide whether an exception will be granted. If they decide against granting an exception, your paper will be returned to you to edit into the correct length.
+Mathematical Notation
+Mathematical notation should be chosen so that the formulas and ideas presented in them are clear. Important details can be found in the Mathematical Notation section of the Author Portal.
+References
+References should be listed alphabetically by author name at the end of the paper in conformance with journal style. In-text citations should be indicated by the author’s last name and year of publication, e.g., (Norman 1977) or Norman (1977). Click here for examples of reference style.
+Rejected Papers
+Papers that have been rejected by INFORMS Journal on Computing may not be submitted again without the express written permission of the area editor or the editor-in-chief.
+Single-Blind Peer Review
+INFORMS Journal on Computing conducts single-blinded reviews, meaning that the authors are ‘blind’ to the identity of the reviewers but reviewers are not blind to the author names. Please be sure to include all author names and institutions on the title page of the manuscript.
+Software Policy
+Like the data policy, the software policy does not apply to every paper. The Software Policy can be accessed here.
+For papers whose primary contribution is computational experiments, as a condition of final acceptance of the paper, software must be released to the research community with instructions and data suitable for a researcher to be able to reproduce results given in the paper. It is generally expected that relevant source code will be published as an online supplement to the journal article.
+Style Templates
+The manuscript style is specified in the template file JOC-template.tex, which handles most stylistic issues. You can find the template and other necessary files here. LaTeX is strongly preferred over MS Word or other word-processing packages for preparation of manuscripts. If using MS Word files, they can be either .doc or .docx files.
+When uploading your manuscript, authors are encouraged to submit a PDF separately from their source files.
+Subject Classifications and Keywords
+For subject classifications and other keywords (which appear just before the abstract), consult the list of keywords at submission in ScholarOne Manuscripts, Step #2, Attributes. (See "Submitting Your Manuscript," below.)
+Supplemental Material
+Supplemental material (appendixes, data, most proofs, voluminous tables/graphs, lengthy literature reviews, etc.) can be submitted with the paper itself. Online supplements should be submitted as separate files and designated as supplemental material.
+Tables and Figures
+Tables and figures can remain in the source files whether using LaTeX or Microsoft Word. They do not have to be put in the back of manuscripts, but may remain near the citations.
+Video Augmentation
+INFORMS Journal on Computing encourages authors to augment published papers with videos.
+Submitting Your Manuscript
+Manuscripts should be submitted online at the ScholarOne Manuscripts site for INFORMS Journal on Computing.
+IMPORTANT NOTE: By submitting a manuscript to or reviewing for this publication, your name, email address, and affiliation, and other contact details the publication might require, will be used for the regular operations of the publication, including, when necessary, sharing with the publisher (INFORMS) and partners for production and publication. The publication and the publisher recognize the importance of protecting the personal information collected from users in the operation of these services, and have practices in place to ensure that steps are taken to maintain the security, integrity, and privacy of the personal data collected and processed. You can learn more here.
+The ScholarOne Submission Process
+There are six steps for uploading a manuscript in the ScholarOne system:
+Step 1: Type, Title & Abstract: Enter your manuscript type (ie, original article, column, editorial). Provide the manuscript title and a running header. Add the abstract (not more than 300 words). Under Manuscript Routing, indicate to which Area of Review/Area Editor your manuscript should be routed. If there is a question about which area is appropriate, papers may be submitted to the Editor-in-Chief, but it is preferable for authors to suggest an Area Editor. A description of areas can be found here.
+Step 2: File Upload: Authors will upload as many files as needed for their manuscript. These files will be combined into a single PDF document for the peer review process. For revisions, authors should include only the latest set of files.
+For the review process, authors are encouraged to submit their main document as a PDF file. If the paper is accepted, authors will provide source files at that time.
+If submitting a revised manuscript, it is important that a “response to reviewers” file be provided. Upload the response file in this step and designate the file as a "Supplemental File for Review."
+Step 3: Attributes: Please provide three to five keywords.
+Step 4: Authors & Institutions: All authors and their institutions must be identified. Please note that the submitting author is required to provide their ORCID iD (more information about ORCID iDs can be found here).
+Step 5: Details & Comments: For all new submissions, beginning January 1, 2021, we require a cover letter:
+(1) Clearly and briefly explain why INFORMS Journal on Computing (IJOC) is an appropriate outlet for your paper. It will help if you can list a few IJOC papers that are in the same topic area as your paper. (Note that this in no way implies that you must cite IJOC papers in your own paper.) If there are no such papers, please explain why this novel topic is appropriate for IJOC.
+(2) Also, please briefly explain your specific choice of the area you are submitting to from among the ten offered.
+Authors can include their cover letter either in the text box or as a separate file. This information will be viewed by the Area Editor and the Associate Editor but will not be viewed by the reviewers. Authors will denote funding in this section. Last, authors will certify that they are complying with the journal's ethical policy. Additionally, authors’ cover letter should explain why this is the appropriate journal.
+Step 6: Review & Submit: As the final step, authors will review the previous five steps for completeness and view the PDF proof generated by the ScholarOne system (this is required). Be sure to select “Submit” when done.
+Ethical Statements Authors Will Certify
+As part of Step 5 (above), authors will certify the following ethical statements within the ScholarOne system:
+Prior Submission
+Has this manuscript been submitted previously?If yes, what is the manuscript ID of the previous submission?
+Duplicate Submission
+Confirm that the manuscript has been submitted solely to this journal and is not published, in press, or submitted elsewhere.
+Ethical Guidelines
+Confirm that all the research meets the ethical guidelines, including adherence to the legal requirements of the study country.
+I acknowledge that I am aware of INFORMS Journal on Computing's guidelines for ethical behavior in publishing (http://pubsonline.informs.org/page/ijoc/submission-guidelines) and all INFORMS policies referred to therein and that this submission conforms to those policies. I have disclosed (in my cover letter and in any related submission questions) any possible perceived conflicts of interest and noted all of my work that has substantial overlap to prior publications, conference proceedings, book chapters, and papers submitted to this journal or any other journals. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.Authors submitting manuscripts with multiple references to their own work for the sole purpose of increasing their own citation numbers is unethical behavior and may be subject to ethical sanctions. Any instances of this behavior should be reported to the Editor-in-Chief.Reviewers recommending citations of their own work for the sole purpose of increasing their own citation numbers is unethical behavior and may be subject to ethical sanctions. Any instances of this behavior should be reported to the Editor-in-Chief.
+Plagiarism & Copyright
+Confirm that any previous work that is significantly related to this work, by the authors or others, in English or in any other language (to the best of the authors' knowledge) has been properly cited. This includes conference proceedings.
+I acknowledge that in submitting this paper I am aware of INFORMS policy on plagiarism and copyright (http://authors.pubs.informs.org). Further I acknowledge that I will report to the editor(s) of the journal all of my manuscripts (e.g., prior publications, conference proceedings, book chapters, papers submitted to other journals) that have substantial overlap with the submitted paper. I also certify that the copyright for all portions of this paper can and will be transferred to INFORMS upon acceptance.
+Conflicts of Interest
+Do you have any conflict of interest? Any relationship or funding that may influence the acceptance or rejection of this paper should be disclosed in the submission form. If an author is unsure if something qualifies as a conflict of interest, they should contact the Editor-in-Chief.
+Troubleshooting
+For additional training and support for using the ScholarOne Manuscripts submission system, please visit ScholarOne’s Author Resources page.
+Contact Your Managing Editor
+Annie StevensonINFORMS 5521 Research Park Drive Suite 200 Catonsville, Maryland 21228 [email protected]
+The Review Process
+Authors submit papers (possibly accompanied by material for an online supplement) directly to the most appropriate Area Editor. In cases where it is difficult to determine an appropriate area, authors may submit their paper directly to the Editor-in-Chief, who will rule on whether the paper is appropriate for INFORMS Journal on Computing, and if so, which area should handle it. Note that authors are in the best position to make a judgment about the appropriate area for their paper, so submissions directly to the Editor-in-Chief should be the exception.
+The Area Editor reads the paper to assess its suitability. If unsuitable for INFORMS Journal on Computing or the area, the Area Editor may reject the paper, or may pass it along to the Editor-in-Chief for a decision or for re-assignment to another Area. The Area Editor may also make an initial ruling on issues of length, and may return the paper to the authors at this point for shortening if it is too lengthy to send for review. If suitable, the Area Editor then assigns the paper to an Associate Editor to handle.
+The Associate Editor reads the paper to select appropriate referees, and sends the paper to them for evaluation. The paper may be immediately rejected at this point if it is unsuitable for INFORMS Journal on Computing.
+The referees return reports containing their comments, suggestions and recommendations to the Associate Editor within two months, on average.
+The Associate Editor assesses the reviews and decides whether to (a) recommend acceptance of the paper, (b) recommend rejection, or (c) recommend that the paper be revised and resubmitted. This recommendation is forwarded to the Area Editor along with the Associate Editor’s report and copies of the referee reports.
+The Area Editor assesses the reviews and decides whether to (a) recommend acceptance of the paper, (b) reject it, or (c) return it to the authors for revision. If recommended for acceptance, the Area Editor forwards the paper to the Editor-in-Chief, and informs the authors of the recommendation. If rejected, the Area Editor informs the authors, with a copy to the Editor-in-Chief. If returned to the authors for revisions, the Area Editor informs the author and includes the Associate Editor’s report, the referee reports, and a list of required revisions. We expect authors to respond to reviewers in a timely and appropriate manner.The Area Editor returns any revised papers to the same Associate Editor for further handling.
+If received from the Area Editor with a recommendation for acceptance, the Editor-in-Chief reviews the paper on scientific and presentation grounds and decides whether to (a) accept the paper as is, (b) require the authors to make further minor changes, typically to correct language or formatting issues, (c) return the paper to the Area Editor for more extensive changes, or rarely, (d) reject the paper. The Editor-in-Chief notifies the authors of the final decision.
+If the paper is accepted, the authors upload their final materials to ScholarOne using the First Look process (described below), which is located in the submitting author’s Author Center. The Editor-in-Chief will inspect this material before forwarding it to the Managing Editor.
+Appeals Policy
+Appeals are only considered where the author(s) believe that one or more significant technical errors have been made by the reviewers/editors that affected the final decision. Appeals are not for cases where the author(s) believe that the reviewers/editors did not sufficiently appreciate the paper.
+In such cases, the author(s) may appeal by email to the relevant Area Editor or the Editor-in-Chief. This should be done at least one week after but not more than eight weeks after the final decision was transmitted to the author(s).
+The editor will consider the merits of the alleged error and choose a path of action which is generally among the following (1) Uphold the decision made; (2) Secure one or more additional reviews of the paper for further consideration.
+Artificial Intelligence: Reviewing and Generative Artificial Intelligence Policy
+August 2023
+Reviewing a technical manuscript implies responsibilities that can only be attributed to humans. The critical thinking and assessment required for peer-review are outside the scope of generative AI and AI-assisted technologies, and there is a risk that the technology will generate incorrect, incomplete, or biased outcomes. These considerations, together with the principle that submitted manuscripts are to be treated as confidential documents, results in the IJOC Generative AI policies for reviewers and editors:
+Generative AI should not be used to assist in the review, evaluation, or decision-making process of a manuscript. Some specific examples are below but these are not comprehensive:
+Reviewers or editors should not upload the manuscript or any part of it into a Generative AI tool, as there is no guarantee of where materials are being sent, saved, or viewed, or how they may be used in the future to train the model, and this may violate author confidentiality.
+This confidentiality requirement extends to the peer review report and any other communication about the manuscript, such as the notification or decision letters, as they may also contain confidential information about the manuscript and/or the authors. For this reason, they should not be uploaded into a Generative AI tool, even if it is just for the purpose of improving language and readability.
+If an editor or reviewer suspects Generative AI has been used in the paper under review which has resulted in improper aspects such as bogus references, nonsensible reasoning, or misinformation that person should report the matter to the editor in charge, normally the area editor.
+After Acceptance
+Final Submission
+We respectfully request that authors upload their final files to the submission site within 14 days from receipt of the acceptance decision letter. The decision of accept is not considered binding until final files have been received.
+A decision of accept will cause the manuscript to appear in the “Manuscripts Accepted for First Look” section of the submitting author’s Author Center, where the author will submit the following files:
+Source file of the article (e.g., Microsoft Word or LaTeX);
+A PDF file of the paper, separate from the source files (generated by the author, not the ScholarOne system);
+High-quality figure files (PostScript or PDF), either embedded in the manuscript file or as a separate file(s);
+Online supplemental materials in the format they should have when appearing online (PDF, plain text, etc.);
+The signed copyright transfer form; and
+The completed Editorial Checklist.
+Color figures will publish online in color but be converted to black and white for the print journal unless the authors agree to pay the additional expense associated with printing color.Any errors found after a paper has been accepted should be reported immediately to the Editor-in-Chief.
+Data Policy
+JUMP TO: Preparing Your Manuscript, "Data Policy"
+Software Policy
+JUMP TO: Preparing Your Manuscript, "Software Policy"
+Open Access
+The INFORMS Open Option (IOO) provides an Open Access alternative for articles accepted in any INFORMS journals that would have otherwise been available only through subscriptions or pay per view. Please be advised there is a $3,000 (US) fee to make an article Open Access that will be assessed during the production process. Authors who would like to make their article Open Access do not need to complete the regular copyright transfer form, but instead would need to complete a Publication License form (see forms linked below). Additional details for IOO as well as other types of Open Access can be found here.
+Publication Forms
+IJOC Copyright transfer agreement
+IJOC Editorial Checklist
+Media Promotion Form
+IOO Publication License (if you would like to make your paper Open Access)
+Quicklinks & Resources
+IJOC Meritorious Papers
+IJOC Meritorious Reviewers
+Special Issues
+Calls for Papers
+Submission Guidelines
+IJOC Data Policy
+IJOC Proceedings Policy
+IJOC Software Policy
+Video Augmentation
+Ethical Guidelines
+INFORMS Author Portal
+Download Journal Flyer
+Sign up for e-Alerts
+Web Feed

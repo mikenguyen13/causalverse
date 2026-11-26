@@ -1,0 +1,25 @@
+Style Guide for Accepted and Conditionally Accepted Papers
+For new submissions and resubmissions, refer to the Submissions page for style requirements.
+Title page should include title, author name(s), affiliation(s), e-mail address(es), and the abstract (one paragraph, nonindented, no more than 100 words). Place the acknowledgment-asterisk at the end of the author byline, not at the end of the title. See an example here.
+Set the main body text of the manuscript in 12-point type.
+Double–space, left-align, and cancel hyphenation for all text portions of your manuscript (\setstretch{2}\raggedright). \parindent=.5in% needs to be reinstated after \raggedright. First line .5-inch indent to start each new (body-text) paragraph (\usepackage{indentfirst}).
+Include inline comments denoting where, approximately, to locate figures and tables.
+Define abbreviations on first use, in table and figure descriptions, and in abstracts. (You do not need to define abbreviations commonly understood in economics, e.g., CEO, IPO, GDP, CRSP, S&P, EBITDA; see a more complete list of commonly recognized acronyms you don’t have to spell out.)
+Position table/figure description above the table or figure (below the title). Number tables and figures with Arabic numerals. Ensure that numbers in parentheses or brackets are defined. Position equation numbers, enclosed in parentheses, at left margin, top-aligned for multi-line equations. In text, format as “equation (1)”.
+In table columns whose headings are (sequential) numerals, remove parentheses from around those numerals—for example, the column title is “4” and not “(4)”.
+Supply figures and graphs in an editable (Excel-compatible) format, and make sure that figure and graph files are named (numbered) as they would appear (e.g., Figure1A, Figure2B, etc.). Note that multiple components within a (numbered) figure are called graphs, and each graph (again, only in a multi-component figure) needs a title, even a simple or repetitive one.
+LaTeX users, to minimize errors at the production stage, combine all .tex files (e.g., TableX.tex, Figures.tex) for the main manuscript in a single .tex file.
+Fully list 3 or more authors on first citation; abbreviate to “et al.” for subsequent citations.
+Enclose each citation year within parentheses; separate citations within parentheses by commas. When a location (page) or equation within the work is referred to, place that within the parentheses as well.
+Put citations inline, not in footnotes.
+Citation examples:• Madison, Hamilton, and Jefferson’s (MHJ) (1775), (1776) revolutionary system is the foundation of …• (see Jones ((2001), p. 1453), ((2009), eq. 3), Rumplemeyer and Schrafft (1874)).• (see, e.g., Smith, Miller, and Jones (1985), Strunk (1997), and Rosen and Chin (1982)).
+Arrange references alphabetically at the end of the manuscript. Ensure that references for working and forthcoming papers are up to date.
+Reference examples:• Rosen, S. A., and L. H. Chin. “Sense and Sensibility.” In Literary Economics, Vol. I, I. McHugh and J. L. Strauss, eds. Cambridge, MA: Ballinger (1982), 233–267.• Smith, S.; D. Miller; and J. P. Jones. “Daily Dishwashing: The Case for Antibacterial Soap.” Journal of Hygiene, 9 (1985), 1–31.• Strunk, W., Jr. “Does Punctuation Matter? Evidence from the Classroom.” Working Paper, University of Alberta (1997).
+Please note we do not include issue numbers in reference/bibliography items.
+Number all sections of the paper, from Introduction to Conclusion, with roman numerals.
+• Subsections A, B, C, etc.; subsubsections are 1, 2, 3, etc.• Cite all sections (by the full number format, e.g., Section III.B.3) in the text; also make sure they are updated.
+I. HeadingA. Subheading1. Subsubheading
+Headings at all section levels within the article (as well as table and figure titles, legends, and axis labels) are title case.
+Use a comma before “and” when listing 3 or more items.
+Wherever feasible, use “×” rather than “·” for multiplication.
+Author affiliations: JFQA preference is to list the main institution followed by the school or department with no comma (e.g. University of Washington Foster School of Business).

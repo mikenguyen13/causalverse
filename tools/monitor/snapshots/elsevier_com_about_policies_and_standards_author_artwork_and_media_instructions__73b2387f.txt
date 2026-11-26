@@ -1,0 +1,58 @@
+Artwork types
+Line art — EPS (vector based)
+Vector graphics formats are complementary to raster graphics (images as an array of pixels, like photographs).
+A vector image does not use pixels in images but mathematical expressions (e.g., "draw a line with this color and thickness between these two coordinates"). Such images are typically graphs, bar charts, chemical formulae and plots (pure vector images and resolution independent).
+Hybrid vector images are annotated bitmap images like photographs. Such a hybrid vector image can, for instance, be created in MS PowerPoint, when you import an image (bitmap) and then annotate that image with text, lines and arrows.
+Most drawing programs offer an EPS "Save As ..." option. MS Office documents are treated as hybrid vector artwork by Elsevier.
+Requirements
+Always include a preview/document thumbnail
+Always include/embed fonts and use the recommended fonts where possible: Arial, Helvetica, Courier, Times, Times New Roman, Symbol
+No data should be present outside the actual illustration area
+Line weights range from 0.10 pt to 1.5 pt
+Line art — TIFF (bitmap)
+This is the artwork type commonly used for graphs and charts. Information contained in black and white line art images is purely black and white with no tints or gradations present in the image.
+A bitmap is an image format that defines an image only in terms of black and white. A bitmapped image is used normally for line art because its elements can only be black and white, unlike a grayscale image.
+Line art should comply with the following requirements regardless of the software and hardware used during the process.
+Requirements
+Images should be in Bitmap (black and white) mode
+Images should have a minimum resolution of 1000 dpi (or 1200 dpi if the image contains very fine line weights)
+Images should be tightly cropped
+If applicable, please re-label your artwork with a font recommended by Elsevier and ensure it is an appropriate font size
+Save your image in TIFF format
+Grayscale images in TIFF/JPEG format
+Grayscale images are distinct from black-and-white images, which in the context of computer imaging are images with only two colors, black and white. Grayscale images have many shades of gray in between.
+In computing, a grayscale image is an image in which the value of each pixel is a single sample, that is, it carries the full (and only) information about its intensity.
+Grayscale is an image type that defines how the information in the image is to be stored and imaged. A grayscale image is sometimes referred to as an eight-bit image. This format is generally used for halftones because it stores the information for each pixel as a level of gray. There are 256 levels of gray in a halftone.
+Requirements
+Images should be in grayscale mode
+Images should have a minimum resolution of 300 dpi
+Images should be tightly cropped
+If applicable, please re-label your artwork with a font recommended by Elsevier and ensure it is an appropriate font size
+Save your image in TIFF format (or as JPEG, maximum quality)
+RGB images in TIFF/JPEG format
+RGB images are made of three color channels (Red, Green, Blue). An 8-bit per pixel RGB image has 256 possible values for each channel which means it has over 16 million possible color values. RGB images with 8 bits per channel are sometimes called 24-bit images (8 bits x 3 channels = 24 bits of data for each pixel).
+RGB artwork should comply with the following requirements regardless of the software and hardware used in the process.
+Requirements
+Images should be in RGB mode, preferably
+Images should have a minimum resolution of 300 dpi
+Images should be tightly cropped
+If applicable, please re-label your artwork with a font supported by Elsevier and ensure it is an appropriate font size
+Save your image in TIFF format (or as JPEG, maximum quality)
+Combination art — TIFF/JPEG format
+This is an image type that is a combination of both a halftone (gray or/and color) and line art elements: combination artwork.
+The most common occurrences are images where the labeling of the image is outside of the halftone area, or where there is a graph next to the halftone area. The requirements for this particular type of image are that the text is as clear as possible, with unchanged quality of the halftone. The only way to do this is by combining the properties of the two image types, and this normally results in files that are larger.
+Combination (line and halftone) artwork should comply with the following requirements regardless of the software and hardware used in the process.
+Requirements
+The tonal areas of the image should be in RGB mode for color (preferably), or grayscale for black-and-white halftone images
+Resolution 500 dpi
+If applicable, please re-label your artwork with a font supported by Elsevier and ensure it is an appropriate font size
+Save your image in TIFF format (or as JPEG, maximum quality)
+Combination art — EPS format
+When vector based images also contain images, such as photographs, or line art images, this is called combination artwork (hybrid vector images).
+The most common cases are images where the labeling of the image is outside of the halftone area, or where there is a graph next to the halftone area. The text should be as clear as possible, and the halftone has to have a proper resolution (300 (500) dpi for halftones and 1000 dpi for line art). The only way to achieve this is by combining both image types into a hybrid vector image with industry-standard applications like Adobe Illustrator, or in MS Office (Word/PowerPoint).
+It may be difficult to verify the embedded bitmap image's resolution within the hybrid vector image.
+Requirements
+When color is involved, it should be encoded as RGB, preferably
+Always include/embed fonts and use the preferred fonts — Arial (or Helvetica), Courier, Symbol, Times (or Times New Roman) — where possible
+No data should be present outside the actual illustration area
+Line weights range from 0.1 pt to 1.5 pt

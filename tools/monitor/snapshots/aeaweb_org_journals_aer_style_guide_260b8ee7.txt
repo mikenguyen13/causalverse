@@ -1,0 +1,79 @@
+American Economic Review
+ISSN 0002-8282 (Print) | ISSN 1944-7981 (Online)
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Menu
+Editors
+Editorial Policy
+Annual Report of the Editor
+Editorial Process: Discussions with the Editors
+Research Highlights
+Contact Information
+Current Issue
+All Issues
+Forthcoming Articles
+Submission Guidelines
+Accepted Article Guidelines
+Style Guide
+Reviewer Guidelines
+Style Guide
+Title and Byline
+Manuscripts should not include a title page. Title and byline should be placed at the top of the first page.
+Acknowledgment Footnote
+In a note at the bottom of the first page, include the following:
+An email address for each author.
+A sentence describing how the order of authors was determined. Example (wording may vary): The order of authors is alphabetical.
+The institutions and/or grant numbers of any financial support you have received for your research.
+Personal acknowledgment of individuals who have contributed criticism on earlier drafts of your paper.
+Details regarding IRB approval, if applicable, including IRB protocol number and home institution.
+A statement identifying the AEA RCT registration, if applicable, including its identification number and a citation to the study. Example (wording may vary): This randomized controlled trial was registered in the American Economic Association's registry for randomized controlled trials under ID AEARCTR-0007010 (Gaduh, Hanna, and Olken 2021).
+Abstracts
+An abstract is required for all articles, comments, and replies and must not exceed 100 words.
+Section Headings
+Section headings should follow traditional outline format: Roman numerals (I., II., etc.) for major section headings, followed by capital letters (A., B., etc.) for the first subsection, etc. The introductory section should not receive a heading.
+Footnotes
+Notes of reference, explanation, or comments are placed as footnotes (as opposed to endnotes), which appear below the text on the relevant printed page.
+Text Citations and Reference List Entries
+Text citations and reference list entries should follow author-date style (see Chicago Manual of Style). Each text citation should have a corresponding entry in the list of references.
+Data sources and registered studies used in the research must be included in the reference list. See Reference List Entries for Datasets and Registered Studies.
+Text citations with one to four authors should include all author names; for more than four authors, list only the name of the first author followed by "et al." Reference list entries with one to ten authors should include all author names; for eleven or more authors, list the first seven, followed by a comma and "et al."
+LaTeX and Scientific Word users may use the aea.bst file provided in the AEA templates.
+Mathematical Equations
+Equations should appear on separate lines and be numbered consecutively at the left margin, using Arabic numbers in parentheses.
+Use italics for scalar variables, use boldface to specify vectors and matrices, and use script for sets.
+Subscripts and superscripts must be easily distinguished from regular variables and from each other. Use only two levels of sub- and superscripts.
+When equations in the text contain fractions, use a slash "/" or solidus and clearly denote numerator and denominator with parentheses. Display fractions that are too complicated to keep in the text on a separate line.
+Blackboard font should be used to indicate real numbers, integers, and natural numbers only.
+Tables
+Columns must be in vertical (or portrait) orientation.
+Tables must be no more than 9 columns wide including row headings.
+Number your tables consecutively with Arabic numerals.
+Use only horizontal lines and additional blank space to show space distinction.
+Do not use shading.
+Do not abbreviate in column headings.
+To denote sections of a table, use Panel A, Panel B, etc.
+Place a zero in front of the decimal point in all decimal fractions (e.g., 0.357, not .357).
+For footnotes pertaining to specific table entries, footnote keys should be lowercase letters (a, b, c, etc.).
+Do not use asterisks to denote significance of estimation results. Report the standard errors in parentheses.
+Place source note, if any, after other notes related to the table.
+Include full citations of sources in the references.
+Figures
+Figures must be supplied as vector-based graphics in one of the following formats—vector PDF, EPS, AI, WMF, or PPT. If there are variables (italics) or matrices and vectors (boldface) in figures, they should be designated as such.
+Be sure to label your figure files clearly, taking special care to use letters for indicating individual panels (e.g., Figure1a.ppt, Figure1b.ppt, Figure1c.ppt, etc.). It is important that these files correspond to the figures in your accompanying PDF.
+Source notes, if any, should be placed after other notes related to the figure.
+Photographs and Other Images
+Photographs and other images (maps, screenshots, etc.) should be provided at 300 dpi.
+Note: The journal cannot reprint images owned by a third party without the written consent of the copyright holder. This includes screenshots of web pages.
+Appendices
+Designate multiple appendices A, B, C, as necessary. Number equations, theorems, propositions, etc. within the appendix as (A1), (A2), etc.

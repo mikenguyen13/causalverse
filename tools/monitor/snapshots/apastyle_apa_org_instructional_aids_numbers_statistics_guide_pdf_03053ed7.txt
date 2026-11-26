@@ -1,0 +1,75 @@
+7th Edition
+Numbers and Statistics Guide
+Numbers
+see Publication Manual Sections 6.32–6.35 for guidelines on using numerals vs. words
+• Use numerals (1, 2, 3, etc.) for the following: • Use words (zero, one, two, three, etc.) for the
+following:
+° numbers 10 and above; see exceptions in the next
+section ° numbers zero through nine (e.g., five members);
+numbers used in statistics (e.g., 2.45, 3 times see exceptions in the previous section
+°
+as many, 2 x 2 design) ° numbers beginning a sentence, heading, or title
+numbers used with units of measurement (e.g., Sixty participants volunteered for)
+°
+(e.g., 7-mg dose, 3-in. increments) ° common fractions (e.g., one half, one fifth,
+times (e.g.,1 hr 34 min), ages (e.g., 2 years old), and a two-thirds majority)
+°
+dates (e.g., March 6) ° universally accepted phrases (e.g., Twelve
+scores and points on a scale (e.g., score of 6, Apostles, Five Pillars of Islam)
+°
+5-point Likert scale) • Combine numerals and words to express back-to-
+° exact sums of money (e.g., $10 in compensation) back numerical modifiers (e.g., ten 7-point scales, 2
+two-way interactions).
+° numbers used as numerals (e.g., the numeral 4 on
+the chart) • Commas in numbers
+° numbers denoting a place in a numbered series ° Use commas between groups of three digits in
+(e.g., Grade 6, Items 2 and 3, Row 4) most figures of 1,000 or more.
+° parts of books (e.g., Chapter 1) ° Do not use commas in page numbers, binary
+table and figure numbers (e.g., Figure 1, digits, serial numbers, degrees of temperature,
+°
+Table 2) degrees of freedom, and acoustic frequencies
+above 1000.
+• Plurals of numbers
+° Add “s” or “es” (without an apostrophe) to form
+plural numerals or words (e.g., fours, sixes, 1950s,
+Ms, ps).
+° Do not make symbols or measurement
+abbreviations plural (e.g., 3 cm, not 3 cms).
+Decimals Statistics
+see Publication Manual Section 6.36 for guidelines on see Publication Manual Sections 6.40–6.45 for
+decimal places guidelines on reporting statistics
+• Put a zero before the decimal point when • Do not repeat statistics in both the text and a
+a number is less than 1 but the statistic table or figure.
+can exceed 1. • In tables and figures, report exact p values (e.g.,
+• Do not use a zero before a decimal when the p = .015), unless p is < .001 (instead write as
+statistic cannot be greater than 1 (proportion, “<.001”).
+correlation, level of statistical significance). • Put a space before and after a mathematical
+• In general: operator (e.g., minus, plus, greater than, less than).
+For a negative value, put a space only before the
+° Report means and standard deviations for data
+minus sign, not after it (e.g., –8.25).
+measured on integer scales (e.g., surveys and
+questionnaires) to one decimal. • Use the symbol or abbreviation for statistics with
+Report other means and standard deviations a mathematical operator (e.g., M = 7.7).
+°
+and correlations, proportions, and inferential • Use the term, not the symbol, for statistics
+statistics (t, F, chi-square) to two decimals. in the text (e.g., “the means were”).
+° Report exact p values to two or • Use italics for letters used as statistical symbols
+three decimals (e.g., p = .006, p = .03). or algebraic variables (e.g., contained 587 t-test
+° However, report p values less than .001 p values; R2 = .12)
+as “p < .001.” • However, use standard (nonitalic) type for Greek
+• Keep in mind that these are general guidelines letters. See Publication Manual Table 6.5 for
+and that the most important consideration when specific examples.
+deciding the number of decimal places to use in • Do not define symbols or abbreviations that
+reporting results is the following: Round as much represent statistics (e.g., M, SD, F, t, df, p, N, n,
+as possible while considering prospective use OR) and abbreviations or symbols composed of
+and statistical precision. See Publication Manual Greek letters. See Table 6.5.
+Section 6.36 for additional guidelines.
+• Define other abbreviations (e.g., AIC, ANOVA,
+BIC, CFA, CI, NFI, RMSEA, SEM). See Table 6.5.
+American Psychological Association. (2024). APA Style
+Last Updated September 11, 2024 numbers and statistics guide. https://apastyle.apa.org/
+instructional-aids/numbers-statistics-guide.pdf
+More information on APA Style can be found in the Publication Manual of the
+American Psychological Association (7th ed.) and the Concise Guide to APA We thank Traci Giuliano, of Southwestern University, for
+Style (7th ed.). providing the inspiration for this content.

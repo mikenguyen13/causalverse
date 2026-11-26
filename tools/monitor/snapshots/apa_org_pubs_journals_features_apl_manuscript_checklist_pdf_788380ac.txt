@@ -1,0 +1,226 @@
+Manuscript Preparation Instructions
+In an effort to enhance transparency, reproducibility, and replicability, we require authors to use the
+following checklists in preparing submissions to the Journal of Applied Psychology. There are five
+sections below for: (1) primary quantitative studies, (2) meta-analytic research, (3) qualitative and mixed-
+methods studies and (4) studies using machine learning, (5) simulation and computational modeling
+studies. Authors should use these instructions as a guide, as this is not a comprehensive list. It is also the
+authors’ responsibility to check text against tables for consistent and accurate statistical reporting
+(manually or using tools like statcheck.io). Also note that not all checklist items will apply to every
+manuscript. We also encourage authors to consult with the APA Journal Article Reporting Standards
+(JARS; https://apastyle.apa.org/jars).
+Primary Quantitative Studies
+Method
+____ Sampling plan clearly described, including recruitment strategy and power analysis (as
+appropriate), any inclusion/exclusion criteria (including outliers detected and removed or winsorized; e.g.,
+adults working more than 40 hours a week), and number of cases excluded.
+____ For data collected via online, panel-based, or crowd-sourced platforms, provide detailed
+information about the data collection procedures. This includes basic information such as the name of the
+platform and the compensation offered per participant. This also includes the techniques used to prevent
+and detect non-human responses (e.g., bot-generated responses, AI-assisted responses, etc.) as well as
+problematic human responding (e.g., careless responding due to inattention or fatigue; fraudulent
+responding due to misrepresentation of identity, eligibility, or location, etc.). Specify the relevant design-
+level protections (i.e., features built into the survey), implementation-level checks (i.e., procedures used
+during data collection to detect and manage such responses), and post hoc screening/exclusion
+procedures. Report the number and percentage of respondents flagged and excluded at each stage and
+describe any sensitivity analyses conducted to evaluate how inclusion or exclusion of flagged
+responses/respondents affects the substantive results. For each procedure, clarify whether it is
+automatically implemented by the platform, manually implemented by the authors, or a combination of
+both.
+____ Final sample size associated with each analysis included in text and/or tables, along with
+response rate in text. This includes differences between final sample and excluded data, or a change in
+sample size as a result of data matching. Effective sample sizes might be reported as a function of
+missing data analyses (e.g., multiple imputation).
+____ Amount and treatment of missing data reported at the scale and the item levels (e.g., listwise
+deletion, pairwise deletion, multiple imputation, full information maximum likelihood [FIML] estimation).
+____ For experimental research, provide sample size per condition; for within-subjects designs, report
+correlations between conditions. For multi-level/cross-level research, report total sample size at each
+level of analysis, along with descriptive statistics at each level (e.g., means, SDs, and correlations).
+____ Report full and observed scale range, along with scale anchors, and number of items for all
+measures.
+____ For adapted or shortened measures, rationales and specific modifications are described. If using
+measures originally developed in Study A and then adapted in Study B, acknowledge both studies
+appropriately.
+____ For translated scales/measures, translation-back translation described (e.g., number and
+qualifications of translators, item modifications and/or deletions, how disagreements were resolved).
+Note: Simply stating that Brislin (1970, 1984, 1986) recommendations were followed is not sufficient.
+____ Experimental manipulations, research protocols, and materials fully described in the manuscript.
+For measures and research materials, either (1) include sample content (e.g., 2–3 sample items and
+response scale) along with the citation/website/repository where the full content can be obtained or (2)
+provide the full content if you have obtained copyright permission from the original publisher. Proprietary
+measures or materials should be noted as such and require citation but not sample items. Please be
+aware that photographs of individuals may require copyright permission from the original publisher.
+____ For longitudinal designs, time-lagged design, and experience sampling methodology, provide
+rationale for measurement time interval(s) and number of measurement occasions.
+____ For path analysis, factor analysis, and structural equation models, include
+information on the specification of the measurement model (e.g., individual items vs. parcels, linear vs.
+ordinal, identification constraints, any correlated error residuals) and degrees of freedom checked for
+accuracy (see https://gmuiopsych.shinyapps.io/degreesoffreedom/).
+Inclusive Reporting
+____ Report year and location that data were collected and describe efforts to obtain a sample
+representative of the broader population of interest.
+____ Ensure that race and ethnicity are not used interchangeably.
+____ If available, report the percentage of people in each unique racial and/or ethnic group rather than
+reporting “percent non-White”. If data on race/ethnicity was not collected, provide rationale.
+____ Use the group that is central to research question(s) as the reference group (i.e., do not default to
+using White participants as the referent).
+____ Provide an interpretation of race and/or ethnicity within the context/nation/country in which
+research was conducted.
+____ Report sociodemographic information (e.g., age, sex, race/ethnicity, education level, job tenure,
+relevant occupation information, organizational tenure, years of working experience) and research context
+information (e.g., country, industry, occupation, job, work tasks).
+Analyses/Results
+____ Manipulation checks reported for experimental studies, including how failed manipulations were
+handled. Relevant analysis for each manipulation check presented for multiple predictor designs.
+____ If AI or Large Language Model (LLM) was used to generate analytic codes, disclose and include
+the prompts and codes used in appendix or supplemental materials.
+____ Means, standard deviations, correlations, and reliability coefficients (if applicable) reported for all
+measured variables, including sociodemographic characteristics, control variables, and transformed/non-
+linear variables (e.g., interactive and curvilinear terms). When appropriate, skewness and kurtosis for
+relevant variables are reported.
+____ Full results from model testing reported (e.g., if testing 3-way interaction, report its ΔR2 over the
+all possible 2-way interactions and the main effects entered into the model).
+____ If testing moderated mediation/mediated moderation, include all relevant path coefficients
+necessary for estimating the statistical model (e.g., the direct effect of the predictor on the outcome, the
+direct effect of the moderator on the mediator/outcome), as well as indirect and conditional indirect
+effects; if unstandardized regression estimates are reported, also include intercepts/constants and
+standard errors. If applicable, the index of moderated mediation should be reported.
+____ Appropriate effect size estimates included (e.g., r, R2, ΔR2, R, ΔR, Cohen’s f2, Cohen’s d, η2,
+odds ratio). Confidence and/or credibility intervals around effect sizes are preferred.
+____ For each hypothesis testing, when possible, include the observed power for the specific test,
+which can help gauge the replicability of the finding (for z-test or t-test based hypothesis testing, you can
+directly calculate the observed power using a ShinyApp located here:
+https://japplied.shinyapps.io/observedpower/).
+____ Information provided in tables and/or text describing how dichotomous/categorical variables
+(including control variables) were coded. The direction of coding should be clear (e.g., 0 = men, 1 =
+women).
+____ Standard errors, confidence and/or credibility intervals, and/or test statistics (e.g., t-value) with p-
+value reported. Alpha level and/or confidence interval specified. State whether any correction procedure
+is applied when testing a large number of hypotheses.
+____ For mono-level path model analysis, provide rationale for preferring this approach over structural
+equation modeling with latent variable specifications. If possible, report supplemental analysis using
+structural equation modeling to assess the robustness of the findings.
+____ When reporting SEM model statistics, include at minimum: the chi-square test (χ²) with degrees of
+freedom and p-value; fit indices (e.g., CFI); misfit/error indices with confidence intervals (e.g., RMSEA);
+and discrepancy indices (e.g., SRMR).
+____ For multilevel data involving teams or other collective entities, aggregation models (e.g., direct
+consensus, referent-shift, configural), within-group agreement (e.g., rWG(j)), and centering decisions
+(e.g., uncentered, group-mean centering, grand-mean centering, latent centering) are justified and
+reported. If different centering approaches are applied to different variables, specify and explain the
+rationale for each choice.
+____ For multilevel models, model testing procedures and relevant statistics reported (e.g., ICCs,
+variance component estimates).
+____ For plots of moderation on a Likert-scale based continuous variable (e.g., slopes at +/–1 SD, or
+Johnson-Neyman intervals), results reported should use relative (“higher” vs. “lower”) not absolute (“high”
+vs. “low”) language, and raw values should be reported for the levels selected. Plots should be scaled in a
+manner that represents effects appropriately. The levels of the moderator used in simple slope analyses
+should be within the actual range of observed data.
+____ Continuous data (e.g., a moderator variable) should not be converted to binary or categorical data
+without sufficient rationale.
+____ Estimation procedure and methods reported for more advanced analytical approaches (e.g., dfs
+or df correction, bootstrapping approach, Bayesian credibility interval).
+_____ For any Bayesian analysis effect sizes (e.g., credibility intervals, HDI, Bayes factors) or any
+Bayesian estimation of mode statistics (e.g., Bayesian SEM), report each prior distribution used, specify
+and explain the rationale for each choice.
+____ Statistical packages and programs (including version number) used for data analysis cited.
+____ Alternative data analysis (e.g., including a variable that was subsequently dropped through the
+review process or during the original analysis) and robustness tests described in footnote or appendix.
+____ Text checked against tables for consistent and accurate statistical reporting.
+Meta-Analytic Research
+____ PRISMA-type search flowchart included to describe search protocols (http://www.prisma-
+statement.org/). At a minimum, the flowchart should include all keywords and Boolean operators (i.e., full
+search strings), the specific databases and other data sources reported, and the specific number of
+search results by each database/data source.
+____ Information provided about inter-coder agreement/reliability, how the agreement is calculated,
+coder qualifications/calibrations/training (if necessarily, anonymized for review), and methods used to
+resolve inter-coder discrepancies.
+____ If corrections for psychometric artifacts are applied (e.g., unreliability, range restriction), then the
+method used (e.g., individual correction, artifact-distribution, Case II, Case IV, Case V) should be
+reported in text with rationale, as well as artifact distribution statistics (e.g., mean and SD of the relevant
+artifact, how missing reliability estimates were handled) and the order in which corrections were applied.
+____ Justification provided for corrections/no corrections for psychometric artifacts. Bare-bones meta-
+analytical results should be provided along with fully corrected effect sizes.
+____ Information on each primary study, relevant code(s), reliability and moderator information (where
+relevant), sample size(s), and effect size(s) included in appendix or made available online (e.g., Open
+Science Framework, osf.io).
+____ If the Schmidt-Hunter method is used, all relevant results are reported by referring to
+recommended result tables. Tables should include: number of independent samples; total sample size;
+sample size weighted mean observed effect size; sample size weighted standard deviation of observed
+effect size, mean true score effect size true score standard deviation; credibility interval; confidence
+interval around the mean true effect, and percentage of variance attributable to statistical artifacts.
+____ Confidence and/or credibility intervals used when interpreting meta-analytic estimates rather than
+NHST.
+____ For moderator testing, justify choice of method (e.g., subgroup, meta-regression). For the
+subgroup approach, describe the rationale for moderator testing. Provide justification if continuous
+moderators are dichotomized for subgroup analysis.
+____ For meta-regression, report and justify the type of model (e.g., mixed versus fixed effects model)
+and the estimator (e.g., restricted maximum likelihood estimator) used. When the number of studies is
+small, report the pertinent method (e.g., Knapp & Hartung, 2003) to mitigate Type I error. If more than one
+effect size is available for a cell in the constructed meta-analytical correlation matrix, provide justification
+for the chosen effect size.
+____ Publication bias check (including results) reported in text and/or tables or made available online
+(e.g., osf.io).
+Qualitative and Mixed-Methods Research
+____ Qualitative approach (e.g., grounded theory, phenomenological, thematic analysis, consensual
+qualitative research) described.
+____ Data collection procedures (e.g., context of data collection, participant recruitment, interview
+protocol, observational methods, time in field, number of researchers involved in data collection)
+described.
+____ Level or unit of analysis (e.g., individual word, meaningful thought, participant) specified.
+____ If coding taxonomy was used, development of codes and coding procedures is described in
+detail. Total number of coders, number of coders per code, coder training/expertise, and coder agreement
+(e.g., percent agreement or hit rate, Cohen’s or Fleiss’ kappa) reported.
+____ If relevant, statistical packages and programs (including version number) used for data analysis
+are reported.
+____ Clearly describe how raw data were analyzed and/or interpreted. Direct quotations,
+observations or other examples of raw data included.
+____ Consult with the APA JARS Guidelines (https://apastyle.apa.org/jars/qualitative and
+https://apastyle.apa.org/jars/mixed-methods) as appropriate.
+____ For additional information, see Levitt, H. M., Bamberg, M., Creswell, J. W., Frost, D. M.,
+Joseelong, R., & Suarez-Orozco, C. (2018). Journal reporting standards for qualitative primary, qualitative
+meta-analytic, and mixed methods research in psychology: The APA Publications and Communications
+Board task force report. American Psychologist, 73, 26-46. http://dx.doi.org/10.1037/amp0000151
+Machine Learning
+____ Describe and data preprocessing or data transformations (feature engineering) performed, both
+for quantitative data (e.g., converting non-numeric to numeric, encoding categorical data, data
+aggregation) and text data (e.g., stemming, lemmatization, n-grams, tokenization).
+____ Describe the process used to deal with any missing data or outliers and how those outliers were
+identified.
+____ Provide information regarding the distribution of all variables.
+____ In the case of classification data, if class imbalance is present, describe the methods used to
+address this (e.g., over- and undersampling techniques).
+____ Describe the analysis in transparent details (e.g., what is the nature of the algorithm, how was the
+chosen model selected, describe the underlying parameters of the model, explain the cross-validation
+and model-tuning process).
+____ For neural network architecture, describe the various layers (e.g., nature of the embedding layer,
+number of hidden layers, number of nodes per layer).
+____ Describe the process for model tuning: what parameters were tuned, what range of values were
+evaluated, and how those values were selected (e.g., random grid search, what criterion was optimized,
+etc.).
+____ Describe the process for model validation, including both internal and external model validation.
+Transparently report cross-validation techniques (e.g., k-fold cross-validation, nested-cross validation).
+____ When reporting validation metrics, report multiple metrics whenever appropriate
+Whenever possible, report measures of effect size and confidence and/or credibility intervals along with
+parameter estimates.
+____ If using an LLM, detail the model (e.g., name, version number), and prompts used, the process
+for prompt generation (e.g., hyperparameter settings, API vs. web client), and evaluation.
+____ Cite the software, programs, and packages used and provide the code when possible.
+Simulation and Computational Modeling
+____ Specify the primary purpose of the model (e.g., theory building, theory testing, integrating
+literatures, exploring boundary conditions, evaluating interventions, or methodological demonstration).
+____ Conduct and report sensitivity or robustness analyses (e.g., varying key parameters, initial
+conditions, or structural assumptions) and describe how conclusions do or do not change.
+____ Ensure that simulations and models capture and accurately reflect all hypotheses being tested.
+____ Provide a clear description of the model structure and processes (e.g., entities, state variables,
+environment, decision rules, update schedule) in enough detail that an informed reader could
+reimplement the model.
+____ Report and justify the range of parameters being simulated (both fixed and free).
+____ Compare more complex simulations and models against simpler versions, when appropriate.
+Ensure that ‘winning’ models undergo stringent tests that guard against model overfitting.
+____ Rerun simulations and models, when appropriate, reporting the random number generator seed
+values used, to help ensure that global optima were reached (vs. trapped in local minima).
+____ Provide useful information the extends beyond the average effects for each condition (e.g., SDs
+for each condition, d-values between conditions, visualizations of variability across simulation or model
+runs)
+____ Report the implementation platform, software, and versions (e.g., NetLogo, Mesa in Python, R
+with specific packages).
+____ Share all simulation or model code (and data, if they cannot be generated easily on one’s own).

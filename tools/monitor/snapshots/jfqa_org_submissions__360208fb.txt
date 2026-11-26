@@ -1,0 +1,40 @@
+Submissions
+The Journal of Financial and Quantitative Analysis (JFQA) publishes theoretical and empirical research in financial economics. Topics include corporate finance, investments, capital and security markets, and quantitative methods of particular relevance to financial researchers.
+The JFQA gives prompt attention to all submitted manuscripts. Consistent with this policy, honoraria are paid to referees who provide timely reviews. Manuscripts are considered for publication in the JFQA on the understanding that they have not been previously published, in whole or in part, and are not being simultaneously considered for publication elsewhere.
+Suggestions
+For empirical papers, Include detailed summary statistics for all variables used in the analysis, including mean, standard deviation, minimum, maximum, and median. Include detailed variable definitions, typically in an Appendix Table.
+Include detailed summary statistics for all variables used in the analysis, including mean, standard deviation, minimum, maximum, and median.
+Include detailed variable definitions, typically in an Appendix Table.
+For experiments, Researchers should provide reference to IRB review, approval, or exemption or explain why the experiment was not submitted for IRB review. Researchers are encouraged to pre-register experiments (for example at https://aspredicted.org/ ) or to explain why the experiment is not pre-registered. Because the JFQA uses double-anonymized review, reference the pre-registration in the de-identified manuscript via an anonymized link or an anonymized PDF appendix. Researchers are encouraged to use incentivized experiments or to explain why incentives are not used.
+Researchers should provide reference to IRB review, approval, or exemption or explain why the experiment was not submitted for IRB review.
+Researchers are encouraged to pre-register experiments (for example at https://aspredicted.org/ ) or to explain why the experiment is not pre-registered. Because the JFQA uses double-anonymized review, reference the pre-registration in the de-identified manuscript via an anonymized link or an anonymized PDF appendix.
+Researchers are encouraged to use incentivized experiments or to explain why incentives are not used.
+Paper Length
+The JFQA welcomes short and impactful papers, which will be published as regular articles if they are of sufficient quality and interest as determined during the peer review process. Conversely, the JFQA discourages submissions of excessive length. Excessively long submissions are likely to be desk rejected.
+Previously Rejected Papers
+The JFQA does not allow the resubmission of previously rejected papers. In those cases where a previously rejected paper has been improved to the extent that it can reasonably be considered to comprise a substantially new paper, authors may submit the paper provided that their cover letter (i) makes explicit reference to the previously rejected paper and (ii) specifies clearly why the paper under submission should be viewed as a new paper. In this case the assigned editor will determine whether the paper will be sent out for review. In those cases where an author submits a modified version of a previously rejected paper without meeting these requirements the paper will be desk rejected, and the JFQA will not consider further submissions from the corresponding author for a period of one year.
+Submission Requirements
+Acceptable submissions include the following two files (cover letters are not required but can be included if you have important additional information to convey to the editor):
+Title page, including author name(s) and affiliation(s), mailing and e-mail address(es), and, of course, the title. All author identification information, including acknowledgments, should be contained only in this file.
+Manuscript, in text-searchable PDF, which will be sent blind to the reviewer(s), the first page of which should begin with the title, followed by a 1-paragraph abstract of no more than 100 words. Please remove any author-identifying information from this file. Format for the file should be:
+8.5 × 11” paper size
+1” margins
+12-point Times New Roman body text
+Double-space main body and appendices Word: double-spacing or 2.0 LaTeX: \usepackage{setspace}%%ensure a single instance only in the preamble \def\doublespacing{\setstretch{2}}
+Code sharing. Any submission made after January 1, 2024, if accepted, will need to comply with the JFQA’s code sharing policy.
+Authorship. The JFQA cooperates with the Cambridge University Press contributor policies concerning author inclusion and AI contributions to research content. Submissions to the JFQA are expected to comply with Cambridge Core guidelines regarding all protocols of authorship and contributorship.
+Note that authors’ listed affiliations should reflect the institutions at which the majority of the research has been completed.
+Funding information. Provide information citing funding or support given to this paper.
+Be aware that reviewer instructions include the following, “By accepting this invitation to review, you agree to uphold the confidentiality of the review process, including in any use of artificial intelligence (AI). It is your responsibility to ensure, before using any AI system, that the system is covered by a data processing agreement (DPA) or equivalent contractual terms that provide appropriate confidentiality, security, and data-protection safeguards and prohibit the use of submitted materials to train or improve the provider’s models. You also agree that you remain fully responsible and accountable for the content of your review and your recommendation.”
+Prepayment for manuscript submission is required (unless it has been explicitly waived). The submission fee is $350 (payable only via credit card). A refund of $275 will be issued if the Managing Editor elects not to send your paper to a reviewer. The submission fee covers editorial labor and reviewer honoraria and is entirely separate from open access article processing charges. Submission fees are not covered by institutional read and publish deals.
+When submitting manuscripts, please be prepared to provide i) cardholder name, ii) date of payment, and iii) Transaction ID number and to upload the files that meet the criteria below soon after making payment. We prefer that manuscripts be submitted within 4 hours of submitting payment so that we can more easily match the payment with the submission.
+If your payment is declined, do not start from scratch. In less than 5 minutes, an email with a link to try to pay again will be emailed to you.
+If you encounter a problem or have questions,contact [email protected].
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Appeals Process
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+Editors’ Joint Policy Statement Regarding “Coercive Citations”
+Journal of FinanceJournal of Financial and Quantitative AnalysisJournal of Financial EconomicsReview of Asset Pricing StudiesReview of Corporate Finance StudiesReview of Financial Studies
+An article published in the journal Science¹ presents evidence that some editors across different business disciplines have engaged in coercive practices with regard to citations. The authors define coercive citations as requests that give no indication the manuscript is lacking in attribution but instead simply guide authors to add citations to the editor’s journal. They suggest that such practices are motivated by intent to increase measured journal impact factors.
+The editors of JF, JFQA, JFE, RAPS, RCFS, and RFS hereby affirm that it has been, and will continue to be, our policy to avoid coercive citation practices. While we retain professional discretion to suggest that authors cite particular papers, we will do so only when scientifically appropriate, and without regard to the journal where the cited paper is published.
+¹Allen W. Wilhite and Eric A. Fong, “Coercive Citation in Academic Publishing,” Science, Vol. 335, February 3, 2012, pages 542–543. doi:10.1126/science.1212540

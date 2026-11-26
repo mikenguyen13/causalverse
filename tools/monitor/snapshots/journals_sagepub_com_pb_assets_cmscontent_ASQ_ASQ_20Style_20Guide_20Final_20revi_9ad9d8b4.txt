@@ -1,0 +1,701 @@
+Administrative Science Quarterly
+Style Guide
+I. Introduction
+ASQ follows editing and style conventions to help create a consistent presentation among
+articles. But style conventions are about much more than consistent practice because they
+also reflect an organization’s mission and values. When an organization clarifies the type of
+English used in their publications, for example, this ensures that readers and contributors
+around the world know what to expect. Such clarification can foster inclusion and respect for
+the many different types of English spoken globally. Likewise, making conscious choices to
+avoid gender and racial bias in language use can represent another type of effort to be
+inclusive.
+Even seemingly ordinary choices, like whether to allow first-person pronouns in academic
+articles or whether to use the terminal serial comma, can imply values and priorities—
+allowing the first person can avoid excessive formality and indicate acceptance of the
+author’s subjectivity, while use of the terminal serial comma could signal that clarity is a high
+priority. With this in mind, ASQ offers this style guide to help everyone in the ASQ community
+understand the links between the journal’s style decisions and its larger mission and values.
+The guide also seeks to help anyone interested to learn or refresh their knowledge of some of
+the basics of the two key elements of style, diction and syntax, as well as mechanics.
+In general, ASQ follows the guidelines of the Chicago Manual of Style, but some of our
+conventions have emerged based on our understanding of how best to reach our audience
+and on needs specific to our publication format. For instance, we have specific requirements
+for figures to ensure readability in printed form. In other cases we deliberately follow different
+ideas and organizations that seem best aligned with our values and priorities; for example,
+ASQ follows many of the American Psychological Association’s (APA) thoughtful principles
+for avoiding language bias related to race and ethnicity.
+We detail these and many other style decisions below. If you have questions, concerns, or
+ideas about any of these conventions, please feel free to contact Ashleigh Imus (asq-
+journal@cornell.edu) to discuss. Because language conventions regularly evolve, we
+consider this guide as a work in progress and welcome engagement, suggestions, and
+feedback.
+II. ASQ Mission and Style
+ASQ publishes interdisciplinary scholarship in organization theory. The journal’s articles
+reflect numerous disciplines, including organizational behavior and theory, sociology,
+psychology and social psychology, strategic management, economics, and industrial
+relations. ASQ publishes qualitative, quantitative, and mixed-methods research. Theoretical
+perspectives and topics range from micro to macro, from lab experiments in psychology to
+work on nation-states. Moreover, the journal publishes the best theoretical and empirical
+articles based on dissertations and on the work of more-established scholars. ASQ thus
+reflects great breadth and diversity to speak to a broad audience.
+1
+ASQ’s mission implies the need for precision, clarity, and economy as principles of language
+use in published articles. While these principles are important for any good writing in any
+genre, they are critical to scholarly writing intended for a wide, diverse audience.
+Style: Diction and Syntax
+Diction
+Diction is the choice of words, one of the two primary elements of style. ASQ’s
+interdisciplinary nature calls for a style reflecting some aspects of the relatively formal register
+of traditional academic writing but also the clarity and simplicity needed to reach a broad
+readership. The subsections below discuss how authors can use diction to work toward these
+qualities and objectives in ASQ publications.
+Register
+3
+Register in writing refers to the variety (e.g., technical) and level (formality) of language used.
+Writers use diction to create the correct register for their audience and genre. In academic
+articles, the register is usually slightly more formal than in other genres, such as newspapers,
+magazines, and blogs. That said, the level of formality even among ASQ articles can vary.
+Consider the different levels of formality in the sentences below:
+More formal: “Firms increasingly offer employees the opportunity to participate in firm-
+sponsored social impact initiatives expected to benefit the firm and employees.” (first line of
+abstract from C. Bode, M. Rogan, and J. Singh. 2022. “Up to no good? Gender, social impact
+work, and employee promotions.” ASQ, 67).
+Here is a less formal version of the same sentence: “More than ever, firms give workers
+the chance to take part in firm-sponsored social impact programs expected to help the firm
+and employees.” The words in bold are less formal than the corresponding choices in the
+sentence above, but both sentences are acceptable examples of academic style. To some
+degree, then, a writer’s voice and preferences will determine the level of formality in writing.
+Another aspect of register is variety, which can include technical language, or jargon. ASQ
+articles may include technical language when appropriate to the discipline. For example, the
+following example from a paper on social networks includes a technical term (in bold) specific
+to the discipline:
+“Cohesive ego networks promote trust and efficiency, allowing focal actors to better mobilize
+resources, compared to social structures rich in structural holes.” (from A. Iorio. 2022.
+“Brokers in disguise: The joint effect of actual brokerage and socially perceived brokerage on
+network advantage.” ASQ 67).
+The use of some technical language is acceptable when necessary to communicate field-
+specific concepts like the one noted above, but writers should take care to distinguish
+necessary jargon from unnecessary new phrases and compressed language that confuse
+readers more than they clarify concepts. Creating new technical terms often does not work
+2
+because such terms tend to separate authors and readers too much. If there is an
+established way to communicate a concept, try to use that term rather than inventing a new
+one, if possible. Avoiding jargon is especially important for ASQ because it is an
+interdisciplinary journal and therefore needs to reflect language that people from many fields
+can understand. Obtaining feedback from friendly readers can help authors to identify and
+eliminate excessive jargon.
+Economy
+Avoiding unnecessary words is especially important in academic articles, which often include
+complex ideas that may require technical language or special terms. Wordiness can make
+conceptually challenging scholarship unnecessarily difficult or hard to process. Think about
+how to state your ideas in the simplest terms possible, and avoid these and other common
+wordy phrases:
+Wordy Succinct
+“for the purpose of addressing” “to address”
+“a number of” “several,” “numerous”
+“a variety of” “various”
+“have the capability” “can”
+Ordinary and Special Terms
+Some of ASQ’s practices regarding common and special terms include the following:
+Treat “data” as a plural noun in all cases.
+“Dataset” can be written as one word.
+Refer to “papers” as “articles,” “studies,” or “research” when they appear in published form.
+Use “where” only when referencing a geographic location (e.g., change “We examine studies
+where x and y were variables” to “We examine studies in which x and y were variables”).
+Rather than “mean reversion,” write “reversion to the mean.”
+Rather than “Regression 1,” write “Model 1.”
+Pronouns
+Like many current publications, ASQ seeks to avoid gender bias in language use. We
+therefore respect the use of people’s preferred gendered pronouns, including “she,” “he,” and
+“they” for individuals.
+3
+To avoid gender bias in the use of nonspecific singular pronouns, we also allow and
+recommend the use of the nongendered singular “they,” which has long been part of common
+English usage.
+Example: “When a new scholar joins the organization, they often bring a fresh perspective.”
+For those who wish to maintain agreement in noun‒pronoun number, sentences can often be
+revised to make the terms plural:
+Example: “When new scholars join the organization, they often bring a fresh perspective.”
+Race and Ethnicity
+Conventions in language representing racial and ethnic groups change as cultures change
+and societies reconsider how best to avoid biased usage. ASQ currently follows the American
+Psychological Association’s (APA) recommended principles to ensure that publications in the
+journal reflect language that is respectful and free of bias toward racial and ethnic groups. We
+highlight some of those principles below. Comprehensive details of the APA’s principles can
+be found here.
+Capitalization and Hyphenation: Capitalize “Black” and “White” when used as racial terms.
+Also capitalize terms such as “Native American,” “Hispanic,” “Indigenous,” and “Aboriginal.”
+We do not hyphenate multiword names, e.g., “Asian American participants.”
+Use of Person
+ASQ allows the use of the first person (“I” or “we”) in published articles. We do so to
+encourage a sense that authors are participating in a long-term scholarly conversation; they
+are responding to past researchers whose work inspired them, and they’re trying to inspire
+future research building on their own.
+For authors who want to use the first person, be sure to use the first person singular or plural
+consistently throughout, depending on whether your article has one or more than one author.
+In some cases, you may wish to vary the use of person to fit particular circumstances, such
+as when a research assistant or others helped with data collection and coding, but you, the
+sole author, interpreted results.
+Use of Quotations
+Please do not include epigraphs in articles, as ASQ doesn’t print them.
+Avoid using long quotations from the literature. A long academic quote takes the reader’s
+attention away from the development of your main idea, and scholarly quotes often introduce
+jargon. In quantitative papers, if you can improve the readability by paraphrasing the material,
+do so.
+4
+Quotes that are part of your data set are a different story. In qualitative or mixed-methods
+papers, quotes often serve an important purpose by letting you show your data rather than
+simply telling your reader about it. Select such quotes carefully so you’re using those that
+propel your story most effectively while being as concise as possible. You may have quotes
+in your data that are interesting but not tightly tied to your arguments; avoid the temptation to
+use them, and instead select quotes that help you best show the reader how your ideas and
+findings developed.
+Introduce all quotations in text so the reader knows who is speaking and under what
+circumstances; this allows readers to interpret the quote. If you want the reader to draw
+conclusions that aren’t obvious from a quote, make them clear.
+Syntax (Sentence Structure)
+Syntax refers to the structure and arrangement of words in sentences, including elements
+such as word order, subject‒verb agreement, and sentence length. It may be useful to think
+of syntax as the traffic rules of language. The categories below can help authors and editors
+to understand and follow those rules.
+Sentence Length
+Sentences in academic writing are sometimes long, in part because scholars are often
+communicating complex, nuanced ideas. Yet, the longer the sentence, the more difficult it
+can be for readers to process the ideas, and the higher the risk of grammatical ambiguity or
+error or of simply introducing too many ideas at once. Try to keep sentences to four lines or
+fewer.
+Verb Tenses
+Standard English has 12 verb tenses, and both speakers and writers tend to shift frequently
+between past and present tenses depending on the intended meaning. For this reason, the
+use of verb tenses in English can be complex. ASQ tries to simplify this as much as possible.
+When writing articles for publication in ASQ, use the past tense to describe methods and
+other authors’ contributions (exceptions are acceptable as long as the paper shows internal
+consistency). Use the present tense to describe your own findings.
+Examples: “For this study, we interviewed 35 CEOs…”
+“Sine and David (2010) found…” or “Previous studies have shown…”
+“In this study, we find…”
+Parenthetical Clauses
+Parenthetical clauses can be set off by parentheses, commas, or em dashes (see Mechanics
+section below for definition). Scholarly writing has numerous parenthetical elements in the
+form of research citations, which are essential to document the claims of an argument. Other
+types of parenthetical clauses and statements are usually not essential information and
+should be used sparingly because they interrupt the flow of sentences. Too many
+parentheticals can make the writing choppy and difficult to process.
+5
+Restrictive and Nonrestrictive Clauses
+Unlike some other forms of English, American English distinguishes between restrictive and
+nonrestrictive clauses by introducing the former with “that” and the latter with “which.” A
+restrictive clause gives essential information about the noun or phrase to which it refers,
+whereas a nonrestrictive clause provides information that is not essential to (i.e., does not
+restrict) the meaning of its noun referent. When writing articles for submission to ASQ, try to
+observe the correct distinction between “that” and “which” and use each according to your
+intended meaning.
+Examples
+Nonrestrictive clause: “This change, which was largely confined to white-collar occupations,
+has leveled off.”
+Here, “which” introduces a nonrestrictive clause because the fact that the change was
+confined largely to white-collar occupations does not restrict the sentence’s primary meaning,
+i.e., that the change has leveled off.
+Restrictive clause: “The changes that were largely confined to white-collar occupations
+leveled off, but the changes in other occupations increased.”
+Here, “that” introduces a restrictive clause because “largely confined to white-collar
+occupations” tells readers the types of changes that leveled off; it wasn’t all changes but only
+those that were largely confined to white-collar occupations.
+Voice
+Voice in English refers to the relationship between the action of the verb and the subject and
+object of the sentence. When used in this way, voice is a grammatical term, different from the
+common usage of “voice” to refer to a writer’s style, i.e., “the writer’s voice.”
+In the active voice, the subject of the sentence performs the action; in the passive voice, the
+subject of the sentence receives the action of the verb.
+Examples
+Passive voice: “The data were transcribed and coded in 2020.”
+Active voice: “We transcribed and coded the data in 2020.”
+Use the active voice whenever possible, and reserve the passive voice for necessary cases,
+such as when you don’t know the agent of the verb or when describing a complex process
+that may involve multiple agents. The sentence in the active voice above clearly
+communicates who transcribed and coded the data, whereas the passive-voice example
+leaves this information unclear, which could lead readers to guess or make assumptions.
+For more on voice, see Section V, Common Grammatical and Stylistic Errors to Avoid.
+Word Order
+6
+Word order in English is relatively fixed, unlike other languages that are highly inflected. If
+English is not your first language, keep in mind that English lacks the flexibility in word order
+of some other languages. A good practice is to try to write relatively short sentences (four
+lines or fewer) in which readers can easily identify the subject of each verb, including present
+participles (verb forms that end in -ing, e.g., “indicating”).
+Consider the following construction:
+“Building on recent insights into evaluation differences among audiences (Durand and
+Paolella, 2013; Goldberg, Hannan, and Kovács, 2016; Zuckerman, 2017), I argue that
+audiences’ knowledge and value differences can explain the varying constraints on
+producers’ boundary-spanning efforts.”
+(from Shi, 2022. “A change of tune: The democratization of market mediation
+and crossover production in the U.S. commercial music industry,” ASQ).
+The writer has made clear that “I” is the subject of the present participle “building.” But a
+common error of this type of construction might look like this:
+“Building on recent insights into evaluation differences among audiences, their knowledge
+and value differences can explain the varying constraints on producers’ boundary-spanning
+efforts, I argue.”
+In this case, according to the grammar of the sentence, “building” modifies “their,” but that’s
+not what the writer means to say, so the subject of the verb “building” is incorrect. This
+creates a common error known as a misplaced modifier (i.e., “building” is misplaced because
+it incorrectly modifies “their,” whereas it should modify “I”).
+III. Mechanics
+Abbreviations
+ASQ allows standard abbreviations, which should be written as follows:
+i.e., xxxx
+e.g., xxxx
+cf. xxxx (no comma)
+N = number of observations
+S.D. (for standard deviation)
+d.f. (for degrees of freedom)
+Note that “mean” should be written out, not abbreviated as M or capitalized as Mean.
+Try to limit acronyms, a type of abbreviation, to those commonly understood, because
+excessive use of acronyms can alienate readers and create the effect of excessive jargon.
+Spell out acronyms on first use and on subsequent uses if they appear quite a distance from
+their initial appearance. When spelling out abbreviations on first use, capitalize only those
+terms that should be capitalized as part of their name, e.g., Harvard University Press (HUP),
+but chief executive officers (CEOs).
+7
+Capitalization
+Capitalize terms such as “figure,” “table,” “model,” and “hypothesis” when they are specified,
+e.g., Model 1; Hypothesis 1, but not when used in nonspecific terms, e.g., “the figure shows,”
+or “the hypothesis predicts.”
+Do not capitalize words simply for emphasis.
+Capitalize initial letters of key words in level-one and level-two headings, e.g., Growing
+Normative Pressure.
+Capitalize only the initial letter of the first word in level-three headings, e.g., Growing
+normative pressure.
+Capitalize formal titles when they immediately precede a name, such as Chief Executive
+Officer April Smith. Use lowercase for formal titles when used alone, e.g., the chief executive
+officers of technology companies.
+Capitalize the full names of administrative bodies, e.g., Charles Schwab Board of Directors,
+but use lowercase for general names, e.g., the board of directors.
+Contractions
+ASQ articles generally do not use contractions (e.g., “cannot” rather than “can’t”), which is
+consistent with the prose style used in many other academic publications. Contractions are
+retained, however, in reported data and quotations. The journal also allows occasional
+contractions in book reviews because their style is slightly less formal than that of articles.
+Font and Point Size
+Use Times New Roman 12-point font for all text. For tables and figures, use at least 8-point
+font.
+Footnotes
+ASQ uses footnotes rather than end notes. Place all footnotes at the end of a sentence after
+the period.
+Foreign Words
+If the word is used frequently in the field, e.g., tertius iungens, a priori, we don’t need to offset with
+italics. If the word or phrase is not widely known in the field, we might use a special presentation,
+either italics or quotation marks. We decide this on a case-by-case basis.
+Hypotheses Statements
+Bold the hypothesis number, insert an abbreviated number in parenthesis, and follow it with a
+colon:
+8
+Hypothesis 2 (H2): The tighter the culture…
+Italics
+Avoid the use of italics for general emphasis.
+Italicize the names of variables.
+Use italics to introduce new words (quotation marks are also acceptable if authors prefer
+this). Use quotation marks to refer to other authors’ terms.
+Numbers
+Spell out numbers under 11, and use numerals for 11 and above. ASQ allows exceptions
+within sections for the sake of consistency, e.g., “We interviewed 25 participants 3 separate
+times for 30 minutes in each interview.”
+Centuries should be spelled out, e.g., “twenty-first century.”
+Use figures for all expressions of percent, e.g., 3 percent.
+Use figures for millions and billions, e.g., 3 million
+Spell out “percent” in text. The % sign can be used in figures and tables.
+Punctuation
+Punctuation often seems fairly simple: writers universally understand the need to place a
+period at the end of a sentence. But certain types of punctuation, especially commas, can be
+complex and reflect wide differences in usage. In editorial terms, the purpose of punctuation
+is to clarify syntax, and this purpose guides editors’ thinking about how to use units of
+punctuation. The categories below can help authors and editors understand and practice
+these conventions.
+use of data.”
+For plural proper nouns ending in s (for example, a family surname used to refer to all
+Colon. A colon often signifies “namely” in a sentence. In general, whatever precedes a colon
+should be a complete sentence, and whatever follows the colon should be only the items, list,
+sentence, or quotation. To introduce a list or a quotation, use either a complete sentence or a
+9
+short phrase. If the introductory text is not a complete sentence, use either a comma (see
+section on commas below) or no punctuation.
+Correct: “These are the most important data: interviews and field notes based on
+observations.”
+Correct: “The most important data are interviews and field notes based on observations.”
+Correct: “Participant X observed, ‘we think the small-group meetings help us stay organized.’”
+Incorrect: “The most important data are: interviews and field notes based on observations.”
+Incorrect: “Participant X observed: ‘we think the small-group meetings help us stay
+organized.’”
+Use a comma or no punctuation after incomplete sentences introducing hypotheses.
+Comma. Comma usage is sometimes a matter of style. For example, ASQ uses a comma
+after certain introductory words such as “Thus” or “Therefore.” This is simply the journal’s
+style preference.
+But editors’ decisions about commas often have to do with ensuring clear syntax. Some of
+these syntax rules can be complex and nuanced. The following comma usage rules pertain to
+syntax and are thus in a different category:
+Use the terminal serial comma (also called the Oxford comma) to separate items in a series
+in all cases, e.g., “Our data sources include interviews, observations, and documents from
+company meetings.”
+Use a comma to separate two independent clauses: “Participants answered most of the
+survey questions, and we eliminated from consideration participants who did not answer at
+least half of the questions.”
+Do not use commas simply to indicate a pause. For example, avoid inserting commas in
+compound predicates:
+Correct: “We considered the data complete and therefore concluded the collection process.”
+Incorrect: “We considered the data complete, and therefore concluded the collection
+process.”
+That said, do use a comma in a compound predicate when the subject of a clause would
+otherwise be unclear.
+Correct: “We appreciated that the participants were thorough, and completed the review
+process.”
+In this case, the comma after “thorough” functions as a separator of syntactic units because it
+indicates that “we” rather than “participants” is the subject of “completed.”
+Incorrect: “We appreciated that the participants were thorough and completed the review
+process.” Without the comma, it’s unclear whether “we” or “participants” is the subject of
+“completed.”
+10
+Commas are also essential for distinguishing restrictive from nonrestrictive clauses (see the
+subsection Syntax above in Section II for definitions of restrictive and nonrestrictive clauses).
+Nonrestrictive clause: “This change, which was largely confined to white-collar occupations,
+has leveled off.” Here, “which” introduces a nonrestrictive clause because the fact that the
+change was confined largely to white-collar occupations does not restrict the sentence’s
+primary meaning, i.e., that the change has leveled off. The commas preceding “which” and
+following “occupations” separate the clause to indicate the nonrestrictive status of the
+information.
+Restrictive clause: “The changes that were largely confined to white-collar occupations
+leveled off, but the changes in other occupations increased.” Here, “that” introduces a
+restrictive clause because “largely confined to white-collar occupations” tells readers the
+types of changes that leveled off; it wasn’t all changes but only those that were largely
+confined to white-collar occupations. The lack of commas keeps the clause tightly connected
+to the main subject (“the changes”) and thereby signals the clause’s restrictive nature.
+Clauses starting with “i.e.” and “e.g.” should be offset by commas. Don’t use a comma after
+“cf.”
+Dash. There are two types of dashes: the en dash (‒) and the em dash (—). The en dash is
+most often used to indicate numerical ranges, e.g., “The data collection spans 2010‒2014.”
+Also use the en dash for compound modifiers in which both terms have equal weight, e.g.,
+the “liberalism‒conservatism spectrum.”
+The em dash is longer than the en dash and is most often used to highlight parenthetical
+statements: “The company has often—but not always—successfully navigated these
+changes of management.”
+You can use em dashes to set off a series that contains internal commas: “The company laid
+out the principles—transparency, purpose, and teamwork—that are essential for these
+changes.”
+While em dashes are sometimes used in place of commas, take care not to overuse these
+dashes. Unlike commas, they often indicate an abrupt shift in thought. Excessive use can
+make the writing seem choppy and can result in sentences that are too long.
+Ellipsis. An ellipsis indicates the deletion of one or more words in quotations. An ellipsis can
+also indicate an incomplete thought.
+In Chicago style, an ellipsis is three spaced periods: . . .
+Avoid the common error of using an ellipsis to indicate a pause.
+Hyphen. A hyphen joins two words, particularly compound terms that precede a noun, e.g.,
+“well-documented study.”
+11
+Use a hyphen to avoid ambiguity, e.g., “The new policy applies to small-business owners.”
+Here, the hyphen clarifies that “small” modifies “business” rather than “owners.”
+Use a hyphen for other potentially ambiguous words, e.g., to distinguish “re-creation” from
+“recreation,” “co-op” from “coop,” and so forth. Don’t use a hyphen for unambiguous words
+with double vowels, such as “reexamine.”
+Also use a hyphen to clarify phrases such as “much-needed regulation” (as opposed to
+“much” in the sense of “abundant” needed regulation) and “more-complex laws” (as opposed
+to “more” in the sense of “a greater number of” complex laws).
+A hyphen is not necessary for unambiguous compound terms such as “data collection efforts”
+and so forth.
+As noted above, use a hyphen for certain compound modifiers when they precede a noun,
+e.g., “well-documented study,” but when the modifiers follow the noun, no hyphen is
+necessary, e.g., “the study is well documented.”
+Do not use hyphens for modifiers that are adverbs ending in -ly.
+Correct: “These are the most frequently cited laws.”
+Incorrect: “These are the most frequently-cited laws.”
+Period. In American English, periods (and commas) go inside quotation marks, e.g., “We
+completed data collection after six months.”
+Insert only one space after periods.
+Quotation marks. Per American English, use double quotation marks for quotations: The
+company representative reported, “The policy has worked better than we thought.”
+Use single quotation marks for quotes within quotes: In the report, the company CEO wrote,
+“Our leaders say that the new policy is ‘the best way to gain trust.’”
+Use quotation marks only to indicate quoted material and to introduce new terms. Use
+quotation marks when the quoted material runs in line with your text. For quotations of four
+lines or more, set quotations off from the text and do not use quotation marks.
+Don’t use quotation marks to emphasize words or phrases or to indicate distance, irony, or
+any other meaning. This tends to confuse readers because the author’s intended meaning is
+often unclear. Is the phrase actual quoted material, meant to be scare quotes or convey
+some other type of irony, another author’s informal definition, or something else? There is
+often no clear way for readers to know. See Section V of this guide for more information.
+Semicolon. A semicolon is used to indicate a closer connection between two independent
+clauses, compared to the greater separation indicated by a period, e.g., “The company does
+not define the policy; managers must define it and inform their teams.”
+12
+Use a semicolon to separate elements in a list when the elements contain internal commas:
+“These principles include lawfulness, fairness, and transparency; integrity and confidentiality;
+and accountability.”
+A semicolon can also be used to separate long items in a series: “The policy applies to all
+regular full-time employees in the designated territories who have been with the company for
+at least three years; part-time employees in the designated territories who have been with the
+company for at least five years; and all managers in all territories regardless of their tenure
+with the company.”
+Place colons and semicolons outside quotation marks.
+Spelling
+ASQ observes spelling conventions for U.S. English as outlined in Merriam Webster’s
+dictionary: https://www.merriam-webster.com/.
+In quoted material and reported data, maintain original spelling that reflects British or other
+types of English, e.g., “labour,” “behaviour,” etc.
+Time, Dates, and Time Periods
+For time of day, use numerals in all cases, e.g., 1:00 a.m. or 1 a.m.
+Write dates as January 20, 2022.
+Spell out centuries, e.g., twentieth century, not 20th century.
+ASQ uses B.C.E. and C.E. to denote centuries, when necessary.
+Type of English
+ASQ uses U.S. English for all text but maintains other types of English, if they exist, in
+quotations and data. Distinguishing features of this English (compared to British English or
+other varieties around the globe) include American spelling and the use of the restrictive
+“that” and nonrestrictive “which.” For more information, see the sections above on spelling,
+commas, and restrictive/nonrestrictive clauses.
+Word Breaks (for proofreading)
+Word breaks at the ends of lines: Follow Webster’s for word breaks at the end of lines.
+Exceptions: avoid anal-yze.
+Headings
+Use initial capitalization and bold for key words in level-one and level-two headings. For a
+level-three heading, capitalize only the first word and end it with a period. In layout, level-one
+headings (identified by our template formatting) will appear in all caps.
+13
+Level-one headings should be in all caps in the page proofs, but in the Word doc, they are
+not in all caps. ASQ editors apply Word styles to them indicating which level heading they
+are, and then Sage applies those styles when they lay out the pages.
+Tables
+For table and figure titles, initial capitalize key words in titles (not short prepositions or
+conjunctions), and bold the whole title. Place a period after the table/figure number, and do
+not use an ending period in the title:
+Table 3. Descriptive Statistics and Correlations
+Figure 2. Interaction Effects for Stage-1 Estimation
+Use superscript bullets rather than asterisks. Note that the bullets may be difficult to see
+onscreen unless the document is enlarged.
+The standard format to indicate significance levels is as follows:
++p < .10; •p < .05; ••p < .01; •••p < .001; two-tailed tests.
+If N is the same for all models, indicate N in a note to the table instead of in a table row.
+For numbered variables, put each number and variable name in the same column with a
+space between them (instead of having a separate column for the numbers).
+Figures
+Whenever possible, create all figures in black and white, as color does not show up in the
+printed version of articles (color does show up online). If possible, use shapes or other
+indicators rather than color to indicate differences.
+Be sure to make all text in figures large enough (at least 8-point font) so that it is legible to
+readers.
+IV. Citations and References
+This section details ASQ’s conventions for in-text citations and the reference list, which are
+different from the most popular styles (Chicago, Associated Press, and American
+Psychological Association). We do ask that authors submitting to the journal format both in-
+text citations and the reference list according to the following conventions. Additional details
+regarding submission guidelines can be found in our Invitation to Contributors.
+In-text citations. Try to keep in-text citation lists to no more than three or four references
+cited, especially when used to support broad statements. Instead, use “e.g.,” and a
+representative sample, or air out the list by noting each reference’s specific context or
+connection to the subject.
+List multiple references chronologically in parentheses, separated by semicolons.
+14
+For two or three authors, give all the authors’ last names in text each time the work is cited
+(e.g., Haidt, Koller, and Dias, 1993); if there are four or more authors, give only the first author’s
+name followed by “et al.” and the date for each citation (e.g., Sasovova et al., 2010).
+Page numbers, to indicate a passage in a book or to give the source of a quotation, follow the
+year and are preceded by a colon. (e.g., Sasovova et al., 2010: 38).
+If there is more than one reference to the same author in the same year, postscript the date
+with a, b, c, etc. (e.g., Chan, 2009a, 2009b).
+Reference list. Follow the conventions for each type of publication listed below.
+REFERENCES
+Book
+Aho, J.
+2005 Confession and Bookkeeping: The Religious, Moral, and Rhetorical Roots of
+Accounting. State University of New York Press.
+Anteby, M.
+2013 Manufacturing Morals: The Values of Silence in Business School Education. University
+of Chicago Press.
+Journal article
+Sasovova, Z., A. Mehra, S. P. Borgatti, and M. C. Schippers
+2010 “Network churn: The effects of self-monitoring personality on brokerage dynamics.”
+Administrative Science Quarterly, 55: 639–670.
+Chapter or essay in an edited volume
+Baum, J. A. C., and H. R. Greve
+2001 “Introduction.” In J. A. C. Baum and H. R. Greve (eds.), Advance in Strategic
+Management, vol. 18: Multiunit Organization Strategy: 1–28. Elsevier.
+Hambrick, D. C.
+2005 “Upper echelons theory: Origins, twists, and turns, and lessons learned.” In M. A. Hitt
+and K. G. Smith (eds.), Great Minds in Management: 109–128. Oxford University Press.
+Harvard Business Review
+Martin, J., and C. Schmidt
+2010 “How to keep your top talent.” Harvard Business Review, 88 (May): 54–61.
+Multiple sources by the same author in the same year
+Chan, C. S.-c.
+2009a “Creating a market in the presence of cultural resistance: The case of life insurance in
+China.” Theory and Society, 38: 271–305.
+Chan, C. S.-c.
+15
+2009b “Invigorating the content in social embeddedness: An ethnography of life insurance
+transactions in China.” American Journal of Sociology, 115: 712–754.
+Multiple sources by the same first author but different second authors
+These are listed not chronologically but alphabetically by the second author’s last name: For
+example,
+Ambos, B., K. Asakawa
+2011
+Ambos, B., B. B. Schlegelmilch
+2007
+Sources with many authors (more than ten): List the first seven followed by “et al.”
+Seedat, S., K. M. Scott, M. C. Angermeyer, P. Berglund, E. J. Bromet, T. S. Brugha, K.
+Demyttenaere et al.
+2009 “Cross-national associations between gender and mental disorders in the World
+Health Organization World Mental Health Surveys.” Archives of General Psychiatry, 66: 785–
+795.
+Presentations, reports, and working papers
+Davis, G. F.
+1993 “Who gets ahead in the market for corporate directors?” Paper presented at the
+Academy of Management Meeting, Atlanta, GA.
+Cicchetti, D. V.
+2003 “The peer review of scientific documents: Suggestions for improvements.”
+Presentation to the Committee on Research in Education, National Research Council, Feb.
+26.
+Franco, F., O. Urcan, and F. P. Vasvari
+2010 “The value of diversification.” Working paper, London Business School.
+Sum, A., I. Khatiwada, and J. McLaughlin
+2009 “The growing problems of mal-employment in the U.S. and Massachusetts.” Report
+prepared for the Commonwealth Corporation, Boston.
+Editions and translations
+Barthes, R.
+1971 Sade, Fourier, Loyola. Editions de Seuil. (English trans. by Farrar, Strauss, and
+Giroux. John Hopkins University Press, 1976.)
+Glaser, B.
+1992 Basics of Grounded Theory Analysis, 2nd ed. Sociology Press.
+Glaser, B.
+1992 Basics of Grounded Theory Analysis. G. Miller, trans. Sociology Press.
+16
+Online reports or working papers
+Kenny, D. A.
+1998 “Multiple factor models.” http://davidakenny.net/cm/mfactor.htm.
+Journal article published online only or awaiting issue assignment
+Bettis, R. A., S. Ethiraj, A. Gambardella, C. Helfat, and W. Mitchell
+2015 “Creating repeatable cumulative knowledge in strategic management.” Strategic
+Management Journal. DOI: 10.1002/smj.2477.
+Book review
+Davis-Blake, A.
+2015 Review of “Michel Anteby: Manufacturing Morals: The Values of Silence in Business
+School Education.” Administrative Science Quarterly, 60: NP7-NP9.
+PLoS articles
+Ioannidis, J. P. A.
+2005 “Why most published research findings are false.” PLoS Med, 2 (8): e124. DOI:
+10.1371/journal.pmed.0020124.
+Newspaper/magazine with no named author
+Institutional Investor
+1989 “The 1989 all-America research team.” Oct. 8: 124.
+Newspaper/magazine with named author
+Smith, D. W.
+1989 “The 1989 all-America research team.” Institutional Investor, Oct. 8: 124.
+Italic vs. no italic for publication names
+Blank, R. M.
+1991 “The effects of double-blind versus single-blind reviewing: Experimental evidence from
+the American Economic Review.” American Economic Review, 81: 1041–1067.
+Video
+Cumming, G.
+2013 “Dance of the p Values” (video). http://www.youtube.com/watch?v=5OL1RqHrZQ8.
+Previously published books (two dates given)
+Bowlby, J.
+1982 Attachment and Loss: Vol 1: Attachment. (First published in 1969.) Hogarth
+Press/Institute of Psychoanalysis.
+Note that in the reference list, parenthetical volume numbers are acceptable but not required.
+V. Common Grammatical and Stylistic Errors to Avoid
+The following categories represent a few of the most common challenges that ASQ’s copy
+editors see and correct in articles. These issues are not specific to the journal and are
+17
+common to many genres of writing, so authors may strengthen their writing in general by
+focusing on these key areas.
+Lack of Agreement Between Subject and Verb
+Be sure to check that a sentence’s main verb agrees with its subject. This seems basic, but it
+can be easy to overlook, especially in complex or long sentences. Consider this example, in
+which the main subject and main verb appear in bold:
+The application of the various software programs used for the complex coding processes in
+all studies described above was effective.
+In this case, the subject and main verb are quite far apart, so it would be easy to mistakenly
+write “were” given the numerous plural nouns that appear after the main subject and before
+the main verb.
+Misplaced Modifiers
+This common error occurs when one element in the sentence (usually a present or past
+participle) incorrectly modifies (i.e., applies to) a noun. Consider the following example, in
+which the modifier and the noun to which it applies appear in bold:
+Returning to our point above regarding the time involved in the experiment, participants
+took more than an hour simply to prepare for the task, we note.
+In this case, the present participle “returning” incorrectly modifies “participants” because the
+authors, not the participants, are returning to the authors’ “point above” about time, so
+“returning” should modify “we.” Misplaced modifiers such as this one often appear at the
+beginning of sentences or at the beginning of new clauses.
+Here’s a corrected version of the sentence:
+Returning to our point above regarding the time involved in the experiment, we note that
+participants took more than an hour simply to prepare for the task.
+Dangling Modifiers
+Closely related to misplaced modifiers, dangling modifiers occur when an element (usually a
+present or past participle) does not clearly modify anything in a sentence. Consider this
+example, which is a revision of the previous one:
+Returning to our point above regarding the time involved in the experiment, participants
+took more than an hour simply to prepare for the task.
+In this case, “returning” does not clearly modify anything in the sentence because the
+sentence no longer includes “we,” so “returning” is a dangling modifier. We could correct the
+sentence by adding “we” to clarify the intended subject of “returning.”
+Present Participles with Ambiguous Referent
+18
+Another version of this problem often appears somewhere in the middle of sentences when
+present participles follow a comma. Sometimes in these cases, it can be unclear which noun
+the present participle is supposed to modify:
+In that study, the authors described how the participants handled time and leadership
+hierarchies to complete the task, thereby addressing challenges that had remained
+unresolved in the field.
+In this sentence, the subject (i.e., agent) of “addressing” could be the authors or it could be
+the participants, which means that the present participle “addressing” has an ambiguous
+referent. Present participles are common and useful grammatical elements, but they are
+prone to this sort of ambiguity, so it’s helpful to check their usage carefully in context. If
+there’s potential for ambiguity, restate the intended subject to clarify the meaning. Here’s one
+way to correct the sentence above:
+Describing in that study how the participants handled time and leadership hierarchies to
+complete the task, the authors addressed challenges that had remained unresolved in the
+field.
+Unnecessary Passive Voice
+As noted above in the section on voice, the active voice means that the subject of a sentence
+performs the action, while the passive voice means that the subject of the sentence receives
+the action of the verb. How can you tell whether a sentence is active or passive? The passive
+voice always has a form of the verb “to be” and a past participle. These forms appear in bold
+in the example below:
+The participants were asked to respond to five questions, and their responses were
+subsequently transcribed and coded. The data were then analyzed.
+The passive voice is sometimes necessary when the agent of the verb is unclear, when
+multiple agents may exist, or when describing a complex process in which the agent is not as
+important as the process itself. But writers often use the passive in ways that obscure
+meaning because it is unclear who is doing the action. In the sentence above, the use of the
+passive voice means that we don’t know who interacted with the participants and transcribed,
+coded, and analyzed the data. Was it some of the authors, all of the authors, or a third party
+such as research assistants? Whenever possible, use the active voice to clarify these details.
+To make the sentence above active, write something like, “We asked the participants to
+respond to five questions, and we subsequently transcribed and coded the responses. We
+then analyzed the data.
+Note: Sometimes people (as well as some automated software programs!) think that
+sentences with a form of “to be” and a present participle reflect the passive voice, but they
+don’t. For example, the sentence “the data are missing” is not in the passive voice. In this
+case, the verb “to be” is a copulative form (also called a linking verb) that connects the
+19
+present participle “missing” to “data.” In this case, “missing” functions primarily as an
+adjective.
+Confusing Use of Quotation Marks
+Quotation marks intended to convey various meanings have become increasingly common in
+scholarly writing, but it’s advisable to reserve quotation marks for actual quotations and to
+introduce new terms. When writers use quotation marks for other meanings, readers often
+have to guess at the intended meaning. For example, if quotation marks appear around a
+word or phrase without documentation (i.e., a page number), the phrase could mean any of
+the following things:
+• The writer is actually quoting text but has simply forgotten to document the quoted
+term with a page number.
+• The writer is quoting a data source (which usually does not require page numbers for
+documentation).
+• The writer is introducing a new term.
+• The writer is referring to a term that only a special population knows and uses.
+• The writer wants to convey some sort of irony or distancing, as when some people,
+such as scholars or another population, use the term but perhaps the writer or some
+other unspecified party disagrees or is unfamiliar with the usage.
+Note that quotation marks alone do not clearly convey the intended meaning; they simply
+force readers to guess, which can create ambiguity and a frustrating reading experience. To
+avoid this, use quotation marks only for actual quoted material or to introduce new terms.
+Remember to document the quoted material so that readers understand its context, and
+when introducing new terms, use phrasing along with quotation marks to ensure that readers
+understand that the term is new in the context of the article.
+20

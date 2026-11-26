@@ -1,0 +1,95 @@
+Authors
+Journals artwork guide
+This guide will explain how to effectively prepare your artwork for electronic submission to our journals. Following these instructions will ensure your figures are reproduced to the highest possible standards and your article is published as quickly and efficiently as possible.
+All figures must:
+Be supplied as separate files, unless you are using LaTeX.
+Be supplied in our preferred file formats, at final publication size or greater and at the correct resolution for the image type. We cannot improve overall appearance and resolution.
+Be numbered in the order they appear in the manuscript.
+Be named in a logical way (e.g. [First author surname]Fig1.tif).
+Be cited in the main text of the article.
+Have captions supplied at the end of the manuscript text, instead of as part of the figure file.
+Have all relevant copyright permissions cleared.
+Resolution: colour and black and white halftone images must be saved at 300 dpi (dots per inch) at approximately the final size. Line drawings should be saved at 1000 dpi, or 1200 dpi if very fine line weights have been used. Combination figures must be saved at a minimum of 600 dpi.
+If in any doubt, submit the source files that were used to create your figures.
+If after reading this you require any further guidance on creating suitable electronic figures, please contact your Press editor who will be able to advise you further.
+In order to help prospective authors to prepare for submission and to reach their publication goals, we also offer a range of high-quality manuscript preparation services – including figure preparation – delivered in partnership with American Journal Experts. You can find out more in our author services pages .
+Accessibility
+To ensure that images and figures published in Cambridge journals are accessible and understandable by all, we strongly encourage authors to carefully consider elements such as colour use, contrast, and text clarity when preparing images and figures for inclusion in any submitted article.
+Colour: Consider whether colour is necessary to convey the meaning of your figure, or if information could be presented with any other features in combination with colour (e.g., different styles of line — solid/dotted/dashed — in a line graph; patterned bars in a bar graph; different symbols or shapes).
+Contrast: When selecting colours for figures, ensure that there is sufficient contrast between different colours so that the information can be understood by readers with low vision or non-typical colour vision.
+Colour palettes: When several colours are required (e.g., heatmaps, density plots, etc.), use colour palettes friendly to those with different forms of colour blindness (e.g., avoid combinations of red/green), show greyscale images (when available), and use online simulators (e.g. Color Oracle ) to ensure your images are readable. Resources and colourblind-friendly palette tools are widely available online.
+Fonts: Ensure that fonts used for text in figures (e.g., titles, axis labels and values) are large enough to be easily read, and that the typefaces used are clear and legible.
+Captions: Ensure that figure captions are as descriptive as possible. For instance, take care to include descriptions of dot shapes, bar patterns, line textures and/or colours used in each figure (as relevant) so that figures can be accessible to readers with low vision or non-typical colour vision.
+Review our Preparing accessible materials webpage for more guidance.
+More information and resources around preparing accessible figures and images are available online, e.g., from the APA Style Guidelines and the University of Bath .
+Discover more information on Cambridge Core’s accessibility features and functionality.
+File formats
+Preferred formats
+We recommend that electronic artwork is submitted in one of the following formats:
+TIFF (.tif) is the recommended file format for line art, greyscale and colour halftone images. TIFF files should be compressed once created, ensuring file sizes are kept to a minimum to aid easy file transfer. When saving as TIFF format, please ensure that LZW compression is applied.
+Recommended for: all images
+EPS (.eps) For vector graphics, EPS files are the preferred format. An EPS file is an image that has been created using the language of PostScript, and is generally resolution independent.
+Recommended for: line and combination artwork
+PDF (.pdf) This format is very similar to EPS. Before saving an image as a PDF it is important to make sure that the fonts are embedded and that the original images are at the correct size and resolution. To check this visually you can zoom in when viewing the PDF on screen.
+Please note that virtually all common artwork creation software is capable of saving files in TIFF or EPS format by selecting the appropriate option under the ‘Save As…’ or ‘Export…’ commands in the ‘File’ menu.
+Recommended for: video and audio
+MP4 (.mp4) is the recommended format for video and audio files. Review our Preparing accessible materials webpage on video and audio for more information.
+Other formats (not preferred but usable formats)
+We can also accept electronic artwork in the following formats. Please note though that they are generally NOT suitable for reproduction in print, and so will result in lower quality figures in a printed journal.
+JPEG (.jpg): this is a ‘lossy’ format, and so loses colour information every time it is saved. This may not be noticeable on a computer monitor but is more obvious in print.
+GIF (.gif): this format has a lack of colour depth and so images may appear ‘posterised’ in print.
+Microsoft PowerPoint (.ppt/.pptx): with care, PowerPoint can produce quality artwork, but should be used with caution as the application is intended for producing visual presentations rather than print output.
+Microsoft Word (.doc/.docx): this format should only be used for images created in Microsoft Word. Image files should not be embedded into Word documents.
+Microsoft Excel (.xls/.xlsx): this format can be used to prepare graphs or tables.
+Types of illustrations
+Line illustrations
+Line illustrations consist of distinct straight and/or curved lines placed against a plain background, without any gradations in shade or colour. Line art is usually monochromatic but can use lines of different colours.
+Line illustrations (such as graphs, charts, maps) should be provided in TIFF (.tif) or vector EPS (.eps) format. If an electronic file is unavailable, always try to supply the original rather than a copy scanned from the original artwork.
+Please provide the original file in either TIFF format, saved at a minimum of 1000 dpi, or vector EPS format, at the correct size for reproduction in the journal
+Do not use line weights that will be less than 0.3 pt at final size, as they may not appear when printed. For prominent lines (e.g. plot lines on graphs), the weight should be approximately 1 pt.
+Mathematics labels should be typed exactly as they appear in the text. For example, if a symbol appears in italic in the text, it should also appear in italic in the figure.
+Halftone illustrations
+Halftone illustrations are images with continuous tone, such as a photograph or micrograph, and can be colour (CMYK) or black and white.
+Files should be saved at a minimum resolution of 300 dpi.
+Halftones should be provided in TIFF (.tif) or vector EPS (.eps) format.
+Do not submit colour images for conversion to black and white if you can avoid it. When converted there may be a loss of contrast and detail. Details, such as scale bars, that appear quite obvious in a colour image may be difficult to differentiate or merge into the background when printed in black and white.
+When using shading to differentiate areas on the figure, please check your software to see if there are options such as patterns, textures or a range of tones (tints) within black.
+Use patterns or textures within black where possible instead of shading to differentiate areas of the figure.
+The range of tones (tints) in greyscale illustrations should not be less than 15%, and not more than 85%. When creating a scale or using different densities to highlight areas in the illustration, it is best to use increments of 15 or 20%. Any increments of less than this may be hard to differentiate on the printed page.
+When taking photographs, set your camera to produce TIFF format where possible. If your camera does not allow TIFF as a setting, set it to produce the highest resolution JPEG possible and then save the images immediately to TIFF after downloading from the camera. To avoid loss of detail, do not change the JPEG in any way before saving to TIFF.
+Combination illustrations
+Combination illustrations contain both continuous tone and line/vector elements, and can be colour (CMYK) or black and white. For example, this may be a photograph with labelling, or a micrograph with a scale bar added. Refer to the guidelines for both line illustrations and halftones as they are applicable for combination artwork.
+Files should be saved at a minimum resolution of 600 dpi.
+Ensure LZW compression is used when saving files in TIFF format, as the higher resolution required to produce clear and sharp text/lines within the image results in a larger file size.
+General information
+Permissions
+You are responsible for securing the copyright permissions to reuse any artwork where you are not the copyright holder. For detailed instructions on securing permissions, please see our guide to seeking permission to use copyrighted material.
+Colour
+Figures will not normally be reproduced in colour in a printed journal unless agreed by the journal editor, or unless the author pays the relevant charge. All journals will reproduce figures in colour online at no charge to the author. Please consult the author instructions for your journal for details of their policy on colour figures.
+Where submitting colour illustrations, they should be supplied in CMYK colour mode. Avoid submitting colour images for conversion to black and white, as when converted there may be a loss of contract and detail that affects the interpretation of the figure.
+Greyscale
+The range of tones (tints) in greyscale illustrations should be between 15% and 85%. When creating a scale or using different densities to distinguish elements of a figure, use increments of at least 15-20% to ensure these can be easily differentiated.
+Sizing
+Please provide figures at the same size or larger than they will be reproduced in the journal, either by cropping or scaling the image. If you supply images that are smaller in size than the width of a column or page in the journal, they may lose clarity and detail when enlarged.
+Resolution
+Figure files should be saved at the following minimum resolution at approximately the final size:
+Line illustrations: 1000 dpi
+Halftone illustrations: 300 dpi
+Please avoid using images downloaded from the Internet, as these tend to be only 72 or 96 dpi. If you wish to use an image from a website, please contact the site’s administrator or the creator of the image and obtain a copy of the high resolution original.
+If you wish to reuse an illustration or photograph from a printed book, it is better to obtain the original artwork than to scan from the printed copy. If you are providing scanned copies of an original image, make sure you scan at a minimum resolution of 300 dpi. It is advised that you save scans as a PDF where possible.
+Fonts
+Fonts used to create or label figures should be embedded in the image file. We recommend that you use the following approved fonts, in 9 pt:
+Arial
+Courier
+Symbol
+Times
+Times New Roman
+Your chosen font should be used consistently throughout all artwork. Failure to use the approved fonts may result in missing symbols or overlapping type within the illustrations.
+Figure captions
+Captions should be supplied at the end of the text of your article, and not as part of the figure files. Please ensure that every figure is cited within the article, and we will try to place your figures as close as possible to their citations in the text, but because of the limitations of page layout, it may not always be possible.
+Image processing
+Electronic manipulation of an image using editing software to improve clarity is allowable as long as the image is not modified in a misleading way. Adjustments may be made to brightness, contrast or colour but they must be applied to the entire image and cannot be used to obscure existing data. Authors should save the original source images as these may be requested by the Editor. Cases where image processing misrepresents the original data will be dealt with in accordance with COPE guidelines.
+Scanning
+If you are providing scanned copies of the original image, please make sure that you scan at a minimum resolution of 300 dpi, at the final size (or larger than) they will be reproduced. It is advised that you save scans as a PDF where possible.
+If you wish to reuse an illustration or photograph from a printed book, it is better to obtain the original artwork than to scan from the printed copy. Photographs which have already appeared in print may have been scanned once already; if you scan them again there will be an unavoidable loss of detail.
+Please note that a high resolution scan of a low resolution original will not improve the quality in any way.

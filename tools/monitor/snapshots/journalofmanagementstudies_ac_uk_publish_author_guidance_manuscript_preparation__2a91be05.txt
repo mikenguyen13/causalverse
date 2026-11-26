@@ -1,0 +1,26 @@
+Manuscript Preparation Guidelines
+General Requirements
+At the Journal of Management Studies (JMS) all manuscripts submitted must adhere to the following guidelines:
+Language: Manuscripts may be written in UK or US English as long as it is consistent throughout.
+Double-spacing: Manuscripts, including notes and references, must be double-spaced throughout.
+Conciseness: Papers should be carefully constructed and succinctly presented. The word count of 10,000-13,000 includes tables, figures, and references. Supplemental material intended solely for review purposes or for online publication does not count towards the word limit. New submissions exceeding the stated length without justification may be returned for reduction before consideration by the Editors.
+Anonymity: To maintain anonymity, authors' names should not appear in the manuscript. Instead, include a separate title page with the article title and full author details (name, affiliation, address, and email address). Avoid language within the text that suggests the authors' identities, e.g. ‘in our previous work (author name et al. 2025)’.
+Abstract and Keywords: Where required, the title page should be followed by an informative abstract of no more than 200 words, double-spaced. Provide a list of 4-6 keywords in alphabetical order below the abstract. Keywords should express the precise content of the manuscript as they are used for indexing purposes.
+AI Transparency: Authors must be transparent and specific regarding the use of Artificial Intelligence (AI) in any form, including copy-editing, language and grammar. This must be declared and detailed, preferably within the data or methods sections of the paper. If further explanation is needed, it may be included elsewhere in the manuscript.
+Illustrations: Provide high-quality artwork for all illustrations. Poor definition reproductions are not suitable. Illustrations reproduced from already published work must be accompanied by permission from the original publisher or copyright holder.
+Figures and Tables: Tables and figures should be numbered separately (Tables use Roman numerals and figures use Arabic numerals). Each table and figure should be given a title and presented on a separate page at the end of the manuscript. Indicate the position of figures and tables in the text as follows: INSERT TABLE I ABOUT HERE. Figures and tables reproduced from already published work must be accompanied by permission from the original publisher or copyright holder.
+Notes: Footnotes should not be used. Endnotes should be provided on a separate page immediately following the text under the heading NOTES. Endnotes should offer significant comments, not merely cite references, and should be kept to a minimum.
+Referencing Style
+References should be listed alphabetically by author at the end of the manuscript. In the text, where the author’s name appears, the date should follow in parentheses, e.g., Mintzberg (1985). If the author’s name is not present in the text, insert it with the author’s name and date in parentheses, e.g., (Mintzberg, 1985). Multiple references should be listed alphabetically in parentheses, separated by semicolons, e.g., (Jackson, 1996; Watson, 1986). Page numbers should appear in parentheses as (Willmott, 1992, p.12). If there is more than one reference to the same author in the same year, postscript the date with a, b, c, etc., e.g., (Sparrow, 1998a).
+Choo, C. W. (1998). The Knowing Organization: How Organizations Use Information to Construct Meaning, Create Knowledge, and Make Decisions. New York: Oxford University Press.
+Allen, D. (1988). ‘British foreign policy and international co-operation’. In Byrd, P. (Ed.), British Foreign Policy. Deddington: Philip Allen, 210–18.
+Abrahams, P. (1998). ‘Notes on the difficulty of studying the state’. Journal of Historical Sociology, 1, 15–21.
+Cash, D. W., et al. (2006). ‘Scale and cross-scale dynamics: Governance and information in a multilevel world’. Ecology and Society, 11, 8.
+Available at:http://www.ecologyandsociety.org/vol11/iss2/art8/ (accessed 29 June 2012).
+Axelrod, J. N. (in press). ‘Politics and poker: deception and self-deception in marketing research’. Journal of Advertising Research, in press.
+Kang, D. (2000). Family Ownership and Performance in Public Corporations: A Study of the U.S. Fortune 500, 1982–1994. Working Paper 00-0051, Harvard Business School, Boston, MA.
+Gnyawali, D. R. (1997). Creation and Utilization of Organizational Knowledge: An Empirical Study of the Effects of Organizational Learning on Strategic Decision Making. Unpublished PhD Dissertation, University of Pittsburgh, PA.
+Kowalik, T. (1992). ‘Trade unions attitude to privatisation’. In Proceedings of the International Conference on Privatization and Transformation in Eastern Europe, Warsaw, 15–20 November.
+British Steel (2005).Annual Report 2005. Available at: http://www.bsteel.com/getfile.cfm?file=report2005&ref=1664&type=pdf(accessed 18 November 2005).
+Klein, J. (2002). ‘How the solidarity dream turned sour’. The Guardian, 12 June, 8–9.
+OpenAI (2023a). ChatGPT 4 (version 12/05/2023)  https://chat.openai.com/auth/login.

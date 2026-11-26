@@ -1,0 +1,1788 @@
+INFORMS
+Style Guide
+For use with the following journals:
+Decision Analysis (DECA)
+Information Systems Research (ISRE)
+INFORMS Journal on Computing (IJOC)
+INFORMS Transactions on Education (ITED)
+INFORMS Journal on Applied Analytics (INTE)
+Management Science (MNSC)
+Manufacturing & Service Operations Management (MSOM)
+Marketing Science (MKSC)
+Mathematics of Operations Research (MOOR)
+Operations Research (OPRE)
+Organization Science (ORSC)
+Service Science (SERV)
+Stochastic Systems (STSY)
+Strategy Science (STSC)
+Transportation Science (TRSC)
+Version 1.7
+Released November 16, 2020
+1
+Table of Contents
+Introduction ______________________________________________________________________________ 6
+General editing guidelines ___________________________________________________________________ 6
+Spelling _________________________________________________________________________________ 6
+Style ___________________________________________________________________________________ 6
+Using this guide __________________________________________________________________________ 6
+Article Front Matter __________________________________________________________________________ 7
+Article ID _________________________________________________________________________________ 7
+Supertitle _________________________________________________________________________________ 7
+Article title ________________________________________________________________________________ 8
+Author line ________________________________________________________________________________ 8
+Corresponding author ______________________________________________________________________ 8
+Deceased author __________________________________________________________________________ 8
+Affiliations ________________________________________________________________________________ 8
+Contact information ________________________________________________________________________ 9
+Received, revised, and accepted dates ________________________________________________________ 10
+Online publication date ____________________________________________________________________ 10
+Subject classifications (MOOR and OPRE only) ________________________________________________ 10
+Area of review (OPRE only) _________________________________________________________________ 10
+Article DOI ______________________________________________________________________________ 10
+Article summary (select titles) _______________________________________________________________ 10
+TOC blurb (select titles)____________________________________________________________________ 11
+Abstract _________________________________________________________________________________ 11
+History line ______________________________________________________________________________ 12
+Open Access statement ____________________________________________________________________ 12
+Conflict of interest statement ________________________________________________________________ 13
+Funding _________________________________________________________________________________ 13
+Supplemental material _____________________________________________________________________ 14
+Keywords ________________________________________________________________________________ 14
+Article Back Matter __________________________________________________________________________ 15
+Implications for Policy and Practice (MNSC only) ______________________________________________ 15
+Acknowledgments ________________________________________________________________________ 15
+Appendices ______________________________________________________________________________ 15
+Endnotes ________________________________________________________________________________ 16
+References _______________________________________________________________________________ 17
+Verification letter (INTE only) ______________________________________________________________ 17
+Author biographies (select titles) _____________________________________________________________ 17
+Abbreviations _______________________________________________________________________________ 19
+Article title _______________________________________________________________________________ 19
+Abstract _________________________________________________________________________________ 19
+Latin____________________________________________________________________________________ 19
+Plurals __________________________________________________________________________________ 19
+Singulars ________________________________________________________________________________ 19
+Locations ________________________________________________________________________________ 19
+Australian states and territories ______________________________________________________________ 19
+Canadian provinces and territories____________________________________________________________ 19
+United States ____________________________________________________________________________ 20
+Capitalization ______________________________________________________________________________ 21
+Citations ________________________________________________________________________________ 21
+Designators ______________________________________________________________________________ 21
+Title case ________________________________________________________________________________ 21
+Figures ____________________________________________________________________________________ 22
+Caption _________________________________________________________________________________ 22
+Citations ________________________________________________________________________________ 22
+2
+Editing __________________________________________________________________________________ 23
+Headings __________________________________________________________________________________ 24
+Level 1 and 2 headings _____________________________________________________________________ 24
+Level 3 and 4 headings _____________________________________________________________________ 24
+Enunciations ____________________________________________________________________________ 24
+Algorithms ___________________________________________________________________________ 25
+Assumptions, Axioms, Corollaries, Hypotheses, Lemmas, Properties, Propositions, Theorems, Conditions,
+and Principles ________________________________________________________________________ 25
+Cases and Steps _______________________________________________________________________ 25
+Definitions, Examples, Observations, Problems, and Remarks ___________________________________ 25
+Proofs ______________________________________________________________________________ 25
+Results ______________________________________________________________________________ 25
+Running head ____________________________________________________________________________ 26
+Hyphenation _______________________________________________________________________________ 27
+Compounds ______________________________________________________________________________ 27
+Computational and mathematical terms _______________________________________________________ 27
+Prefixes _________________________________________________________________________________ 27
+Mathematical Composition ___________________________________________________________________ 28
+Algorithms ______________________________________________________________________________ 28
+Editing math _____________________________________________________________________________ 28
+Equations _______________________________________________________________________________ 28
+Variables ________________________________________________________________________________ 29
+Vectors __________________________________________________________________________________ 29
+Numbers __________________________________________________________________________________ 30
+Dates ___________________________________________________________________________________ 30
+Large numbers ___________________________________________________________________________ 30
+Percentages ______________________________________________________________________________ 30
+Ranges __________________________________________________________________________________ 30
+Series ___________________________________________________________________________________ 30
+Punctuation ________________________________________________________________________________ 32
+Apostrophe ______________________________________________________________________________ 32
+Brackets _________________________________________________________________________________ 32
+Colon ___________________________________________________________________________________ 32
+Comma _________________________________________________________________________________ 32
+Ellipses _________________________________________________________________________________ 32
+En dash _________________________________________________________________________________ 33
+Hyphen _________________________________________________________________________________ 33
+Parentheses ______________________________________________________________________________ 33
+Quotation marks __________________________________________________________________________ 33
+Semicolon _______________________________________________________________________________ 33
+Quotations _________________________________________________________________________________ 34
+References _________________________________________________________________________________ 35
+Citations ________________________________________________________________________________ 35
+Reference list _____________________________________________________________________________ 36
+Institution locations ______________________________________________________________________ 36
+Journal titles ____________________________________________________________________________ 36
+Publisher cities and countries _______________________________________________________________ 36
+Reference style ___________________________________________________________________________ 37
+Books _________________________________________________________________________________ 37
+Article or chapter in an edited book ________________________________________________________ 37
+Book with volume _____________________________________________________________________ 38
+Book in a series________________________________________________________________________ 38
+Edited book __________________________________________________________________________ 38
+Conference proceedings, published ___________________________________________________________ 38
+Dictionaries and encyclopedias ______________________________________________________________ 38
+Electronic references______________________________________________________________________ 38
+CD or DVD-ROM _____________________________________________________________________ 38
+3
+Web site _____________________________________________________________________________ 38
+Wikipedia ____________________________________________________________________________ 38
+Interview ______________________________________________________________________________ 39
+Journal articles __________________________________________________________________________ 39
+Forthcoming article ____________________________________________________________________ 39
+Published ahead of print _________________________________________________________________ 39
+Newspaper/Magazine ____________________________________________________________________ 39
+Print ________________________________________________________________________________ 39
+Online ______________________________________________________________________________ 39
+Personal communication __________________________________________________________________ 40
+Preprint________________________________________________________________________________ 40
+Presentation/Lecture _____________________________________________________________________ 40
+Report/white paper/press release ____________________________________________________________ 40
+Software _______________________________________________________________________________ 40
+Thesis or dissertation, unpublished ___________________________________________________________ 40
+Working paper __________________________________________________________________________ 40
+Without publication number ______________________________________________________________ 40
+With publication number ________________________________________________________________ 41
+National Bureau of Economic Research _____________________________________________________ 41
+Tables_____________________________________________________________________________________ 42
+Caption _________________________________________________________________________________ 42
+Headings, body, and rules __________________________________________________________________ 42
+Notes and footnotes _______________________________________________________________________ 43
+Citations ________________________________________________________________________________ 43
+Terminology _______________________________________________________________________________ 44
+Latin terms ______________________________________________________________________________ 44
+Signs and symbols ________________________________________________________________________ 44
+“Less than” and “greater than” symbols _______________________________________________________ 44
+Percent ________________________________________________________________________________ 44
+Usage _____________________________________________________________________________________ 45
+General usage ____________________________________________________________________________ 45
+Gender-specific pronouns __________________________________________________________________ 46
+Italics ___________________________________________________________________________________ 46
+Passive vs. active voice _____________________________________________________________________ 46
+Appendix A: History Lines ____________________________________________________________________ 47
+DECA, IJOO, MOOR, MSOM, OPRE, ORSC, STSC, TRSC, SERV, ITED _________________________ 47
+IJOC ____________________________________________________________________________________ 47
+INTE ___________________________________________________________________________________ 47
+ISRE ___________________________________________________________________________________ 47
+MKSC___________________________________________________________________________________ 47
+MNSC __________________________________________________________________________________ 48
+Appendix B: Common Journal Abbreviations _____________________________________________________ 49
+Abbreviations used in journal titles ___________________________________________________________ 49
+Full journal titles __________________________________________________________________________ 51
+Appendix C: ITED Case Series ________________________________________________________________ 55
+Appendix D: Standard Author Queries __________________________________________________________ 56
+Article title, author names, affiliations, and contact information ___________________________________ 56
+Subject classifications (MOOR and OPRE only)________________________________________________ 56
+Abstract _________________________________________________________________________________ 56
+Open access statement _____________________________________________________________________ 56
+General statement ________________________________________________________________________ 56
+ITED only _____________________________________________________________________________ 56
+Funding _________________________________________________________________________________ 56
+Keywords ________________________________________________________________________________ 56
+Headings ________________________________________________________________________________ 56
+Reference citations with article components ___________________________________________________ 56
+4
+Figures and tables _________________________________________________________________________ 57
+Color figures _____________________________________________________________________________ 57
+Math____________________________________________________________________________________ 57
+5
+Introduction
+GENERAL EDITING GUIDELINES
+Substantive editing of INFORMS articles should be avoided. Substantive edits include: changes in metadata;
+changes in conclusions; major factual changes, particularly changes in facts that were stated in the original
+abstract. If you find any discrepancies or errors, notify your production representative.
+Query the author if it is necessary to recast a sentence (e.g., Please check all edits to the sentence beginning
+“One potential concern with our analysis…” to confirm that they preserve your intent).
+SPELLING
+British spelling is acceptable if British spelling has been used consistently throughout the article. Change
+the spelling of a word or words only if the author has been inconsistent in usage of British versus American
+spelling within the article, and then change it to the most commonly used spelling (i.e., British or American)
+throughout the article text (excluding proper nouns, affiliations, and references).
+STYLE
+Refer to this style guide regarding matters of editorial style as it relates to the INFORMS journals. Refer to
+the following references for other style points:
+Grammar: The Chicago Manual of Style (17th Edition and online)
+Spelling: Merriam-Webster’s Dictionary (11th Edition and online)
+USING THIS GUIDE
+All entries in the Table of Contents are hyperlinked for quick access, as are any cross-references in text.
+Simply click on the hyperlink to be taken directly to the section that is being cross-referenced:
+Spell out Australian states and territories, Canadian provinces and territories, and US states
+in affiliations.
+Text box notes highlight important aspects or interpretations of various style points:
+Note Assumptions can be set as a numbered list rather than a level 3 heading; follow
+the author.
+Additional text boxes highlight deviations from style:
+Deviation In INFORMS Transactions on Education (ITED), acknowledgments should be
+written in the first person.
+6
+Article Front Matter
+The article front matter consists of the following components in the following order:
+Article ID
+Supertitle
+Article title
+Author line
+Affiliations
+Contact information
+Received, revised, and accepted dates
+Online publication date
+Subject classifications (MOR and OPRE only)
+Area of review (OPRE only)
+Article DOI
+Article summary (select titles)
+TOC blurb (select titles)
+Abstract
+History line
+Open Access statement
+Conflict of interest statement
+Funding
+Supplemental material
+Keywords
+Article ID
+The article ID appears at the top of the title page and is inserted by the compositor.
+Supertitle
+Supertitles are set in title case and appear directly above the article title; they are inserted by the compositor.
+Supertitles include (but are not limited to):
+Call for Papers
+Case Article
+Contextual Areas
+Crosscutting Areas
+Editorial
+From the Editors
+OM Forum
+OR Forum
+Note In the online version of an article, supertitles are followed by an em dash and are
+run in with the article title (e.g., OM Forum—An Essay on Operations Management).
+7
+Article title
+The article title should be set in title case.
+Examples:
+Optimal Ordering Policy for Inventory Systems with Quantity-Dependent Setup Costs
+Mutual and Exclusive: Dyadic Sources of Trust in Interorganizational Exchange
+Do Plant Inspects Predict Quality? The Role of Investigator Experience
+No registration, copyright, or trademarks should appear in the article title.
+Note Titles for the MKSC “Frontiers” article type should begin with Frontiers followed by
+a colon (e.g., Frontiers: Secondary Market Options for the Future).
+Author line
+Include each author’s full first name and surname just below the article title. Add a period to all initials;
+include a space between multiple initials (e.g., William S. G. Ball).
+Use serial commas to separate all author names; do not include the word “and” before the final author name:
+Emanuela Romano, Brian C. Betts
+Grégoire Altan-Bonnet, Rosa Barreira da Silva, Christian Müntz
+Offset patronymics with a comma, and include a period (e.g., John Lee, Jr., William Hill, Sr.).
+Authors are connected to their respective affiliations by superscript, boldface, lowercase letters; for example:
+Christine C. Krieger,a Robert F. Place,b Carmine Bevilacqua,c Bernice Samuels,b Brent S. Abela
+CORRESPONDING AUTHOR
+If one of the authors is designated as a corresponding author, add a superscript comma and a non-superscript
+asterisk after the affiliation footnote symbol(s) for that author (e.g., Brent S. Abela,*) and set “*Corresponding
+author” directly above the contact information.
+DECEASED AUTHOR
+If an author is deceased, add a superscript comma and a superscript dagger (†) after the affiliation footnote
+symbol(s) for that author (e.g., Brent S. Abela,†) and set “†Deceased” directly above the contact information.
+Affiliations
+List affiliations directly after the author line at the top of the article. Identify each affiliation with a
+superscript, boldface, lowercase letter.
+List affiliation components in the following order: division, department, school/college, primary institution,
+city, state/province/territory, country (except the United States), and postal code. Do not list street
+addresses, P.O. box numbers, or other mailing information.
+Note The position of the postal code varies by country. See the Universal Postal Union
+for a comprehensive set of guidelines for international address formats.
+8
+Spell out Australian states and territories, Canadian provinces and territories, and US states.
+If any authors share an affiliation, do not repeat the affiliation for each author; assign one letter to the
+affiliation and assign that letter to each author who shares that affiliation.
+The affiliations should reflect the location of each author at the time the paper was accepted; however,
+current affiliations may be listed at the request of the author.
+Example:
+Roger Thewlis,a Tonya Collins,b Allan Higgins,c Geraldine Fuchs,a Lisa Zetterlundd
+aUQ Business School, University of Queensland, St. Lucia, Queensland 4072, Australia; bCass
+Business School, City University London, London EC1Y 8TZ, United Kingdom; cSchulich
+School of Business, York University, Toronto, Ontario M3J 1P3, Canada; dFoster School of
+Business, University of Washington, Seattle, Washington 98195
+Even if there is only one affiliation, include a superscript “a” before the affiliation and after all author names.
+Note Virginia Polytechnic Institute and State University should be shortened to Virginia
+Tech (per the University’s policy).
+Note Either University of Western Ontario or Western University is acceptable.
+Contact information
+Contact information is preceded by the boldface heading Contact followed by a colon; it is run onto the
+same line as the heading. Include each author’s email address and initials (without periods) within parentheses;
+separate the information for each author with semicolons:
+Contact: g.smith@warwick.ac.uk (GL); howej@ttu.edu (JSH); xw.zhang@missouri.edu (X-WZ)
+If two authors share the same initials, include the first two letters of the first name:
+Contact: j.smith@warwick.ac.uk (JoS); j.sanders@ttu.edu (JeS)
+List only one email address per author. If no email address is provided for a given author, query the author to
+provide one; if more than one address is provided, query the author to select one address for inclusion.
+Note If an author has an ORCID number, the compositor will add the ORCID logo and
+URL after the email address and before the author’s initials:
+Contact: dennisarnow@gmail.com (DA); s.balachandran@yorku.ca (SB);
+swillems@utk.edu, http://orcid.org/0000-0001-6340-1192 (SPW)
+An ORCID number is required for the corresponding author; query if not provided.
+ORCID numbers are not required for non-corresponding authors, but query to provide
+them if available.
+9
+Received, revised, and accepted dates
+The received, revised, and accepted dates (month, day, year) are each set on their own line. Each date is
+preceded by a boldface heading followed by a colon; the date runs in with the heading:
+Received: May 30, 2017
+Revised: September 13, 2017
+Accepted: September 14, 2017
+Separate multiple revised dates with a semicolon:
+Received: June 7, 2016
+Revised: May 30, 2017; September 13, 2017
+Accepted: September 14, 2017
+Online publication date
+The online publication date is preceded by the boldface heading Published Online in Articles in Advance
+followed by a colon; the date runs in with the heading:
+Published Online in Articles in Advance: May 2, 2017
+Subject classifications (MOOR and OPRE only)
+Subject classifications are preceded by the requisite boldface heading, followed by a colon.
+MOOR:
+MSC2010 Subject Classification: Primary: 90C25, 65K05
+OR/MS Subject Classification: Primary: Convex/programming/algorithms
+OPRE:
+Subject Classifications: finance: portfolio; simulation: applications, statistical analysis
+Area of review (OPRE only)
+The area of review is preceded by the boldface heading Area of Review followed by a colon; it is run onto
+the same line as the heading:
+Area of Review: Financial Engineering
+Article DOI
+The article DOI is not preceded by a heading and is inserted by the compositor.
+Article summary (select titles)
+The following INFORMS journals publish article summaries:
+Information Systems Research (ISRE) Operations Research (OPRE)
+Article summaries will not appear in the article text when published; when an issue is compiled, the
+summaries for the articles in that issue will be compiled into a separate article.
+10
+TOC blurb (select titles)
+The following INFORMS journals publish a table of contents (TOC) blurb for each article:
+INFORMS Journal on Applied Analytics (INTE) Marketing Science (MKSC)
+The TOC blurb will not appear in the article text when published; when an issue is compiled, the blurb will
+be placed beneath its respective article title in the TOC for that issue.
+The copyright line is preceded by the boldface heading Copyright followed by a colon and is run onto the
+same line as the heading; it is inserted by the compositor.
+The year is the year the article first appeared on Articles in Advance:
+Green option: Copyright: © 2017 INFORMS
+Gold option (IOO, ITED, STSY): Copyright: © 2017 The Author(s)
+Note All INFORMS Transactions on Education (ITED) and Stochastic Systems (STSY) papers
+will have the open access icon and will be licensed under CC BY.
+Note Articles authored by U.S. government employees are in the public domain; (1) the
+government employee(s) on official time and is therefore in the public domain,” (2) the
+be removed online).
+Abstract
+Abstracts are set as a single paragraph and are preceded by the boldface heading Abstract followed by a
+period, with the abstract text run in:
+Abstract. We document that consistent patterns of high or low sales growth that are
+incongruent with underlying fundamentals are followed by significant stock price reversals.
+In contrast, no stock return reversals are found for firms that achieve the same level of
+sales growth in an inconsistent manner. Furthermore, future earnings announcement
+returns mimic the pattern of abnormal stock returns documented for…
+Deviation In Manufacturing & Service Operations Management (MSOM), the abstract is also
+structured, with bold italic headings run in and followed by roman colons:
+Abstract. Problem definition: We study the impact of credit ratings on operational and
+financial decisions of… Academic/practical relevance: We add a framework on who
+should finance inventories in the presence of… Methodology: Within a modified selling
+to the newsvendor Stackelberg game with the supplier as the leader, we derive… Results:
+We show there exists a threshold such that… Managerial implications: We provide
+insights into who should finance supply chain inventories and at what rates…
+11
+Abbreviations that are used in both the abstract and text should be defined at first mention in both places,
+and if an abbreviation is used only once in the abstract but is defined and used several times in the text, the
+abbreviation should be spelled out in the abstract.
+Avoid mathematical expressions and notation in the abstract.
+If an equation (in-line or display) is cited in the abstract, query the author to rewrite the abstract without
+the equation. (Single variables are permissible in the abstract.)
+If a reference is cited in the abstract, query author to remove citation or recast sentence to avoid citation if
+possible. If the author insists that the reference be cited, the entire reference must be cited in square brackets.
+Note Some (but not all) articles for IJOC will include a Summary of Contribution, which
+should be set as a single paragraph immediately below the abstract; for example:
+Summary of Contribution: Based on the practical background of commercial
+apiculture industry, this paper proposes a new type of routing problem named
+the migratory beekeeping routing problem.
+Note If a reference appears in an abstract in MOOR, do not include the reference number.
+History line
+The history line is preceded by the boldface heading History followed by a colon; it is run onto the same line
+as the heading.
+Note History line requirements vary from title to title; see Appendix A for complete details
+regarding history line style.
+Open Access statement
+The Open Access statement is preceded by the open access icon ( ) and the boldface heading Open Access
+Statement followed by a colon and is run onto the same line as the heading; it is inserted by the compositor.
+The text of the statement varies depending on the type of Creative Commons license the author has selected:
+CC BY License
+Open Access Statement: This work is licensed under a Creative Commons Attribution 4.0
+International License. You are free to copy, distribute, transmit and adapt this work, but you must
+attribute this work as “Management Science. Copyright © 2017 The Author(s).
+https://doi.org/10.1287/mnsc.2016.2593, used under a Creative Commons Attribution License:
+https://creativecommons.org/licenses/by/4.0/.”
+CC BY-SA License
+Open Access Statement: This work is licensed under a Creative Commons Attribution-ShareAlike
+4.0 International License. You are free to download this work and share with others for any purpose,
+even commercially if you distribute your contributions under the same license as the original, and you
+must attribute this work as “Organization Science. Copyright © 2017 The Author(s).
+https://doi.org/10.1287/orsc.2014.0941, used under a Creative Commons Attribution License:
+https://creativecommons.org/licenses/by-sa/4.0/.”
+12
+CC BY-ND License
+Open Access Statement: This work is licensed under a Creative Commons Attribution-
+NoDerivatives 4.0 International License. You are free to download this work and share with others
+commercially or noncommercially, but cannot change in any way, and you must attribute this work as
+“Management Science. Copyright © 2017 The Author(s). https://doi.org/10.1287/mnsc.2014.1999,
+used under a Creative Commons Attribution License: https://creativecommons.org/licenses/by-
+nd/4.0/.”
+CC BY-NC License
+Open Access Statement: This work is licensed under a Creative Commons Attribution-
+NonCommercial 4.0 International License. You are free to download this work and share with others
+for any purpose, except commercially, and you must attribute this work as “Management Science.
+Commons Attribution License: https://creativecommons.org/licenses/by-nc/4.0/.”
+CC BY-NC-SA License
+Open Access Statement: This work is licensed under a Creative Commons Attribution-
+NonCommercial-ShareAlike 4.0 International License. You are free to download this work and share
+with others for any purpose, except commercially, if you distribute your contributions under the same
+license as the original, and you must attribute this work as “Management Science. Copyright © 2017 The
+Author(s). https://doi.org/10.1287/mnsc.2014.1999, used under a Creative Commons Attribution
+License: https://creativecommons.org/licenses/by-nc-sa/4.0/.”
+CC BY-NC-ND License
+Open Access Statement: This work is licensed under a Creative Commons Attribution-
+NonCommercial-NoDerivatives 4.0 International License. You are free to download this work and
+share with others, but cannot change in any way or use commercially without permission, and you
+must attribute this work as “Management Science. Copyright © 2017 The Author(s).
+https://doi.org/10.1287/mnsc.2016.2595, used under a Creative Commons Attribution License:
+https://creativecommons.org/licenses/by-nc-nd/4.0/.”
+Conflict of interest statement
+The conflict of interest statement is preceded by the boldface heading Conflict of Interest Statement
+followed by a colon; it is run onto the same line as the heading.
+Text should be set as provided by the author; edit only for misspellings and egregious errors in grammar or
+punctuation.
+Note It is unusual for an article to have a conflict of interest statement.
+Funding
+Funding information is preceded by the boldface heading Funding followed by a colon; it is run onto the
+same line as the heading. Institution names are spelled out in full. Grant numbers appear within square
+brackets, preceded by the word “Grant”; omit the abbreviation “No.” or the number symbol (#). For example:
+Funding: Financial support from the Social Science and Humanities Research Council
+of Canada and the National Science Foundation of China [Grant 71472131] is gratefully
+acknowledged.
+13
+If a specific author is cited in connection with funding support, list only the first initial(s) and surname:
+Funding: J. B. Lee received financial support from the Canadian Natural Sciences and
+Engineering Research Council [Grant 386416-2010].
+Note Funding from the NIH, the Wellcome Trust, the Howard Hughes Medical Institute,
+and the Research Councils UK and its agencies cannot be cited without a grant number.
+Supplemental material
+A supplemental material statement is preceded by the boldface heading Supplemental Material followed by
+a colon; it is run onto the same line as the heading.
+Supplemental material can include data files (i.e., data sets, instruction sets, survey instruments), online
+appendices (a.k.a. electronic companion, e-companion; follow author), or both data files and an online
+appendix. The description of the supplemental material in the footnote should match the corresponding
+citations in the article text; for example:
+Supplemental Material: Data are available at https://doi.org/10.1287/mnsc.2017.2860.
+Supplemental Material: The online appendix is available at
+https://doi.org/10.1287/mnsc.2017.2860.
+Supplemental Material: Data and the online appendix are available at
+https://doi.org/10.1287/mnsc.2017.2860.
+Supplemental Material: Supplemental material is available at
+https://doi.org/10.1287/ited.2016.0168.
+Keywords
+Keywords are preceded by the boldface heading Keywords followed by a colon and run into the keywords
+themselves, which are boldface, separated by bullets, and set in lowercase except for proper nouns and
+abbreviations. Query the author to confirm that the keywords are correct as set.
+Example:
+Keywords: outside directors; deferred compensation; insider trading; SEC Rule 10b-5 plans
+14
+Article Back Matter
+The article back matter consists of the following components in the following order:
+Implications for Policy and Practice (MNSC only)
+Acknowledgments
+Appendices
+Endnotes
+References
+Verification Letter (INTE only)
+Author Biographies (select titles)
+Implications for Policy and Practice (MNSC only)
+Some accounting department papers in Management Science (MNSC) may contain an Implications for Policy and
+Practice paragraph preceded by the boldface heading Implications for Policy and Practice.
+Acknowledgments
+Acknowledgments are preceded by the boldface heading Acknowledgments and should appear in the
+following order:
+ Acknowledgments to individuals
+ Equal contributions
+ Prior presentation
+ Dedications (placed in a separate paragraph)
+Example:
+The authors thank Mark Ebers, Olga Badunenko, and Peter Bamberger for developmental
+feedback. Braden King and Arianne Szafarz contributed equally to the manuscript. Portions
+of this article were presented at the 2016 Annual Meeting of the Academy of Management in
+Anaheim, California.
+This article is dedicated to Michael Ellis.
+Acknowledgments to individuals should be written in the third person (e.g., “The authors thank…” not “We
+thank…”).
+Avoid superfluous language (e.g., “The authors thank…” not “The authors would like to thank…”; “The
+authors are grateful…” not “The authors are very grateful…”).
+Deviation In INFORMS Transactions on Education (ITED), acknowledgments should be
+written in the first person.
+Appendices
+Appendix headings are boldface and title case.
+15
+If an article has only one appendix, the heading begins with the singular Appendix followed by a period:
+Appendix. Proofs
+If an article has only one appendix, and the appendix is a table, the table title follows the heading:
+Appendix. Effects of Egregiousness on Boycott Intensity: Robustness Checks
+Note If an article has only one appendix, any citations of the appendix should be lowercase
+(e.g., “appendix” not “Appendix”).
+If an article has multiple appendices, the appendices should be assigned uppercase letters:
+Appendix A. Proof of Propositions
+Appendix B. Additional Proofs
+Appendix figures, tables, and enunciations are numbered as A.1, A.2, A.3, B.1, B.2, B.3, etc. They should be
+cited in numerical order in the text if possible.
+Appendix equations are numbered as (A.1), (A.2), (A.3), (B.1), (B.2), (B.3), etc.
+Endnotes
+Endnotes are preceded by the boldface heading Endnotes (or the singular Endnote if there is only one
+endnote). They are numbered according to their appearance in the article text using superscript Arabic
+numerals.
+In text, place endnote numbers outside all punctuation except em dashes (per §14.26 of The Chicago Manual of
+Style). For example:
+Customers were categorized simply by company name (e.g., Samsung Electronics).1
+We used the five-item measure reported by Zaheer et al. (1998);4 this measure has been replicated…
+This interaction is a positive one8—similarly, the returns of an exact match…
+If two or more endnotes are cited together (e.g., 1,2 ), query the author to avoid this construction.
+Endnotes should be written as complete sentences. For example:
+1Treatments may be defined as a single exposure (e.g., an email) or a series of exposures
+(e.g., a digital media campaign).
+2Although it would be ideal to observe sales and revenue for each visitor, this is not always
+possible. As a proxy, we assume for this example that profit is proportional to the number
+of clicks.
+3An online sample size calculator is available at https://testandroll.com.
+4See https://mc-stan.org.
+Note Occasionally, an endnote will reference a previously published version of the article
+(e.g., “An earlier version of this article appeared in ___.”). In such cases, a production
+representative will follow up with the managing editor regarding copyright, etc.
+16
+References
+See References.
+Verification letter (INTE only)
+Some INFORMS Journal on Applied Analytics (INTE) articles may contain a verification letter that appears
+directly after the reference list and is preceded by the boldface heading Verification Letter.
+The verification letter should be prefaced with the author’s full name, title, and affiliation followed
+by “writes:” to introduce the letter:
+Verification Letter
+Dr. Benno Keller, Head, Research and Policy Development, Zurich Insurance Company Ltd,
+Mythenquai 2, CH-8002 Zurich, Switzerland, writes:
+“This letter is to confirm the implementation of the data analytics-driven approach to risk
+engineering at Zurich Insurance, described in the article, ‘Zurich Insurance Uses Data Analytics to
+Leverage the Business Interruption Insurance Proposition.’ In the era of globalized business and
+digitalization, Zurich Insurance is increasingly using data analytics to improve business intelligence
+and risk management capabilities of our customers. This approach involved accessing our proprietary
+Large Claims Database and extraction of novel insights concerning the trends in losses from business
+interruption. The statistical analysis conducted in this research project helped us to better manage our
+risk exposures and provided more granular information about industry-wide indicators such as
+average recovery times and increased cost of working. The results of this project helped us to
+develop an improved approach to risk assessment and customer segmentation. Ultimately, in the
+long term, this will lead to considerable savings for our organization and will also benefit our clients
+with improved risk management practices.”
+Note Verification letters should be copyedited minimally; edit only for (a) misspellings,
+(b) egregious errors in grammar or punctuation, and (c) matching the article title in the
+letter to the title of the accepted manuscript (query the author to confirm).
+Author biographies (select titles)
+The following INFORMS journals contain author biographies at the end of each article:
+Decision Analysis (DECA)
+INFORMS Journal on Applied Analytics (INTE)
+Operations Research (OPRE)
+Organization Science (ORSC)
+Strategy Science (STSC)
+Author biographies appear at the end of the article after the references. The order of the biographies should
+follow the order of the author line.
+Author biographies are limited to 500 characters including spaces; if this limit is exceeded, query the author to
+shorten the biography.
+17
+Author names appear in boldface type. Academic degrees are presented without periods (e.g., PhD, DEng).
+Capitalize professional titles only when preceding a personal name (e.g., Professor John Smith) or for named
+professorships (e.g., INFORMS Professor Emeritus of Applied Economics, McCurdy Professor of
+Operations Management); otherwise use lowercase (e.g., “John Smith is professor of applied economics”); see
+The Chicago Manual of Style §8.19.
+Example:
+Samina Karim is associate professor of entrepreneurship and innovation at the D’Amore-
+McKim School of Business, Northeastern University. She received her PhD from the
+University of Michigan at Ann Arbor. Her research interests include corporate restructuring
+and organization design, acquisitions and alliances, and innovation through reconfiguration
+and redeployment of resources and activities.
+Deviation For Operations Research (OPRE), the author biography should include the
+author’s current position, research interests, and major awards. If an author holds an
+academic position or position in a research laboratory, the academic degrees should be
+omitted; include them only for authors who do not hold an academic/laboratory position,
+and even then include only the most advanced degrees. Honors and awards are included
+but not editorial positions, visiting appointments, or employment history.
+The following INFORMS journals contain a compilation at the end of each issue that comprises the
+biographies of all authors featured in that issue:
+Information Systems Research (ISRE): “About Our Authors”
+Marketing Science (MKSC): “Focus on Authors”
+These compilations are assembled at the issue stage by the production editor once it is known which authors
+are represented in a given issue.
+Note Because the author biographies in ISRE and MKSC articles will be extracted before
+the page proofs are composed, if there is a query about a biography, the copyeditor should
+insert the entire biography into the query for the author to review.
+18
+Abbreviations
+Abbreviations must be spelled out at first mention in the abstract and in the text, with the abbreviated form
+appearing in parentheses. Thereafter, the abbreviation should be used without definition. Note, however, that
+the author may use the abbreviation and written-out form interchangeably after defining the abbreviation;
+follow copy. Latin abbreviations are standard and do not have to be defined; do not define standard notations
+in math copy (see Table 12.2 and Table 12.3 in The Chicago Manual of Style).
+Article title
+Abbreviations should be spelled out in the article title except for “vs.” or well-known company names (e.g.,
+IBM, UPS).
+Abstract
+See Abstract.
+Latin
+See Terminology/Latin terms.
+Plurals
+Add an “s” to abbreviations other than units of measure to form a plural (e.g., CEOs, EMTs).
+Singulars
+Use of the articles a and an with the singular form of an abbreviation should correspond with the sounding of
+the first letter of the abbreviation (e.g., a CEO; an EMT).
+Locations
+AUSTRALIAN STATES AND TERRITORIES
+Spell out Australian states and territories in affiliations but abbreviate in publisher locations in references.
+ACT Australian Capital Territory SA South Australia
+NSW New South Wales TAS Tasmania
+NT Northern Territory VIC Victoria
+QLD Queensland WA Western Australia
+CANADIAN PROVINCES AND TERRITORIES
+Spell out Canadian provinces in affiliations but abbreviate in publisher locations in references.
+AB Alberta NU Nunavut
+BC British Columbia ON Ontario
+MB Manitoba PE Prince Edward Island
+NB New Brunswick QC Quebec
+NL Newfoundland and Labrador SK Saskatchewan
+NS Nova Scotia YT Yukon Territory
+NT Northwest Territories
+19
+UNITED STATES
+Spell out US states in affiliations but abbreviate in publisher locations in references.
+AL Alabama IL Illinois MT Montana RI Rhode Island
+AK Alaska IN Indiana NE Nebraska SC South Carolina
+AZ Arizona IA Iowa NV Nevada SD South Dakota
+AR Arkansas KS Kansas NH New Hampshire TN Tennessee
+CA California KY Kentucky NJ New Jersey TX Texas
+CO Colorado LA Louisiana NM New Mexico UT Utah
+CT Connecticut ME Maine NY New York VT Vermont
+DE Delaware MD Maryland NC North Carolina VA Virginia
+DC District of MA Massachusetts ND North Dakota WA Washington
+Columbia
+FL Florida MI Michigan OH Ohio WV West Virginia
+GA Georgia MN Minnesota OK Oklahoma WI Wisconsin
+HI Hawaii MS Mississippi OR Oregon WY Wyoming
+ID Idaho MO Missouri PA Pennsylvania
+Abbreviate “United States” as “U.S.” when modifying a noun (e.g., U.S. Food and Drug Administration) but
+spell out otherwise (e.g., technicians in the United States).
+20
+Capitalization
+Proper nouns are usually capitalized, as are some of the terms derived from or associated with proper nouns.
+For the latter, The Chicago Manual of Style advocates sparing use of capitals (see §8.1). If changes are made to
+capitalization, query the author to confirm.
+An initial “the” as part of a proper noun (e.g., a country, institution, etc.) is lowercased in running text but
+capitalized in affiliations and references, except in city names that require an initial “the” (e.g., “The Hague”).
+Citations
+Lowercase “figure,” “table, ” and “appendix” when used in a nondesignative sense (e.g., “in the appendix”
+versus “in Appendix A”).
+Use lowercase letters when citing sections, figures, tables, appendices, etc. of other work; cite the component
+directly after the publication year [e.g., “For example, see Smith (2006, section 4.1) for a summary of…”].
+Deviation In Mathematics of Operations Research (MOOR), components of other work should
+appear directly after the reference number (e.g., “In Smith [15, theorem 4.1], the…”).
+Note If components of other work had been uppercased in the original manuscript, insert
+the requisite author query to explain why lowercase letters have been used.
+Designators
+Lowercase specific panel names or columns [e.g., panel A, column (1)] when used in running text.
+Lowercase terms designating variables and a fixed item or a variable only (e.g., buyer 3 and buyer i).
+If an article contains sections that are divided into studies, the study names are capitalized (e.g., Study 1).
+Capitalize model names that appear in table column headings (e.g., Model 1).
+If a numbered list uses the “Step” label (i.e., if the list items begin with “Step”), then any reference to a
+specific step would be capitalized.
+Note The key is to aim for consistent capitalization within a given article.
+Title case
+For article components that are set in title case (article title, headings, figure captions, table captions, and
+appendix headings), capitalize all words except for articles, conjunctions, and prepositions of ≤4 letters.
+For hyphenated compounds, capitalize words that appear after hyphens except for articles, conjunctions, or
+prepositions of ≤4 letters (e.g., Under-the-Counter, Not-for-Profit). Do not capitalize words that appear after
+a hyphenated prefix unless they are proper nouns or uppercase abbreviations (e.g., Anti-inflammatory, Meta-
+analysis but Pre-Raphaelite, Pro-NAFTA). (See also §8.161 and §7.89 in The Chicago Manual of Style.)
+21
+Figures
+Caption
+Figure captions are set in title case and are preceded by a boldface figure number followed by a period; the
+caption should run in with the figure number. The caption does not end with a period. For example:
+Figure 1. Example of Display Used in Experiment 2 Direct Valuation
+If the figure is to appear in black and white in print but color online, include a parenthetical indicator at the
+beginning of the caption:
+Figure 1. (Color online) Example of Display Used in Experiment 2 Direct Valuation
+Note The article checklist will indicate whether a figure is to appear in color in print; therefore,
+if the checklist says “no” (i.e., if the figure will not appear in color in print), the “(Color online)”
+header should be added to the caption and the requisite author query should be added.
+If the caption exceeds one sentence, set the second and any subsequent sentences as a figure legend preceded
+by the italic heading Note (for one sentence) or Notes (for two or more sentences).
+If applicable, a copyright statement should appear as the first line in the figure legend preceded by the italic
+heading Source. Query the author to provide the appropriate documentation to confirm that permission has
+been received.
+Example:
+Figure 1. Appointment Scheduling Models and Discrete Convexity
+Source. China Statistical Yearbook.
+Note. All objective functions were adjusted to reflect the minimization problem.
+Deviation In INFORMS Transactions on Education (ITED), Service Science (SERV), and
+Stochastic Systems (STSY), the parenthetical indicator “Color online” should not be used
+because these titles do not print.
+Deviation In Mathematics of Operations Research (MOOR), figure captions are set in
+sentence case, can contain multiple sentences, and end with a period; for example:
+Figure 1. Schematic depiction of the symmetrized Markov chain. At each
+state, one choice lead back to the base, and the other goes to the right.
+Citations
+Every figure must be cited in the article text in numerical order. Spell out the word “Figure(s)” in the text
+regardless of whether the figure is cited parenthetically:
+(Figure 1) As shown in Figure 1…
+(Figures 4–6) Figures 4–6 show…
+(Figures 5 and 6) As shown in Figures 5 and 6…
+22
+Figure panels should be labeled and cited as lowercase roman letters within parentheses. Follow copy
+regarding the placement of panels in relation to the figure number, but maintain consistency within a given
+article; for example, either of the following formats is acceptable:
+Figure 2(a) shows… In panel (a) of Figure 2,…
+Use the singular form of “Figure” when citing multiple panel letters for the same figure; use a comma to
+offset the number from the panel letters:
+Figure 2, (a) and (b) not Figures 2(a) and 2(b)
+Editing
+Copyedit text in figures for style and consistency with article text (e.g., hyphenation, abbreviations, statistical
+and mathematical variables).
+Fix missing/incorrectly matched locants.
+Remove boldface from text that does not need to be bold (e.g., x and y axis labels).
+If a figure includes running text that is more appropriate for the figure caption, delete the text from the figure
+and add it as a Note in the caption.
+23
+Headings
+Headings may be numbered or unnumbered; follow the author, but ensure consistency within a given article,
+including sequential numbering (see also Headings/Level 3 and 4 headings/Enunciations).
+If the headings are numbered, follow the number with a period (e.g., 1. Introduction, 2. Literature Review,
+2.1. Software Diversity, etc.).
+If the headings are numbered and there is no Introduction heading, add it as the first heading and assign the
+number “1” to it (e.g,. 1. Introduction) and renumber all subsequent headings accordingly. If the headings
+are not numbered and there is no Introduction heading, it is not necessary to add it.
+Note If one level of heading is numbered, all levels must be numbered (e.g., if level 1
+headings are numbered but level 2 headings are not, assign numbers to the level 2 headings).
+Level 1 and 2 headings
+Level 1 and 2 headings are set in boldface type and title case; they appear on their own line above the
+subsequent text and are not followed by a period.
+Level 3 and 4 headings
+Level 3 and 4 headings set in boldface type and title case; they are run in with the subsequent text and are
+followed by a period.
+ENUNCIATIONS
+The following level 3 and 4 headings are considered enunciations and as such have special formatting and
+styling requirements.
+Follow author numbering of enunciations, but ensure consistency within a given article. For example, either
+of the following numbering schemes is acceptable as long as the chosen scheme is used consistently:
+1. Introduction 1. Introduction
+2. Heading 2. Heading
+Proposition 1 Proposition 2.1
+Proposition 2 Proposition 2.2
+3. Heading 3. Heading
+Proposition 3 Proposition 3.1
+Proposition 4 Proposition 3.2
+4. Heading 4. Heading
+Proposition 5 Proposition 4.1
+Proposition 6 Proposition 4.2
+Enunciations should be cited in numerical order in the text and in any appendices; renumber if out of order
+and query the author for approval.
+Note Do not abbreviate enunciation citations in text (e.g., do not abbreviate “Lemma 1”
+as “L1”); however, such abbreviations are acceptable in table headings to conserve space.
+24
+ALGORITHMS
+Algorithm headings should not be followed by a period (i.e., an exception to level 3 and 4 heading style).
+ASSUMPTIONS, AXIOMS, COROLLARIES, H YPOTHESES, LEMMAS, PROPERTIES, P ROPOSITIONS, THEOREMS,
+CONDITIONS , AND P RINCIPLES
+The numbered portion of these headings should be set in boldface type and title case, followed by a period;
+the text should be set in lightface italic type and sentence case:
+Corollary 6. The solution complexity of the reformulated problem RM1-1 equivalent to M1 does not depend
+on the number |Ω| of scenarios used to represent uncertainty.
+Parenthetical titles, if included, are set in lightface roman type and title case:
+Lemma 3 (The Impact of Informativeness on Pricing Strategy). When the informativeness (γ) of
+online reviews increases, both firms are more likely to set higher prices in the second period than in the first period.
+Note Assumptions can be set as a numbered list rather than a level 3 heading; follow the author.
+Note Numerical values and citations of numbered article components should appear in roman
+type; for example:
+Lemma 9. Under the assumptions of Theorem 1, the second term in Equation (4) has a finite
+moment generating function in the neighborhood of 0.
+However, numbers that are part of a larger abbreviation or term should be italic; for example:
+Proposition 6. Suppose B1 commits to publish its blacklist and its supplier’s identity.
+CASES AND STEPS
+Cases and Steps can be set as level 3 or level 4 heads; follow the author, but ensure consistency within a given
+article.
+DEFINITIONS, EXAMPLES, OBSERVATIONS, P ROBLEMS, AND REMARKS
+The numbered portion of these headings should be set in boldface type and title case, followed by a period;
+the text should be set in lightface roman type and sentence case:
+Remark 4.2. It is interesting to formulate (77) in the canonical Fredholm form, as there exists a wide
+literature on numerical methods for this kind of nonlinear integral equation.
+Parenthetical titles, if included, are set in lightface roman type and title case:
+Definition 3 (Width-Restricted Hierarchies). By a cut for P we will sometimes collectively mean
+either a Gomory-Chvátal cut or an N+ cut.
+PROOFS
+Proofs should conclude with “Q.E.D.” or the Halmos symbol (□) preceded by an em space. However,
+neither notation is necessary if the text states that the proof is complete (e.g., “…and the proof is complete”
+or “…what was to be proven”).
+RESULTS
+Results can be set in the same style as Theorems or Definitions (i.e., italic or roman text); follow the author.
+25
+Running head
+The running head includes the following components:
+<Author Surnames>: <Short Title>
+<Journal Title>, <year of publication>, <volume no.>, <issue no.>, <page range>, <copyright>
+List up to the first three author surnames; if the article has more than three authors, list only the first author’s
+surname followed by et al.
+The short title should be ≤80 characters, including spaces and author surnames, and should be set in title case.
+If the short title exceeds the 80-character limit, query the author to shorten it further.
+case copyright should be assigned to “The Author(s).”
+Examples:
+Loomes and Pogrebna: Do Preference Reversals Disappear When We Allow for Probabilistic Choice?
+Management Science, 2017, vol. 63, no. 1, pp. 166–184, © 2017 The Author(s)
+Temizkan, Park, and Saydam: Software Diversity for Improved Network Security
+Information Systems Research, 2017, vol. 28, no. 4, pp. 828–849, © 2017 INFORMS
+Chen et al.: Cash Conversion Systems in Corporate Subsidiaries
+Manufacturing & Service Operations Management, 2017, vol. 19, no. 4, pp. 604–619, © 2017
+INFORMS
+Note Titles for the MKSC “Frontiers” article type should begin with Frontiers followed by
+a colon (e.g., Jones et al.: Frontiers: Secondary Market Options for the Future).
+26
+Hyphenation
+In general, follow guidelines for hyphenation as outlined in §7.81–§7.89 of The Chicago Manual of Style.
+Compounds
+Hyphenate temporary compound terms serving as a single adjective before the noun:
+1-minute exposures decision-making methods
+12-year-old boy state-of-the-art equipment
+Some compound words are hyphenated when used as nouns (e.g., cost-effectiveness, follow-up; consult
+Merriam-Webster’s Dictionary).
+Do not add hyphens between an adverb ending in -ly and an adjective (e.g., “privately owned”).
+Computational and mathematical terms
+Follow the author regarding any computational and mathematical terms that contain hyphens (e.g., k-means,
+NP-complete, NP-hard).
+Prefixes
+The following prefixes are typically not followed by a hyphen:
+ante- extra- multi- sub-
+anti- inter- non- super-
+auto- intra- post- trans-
+bi- intro- pre- tri-
+co- macro- pro- un-
+cross- micro- proto-
+de- mid- re-
+dis- mono- semi-
+Retain the hyphen when used in reference titles or direct quotes, or where Merriam-Webster’s Dictionary or The
+Chicago Manual of Style says to retain them.
+27
+Mathematical Composition
+Algorithms
+Follow alignment of text as shown in the PDF of the original manuscript. Line numbers can be followed by a
+colon, a period, or no punctuation; follow copy.
+If an algorithm has been supplied as a figure, it should be processed and set as a figure.
+Editing math
+In general, follow the author’s wording for mathematical content. For example, do not change “with respect
+to” to “with regard to,” as the former phrase is common/standard usage in mathematical expressions (e.g., “It
+is the case, for instance, if μ is absolutely continuous with respect to the Lebesgue measure…”).
+Mathematical notation and expressions should be edited minimally, if at all. In general edit only for the
+following; otherwise, query the author:
+ Sentences should never begin with math; query the author to rewrite such sentences accordingly.
+ Ensure proper usage of punctuation at the end of an equation (see §12.18 in The Chicago Manual of
+Style).
+ Ensure that spaces appear around math operators and after punctuation online but are omitted in
+superscript/subscript components (see §12.16 in The Chicago Manual of Style); for example:
+y=0 but π(y=0) i, t + 1 but ψi,t+1
+ Ensure grammatical flow of sentences containing mathematical expressions.
+ Ensure proper notation of variables and vectors.
+ Ensure consistency for display equation variables that are defined in subsequent text.
+ If an asterisk (*) has been used to indicate multiplication in a table, change it to a times symbol ()
+both in the table and in the text.
+ Avoid sentences that begin with mathematical notations; reword or query the author to recast.
+Equations
+All singular display equations are centered. Equation numbers are flush right in parentheses:
+sin ( 2a ) = 2sin ( a ) cos ( a ) (1)
+Not all display equations must be numbered, but those that are numbered must appear in numerical order
+throughout a given article; query the author if renumbering is required. (Not all numbered equations must be
+cited in the text; follow the author.)
+Follow the author’s equation numbering scheme (e.g., either 1, 2, 3… or 1.1, 1.2, 1.3… are acceptable); do
+not renumber unless there is an inconsistency that must be rectified.
+If display equations are part of a sentence, punctuate them accordingly.
+28
+When cited in text, do not abbreviate “Equation” [e.g., Equation (4) not Eq. (4)].
+Capitalize citations of mathematical expressions such as “Problem” and “Constraint” [e.g., Problem (1) not
+problem (4)].
+Check to ensure equations and equation numbering match the original PDF, and query the author to confirm
+that all equations are correct.
+Note Stacked equations are discouraged as inline equations within paragraph text. If an
+article contains inline stacked equations within paragraph text, insert the requisite author query
+at the first appearance of a stacked equation. (See §12.45 of the The Chicago Manual of Style for
+additional guidance.)
+Deviation In Mathematics of Operations Research (MOOR), text is aligned on the equals sign for
+notation.
+Variables
+Variables should appear in lightface italic font (unlike vectors), including in headings and captions (i.e., do
+not set variables in boldface font even if appearing in a boldface heading).
+Ensure that all variables are defined in the text/tables and are set consistently throughout text and tables:
+Vectors
+Vectors (e.g., x, i, y, etc.) should appear in boldface font (unlike variables). If a variable and a vector use the
+same character (e.g., [b] × [b] and [i] × [i]), follow the author but query if unclear.
+Note In more abstract levels of math, vectors may never be set in boldface type. Query the
+author if in doubt.
+29
+Numbers
+Use Arabic numerals to express numbers ≥10 (e.g., 12 patients, 30 delivery trucks, 100 studies) except at the
+beginning of a sentence (e.g., “Twenty years ago…”). See also §9.7 in The Chicago Manual of Style.
+Spell out numbers <10 except when used in direct relation with a mathematical operator; for example:
+Indicator variable was set to one if the value of Disc. Accruals > 0, and zero otherwise.
+Values are multiplied by −1.
+In a series of similar items that includes numbers <10 and ≥10, always use numerals; for example:
+The optimal schedule for a small group (five patients per provider) was not assessed.
+and
+The optimal schedule for a large group (15 patients per provider) was not assessed.
+but
+The optimal schedules for small (5 patients per provider), medium (10 patients per provider) and
+large (15 patients per provider) groups varied widely.
+Include a placeholder zero before the decimal in all numerical values <1 (e.g., p < 0.001).
+Dates
+Follow American format for dates (e.g., July 3, 2017 not 3 July 2017).
+Large numbers
+For numbers of 4 digits, use a comma (e.g., 1,000; 10,000; 100,000).
+Percentages
+See Terminology/Signs and symbols/Percent.
+Ranges
+Use an en dash for numerical ranges in the text, figures, and tables and for page ranges in the reference list.
+Series
+In general, follow copy regarding the use of letters or numbers for in-text series and lists, but always place the
+letters/numbers within parentheses; see §6.129 in The Chicago Manual of Style for examples.
+Note Series letters should appear in roman type rather than italic type so that they are not
+misinterpreted as variables:
+We calibrated the model according to (a) the real U.S. GDP rate, (b) the median of
+analyst forecasts of the same rate, (c) the 75th percentile of the 1-quarter-ahead analyst
+forecasts, and (d) the 25th percentile of the 1-quarter-ahead analyst forecasts.
+30
+For vertical lists, offset the letters or numbers with a period, not parentheses (see §6.130 in The Chicago Manual
+of Style); for example:
+Letters: Numbers:
+a. This is the first item. 1. This is the first item.
+b. This is the second item. 2. This is the second item.
+c. This is the third item. 3. This is the third item.
+31
+Punctuation
+Apostrophe
+Use an apostrophe to form the plural of single lowercase letters, including Greek characters and math symbols
+(e.g., x’s, y’s, μ’s, η’s).
+Omit the apostrophe when pluralizing capital letters used as words (e.g., Xs and Os), numerals used as nouns
+(e.g., the 1970s), and abbreviations without periods (e.g., CEOs) (see §7.15 of The Chicago Manual of Style).
+Brackets
+Use brackets only for the following instances:
+ to indicate text that has been added or modified in a direct quote.
+ to indicate an original edition or language translation in references.
+Otherwise, use parentheses.
+Do not alter usage of brackets in mathematical operations; follow copy.
+Colon
+Capitalize the first letter of a word following a colon only if material introduced by the colon is more than one
+sentence, or is a formal statement, quotation, or speech in dialogue (see §6.63 of The Chicago Manual of Style).
+Do not use a colon before a series that serves as the object of a verb (e.g., “The menagerie included penguins,
+cats, and newts” not “The menagerie included: penguins, cats, and newts”); see Chicago Manual of Style §6.67.
+Comma
+Use serial commas.
+Ellipses
+See §13.50–§13.58 in The Chicago Manual of Style) for preferred usage of ellipses.
+Highlights:
+ Style is three spaced periods with a space both before and after the ellipsis §13.50).
+ Add a period before an ellipsis to indicate the omission of the end of a sentence, unless the sentence
+is deliberately incomplete (§13.53).
+ Ellipses at the end of deliberately incomplete sentences within a quote should not include a space
+between the final dot and the ending quotation mark (§13.55).
+ Bracketed ellipses should not include space between the ellipsis and brackets (§13.58).
+32
+En dash
+Use an en dash for numerical ranges in the text, figures, and tables and for page ranges in the reference list.
+Hyphen
+See Hyphenation.
+Parentheses
+Always use parentheses for parenthetical text within parentheses; do not use square brackets. For example:
+…as well as an immediate response of −0.07 (90% (−0.12, 0.002)).
+…in this study (however, Smith (2018) reported different results in a similar study).
+Do not alter usage of parentheses in mathematical operations; follow copy.
+Quotation marks
+Use quotation marks to offset direct quotes. If there is a direct quote, the author must include the page
+number; for example:
+…he said, “It was in the summer” (Jones 1990, p. 34).
+If the page number is missing, query the author to provide it. (See also Quotations and Chapter 13 in The
+Chicago Manual of Style for additional information about quotations and dialogue.)
+Quotation marks may be used to define a word or term that is being used ironically or out of its normal
+context, to offset slang, or to offset coined words and phrases. In such cases, use quotation marks only at first
+mention of the word, term, or phrase. Do not use quotation marks for emphasis (see also §7.57–§7.62 in The
+Chicago Manual of Style).
+Place periods and commas inside quotation marks; colons and semicolons, outside.
+Semicolon
+Use a semicolon to separate elements of a complex series, particularly if any of the series items already include
+commas.
+Use a semicolon to separate coordinate clauses joined by a conjunctive adverb (e.g., “I arrived late; however, I
+saw the entire movie”).
+33
+Quotations
+Place direct quotes within quotation marks when appearing in running text. If the text being quoted is 100
+words or more, it should be set as a block quote.
+Omit quotation marks from block quotes, which should be set in roman type.
+If a block quote is from a source that does not appear in the reference list, offset the name of the person,
+publication, or institution being quoted with an em dash immediately after the quotation.
+Examples:
+CEOs hate variance. It’s the enemy. Variance in customer service is bad. Variance
+in quality is bad. CEOs love processes that are standardized, routinized, predictable.
+Stamping out variance makes a complex job a bit less complex. —Marcus Buckingham
+Nothing in business excites so much interest in the wider world as the pay of top
+executives. —The Economist
+Most of the students are very motivated and well informed about what they need to
+do, and they want to do a good job. Of course, there are always some slackers…and
+we had to push them extremely hard. But I would say 80% of the students or even
+higher are very motivated. —Worcester Polytechnic Institute Faculty Member
+If a block quote is from a source that does appear in the reference list, include a parenthetical citation of the
+reference, including the page numbers, after the quote.
+Example:
+Almost always the men who achieve these fundamental inventions of a new paradigm
+have been either very young or very new to the field whose paradigm they change.
+(Kuhn 1970, pp. 89–90)
+Note If an article begins with a block quote, the quote should be placed before the
+Introduction heading.
+34
+References
+Citations
+Reference citations are Harvard (i.e., author/year) style; observe the following format:
+One author: …as described previously (Smith 2013).
+Two authors: …as described previously (Smith and Jones 2013).
+Three or more authors: …as described previously (Smith et al. 2013).
+If the author(s) of a reference are mentioned in running text, place only the year in parentheses:
+One author: …as described by Smith (2013).
+Two authors: …as described by Smith and Jones (2013).
+Three or more authors: …as described by Smith et al. (2013).
+Deviation In Transportation Science (TRSC), for three or fewer authors, list all three
+surnames and the year (e.g., Smith, Jones, and Brown 2010); for four or more authors, list
+the first surname followed by et al. (e.g., Smith et al. 2012).
+Deviation In Mathematics of Operations Research (MOOR), references are alphabetized and
+numbered (see Deviation) and are thus cited by name and number in text, with numbers
+appearing within brackets (e.g., Smith [9]). Do not cite ranges; cite each reference separately
+(e.g., Smith and Jones [9], Lee et al.[10], Davis [11]). (See also Capitalization/Citations.)
+Deviation In INFORMS Transactions on Education (ITED), URLs that are cited in text
+should be hyperlinked in the article PDF, including those that are cited in conjunction
+with a reference citation; for example:
+The chain-reaction puzzle is available on Andrea Gilbert’s website at
+http://clickmazes.com (Gilbert 1997).
+For multiple citations in the same set of parentheses, order as follows: chronological, then alphabetical by
+first author, then number of authors; separate citations with commas. For example:
+…as reviewed previously (Smith 2001, Adams et al. 2004, Jones et al. 2005, Brown 2007, Zwick
+2007, Zwick and Jones 2007, Zwick and Smith 2007, Zwick et al. 2007).
+For citations that include multiple citations with the same author name(s), list the author name(s) once
+followed by the years of the cited references separated with commas; separate author groups with semicolons.
+Base chronological order on the first year listed for each author. For example:
+…as reviewed previously (Zwick et al. 2001a, b; Jones et al. 2005; Adams et al. 2007, 2008;
+Smith 2010, 2011, 2015; Lee et al. 2014, 2017).
+If a reference is being cited in conjunction with a direct quote, include the page number(s) in the citation.
+For example:
+This approach allowed the investigators to determine whether “the benefits of surgeon
+experience obtained at one hospital would be fully portable to the other” (Ramirez et al.
+2017, pp. 541–542).
+35
+Always verify that (a) all references are cited in the text, (b) all citations have a matching reference in the list,
+and (c) the year of publication cited in text matches the year of publication in the reference list; query the
+author about any mismatches.
+Note Avoid the possessive form of “et al.”; recast the sentence as necessary (e.g., change
+“Smith et al.’s proposition reveals…” to “The Smith et al. proposition reveals…”).
+Reference list
+The reference list appears after the text and after any endnotes and is preceded by the boldface heading
+References (or the singular Reference if there is only one reference in the list).
+References are listed in alphabetical order according to the first author’s surname. For multiple references
+with the same surname for the first author, order as follows: number of authors, then alphabetical, then
+chronological. For example:
+Adams J (1979)
+Adams J, Smith C (1976)
+Adams J, Miller B, Smith C (1980a)
+Adams J, Smith C, Miller B, Davis G (1984)
+Adams J, Ward H, Miller B, Smith C (1980b)
+Deviation In Mathematics of Operations Research (MOOR), the references are also
+numbered (see Deviation); for example:
+[1] Adams J (1979)
+[2] Adams J, Smith C (1976)
+[3] Adams J, Miller B, Smith C (1980)
+[4] Adams J, Smith C, Miller B, Davis G (1984)
+[5] Adams J, Ward H, Miller B, Smith C (1980)
+INSTITUTION LOCATIONS
+If the name of a state or country appears in the name of an institution, do not include the state or country
+with the city (e.g., Arizona State University, Tempe not Arizona State University, Tempe, AZ).
+JOURNAL TITLES
+See Appendix B and http://www.ams.org/msnhtml/serials.pdf for common journal titles and abbreviations.
+PUBLISHER CITIES AND COUNTRIES
+Do not include the state with the following cities:
+Atlanta Denver Milwaukee Pittsburgh
+Baltimore Detroit Minneapolis St. Louis
+Boston Honolulu New Orleans Salt Lake City
+Chicago Houston New York San Diego
+Cincinnati Indianapolis Oklahoma City San Francisco
+Cleveland Los Angeles Philadelphia Seattle
+Dallas Miami Phoenix
+36
+Do not include the country with the following cities:
+Amsterdam Hong Kong Montreal Tokyo
+Beijing Istanbul Moscow Toronto
+Berlin Jerusalem Ottawa Vancouver
+Brussels London Paris Vatican City
+Budapest Luxembourg Quebec Vienna
+Buenos Aires Madrid Rio de Janeiro Warsaw
+Copenhagen Mexico City Rome Zurich
+Geneva Milan Singapore
+Havana Monaco Stockholm
+Reference style
+List all author and/or editor names up to the first 10 names; for ≥11 names, list only the first 7 names
+followed by “et al.”
+For all authors, list the surname first followed by the initial(s) (no periods or commas after initials); multiple
+authors are separated by commas. Patronyms (e.g., “Jr”, “III”, etc.) should follow initials (e.g., Makridakis SH
+Jr, Wheelwright AC III).
+Query the author for any missing information that cannot be found easily online.
+Deviation In INFORMS Transactions on Education (ITED), include a URL as a
+supplemental reference component when available. For example, for a reference to a
+newspaper/magazine:
+Leonhardt D (2000) A matter of degree? Not for consultants. New York
+Times (October 1), Sec. 3.1, http://query.nytimes.com/gst/fullpage.html?res
+=9C0DEFDD173DF932A35753C1A9669C8B63.
+BOOKS
+Lilien GL, Rangaswamy A (1998) Marketing Engineering: Computer-Assisted Marketing Analysis and Planning
+(Addison-Wesley, Reading, MA).
+Makridakis S, Wheelwright SC, McGee VE (1983) Forecasting: Methods and Applications, 2nd ed. (John Wiley &
+Sons, New York).
+Note The page count is not required when an entire book is referenced.
+ARTICLE OR CHAPTER IN AN EDITED BOOK
+Martello S, Toth P (1979) The 0-1 knapsack problem. Christofides N, Mingozzi A, Sandi C, eds. Combinatorial
+Optimization (John Wiley & Sons, New York), 237–279.
+Note The page range is required for the article or chapter; query if not provided.
+37
+BOOK WITH VOLUME
+Van Zandt T (1999) Decentralized information processing in the theory of organizations. Sertel M, ed.
+Contemporary Economic Issues, Economic Behavior and Design, vol. 4 (Macmillan, London), 125–166.
+BOOK IN A SERIES
+Kolisch R, Meyer K (2006) Selection and scheduling of pharmaceutical research projects. Józefowska J,
+Weglarz J, eds. Perspectives in Modern Project Scheduling, International Series in Operations Research and
+Management Science, vol. 3 (Springer, New York), 321–344.
+EDITED BOOK
+Doyle P, Stern P, eds. (2006) Marketing Management and Strategy. 4th ed. (Prentice Hall, Upper Saddle
+River, NJ).
+CONFERENCE PROCEEDINGS, PUBLISHED
+Hill RR (1996) An analytical comparison of optimization problem generation methodologies. Medeiros DJ,
+Watson EF, Carson JS, eds. Proc. 21st Winter Simulation Conf. 1998 (Institute of Electrical and Electronics
+Engineers, Washington, DC), 609–615.
+Note Use the city and state of the publisher, not the conference location; if only the location
+is used, set the location in italic type.
+DICTIONARIES AND ENCYCLOPEDIAS
+Well-known dictionaries and encyclopedias should be cited as endnotes; other reference works may be cited in
+the reference list (see §14.232–§14.234 in The Chicago Manual of Style).
+ELECTRONIC REFERENCES
+CD OR DVD-ROM
+Ailawadi K, Cesar J, Harlam B (2014) Quantifying and improving promotion profitability at CVS. Disc 05.01.
+2005 Practice Prize Competition. DVD. INFORMS, Catonsville, MD. http://www.informs.org/site/ISM_DVD/
+article.php?id=4.
+WEB SITE
+Federation of American Scientists. Resolution comparison: Reading license plates and headlines. Accessed
+March 29, 2006, http://www.fas.org/irp/imint/resolve5.htm.
+Open Source Initiative (2006) The open source definition. Retrieved March 29, http://www.opensource.org/.
+Note Websites and PDFs of reports are acceptable either as references or endnotes.
+WIKIPEDIA
+Wikipedia. Probabilistic analysis of algorithms. Accessed February 20, 2017,
+https://en.wikipedia.org/wiki/Probabilistic_analysis_of_algorithms.
+38
+INTERVIEW
+Hunt H (1976) Interview by Ronald Schatz. Tape recording, May 16. Pennsylvania Historical and Museum
+Commission, Harrisburg.
+Note Citations should include the names of both the interviewee and the interviewer; brief
+identifying information, if appropriate; the place or date of the interview (or both, if known);
+and, if a transcript or tape is available, where it may be found. Permission to quote may be
+needed; see Chapter 4 in The Chicago Manual of Style.
+JOURNAL ARTICLES
+Flynn J, Gartska S Jr (1990) A dynamic inventory model with periodic auditing. Oper. Res. 38(6):1089–1103.
+Garvin DA (1987) Competing on the eight dimensions of quality. Harvard Bus. Rev. 65(May–June):101–117.
+Nau RA, Garvin DA, Whitt W (1995) Coherent decision analysis with inseparable probabilities and utilities. J.
+Math. Econom. 29(2):331–361.
+FORTHCOMING ARTICLE
+Johnson RD, Marakas GM (2017) The role of behavioral modeling in computer skills acquisition: Toward
+refinement of the model. Inform. Systems Res. Forthcoming.
+Note Always query the author to update a forthcoming publication. If the publication is an
+INFORMS journal, alert your production representative so that they may update the reference.
+Note Citations of forthcoming articles should include the current year [e.g., Lee (2018) not
+Lee (forthcoming)].
+PUBLISHED AHEAD OF PRINT
+Lu SF, Rui H (2017) Can we trust online physician ratings? Evidence from cardiac surgeons in Florida.
+Management Sci., ePub ahead of print June 13, https://doi.org/10.1287/mnsc.2017.2741.
+Note Always check online for a publication update.
+Note If no URL is provided for a non-INFORMS journal, simply end the reference after the
+month and day.
+NEWSPAPER/MAGAZINE
+PRINT
+Wall Street Journal (1997) Robust demand leaves industry front-runner unafraid. (January 20), B2.
+ONLINE
+Morrison M (2003) Herb Kelleher on the record, part 3. Bus. Week Online (December 23),
+http://www.businessweek.com/stories/2003-12-23/herb-kelleher-on-the-record-part-3.
+Reaves J (2001) A weighty issue: Ever-fatter kids. Interview with James Rosen. Time (March 14),
+http://www.time.com/time/nation/article/1234.html.
+39
+PERSONAL COMMUNICATION
+Cummings JN (2005) Team configuration data provided via personal communication with the authors,
+January 4.
+Note Query the author to include information about a transcript or tape of the
+personal communication if not provided.
+Deviation In INFORMS Transactions on Education (ITED), additional information about
+a transcript or tape is not necessary; do not query if missing.
+PREPRINT
+Bertsimas D, Gupta V, Kallus N (2013) Data-driven robust optimization. Preprint, submitted December 31,
+https://arxiv.org/abs/1401.0212.
+Note For SSRN (Social Science Research Network) preprints, use the URL format that
+includes the DOI instead of the www.ssrn.com format:
+Babenko I, Choi G, Sen R (2018) Management (of) proposals. Preprint, submitted
+April 20, https://dx.doi.org/10.2139/ssrn.3155428.
+PRESENTATION/LECTURE
+Haltiwanger J (2004) What do we know (and not know) about the contribution of young businesses to
+economic growth? Presentation, Entrepreneurship in the 21st Century Conference, March 26, Office of
+Advocacy, U.S. Small Business Administration, Washington, DC.
+REPORT/WHITE PAPER/PRESS RELEASE
+U.S. Small Business Administration (2003) Self-employment and computer usage. Report, Office of
+Advocacy, U.S. Small Business Administration, Washington, DC.
+SOFTWARE
+Rovio Entertainment. Angry Birds Transformers. V. 1.4.25. Rovio Entertainment, 2014. Android 4.0 or later.
+Soundtrack by Vince DiCola and Kenny Meriedeth.
+THESIS OR DISSERTATION, UNPUBLISHED
+Yi Y (1998) Developing and validating an observational learning model of computer software training.
+Unpublished doctoral dissertation, University of Maryland, College Park.
+WORKING PAPER
+WITHOUT PUBLICATION NUMBER
+Balzer B, Schneider J (2018) Persuading to participate: Coordination on a standard. Working paper,
+University of Technology, Sydney, Australia.
+40
+WITH PUBLICATION NUMBER
+Gross DP (2016) The ties that bind: Railroad gauge standards and internal trade in the 19th century U.S.
+Harvard Business School Working Paper No. 17-044, Harvard University, Boston.
+NATIONAL BUREAU OF ECONOMIC RESEARCH
+Catalini C, Gans JS (2019) Some simple economics of the blockchain. NBER Working Paper No. 22952,
+National Bureau of Economic Research, Cambridge, MA.
+Note If only “working paper” appears, query the author to provide the institution and
+location of the first author.
+Note If the author has provided a URL link to a working paper, delete it unless it is a
+link to a preprint server, in which case the preprint reference style should be followed.
+Note Always query the author to provide an update for a working paper.
+41
+Tables
+Caption
+The table caption is set in title case and is preceded by a boldface table number followed by a period; the
+caption should run in with the table number. The caption does not end with a period. For example:
+Table 1. Determinants of Director Equity Deferrals: Multiple-Board Directors
+If the table caption is more than one sentence, set the subsequent sentences as a note; do not allow footnotes
+to be appended to table captions.
+Deviation In Mathematics of Operations Research (MOOR), table captions are set in sentence
+case, can contain multiple sentences, and end with a period; for example:
+Table 1. Comparison of upper bounds and solution times of PL and LR. Both
+times are solved to 1% of optimality by linear programming.
+Headings, body, and rules
+Headers are initial column flush left and subsequent headings centered. Table column and row headings are
+set in sentence case. Row subheadings are indented one em space.
+Generally, a table has three rules: below the caption, below column headings, and below body of table. Set the
+fewest number of rules as possible.
+Data in the table body are decimal-aligned. Em dashes, if present, should be centered.
+42
+If a table is split into two or more parts, the panel letters should be uppercase roman (e.g., Panel A, Panel B).
+However, tables with multiple lettered parts should not be presented as multiple separate tables; renumber
+the tables in such cases (e.g., Table 1A and Table 1B becomes Table1 and Table 2).
+Note Horizontal and/or vertical rules may be reinserted at the author’s request.
+Notes and footnotes
+If the table caption is more than one sentence, set the subsequent sentences below the table and preceded by
+the italic header Note (for one sentence) or Notes (for two or more sentences).
+Abbreviation definitions should appear in the Note(s); if there are two or more notes, the abbreviations list
+should appear last. Separate each abbreviation from its definition with a comma, and separate definitions
+from each other with semicolons.
+Note Follow copy regarding the order in which the abbreviations are listed; it is not
+necessary to alphabetize abbreviations lists that have not been alphabetized.
+Footnotes are set below the Note(s), each footnote on its own line, preceded by the applicable superscript
+footnote symbol, and indented one em space; set multiple p-values on the same line, separated by semicolons.
+If applicable, a copyright statement should appear as the first line below the table and preceded by the italic
+heading Source. Notify your production representative or query the author to provide the appropriate
+documentation to confirm that permission has been received.
+Example:
+Table 1. Appointment Scheduling Models and Discrete Convexity
+Source. China Statistical Yearbook.
+Note. All functions were adjusted to reflect the minimization problem. IHP, infinite horizon
+problem; CCM, consumer choice model; SPP, single-period problem; SD, standard deviation.
+aObjective function assumed to be convex but not proven.
+bDecision variables are continuous.
+*p < 0.01; **p < 0.05; ***p < 0.001.
+Citations
+Every table must be cited in the article text in numerical order. Spell out the word “Table(s)” in the text
+regardless of whether the table is cited parenthetically:
+(Table 1) As shown in Table 1…
+(Tables 4–6) Tables 4–6 show…
+(Tables 5 and 6) As shown in Tables 5 and 6…
+43
+Terminology
+Term Notes
+asymptotically a mathematical term; not a misspelling of asymptomatically
+data set two words
+decision maker (n) e.g., “Convince the decision makers to change the existing practices…”
+decision-maker (adj) e.g., “Decision-maker”
+decision making (n) e.g., “Decision making is an important component of any business…”
+decision-making (adj) e.g., “Decision-making policies should be established…”
+email deviation from Merriam-Webster’s
+healthcare deviation from Merriam-Webster’s
+J-statistic e.g., “Hansen’s J-statistic”
+online one word
+internet per The Chicago Manual of Style §7.80
+max abbreviate when “maximum” is meant; spell out when “maximize” is meant
+min abbreviate when “minimum” is meant; spell out when “minimize” is meant
+p-value hyphenate general references (e.g., “All p-values…”); “p” stands alone for
+specific values (e.g., p < 0.01)
+R2 not “R-squared”
+s.t. subject to; always include periods
+supply chain do not hyphenate as a unit modifier
+the web per The Chicago Manual of Style §7.80
+web page per The Chicago Manual of Style §7.80
+website per The Chicago Manual of Style §7.80
+World Wide Web per The Chicago Manual of Style §7.80
+Latin terms
+Commonly used Latin words and abbreviations (e.g., ex post, ad hoc, a priori, etc.) should not be italicized or
+hyphenated (even if used as a modifier); however, retain hyphens if used in reference titles or direct quotes.
+If the Latin term is in the dictionary, set roman; if it is not in dictionary, set italic. Aim for consistency
+throughout an article.
+Signs and symbols
+Use these symbols only if the author has provided them, and only the first time used in text, tables, and
+figures. Do not use these symbols in headers or in titles.
+“LESS THAN” AND “GREATER THAN” SYMBOLS
+Place a space on either side of the “less than” (<) and “greater than” (>) symbols in two-sided expressions
+(e.g., p < 0.01), but close up the space in one-sided expressions (e.g., the increase in cost was <20%). (See also
+§12.13 in The Chicago Manual of Style.)
+PERCENT
+Use the percent symbol (%) with numerals; close up the symbol to the number. Repeat the symbol in ranges
+or series (e.g., 5%–20%; 5%, 10%, 20%, and 40%).
+44
+Usage
+General usage
+above/below Do not use to refer to article sections, equations, or enunciations that appear elsewhere in
+the paper; instead, refer to the specific component being cited.
+affect/effect As a verb, affect means to have bearing or influence on something; effect means to cause
+something to happen. As a noun, affect refers to emotion; effect is the power to produce a consequence.
+although/though Follow author usage.
+below/above See above/below.
+compare compare (i.e., liken) to a standard; compare with a peer.
+compose/comprise compose means to make up (“The soup is composed of many ingredients”); comprise
+means to encompass, to be made up of (“The whole comprises the parts”).
+data The plural form of datum; the latter is rarely used. Never use “little data”; use “few data.”
+due to Replace due to with because of when used adverbially (e.g., “Because of the parents’ negligence, the
+entire family suffered”). Due to is acceptable when it is being used as an adjective after the verb to be (e.g.,
+“…if the effect was due to market participants not trading”). Always replace due to the fact that with because.
+effect/affect See affect/effect.
+e.g./i.e. e.g. means “for example” and introduces a list of examples; i.e. means “that is” and introduces a
+restatement or definition. Use the (roman) abbreviated form in parentheses, but spell out in text.
+ensure/insure To ensure means to guarantee or make sure; to insure means to assure against loss or to give,
+take, or procure insurance.
+in order to Follow author usage; do not shorten to “to” unless absolutely necessary.
+insure/ensure See ensure/insure.
+Netherlands Precede with the word “the” only when grammatically necessary in running text (e.g., “When
+visiting the Netherlands…”); omit the word “the” in affiliations and references.
+on the other hand It is acceptable to retain the terms “on the one hand” and “on the other hand” (i.e., do
+not replace “on the one hand” with “on one hand” and do not replace “on the other hand” with “in contrast”
+or “by contrast”).
+since Use only in a temporal sense (e.g., “Since 1999, many studies have focused on…”); otherwise, use
+because (e.g., “Because our model did not yield satisfactory results…”).
+that/which Use that to introduce restrictive (essential) clauses and which to introduce nonrestrictive
+(nonessential) clauses. A which clause can be, but is not always, set off by commas; that clauses never are.
+though/although See although/though.
+United Kingdom Abbreviate as “UK” without periods when used as a modifier; spell out when used as a
+noun.
+United States Abbreviate as “U.S.” with periods when used as a modifier; spell out when used as a noun.
+versus Spell out in text but abbreviate as “vs.” in headings, figure/table legends, and titles.
+viz. Latin for “namely”; it is permissible to use the abbreviation in parenthetical text, but spell out as
+“namely” in regular text.
+45
+which/that See that/which.
+while Use only in a temporal sense (e.g., “While the coffee brewed, I read the paper”); otherwise use
+although or whereas as appropriate (e.g., “Although it was raining, I was in a cheery mood”; “I prefer vanilla,
+whereas my husband prefers chocolate”).
+Gender-specific pronouns
+Do not use he/she, s/he, (s)he, etc.; use he or she only after exhausting other options (see §5.255 in The Chicago
+Manual of Style).
+Do not use they as a singular pronoun.
+Italics
+Italics may be used to offset a key term at its first mention, but the term should appear in roman type
+thereafter. Use italics for emphasis sparingly. (See also §7.50 and §7.53–§7.56 in The Chicago Manual of Style.)
+Passive vs. active voice
+Minor edits to change passive to active voice are permissible; however, if extensive rewrites would be required,
+follow the author’s voice and refrain from making any edits. Always query the author to confirm any edits to
+passive/active voice.
+46
+Appendix A: History Lines
+History line information will be provided on the article checklist. Not all INFORMS journals publish history
+lines, and those that do use varying language and formats; refer to the following sections for details regarding
+specific titles.
+Note Articles that are part of a special issue must always have a history line. Examples
+follow, but as a general rule use the wording that has been provided on the article checklist:
+History: This paper has been accepted by Benjamin Lev and Grace Lin for the Special Issue
+on Operations Research Applications in the Energy Industry.
+History: This paper has been accepted for the Manufacturing & Service Operations Management
+Special Issue on Interface of Finance, Operations, and Risk Management.
+History: This paper was accepted through the Marketing Science: Frontiers review process.
+DECA, IJOO, MOOR, MSOM, OPRE, ORSC, STSC, TRSC, SERV, ITED
+No history line unless the article is part of a special issue.
+IJOC
+Accepted by <NAME>, Area Editor for <AREA>.
+History: Accepted by Ram Ramesh, Area Editor for Knowledge Management and Machine
+Learning.
+INTE
+Only has a history line if the paper was refereed.
+History: This paper was refereed.
+ISRE
+<NAME>, Senior Editor; <NAME>, Associate Editor.
+History: Vijay Mookerjee, Senior Editor; Gautam Pant, Associate Editor.
+MKSC
+<NAME> served as the senior editor and <NAME> served as associate editor for this article.
+History: Yuxin Chen served as the senior editor and Anthony Dukes served as associate editor for
+this article.
+<NAME> served as the editor-in-chief and <NAME> served as associate editor for this article.
+History: K. Sudhir served as the editor-in-chief and Christophe Van den Bulte served as associate
+editor for this article.
+47
+MNSC
+Accepted by <NAME>, <DEPARTMENT>.
+History: Accepted by Shivaram Rajgopal, accounting.
+48
+Appendix B: Common Journal Abbreviations
+Abbreviations used in journal titles
+Abstract/s Abstr.
+Academy Acad.
+Adaptive Adapt.
+Administrative Admin.
+Advances Adv.
+American Amer.
+Analysis Anal.
+Annals Ann.
+Applied, Applications Appl.
+Archives Arch.
+Association Assoc.
+Behavior Behav.
+Biology, Biological Biol.
+Bulletin Bull.
+Business Bus.
+Collection Collect.
+Combinatorial Combin.
+Communications Comm.
+Computer, Computation, Computing Comput.
+Conference Conf.
+Cuaderno/s Cuad.
+Document Doc.
+Dynamics Dynam.
+Economical, Economy, Economic Econom.
+Education Ed.
+Electrical Electr.
+Elements Elem.
+Engineering Engrg.
+Environmental Environ.
+European Eur.
+Experimental Experiment.
+Faculty Fac.
+Functional Funct.
+Historical, History Hist.
+Industry, Industrial Indust.
+Information Inform.
+Institute Inst.
+International Internat.
+Journal J.
+Learning Learn.
+Letters Lett.
+Logistics Logist.
+Mathematical, Mathematics Math.
+Mechanics, Mechanical Mech.
+49
+Modelling Model.
+Natural Natl.
+Numerical Numer.
+Operations, Operational Oper.
+Optimization Optim.
+Organization, Organizational Organ.
+Perspective Perspect.
+Philosophical, Philosophy Philos.
+Physics Phys.
+Probability Probab.
+Proceedings Proc.
+Psychology, Psychological Psych.
+Publications Publ.
+Quantitative Quant.
+Quarterly Quart.
+Recherche Rech.
+Report/s Rep.
+Research Res.
+Review Rev.
+Royal Roy.
+Science, Scientific Sci.
+Section Sect.
+Series Ser.
+Social, Society Soc.
+Sociological, Sociology Sociol.
+Statistics, Statistical Statist.
+Study, Studies Stud.
+Symposium Sympos.
+Technical, Technology, Technological Tech.
+Telecommunications Telecomm.
+Theoretical Theoret.
+Transactions Trans.
+University Univ.
+50
+Full journal titles
+Academy of Management Journal Acad. Management J.
+Academy of Management Review Acad. Management Rev.
+Accounting Horizons Accounting Horizons
+Acta Applicandae Mathematicae Acta Applicandae Mathematicae
+Acta Mathematical Vietnam Acta Math. Vietnam
+Administrative Science Quarterly Admin. Sci. Quart.
+Advances in Applied Probability Adv. Appl. Probab.
+Advances in Futures and Options Research Adv. Futures Options Res.
+Advances in Research on the Sociology of Organizations Adv. Res. Sociol. Organ.
+American Economic Review Amer. Econom. Rev.
+American Journal of Medicine Amer. J. Medicine
+American Journal of Sociology Amer. J. Sociol.
+American Political Science Review Amer. Political Sci. Rev.
+American Sociological Review Amer. Sociol. Rev.
+Annals of Applied Probability Ann. Appl. Probab.
+Annals of Statistics Ann. Statist.
+Annual Review of Sociology Annual Rev. Sociol.
+Applied Mathematics and Optimization Appl. Math. Optim.
+Archives of Internal Medicine Arch. Internal Medicine
+Banking Strategies Banking Strategies
+Bell Journal of Economics Bell J. Econom.
+Bell Journal of Economics and Management Science Bell J. Econom. Management Sci.
+Biological Cybernetics Biol. Cybernetics
+Business and Politics Bus. Politics
+Business Horizons Bus. Horizons
+Business Week Bus. Week
+California Management Review Calif. Management Rev.
+Computational Intelligence Comput. Intelligence
+Computational Optimization and Applications Comput. Optim. Appl.
+Computer Mathematics Applications Comput. Math. Appl.
+Computers and Operations Research Comput. Oper. Res.
+Decision Analysis Decision Anal.
+Econometrica Econometrica
+Economic Journal Econom. J.
+Economics and Politics Econom. Politics
+European Economic Review Eur. Econom. Rev.
+European Finance Review Eur. Finance Rev.
+European Financial Review Eur. Financial Rev.
+European Journal of Information Systems Eur. J. Inform. Systems
+European Journal of Operational Research Eur. J. Oper. Res.
+European Management Journal Eur. Management J.
+Expert Systems with Applications Expert Systems Appl.
+Finance and Stochastics Finance Stochastics
+Financial Analysts Journal Financial Analysts J.
+Games and Economic Behavior Games Econom. Behav.
+Harvard Business Review Harvard Bus. Rev.
+Hitosubashi Journal of Commerce and Management Hitosubashi J. Commerce Management
+Human Relations Human Relations
+51
+Human Resource Management Human Resource Management
+IBM Journal of Research and Development IBM J. Res. Development
+IEEE Transactions on Engineering Management IEEE Trans. Engrg. Management
+Industrial and Corporate Change Indust. Corporate Change
+Industrial Management Review Indust. Management Rev.
+Industry and Innovation Indust. Innovation
+Information Systems Frontiers Inform. Systems Frontiers
+Information Systems Journal Inform. Systems J.
+Information Systems Research Inform. Systems Res.
+INFORMS Journal on Computing INFORMS J. Comput.
+Insurance, Mathematics and Economics Insurance, Math., Econom.
+International Journal of Flexible Manufacturing Systems Internat. J. Flexible Manufacturing Systems
+International Journal of Industrial Organization Internat. J. Indust. Organ.
+International Journal of Production Economics Internat. J. Production Econom.
+International Journal of Production Research Internat. J. Production Res.
+International Journal of Service Industry Management Internat. J. Service Indust. Management
+International Journal of Services, Technology, and Management Internat. J. Services, Tech., Management
+International Journal of Theoretical and Applied Finance Internat. J. Theoret. Appl. Finance
+International Options Journal Internat. Options J.
+International Transactions of Operational Research Internat. Trans. Oper. Res.
+Journal of Accounting Research J. Accounting Res.
+Journal of Applied Corporate Finance J. Appl. Corporate Finance
+Journal of Banking and Finance J. Banking Finance
+Journal of Business J. Bus.
+Journal of Business and Economic Statistics J. Bus. Econom. Statist.
+Journal of Business, Finance and Accounting J. Bus., Finance, Accounting
+Journal of Combinatorial Optimization J. Combin. Optim.
+Journal of Computational Finance J. Computational Finance
+Journal of Consumer Research J. Consumer Res.
+Journal of Cost Management J. Cost Management
+Journal of Derivatives J. Derivatives
+Journal of Econometrics J. Econometrics
+Journal of Economic Behavior and Organization J. Econom. Behav. Organ.
+Journal of Economic Dynamics and Control J. Econom. Dynam. Control
+Journal of Economic Perspectives J. Econom. Perspect.
+Journal of Economic Theory J. Econom. Theory
+Journal of Economics and Management Strategy J. Econom. Management Strategy
+Journal of Finance J. Finance
+Journal of Financial and Quantitative Analysis J. Financial Quant. Anal.
+Journal of Financial Economics J. Financial Econom.
+Journal of Fixed Income J. Fixed Income
+Journal of Global Information Management J. Global Inform. Management
+Journal of Global Optimization J. Global Optim.
+Journal of Industrial Economics J. Indust. Econom.
+Journal of Information Technology J. Inform. Tech.
+Journal of Intelligent Manufacturing J. Intelligent Manufacturing
+Journal of Interactive Marketing J. Interactive Marketing
+Journal of International Business Studies J. Internat. Bus. Stud.
+Journal of International Economics J. Internat. Econom.
+Journal of Law and Economics J. Law Econom.
+Journal of Law, Economics, and Organizations J. Law, Econom., Organ.
+52
+Journal of Management Information Systems J. Management Inform. Systems
+Journal of Management Inquiry J. Management Inquiry
+Journal of Management Studies J. Management Stud.
+Journal of Marketing J. Marketing
+Journal of Marketing Management J. Marketing Management
+Journal of Marketing Research J. Marketing Res.
+Journal of Mathematical Analysis and Applications J. Math. Anal. Appl.
+Journal of Operational Research Society J. Oper. Res. Soc.
+Journal of Operations Management J. Oper. Management
+Journal of Optimization Theory and Applications J. Optim. Theory Appl.
+Journal of Organizational Behavior J. Organ. Behav.
+Journal of Organizational Computing J. Organ. Comput.
+Journal of Personality and Social Psychology J. Personality Soc. Psych.
+Journal of Political Economy J. Political Econom.
+Journal of Portfolio Management J. Portfolio Management
+Journal of Product Innovation Management J. Product Innovation Management
+Journal of Research and Development J. Res. Development
+Journal of Risk and Uncertainty J. Risk Uncertainty
+Journal of Service Research J. Service Res.
+Journal of Strategic Information Systems J. Strategic Inform. Systems
+Journal of the American Medical Association J. Amer. Medical Assoc.
+Journal of the Royal Statistical Society J. Royal Statist. Soc.
+Journal of Theoretical Biology J. Theoret. Biol.
+Knowledge and Process Management Knowledge Process Management
+Los Angeles Times Los Angeles Times
+Management Accounting Management Accounting
+Management Science Management Sci.
+Management Strategy Management Strategy
+Manufacturing and Service Operations Management Manufacturing Service Oper. Management
+Marketing Letters Marketing Lett.
+Marketing News Marketing News
+Marketing Science Marketing Sci.
+Mathematical Finance Math. Finance
+Mathematical Programming Math. Programming
+Mathematical Programming Study Math. Programming Stud.
+Mathematics of Operations Research Math. Oper. Res.
+Mathematische Annalen Mathematische Annalen
+McKinsey Quarterly McKinsey Quart.
+Medical Marketing and Media Medical Marketing Media
+MIS Quarterly MIS Quart.
+MIS Quarterly Executive MIS Quart. Executive
+Naval Research Logistics Naval Res. Logist.
+New York Times New York Times
+Numerische Mathematik Numerische Mathematik
+Operations Research Oper. Res.
+Operations Research Letters Oper. Res. Lett.
+Operations Research Practice Oper. Res. Practice
+Operations Research/Management Science Today OR/MS Today
+Organization Science Organ. Sci.
+Physical Review Phys. Rev.
+Proceedings of the National Academy of Sciences of the United Proc. Natl. Acad. Sci. USA or
+States of America (also known as PNAS) Proc. Natl. Acad. Sci.
+53
+Production and Operations Management Production Oper. Management
+Programming Study Programming Stud.
+Quarterly Journal of Economics Quart. J. Econom.
+Rand Journal of Economics (RAND Journal of Economics) RAND J. Econom.
+Research Policy Res. Policy
+Review of Accounting Studies Rev. Accounting Stud.
+Review of Derivatives Research Rev. Derivatives Res.
+Review of Economic Studies Rev. Econom. Stud.
+Review of Economics and Statistics Rev. Econom. Statist.
+Review of Financial Studies Rev. Financial Stud.
+Review of Futures Markets Rev. Futures Markets
+Service Science Service Sci.
+SIAM Journal of Economic Computing SIAM J. Econom. Comput.
+Sloan Management Review Sloan Management Rev.
+Social Science and Medicine Social Sci. Medicine
+Stochastic Analysis and Applications Stochastic Anal. Appl.
+Stochastic Processes and Their Applications Stochastic Processes Their Appl.
+Stochastics and Stochastics Reports Stochastics Stochastics Rep.
+Strategic Management Journal Strategic Management J.
+Technology Analysis & Strategic Management Tech. Anal. Strategic Management
+Theory and Decision Theory Decision
+Theory of Probability and Its Application Theory Probab. Its Appl.
+Total Quality Management Total Quality Management
+Transportation Science Transportation Sci.
+Wall Street Journal Wall Street Journal
+Washington Post Washington Post
+World Development World Development
+54
+Appendix C: ITED Case Series
+ITED Case Series are typically composed of three parts:
+Case Article (usually a summary of the case)
+Case (for students)
+Teaching Notes (for teachers)
+At least one of these three parts should contain a reference list, but not all parts may have a reference list.
+The Case Article and Case are set as separate PDFs and have separate DOIs; for example:
+10.1287/ited.1090.0028ca – Case Article
+10.1287/ited.1090.0028cs – Case
+The Case Teaching Notes (and/or Instructor Materials) are posted with the article in which they appear on
+the ITED website; they are not edited or typeset.
+For an example of how a Case Series is set up, see ITED Volume 18, Issue 3.
+55
+Appendix D: Standard Author Queries
+The author queries in this appendix should be added to every INFORMS article in which they apply.
+Article title, author names, affiliations, and contact information
+Please confirm that the article title, author names, affiliations, and email addresses are set correctly. If
+applicable, please provide author ORCID numbers.
+Subject classifications (MOOR and OPRE only)
+Please confirm that subject classifications are correct as set.
+Abstract
+Per INFORMS style, equations are not allowed in the abstract. Please rewrite without equations if possible.
+Open access statement
+GENERAL STATEMENT
+You have chosen the INFORMS Open Option. Please check the Open Access Statement and confirm that
+the Creative Commons license paragraph is correct. Your article will not be published until payment is
+received.
+ITED ONLY
+Please check the Open Access Statement and confirm that the Creative Commons license paragraph reflects
+the correct license. If a different license is desired, please provide the license you wish to use.
+Funding
+Please provide all funding information, if applicable, including the names of the institutions as well as any
+grant numbers associated with the funding, or confirm that no funding was received.
+Keywords
+Please confirm that keywords are correct as set.
+Headings
+Please confirm that heading levels are correct as set.
+Reference citations with article components
+Per journal style, if your paper includes any citations to specific figures, tables, appendices, sections, or
+enumerations from other publications, they are presented in lowercase to avoid confusion with citations to
+similar components of the current paper (which are capitalized). Please confirm throughout.
+56
+Figures and tables
+Please check that all tables and figures, including their titles and notes (which may contain edits) are set
+correctly.
+Please confirm that you have requested and received permission to adapt/reprint Figure/Table __.
+Permissions examples:
+Reprinted by permission from Springer Nature: Nature, “Abnormal splicing of the leptin receptor in diabetic
+mice,” by Gwo-Hwa Lee, R. Proenca, J. M. Montez, K. M. Carroll, J. G. Darvishzadeh, et al. (1996).
+Republished with permission of Elsevier, from “Evidence That the Diabetes Gene Encodes the Leptin
+Receptor: Identification of a Mutation in the Leptin Receptor Gene in db/db Mice,” by Hong Chen et al., vol.
+84, Issue 3, 1996; permission conveyed through Copyright Clearance Center, Inc.
+Color figures
+Your color figures appear in color in your page proof to simulate their presentation in color online, but they
+will be converted to grayscale in the print version of your article because you have not requested color
+processing for print. Please (a) check your figures to confirm that they will be sufficiently clear in grayscale
+presentation in the print version of your article and (b) modify your figure legends as necessary to remove any
+references to specific colors in the figure.
+Note Do not include the above query in ITED or STSY articles, as these titles are online-
+only and do not appear in print.
+Note Include the above query in articles published in SERV, which is an online-only title
+but has a print-on-demand option.
+Math
+Please verify that all displayed equations and in-text math notations are set correctly.
+Per INFORMS style, all variables should be italic and all vectors should be bold. Please confirm that all terms
+have been formatted properly throughout.
+Per INFORMS style, built-up fractions included within paragraph text should be converted to their in-line
+form, i.e., with a solidus rule, as in [a + (b/x)]1/2, whenever possible. Long or complex in-line formulas
+(within paragraph text) should be set as display equations. Please review all in-text equations and modify as
+necessary to be represented accurately as either display or in-line equations
+Note The query for built-up fractions will be added automatically to the pre-edited file but
+should be deleted from any articles to which it does not apply.
+57

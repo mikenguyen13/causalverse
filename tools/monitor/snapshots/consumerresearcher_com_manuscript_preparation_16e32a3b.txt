@@ -1,0 +1,338 @@
+JCR manuscripts are judged not only on the depth and scope of the ideas presented but also on whether they can be read and understood by our readers. Our subscribers have varied backgrounds, so gear your manuscript to an interdisciplinary audience.
+We do not preview abstracts or provide pre-submission assessments of the suitability of manuscripts for possible publication. Please read the journal and our guidance on appropriate manuscripts to familiarize yourself with the types of manuscripts we publish.
+All manuscripts must be submitted in ScholarOne (we cannot process or comment on manuscripts sent via mail or email) and all submissions must be provided in English (we are unable to process submissions in other languages or provide translation services). Review the instructions on this page carefully prior to submission to ensure adherence to all requirements.
+Also review our policies on research ethics, transparency, and open science (revised September 24, 2026) and note the following requirements for all submissions:
+In the spirit of open science, JCR requires, by default, that anonymized data be made available to the review team and, once the manuscript is accepted, to readers. The preferred method to share data is via a third-party repository (e.g., Dataverse).
+Authors must include a data and materials availability statement in the manuscript that provides information on data availability and access. This statement should outline where the data can be found (by including a link to the data) or, if data cannot be made publicly available, explain why the data cannot be made available. If you are sharing a link to your data files and study materials, ensure it is completely anonymized.
+Authors must provide a data collection statement during Step 6 of the submission process (do not include the data collection statement in the manuscript during the review process).
+Authors must disclose use of AI in the project, as per Oxford University Press and JCR’s AI Use and Disclosure Policy.
+If you are submitting an invited revision, please also review our additional instructions for invited revisions.
+If your submission is not an invited revision but you have submitted any version of the manuscript previously or there is significant overlap with any of your prior submissions to JCR, you must disclose all prior related submissions.
+If your submission is related to any manuscripts by one or more of the authors that are already published, under review, or in preparation for submission to another journal, you must disclose all overlapping publications.
+Policies and requirements may change; authors must adhere to the guidelines effective at the time of submission. Staff will review your submission for adherence to all requirements and will return incomplete submissions until all required information has been provided.
+Correspondence
+Permissions
+Cover Letter
+Authorship
+Author Anonymity
+Author Note
+Manuscript Length
+Proofreading and Copyediting
+Manuscript Content and Formatting
+Manuscript Title
+Consumer Relevance and Contribution Statement
+Abstract and Keywords
+Headings
+Footnotes
+Tables
+Figures
+Data and Materials Availability Statement
+Appendixes
+References
+Web Appendix
+Excel Files
+Media Files, Code, and Miscellaneous Content
+Prior Related Submission to JCR
+Correspondence
+Editors cannot discuss submissions or the review process directly with authors (by phone, video, in person, etc.).
+Authors must designate a corresponding author. The designated corresponding author should communicate with the editorial office (not the editor in chief or handling editor) on behalf of all authors and is expected to coordinate communications with co-authors.
+The submitting author is designated as the corresponding author by default during the initial submission process, but the submitting author may designate a co-author to serve as the corresponding author.
+The submitting author may change the designated corresponding author listed in ScholarOne during the submission process for each round of revision.
+If you need to update the corresponding author at any other time (e.g., before submitting a revision, after your manuscript is accepted by the editor), contact the editorial office and copy all co-authors on the request.
+The submitting author and the corresponding author are distinct roles; if different authors are assigned to these roles: The submitting author is responsible for all information entered in ScholarOne during the submission process and only the submitting author can submit a revision in ScholarOne. The corresponding author is responsible for all communications with the journal and the publisher.
+The submitting author is responsible for all information entered in ScholarOne during the submission process and only the submitting author can submit a revision in ScholarOne.
+The corresponding author is responsible for all communications with the journal and the publisher.
+If your manuscript is accepted: OUP policy limits changes to authorship and the journal cannot change the corresponding author after the accepted manuscript is forwarded to our publisher. The designated corresponding author must submit the publication license and will remain the point of contact throughout the proofing process and for queries about the published article.
+OUP policy limits changes to authorship and the journal cannot change the corresponding author after the accepted manuscript is forwarded to our publisher.
+The designated corresponding author must submit the publication license and will remain the point of contact throughout the proofing process and for queries about the published article.
+Permissions
+It is your responsibility to obtain permission to reproduce figures and other third-party content that will appear in your article or web appendix prior to acceptance.
+If your manuscript or web appendix contain content that requires permission to reproduce, make sure you have obtained all relevant permissions prior to acceptance and that the correct permission text has been used as required by the copyright holders.
+Due to the complexity of copyright issues, all permissions-related queries are handled by our publisher, Oxford University Press (OUP). Editorial office staff are unable to advise on what constitutes fair use of third-party content or how to obtain necessary permissions.
+OUP provides guidance to help authors determine when permission is needed to use third-party content and answer common questions pertaining to the process of obtaining permissions. See OUP’s rights and permissions guidelines for authors or contact OUP with questions regarding permissions.
+Your university’s legal department may also be able to provide assistance.
+Cover Letter
+Your cover letter is confidential (it is only visible to the editor and associate editor). In your cover letter:
+Suggest up to three current associate editors appropriate for your manuscript (for new submissions only)
+Disclose potential conflicts of interest
+For invited revisions: Explain any changes in authorship (addition, removal, or reordering of authors) Disclose any conflicts of interest you have developed with the editor or any of the associate editors or reviewers who you previously recommended for your submission since the previous round
+Explain any changes in authorship (addition, removal, or reordering of authors)
+Disclose any conflicts of interest you have developed with the editor or any of the associate editors or reviewers who you previously recommended for your submission since the previous round
+Authorship
+When entering author information in the submission system (during Step 4 for new submissions and Step 5 for revisions), list all authors in order of authorship.
+Ensure that all authors who contributed to the article are fairly acknowledged and that the authorship list accurately reflects individual contributions. OUP requires all published articles to contain clear and accurate attribution of authorship and supports the ICMJE definitions of authorship.
+Artificial intelligence (AI) tools such as ChatGPT do not qualify as authors.
+Authors must disclose the use of AI in the project, as per Oxford University Press and JCR’s AI Use and Disclosure Policy.
+It is the responsibility of all listed authors to determine who qualifies or does not qualify for authorship prior to submission.
+All authors must agree to the authorship order.
+Every submission must have a designated corresponding author to handle communications with the journal and the publisher (if your manuscript is accepted).
+When submitting an invited revision, all authors must agree to any changes in authorship (addition, removal, or reordering of authors) and all changes in authorship must be explained in the confidential cover letter to the editor.
+It is not the role of the journal to arbitrate authorship conflicts.
+Authors Accounts in ScholarOne:
+All authors must have only one JCR account.
+If you have created a duplicate account when submitting a new manuscript, contact the editorial office before completing your submission and staff will merge your accounts.
+If any co-author has an existing JCR account but their account is not found when you search by email, their account may be associated with a different email. Check with your co-author to verify the email associated with their JCR account before completing your submission to avoid creating a duplicate account.
+Note: The authors and authorship order entered into the submission system MUST match the authors and authorship order listed in the author note.
+Author Anonymity
+Our review process is double anonymized.
+Authors must ensure that all files (and links to external materials) submitted for review are completely anonymized:
+Do not identify yourself or your university affiliation in your manuscript, web appendix, or revision notes during the review process However, you should cite your own work when appropriate; include author names in self-citations and the corresponding references if the work has been published in some form (including preprints, working papers, or other content that is publicly available) or has been presented at a conference or workshop When citing your own work, do not use language in-text that indicates it is your own work (e.g., “in our article” or “we found”) or that it is undergoing the review process (e.g., “under review” or “offered revision”)
+However, you should cite your own work when appropriate; include author names in self-citations and the corresponding references if the work has been published in some form (including preprints, working papers, or other content that is publicly available) or has been presented at a conference or workshop
+When citing your own work, do not use language in-text that indicates it is your own work (e.g., “in our article” or “we found”) or that it is undergoing the review process (e.g., “under review” or “offered revision”)
+In the methods sections, where data collection and participant pools are discussed, use generic descriptive terms such as “large public university” instead of the names of specific institutions where data were collected
+Do not include the author note or the data collection statement in the manuscript file during the review process (these items must be entered during Step 6 of the submission process and will only be visible to the editor and associate editor)
+Do not include acknowledgments or funding information in your manuscript (provide this information in the author note)
+Do not disclose conflicts of interest in your manuscript (provide this information in the confidential cover letter)
+If you are including links to study pre-registrations, data, study materials, or other external content: Ensure that the URL does not identify authors or institutions Make sure the webpage, all folders, and all files uploaded at the link are completely anonymized Check individual file properties for identifying information (e.g., check “Info” under the “File” tab in Excel and Word documents, check “Properties” under the “File” tab in PDFs) The URL must be accessible without requesting access (this compromises author and reviewer anonymity) Note that exported .pdf files of surveys (e.g., in Qualtrics) can include institutional logos or identifying information in the consent form, which should be removed
+Ensure that the URL does not identify authors or institutions
+Make sure the webpage, all folders, and all files uploaded at the link are completely anonymized
+Check individual file properties for identifying information (e.g., check “Info” under the “File” tab in Excel and Word documents, check “Properties” under the “File” tab in PDFs)
+The URL must be accessible without requesting access (this compromises author and reviewer anonymity)
+Note that exported .pdf files of surveys (e.g., in Qualtrics) can include institutional logos or identifying information in the consent form, which should be removed
+If your manuscript is accepted for publication, the final versions of your manuscript and web appendix should be updated to include identifying information that was omitted during the review process.
+Author Note
+Enter your author note during Step 6 of the submission process (do not include your author note in the manuscript file during the review process or upload a separate title page with this information).
+Provide the following information for each author:
+Full name
+Email address
+Current position
+Current affiliation (i.e., department and university/institution)
+Additionally, provide the following information as applicable:
+Acknowledgments of financial, technical, or other assistance
+Authors must disclose the use of AI in the project, as per Oxford University Press and JCR’s AI Use and Disclosure Policy.
+A sentence designating the corresponding author (e.g., “Address all correspondence to Annabelle L. Arthur”).
+Note:
+The author names and order listed in the author note MUST match the author information added to the system (during Step 4 for new submissions and Step 5 for revisions)
+Verify the order of author names and update the author note with each revision (this provides the journal with an authorship record for each submission as contact and affiliation details listed in ScholarOne user profiles may change later)
+If the manuscript is based on the lead author’s dissertation, the author note should state this (and should not state that all authors contributed equally to the article) if you would like your accepted article to be considered for the Ferber Award
+See our sample author notes.
+Manuscript Length
+Authors should strive for economy and clarity when preparing manuscripts for JCR. The contribution to knowledge relative to the length of the manuscript is a key criterion in the editorial review process.
+The manuscript length may not exceed 60 double-spaced pages. This page limit applies to the entire document:
+Manuscript Title (we do not require a separate title page)
+Consumer Relevance and Contribution Statement (for new submissions only)
+Abstract and Keywords
+Main Text (tables and figures should be placed within the main text and are included in the 60-page limit; do not place them at the end of the manuscript or upload separate files with tables and figures)
+Data and Materials Availability Statement
+Appendixes (if applicable; note that a manuscript appendix differs from a web appendix)
+References
+Note:
+We cannot make exceptions to the page limit or the manuscript formatting requirements to accommodate additional content
+A separate web appendix file may be submitted and does not count toward the page limit
+Invited revisions must adhere to the 60-page limit; if the decision letter states that your revised manuscript should comprise fewer than 60 pages, you must adhere to the page limit specified in the decision letter
+Proofreading and Copyediting
+Proofread your manuscript carefully before submission:
+Make sure all references are accurate, verifiable, and complete (i.e., there must be a citation for every reference and a reference for every citation)
+Check the accuracy of all statistics, formulas, tables, and figures
+Ensure all comments among authors have been removed, all tracked changes have been accepted or rejected, and “track changes” has been turned off
+Consider hiring a professional proofreader or copyeditor if it will enhance the readability and clarity of your manuscript. If you need professional assistance preparing your manuscript for submission (proofreading, copyediting, general writing, and language or translation issues), consider the following:
+American Journal Experts
+Editage
+Editorial Freelancers Association
+Eloquenti
+Enago
+Note: These are merely suggestions provided for your convenience and use of these professional editing services has no bearing on acceptance of your manuscript. JCR does not have a relationship with these companies and we are unable to make specific recommendations. Your university or academic association may also be able to provide a list of trusted editorial specialists.
+Manuscript Content, Formatting, and File Upload
+The manuscript file must include the following items in the following order (see our sample manuscript for guidance):
+Manuscript Title (we do not require a separate title page)
+Consumer Relevance and Contribution Statement (for new submissions only)
+Abstract and Keywords
+Main Text (tables and figures should be placed within the main text and are included in the 60-page limit; do not place them at the end of the manuscript or upload separate files with tables and figures)
+Data and Materials Availability Statement
+Appendixes (if applicable; note that a manuscript appendix differs from a web appendix)
+References
+Note:
+The manuscript must be completely anonymized
+Do not include the author note or the data collection statement in the manuscript file during the review process
+If you are also submitting a web appendix or revision notes, these must be submitted as separate files
+The manuscript must adhere to the following formatting requirements (see our sample manuscript for guidance):
+Use US letter size (8.5″ x 11″) and one-inch (2.54 cm) margins on all sides
+Use Times New Roman 12-point font, single-column format, and portrait orientation
+The consumer relevance and contribution statement (for new submissions only), abstract, main text, and references must be double spaced and left justified (i.e., aligned with the left margin)
+References should have a half-inch (1.27 cm) hanging indent
+Do not number headings
+Add an extra double space before and after primary or secondary headings
+Add an extra double space before tertiary headings
+Do not number the pages (the system will number pages during file conversion)
+Do not include a running head, headers, footers, endnotes, underlining, or line numbering (the system will number lines during file conversion)
+The manuscript file must adhere to the following requirements:
+Upload your file in Word, Rich Text, or PDF format only (if your manuscript was created in LaTeX, please upload a PDF)
+File size may not exceed 40 MB
+File names may not contain the following characters: & [ ] { } ~ % @ ^ = +
+File names may not exceed 255 characters
+Executable and script file types (including .exe, .bat, .cmd, .sh, .js, .jar, .php, .py, .msi, .dll, .vbs, .ps1, .app, and .dmg) will be rejected by the submission system
+Additionally, our style guide for accepted manuscripts contains detailed instructions on reporting statistics and formatting the main text and references.
+If you need assistance formatting your manuscript, please consult your university support staff.
+Manuscript Title
+Enter your manuscript title during Step 1 of the submission process (Step 2 if you are submitting an invited revision).
+The manuscript title must also be included in the manuscript file (before the consumer relevance and contribution statement; we do not require a separate title page).
+Note:
+The title entered into ScholarOne MUST match the title in the manuscript file
+Keep your title concise and clear (many titles can be shortened)
+Use descriptive terms and phrases that accurately highlight the core content of the manuscript
+Use title case (also referred to as headline case)
+JCR titles follow Chicago Manual of Style rules on headline style capitalization:
+Capitalize the first and last words
+Capitalize all other major words
+Lowercase articles (a, an, and the)
+Lowercase as in any grammatical function
+Lowercase common coordinating conjunctions (and, but, for, or, and nor)
+Lowercase the part of a proper name that would be lowercase in text (e.g., de or von)
+Capitalize prepositions with five or more letters (e.g., About, Against, Among, Before, Through)
+Lowercase prepositions with four letters or less except when they are used adverbially or adjectivally (e.g., up in Look Up, down in Turn Down, to in Come To) or when they compose part of a Latin expression used adjectivally or adverbially (e.g., De Facto, In Vitro)
+Lowercase to not only as a preposition but also as part of an infinitive (to Run, to Hide, etc.)
+You can easily convert your title to the correct style using the following free online tools:
+Capitalize My Title
+Title Case Converter
+Titles are an important mechanism for drawing a wide variety of potential readers to your manuscript if it is accepted. Online indexing databases and search engines such as Google Scholar and Web of Science use titles to categorize and display articles, and the title may therefore influence whether scholars will read an article. A well-constructed and informative title should make your article discoverable to a larger number of scholars, which could lead to more citations.
+Consumer Relevance and Contribution Statement
+Every new submission must include a consumer relevance and contribution statement (maximum of 300 words). Do not include a consumer relevance and contribution statement with invited revisions.
+Enter your consumer relevance and contribution statement during Step 6 of the submission process. It must also be included in the manuscript file (double spaced and placed before the abstract).
+Your consumer relevance and contribution statement will be shared with the entire review team. The purpose of the statement is for you to show how the paper aligns with the mission of the journal by providing a clear and concise understanding of the primary consumer insights, the contribution of your manuscript beyond extant consumer research, and the relevance of your findings to appropriate non-academic audiences.
+Your consumer relevance and contribution statement should:
+Clearly articulate the ways in which the research provides important insight into a research topic concerning consumers and/or consumption in the marketplace
+Situate your research within existing consumer research knowledge and explain what the research adds to what is already known
+Explain how the research is relevant to and may be used by one or more non-academic constituents
+Note:
+Do not reveal author identities in your consumer relevance and contribution statement
+The consumer relevance and contribution statement entered into ScholarOne MUST match the consumer relevance and contribution statement in the manuscript file
+Do not include a consumer relevance and contribution statement when submitting an invited revision
+The consumer relevance and contribution statement will not appear in published articles
+See our sample consumer relevance and contribution statements.
+Abstract and Keywords
+Enter your abstract (a maximum of 200 words) during Step 1 of the submission process (Step 2 if you are submitting an invited revision). It must also be included in the manuscript file (double spaced and placed after the consumer relevance and contribution statement), followed by a list of three (3) to six (6) keywords in a separate paragraph.
+Your abstract should substantively summarize your manuscript and address the following:
+Topic/Issue
+Approach/Methods
+Results/Findings
+Implications/Conclusions
+Note:
+The abstract entered into ScholarOne MUST match the abstract in the manuscript file.
+Do not include any citations, links, tables, or figures in your abstract.
+Do not include any information that is not in your article.
+Be concise; avoid expressions such as “we found that consumers…” (i.e., omit “we found that…” and just write “consumers…” instead).
+The abstract should contain enough information about your manuscript to allow potential reviewers to judge whether they have enough expertise to review the manuscript; the abstract should also be engaging enough for them to want to review it.
+In crafting your abstract, recognize that JCR is an interdisciplinary journal and we aspire to being read and cited by scholars in a wide variety of disciplines. In most cases, the title and the abstract are the only part of an article that scholars will see in online indexing databases and search engines such as Google Scholar and Web of Science. A well-constructed and informative abstract should make your article discoverable to a larger number of scholars, which could lead to more citations.
+Make the writing in your abstract accessible, so that the importance of your article will be transparent to a wide variety of scholars. Include terms and descriptions that will allow your article to be found by scholars interested in your theories, substantive findings, and methods. For instance, a manuscript investigating processing style by comparing adults across the age span should reference both the relevant theories of processing and the operationalization through age, such that scholars with either interest would be drawn to the work.
+See our sample abstract.
+Headings
+Do not number your headings. You may use up to three levels of headings:
+Primary Headings: all-caps, centered, bold, with an extra double space before and after
+Secondary Headings: title case (all major words are capitalized), flushed left, with an extra double space before and after
+Tertiary Headings: title case (all major words are capitalized), indented, italicized, punctuated with a period, with an extra double space before the heading; the text follows on the same line
+See our sample manuscript which includes sample headings.
+You can easily convert your headings to the correct style using the following free online tools:
+Capitalize My Title
+Title Case Converter
+Footnotes
+We strongly discourage the use of footnotes (not to be confused with endnotes, which appear at the end of the manuscript and are not allowed at JCR).
+If you use footnotes, they should appear at the bottom of the given page. Create notes that are linked to the text using the footnote function in Word so that the footnotes are automatically and accurately renumbered when you make changes.
+Tables
+Tables must be included in the main manuscript file and placed within the body of the manuscript (do not place them at the end of the manuscript or upload separate files with tables).
+Note:
+Each table should be numbered consecutively (e.g., TABLE 1) and should have a short descriptive title
+Refer to tables in-text by number (e.g., table 1)
+Do not refer to tables using terms such as “above,” “below,” “preceding,” or “the following”
+If necessary, you may include tables in landscape orientation (but please ensure all other manuscript contents are in portrait orientation)
+See our sample manuscript which includes sample tables.
+Note: If your manuscript is accepted for publication, the typesetter will require an editable version of each table.
+Figures
+Figures must be included in the main manuscript file and placed within the body of the manuscript (do not place them at the end of the manuscript or upload separate files with figures).
+Note:
+It is the author’s responsibility to obtain all necessary permissions for figures containing third-party content prior to publication
+Each figure should be numbered consecutively (e.g., FIGURE 1) and should have a short descriptive title
+Refer to figures in text by number (e.g., figure 1)
+Do not refer to figures using terms such as “above,” “below,” “preceding,” or “the following”
+If necessary, you may include figures in landscape orientation (but please ensure the other manuscript contents are in portrait orientation)
+High-resolution images are not required during the review process, and authors are strongly encouraged to include lower-resolution images in order to reduce the manuscript file size and streamline uploading and downloading.
+Axes: Label both vertical and horizontal axes. The ordinate label should be centered above the ordinate axis; the abscissa label should be placed flush right, beneath the abscissa. Place all calibration tics inside the axis lines and their values outside the axis lines. If the junction of the axes is zero, there should be only one zero.
+Error Bars: When graphing means, the inclusion of error bars is optional. However, if error bars are reported, they must be the 95% confidence interval.
+Labels: Number each figure. Figure labels must be centered and typed in all capital letters.
+Legends: Legends should be placed horizontally, if possible, either in an appropriate white space in the figure or centered beneath the figure.
+Lines: Clearly differentiate lines within figures. Variations include bold line, fine line, broken line, dotted line, etc. Lines within the figure should be identified by either a legend or a short description in a note.
+Notes and Source Lines: Notes and source lines appear at the bottom of the table or figure, indented and aligned to the left. Descriptive information in addition to any notes should be placed above the notes, paragraph indented.
+Space: When boxes are used to delimit text or freespace drawings in figures, white space inside boxes should be kept to a minimum.
+Titles: Each figure must have its own descriptive title, centered and typed in all caps.
+Typefaces: Use only sans serif typefaces (e.g., Helvetica, Arial) in figures. Lettering on all figures must be professional in appearance and large enough to be easily read when reduced to actual size.
+See our sample manuscript which includes sample figures.
+If your manuscript is accepted for publication:
+You must provide separate figure files and may submit higher-resolution images at that time
+If your figures contain any third-party content, you must obtain permissions from copyright holders
+Data and Materials Availability Statement
+The data and materials availability statement should be provided as a single paragraph and should be placed before the references (or before the manuscript appendixes if applicable). If you are sharing a link to your data files and study materials, ensure it is completely anonymized.
+Appendixes
+A manuscript appendix is distinct from a web appendix and counts toward the page limit. A manuscript appendix contains content that is integral to the manuscript (not supplementary materials or enhancements).
+Note:
+Manuscript appendixes should begin on a new page before the references
+Label each appendix (centered and typed in all capital letters, e.g., APPENDIX A)
+Label a single manuscript appendix without letters or numbers (i.e., APPENDIX)
+Label multiple manuscript appendixes with letters (i.e., APPENDIX A, APPENDIX B, APPENDIX C)
+Each appendix must have a short descriptive title (centered and typed in all capital letters)
+Mention appendix contents in-text where relevant (e.g., “See the appendix for additional details” or “See appendix B for details”)
+Manuscript appendixes must follow all manuscript formatting guidelines (exceptions include stimuli, instruments, and other content included in its original form)
+See our sample manuscript which includes sample manuscript appendixes.
+References
+References must be double spaced with a half-inch (1.27 cm) hanging indent
+Ensure that all references are accurate, verifiable, and complete
+Each reference should be cited in the text at an appropriate place (do not include references that have no corresponding citations in the text)
+Provide the complete reference for all in-text citations (i.e., there must be a citation for every reference and a reference for every citation)
+Note: You should cite your own work when appropriate. Include author names in self-citations and the corresponding references if the work has been published in some form (including preprints, working papers, or other content that is publicly available). However, when citing your own work, ensure that this is done in a manner that preserves author anonymity. Do not use language in-text that indicates it is your own work (e.g., “in our article” or “we found”) or that it is undergoing the review process (e.g., “under review” or “offered revision”).
+See our sample manuscript which includes sample references. Additionally, our style guide for accepted manuscripts contains detailed instructions on formatting references.
+Web Appendix
+Authors are encouraged to submit a supplementary document (i.e., a web appendix) containing stimuli, instruments, replication studies, or additional information not contained in the manuscript.
+A web appendix is distinct from a manuscript appendix and does not count toward the manuscript page limit. A web appendix should include supplementary materials or enhancements only (not content integral to the article).
+The web appendix must be uploaded as a separate file (40 MB maximum file size) during the submission process:
+Select the “Web Appendix” file designation during File Upload (Step 2 for new submissions and Step 3 for revisions).
+Select “Yes” when prompted during Step 6.
+Note:
+Upload only one (1) web appendix file containing all supplementary materials
+Do not include author names or other identifying information in your web appendix during the review process (the web appendix will be shared with the entire review team)
+The web appendix will be included (after the manuscript) in the system-generated anonymized PDF that is provided to reviewers
+Include a title page (and label it “WEB APPENDIX”) with the following: the manuscript title (exactly as it appears in the manuscript file) a table of contents or a brief paragraph describing the contents of the web appendix
+the manuscript title (exactly as it appears in the manuscript file)
+a table of contents or a brief paragraph describing the contents of the web appendix
+Label each web appendix (centered and typed in all capital letters, e.g., WEB APPENDIX A)
+Label a single web appendix without letters or numbers (i.e., WEB APPENDIX)
+Label multiple web appendixes with letters (i.e., WEB APPENDIX A, WEB APPENDIX B, WEB APPENDIX C)
+Each web appendix must have a short descriptive title (centered and typed in all capital letters)
+Mention web appendix contents in-text where relevant (e.g., “See the web appendix for additional details” or “See web appendix B for details”)
+The web appendix must follow the manuscript formatting guidelines (exceptions include stimuli, instruments, and other content that is included in its original form).
+See our recommendations for including content in Excel files containing many columns or worksheets or media files.
+If you are including a link to your data or other supplementary materials, make sure the webpage at the link is completely anonymized and the URL does not identify authors or institutions.
+Ensure all comments among authors have been removed, all tracked changes have been accepted or rejected, and that the “track changes” feature has been turned off.
+If your manuscript is accepted, the web appendix will accompany the online version of your article and will not be copyedited or proofed.
+Excel Files
+All files for review must be uploaded in Word, Rich Text, or PDF format.
+Do not upload Excel files containing many columns or worksheets (these files may not convert properly in the system). If you would like to share data in a complex Excel file, we recommend one of the following options:
+Convert your Excel file to a PDF and upload the PDF in the system (check the formatting after file conversion and ensure the contents are readable).
+If the contents of the Excel file are not readable (e.g., too small, columns or worksheets are missing) when converted to PDF: Upload the file to the cloud (e.g., Dropbox) or an open-access third-party data repository (e.g., Dataverse). Provide a link to the Excel file where appropriate in your manuscript or web appendix. The link must be directly accessible by reviewers (if the link is password-protected, include the password in the manuscript; reviewers must be able to view the file without requesting access). Make sure the link is completely anonymized (the URL and the webpage should not identify authors or institutions). Ensure that the file is completely anonymized (check the file properties and contents for any identifying information).
+Upload the file to the cloud (e.g., Dropbox) or an open-access third-party data repository (e.g., Dataverse).
+Provide a link to the Excel file where appropriate in your manuscript or web appendix.
+The link must be directly accessible by reviewers (if the link is password-protected, include the password in the manuscript; reviewers must be able to view the file without requesting access).
+Make sure the link is completely anonymized (the URL and the webpage should not identify authors or institutions).
+Ensure that the file is completely anonymized (check the file properties and contents for any identifying information).
+Media Files, Code, and Miscellaneous Content
+All files for review must be uploaded in Word, Rich Text, or PDF format.
+Do not upload audio or video files or files containing code and other non-text content in ScholarOne (all files shared with reviewers must convert to PDF format). If you would like to share media files or files containing code and other non-text content with reviewers:
+Upload the files to the cloud (e.g., Dropbox) or an open-access third-party data repository (e.g., Dataverse).
+Provide links to the files where appropriate in your manuscript or web appendix.
+The links must be directly accessible by reviewers (if a link is password-protected, include the password in the manuscript; reviewers must be able to view the file without requesting access).
+Make sure the links are completely anonymized (the URLs and the webpages should not identify authors or institutions).
+Ensure the files are completely anonymized (check the file properties and contents for any identifying information).
+Prior Related Submission to JCR
+If your submission is related to a manuscript that was previously submitted to JCR, you must disclose this in Step 6 of the submission process. Failure to disclose a prior related submission or rejection of a previous version of a manuscript will be considered a breach of professional ethics.
+Authors must explain in detail how the new manuscript is substantially different from the prior related submission, thereby justifying consideration as a new submission.
+In Step 6 of the submission process:
+Provide the previous manuscript ID and the previous decision.
+Explain any changes in authorship (addition, removal, or reordering of authors).
+Explain in detail how the new submission differs from the prior related submission (e.g., which studies are different and what are the main points that the new studies now make that the previous manuscript did not make or did not make as effectively).
+Specify which aspects of the manuscript (e.g., theory, studies, conclusions) are the same.
+If the previous decision was appealed, explain the reason for the appeal and the outcome of the appeal.
+If you have previously submitted other related submissions to JCR, you must disclose all previous related submissions and decisions.
+The submission will receive a new manuscript ID and staff will link the submissions internally to give the editor and AE full access to the prior submission. If your manuscript is sent for review:
+The editor may invite one or more members of the previous review team (the editor will decide upon resubmission and we cannot guarantee retaining any members of the original review team).
+The reviewers will not be given access to the prior submission and decision letter.
+Note: These instructions apply to the following situations (see our separate instructions for invited revisions):
+Rejected manuscripts (i.e., you received a “straight reject” or “desk reject” decision)
+Withdrawn manuscripts (i.e., you voluntarily withdrew the submission or it was withdrawn by the journal after the revision option expired)
+There is significant overlap with a different submission to JCR that is under review, out for revision, or has been accepted

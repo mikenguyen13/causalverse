@@ -1,0 +1,98 @@
+How to submit your electronic artwork
+If you use artwork in your journal article, you want it to appear the best quality possible. This guide will help you prepare and submit your electronic artwork files so they look exactly as they should in your final published article, and avoid unnecessary delays during the production process.
+Artwork can take many forms, including figures and photographs. Our guide to the submission of electronic artwork covers file formats and appropriate resolutions as well as the use of color. It also shares best practices for placement, captions, and labelling, and image descriptions.
+The artwork submission guidelines are below, or you can download a PDF copy (with added glossary) to refer to here:
+Please also see our general article layout guidelines to help you to format your manuscript so it is ready to submit to a Taylor & Francis or Routledge journal.
+Ready to submit?
+Make sure you have checked, understood, and incorporated everything you need into your article.
+Checklist for submitting electronic artwork
+Before you submit any artwork please check this list to make sure your files meet our criteria:
+Files are provided in our preferred file format(s) if possible.
+Artwork is the correct resolution for its style.
+All images are the size intended for publication and you have removed all unnecessary elements and white spaces.
+All fonts used are embedded and are standard fonts (Helvetica/Arial/Times New Roman/Symbol), and font size is consistent.
+Any lines are a minimum of 0.3pt.
+Images do not contain any layers or transparent objects.
+File names follow the naming convention.
+Artwork is provided in separate files to the main text.
+Captions and figures are provided in separate files, and you have secured all rights and permissions.
+If you’re providing image descriptions, consult our guidelines here.
+Third-party material
+If you want to include material in your article that is owned and held in copyright by a third party, you must obtain the necessary written permission.
+Third-party material could include:
+Proprietary text
+Illustrations
+Tables
+Any other material owned by a third party, including data, audio, video, film stills, screenshots, musical notation, and any supplemental material.
+Please read our guide to using third-party material if you are including material that is not your own.
+Preparing your files
+Before you begin the process of submitting your electronic artwork, please make sure your files are in the correct format, as detailed below.
+Fonts
+Use standard fonts such as Times, Helvetica, Arial, and Symbol. All fonts should be embedded in the image files. Any fonts that are not embedded will be replaced by Courier which can result in character loss or realignment.
+To embed fonts in a Microsoft Word document, simply click on File > Options > Save > Embed Fonts in the File.
+Keep the font size consistent throughout your work. Do not use effects such as outlining and shadows on any lettering.
+Recommended image resolutions
+Color photographic images – 300dpi
+Grayscale photographic images – 600dpi
+Line art or monochrome images – 1200dpi
+Combination images (photographs and labelling) – 600dpi
+Size
+Please supply image files in the highest resolution possible. Check the individual journal’s page for specific requirements, and contact us if you have any questions.
+Try to avoid large file sizes and remove any elements that are not intended for publication, including any excess space around the image. Make sure that the image files do not contain any layers or transparent objects.
+Read more information from Adobe on checking image resolutions.
+File formats for submission to peer review
+For compatibility with our peer review systems, please submit electronic artwork files in one of our preferred formats:
+JPEG
+TIFF
+Microsoft Word (DOC or DOCX only)
+You can supply any supplementary materials, or files which do not need to be peer reviewed, in any of the above file formats, as well as:
+SVG
+AI
+BMP
+Microsoft Excel
+Search engines cannot easily read text in image-based files such as JPEG, BMP, PNG etc. after indexing. This makes it difficult for caption-text, graphs, tables, and keywords included in a graphical abstract to be discovered online.
+Images supplied in PDF format will be converted to TIF, JPG, PNG, BMP, or GIF formats; this can lead to some loss in quality, so wherever possible please supply them in the original format.
+PS and EPS (PostScript and Encapsulated PostScript)
+PostScript and Encapsulated PostScript should be high-resolution and all fonts should be embedded. Minimum line weight is 0.3pt for black lines on a white background. This is the recommended format for line art, combinations of photographs, and labeling.
+We cannot guarantee the quality of images supplied in other formats.
+Creating JPEG and EPS
+It is possible to Save As or Export As JPEG or EPS from most graphics applications. You should export JPEGs at maximum quality.
+JPEG and EPS files often need you to install a PostScript printer driver to your computer, you can then create the files using the Print to file function.
+Placement within manuscript files
+You must save figures separately to text, do not embed them in the manuscript file.
+Submitting your electronic artwork
+If you are using ScholarOne Manuscripts or Editorial Manager to submit your manuscript, you should upload image files as separate files, along with the main text and any supporting files (such as captions).
+If the preferred submission method for the journal is email, you should supply the files via a File Transfer Protocol (FTP) site such as DropBox or ZendTo, preferably compressed as a .zip file. Check your chosen journal’s instructions for authors page for information on the preferred submission method.
+Color
+Half-tones, scans, photographs and transparencies won’t normally be reproduced in color unless agreed by the journal editor. All images and figures will be reproduced in black and white in the printed journal, but in color in the online journal free of charge.
+If it is necessary for the figures to be reproduced in color in the print version, a charge will normally apply. Charges for color figures in print are £300 per figure ($400 US Dollars; $500 Australian Dollars; €350). For more than 4 color figures, figures 5 and above will be charged at £50 per figure ($75 US Dollars; $100 Australian Dollars; €65). Depending on your location, these charges may be subject to local taxes.
+Some journals offer a limited number of free color pages within the annual page allowance. Authors should restrict their use of color to situations where it is necessary on scientific, and not merely cosmetic grounds. If there is no free color allowance, authors may be given the option to pay color printing charges. Any use of color in print will be at the editor’s discretion. The journal’s instructions for authors page will confirm if there is a free color allowance or not.
+Please note, if the journal publishes artwork in color online but in grayscale in print, it isn’t necessary to supply the grayscale conversion for a color image file..
+Captions
+Do not include captions and figure titles with your image files. Supply these separately as part of the file containing the complete text of your manuscript and make sure that you number them correspondingly.
+Captions should be succinct but descriptive. Please make sure you include the necessary credit line or acknowledgments if you have been given permission to use the image. If the image is the property of the author, you should also acknowledge this in the caption.
+Explanatory notes or a key should be present if the figure contains patterns, colors, symbols, or other formatting that indicates significant data. Add a key if you include any symbols, abbreviations, etc. in the figure but not elsewhere within the text.
+Image descriptions
+Most of our journals create image descriptions which you can review during the proofing process. If you’re providing image descriptions as part of your submission, consult our guidelines and provide your image descriptions clearly labelled and numbered to correspond with image captions.
+File naming conventions
+Please name artwork files as Figure 1, 2, 3… etc. according to the order they appear in the text. In multi-part figures, each part should be labeled [e.g. Figure 1(a), Figure 1(b)].
+3D objects
+Supply 3D objects to us in U3D format (this is currently the only 3D format Adobe Acrobat supports). Embed U3D files into a single blank PDF page before submitting them. Abode recommends a file size of 10MB (ideally smaller) per 3D object.
+We recommend including only 1 or 2 3D objects per article to ensure faster download speeds and interactive performance.
+Please also supply a flat image-only version of each object to be used for the print and HTML versions of the article.
+Please note: we can only guarantee that embedded interactive images will function correctly when a user opens the PDF using Adobe Acrobat. If the reader opens the PDF directly within a web browser, such as Internet Explorer or Chrome, the interactive elements may not function correctly.
+Please remember to check the individual journal’s page for specific requirements. If you need help with your artwork our highly experienced illustrators can work with a range of file formats.
+Contact us if you have any questions.
+FAQs on submission of electronic artwork
+Is it better to supply artwork as a hard copy or electronically?
+How do I create an EPS file?
+Which format should I use to save a color image?
+Which format should I use to save a black and white image?
+What is the difference between the image that is published online and the one that appears in print?
+How do I check the resolution of my artwork?
+Why doesn't my image appear in color in print when it does online?
+Why has the font in my image been changed?
+My file is too big to send via email. What should I do?
+What size will my image appear in print?
+Publishing tips, direct to your inbox
+Expert tips and guidance on getting published and maximizing the impact of your research. Register now for monthly insights direct to your inbox.

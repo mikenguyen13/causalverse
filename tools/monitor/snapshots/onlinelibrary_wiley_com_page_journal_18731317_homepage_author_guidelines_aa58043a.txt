@@ -1,0 +1,97 @@
+Journal list menu
+Journal
+Articles
+Actions Tools Follow journal
+Tools
+Follow journal
+Journal of Operations Management
+Author Guidelines
+The mission of the Journal of Operations Management (JOM) is to publish original, empirical, operations management (OM) research that demonstrates both academic and practical relevance.
+Academic relevance means the research contributes to ongoing academic discussions and debates on relevant topics in OM. Usually this implies that manuscript has a strong grounding in—and its results make a contribution to—theory. All manuscripts published in JOM must, in one way or another, also transcend the immediate empirical context in which the research is embedded. An ideal manuscript is one that simultaneously takes the context seriously (is empirically disciplined) and seeks some sense of generality.
+Practical relevance means the manuscript links explicitly to an actual, relevant, managerial challenge. While manuscripts published in JOM do not necessarily have to give advice to managers, they must have something non-obvious to say about the practice of OM. In preparing your manuscript, ask yourself: Do I think I could keep a manager interested in talking about my research for an hour? What would I say? What would I argue?
+An ideal manuscript balances rigor with relevance and offers a novel aspect to a topic of contemporary concern. Novelty does not necessarily mean focusing on emerging phenomena: Novel approaches to examinations of established phenomena are equally interesting and relevant.
+Manuscripts submitted to JOM must:
+Use empirical research methods. JOM does not publish purely analytical models or optimization techniques: These belong in operations research, industrial engineering, or analytical OM journals. Science can be defined as learning from observation: It is the observation that renders the research empirical. As you prepare your manuscript, describe precisely what has been observed and what is learned from it.
+Be well grounded in the scholarly literature, including the appropriate OM literature.
+Be appropriately grounded in theory. Join the ongoing conversation about the topic using accepted concepts, frameworks, and terminology.
+Be appropriately grounded in empirical observations that provide warranty that the question is worth asking.
+Use rigorous methodology and explain this methodology clearly and transparently. Use this checklist to prevent methods concerns from interdicting your submission.
+Offer novel and interesting insights which are (at least) likely to stimulate future research that will substantially change OM theory and/or practice.
+Focus on decisions pertinent to operations managers and/or those who set public policy that affects OM in non-obvious ways. Cross-disciplinary research is welcome, but OM must be the primary focus.
+Cite all sources supporting the research.
+Use quotation marks or otherwise indicate clearly any strings of words drawn from other sources. Pre-check your manuscript with plagiarism detection software (e.g., Turnitin.com) prior to submitting it to JOM. In most cases, no other single source should account for more than 1% of the wording in your manuscript, unless those words are in quotation marks or otherwise clearly delineated as not your own. If a manuscript’s overall similarity score is greater than 15%, then you must explain the reason for this in your cover letter. Otherwise, the manuscript will be returned to you for similarity reduction before it can enter the evaluation process.
+Submission
+Once the submission materials have been prepared in accordance with the author guidelines, new submissions should be made via the Research Exchange submission portal: https://wiley.atyponrex.com/journal/JOOM.
+You may check the status of your submission at any time by logging on to submission.wiley.com and clicking the "My Submissions" button. For technical help with the submission system, please review our FAQs or contact [email protected].
+For editorial enquiries, please contact the Journal of Operations Management Editorial Office at [email protected].
+Formatting
+Please ensure the text of your paper is double-spaced and in a single column. This is an essential, peer-review requirement.
+All manuscripts must contain the essential elements needed to convey your research, such as Abstract, Keywords, Introduction, Literature Review, Materials and Methods, Results, Discussion, and Conclusions. Divide the article into clearly defined sections. Twelve-point font and one-inch margins are typically expected. Number the pages of your manuscript. Do not include any other running headers or footers. Footnotes are allowed but should be kept to a minimum.
+The manuscript should be submitted in separate files: (1) title page with author contact information and (2) anonymized manuscript.
+The title page should contain:
+Manuscript full title, without any abbreviations (see Wiley's best practice SEO tips)
+A short running title (less than 40 characters)
+The full names of the authors
+Each author's institutional affiliations where the work was conducted, with a footnote for the author's present address if different from where the work was conducted
+Acknowledgments of contributions (from anyone who does not meet the criteria for authorship) and all funding sources
+As manuscripts are double-blind peer reviewed, the manuscript should not include any information that might identify the authors. The manuscript should be presented in the following order:
+Title, abstract, and keywords
+Main text, with tables and figures included at the point of reference (not at the end)
+References
+Appendices (if relevant)
+Supporting information, if submitted, should be supplied as separate files. If your article includes any Videos and/or other Supplementary material, these should be included in your initial submission for peer review purposes.
+Please ensure that the figures and tables are included in the manuscript and placed next to the relevant text, not at the end of the manuscript. The corresponding caption should be placed directly below the figure or above the table.
+JOM does not have strict page limits, but most submitted manuscripts should not exceed 40 pages. Longer manuscripts are often frowned upon by review teams, and a manuscript’s contribution is often judged relative to its length. Very long manuscripts will be returned to authors for streamlining before going into the peer review process.
+References
+There are no strict requirements on reference formatting at submission. References can be in any style or format as long as the style is consistent—however, using the journal’s referencing style (which may be observed in any recently published paper) is preferred. Where applicable, author(s) name(s), journal title/book title, chapter title/article title, year of publication, volume number/book chapter, and the article number or pagination must be present. Use of the DOI is highly encouraged. The reference style used by the journal will be applied by Wiley at the proof stage. Missing data will be highlighted at the proof stage for the author to correct. In-text citations should include the page number in the source of any quotations or particular points.
+Cover Letter
+A cover letter is required along with your manuscript submission. Use the cover letter to introduce your manuscript, explain how it fits into JOM’s and its department’s mission statements, and disclose any important information to the editors (AEs and reviewers will not see the cover letter), such as a dissertation and/or conference papers upon which the manuscript is based, and/or prior use of the data in other publications. Be sure to mention if the manuscript is being resubmitted after a previous “reject and resubmit” decision. The cover letter is where you may also add information about any of the items on the online submission forms, such as conflicts of interest, funding sources, and suggested departments and/or reviewers (or non-preferred reviewers).
+Common Rules of Grammar
+The journal follows the style guidelines of the American Psychological Association (APA). For more information, see https://apastyle.apa.org/. Grammatical rules that should be followed in manuscript preparation concern:
+Use of a serial comma (https://apastyle.apa.org/style-grammar-guidelines/punctuation/serial-comma)
+Hyphenation (https://apastyle.apa.org/style-grammar-guidelines/spelling-hyphenation/hyphenation, also https://blog.apastyle.org/apastyle/hyphenation/)
+i.e., (avoid if possible, used only in parentheses and followed by a comma, see https://blog.apastyle.org/apastyle/2010/05/its-all-latin-to-me.html)
+Article Preparation Support
+Wiley Editing Services offers expert help with English Language Editing, as well as translation, manuscript formatting, figure illustration, figure formatting, and graphical abstract design – so you can submit your manuscript with confidence. Check out our resources for Preparing Your Article for general guidance about writing and preparing your manuscript.
+Response Document
+A response document is required with any resubmission of a new or revised manuscript after a “reject and resubmit” or “major revision” decision. This response document should detail the authors’ responses to each of the review team’s comments on a point-by-point basis. These responses may highlight particular aspects of the revised manuscript and/or rebut some of the criticisms. Response documents should be completely anonymous (to maintain double-blind review) and well-written in a diplomatic and collegial way.
+Conflict of Interest Statement
+Authors will also be asked to provide a conflict of interest statement during the submission process. Any interest or relationship, financial or otherwise, that might be perceived as influencing an author's objectivity is considered a potential source of conflict of interest. These must be disclosed when directly relevant or directly related to the work that the authors describe in their manuscript. Potential sources of conflict of interest include, but are not limited to: patent or stock ownership, membership of a company board of directors, membership of an advisory board or committee for a company, and consultancy for or receipt of speaker's fees from a company. The existence of conflict of interest does not preclude publication. If the authors have no conflict of interest to declare, they must also state this at submission. It is the responsibility of the corresponding author to review this policy with all authors and collectively to disclose with the submission all pertinent commercial and other relationships.
+Author Expectations and the Review Process
+All authors are expected to respond in a reasonable timeframe to any inquiries made by JOM before, during, and after the review process and to meet revision deadline if offered.
+JOM uses a double-blind review process. Author identities will be shared with the Editors-in-Chief (EICs) and Department Editors (DEs), but not with reviewers or Associate Editors (AEs), and vice versa.
+When a manuscript is first received, the Managing Editor will assign it to one of the co-EICs to perform a preliminary screening. S/he asks three questions: (1) Does it conform to the mission of the Journal? (2) Is it aligned with the stated Editorial Philosophy? (3) Is it likely that the manuscript will receive a favorable review by the JOM reviewers? If one or more answers to these questions is no, then the EIC may return the manuscript to the authors as an immediate desk rejection. Otherwise, the EIC will assign the manuscript to a DE.
+The DE will then assemble a review team typically consisting of two reviewers and an AE. Once a reviewer accepts the invitation, he/she is given four weeks to return the review. The AE will receive and review the manuscript concurrently, and will then have an additional two weeks to complete his/her report to the DE. The DE will recommend a decision based on the reviewers' and AE's reports. The EIC makes the final decision and informs the authors about the outcome of the review process, including whether the manuscript is being rejected, accepted, or invited for a revision and resubmission.
+For further details about the review process, read this editorial.
+If a paper is accepted for publication, the author identified as the formal corresponding author will receive an email prompting them to log in to Author Services, where via the Wiley Author Licensing Service (WALS) they are required to complete a copyright license agreement on behalf of all authors of the paper.
+Authors may choose to publish under the terms of the journal's standard copyright agreement, or Open Access under the terms of a Creative Commons License.
+If the Open Access option is not selected, the corresponding author will be presented with the copyright transfer agreement (CTA) to sign. The terms and conditions of the CTA can be previewed in the samples associated with the Copyright FAQs.
+If the Open Access option is selected, the corresponding author will have a choice of the following Creative Commons License Open Access Agreements (OAA):
+Creative Commons Attribution License OAA
+Creative Commons Attribution Non-Commercial License OAA
+Creative Commons Attribtution Non-Commercial - NoDerivs OAA
+Note that certain funders mandate a particular type of CC license be used; to check this, please click here.
+Publication Ethics
+JOM is a member of the Committee on Publication Ethics (COPE). Note that this journal uses iThenticate's CrossCheck software to detect instances of overlapping and similar text in submitted manuscripts. Read Wiley's Top 10 Publishing Ethics Tips for Authors here. Wiley's Publication Ethics Guidelines can be found here.
+Artificial Intelligence (AI) Policies
+JOM, along with a group of peer journals, has endorsed a set of Shared Editorial Policies on AI, in line with Wiley’s Best Practice Guidelines (under Artificial Intelligence), and in accordance with COPE’s position statement on AI tools. In short, Generative AI tools should not be listed as an author, and any use must be disclosed and described in detail. Editors or peer reviewers should not upload manuscripts (or any parts of manuscripts including figures and tables) into GenAI tools or services, as this could violate the confidentiality of the peer review process, privacy of authors and reviewers, and the copyright of the manuscript under review. Please see the full guidelines linked above for more detail.
+Data Protection
+By submitting a manuscript to or reviewing for this publication, your name, email address, affiliation, and other contact details the publication might require will be used for regular operations of the publication, including, when necessary, sharing with the publisher (Wiley) and partners for production and publication. The publication and the publisher recognize the importance of protecting the personal information collected from users in the operation of these services and have practices in place to ensure that steps are taken to maintain the security, integrity, and privacy of the personal data collected and processed. You can learn more here.
+Author Name Change Policy
+In cases where authors wish to change their name following publication, Wiley will update and republish the paper and redeliver the updated metadata to indexing services. Our editorial and production teams will use discretion in recognizing that name changes may be of a sensitive and private nature for various reasons including (but not limited to) alignment with gender identity, or as a result of marriage, divorce, or religious conversion. Accordingly, to protect the author’s privacy, we will not publish a correction notice to the paper, and we will not notify co-authors of the change. Authors should contact the journal’s Editorial Office with their name change request.
+Article Promotion Support
+Wiley Editing Services offers professional video, design, and writing services to create shareable video abstracts, infographics, conference posters, lay summaries, and research news stories for your research – so you can help your research get the attention it deserves.
+Sign up for email alerts
+Submit an article
+As of October 3, 2024, all new Journal of Operations Management manuscripts are submitted through the Research Exchange platform.
+For submissions started prior to October 3, 2024, please visit Manuscript Central to manage or complete your submission.
+Published on behalf of the Association for Supply Chain Management
+Wiley Editing Services
+Professionally-edited manuscripts are accepted more than twice as often. Take the stress out of manuscript writing with Article Preparation services.
+English Language Editing
+Figure Formatting
+Manuscript Formatting
+Manuscript Language Checker (Free)
+Graphical Abstract Design
+View all services
+Journal Metrics

@@ -1,0 +1,181 @@
+Entrepreneurship Theory and Practice
+Submission guidelines
+Submit manuscript
+Please read the guidelines in full before submitting your manuscript.Manuscripts not conforming to these guidelines may be returned.
+This Journal is a member of the Committee on Publication Ethics.
+The Journal recommends that authors follow the Recommendations for the Conduct, Reporting, Editing, and Publication of Scholarly Work in Medical Journals formulated by the International Committee of Medical Journal Editors (ICMJE).
+Sage is committed to upholding the integrity of the academic record. We encourage authors to refer to the Committee on Publication Ethics’ International Standards for Authors and view the author responsibilities section on the Sage Journal Author Gateway.
+We also encourage you to familiarize yourself with our Editorial Policies and our Publication Ethics Policies.
+Sage Publishing disseminates high-quality research and engaged scholarship globally, and we are committed to diversity and inclusion in publishing. We encourage submissions and peer review from a diverse range of authors and reviewers from across all countries and backgrounds. Read our diversity, equity, and inclusion pledge.
+There are no fees payable to submit or publish in this journal. Open access options are available – see below.
+Please read the guidelines below then submit your manuscript here.
+Key information
+Access: SubscriptionAccepts preprints? YesIdentity transparency: Double anonymized
+Publishing fees and open access
+There are no fees payable to submit or publish in this journal.
+Figures submitted in color will be published in color in the online version of the journal at no cost. If you wish to have color figures in the printed version, fees will be determined at production stages.
+Optional open access publishing is available for a fee via the Sage Choice program, and Open Access agreements, where authors can publish open access either discounted or free of charge depending on the agreement with Sage. Find out if your institution is participating by visiting Open Access Agreements at Sage. Open Access agreement eligibility is determined by the corresponding author’s affiliation matching an agreement at acceptance. For more information on Open Access publishing options at Sage please visit Sage Open Access.
+For information on funding body compliance, and depositing your article in repositories, please visit Sage’s Author Archiving and Re-Use Guidelines and Publishing Policies.
+Open access fees do not cover page or color charges and are charged separately.
+Preparing your manuscript for submission
+Your article must be within the scope of the journal and be of sufficient quality. If not, it will not be reviewed. Please read the journal’s Aims and Scope to see if your article is appropriate.
+The manuscript must be your original work, you must have the rights to the work, and you must have obtained and be able to supply all necessary permissions for the reproduction of any copyright works not owned by you, including figures, illustrations, tables, lengthy quotations, or other material previously published elsewhere.
+Article types
+Entrepreneurship Theory and Practice publishes Editorials, Original Articles, and Research Briefs.
+It is difficult to state exactly what is expected from a paper submitted ETP because ETP is an eclectic and multidisciplinary journal that welcomes many different types of papers (e.g., empirical papers using qualitative or quantitative analyses, conceptual papers, and research briefs). However, keep in mind that because ETP is a leading journal, competition for publishing space is intense. Less than 10% of all papers submitted get accepted for publication, meaning that the vast majority of submitted papers are rejected. The best way of getting a sense of expectations is probably to review previous papers published in the journal. In addition, make sure to review the aims and scope of the journal and remember that ETP is a scholarly journal for conceptual and empirical research that develops, tests, and/or extends theory relating to entrepreneurship, broadly defined, in a way that significantly contributes to knowledge.
+ETP publishes three types of papers: Editorials, Original Articles, and Research Briefs.
+Editorials: Editorials are typically written by members of the editorial team or by guest editors of special issues by invitation of the Editor-in-Chief. Editorials provide overviews, insights, and recommendations for authors aiming to publish in the journal. Topics range from writing, quantitative and qualitative methods, literature reviews, theories, and new phenomena in entrepreneurship research.
+Original Articles: Original Article submissions are typically no more than 40 pages, double-spaced 12-point Times New Roman font, with 1-inch margins. There is no lower page limit for an Original Article. Thus, shorter entrepreneurship papers of general nature belong in this category, not the Research Brief category.
+Research Briefs: ETP publishes 4 types of Research Briefs, all of which should be no longer than 20 pages, plus tables and references. Similar to Original Articles and Editorials, all Research Briefs are assessed according to ETP’s double-anonymize peer review procedure. More information about the various types of research briefs we published are outlined below:
+1. Replication studies. Studies that replicate prior empirical studies that have made an important contribution to the entrepreneurship field. Since all replication papers should be grounded in a rich theoretical context, and situated in prior empirical findings, we recommend that all replication studies preregister their research question, potential hypotheses, and their methods via Open Science Framework (OSF). For replication studies, we urge submitting authors to distinguish between (a) replication studies seeking to reproduce the results of an earlier study using the identical research design and sample/sampling procedure, and (b) replication with extension studies that seek to replicate an earlier study in a different setting/context, with different data and/or sampling procedure, with empirical and/or theoretical extensions such as post-hoc test, contingent tests of hypotheses, etc. See e.g. Hubbard et al. (SMJ, 1998) for a discussion of various replication formats.
+2. Registered reports. Registered Reports are studies that motivate and theorize an entrepreneurship-related phenomenon, derive hypotheses grounded in theory, and outline the research design, sampling procedure, and data analysis plan before executing the study. By committing to a predefined research plan, registered reports help reduce publication bias and increase transparency. Authors should provide design standard tables that clearly present key methodological elements, along with a detailed overview of how the research design will be executed, including data collection and analysis procedures. Additionally, they must include an explanation of how the data will be interpreted regardless of the outcome, ensuring objective reporting. The registered report undergoes a double-anonymized review identical to all ETP papers. If accepted, the paper receives a provisional acceptance and the study can be conducted as outlined, and the final full-length paper (with data, results, and conclusions, plus any number of non-registered exploratory “post-hoc tests”) is submitted for final review and acceptance.
+For registered reports guidelines, click HERE. For registered reports blueprint, click HERE.
+For examples of registered reports and templates, see ETPs homepage at Entrepreneurship Theory and Practice.
+3. Theoretical briefs. We encourage papers that seek to shed light on, critically discuss, or compare/contrast theories of interest to entrepreneurship research. These papers should provide important new and novel insights on some theory(ies) or theoretical concept(s). These are not intended as theory-building,or theory proposing, papers – we recommend papers aiming to build or propose new theories be submitted as full-length conceptual papers at ETP.
+4. Methodological briefs. Papers that seek to explain, exemplify, compare, calibrate, or otherwise discuss some method or methodological aspect commonly used or argued to be of potential importance to entrepreneurship research. The methodological brief should include a motivation of the proposed methodology over other potential approaches, explain how the methodology work. Data could be use as illustration of the methodological approach, but should serve as a “guide” for future applications of the methodology (potentially including computer code or other tangible details in appendices) and should not be overly context/phenomenon oriented.
+Clinical trial registration
+The journal conforms to the ICMJE requirement that clinical trials are registered in a WHO-approved public trials registry at or before the time of first participant enrollment as a condition of consideration for publication. The trial registry name and URL, and registration number must be included at the end of the abstract.
+Formatting your manuscript
+Formatting
+Regular paper submissions are typically no more than 40 pages, double-spaced 12 points Times New Roman, with 1 inch margins, all inclusive. For research briefs, the corresponding page length is typically no more than 25 pages with the same formatting guidelines.
+Accepted file types
+The preferred format for your manuscript is Word. You do not need to follow a template, but please ensure your heading levels are clear, and the sections clearly defined.
+The LaTeX files are also accepted. A LaTeX template is available on the Sage Journal Author Gateway.
+Always upload the main LaTeX file first, selecting the file designation of Main Document.
+Then, upload each file that is related to the main .TEX file and is needed for processing, selecting the file designation of TeX/LaTeX Suppl File.
+Be sure to upload all style sheets, reference files, and at least one bibliography file, that are part of the document.
+All image files must be saved and uploaded in .EPS format in order for the file to properly format and convert.
+If changes are made to the main LaTeX document after all of the related files have been uploaded, all supplementary LaTeX files will have to be removed and re-uploaded.
+If you are continuing to have issues uploading your LaTex files then you may also upload a pdf version of your main document and upload the Tex file as a copy which will be handled in production stages if the paper is accepted.
+Your article title, keywords, and abstract all contribute to its position in search engine results, directly affecting the number of people who see your work. For details of what you can do to influence this, visit How to help readers find your article online.
+Title
+Your manuscript’s title should be concise, descriptive, unambiguous, accurate, and reflect the precise contents of the manuscript. A descriptive title that includes the topic of the manuscript makes an article more findable in the major indexing services.
+Abstract
+Please include an unstructured abstract of 100 words between the title and main body of your manuscript that concisely states the purpose of the research, major findings, and conclusions. If your research includes clinical trials, the trial registry name and URL, and registration number must be included at the end of the abstract. Submissions that do not meet this requirement will not be considered.
+Keywords
+Please include a minimum of 2-5 keywords, listed after the abstract. Keywords should be as specific as possible to the research topic.
+Artwork, figures, and other graphics
+For guidance on the preparation of illustrations, pictures, and graphs in electronic format, please read Sage’s artwork guidelines.
+Figures supplied in color will appear in color online regardless of whether or not these illustrations are reproduced in color in the printed version. If you have requested color reproduction in the print version, the fee is $800 for the first color image and $200 each for additional color images.
+Please ensure that you have obtained any necessary permission from copyright holders for reproducing any illustrations, tables, figures, or lengthy quotations previously published elsewhere. For further information including guidance on fair dealing for criticism and review, please see the Frequently Asked Questions page on the Sage Journal Author Gateway.
+Title page
+To ensure fair and anonymous peer review, your manuscript must be fully anonymized. Please ensure any identifying information is removed from the main manuscript document and included on the Title Page instead. Do not include any author names in the manuscript file name and remove names from headers and footers. This version of the manuscript will be sent to the peer reviewers. The Title Page will not be sent to peer reviewers. See the Sage Journal Author Gateway for detailed guidance on making an anonymous submission.
+The Title Page should include:
+Article title
+The full list of authors including names and affiliations of each
+The listed affiliation should be the institution where the research was conducted. If an author has moved to a new institution since completing the research, the new affiliation can be included in a note at the end of the manuscript – please indicate this on the title page.
+All persons eligible for authorship must be included at the time of submission (please see the authorship section for more information).
+Contact information for the corresponding author: name, institutional address, phone, email
+Acknowledgments section
+Declaration of conflicting interest
+Funding statement
+Ethical approval and informed consent statements
+Data availability statement
+Any other identifying information related to the authors and/or their institutions, funders, approval committees, etc, that might compromise anonymity.
+Acknowledgments
+If you are including an Acknowledgements section, this will be published at the end of your article. The Acknowledgments section should include all contributors who do not meet the criteria for authorship. Per ICMJE recommendations, it is best practice to obtain consent from non-author contributors who you are acknowledging in your manuscript.
+Writing assistance and third party submissions: if you have received any writing or editing assistance from a third-party, for example a specialist communications company, this must be clearly stated in the Acknowledgements section and in the covering letter. Please see the Sage Author Gateway for what information to include in your Acknowledgements section. If your submission is being made on your behalf by someone who is not listed as an author, for example the third-party who provided writing/editing assistance, you must state this in the Acknowledgements and also in your covering letter. Please note that the journal editor reserves the right to not consider submissions made by a third party rather than by the author/s themselves.
+Statements and declarations
+To ensure proper anonymization, please include a section with the heading ‘Statements and Declarations’ on your title page, after the Acknowledgements section [and Author Contributions section if applicable] including each of the sub-headings listed below. If a declaration is not applicable to your submission, you must still include the heading and state ‘Not applicable’ underneath. Please note that you may be asked to justify why a declaration was not applicable to your submission by the Editorial Office. This information will be added to the end of your published paper.
+Ethical considerations
+Please include your ethics approval statements under this heading, even if you have already included ethics approval information in your methods section. If ethical approval was not required, you need to explicitly state this. You can find information on what to say in your ethical statements as well as example statements on our Publication ethics and research integrity policies page.
+All papers reporting studies involving human participants, human data or human tissue must state that the relevant Ethics Committee or Institutional Review Board approved the study, or waived the requirement for approval, providing the full name and institution of the review committee in addition to the approval number. If applicable, please also include this information in the Methods section of your manuscript.
+Consent to participate
+Please include any participant consent information under this heading and state whether informed consent to participate was written or verbal. If the requirement for informed consent to participate has been waived by the relevant Ethics Committee or Institutional Review Board (i.e. where it has been deemed that consent would be impossible or impracticable to obtain), please state this. If this is not applicable to your manuscript, please state ‘Not applicable’ in this section. More information and example statements can be found on our Publication ethics and research integrity policies page.
+Consent for publication
+Submissions containing any data from an individual person (including individual details, images or videos) must include a statement confirming that informed consent for publication was provided by the participant(s) or a legally authorized representative. Non-essential identifying details should be omitted. Please do not submit the participant’s actual written informed consent with your article, as this in itself breaches the patient’s confidentiality. The Journal requests that you confirm to us, in writing, that you have obtained written informed consent to publish but the written consent itself should be held by the authors/investigators themselves, for example in a patient’s hospital record. The confirmatory letter may be uploaded with your submission as a separate file in addition to the statement confirming that consent to publish was obtained within the manuscript text. If this is not applicable to your manuscript, please state ‘Not applicable’ in this section.
+Declaration of conflicting interest
+The journal requires a declaration of conflicting interests from all authors so that a statement can be included in your article. For guidance on conflict of interest statements, see our policy on conflicting interest declarations and the ICMJE recommendations.
+If no conflict exists, your statement should read: ‘The author(s) declared no potential conflicts of interest with respect to the research, authorship, and/or publication of this article’.
+Funding statement
+All articles need to include a funding statement, under a separate heading, even if you did not receive funding. You’ll find guidance and examples on our Funding page.
+Data availability
+The Journal is committed to facilitating openness, transparency and reproducibility of research, and has the following research data sharing policy. For more information, including FAQs please visit the Sage Research Data policy pages.
+Subject to appropriate ethical and legal considerations, authors are encouraged to:
+Share your research data in a relevant public data repository
+Include a data availability statement linking to your data. If it is not possible to share your data, use the statement to confirm why it cannot be shared.
+Cite this data in your research
+Reference style and citations
+The journal follows the APA reference style. View the APA guidelines to ensure your manuscript conforms.
+Every in-text citation must have a corresponding citation in the reference list and vice versa. Corresponding citations must have identical spelling and year.
+Authors should update any references to preprints when a peer reviewed version is made available, to cite the published research. Citations to preprints are otherwise discouraged.
+EndNote
+If you use EndNote to manage references, you can download the Sage Harvard EndNote output file or the Sage Vancouver EndNote output file.
+Supplemental material
+This Journal can host additional materials online (e.g. datasets, podcasts, videos, images etc.) alongside the full text of the article. Your supplemental material must be one of our accepted file types. For that list and more information please refer to our guidelines on submitting supplemental files.
+English language editing services
+Authors seeking assistance with English language editing, translation, or figure and manuscript formatting to fit the journal’s specifications should consider using Sage Author Services. Visit Sage Author Services for further information.
+Submitting your manuscript
+As part of the submission process you will need to confirm that this is your original work, that you have the rights in the work, that this is for first publication in this Journal, that it is not being considered for/has not already been published elsewhere, and that you have obtained and can supply all necessary permissions for the reproduction of any copyright works not owned by you.
+Please see our guidelines on prior publication and note that the journal may accept submissions of manuscripts that have been posted on preprint servers.
+Preprints
+The journal will consider submissions of manuscripts that have been posted on preprint servers.
+Please enter the preprint DOI in the designated field when submitting your manuscript. We advise that you inform the Journal Editorial office about your posted preprint at submission.
+Note that you should not post an updated version of your manuscript on a preprint server while it is being peer reviewed.
+Learn more about our preprint policy.
+Submission site
+Submit your manuscript online via Sage Track.
+IMPORTANT: Please check whether you already have an account in Sage Track before trying to create a new one. If you have reviewed or authored for the journal in the past year it is likely that you will have had an account created. For further guidance on submitting your manuscript online please visit ScholarOne Online Help.
+Manuscripts should only be submitted with the consent of all contributing authors. The individual responsible for submitting the manuscript should carefully check that all those whose work contributed to the manuscript are listed as authors.
+Ensure you upload all relevant manuscript files, including any additional supplemental files (including reporting guidelines where relevant).
+Authorship
+Please view our authorship policies, which includes information on criteria for authorship, who should be the corresponding author and more.
+Please note that AI chatbots, for example ChatGPT, should not be listed as authors. For more information see the policy on Use of ChatGPT and generative AI tools.
+Files
+Cover letter. To help the Editor in their preliminary evaluation, please indicate why you think the manuscript suitable for publication.
+Title Page with all required identifying information as laid out in Preparing your manuscript for submission (above). This will not be sent to the peer reviewers.
+Your manuscript, properly formatted and anonymized according to all stipulations above, and within the scope of the journal. Any information that compromises the anonymity of the author(s) should be removed or anonymized and included on the Title Page instead. See above for more information on anonymization. This version will be sent to the peer reviewers.
+Figures and images.
+All figures must be numbered consecutively in the order in which they appear in the text – they will appear in the published article in the order they are numbered.
+Figure resolution is 300dpi. More information on figure/image preparation can be found here.
+Supplemental material. This journal can host additional materials online (e.g. datasets, podcasts, videos, images, etc) alongside the full-text of the article. Your supplemental material must be one of our accepted file types. For that list and more information please refer to our guidelines on submitting supplemental files.
+Other information required for submission
+ORCID ID of the submitting author. It is strongly encouraged that all co-authors ensure their ORCID IDs are linked to their accounts in the submission system prior to article acceptance, as this is the only way to have their ORCID ID present on the published article. ORCID IDs cannot be added to manuscripts after acceptance/publication. Please note that each co-author must log in to the submission system to add their own ORCID ID to their account. To add an ORCID ID, edit your account, click the link when prompted, and sign into your ORCID account to validate your ID. You will then be redirected back to the submission system and your ORCID ID will become part of your accepted publication’s metadata. Please create an ORCID ID if you do not already have one or visit our ORCID homepage to learn more.
+It is strongly encouraged that all co-authors ensure their ORCID IDs are linked to their accounts in the submission system prior to article acceptance, as this is the only way to have their ORCID ID present on the published article. ORCID IDs cannot be added to manuscripts after acceptance/publication. Please note that each co-author must log in to the submission system to add their own ORCID ID to their account. To add an ORCID ID, edit your account, click the link when prompted, and sign into your ORCID account to validate your ID. You will then be redirected back to the submission system and your ORCID ID will become part of your accepted publication’s metadata.
+Please create an ORCID ID if you do not already have one or visit our ORCID homepage to learn more.
+Complete list of authors, with their institutional affiliations.
+The author information you enter at submission must exactly match what is included on your manuscript and/or title page, including full names, academic affiliations, and corresponding author contact details.
+The listed affiliation should be the institution where the research was conducted. If an author has moved to a new institution since completing the research, the new affiliation can be included in a note at the end of the manuscript.
+All listed authors must meet the criteria for authorship (above).
+All persons eligible for authorship must be included at the time of submission.
+All authors must have given consent for the manuscript to be submitted in its current form.
+Keywords: During submission, you may be asked to select or enter keywords for your manuscript. These keywords are used to match appropriate reviewers to your manuscript.
+The number of figures, tables, and words in your manuscript.
+Funder information: Name, grant/award number.
+You may be required to enter your declaration of conflicting interest as part of the submission process, in addition to listing it on your manuscript and/or title page. Please have it on hand.
+If you have posted your manuscript to a preprint server, you will be asked to supply the DOI (this does not prohibit submission, but no changes should be made to the preprint version while your manuscript is under evaluation in this journal). Please see our guidelines on prior publication. If the article is accepted for publication, the author may re-use their work according to the journal's author archiving policy. If your manuscript is accepted, you must include a link in your preprint to the final version of your published article.
+Peer review policy
+The following summary describes the peer review process for this journal: Identity transparency: Double-anonymized Reviewer interacts with: Editor Review information published: None
+Your manuscript will undergo an initial evaluation. If it does not conform to the requirements laid out in these guidelines, it will be returned to you for amendments prior to peer review. Manuscripts may be desk rejected without peer review at this point if they are out of scope for the journal or otherwise unsuitable.
+After passing the initial evaluation, your manuscript will then be peer reviewed. You can log in at any time to check the status of your manuscript. We will notify you when a decision has been reached.
+ETP adheres to a rigorous double-anonymized reviewing policy in which the identity of both the reviewer and author are always concealed from both parties. Two independent reviews are required for a manuscript to reach a Revise or Accept decision
+To ensure the integrity of the peer review process we assign reviewers and cannot accept author recommendations.
+All manuscripts are reviewed as rapidly as possible, while maintaining rigor. Reviewers make comments to the author and recommendations to the Editor-in-Chief who then makes the final decision on all manuscripts, including those appearing in a special issue or special collection. The Editor or members of the Editorial Board may occasionally submit their own manuscripts for possible publication in the Journal. In these cases, the peer review process will be managed by alternative members of the Board and the submitting Editor/Board member will have no involvement in the decision-making process.
+Read Sage's complete peer review policy.
+Plagiarism
+The journal and Sage take issues of copyright infringement, plagiarism or other breaches of best practice in publication very seriously. Please read Sage's complete policy on plagiarism and the actions we may take.
+After acceptance
+Contributor’s Publishing Agreement
+Before publication, we require the author as the rights holder to sign a Journal Contributor’s Publishing Agreement. Sage’s Journal Contributor’s Publishing Agreement is an exclusive license agreement which means that the author retains copyright in the work but grants Sage the sole and exclusive right and license to publish for the full legal term of copyright. Exceptions may exist where an assignment of copyright is required or preferred by a proprietor other than Sage. In this case copyright in the work will be assigned from the author to the society. For more information please visit the Sage Journal Author Gateway.
+Preprints
+If your manuscript was posted on a preprint server prior to acceptance, you must include a link in your preprint to the final published version of your published article.
+Production
+Your Sage Production Editor will keep you informed as to your article’s progress throughout the production process. Proofs will be made available to the corresponding author via our editing portal, Sage Edit, or by email, and should be returned promptly to avoid delaying publication. Authors are reminded to check their proofs carefully to confirm that all author information, including names, affiliations, sequence, and contact details are correct, and that Funding and Conflict of Interest statements, if any, are accurate. This is the final opportunity to make changes to your manuscript. Further corrections will not be possible after publication. Changes to the author list are not permitted at this stage.
+Publication
+OnlineFirst publication: This enables us to publish final articles online immediately, without waiting for assignment to a future issue of the Journal. This usually significantly reduces publication lead time. Visit the Sage Journals help page for more details, including how to cite OnlineFirst articles.
+Access to your published article: We provide you with online access to your published article. The online access link is provided to the corresponding author for sharing with their co-authors.
+Promoting your article
+Publication is not the end of the process. Between us, we can ensure that your article is found, read, downloaded and cited as widely as possible. Many of the most effective tactics are those you can do quickly and easily to your network of contacts and peers. Visit the Promote Your Article page on the Sage Journal Author Gateway for numerous resources to help you promote your work.
+Further resources
+The Sage Journal Author Gateway has some general advice on how to get published, plus links to further resources. Sage Author Services also offers authors a variety of ways to improve and enhance your article including English language editing, plagiarism detection, and video abstract and infographic preparation.
+If you have any questions about publishing with Sage, please visit the Sage Journals Solutions Portal.
+You can view our complaints and appeals procedure.
+Contact us
+You can direct any questions to the journal’s editorial office: Johan Wiklund, Editor-in-Chief: [email protected]
+Keep up to date
+Email alerts
+Sign up to receive email alerts:
+With the latest table of contents
+When new articles are published online
+Add email alerts
+You are adding the following journal to your email alerts

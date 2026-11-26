@@ -1,0 +1,31 @@
+Figure Setup
+All types of visual displays other than tables are considered figures in APA Style. Common types of figures include line graphs, bar graphs, charts (e.g., flowcharts, pie charts), drawings, maps, plots (e.g., scatterplots), photographs, infographics, and other illustrations.
+This page addresses the basics of figure setup, including figure components, principles of figure construction, and placement of figures in a paper. Note that tables and figures have the same overall setup.
+View the sample figures to see these guidelines in action. Information is also available on how to use color to create accessible figures.
+Figure components
+APA Style figures have these basic components:
+number: The figure number (e.g., Figure 1) appears above the figure title and image in bold font. Number figures in the order in which they are mentioned in your paper.
+title: The figure title appears one double-spaced line below the figure number. Give each figure a brief but descriptive title, and capitalize the figure title in italic title case.
+image: The image portion of the figure is the graph, chart, photograph, drawing, or other illustration itself. If text appears in the image of the figure (e.g., axis labels), use a sans serif font between 8 and 14 points.
+legend: A figure legend, or key, if present, should be positioned within the borders of the figure and explains any symbols used in the figure image. Capitalize words in the figure legend in title case.
+note: Three types of notes (general, specific, and probability) can appear below the figure to describe contents of the figure that cannot be understood from the figure title, image, and/or legend alone (e.g., definitions of abbreviations, copyright attribution, explanations of asterisks use to indicate p values). Include figure notes only as needed.
+This diagram illustrates the basic figure components.
+Learn more
+Figures are covered in the seventh edition APA Style manuals in the Publication Manual Sections 7.22 to 7.36 and the Concise Guide Sections 7.22 to 7.32
+This guidance has been revised from the 6th edition.
+Related handout
+Student Paper Setup Guide (PDF, 1MB)opens in new window
+Principles of figure creation
+The most important principle to follow when creating a figure is to present information in a way that is easy for readers to understand. Provide sufficient information in the figure itself so that readers do not need to read the text to understand it.
+When creating a figure, ensure you meet the following standards:
+images are clear
+lines are smooth and sharp
+font is legible and simple
+units of measurement are provided
+axes are clearly labeled
+elements within the figure are clearly labeled or explained
+Use graphics software to create figures in APA Style papers. For example, use the built-in graphics features of your word-processing program (e.g., Microsoft Word or Excel) or dedicated programs such as Photoshop or Inkscape.
+Placement of figures in a paper
+There are two options for the placement of figures (and tables) in a paper. The first is to embed figures in the text after each is first mentioned (or “called out”); the second is to place each figure on a separate page after the reference list.
+An embedded figure may take up an entire page; if the figure is short, however, text may appear on the same page as the figure. In that case, place the figure at either the top or bottom of the page rather than in the middle. Also add one blank double-spaced line between the figure and any text to improve the visual presentation.
+View the sample figures for more information on figures.

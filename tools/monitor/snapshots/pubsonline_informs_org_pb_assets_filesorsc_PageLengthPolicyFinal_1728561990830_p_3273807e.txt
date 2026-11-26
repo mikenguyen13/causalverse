@@ -1,0 +1,106 @@
+Organization Science Manuscript Length Policy
+Although Organization Science provides strong guidance on manuscript length, we have determined
+that universal page limits would be inconsistent with the diversity of the research we invite here.
+Because we recognize that each manuscript we receive and potentially publish has unique
+characteristics that determine both a reasonable and ideal length, we provide strong guidance below
+while allowing handling editors ﬂexibility to determine the appropriate length based on their
+specialized expertise.
+We also recognize, however, that excessive manuscript length can burden editors and reviewers and
+weaken the paper’s impact and eﬀicacy. Excessive length is commonly a function of insuﬀicient
+editing on both content and exposition. Furthermore, like with all journals, page capacity at
+Organization Science is limited, and unnecessarily long papers reduce our ability to publish other
+important contributions. The goal of both editors and authors should be to balance these tradeoﬀs
+in ways that best advance our ﬁeld.
+Initial Submissions
+Initial submissions should strive to be less than 50 pages of double-spaced 12-point text with 1-inch
+margins, all-inclusive, or 40 pages in 11-point font. Fonts similar to Garamond or Times New
+Roman should be used (please, no Helvetica Narrow). We strongly prefer this format for all
+submissions, but authors are allowed to deviate if reformatting would be onerous or if approved by
+the editor-in-chief. Editors who identify an excessively long submission can desk reject it with the
+option to resubmit a shorter manuscript. Papers far shorter than 50 pages are welcomed.
+All authors should consider how the following components can streamline a manuscript:
+1. Eﬀiciency in Exposition
+o Careful copyediting can identify redundant content, ineﬀicient sentence structure,
+and unnecessary arguments and tangents. Copyediting is time-consuming for the
+author and goes far beyond simple proofreading, but it improves accessibility to the
+review team and other readers. The burden for eﬀicient exposition is on the
+submitting authors.
+2. References
+o The quantity and relevance of references should not detract from the ease of reading
+the paper. We discourage “citation dumps,” and authors are expected to represent
+the contents of referenced manuscripts accurately. We do not require references to
+be perfectly formatted for the journal for initial submission, as this can be corrected
+should the paper near publication.
+3. Tables and Figures
+o Figures that can parsimoniously represent theoretical arguments, data, empirical
+settings, and results are greatly welcomed. For quantitative work, ﬁgures are also
+preferable to tables if they convey the key results of robustness tests, descriptive
+statistics, or secondary/tertiary information. For qualitative work, ﬁgures may
+complement textual descriptions. Tables can always be relegated to an appendix if
+reviewers want additional details. Figure titles and notes should allow a reader to
+understand key points and the ﬁgure generation process or source without repeatedly
+referencing the main text.
+o Tables should be formatted as eﬀiciently as possible. For quantitative work, authors
+are discouraged from presenting extensive control variable coeﬀicients/estimates
+beyond primary models. For qualitative work, tables can provide eﬀective ways to
+provide additional data, description of data and methods, summary information
+about the setting and participants, and further information into the analysis process.
+For all work, they can be eﬀective for classifying and presenting key existing
+literature and other content that might be overwhelming to the reader in paragraph
+form. Like with ﬁgures, tables titles and notes should help tables stand on their own
+in communicating crucial information to the reader.
+4. An Appendix is not meant for publication and would eventually be posted online as
+supplementary. Any appendix should be submitted as a standalone document “for review”
+with no information identifying the authors. Appendices should contain supporting material
+for the reviewer or editor that is unnecessary for evaluating the manuscript, except where it
+provides supporting evidence or clariﬁcations that address reviewer or editor concerns. For
+example, an appendix could present alternative econometric models results rather than
+simply writing “alternative models are consistent with the primary speciﬁcation” (which is
+not particularly credible nor speciﬁc). This material should be referenced in the main text.
+Examples include:
+o “Models using an alternative Poisson model produce smaller but precise coeﬀicients
+that are available in Appendix Table A3.”
+o “The interview protocol is provided in Appendix Section A.1”
+o “A table providing an analysis of deviant cases is presented as Appendix Table A.2.”
+o “Mediation model results for our data are presented as Appendix Figures A.3 and
+A.4, along with the methodological reasons why they are underpowered and produce
+biased estimates.”
+o “Screenshots of the Qualtrics-based experiment are provided in Appendix Section
+4.”
+o “A formal analytical proof of Proposition 3 is provided in Appendix Section B.”
+o “Descriptions and results from three pilot studies used to reﬁne the experimental
+design are available in Appendix C.”
+Resubmissions
+Invited revisions may exceed this page guidance with permission and guidance of the decision
+editor, with the understanding that fully accepted manuscripts will typically conform to a 50-page
+limit. Additional space may be granted by the editor-in-chief if both the handling editor and authors
+believe it is necessary to achieve the high potential impact of the research.
+Author Responses to Editors/Reviewers
+Authors are encouraged to carefully explain changes implemented during the revision of a
+manuscript in a way that does not overwhelm or obfuscate the key points of each response. Avoid
+redundant material between responses and papers. General policies and principles include:
+• Do not directly quote your paper in the response document, except if the speciﬁc language
+used is crucial to present. Instead, paraphrase and reference where the speciﬁc text exists if
+necessary.
+• Do not duplicate material in responses to each of the editors and reviewers. Detailed
+responses should be provided in one location that can be referenced in others.
+• Use eﬀicient writing to minimize response length.
+• Include the editor/reviewer’s comment in italics—verbatim—to remind the party what they
+wrote many months ago.
+• Tables and ﬁgures not intended for publication in the manuscript or appendix can be
+included if important to the response. For example, Monte Carlo simulations that
+demonstrate how a reviewer’s concerns of biased estimates are unjustiﬁed might be a
+footnote in a published paper but require detailed data presentation in a response document.
+• Avoid combative or aggressive responses. If you disagree, you are welcome to make
+measured arguments explaining your position. Reviewers and editors are volunteers—don’t
+kill their prosocial or intrinsic motivation! Just because you believe they are wrong (or they
+are objectively wrong) does not mean they should be treated with ridicule or disrespect. All
+reviewers and editors are fallible—making mistakes does not imply a lack of diligence or
+motivation.
+• Eﬀusive praise for the editor or reviewers is not helpful to the review process and is not
+more likely to get your paper published. Our editorial team operates with the humility of
+knowing that we are neither oracles nor infallible. Instead of writing, “Your brilliant
+omniﬁcence shines in this divine revelation of a comment,” simply write “this is a great
+suggestion that we’ve incorporated into the paper.” If you disagree with the comment, you
+are welcome to make measured and supported arguments explaining your position.
+Any questions on manuscript length policy can be directed to EIC Lamar Pierce at oseic@wustl.edu.
