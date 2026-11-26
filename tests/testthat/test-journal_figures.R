@@ -53,6 +53,18 @@ test_that("export_fig writes journal formats, caption and data files", {
   expect_equal(res$dpi, journal_style("rfs")$figure$dpi[["line_art"]])
 })
 
+test_that("export_fig falls back to base PDF/PostScript devices without Cairo", {
+  out <- file.path(tempdir(), "jf_export_nocairo")
+  unlink(out, recursive = TRUE)
+  old <- options(causalverse.no_cairo = TRUE)
+  on.exit(options(old))
+  res <- suppressMessages(export_fig(base_plot() + theme_journal("rfs"), "f4", out,
+                                     journal = "rfs", formats = c("pdf", "eps"),
+                                     alt_text = "x", archive = FALSE, check = FALSE))
+  expect_gt(file.size(file.path(out, "f4.pdf")), 0)
+  expect_gt(file.size(file.path(out, "f4.eps")), 0)
+})
+
 test_that("export_fig warns when alt text is required but missing", {
   out <- file.path(tempdir(), "jf_export2")
   p <- base_plot() + theme_journal("qje")

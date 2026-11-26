@@ -283,6 +283,52 @@ export_fig <- function(plot, filename, filepath = ".", journal = "default",
     if (fmt == "jpeg") args$quality <- 100
   }
   if (fmt == "eps") args$fallback_resolution <- dpi
-  do.call(ggplot2::ggsave, args)
+  if (file.exists(out)) unlink(out)
+  skip_cairo <- fmt %in% c("pdf", "eps") && isTRUE(getOption("causalverse.no_cairo"))
+  ok <- !skip_cairo && tryCatch({
+    suppressWarnings(do.call(ggplot2::ggsave, args))
+    file.exists(out) && file.size(out) > 0
+  }, error = function(e) FALSE)
+
+  # Cairo devices are not always usable (e.g. CRAN R on macOS without
+  # XQuartz). Fall back to R's own PDF/PostScript devices, which also embed
+  # standard fonts.
+  if (!ok && fmt %in% c("pdf", "eps")) {
+    args$fallback_resolution <- NULL
+    .ensure_generic_fonts()
+    args$device <- if (fmt == "pdf") {
+      function(filename, width, height, ...) {
+        grDevices::pdf(filename, width = width, height = height, useDingbats = FALSE,
+                       family = "Helvetica", fonts = c("sans", "serif", "mono"))
+      }
+    } else {
+      function(filename, width, height, ...) {
+        grDevices::postscript(filename, width = width, height = height,
+                              horizontal = FALSE, onefile = FALSE, paper = "special",
+                              family = "Helvetica", fonts = c("sans", "serif", "mono"))
+      }
+    }
+    if (file.exists(out)) unlink(out)
+    do.call(ggplot2::ggsave, args)
+    ok <- file.exists(out) && file.size(out) > 0
+  }
+  if (!ok) stop(sprintf("Could not write %s: the %s graphics device failed.", out, fmt), call. = FALSE)
   invisible(out)
+}
+
+# Make the generic families ("sans", "serif", "mono") known to the base
+# pdf() and postscript() devices, which on some platforms only know named
+# fonts. Maps them to Helvetica, Times and Courier.
+.ensure_generic_fonts <- function() {
+  map <- c(sans = "Helvetica", serif = "Times", mono = "Courier")
+  for (db in list(list(get = grDevices::postscriptFonts, set = grDevices::postscriptFonts),
+                  list(get = grDevices::pdfFonts, set = grDevices::pdfFonts))) {
+    have <- names(db$get())
+    for (fam in names(map)) {
+      if (!fam %in% have && map[[fam]] %in% have) {
+        do.call(db$set, stats::setNames(list(db$get(map[[fam]])[[1]]), fam))
+      }
+    }
+  }
+  invisible()
 }
