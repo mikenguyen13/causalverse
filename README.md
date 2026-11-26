@@ -162,6 +162,29 @@ ggplot(mtcars, aes(wt, mpg)) +
 ama_export_fig(filename = "figure1", filepath = "output/")
 ```
 
+### Tables and Figures Formatted for a Target Journal
+
+`journal_style()` knows the table and figure rules of the 54 journals on the FT50 (2016 and 2026 lists) and UTD24, such as whether significance stars are allowed, what goes in parentheses, leading zeros, Roman or Arabic table numbers, where tables go, column widths, minimum resolution, grayscale printing and alt text. The same models export differently for each journal:
+
+``` r
+library(causalverse)
+
+models <- list("(1)" = lm(mpg ~ am, mtcars), "(2)" = lm(mpg ~ am + wt, mtcars))
+
+journal_style("smj")                      # print the rules
+export_tab(models, "table1", "output/", journal = "smj",   # no stars, TABLE 1, Word + LaTeX
+           title = "Transmission and Fuel Economy")
+export_tab(models, "table1", "output/", journal = "jf")    # stars, Table I, max 8 columns
+
+p <- ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) + geom_point() +
+  labs(title = "Heavier Cars Use More Fuel") +
+  scale_colour_journal("jm") + theme_journal("jm")         # grayscale-safe, Arial
+journal_check(p, "jm")                                     # lint before submitting
+export_fig(p, "figure1", "output/", journal = "jm", stage = "final")
+```
+
+A weekly GitHub Action (`.github/workflows/journal-guidelines.yaml`) re-reads every guideline page behind these rules (`journal_sources()`) and opens a pull request when one changes.
+
 ## Citation
 
 Nguyen, M. (2026). causalverse: The All-in-One Causal Inference Toolkit (Version 1.1.0). Zenodo. <https://doi.org/10.5281/zenodo.8254063>. Retrieved from <https://github.com/mikenguyen13/causalverse>.
