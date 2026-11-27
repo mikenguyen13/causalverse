@@ -961,13 +961,8 @@ print(test_results)
 cat("\n=== CAR Summary by Window ===\n")
 print(car_summary)
 
-# Cross-sectional regression on CARs
-# (Using our simulated firm characteristics as stand-in for analyst coverage, etc.)
-cross_section <- lm(
-    car ~ log_mcap + leverage + roa,
-    data = car_cross
-)
-summary(cross_section)
+# The cross-sectional regression of CARs on firm characteristics
+# follows in Section 10.
 ```
 
 
