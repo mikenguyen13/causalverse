@@ -42,7 +42,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          # MCPanel (suggested, GitHub-only) bundles an old Eigen that no
+          # longer compiles with current GCC or clang, so skip it.
+          extra-packages: |
+            any::rcmdcheck
+            MCPanel=?ignore
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

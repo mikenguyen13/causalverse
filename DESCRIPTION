@@ -106,7 +106,15 @@ Suggests:
     gt,
     broom,
     mgcv,
-    blavaan
+    blavaan,
+    car,
+    quantreg,
+    gbm,
+    glmnet,
+    mice,
+    rpart,
+    xgboost,
+    MCPanel
 Config/testthat/edition: 3
 Imports:
     ggplot2 (>= 3.4.2),
