@@ -712,7 +712,7 @@ power_by_tau <- lapply(effect_sizes, function(tau) {
   )
   tibble(
     tau   = tau,
-    power = pw$power
+    power = pw$power.rbc   # rdpower >= 3.0 (robust bias-corrected)
   )
 }) |>
   bind_rows()
@@ -1550,7 +1550,8 @@ y <- 0.5 * x + treated * tau + 0.3 * group + rnorm(n, sd = 0.5)
 dat_hte <- data.frame(y = y, x = x, group = group)
 
 # Estimate heterogeneous treatment effects by group
-hte_fit <- rdhte(y = dat_hte$y, x = dat_hte$x, covs_hte = dat_hte$group)
+# (a factor gives one effect per subgroup)
+hte_fit <- rdhte(y = dat_hte$y, x = dat_hte$x, covs.hte = factor(dat_hte$group))
 summary(hte_fit)
 ```
 
@@ -1558,7 +1559,7 @@ summary(hte_fit)
 
 ```{r rdhte-bandwidth, eval = requireNamespace("rdhte", quietly = TRUE)}
 # Optimal bandwidth for heterogeneous effects
-bw_hte <- rdbwhte(y = dat_hte$y, x = dat_hte$x, covs_hte = dat_hte$group)
+bw_hte <- rdbwhte(y = dat_hte$y, x = dat_hte$x, covs.hte = factor(dat_hte$group))
 summary(bw_hte)
 ```
 
@@ -1566,8 +1567,11 @@ summary(bw_hte)
 
 ```{r rdhte-lincom, eval = requireNamespace("rdhte", quietly = TRUE)}
 # Test whether treatment effect differs across groups
-lincom_fit <- rdhte_lincom(hte_fit)
-summary(lincom_fit)
+lincom_fit <- rdhte_lincom(
+  hte_fit,
+  linfct = "`factor(dat_hte$group)1` - `factor(dat_hte$group)0` = 0"
+)
+lincom_fit
 ```
 
 The `rdhte` framework is especially useful when researchers want to move beyond the average treatment effect at the cutoff and explore whether the policy effect is concentrated among particular subpopulations.
@@ -1613,12 +1617,16 @@ dat_2d <- data.frame(
   d  = treated_2d
 )
 
-# Estimate geographic RD
+# Points on the boundary x2 = 0.3 * x1 at which to estimate the effect
+b1 <- seq(-0.6, 0.6, length.out = 5)
+boundary_pts <- data.frame(x1 = b1, x2 = 0.3 * b1)
+
+# Estimate geographic RD at each boundary point
 rd2d_fit <- rd2d(
-  Y  = dat_2d$y,
-  X1 = dat_2d$x1,
-  X2 = dat_2d$x2,
-  zvar = dat_2d$d
+  Y          = dat_2d$y,
+  X          = dat_2d[, c("x1", "x2")],
+  assignment = dat_2d$d,
+  b          = boundary_pts
 )
 summary(rd2d_fit)
 ```
