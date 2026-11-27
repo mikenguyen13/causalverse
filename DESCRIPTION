@@ -106,7 +106,15 @@ Suggests:
     gt,
     broom,
     mgcv,
-    blavaan
+    blavaan,
+    car,
+    quantreg,
+    gbm,
+    glmnet,
+    mice,
+    rpart,
+    xgboost,
+    MCPanel
 Config/testthat/edition: 3
 Imports:
     ggplot2 (>= 3.4.2),
@@ -129,5 +137,6 @@ Imports:
     plm (>= 2.6.3),
     MASS
 Remotes:
-    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a
+    synth-inference/synthdid@70c1ce3eac58e28c30b67435ca377bb48baa9b8a,
+    susanathey/MCPanel
 VignetteBuilder: knitr
