@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![R-CMD-check](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml) [![Project Status: Active -- The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.8254063-blue)](https://doi.org/10.5281/zenodo.8254063)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![R-CMD-check](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mikenguyen13/causalverse/actions/workflows/R-CMD-check.yaml) [![R-universe version](https://mikenguyen13.r-universe.dev/causalverse/badges/version)](https://mikenguyen13.r-universe.dev/causalverse) [![Project Status: Active -- The project is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.8254063-blue)](https://doi.org/10.5281/zenodo.8254063)
 
 <!-- badges: end -->
 
@@ -52,7 +52,16 @@ You can cite this package as follows: "we utilized the causal inference methodol
 
 ## Installation
 
-You can install the development version of causalverse from [GitHub](https://github.com/mikenguyen13/causalverse) with:
+Install the latest build from [R-universe](https://mikenguyen13.r-universe.dev/causalverse), which serves pre-built binaries for Windows and macOS, so nothing needs compiling:
+
+``` r
+install.packages(
+  "causalverse",
+  repos = c("https://mikenguyen13.r-universe.dev", "https://cloud.r-project.org")
+)
+```
+
+Or install the development version from [GitHub](https://github.com/mikenguyen13/causalverse) with pak:
 
 ``` r
 # install.packages("pak")

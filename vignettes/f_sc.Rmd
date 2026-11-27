@@ -1941,11 +1941,12 @@ micro_fit <- microsynth(
   match.out  = "outcome",
   result.var = "outcome",
   perm       = 50,
-  jack       = FALSE
+  jack       = FALSE,
+  n.cores    = 1   # parallel workers fail on Windows
 )
 
 summary(micro_fit)
-plot_microsynth(micro_fit)
+plot_microsynth(micro_fit, start.pre = 2000, end.pre = 2009, end.post = 2015)
 ```
 
 ---

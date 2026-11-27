@@ -766,7 +766,7 @@ The Fama-French (1993) three-factor model accounts for the well-documented size 
 ```{r ff3-example, eval=requireNamespace("frenchdata", quietly = TRUE)}
 # Download Fama-French 3-factor data using the frenchdata package
 library(frenchdata)
-ff3_raw <- download_french_data("Fama/French 3 Factors (Daily)")
+ff3_raw <- download_french_data("Fama/French 3 Factors [Daily]")
 ff3 <- ff3_raw$subsets$data[[1]]
 
 # Clean up: convert date, scale factors from percent to decimal
@@ -830,7 +830,7 @@ The Carhart (1997) model adds a momentum factor, which captures the tendency of 
 ```{r carhart-example, eval=requireNamespace("frenchdata", quietly = TRUE)}
 # Download Carhart / momentum factor data
 library(frenchdata)
-mom_raw <- download_french_data("F-F Momentum Factor (daily)")
+mom_raw <- download_french_data("Momentum Factor (Mom) [Daily]")
 mom     <- mom_raw$subsets$data[[1]]
 
 mom <- mom %>%
