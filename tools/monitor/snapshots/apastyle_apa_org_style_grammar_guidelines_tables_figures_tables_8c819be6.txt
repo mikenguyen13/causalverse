@@ -1,0 +1,34 @@
+Table Setup
+Tables are visual displays composed of columns and rows in which numbers, text, or a combination of numbers and text are presented. There are many common kinds of tables, including demographic characteristics tables, correlation tables, factor analysis tables, analysis of variance tables, and regression tables.
+This page addresses the basics of table setup, including table components, principles of table construction (including the use of borders and how to handle long or wide tables), and placement of tables in the paper. Note that tables and figures have the same overall setup.
+View the sample tables to see these guidelines in action.
+Table components
+APA Style tables have the following basic components:
+number: The table number (e.g., Table 1) appears above the table title and body in bold font. Number tables in the order in which they are mentioned in your paper.
+title: The table title appears one double-spaced line below the table number. Give each table a brief but descriptive title, and capitalize the table title in italic title case.
+headings: Tables may include a variety of headings depending on the nature and arrangement of the data. All tables should include column headings, including a stub heading (heading for the leftmost, or stub, column). The heading “Variable” is often used for the stub column if no other heading is suitable. Some tables also include column spanners, decked heads, and table spanners; these are described in the Publication Manual. Center column headings and capitalize them in sentence case.
+body: The table body includes all the rows and columns of a table (including the headings row). A cell is the point of intersection between a row and a column. The table body may be single-spaced, one-and-a-half-spaced, or double-spaced. Left-align the information in the leftmost column or stub column of the table body (but center the heading). In general, center information in all other cells of the table. However, left-align the information if doing so would improve readability, particularly when cells contain lots of text.
+The table body may be single-spaced, one-and-a-half-spaced, or double-spaced.
+Left-align the information in the leftmost column or stub column of the table body (but center the heading).
+In general, center information in all other cells of the table. However, left-align the information if doing so would improve readability, particularly when cells contain lots of text.
+note: Three types of notes (general, specific, and probability) appear below the table as needed to describe contents of the table that cannot be understood from the table title or body alone (e.g., definitions of abbreviations, copyright attribution, explanations of asterisks used to indicate p values). Include table notes only as needed.
+This diagram is an illustration of the basic table components.
+Learn more
+Tables are covered in the seventh edition APA Style manuals in the Publication Manual Sections 7.8 to 7.21 and the Concise Guide Sections 7.8 to 7.21
+This guidance is the same as in the 6th edition.
+Related handout
+Student Paper Setup Guide (PDF, 1MB)opens in new window
+Principles of table construction
+The most important principle to follow when creating a table is to present information in a way that is easy for readers to understand. Provide sufficient information in the table itself so that readers do not need to read the text to understand it.
+When creating a table, place entries that are to be compared next to each other. In general, place different indices (e.g., means and standard deviations) in different columns rather than in the same column. Use the same font in tables as in the rest of your paper.
+Use the tables feature of your word-processing program to create tables in APA Style papers. Do not use the tab key or space bar to manually create the look of a table.
+Table borders
+Limit the use of borders or lines in a table to those needed for clarity. In general, use a border at the top and bottom of the table, beneath column headings (including decked heads), and above column spanners. You may also use a border to separate a row containing totals or other summary information from other rows in the table.
+Do not use vertical borders to separate data, and do not use borders around every cell in a table. Use spacing between columns and rows and strict alignment to clarify relations among the elements in a table.
+Long or wide tables
+If a table is longer than one page, use the tables feature of your word-processing program to make the headings row repeat on the second and any subsequent pages. No other adjustments are necessary. If a table is too wide to fit on one page, use landscape orientation on the page with the wide table. It does not matter if the page header also moves when switching to landscape orientation.
+Placement of tables in a paper
+There are two options for the placement of tables (and figures) in a paper. The first is to embed tables in the text after each is first mentioned (or “called out”); the second is to place each table on a separate page after the reference list.
+An embedded table may take up an entire page; if the table is short, however, text may appear on the same page as the table. In that case, place the table at either the top or bottom of the page rather than in the middle. Also add one blank double-spaced line between the table and any text to improve the visual presentation.
+View the sample tables for more information on tables.
+Share this page

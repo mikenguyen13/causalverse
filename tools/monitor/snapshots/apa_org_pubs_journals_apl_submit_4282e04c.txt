@@ -1,0 +1,235 @@
+APA members—Renew your membership for 2027. Don't miss out.
+Submission guidelines
+Table of contents
+Prior to submission, please carefully read and follow all submission guidelines. Manuscripts that do not conform to the submission guidelines may be returned without review.
+Before you begin
+Prior to submission, please carefully read and follow the submission guidelines detailed below. Manuscripts that do not conform to the submission guidelines may be returned without review.
+Submissions are handled only through our Editorial Manager platformopens in new window, and the only official journal website is through APA. If you believe you interacted with a fraudulent website for this journal, please email APA Journalsopens in new window. Review our resource for authors for more information on identifying predatory journals.
+Submission
+The completion of a submission checklist that signifies that authors have read this material and agree to adhere to the guidelines is required as part of the submission upload process (authors can find this checklist in the "Additional Information" section). If you need to include a data transparency appendix, please append this as the last page of your manuscript file. Revisions should also include the data transparency appendix and include any necessary updates based on the revisions.
+To submit to the editorial office of Mo Wang, please submit manuscripts electronically through the Manuscript Submission Portal in Microsoft Word (.docx) or LaTex (.tex) as a zip file with an accompanied Portable Document Format (.pdf) of the manuscript file.
+Prepare manuscripts according to the Publication Manual of the American Psychological Association using the 7th edition. Manuscripts may be copyedited for bias-free language (see Chapter 5 of the Publication Manual and APA’s Brief Guide to Bias-Free and Inclusive Languageopens in new window). APA Style and Grammar Guidelines for the 7th edition are available.
+Submit Manuscriptopens in new window
+Mo Wang, editorUniversity of Florida
+General correspondence may be directed to the editor's officeopens in new window.
+In addition to addresses and phone numbers, please supply email addresses and fax numbers, if available, for potential use by the editorial office and later by the production office.
+Keep a copy of the manuscript to guard against loss.
+Manuscripts submitted for publication consideration in the Journal of Applied Psychology are evaluated according to the following criteria:
+degree to which the manuscript fits the mission of the journal as described on the journal website
+significance of the theoretical, practical and/or methodological contributions
+quality of the literature review
+articulation and explication of the conceptual rationale, constructs, and psychological processes
+rigor of the design and execution of the study
+appropriateness of the analysis and interpretation of the results
+discussion of implications for theory, research, and application
+clarity of presentation
+Manuscripts should be logically organized and clearly written in concise and unambiguous language. The goal of APA primary journals is to publish useful information that is accurate and clear.
+Three primary types of articles will be published:
+Feature Articles , which are full-length articles that focus on a conceptually or theoretically driven empirical contribution (all research strategies and methods, quantitative and qualitative, are considered) or on a theoretical contribution that can shape future research in applied psychology.
+Research Reports , which are narrower in scope and are limited to no more than 19 manuscript pages (excluding title page, abstract, references, tables, and figures). In determining the length limits of Research Reports, authors should count 25 lines of 12-point text with 1-inch margins as the equivalent of one page.
+Integrative Conceptual Reviews , which are full-length articles that are designed to synthesize relevant literature, extend theoretical development, and propose new directions for future research. Submissions start with a 10-page prospectus that describes the contribution, structure and coverage of the proposed paper and is evaluated by the editorial team. Additional information can be found at the Call for Integrative Conceptual Reviews .
+The review process is the same for Feature Articles and Research Reports. The two types of manuscripts differ only in length, commensurate to different scope of intended contribution. Authors should indicate in the cover letter that they would like the submission considered as a Research Report. However, the action editor (with input from the review team) may suggest that a Feature Article submission be pared down to Research Report length through the review process.
+Authors should refer to recent issues of the journal for approximate length of Feature Articles, Integrative Conceptual Reviews, and Research Reports. (Total manuscript pages divided by three provides an estimate of total printed pages.)
+The journal also has a history of publishing Monographs on occasion. Monographs are substantial and significant contributions (as determined by the editorial team).
+In addition, the journal occasionally publishes Commentaries (see Kozlowski, S.W.J. (2011). Comment policy. Journal of Applied Psychology, 96 (2), 231–232). (PDF, 119KB)opens in new window
+The Journal of Applied Psychology also publishes replications that add important value and insight to the literature. Submissions should include “A Replication of XX Study” in the subtitle of the manuscript as well as in the abstract.
+Journal of Applied Psychology is now using a software system to screen submitted content for similarity with other published content. The system compares the initial version of each submitted manuscript against a database of 40+ million scholarly documents, as well as content appearing on the open web. This allows APA to check submissions for potential overlap with material previously published in scholarly journals (e.g., lifted or republished material).
+Author contribution statements using CRediT
+The APA Publication Manual (7th ed.opens in new window) stipulates that "authorship encompasses…not only persons who do the writing but also those who have made substantial scientific contributions to a study." In the spirit of transparency and openness, this journal has adopted the Contributor Roles Taxonomyopens in new window (CRediT) to describe each author's individual contributions to the work. CRediT offers authors the opportunity to share an accurate and detailed description of their diverse contributions to a manuscript.
+Submitting authors will be prompted to select one or more contributor roles for each author at initial submission. All authors should have reviewed and agreed to their individual contribution(s) before submission. If the manuscript is accepted for publication, an Author Contributions Statement will be generated during the typesetting process and published in the author note of the final article. It is not necessary for authors to provide a written Author Contributions Statement upon submission.
+CRediT includes 14 contributor roles, as described below:
+Conceptualization: Ideas; formulation or evolution of overarching research goals and aims.
+Data curation: Management activities to annotate (produce metadata), scrub data and maintain research data (including software code, where it is necessary for interpreting the data itself) for initial use and later reuse.
+Formal analysis: Application of statistical, mathematical, computational, or other formal techniques to analyze or synthesize study data.
+Funding acquisition: Acquisition of the financial support for the project leading to this publication.
+Investigation: Conducting a research and investigation process, specifically performing the experiments, or data/evidence collection.
+Methodology: Development or design of methodology; creation of models.
+Project administration: Management and coordination responsibility for the research activity planning and execution.
+Resources: Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.
+Software: Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms; testing of existing code components.
+Supervision: Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.
+Validation: Verification, whether as a part of the activity or separate, of the overall replication/reproducibility of results/experiments and other research outputs.
+Visualization: Preparation, creation and/or presentation of the published work, specifically visualization/data presentation.
+Writing—original draft: Preparation, creation and/or presentation of the published work, specifically writing the initial draft (including substantive translation).
+Writing—review and editing: Preparation, creation and/or presentation of the published work by those from the original research group, specifically critical review, commentary or revision—including pre- or post-publication stages.
+Authors can claim credit for more than one contributor role, and the same role can be attributed to more than one author. Not all roles will be applicable to any particular scholarly work.
+Masked review policy
+The journal will accept submissions in masked review format only.
+Author names and affiliations should appear in the cover letter but not anywhere on the manuscript. Authors should make every reasonable effort to see that the manuscript itself contains no clues to their identities, including grant numbers, names of institutions providing IRB approval, self-citations, and links to online repositories for data, materials, code, or preregistrations (e.g., create a view-only link for a projectopens in new window). Manuscripts not in masked format will be returned to authors for revision prior to being reviewed.
+Please ensure that the final version for production includes a byline and full author note for typesetting.
+Original use of data
+APA requires that all data in their published articles be an original use. Along with determining the appropriateness of any submission, the editorial team (editor and reviewers) also have a role in determining what constitutes "original use." Key to this determination is the extent to which reported data and results serve to promote cumulative knowledge and insight to the literature.
+In order to preserve masked review, authors should include a data transparency appendix in the manuscript which details how and where the data collected were (or potentially will soon be) used. Any previous, concurrent, or near future use of data (and/or sample) reported in a submitted manuscript must be brought to the editorial team's attention (i.e., any paper(s) previously published, in press, or currently under review at any journals, as well as any paper(s) that foreseeably will be under review before an editorial decision is made on the current submitted manuscript). This includes variables that overlap as well as those that may not overlap with those in the submitted article. Authors may also put in any other clarifying information they wish, as long as it can be done anonymously. Any identifying information, such as authors' names or titles of journal articles that the authors wish to share can be included in the cover letter where only the editorial staff will see it.
+When providing information in the paper itself and/or in the appendix, authors should ensure there is enough detail for reviewers to assess whether data presented constitute original use and unique knowledge and insights.
+For more information on APA's data policies, please see "Duplicate and Piecemeal Publication of Data," APA Publication Manual (Section 1.16, 7th Edition, p. 17–20).
+Access data transparency appendix examples.
+Transparency and openness
+APA endorses the Transparency and Openness Promotion (TOP) Guidelines by a community working group in conjunction with the Center for Open Science (Nosek et al. 2015opens in new window). All articles submitted to the Journal of Applied Psychology must, at a minimum, adhere to the TOP levels as noted in the list below, which details the domains of research planning and reporting, the TOP level required, and a brief description of the journal’s policy. Submissions that do not include (1) qualitative, quantitative, or simulated data, (2) a systematic narrative or meta-analytic review of the literature, or (3) re-analysis of existing data must also include a statement that TOP guidelines related to data sharing, code sharing, hypotheses preregistration, analysis preregistration, and materials sharing are not applicable and why. All articles must comply with the TOP guideline of citing any materials not original to the submitted work.
+Citation: Level 2, Requirement—All data, program code, and other methods not original to the submitted work (developed by others) must be cited in the text and listed in the References section.
+Data Transparency: Level 1, Disclosure—Article states whether or not the raw and/or processed data on which study conclusions are based are posted to a trusted repository and, if so, how to access the data.
+Analytic Methods (Code) Transparency: Level 1, Disclosure—Article states whether or not the computer code or syntax needed to reproduce analyses in an article is posted to a trusted repository and if so, how to access it.
+Research Materials Transparency: Level 1, Disclosure—Article states whether materials described in the Method section are posted to a trusted repository and, if so, how to access them. It is strongly encouraged to include online supplements for study materials.
+Design and Analysis Transparency (Reporting Standards): Level 2, Requirement—Article must follow the Journal of Applied Psychology methods checklist (PDF, 114KB)opens in new window and all relevant aspects of the APA Style Journal Reporting Standards (JARS).
+Study Preregistration: Level 2, Requirement—Article states whether the study design and (if applicable) hypotheses of any of the work reported was preregistered and, if so, how to access it. Access to a masked version of the preregistered materials must be available at submission via stable link or supplemental material.
+Analysis Plan Preregistration: Level 2, Requirement—Article states whether any of the work reported was preregistered with an analysis plan and, if so, how to access it. Access to a masked version of the preregistered analysis plan must be available at submission via stable link or supplemental material.
+Authors must include a brief (one short paragraph) subsection in the method description titled “Transparency and openness” that indicates how they complied with the TOP guidelines adopted at the Journal of Applied Psychology.
+Empirical/quantitative example:
+We describe our sampling plan, all data exclusions (if any), all manipulations, and all measures in the study, and we adhered to the Journal of Applied Psychology methodological checklist. All data, analysis code, and research materials are available at [stable masked link to trusted repository]. Data were analyzed using R, version 4.0.0 (R Core Team, 2020) and the package ggplot, version 3.2.1 (Wickham, 2016). This study’s design and its analysis were not preregistered.
+Qualitative example:
+We describe our sampling plan, all data exclusions (if any), all manipulations, and all measures in the study, and we adhered to the Journal of Applied Psychology methodological checklist. While the data are not available because they are proprietary, analysis code and research materials are available at [stable masked link to trusted repository]. We preregistered our general research questions, our analysis strategy, our inclusion criteria, and our projected sample size at [stable masked link to trusted repository]. Data were analyzed using R, version 4.0.0 (R Core Team, 2020) and the package ggplot, version 3.2.1 (Wickham, 2016).
+Data and materials
+Authors must state whether data and study materials are available and, if so, where to access them. Recommended repositories include APA’s repositoryopens in new window on the Open Science Framework (OSF), or authors can access a full list of other recommended repositoriesopens in new window. Trusted repositories adhere to policies that make data discoverable, accessible, usable, and preserved for the long term. Trusted repositories also assign unique and persistent identifiers. Original materials that are not in English do not require translation.
+In a subsection at the end of the method subsection titled “Transparency and openness,” specify whether and where the data and material will be available or include a statement noting that they are not available.
+For example:
+All data have been made publicly available at the [trusted repository name] and can be accessed at [persistent URL or DOI].
+Data for this study are not available because they are proprietary.
+Data for this study are not available because they protected under HIPAA.
+Data for this study are not available because they protected under FERPA.
+Materials for this study can be found [in the Appendix; in the online supplement].
+Materials for this study can be found at the [trusted repository name] and can be accessed at [masked persistent URL or DOI].
+Materials for this study are not available because they are not owned by the authors.
+Please refer to the APA Publication Manual (7th ed.) regarding APA guidelines on data retention and sharing (section 1.14) as well as the APA Ethics Code regarding conditions and exceptions to data sharing (e.g., 2.01 Boundaries of Competence, 8.14 Sharing Research Data for Verification).
+Information regarding reproducing material from previously published works
+If you have reproduced full scales or other material (e.g., tables, figures, experimental materials) from previously published articles, please note that it is your responsibility to ensure that doing so does not constitute a copyright infringement with the original publisher. You can find information on fair use of previously published material and on APA’s permissions policy in the Permissions Alert Form for APA Authorsopens in new window.
+Analytic methods (code)
+For submissions with quantitative or simulation analytic methods, state whether the study analysis code is posted to a trusted repository and if so, how to access them, including their location and any limitations on use. Trusted repositories adhere to policies that make data discoverable, accessible, usable, and preserved for the long term. Trusted repositories also assign unique and persistent identifiers. Recommended repositories include APA’s repository on the Open Science Frameworkopens in new window (OSF), or authors can access a full list of other recommended repositoriesopens in new window.
+For example:
+The code behind this analysis/simulation has been made publicly available at the [trusted repository name] and can be accessed at [persistent URL or DOI].
+The code behind this analysis/simulation is not available because it is proprietary.
+Analysis code is available at [stable masked link to trusted repository], except for the predictor scoring algorithm which is proprietary.
+Preregistration of studies and analysis plans
+Preregistration of studies and specific hypotheses can be a useful tool for making strong theoretical claims. Likewise, preregistration of analysis plans can be useful for distinguishing confirmatory and exploratory analyses. Investigators are encouraged to preregister their studies and analysis plans prior to conducting the research via a publicly accessible registry system (e.g., OSFopens in new window, ClinicalTrials.gov, or other trial registries in the WHO Registry Network).
+There are many available preregistration forms (e.g., OSFopens in new window, ClinicalTrials.gov, or other trial registries in the WHO Registry Network). There are many preregistration templates available, including the Preregistration for Quantitative Research in Psychologyopens in new window template (Bosnjak et al., 2022). Completed preregistration forms should be time-stamped.
+Articles must state whether or not any work was preregistered and, if so, where to access the preregistration. Preregistrations must be available to reviewers; authors should submit a masked copy via stable link or supplemental material. Links in the method section should be replaced with an identifiable copy on acceptance.
+For example:
+This study’s design was preregistered; see [STABLE LINK OR DOI].
+This study’s design and hypotheses were preregistered; see [STABLE LINK OR DOI].
+This study’s analysis plan was preregistered; see [STABLE LINK OR DOI].
+This study was not preregistered.
+Manuscript preparation
+Prepare manuscripts according to the Publication Manual of the American Psychological Association . Manuscripts may be copyedited for bias-free language (see Chapter 5 of the 7th edition).
+Review APA's Journal Manuscript Preparation Guidelines before submitting your article.
+Double-space all copy. Other formatting instructions, as well as instructions on preparing tables, figures, references, metrics, and abstracts, appear in the Manual. Additional guidance on APA Style is available on the APA Style website.
+Methodological reporting guidelines and checklists
+In an effort to enhance transparency, reproducibility, and replicability, we have developed methodological reporting guidelines and checklists for the Journal of Applied Psychology (PDF, 114KB)opens in new window that authors should follow (as appropriate for their submitted work) when preparing manuscripts for submission to the Journal of Applied Psychology. Not following the methodological reporting guidelines and checklists (PDF, 114KB)opens in new window can lead to desk rejection of the submitted manuscript.Authors should also consult the APA Style Journal Article Reporting Standardsopens in new window (JARS) for quantitativeopens in new window, qualitativeopens in new window, and mixed methods researchopens in new window.
+Authors should review the new Journal Article Reporting Standards for Race, Ethnicity, and Cultureopens in new window (JARS–REC). Meant for all authors, regardless of research topic, JARS–REC include standards for all stages of research and manuscript writing.
+For more, see the Guidance for Authors sections of the table (PDF, 184KB)opens in new window.
+Below are additional instructions regarding the preparation of display equations, computer code, and tables.
+Display equations
+We strongly encourage you to use MathType (third-party software) or Equation Editor 3.0 (built into pre-2007 versions of Word) to construct your equations, rather than the equation support that is built into Word 2007 and Word 2010. Equations composed with the built-in Word 2007/Word 2010 equation support are converted to low-resolution graphics when they enter the production process and must be rekeyed by the typesetter, which may introduce errors.
+To construct your equations with MathType or Equation Editor 3.0:
+Go to the Text section of the Insert tab and select Object.
+Select MathType or Equation Editor 3.0 in the drop-down menu.
+If you have an equation that has already been produced using Microsoft Word 2007 or 2010 and you have access to the full version of MathType 6.5 or later, you can convert this equation to MathType by clicking on MathType Insert Equation. Copy the equation from Microsoft Word and paste it into the MathType box. Verify that your equation is correct, click File, and then click Update. Your equation has now been inserted into your Word file as a MathType Equation.
+Use Equation Editor 3.0 or MathType only for equations or for formulas that cannot be produced as Word text using the Times or Symbol font.
+Computer code
+Because altering computer code in any way (e.g., indents, line spacing, line breaks, page breaks) during the typesetting process could alter its meaning, we treat computer code differently from the rest of your article in our production process. To that end, we request separate files for computer code.
+In online supplemental material
+We request that runnable source code be included as supplemental material to the article. For more information, visit Supplementing Your Article With Online Material.
+In the text of the article
+If you would like to include code in the text of your published manuscript, please submit a separate file with your code exactly as you want it to appear, using Courier New font with a type size of 8 points. We will make an image of each segment of code in your article that exceeds 40 characters in length. (Shorter snippets of code that appear in text will be typeset in Courier New and run in with the rest of the text.) If an appendix contains a mix of code and explanatory text, please submit a file that contains the entire appendix, with the code keyed in 8-point Courier New.
+Tables
+Use Word's insert table function when you create tables. Using spaces or tabs in your table will create problems when the table is typeset and may result in errors.
+Academic writing and English language editing services
+Authors who feel that their manuscript may benefit from additional academic writing or language editing support prior to submission are encouraged to seek out such services at their host institutions, engage with colleagues and subject matter experts, and/or consider several vendors that offer discounts to APA authors.
+Please note that APA does not endorse or take responsibility for the service providers listed. It is strictly a referral service. Use of such service is not mandatory for publication in an APA journal. Use of one or more of these services does not guarantee selection for peer review, manuscript acceptance, or preference for publication in any APA journal.
+More on writing and language services
+Abstract and keywords
+All manuscripts must include an abstract containing a maximum of 250 words typed on a separate page. After the abstract, please supply up to five keywords or brief phrases.
+References
+List references in alphabetical order. Each listed reference should be cited in text, and each text citation should be listed in the references section.
+Examples of basic reference formats:
+Journal article
+McCauley, S. M., & Christiansen, M. H. (2019). Language learning as language use: A cross-linguistic model of child language development. Psychological Review, 126(1), 1–51. https://doi.org/10.1037/rev0000126opens in new window
+Authored book
+Brown, L. S. (2018). Feminist therapy (2nd ed.). American Psychological Association. https://doi.org/10.1037/0000092-000opens in new window
+Chapter in an edited book
+Balsam, K. F., Martell, C. R., Jones. K. P., Safren, S. A. (2019). Affirmative cognitive behavior therapy with sexual and gender minority people. In G. Y. Iwamasa & P. A. Hays (Eds.), Culturally responsive cognitive behavior therapy: Practice and supervision (2nd ed., pp. 287–314). American Psychological Association. https://doi.org/10.1037/0000119-012opens in new window
+Data set citation
+Alegria, M., Jackson, J. S., Kessler, R. C., & Takeuchi, D. (2016). Collaborative Psychiatric Epidemiology Surveys (CPES), 2001–2003 [Data set]. Inter-university Consortium for Political and Social Research. https://doi.org/10.3886/ICPSR20240.v8opens in new window
+Software/Code citation
+Viechtbauer, W. (2010). Conducting meta-analyses in R with the metafor package. Journal of Statistical Software, 36(3), 1–48. https://www.jstatsoft.org/v36/i03/opens in new window
+Wickham, H. et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686opens in new window
+All data, program code, and other methods must be appropriately cited in the text and listed in the references section.
+Tables and figures
+Tables
+Tables should adhere to APA Styleopens in new window. Use Word’s Insert Table function to create tables, and do not insert tabs or extra spaces to align columns as this will create problems when the table is typeset.
+Figures
+Preferred formats for graphics files are TIFF and JPG, and preferred format for vector-based files is EPS. Graphics downloaded or saved from web pages are not acceptable for publication. Multipanel figures (i.e., figures with parts labeled a, b, c, d, etc.) should be assembled into one file. When possible, please place symbol legends below the figure instead of to the side.
+Resolution
+All color line art and halftones: 300 DPI
+Black and white line tone and gray halftone images: 600 DPI
+Line weights
+Adobe Photoshop images
+Color (RGB, CMYK) images: 2 pixels
+Grayscale images: 4 pixels
+Adobe Illustrator Images
+Stroke weight: 0.5 points
+APA offers authors the option to publish their figures online in color without the costs associated with print publication of color figures.
+The same caption will appear on both the online (color) and print (black and white) versions. To ensure that the figure can be understood in both formats, authors should add alternative wording (e.g., “the red (dark gray) bars represent”) as needed.
+Color figure fees
+For authors who prefer their figures to be published in color both in print and online, original color figures can be printed in color at the editor's and publisher's discretion provided the author agrees to pay:
+$900 for one figure
+An additional $600 for the second figure
+An additional $450 for each subsequent figure
+Display equations
+We strongly encourage you to use MathType (third-party software) or Equation Editor 3.0 (built into pre-2007 versions of Word) to construct your equations, rather than the equation support that is built into Word 2007 and Word 2010. Equations composed with the built-in Word 2007/Word 2010 equation support are converted to low-resolution graphics when they enter the production process and must be rekeyed by the typesetter, which may introduce errors.
+To construct your equations with MathType or Equation Editor 3.0:
+Go to the Text section of the Insert tab and select Object.
+Select MathType or Equation Editor 3.0 in the drop-down menu.
+If you have an equation that has already been produced using Microsoft Word 2007 or 2010 and you have access to the full version of MathType 6.5 or later, you can convert this equation to MathType by clicking on MathType Insert Equation. Copy the equation from Microsoft Word and paste it into the MathType box. Verify that your equation is correct, click File, and then click Update. Your equation has now been inserted into your Word file as a MathType Equation.
+Use Equation Editor 3.0 or MathType only for equations or for formulas that cannot be produced as Word text using the Times or Symbol font.
+Computer code
+Because altering computer code in any way (e.g., indents, line spacing, line breaks, page breaks) during the typesetting process could alter its meaning, we treat computer code differently from the rest of the article in the production process. Supply separate files for computer code.
+In online supplemental material
+Runnable source code should be included as supplemental material to the article. For more information, visit supplementing your article with online material.
+In the text of the article
+If authors would like to include code in the text of the published article, submit a separate file with your code exactly as it should appear, using Courier New font with a type size of 8 points. An image will be made of each segment of code in your article that exceeds 40 characters in length. (Shorter snippets of code that appear in text will be typeset in Courier New and run in with the rest of the text.) If an appendix contains a mix of code and explanatory text, please submit a file that contains the entire appendix, with the code keyed in 8-point Courier New.
+Permissions
+Authors of accepted papers must obtain and provide to the editor on final acceptance all necessary permissions to reproduce in print and electronic form any copyrighted work, including test materials (or portions thereof), photographs, and other graphic images (including those used as stimuli in experiments).
+On advice of counsel, APA may decline to publish any image whose copyright status is unknown.
+Download Permissions Alert Form (PDF, 13KB)opens in new window
+APA publishing policies and practices
+APA holds policies that apply to all journals published. These include policies on author contributorship and responsibilities of authors; author name changes after publication; the use of generative artificial intelligence; funder information and conflict-of-interest disclosures; duplicate publication; data publication and reuse; and preprints. Please also refer to individual journal submission guidance for specific practices and requirements for manuscript submission.
+ALL APA PUBLISHING POLICIES
+Peer review
+A key convention in the publication of research is the peer review process, in which the quality and potential contribution of each manuscript is evaluated by one's peers in the scientific community. Like other scientific journals, APA journals utilize a peer review process to guide manuscript selection and publication decisions.
+APA PEER REVIEW PRACTICES
+Prior dissemination
+In light of changing patterns of scientific knowledge dissemination, APA requires authors to provide information on prior dissemination of the data and narrative interpretations of the data/research appearing in the manuscript (e.g., if some or all were presented at a conference or meeting, posted on a listserv, shared on a website, including academic social networks like ResearchGate, etc.). This information (2–4 sentences) must be provided as part of the author note.
+Concurrent consideration
+APA policy prohibits an author from submitting the same manuscript for concurrent consideration by two or more publications.
+Conflicts of interest
+APA requires authors to reveal any possible conflict of interest in the conduct and reporting of research (e.g., financial interests in a test or procedure, funding by pharmaceutical companies for drug research).
+FULL DISCLOSURE OF INTERESTS FORM (PDF, 41KB)opens in new window
+Equity, diversity, and inclusion in APA Journals
+APA Journals aims to address systemic inequities and bias, promote equitable opportunities for researchers, and foster an inclusive environment within the psychological research and scholarly publishing communities, representative of the wide array of people that psychology consists of and serves. Please refer to individual journal submission guidance for specific EDI practices and requirements for manuscript submission.
+MORE ON EDI IN APA JOURNALS
+Open science
+The APA Journals™ Program is committed to publishing transparent, rigorous research; improving reproducibility in science; and aiding research discovery. Open science practices vary across subfields and per editor discretion, and APA Publishing supports all efforts to improve openness and transparency, especially as they improve diversity, equity, and inclusion. Please refer to individual journal submission guidance for specific OS practices and requirements for manuscript submission.
+MORE ON APA OPEN SCIENCE PRACTICES
+Open access
+The APA Journals Office supports authors’ choices on how to publish their work. We are committed to offering options that we believe comply with most funder and institutional requirements and support both self-archiving (“green”) and APC (paid for via an article processing charge and also known as “gold”) Open Access options. Submitting a manuscript for peer review is free of charge.
+MORE ON OPEN ACCESS OPTIONS
+Generative artificial intelligence
+APA’s current policies on generative AI include:
+When a generative AI model is used in the drafting of a manuscript for an APA publication, the use of AI must be disclosed in the methods section and cited.
+AI cannot be named as an author on an APA scholarly publication.
+APA JOURNALS POLICY ON GENERATIVE AI
+Internet posting guidelines
+APA policy prohibits an author from submitting the same manuscript for concurrent consideration by two or more publications. Preprints are allowed.
+MORE ON INTERNET POSTING
+Permission to reproduce copyrighted work
+Authors of accepted papers must obtain and provide on final acceptance all necessary permissions to reproduce in print and electronic form any copyrighted work, including test materials (or portions thereof), photographs, and other graphic images (including those used as stimuli in experiments).
+On advice of counsel, APA may decline to publish any image whose copyright status is unknown.
+PERMISSIONS ALERT FORM (PDF, 13KB)opens in new window
+Ethical Principles
+It is a violation of APA Ethical Principles to publish “as original data, data that have been previously published” (Standard 8.13).
+APA Ethical Principles also state that “after research results are published, psychologists do not withhold the data on which their conclusions are based from other competent professionals who seek to verify the substantive claims through reanalysis and who intend to use such data only for that purpose, provided that the confidentiality of the participants can be protected and unless legal rights concerning proprietary data preclude their release” (Standard 8.14).
+APA expects authors to make their data available if asked during the editorial process and for at least five years after the date of publication.
+If the manuscript is accepted, the corresponding author is required to sign and submit a Certification of Compliance with APA Ethical Principles (PDF, 26KB).opens in new window
+APA Ethical Principles and Code of Conduct
+Other information
+See APA’s Publishing Policies page for more information on publication policies, including information on author contributorship and responsibilities of authors, author name changes after publication, the use of generative artificial intelligence, funder information and conflict-of-interest disclosures, duplicate publication, data publication and reuse, and preprints.
+Visit the Journals Publishing Resource Center for more resources for writing, reviewing, and editing articles for publishing in APA journals.
+Share this page

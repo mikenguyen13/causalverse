@@ -29,3 +29,4 @@ Placement of figures in a paper
 There are two options for the placement of figures (and tables) in a paper. The first is to embed figures in the text after each is first mentioned (or “called out”); the second is to place each figure on a separate page after the reference list.
 An embedded figure may take up an entire page; if the figure is short, however, text may appear on the same page as the figure. In that case, place the figure at either the top or bottom of the page rather than in the middle. Also add one blank double-spaced line between the figure and any text to improve the visual presentation.
 View the sample figures for more information on figures.
+Share this page
