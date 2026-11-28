@@ -65,34 +65,45 @@ Privacy
 Sponsorship and advertising
 Use of Artificial Intelligence (AI) Tools
 We acknowledge the increasing use of artificial intelligence (AI) tools in research and writing processes. In this section we explain how to declare the use of AI tools in an accountable and transparent way, in accordance with the Cambridge University Press Research Publishing Ethics Guidelines.
-Authorship
-We do not consider artificial intelligence (AI) tools to meet the accountability requirements of authorship, and therefore generative AI tools such as ChatGPT should not be listed as authors on any submitted content.
-Credit and citation
-All use of AI-generated content must comply with our plagiarism policy and best practices regarding citation and acknowledgement.
-You must not present ideas, words, data, or other material originally produced by third parties without appropriate acknowledgement or permission.
+AI and Authorship
+Many types of AI use should be declared and clearly explained, just as we expect scholars to do with other software, tools and methodologies. The 'Transparency: declaration and description' section below explains when and how AI use should be declared.
+Our Research Publishing Ethics and Guidelines (RPEGs) for journals also state the following:
+AI does not meet the Cambridge requirements for authorship, given the need for accountability. AI tools should not have been used in a way or to an extent that they can be judged to have replaced the role of human critical thinking, judgement and oversight, such that the author could no longer reasonably be described as fully accountable for the research. AI and LLM tools may not be listed as an author on any scholarly work published by Cambridge.
+Authors are accountable for the accuracy, integrity and originality of their manuscript, including for any use of AI.
+Any use of AI must not breach Cambridge’s plagiarism policy. Scholarly works must be the author’s own, and not present others’ ideas, data, words or other material without adequate citation and transparent referencing.
+The guidelines that follow below set out how these policies should be applied in practice.
 Transparency: declaration and description
-We outline below the forms of AI use that must be declared and described to readers, as well as where and how to do this within your manuscript.
+We outline below the forms of AI use that must be declared and described to readers, as well as where and how this should be done within the manuscript.
 What to declare
-You should always declare and describe your use of an AI tool if you have used it to generate text or images (this includes the translation of sources or of your own work) or to analyse or extract insights from data or other materials.
-Minimal and non-generative uses of AI tools in manuscript preparation do not require declaration. For instance, basic spelling or language checking, incorporation of single words or brief phrases, or minor formatting tasks such as converting section headers to bold type. It is important to note that accountability for the use of AI tools, including minimal and non-generative ones, rests with the author. Caution should be used in all cases and it is important to check your article thoroughly for unintended consequences, particularly in relation to the references.
-If you are unsure about whether a particular use of an AI tool requires declaration, please contact the journal’s editorial office.
+Authors should always declare and describe their use of an AI tool if they have used it to generate text or images (this includes the translation of sources or of their own work) or to analyse or extract insights from data or other materials.
+Minimal and non-generative uses of AI tools in manuscript preparation do not require declaration. For instance, basic spelling or language checking, incorporation of single words or brief phrases, or minor formatting tasks such as converting section headers to bold type. It is important to note that accountability for the use of AI tools, including minimal and non-generative ones, rests with the author. Caution should be used in all cases and it is important that authors check their article thoroughly for unintended consequences, including in relation to the references.
+It is also important to note that simply declaring AI use does not necessarily mean that AI use is acceptable, since it remains the author’s obligation to ensure that their work is original, accurate, high-quality and trustworthy, that they are the sole owner, and that no third-party rights have been infringed.
+If an author is unsure about whether a particular use of an AI tool requires declaration, they should contact the journal’s editorial office.
 Where to declare
-Use of AI tools should be declared in your manuscript in the same way that you would declare your use of other tools and assistance.
-If you have used AI tools to generate text within your manuscript, this should be declared in the same way you would declare your use of other language-editing services, for example in a separate acknowledgments section or in a footnote.
-If you have used AI tools to collect or analyse data, the way you have done this should be described in your methods section or general description of your methodology, in the same way you would describe your use of other software or analysis processes.
-If you have used AI tools to generate visual content that appears in your manuscript, this should be declared in the captions of any figures that you have generated or modified using AI tools.
-This ensures your declarations appear where readers, editors, and reviewers naturally expect to find information about tools and processes used in your work.
+Use of generative AI tools should be declared in the manuscript in the same way that use of other tools and assistance is declared.
+If AI tools have been used to generate text within the manuscript, this should be declared in the same way that the use of other language-editing services is declared, for example in a separate acknowledgments section or in a footnote.
+If AI tools have been used to collect or analyse data, the way this was done should be described in the methods section, or general description of the methodology, in the same way that use of other software or analysis processes is described.
+If AI tools have been used to generate visual content that appears in the manuscript, this should be declared in the captions of any figures that have been generated or modified using AI tools. Please see the ‘Guidance on AI use for figures and images’ section below for more information.
+This ensures that declarations appear where readers, editors, and reviewers naturally expect to find information about tools and processes used in the work. It also helps to maintain trust between authors, editors, reviewers and readers.
 How to declare
-Descriptions of your use of AI tools should include:
-the name and version of the tool you used
-the date(s) you used the tool for the purpose(s) described, to the extent reasonably possible
+Descriptions of the use of AI tools should include:
+the name and version of the tool that was used
+the date(s) on which the tool was used for the purpose(s) described, to the extent reasonably possible
 how the tool can be accessed or used by others, to the extent reasonably possible
-a full description of how you used the tool
-appropriate citations to any third-party text, datasets or other material used or included in the tool’s output.
+a description of how the tool was used
+a description of source materials coupled with confirmation of permission to use those materials
+where necessary for methodological information or to facilitate reproducibility, relevant prompts should be included.
 Additionally, as appropriate, descriptions should include:
 any proprietary information relevant to the use of the tool
-any ways in which you modified the version of the tool that you used (such as training it on your own data)
+any ways in which the tool was modified (such as training it on your own data)
 any competing interests or potential bias that should be considered as a consequence of the tool’s use, including as a result of its ownership or development.
+Additional guidance on the use of AI
+Authors should review any terms and conditions associated with their chosen AI technology, checking that it does not assert any rights over inputs or outputs, including using these for training purposes, and that the author retains ownership of their content.
+Authors must also ensure they have the rights to any content they input into AI tools, taking care not to upload copyrighted material, unpublished content, or other people’s/institution’s intellectual property into generic or public AI tools. Where possible, authors should use safer, secure tools and solutions that are certified with appropriate enterprise level data protection.
+Guidance on AI use for figures and images
+All use of AI to create figures or images must be disclosed as per our declaration guidelines above.
+Authors should not use AI to generate decorative images or photographs.
+AI may be used to generate some graphs and diagrams integral to the work, such as visualisations of the author’s own research data or results, as long as the author has the rights to input the data into the AI tool they are using and is confident that their AI use does not result in misleading or falsified content.
 Accessibility requirements
 All articles published by Cambridge are required to meet the accessibility standards outlined in the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA. To ensure that material published in Cambridge journals is accessible to and understandable by all, authors should carefully consider elements such as colour use, contrast, and text clarity when preparing images and tables. For detailed guidance on image and multimedia file preparation and preferred formats, please see the Cambridge Journals Artwork Guide.
 Image, table, and multimedia descriptions: Accessibility materials must be made available for all figures, tables, and multimedia content to be published within the article, including the provision of image descriptions or “alt-text” for all figures. Authors have the opportunity to prepare their own alt-text and video/audio descriptions for all of their relevant materials and submit this to Cambridge as part of the Accessibility Descriptions Submission Form.
